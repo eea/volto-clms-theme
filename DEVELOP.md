@@ -1,4 +1,4 @@
-# volto-addon-template
+# volto-clms-theme
 
 ## Develop
 
@@ -18,9 +18,9 @@ Before starting make sure your development environment is properly set. See [Vol
 1.  Add the following to `mrs.developer.json`:
 
         {
-            "volto-addon-template": {
-                "url": "https://github.com/eea/volto-addon-template.git",
-                "package": "@eeacms/volto-addon-template",
+            "volto-clms-theme": {
+                "url": "https://github.com/eea/volto-clms-thme.git",
+                "package": "@eeacms/volto-clms-theme",
                 "branch": "develop",
                 "path": "src"
             }
@@ -50,4 +50,4 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Happy hacking!
 
-        $ cd src/addons/volto-addon-template/
+        $ cd src/addons/volto-clms-theme/
