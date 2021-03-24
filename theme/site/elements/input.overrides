@@ -1,0 +1,24 @@
+.ui.form .searchbox.field {
+  display: flex;
+  padding-left: 1em;
+  border-left: 1px solid @purpleBackground;
+
+  .ui.input input {
+    width: 106px;
+    height: auto;
+    line-height: initial;
+  }
+
+  button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: @blue;
+    cursor: pointer;
+    text-align: initial;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
