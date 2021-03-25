@@ -13,7 +13,7 @@ import { find, map } from 'lodash';
 import { updateIntl } from 'react-intl-redux';
 import langmap from 'langmap';
 import { Helmet } from '@plone/volto/helpers';
-
+import {useEffect} from 'react';
 import config from '@plone/volto/registry';
 
 import { flattenToAppURL } from '@plone/volto/helpers';
@@ -48,31 +48,49 @@ const LanguageSelector = (props) => {
       }),
     );
   }
-  const { settings } = config;
-
-  return settings.isMultilingual ? (
-    <div className="language-selector">
-      {map(settings.supportedLanguages, (lang) => {
-        const translation = find(translations, { language: lang });
-        return (
-          <Link
-            className={cx({ selected: lang === currentLang })}
-            to={translation ? flattenToAppURL(translation['@id']) : `/${lang}`}
-            title={langmap[lang].nativeName}
-            onClick={() => {
-              props.onClickAction();
-              changeLanguage(lang);
-            }}
-            key={`language-selector-${lang}`}
-          >
-            {langmap[lang].nativeName}&nbsp;
-          </Link>
-        );
-      })}
+  return config.settings.isMultilingual ? (
+    <div className="ccl-header-lang-switcher" id="block-languageswitcher">
+        {
+          map(config.settings.supportedLanguages, (lang) => {
+            return (
+              lang===currentLang ?
+              <span key="lang" className="ccl-active-lang">
+                <span className="ccl-active-lang-label">
+                {langmap[lang].nativeName}
+                </span>
+              </span>: ''
+            );
+          })
+        }
+        <div className="ccl-language-list-container">
+          <ul className="ccl-language-list">
+          {
+            map(config.settings.supportedLanguages, (lang) => {
+              const translation = find(translations, { language: lang });
+              return (
+                <li key={lang} hrefLang={lang} className={cx(lang, { 'is-active': lang === currentLang })}>
+                  <Link
+                    className={cx('ccl-language-link',{ 'is_active': lang === currentLang })}
+                    to={translation ? flattenToAppURL(translation['@id']) : `/${lang}`}
+                    title={langmap[lang].nativeName}
+                    onClick={() => {
+                      props.onClickAction();
+                      changeLanguage(lang);
+                    }}
+                    key={`language-selector-${lang}`}
+                  >
+                    {langmap[lang].nativeName}&nbsp;
+                  </Link>
+                </li>
+              );
+            })
+          }
+          </ul>
+        </div>
     </div>
   ) : (
     <Helmet>
-      <html lang={settings.defaultLanguage} />
+      <html lang={config.settings.defaultLanguage} />
     </Helmet>
   );
 };

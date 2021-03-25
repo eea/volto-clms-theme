@@ -71,10 +71,9 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   UNSAFE_componentWillMount() {
-    const { settings } = config;
     this.props.getNavigation(
       getBaseUrl(this.props.pathname),
-      settings.navDepth,
+      config.settings.navDepth,
     );
   }
 
@@ -85,11 +84,10 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { settings } = config;
     if (nextProps.pathname !== this.props.pathname) {
       this.props.getNavigation(
         getBaseUrl(nextProps.pathname),
-        settings.navDepth,
+        config.settings.navDepth,
       );
     }
   }
@@ -121,69 +119,28 @@ class Navigation extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { settings } = config;
     const { lang } = this.props;
 
     return (
-      <nav className="navigation">
-        <div className="hamburger-wrapper mobile tablet only">
-          <button
-            className={cx('hamburger hamburger--collapse', {
-              'is-active': this.state.isMobileMenuOpen,
-            })}
-            aria-label={
-              this.state.isMobileMenuOpen
-                ? this.props.intl.formatMessage(messages.closeMobileMenu, {
-                    type: this.props.type,
-                  })
-                : this.props.intl.formatMessage(messages.openMobileMenu, {
-                    type: this.props.type,
-                  })
-            }
-            title={
-              this.state.isMobileMenuOpen
-                ? this.props.intl.formatMessage(messages.closeMobileMenu, {
-                    type: this.props.type,
-                  })
-                : this.props.intl.formatMessage(messages.openMobileMenu, {
-                    type: this.props.type,
-                  })
-            }
-            type="button"
-            onClick={this.toggleMobileMenu}
-          >
-            <span className="hamburger-box">
-              <span className="hamburger-inner" />
-            </span>
-          </button>
-        </div>
-        <Menu
-          stackable
-          pointing
-          secondary
-          className={
-            this.state.isMobileMenuOpen
-              ? 'open'
-              : 'computer large screen widescreen only'
-          }
-          onClick={this.closeMobileMenu}
-        >
+      <nav className="ccl-main-menu">
+        <ul className="ccl-header-main-menu">
           {this.props.items.map((item) => (
-            <NavLink
-              to={item.url === '' ? '/' : item.url}
-              key={item.url}
-              className="item"
-              activeClassName="active"
-              exact={
-                settings.isMultilingual
-                  ? item.url === `/${lang}`
-                  : item.url === ''
-              }
-            >
-              {item.title}
-            </NavLink>
+            <li key={item.url}>
+              <NavLink
+                to={item.url === '' ? '/' : item.url}
+                key={item.url}
+                activeClassName="active"
+                exact={
+                  config.settings.isMultilingual
+                    ? item.url === `/${lang}`
+                    : item.url === ''
+                }
+              >
+                {item.title}
+              </NavLink>
+            </li>
           ))}
-        </Menu>
+        </ul>
       </nav>
     );
   }

@@ -11,7 +11,7 @@ import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import { Icon } from '@plone/volto/components';
-import zoomSVG from '@plone/volto/icons/zoom.svg';
+// import zoomSVG from '@plone/volto/icons/zoom.svg';
 
 const messages = defineMessages({
   search: {
@@ -103,22 +103,19 @@ class SearchWidget extends Component {
    */
   render() {
     return (
-      <Form action="/search" onSubmit={this.onSubmit}>
-        <Form.Field className="searchbox">
+      <Form className="ccl-header-search" action="/search" onSubmit={this.onSubmit}>
           <Input
             aria-label={this.props.intl.formatMessage(messages.search)}
             onChange={this.onChangeText}
             name="SearchableText"
             value={this.state.text}
-            transparent
             autoComplete="off"
             placeholder={this.props.intl.formatMessage(messages.searchSite)}
             title={this.props.intl.formatMessage(messages.search)}
           />
-          <button aria-label={this.props.intl.formatMessage(messages.search)}>
-            <Icon name={zoomSVG} size="18px" />
+          <button type="submit" aria-label={this.props.intl.formatMessage(messages.search)}>
+            <span className="ccl-icon-zoom"></span>
           </button>
-        </Form.Field>
       </Form>
     );
   }
