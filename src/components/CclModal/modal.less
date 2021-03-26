@@ -4,23 +4,23 @@
 }
 
 /* Login modal */
-.modals.dimmer .ui.modal.modal-login {
+.modals.dimmer .ui.modal.modal-clms {
   /*display: none;*/
   position: fixed;
   /*top: 0;*/
   /*bottom: 0;*/
-  width: 100%;
+  /*width: 100%;*/
   background: transparent;
   margin: auto;
   box-shadow: none;
 }
-.modal-login-background {
+.modal-clms-background {
   /*background-color: #21252980;*/
   /*height: 100vh;*/
   display: flex;
   overflow: auto;
 }
-.modal-login-container {
+.modal-clms-container {
   position: relative;
   background-color: white;
   padding: 2rem;
@@ -29,15 +29,15 @@
   justify-content: center;
   margin: auto;
   width: 90%;
-  max-width: 460px;
+  /*max-width: 460px;*/
 }
 @media (min-width: 768px) {
-  .modal-login-container {
-    width: 60%;
+  .modal-clms-container {
+    /*width: 60%;*/
     padding: 4rem;
   }
 }
-.modal-login-close {
+.modal-clms-close {
   position: absolute;
   top: 0;
   right: 0;
@@ -47,7 +47,7 @@
   -webkit-transition: all .3s ease-out;
   transition: all 0.3s ease-out;
 }
-.modal-login-close:hover {
+.modal-clms-close:hover {
   color: #273b4b;
 }
 .modal-login-title {
@@ -87,11 +87,11 @@
   display: block;
   text-align: right;
 }
-.modal-login .ccl-button {
-  width: inherit;
+.modal-clms .ccl-button {
+  width: 60%;
   margin: 2rem auto 0;
 }
-.modal-login hr {
+.modal-clms hr {
   margin: 2rem 0;
   padding: 0;
   border: 0;
@@ -103,23 +103,31 @@
 }
 
 /* Language modal */
-.modal-language {
-  display: none;
+.modals.dimmer .ui.modal.modal-language {
+  /*display: none;*/
   position: fixed;
-  top: 0;
-  bottom: 0;
+  /*top: 0;*/
+  /*bottom: 0;*/
   width: 100%;
 }
 .modal-language-background {
-  background-color: rgb(255 255 255);
-  height: 100vh;
+  /*background-color: rgb(255 255 255);*/
+  /*height: 100vh;*/
   display: flex;
   padding: 2.5rem;
   overflow: auto;
 }
 .modal-language-container {
-  width: 100%;
-  height: max-content;
+  /*height: max-content;*/
+  position: relative;
+  background-color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  /*width: 90%;*/
+  max-width: 460px;
 }
 .modal-language-header {
   color: white !important;

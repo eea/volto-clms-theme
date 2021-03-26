@@ -5,19 +5,19 @@ import "./modal.less"
 
 function CclModal(props) {
   const [open, setOpen] = React.useState(false)
-  var {id, trigger, children} = props
+  var {id, trigger, children, size} = props
   return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
       trigger={trigger}
-      className={"modal-"+id}
-      size="small"
+      className={"modal-clms"}
+      size={size}
     >
-      <div className={"modal-"+id+"-background"}>
-        <div className={"modal-"+id+"-container"}>
-        <div className={"modal-close modal-"+id+"-close"}>
+      <div className={"modal-clms-background"}>
+        <div className={"modal-clms-container"}>
+        <div className={"modal-close modal-clms-close"}>
           <span className="ccl-icon-close" aria-label="Close" onClick={() => setOpen(false)}></span>
         </div>
           {children}
