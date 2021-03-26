@@ -54,10 +54,54 @@ function CclLanguageSelector(props) {
 
   return config.settings.isMultilingual ? (
     <div className="ccl-header-lang">
-      <div className="header-lang-icon">
+
+    <CclModal 
+            trigger=<div className="header-lang-icon">
         <i className="ccl-icon-language"></i>
         <span className="header-lang-code">{currentLang}</span>
       </div>
+            size="fullscreen"
+          >
+          <div className="ccl-container">
+            <div className="modal-language-header">
+              <div className="modal-language-title">
+                <i className="ccl-icon-language"></i>
+                <h3 className="modal-title" >      
+                  <FormattedMessage id="Select your language" defaultMessage="Select your language" />
+                </h3>
+              </div>
+            </div>
+            <div className="modal-language-body">
+              <div className="language-list">
+              {config.settings.supportedLanguages.map((lang) => {
+                const translation = find(translations, { language: lang });
+                return (
+                  <div key={lang} className={cx(lang, 'language-item', {'language-item-selected': lang === currentLang })}>
+                    <span className="language-link" lang-code={lang}>
+                      { lang!=currentLang ? 
+                        <Link
+                          to={translation ? flattenToAppURL(translation['@id']) : `/${lang}`}
+                          title={langmap[lang].nativeName}
+                          onClick={() => {
+                            props.onClickAction();
+                            changeLanguage(lang);
+                          }}
+                          key={`language-selector-${lang}`}
+                        >
+                          {langmap[lang].nativeName}
+                        </Link>
+                        :
+                          langmap[lang].nativeName
+                      }
+                    </span>
+                  </div>
+                );
+              })}
+              </div>
+            </div>
+          </div>
+        </CclModal>
+      
       <div className="header-lang-text">
         <CclModal 
             trigger=<span>{langmap[currentLang].nativeName}</span>
