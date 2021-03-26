@@ -107,15 +107,22 @@
   width: min-content;
 }
 @media (max-width: 820px) {
-  .ccl-header .ccl-header-tools .ccl-header-search {
-    display: none;
-    position: absolute;
+  .ccl-header .ccl-header-tools .ui.form.ccl-header-search {
+    /*display: none;*/
+    display: flex;
+    position: absolute !important;
     width: 100%;
     left: 0;
     right: 0;
     margin: 0;
     height: 100%;
     z-index: 10000;
+  }
+  .ccl-header-search-hidden{
+    display: none;
+  }
+  .ccl-header-search-show{
+    display: block;
   }
 }
 .ccl-header .ccl-header-tools .ccl-header-search input {

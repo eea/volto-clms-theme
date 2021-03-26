@@ -122,7 +122,6 @@ class Navigation extends Component {
     const { lang } = this.props;
 
     return (
-      <nav className="ccl-main-menu">
         <ul className="ccl-header-main-menu">
           {this.props.items.map((item) => (
             <li key={item.url}>
@@ -141,7 +140,6 @@ class Navigation extends Component {
             </li>
           ))}
         </ul>
-      </nav>
     );
   }
 }
