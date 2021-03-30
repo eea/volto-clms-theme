@@ -17,6 +17,8 @@ import { getBaseUrl } from '@plone/volto/helpers';
 
 import homeSVG from '@plone/volto/icons/home.svg';
 
+import './breadcrumbs.less'
+
 const messages = defineMessages({
   home: {
     id: 'Home',
@@ -79,37 +81,43 @@ class Breadcrumbs extends Component {
    */
   render() {
     return (
-      <Segment
-        role="navigation"
+      <>
+      {this.props.items.length > 0 &&
+      <nav
         aria-label={this.props.intl.formatMessage(messages.breadcrumbs)}
-        className="breadcrumbs"
-        secondary
-        vertical
+        className="ccl-breadcrumb"
       >
         <Container>
-          <Breadcrumb>
-            <Link
+          <span className="ccl-u-sr-only">You are here:</span>
+          <ol className="ccl-breadcrumb__segments-wrapper">
+            <li className="ccl-breadcrumb__segment ccl-breadcrumb__segment--first">
+              <Link
               to={this.props.root || '/'}
-              className="section"
+              className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
               title={this.props.intl.formatMessage(messages.home)}
-            >
-              <Icon name={homeSVG} size="18px" />
-            </Link>
+              >
+              {this.props.intl.formatMessage(messages.home)}
+              </Link>
+            </li>
             {this.props.items.map((item, index, items) => [
-              <Breadcrumb.Divider key={`divider-${item.url}`} />,
+              
               index < items.length - 1 ? (
-                <Link key={item.url} to={item.url} className="section">
-                  {item.title}
-                </Link>
+                <li key={item.url} className="ccl-breadcrumb__segment">
+                  <Link to={item.url} className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link">
+                    {item.title}
+                  </Link>
+                </li>
               ) : (
-                <Breadcrumb.Section key={item.url} active>
-                  {item.title}
-                </Breadcrumb.Section>
+                <li key={item.url} className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last">
+                  <span>{item.title}</span>
+                </li>
               ),
             ])}
-          </Breadcrumb>
+            </ol>
         </Container>
-      </Segment>
+      </nav>
+      }
+      </>
     );
   }
 }
