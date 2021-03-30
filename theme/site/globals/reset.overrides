@@ -79,7 +79,7 @@ figure {
 
 hr {
   overflow: visible; /* 2 */
-  height: 0; /* 1 */
+  height: 1px; /* 1 */
   box-sizing: content-box; /* 1 */
 }
 
