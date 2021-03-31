@@ -6,7 +6,7 @@
        Fonts
 --------------------*/
 
-@fontName          : 'Poppins';
+@fontName          : 'Lato';
 
 @googleFontSizes   : '300,400,500,700,400italic,700italic&display=swap';
 @toolbalWidth: 80px;
@@ -37,7 +37,7 @@
   Page Heading
 ---------------*/
 
-@headerFontWeight : 500;
+@headerFontWeight : bold;
 
 
 /*--------------
