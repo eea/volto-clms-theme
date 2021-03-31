@@ -8,24 +8,48 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import { Container, Image } from 'semantic-ui-react';
-import { map } from 'lodash';
-
-import { blocks } from '~/config';
-
-import {
-  getBlocksFieldname,
-  getBlocksLayoutFieldname,
-  getBaseUrl,
-} from '@plone/volto/helpers';
 
 import ContextNavigationComponent from '@plone/volto/components/theme/Navigation/ContextNavigation';
+import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
 
-const messages = defineMessages({
-  unknownBlock: {
-    id: 'Unknown Block',
-    defaultMessage: 'Unknown Block {block}',
-  },
-});
+/**
+    this cards elements are used for testing until we have real contentTypes
+  **/
+  var cards = [
+    {
+      "title": "Product Title 11",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
+      "image": {
+        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        "alt": "Image alt text",
+      },
+      "absolute_url": "/login",
+    },{
+      "title": "Product Title 2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
+      "image": {
+        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        "alt": "Image alt text",
+      },
+      "absolute_url": "/login",
+    },{
+      "title": "Product Title 3",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
+      "image": {
+        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        "alt": "Image alt text",
+      },
+      "absolute_url": "/login",
+    },{
+      "title": "Product Title 4",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
+      "image": {
+        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        "alt": "Image alt text",
+      },
+      "absolute_url": "/login",
+    },
+  ]
 
 /**
  * Component to display the default view.
@@ -34,9 +58,6 @@ const messages = defineMessages({
  * @returns {string} Markup of the component.
  */
 const CLMSDocumentView = ({ content, intl, location }) => {
-  const blocksFieldname = getBlocksFieldname(content);
-  const blocksLayoutFieldname = getBlocksLayoutFieldname(content);
-
   return (
     <Container id="page-document" className="page-section">
       <h1 className="page-title">{content.title}</h1>
@@ -44,8 +65,8 @@ const CLMSDocumentView = ({ content, intl, location }) => {
         <div className="left-content cont-w-25">
           <ContextNavigationComponent pathname={location.pathname} />
         </div>
-        <div class="rigth-content cont-w-75">
-          <div class="product-block">
+        <div className="rigth-content cont-w-75">
+          <div className="product-block">
             {content.description && (
               <h2>{content.description}</h2>
             )}
@@ -70,6 +91,15 @@ const CLMSDocumentView = ({ content, intl, location }) => {
               />
             )}
           </div>
+          {cards && 
+            <div className="card-container">
+              {cards.map((card) => (
+                <CclCard key={card['@id']} type={content['dataset-card-format'].title} card={card} />
+                ))
+              }
+            </div>
+
+          }
         </div>
       </div>
     </Container>
