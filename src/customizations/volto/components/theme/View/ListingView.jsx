@@ -44,14 +44,14 @@ const ListingView = ({ content, pathname }) => {
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },{
       "title": "Dataset Title 2",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
       "image": {
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },{
       "title": "Dataset Title 3",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
@@ -59,7 +59,7 @@ const ListingView = ({ content, pathname }) => {
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },{
       "title": "Dataset Title 4",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
@@ -67,7 +67,7 @@ const ListingView = ({ content, pathname }) => {
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },
   ]
   /**
@@ -93,16 +93,16 @@ const ListingView = ({ content, pathname }) => {
     },
     {
       "title": "Type of resources",
-      "children": <div class="ccl-form-group">
-                  <input type="checkbox" id="resources_" name="field_gdpr[value]" value="..." class="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
-                  <label class="ccl-form-check-label" for="resources_">...</label>
+      "children": <div className="ccl-form-group">
+                  <input type="checkbox" id="resources_" name="field_gdpr[value]" value="..." className="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
+                  <label className="ccl-form-check-label" htmlFor="resources_">...</label>
                 </div>,
     },
     {
       "title": "GEMET keyword",
-      "children": <div class="ccl-form-group">
-                  <input type="checkbox" id="resources_" name="field_gdpr[value]" value="..." class="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
-                  <label class="ccl-form-check-label" for="resources_">...</label>
+      "children": <div className="ccl-form-group">
+                  <input type="checkbox" id="resources_" name="field_gdpr[value]" value="..." className="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
+                  <label className="ccl-form-check-label" htmlFor="resources_">...</label>
                 </div>,
     }
   ]
