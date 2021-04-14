@@ -19,7 +19,7 @@ import config from '@plone/volto/registry';
 import { flattenToAppURL } from '@plone/volto/helpers';
 
 import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal'; 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 let locales = {};
 
@@ -56,10 +56,10 @@ function CclLanguageSelector(props) {
     <div className="ccl-header-lang">
 
     <CclModal 
-            trigger=<div className="header-lang-icon">
+            trigger={<div className="header-lang-icon">
         <i className="ccl-icon-language"></i>
         <span className="header-lang-code">{currentLang}</span>
-      </div>
+      </div>}
             size="fullscreen"
           >
           <div className="ccl-container">
@@ -104,7 +104,7 @@ function CclLanguageSelector(props) {
       
       <div className="header-lang-text">
         <CclModal 
-            trigger=<span>{langmap[currentLang].nativeName}</span>
+            trigger={<span>{langmap[currentLang].nativeName}</span>}
             size="fullscreen"
           >
           <div className="ccl-container">
@@ -163,4 +163,5 @@ CclLanguageSelector.defaultProps = {
   onClickAction: () => {},
 };
 
-export default CclLanguageSelector;
+// export default CclLanguageSelector;
+export default injectIntl(CclLanguageSelector);
