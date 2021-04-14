@@ -29,7 +29,7 @@ function CclCard(props) {
             {card.description}
           </div>
           {type == 'block' &&
-            <div class="card-button">
+            <div className="card-button">
               <Link
                 to={card.absolute_url}
                 className="ccl-button ccl-button--default"
