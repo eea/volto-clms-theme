@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
  * @extends Component
  */
 const View = ({ properties }) => (
-  <h1 className="documentFirstHeading">{properties.title}</h1>
+  <h1 className="page-title">{properties.title}</h1>
 );
 
 /**
