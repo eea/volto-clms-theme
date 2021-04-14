@@ -23,7 +23,7 @@ import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },{
       "title": "Product Title 2",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
@@ -31,7 +31,7 @@ import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },{
       "title": "Product Title 3",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
@@ -39,7 +39,7 @@ import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },{
       "title": "Product Title 4",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
@@ -47,7 +47,7 @@ import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
         "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
         "alt": "Image alt text",
       },
-      "absolute_url": "/login",
+      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
     },
   ]
 
@@ -93,8 +93,8 @@ const CLMSDocumentView = ({ content, intl, location }) => {
           </div>
           {cards && 
             <div className="card-container">
-              {cards.map((card) => (
-                <CclCard key={card['@id']} type={content['dataset-card-format'].title} card={card} />
+              {cards.map((card, index) => (
+                <CclCard key={index} type={content['dataset-card-format'].title} card={card} />
                 ))
               }
             </div>
