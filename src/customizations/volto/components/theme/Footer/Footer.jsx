@@ -112,7 +112,7 @@ const Footer = ({ intl }) => (
               <div className="ccl-form-group">
                 <input type="checkbox" id="footer_privacy" name="footerPrivacy" value=""
                   className="ccl-checkbox  ccl-form-check-input" aria-required="true" />
-                <label className="ccl-form-check-label" for="footer_privacy">
+                <label className="ccl-form-check-label" htmlFor="footer_privacy">
                   I agree to the <a href="./personal-data-protection.html" target="_blank">privacy policy.</a>
                 </label>
               </div>
