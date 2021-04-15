@@ -168,7 +168,7 @@ class Edit extends Component {
           return 'handled';
         }}
         placeholder={placeholder}
-        blockStyleFn={() => 'documentFirstHeading'}
+        blockStyleFn={() => 'page-title'}
         onUpArrow={() => {
           const selectionState = this.state.editorState.getSelection();
           const { editorState } = this.state;
