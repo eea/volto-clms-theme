@@ -1,0 +1,23 @@
+.ui.styled.accordion .title, .ui.styled.accordion .accordion .title {
+    background: #a0b1280f !important;
+
+    color: #212529;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+    margin: 0;
+    padding: 1rem;
+    padding-right: 2.5rem;
+    // background-color: #a0b1280f;
+    cursor: pointer;
+}
+
+
+.ui.styled.accordion .active.title{
+    color: #212529;
+    background: #a0b1280f;
+}
