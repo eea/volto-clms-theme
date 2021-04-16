@@ -18,9 +18,9 @@ function CclCard(props) {
 
   return (
       <div className={"card-" + type}>
-        <div className="card-image">
-          {card.image.src && <img src={card.image.src} alt={card.image.alt} /> }
-        </div>
+          <div className="card-image">
+            {card.image && <img src={card.image.src} alt={card.image.alt} /> }
+          </div>
         <div className="card-text">
           <div className="card-title">
             <a href="./dataset-catalogue/dataset-info.html">{card.title}</a>
