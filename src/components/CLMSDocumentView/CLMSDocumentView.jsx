@@ -94,7 +94,7 @@ const CLMSDocumentView = ({ content, intl, location }) => {
           {cards && 
             <div className="card-container">
               {cards.map((card, index) => (
-                <CclCard key={index} type={content['dataset-card-format'].title} card={card} />
+                <CclCard key={index} type={"line"} card={card} />
                 ))
               }
             </div>
