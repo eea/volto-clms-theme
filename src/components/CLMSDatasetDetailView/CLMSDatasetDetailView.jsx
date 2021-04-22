@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import CclButton from '@eea/volto-clms-theme/components/CclButton/CclButton';
 import { CclTabs } from '@eea/volto-clms-theme/components/CclTab';
 import { mockDatabaseInfo, mockMetadata, mockDownloadDataset } from './mockDatasetInfo';
@@ -19,8 +19,7 @@ import { mockDatabaseInfo, mockMetadata, mockDownloadDataset } from './mockDatas
 
 const CLMSDatasetDetailView = ({ content }) => {
 
-
-    return (<>
+    return (
         <div className="ccl-container ">
             <h1 className="page-title">{content.title}</h1>
             <CclTabs>
@@ -47,7 +46,7 @@ const CLMSDatasetDetailView = ({ content }) => {
                 </div>
             </CclTabs>
         </div>
-    </>)
+    );
 
 };
 

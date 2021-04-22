@@ -9,15 +9,12 @@ import { Link } from 'react-router-dom';
 import cookie from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
-import { find, map } from 'lodash';
+import { find } from 'lodash';
 import { updateIntl } from 'react-intl-redux';
 import langmap from 'langmap';
 import { Helmet } from '@plone/volto/helpers';
-import { useEffect } from 'react';
 import config from '@plone/volto/registry';
-
 import { flattenToAppURL } from '@plone/volto/helpers';
-
 import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal';
 import { FormattedMessage } from 'react-intl';
 
@@ -55,10 +52,11 @@ function CclLanguageSelector(props) {
   return config.settings.isMultilingual ? (
     <div className="ccl-header-lang">
       <CclModal
-        trigger=<div className="header-lang-icon">
-          <i className="ccl-icon-language"></i>
-          <span className="header-lang-code">{currentLang}</span>
-        </div>
+        trigger={
+          <div className="header-lang-icon">
+            <i className="ccl-icon-language"></i>
+            <span className="header-lang-code">{currentLang}</span>
+          </div>}
         size="fullscreen"
       >
         <div className="ccl-container">
@@ -115,7 +113,7 @@ function CclLanguageSelector(props) {
 
       <div className="header-lang-text">
         <CclModal
-          trigger=<span>{langmap[currentLang].nativeName}</span>
+          trigger={<span>{langmap[currentLang].nativeName}</span>}
           size="fullscreen"
         >
           <div className="ccl-container">
@@ -169,8 +167,8 @@ function CclLanguageSelector(props) {
             </div>
           </div>
         </CclModal>
-      </div>
-    </div>
+      </div >
+    </div >
   ) : (
     <Helmet>
       <html lang={config.settings.defaultLanguage} />
@@ -183,7 +181,7 @@ CclLanguageSelector.propTypes = {
 };
 
 CclLanguageSelector.defaultProps = {
-  onClickAction: () => {},
+  onClickAction: () => { },
 };
 
 export default CclLanguageSelector;

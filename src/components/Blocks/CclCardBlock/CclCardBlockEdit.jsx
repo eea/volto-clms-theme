@@ -1,18 +1,13 @@
 import React from 'react';
 import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 
-import {
-  SidebarPortal,
-  BlocksToolbar,
-  Icon,
-  BlocksForm,
-} from '@plone/volto/components'; // BlocksForm, Icon,
+import { SidebarPortal} from '@plone/volto/components';
 import { CardBlockSchema } from './CardBlockSchema';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 
 const CclCardBlockEdit = (props) => {
-  const { block, data, onChangeBlock, pathname, selected, manage } = props;
-  // console.log(props)
+  const { block, data, onChangeBlock, selected } = props;
+
   let card = {
     product: data.product,
     description: data.description,

@@ -127,7 +127,7 @@ class Header extends Component {
                 </li>
                 <li>
                   <CclModal
-                    trigger=<a className="header-login-link">Login/Register</a>
+                    trigger={<a className="header-login-link">Login/Register</a>}
                     size="tiny"
                   >
                     <div className="modal-login-title">Login</div>
