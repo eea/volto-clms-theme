@@ -1,5 +1,5 @@
-import CLMSDocumentView from '@eea/volto-clms-theme/components/CLMSDocumentView/CLMSDocumentView'; 
-
+import CLMSDocumentView from '@eea/volto-clms-theme/components/CLMSDocumentView/CLMSDocumentView';
+import CLMSDatasetDetailView from '@eea/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 
 import CclContextNavigationBlockView from '@eea/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockView';
 import CclContextNavigationBlockEdit from '@eea/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockEdit';
@@ -127,8 +127,9 @@ const applyConfig = (config) => {
         ...config.views,
         contentTypesViews: {
             ...config.contentTypesViews,
-            Document: CLMSDocumentView
-        }
+            Document: CLMSDocumentView,
+            dataset: CLMSDatasetDetailView,
+        },
     }
     config.blocks = {
         ...config.blocks,
