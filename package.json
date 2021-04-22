@@ -18,6 +18,29 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "dependencies": {},
+  "stylelint": {
+    "extends": [
+      "stylelint-config-idiomatic-order"
+    ],
+    "plugins": [
+      "stylelint-prettier"
+    ],
+    "rules": {
+      "prettier/prettier": true,
+      "rule-empty-line-before": [
+        "always-multi-line",
+        {
+          "except": [
+            "first-nested"
+          ],
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ]
+    },
+    "ignoreFiles": "theme/themes/default/**/*.overrides"
+  },
   "scripts": {
     "release": "release-it",
     "bootstrap": "node bootstrap",
@@ -36,6 +59,8 @@
     "eslint-plugin-prettier": "3.1.3",
     "jsconfig": "^0.2.0",
     "prettier": "2.0.5",
-    "stylelint": "^13.12.0"
+    "stylelint": "^13.12.0",
+    "stylelint-config-idiomatic-order": "8.1.0",
+    "stylelint-prettier": "1.1.2"
   }
 }
