@@ -10,15 +10,29 @@ function CclButton(props) {
         'ccl-button--default': mode == "default"
     });
 
+    function hasProtocol(url) {
+        console.log("URL: ", url);
+            return (url.startsWith("https://") || url.startsWith("http://")) ? true : false
+    }
+
     return (
-        <Link
-            to={url}
-            className={buttonClass}
-            disabled={disabled}
-            download={download}
-            {...opts}>
-            {children}
-        </Link>
+        hasProtocol(url) ?
+            <a
+                href={url}
+                className={buttonClass}
+                disabled={disabled}
+                download={download}
+                {...opts}>
+                {children}
+            </a> :
+            <Link
+                to={url}
+                className={buttonClass}
+                disabled={disabled}
+                download={download}
+                {...opts}>
+                {children}
+            </Link>
     )
 }
 
@@ -29,6 +43,6 @@ CclButton.propTypes = {
     download: PropTypes.bool,
     mode: PropTypes.string,
     children: PropTypes.node
-  }
+}
 export default CclButton;
 

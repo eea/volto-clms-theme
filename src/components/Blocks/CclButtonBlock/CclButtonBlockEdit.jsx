@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CclButton from '@eea/volto-clms-theme/components/CclButton/CclButton';
 import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { cclButtonSchema, downloadSchema, addSchemaItem, deleteSchemaItem } from "./schema";
+import { cclButtonSchema } from "./schema";
 import "./styles.less";
 
 const CclButtonBlockEdit = props => {
@@ -13,21 +13,6 @@ const CclButtonBlockEdit = props => {
         onChangeBlock,
         selected
     } = props;
-    console.log("PROPS: ", props)
-    let [schema, setSchema] = useState(cclButtonSchema());
-
-    useEffect(() => {
-        checkPanelValues('href', data.href);
-    }, []);
-    function checkPanelValues(id, value) {
-        if (id == 'href') {
-            if (value[0]?.['@type'] == 'File') {
-                addSchemaItem(schema, downloadSchema());
-            } else {
-                deleteSchemaItem(schema, downloadSchema());
-            }
-        }
-    }
 
     return (
         <>
@@ -42,20 +27,19 @@ const CclButtonBlockEdit = props => {
                 </legend>
             </div>
 
-            <CclButton url={data.href || '#'} disabled={data.disabled} download={data.download} mode={data.style}>
+            <CclButton url={data?.href?.[0]?.['@id'] || '#'} disabled={data.disabled} download={data.download} mode={data.style}>
                 {data.title || 'Text example...'}
             </CclButton>
 
             <SidebarPortal selected={selected}>
                 <InlineForm
-                    schema={schema}
+                    schema={cclButtonSchema(!Array.isArray(data?.href) || data?.href.length ? ['download', 'target'] : [])}
                     title="Button component block"
                     onChangeField={(id, value) => {
                         onChangeBlock(block, {
                             ...data,
                             [id]: value,
                         });
-                        checkPanelValues(id, value, block);
                     }}
                     formData={data}
                 />
