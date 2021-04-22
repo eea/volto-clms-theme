@@ -23,35 +23,35 @@ const CLMSDatasetDetailView = ({ content }) => {
       menuItem: 'Dataset info',
       render: () => (
         <Tab.Pane>
-          <div class="validation-citation-container validation-container">
-            <div class="validation-title">Validation status</div>
+          <div className="validation-citation-container validation-container">
+            <div className="validation-title">Validation status</div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
               luctus mauris ante, a iaculis leo placerat quis.
             </p>
           </div>
-          <div class="dataset-info-container">
+          <div className="dataset-info-container">
             <h2>Dataset info</h2>
-            <div class="dataset-info-field">
-              <div class="dataset-field-title">
+            <div className="dataset-info-field">
+              <div className="dataset-field-title">
                 <h3>Resource title</h3>
-                <span class="info-icon" tooltip="Info" direction="up">
-                  <i class="fas fa-info-circle"></i>
+                <span className="info-icon" tooltip="Info" direction="up">
+                  <i className="fas fa-info-circle"></i>
                 </span>
               </div>
-              <div class="dataset-field-description">
+              <div className="dataset-field-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                 luctus mauris ante, a iaculis leo placerat quis.
               </div>
             </div>
-            <div class="dataset-info-field">
-              <div class="dataset-field-title">
+            <div className="dataset-info-field">
+              <div className="dataset-field-title">
                 <h3>Resource abstract</h3>
-                <span class="info-icon" tooltip="Info" direction="up">
-                  <i class="fas fa-info-circle"></i>
+                <span className="info-icon" tooltip="Info" direction="up">
+                  <i className="fas fa-info-circle"></i>
                 </span>
               </div>
-              <div class="dataset-field-description">
+              <div className="dataset-field-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                 luctus mauris ante, a iaculis leo placerat quis. Sed tincidunt,
                 dui sit amet ullamcorper efficitur, tortor metus hendrerit
@@ -68,103 +68,103 @@ const CLMSDatasetDetailView = ({ content }) => {
                 netus et malesuada fames ac turpis egestas.
               </div>
             </div>
-            <div class="dataset-info-field">
-              <div class="dataset-field-title">
+            <div className="dataset-info-field">
+              <div className="dataset-field-title">
                 <h3>Resource type</h3>
-                <span class="info-icon" tooltip="Info" direction="up">
-                  <i class="fas fa-info-circle"></i>
+                <span className="info-icon" tooltip="Info" direction="up">
+                  <i className="fas fa-info-circle"></i>
                 </span>
               </div>
-              <div class="dataset-field-description">
+              <div className="dataset-field-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                 luctus mauris ante, a iaculis leo placerat quis.
               </div>
             </div>
-            <div class="dataset-info-field">
-              <div class="dataset-field-title">
+            <div className="dataset-info-field">
+              <div className="dataset-field-title">
                 <h3>Resource locator</h3>
-                <span class="info-icon" tooltip="Info" direction="up">
-                  <i class="fas fa-info-circle"></i>
+                <span className="info-icon" tooltip="Info" direction="up">
+                  <i className="fas fa-info-circle"></i>
                 </span>
               </div>
-              <div class="dataset-field-description">
+              <div className="dataset-field-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
                 luctus mauris ante, a iaculis leo placerat quis.
               </div>
             </div>
           </div>
-          <div class="dataset-info-documents dropdown">
-            <div class="ccl-expandable__button" aria-expanded="true">
+          <div className="dataset-info-documents dropdown">
+            <div className="ccl-expandable__button" aria-expanded="true">
               <h2>Technical documents (X docs)</h2>
             </div>
-            <div class="documents-dropdown">
-              <div class="card-doc">
-                <div class="card-doc-title">Doc title</div>
-                <div class="card-doc-text">
-                  <div class="doc-description">
+            <div className="documents-dropdown">
+              <div className="card-doc">
+                <div className="card-doc-title">Doc title</div>
+                <div className="card-doc-text">
+                  <div className="doc-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Duis luctus mauris ante, a iaculis leo placerat quis.
                   </div>
-                  <div class="card-doc-size">PDF X.X MB</div>
+                  <div className="card-doc-size">PDF X.X MB</div>
                 </div>
               </div>
-              <div class="card-doc">
-                <div class="card-doc-title">Doc title</div>
-                <div class="card-doc-text">
-                  <div class="doc-description">
+              <div className="card-doc">
+                <div className="card-doc-title">Doc title</div>
+                <div className="card-doc-text">
+                  <div className="doc-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Duis luctus mauris ante, a iaculis leo placerat quis.
                   </div>
-                  <div class="card-doc-size">PDF X.X MB</div>
+                  <div className="card-doc-size">PDF X.X MB</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="dataset-info-products">
+          <div className="dataset-info-products">
             <h2>Found the dataset in this products</h2>
-            <div class="card-container">
-              <div class="card-block">
-                <div class="card-image">
+            <div className="card-container">
+              <div className="card-block">
+                <div className="card-image">
                   <img
                     src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
                     alt="Placeholder image"
                   />
                 </div>
-                <div class="card-text">
-                  <div class="card-title">Dataset title</div>
-                  <div class="card-description">
+                <div className="card-text">
+                  <div className="card-title">Dataset title</div>
+                  <div className="card-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Duis luctus mauris ante, a iaculis leo placerat quis. Nullam
                     vitae vulputate leo, et ultricies dolor.
                   </div>
-                  <div class="card-button">
+                  <div className="card-button">
                     <a
                       href="../product-portfolio/product-overview/product-detail.html"
-                      class="ccl-button ccl-button--default"
+                      className="ccl-button ccl-button--default"
                     >
                       Access to product
                     </a>
                   </div>
                 </div>
               </div>
-              <div class="card-block">
-                <div class="card-image">
+              <div className="card-block">
+                <div className="card-image">
                   <img
                     src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
                     alt="Placeholder image"
                   />
                 </div>
-                <div class="card-text">
-                  <div class="card-title">Dataset title</div>
-                  <div class="card-description">
+                <div className="card-text">
+                  <div className="card-title">Dataset title</div>
+                  <div className="card-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Duis luctus mauris ante, a iaculis leo placerat quis. Nullam
                     vitae vulputate leo, et ultricies dolor.
                   </div>
-                  <div class="card-button">
+                  <div className="card-button">
                     <a
                       href="../product-portfolio/product-overview/product-detail.html"
-                      class="ccl-button ccl-button--default"
+                      className="ccl-button ccl-button--default"
                     >
                       Access to product
                     </a>
@@ -173,8 +173,8 @@ const CLMSDatasetDetailView = ({ content }) => {
               </div>
             </div>
           </div>
-          <div class="validation-citation-container citation-container">
-            <div class="citation-title">Dataset citation</div>
+          <div className="validation-citation-container citation-container">
+            <div className="citation-title">Dataset citation</div>
             <p>
               © European Union, Copernicus Land Monitoring Service{' '}
               <year>, European Environment Agency (EEA)</year>
