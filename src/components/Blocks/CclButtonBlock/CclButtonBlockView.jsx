@@ -12,7 +12,7 @@ const CclButtonBlockView = props => {
       target={data.target || ((data.download && data.href[0]['@type'] == 'File') && '_blank')}
       mode={data.style}
     >
-      {data.title || '-'}
+      {data.title || 'Text example...'}
     </CclButton>
   );
 };

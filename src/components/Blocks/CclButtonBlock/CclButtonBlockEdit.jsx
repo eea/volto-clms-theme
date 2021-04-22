@@ -27,13 +27,13 @@ const CclButtonBlockEdit = props => {
                 </legend>
             </div>
 
-            <CclButton url={data?.href?.[0]?.['@id'] || '#'} disabled={data.disabled} download={data.download} mode={data.style}>
+            <CclButton url='#' disabled={data.disabled} download={data.download} mode={data.style}>
                 {data.title || 'Text example...'}
             </CclButton>
 
             <SidebarPortal selected={selected}>
                 <InlineForm
-                    schema={cclButtonSchema(!Array.isArray(data?.href) || data?.href.length ? ['download', 'target'] : [])}
+                    schema={cclButtonSchema((Array.isArray(data?.href) && data?.href.length) ? ['download', 'target'] : [])}
                     title="Button component block"
                     onChangeField={(id, value) => {
                         onChangeBlock(block, {
