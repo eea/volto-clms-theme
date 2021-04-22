@@ -91,7 +91,7 @@ class SearchWidget extends Component {
   onSubmit(event) {
     const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/search?SearchableText=${this.state.text}${section}`,
+      `/search?SearchableText=${this.state.text}${section}`
     );
     event.preventDefault();
   }
@@ -103,19 +103,26 @@ class SearchWidget extends Component {
    */
   render() {
     return (
-      <Form className="ccl-header-search" action="/search" onSubmit={this.onSubmit}>
-          <Input
-            aria-label={this.props.intl.formatMessage(messages.search)}
-            onChange={this.onChangeText}
-            name="SearchableText"
-            value={this.state.text}
-            autoComplete="off"
-            placeholder={this.props.intl.formatMessage(messages.searchSite)}
-            title={this.props.intl.formatMessage(messages.search)}
-          />
-          <button type="submit" aria-label={this.props.intl.formatMessage(messages.search)}>
-            <span className="ccl-icon-zoom"></span>
-          </button>
+      <Form
+        className="ccl-header-search"
+        action="/search"
+        onSubmit={this.onSubmit}
+      >
+        <Input
+          aria-label={this.props.intl.formatMessage(messages.search)}
+          onChange={this.onChangeText}
+          name="SearchableText"
+          value={this.state.text}
+          autoComplete="off"
+          placeholder={this.props.intl.formatMessage(messages.searchSite)}
+          title={this.props.intl.formatMessage(messages.search)}
+        />
+        <button
+          type="submit"
+          aria-label={this.props.intl.formatMessage(messages.search)}
+        >
+          <span className="ccl-icon-zoom"></span>
+        </button>
       </Form>
     );
   }

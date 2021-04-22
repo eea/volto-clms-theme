@@ -17,7 +17,29 @@
     "type": "git",
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
-  "dependencies": {
+  "dependencies": {},
+  "stylelint": {
+    "extends": [
+      "stylelint-config-idiomatic-order"
+    ],
+    "plugins": [
+      "stylelint-prettier"
+    ],
+    "rules": {
+      "prettier/prettier": true,
+      "rule-empty-line-before": [
+        "always-multi-line",
+        {
+          "except": [
+            "first-nested"
+          ],
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ]
+    },
+    "ignoreFiles": "theme/themes/default/**/*.overrides"
   },
   "scripts": {
     "release": "release-it",
@@ -30,6 +52,17 @@
     "lint": "../../../node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
     "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'",
     "cypress:run": "../../../node_modules/cypress/bin/cypress run",
-    "cypress:open": "../../../node_modules/cypress/bin/cypress open"
+    "cypress:open": "../../../node_modules/cypress/bin/cypress open",
+    "devel:stylelint": "./node_modules/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'",
+    "devel:stylelint:fix": "yarn devel:stylelint --fix"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "3.1.3",
+    "jsconfig": "^0.2.0",
+    "prettier": "2.0.5",
+    "stylelint": "^13.12.0",
+    "stylelint-config-idiomatic-order": "8.1.0",
+    "stylelint-prettier": "1.1.2"
   }
 }

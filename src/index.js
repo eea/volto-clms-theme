@@ -50,9 +50,9 @@ const customBlocks = {
       custom: {
         label: 'Custom',
         // The variation level schema Enhancer function
-        schemaEnhancer: Schema
-      }
-    }
+        schemaEnhancer: Schema,
+      },
+    },
   },
 
   cardContainer: {
@@ -85,9 +85,9 @@ const customBlocks = {
       custom: {
         label: 'Custom',
         // The variation level schema Enhancer function
-        schemaEnhancer: Schema
-      }
-    }
+        schemaEnhancer: Schema,
+      },
+    },
   },
   cclButtonComponent: {
     id: 'cclButtonComponent', // The name (id) of the block
@@ -119,9 +119,9 @@ const customBlocks = {
       custom: {
         label: 'Custom',
         // The variation level schema Enhancer function
-        schemaEnhancer: Schema
-      }
-    }
+        schemaEnhancer: Schema,
+      },
+    },
   },
   cardBlock: {
     id: 'cardBlock', // The name (id) of the block
@@ -153,26 +153,25 @@ const customBlocks = {
       custom: {
         label: 'Custom',
         // The variation level schema Enhancer function
-        schemaEnhancer: Schema
-      }
-    }
+        schemaEnhancer: Schema,
+      },
+    },
   },
 };
 
-
 const applyConfig = (config) => {
-    config.views = {
-        ...config.views,
-        contentTypesViews: {
-            ...config.contentTypesViews,
-            Document: CLMSDocumentView,
-            dataset: CLMSDatasetDetailView,
-        },
-    }
-    config.blocks = {
-        ...config.blocks,
-        blocksConfig: { ...config.blocks.blocksConfig, ...customBlocks },
-    }
+  config.views = {
+    ...config.views,
+    contentTypesViews: {
+      ...config.contentTypesViews,
+      Document: CLMSDocumentView,
+      dataset: CLMSDatasetDetailView,
+    },
+  };
+  config.blocks = {
+    ...config.blocks,
+    blocksConfig: { ...config.blocks.blocksConfig, ...customBlocks },
+  };
 
   return config;
 };

@@ -22,21 +22,21 @@ const messages = defineMessages({
 
 function renderNode(node, level) {
   return (
-    <div className={node.is_current ? "card active" : "card"} key={node['@id']} >
-        <RouterLink
-          to={flattenToAppURL(node.href)}
-          title={node.description}
-          className={cx(`contenttype-${node.type}`, {
-            in_path: node.is_in_path,
-          })}
-        >
-          {node.thumb ? <Image src={flattenToAppURL(node.thumb)} /> : ''}
-          {node.title}
-        </RouterLink>
-        {(node.items?.length && (
-          <List.List>{node.items.map(renderNode)}</List.List>
-        )) ||
-          ''}
+    <div className={node.is_current ? 'card active' : 'card'} key={node['@id']}>
+      <RouterLink
+        to={flattenToAppURL(node.href)}
+        title={node.description}
+        className={cx(`contenttype-${node.type}`, {
+          in_path: node.is_in_path,
+        })}
+      >
+        {node.thumb ? <Image src={flattenToAppURL(node.thumb)} /> : ''}
+        {node.title}
+      </RouterLink>
+      {(node.items?.length && (
+        <List.List>{node.items.map(renderNode)}</List.List>
+      )) ||
+        ''}
     </div>
   );
 }
@@ -52,9 +52,7 @@ export function ContextNavigationComponent(props) {
   const intl = useIntl();
 
   return items.length ? (
-    <nav className="left-menu">
-      {items.map(renderNode)}
-    </nav>
+    <nav className="left-menu">{items.map(renderNode)}</nav>
   ) : (
     ''
   );
@@ -69,7 +67,7 @@ ContextNavigationComponent.propTypes = {
       PropTypes.shape({
         title: PropTypes.string,
         url: PropTypes.string,
-      }),
+      })
     ),
     has_custom_name: PropTypes.bool,
     title: PropTypes.string,
@@ -78,5 +76,5 @@ ContextNavigationComponent.propTypes = {
 
 export default compose(
   withRouter,
-  withContentNavigation,
+  withContentNavigation
 )(ContextNavigationComponent);

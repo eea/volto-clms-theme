@@ -17,8 +17,6 @@ import { mockDatabaseInfo, mockMetadata, mockDownloadDataset } from './mockDatas
  * @returns {string} Markup of the component.
  */
 
-
-
 const CLMSDatasetDetailView = ({ content }) => {
 
 
@@ -60,50 +58,50 @@ const CLMSDatasetDetailView = ({ content }) => {
  * @static
  */
 CLMSDatasetDetailView.propTypes = {
+  /**
+   * Content of the object
+   */
+  content: PropTypes.shape({
     /**
-     * Content of the object
+     * Title of the object
      */
-    content: PropTypes.shape({
+    title: PropTypes.string,
+    /**
+     * Description of the object
+     */
+    description: PropTypes.string,
+    /**
+     * Child items of the object
+     */
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
         /**
-         * Title of the object
+         * Title of the item
          */
         title: PropTypes.string,
         /**
-         * Description of the object
+         * Description of the item
          */
         description: PropTypes.string,
         /**
-         * Child items of the object
+         * Url of the item
          */
-        items: PropTypes.arrayOf(
-            PropTypes.shape({
-                /**
-                 * Title of the item
-                 */
-                title: PropTypes.string,
-                /**
-                 * Description of the item
-                 */
-                description: PropTypes.string,
-                /**
-                 * Url of the item
-                 */
-                url: PropTypes.string,
-                /**
-                 * Image of the item
-                 */
-                image: PropTypes.object,
-                /**
-                 * Image caption of the item
-                 */
-                image_caption: PropTypes.string,
-                /**
-                 * Type of the item
-                 */
-                '@type': PropTypes.string,
-            }),
-        ),
-    }).isRequired,
+        url: PropTypes.string,
+        /**
+         * Image of the item
+         */
+        image: PropTypes.object,
+        /**
+         * Image caption of the item
+         */
+        image_caption: PropTypes.string,
+        /**
+         * Type of the item
+         */
+        '@type': PropTypes.string,
+      })
+    ),
+  }).isRequired,
 };
 
 export default CLMSDatasetDetailView;

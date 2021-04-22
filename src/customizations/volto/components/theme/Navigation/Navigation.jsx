@@ -45,7 +45,7 @@ class Navigation extends Component {
       PropTypes.shape({
         title: PropTypes.string,
         url: PropTypes.string,
-      }),
+      })
     ).isRequired,
     lang: PropTypes.string.isRequired,
   };
@@ -73,7 +73,7 @@ class Navigation extends Component {
   UNSAFE_componentWillMount() {
     this.props.getNavigation(
       getBaseUrl(this.props.pathname),
-      config.settings.navDepth,
+      config.settings.navDepth
     );
   }
 
@@ -87,7 +87,7 @@ class Navigation extends Component {
     if (nextProps.pathname !== this.props.pathname) {
       this.props.getNavigation(
         getBaseUrl(nextProps.pathname),
-        config.settings.navDepth,
+        config.settings.navDepth
       );
     }
   }
@@ -122,24 +122,24 @@ class Navigation extends Component {
     const { lang } = this.props;
 
     return (
-        <ul className="ccl-header-main-menu">
-          {this.props.items.map((item) => (
-            <li key={item.url}>
-              <NavLink
-                to={item.url === '' ? '/' : item.url}
-                key={item.url}
-                activeClassName="active"
-                exact={
-                  config.settings.isMultilingual
-                    ? item.url === `/${lang}`
-                    : item.url === ''
-                }
-              >
-                {item.title}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+      <ul className="ccl-header-main-menu">
+        {this.props.items.map((item) => (
+          <li key={item.url}>
+            <NavLink
+              to={item.url === '' ? '/' : item.url}
+              key={item.url}
+              activeClassName="active"
+              exact={
+                config.settings.isMultilingual
+                  ? item.url === `/${lang}`
+                  : item.url === ''
+              }
+            >
+              {item.title}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     );
   }
 }
@@ -151,6 +151,6 @@ export default compose(
       items: state.navigation.items,
       lang: state.intl.locale,
     }),
-    { getNavigation },
-  ),
+    { getNavigation }
+  )
 )(Navigation);

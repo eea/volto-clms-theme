@@ -16,15 +16,15 @@ export const CardContainerSchema = () => ({
     cardStyle: {
       title: 'Card style',
       choices: [
-      ['line','Line card'],
-      ['block','Block card'],
-      ['line-color','Colored Line card'],
+        ['line', 'Line card'],
+        ['block', 'Block card'],
+        ['line-color', 'Colored Line card'],
       ],
     },
     customCards: {
       title: 'Custom cards',
       type: 'boolean',
-    }
+    },
   },
   required: ['cardStyle'],
 });
