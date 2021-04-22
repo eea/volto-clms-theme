@@ -1,0 +1,60 @@
+/* Breadcrumb */
+.ui.vertical.segment.ccl-breadcrumb {
+  margin-bottom: 1rem;
+  border-bottom: 0;
+}
+.ccl-u-sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.ccl-breadcrumb .ccl-breadcrumb__segments-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0;
+}
+.ccl-breadcrumb .ccl-breadcrumb__segment {
+  font-size: 1rem;
+  line-height: 1.25;
+  display: block;
+}
+.ccl-breadcrumb .ccl-breadcrumb__segment--last {
+  color: #7c8921
+}
+.ccl-breadcrumb .ccl-breadcrumb__segment .ccl-breadcrumb__link {
+  margin-right: 2rem;
+  color: #acbe39;
+}
+.ccl-breadcrumb .ccl-breadcrumb__segment .ccl-breadcrumb__link:hover {
+  color: #7c8921;
+}
+.ccl-breadcrumb .ccl-breadcrumb__segment .ccl-breadcrumb__link:after {
+  display: inline-block;
+  position: absolute;
+  font-family: "ccl-icons";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 900;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  content: "\e912";
+  width: 2rem;
+}
