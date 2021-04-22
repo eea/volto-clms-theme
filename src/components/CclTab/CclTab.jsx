@@ -4,22 +4,21 @@ import PropTypes from 'prop-types';
 
 function CclTab(props) {
 
-    let { activeTab, label, onClick } = props;
+    let { activeTab, tabTitle, onClick } = props;
 
     function onTabClick() {
-        onClick(label);
+        onClick(tabTitle);
     }
 
     let className = 'card';
 
-    if (activeTab === label) {
+    if (activeTab === tabTitle) {
         className += ' active';
     }
 
     return (
         <div className={className}>
-            <li class="collapsed" onClick={onTabClick}>{label}</li>
-            
+            <li class="collapsed" onClick={onTabClick}>{tabTitle}</li>
         </div>
     );
 
@@ -27,7 +26,7 @@ function CclTab(props) {
 
 CclTab.propTypes = {
     activeTab: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    tabTitle: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
 };
 

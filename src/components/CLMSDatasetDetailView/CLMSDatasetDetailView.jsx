@@ -24,24 +24,23 @@ const CLMSDatasetDetailView = ({ content }) => {
         <div className="ccl-container ">
             <h1 className="page-title">{content.title}</h1>
             <CclTabs>
-                <div label="Dataset Info">
+                <div tabTitle="Dataset Info">
                     {mockDatabaseInfo()}
-
                 </div>
 
-                <div label="Metadata">
+                <div tabTitle="Metadata">
                     {mockMetadata()}
                 </div>
-                <div label="Download dataset">
+                <div tabTitle="Download dataset">
                     {mockDownloadDataset()}
                 </div>
 
                 <div underPanel={true}>
-                    <nav class="left-menu-detail">
-                        <div class="menu-detail-image">
+                    <nav className="left-menu-detail">
+                        <div className="menu-detail-image">
                             <img src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg" alt="Placeholder image" />
                         </div>
-                        <div class="menu-detail-button">
+                        <div className="menu-detail-button">
                             <CclButton>View dataset on map viewer</CclButton>
                         </div>
                     </nav>
