@@ -31,7 +31,7 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [["@plone/volto", "./node_modules/@plone/volto/src"],["@plone/volto", "./src"],["@eea/volto-clms-theme",["./src"]]],
+        "map": [["@plone/volto", "./node_modules/@plone/volto/src"],["@plone/volto", "@plone/volto/src"],["@eea/volto-clms-theme",["./src"]]],
         "extensions": [".js", ".jsx", ".json"]
       },
       "babel-plugin-root-import": {
