@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
-
+import { Modal } from 'semantic-ui-react';
 import './modal.less';
 
 function CclModal(props) {
   const [open, setOpen] = React.useState(false);
-  var { id, trigger, children, size } = props;
+  let { trigger, children, size } = props;
+  
   return (
     <Modal
       onClose={() => setOpen(false)}

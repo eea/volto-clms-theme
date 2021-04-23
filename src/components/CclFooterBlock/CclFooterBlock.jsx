@@ -1,7 +1,5 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
 import classNames from 'classnames';
-
 import './CclFooterBlock.less';
 
 function CclFooterBlock(props) {

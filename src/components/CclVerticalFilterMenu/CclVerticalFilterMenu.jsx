@@ -2,7 +2,7 @@ import React from 'react';
 import CclExpandableFilter from '@eea/volto-clms-theme/components/CclExpandableFilter/CclExpandableFilter';
 
 const CclVerticalFilterMenu = (props) => {
-  var { filters } = props;
+  let { filters } = props;
   return (
     <nav className="dropdown dropdown-filters">
       {filters &&

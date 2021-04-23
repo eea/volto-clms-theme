@@ -6,9 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
-
 import { Container, Image } from 'semantic-ui-react';
-
 import ContextNavigationComponent from '@plone/volto/components/theme/Navigation/ContextNavigation';
 import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 

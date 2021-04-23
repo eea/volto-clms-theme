@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 function CclButton(props) {
+  
   let {
     url = '#',
     disabled = false,
@@ -12,13 +13,13 @@ function CclButton(props) {
     children,
     ...opts
   } = props;
+
   let buttonClass = classNames('ccl-button', {
     'ccl-button-green': mode == 'filled',
     'ccl-button--default': mode == 'default',
   });
 
   function hasProtocol(url) {
-    console.log('URL: ', url);
     return url.startsWith('https://') || url.startsWith('http://')
       ? true
       : false;
