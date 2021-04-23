@@ -120,7 +120,9 @@ class Header extends Component {
                 <li>
                   <CclModal
                     trigger={
-                      <a className="header-login-link">Login/Register</a>
+                      <a href="/login" className="header-login-link">
+                        Login/Register
+                      </a>
                     }
                     size="tiny"
                   >

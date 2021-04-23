@@ -9,7 +9,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
-
 import CopernicusImage from '@eea/volto-clms-theme/../theme/clms/img/EU-Cop-logo.svg';
 import LandImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-land-text.svg';
 

@@ -19,7 +19,6 @@ function CclTabs(props) {
             .filter((item) => !!item.props.tabTitle)
             .map((child) => {
               const { tabTitle } = child.props;
-
               return (
                 <CclTab
                   activeTab={activeTab}

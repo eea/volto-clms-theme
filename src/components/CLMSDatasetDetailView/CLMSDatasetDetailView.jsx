@@ -36,7 +36,7 @@ const CLMSDatasetDetailView = ({ content }) => {
             <div className="menu-detail-image">
               <img
                 src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
-                alt="Placeholder image"
+                alt="Placeholder"
               />
             </div>
             <div className="menu-detail-button">
