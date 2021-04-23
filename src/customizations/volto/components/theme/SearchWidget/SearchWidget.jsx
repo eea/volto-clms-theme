@@ -10,9 +10,6 @@ import { compose } from 'redux';
 import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { Icon } from '@plone/volto/components';
-// import zoomSVG from '@plone/volto/icons/zoom.svg';
-
 const messages = defineMessages({
   search: {
     id: 'Search',
@@ -91,7 +88,7 @@ class SearchWidget extends Component {
   onSubmit(event) {
     const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/search?SearchableText=${this.state.text}${section}`
+      `/search?SearchableText=${this.state.text}${section}`,
     );
     event.preventDefault();
   }

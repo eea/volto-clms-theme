@@ -8,15 +8,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Container, Segment } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
-
-import { Icon } from '@plone/volto/components';
 import { getBreadcrumbs } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
-
-import homeSVG from '@plone/volto/icons/home.svg';
-
 import './breadcrumbs.less';
 
 const messages = defineMessages({
@@ -49,7 +44,7 @@ class Breadcrumbs extends Component {
       PropTypes.shape({
         title: PropTypes.string,
         url: PropTypes.string,
-      })
+      }),
     ).isRequired,
   };
 
@@ -135,6 +130,6 @@ export default compose(
       items: state.breadcrumbs.items,
       root: state.breadcrumbs.root,
     }),
-    { getBreadcrumbs }
-  )
+    { getBreadcrumbs },
+  ),
 )(Breadcrumbs);

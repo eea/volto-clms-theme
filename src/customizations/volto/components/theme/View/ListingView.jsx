@@ -5,10 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Segment, Container, Image } from 'semantic-ui-react';
-
+import { Container } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
+import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
+import CclVerticalFilterMenu from '@eea/volto-clms-theme/components/CclVerticalFilterMenu/CclVerticalFilterMenu';
+
 const messages = defineMessages({
   datasetSearchPlaceholder: {
     id: 'Search datasets',
@@ -19,9 +20,6 @@ const messages = defineMessages({
     defaultMessage: 'Search',
   },
 });
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
-import CclVerticalFilterMenu from '@eea/volto-clms-theme/components/CclVerticalFilterMenu/CclVerticalFilterMenu';
-import CclExpandableFilter from '@eea/volto-clms-theme/components/CclExpandableFilter/CclExpandableFilter';
 
 /**
  * List view component class.
@@ -94,7 +92,7 @@ const ListingView = ({ content, pathname }) => {
               name="field_gdpr[value]"
               value="name"
               className="ccl-checkbox ccl-required ccl-form-check-input"
-              aria-required="true"
+              required="true"
             />
             <label className="ccl-form-check-label" htmlFor="sort-by-name">
               <span>Name</span>
@@ -107,7 +105,7 @@ const ListingView = ({ content, pathname }) => {
               name="field_gdpr[value]"
               value="date"
               className="ccl-checkbox ccl-required ccl-form-check-input"
-              aria-required="true"
+              required="true"
             />
             <label className="ccl-form-check-label" htmlFor="sort-by-date">
               <span>Date</span>
@@ -126,7 +124,7 @@ const ListingView = ({ content, pathname }) => {
             name="field_gdpr[value]"
             value="..."
             className="ccl-checkbox ccl-required ccl-form-check-input"
-            aria-required="true"
+            required="true"
           />
           <label className="ccl-form-check-label" htmlFor="resources_">
             ...
@@ -144,7 +142,7 @@ const ListingView = ({ content, pathname }) => {
             name="field_gdpr[value]"
             value="..."
             className="ccl-checkbox ccl-required ccl-form-check-input"
-            aria-required="true"
+            required="true"
           />
           <label className="ccl-form-check-label" htmlFor="resources_">
             ...
@@ -214,7 +212,7 @@ ListingView.propTypes = {
         review_state: PropTypes.string,
         title: PropTypes.string,
         url: PropTypes.string,
-      })
+      }),
     ),
   }).isRequired,
 };

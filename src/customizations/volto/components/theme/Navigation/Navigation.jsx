@@ -45,7 +45,7 @@ class Navigation extends Component {
       PropTypes.shape({
         title: PropTypes.string,
         url: PropTypes.string,
-      })
+      }),
     ).isRequired,
     lang: PropTypes.string.isRequired,
   };
@@ -73,7 +73,7 @@ class Navigation extends Component {
   UNSAFE_componentWillMount() {
     this.props.getNavigation(
       getBaseUrl(this.props.pathname),
-      config.settings.navDepth
+      config.settings.navDepth,
     );
   }
 
@@ -87,7 +87,7 @@ class Navigation extends Component {
     if (nextProps.pathname !== this.props.pathname) {
       this.props.getNavigation(
         getBaseUrl(nextProps.pathname),
-        config.settings.navDepth
+        config.settings.navDepth,
       );
     }
   }
@@ -151,6 +151,6 @@ export default compose(
       items: state.navigation.items,
       lang: state.intl.locale,
     }),
-    { getNavigation }
-  )
+    { getNavigation },
+  ),
 )(Navigation);

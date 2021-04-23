@@ -121,7 +121,7 @@ const Footer = ({ intl }) => (
                   name="footerPrivacy"
                   value=""
                   className="ccl-checkbox  ccl-form-check-input"
-                  aria-required="true"
+                  required="true"
                 />
                 <label
                   className="ccl-form-check-label"

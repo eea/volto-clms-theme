@@ -67,7 +67,7 @@ ContextNavigationComponent.propTypes = {
       PropTypes.shape({
         title: PropTypes.string,
         url: PropTypes.string,
-      })
+      }),
     ),
     has_custom_name: PropTypes.bool,
     title: PropTypes.string,
@@ -76,5 +76,5 @@ ContextNavigationComponent.propTypes = {
 
 export default compose(
   withRouter,
-  withContentNavigation
+  withContentNavigation,
 )(ContextNavigationComponent);
