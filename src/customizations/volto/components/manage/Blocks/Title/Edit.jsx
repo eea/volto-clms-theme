@@ -131,7 +131,7 @@ class Edit extends Component {
     this.setState({ editorState }, () => {
       this.props.onChangeField(
         'title',
-        editorState.getCurrentContent().getPlainText()
+        editorState.getCurrentContent().getPlainText(),
       );
     });
   }
@@ -162,8 +162,8 @@ class Edit extends Component {
           this.props.onSelectBlock(
             this.props.onAddBlock(
               config.settings.defaultBlockType,
-              this.props.index + 1
-            )
+              this.props.index + 1,
+            ),
           );
           return 'handled';
         }}

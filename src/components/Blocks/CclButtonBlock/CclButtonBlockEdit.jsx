@@ -35,7 +35,7 @@ const CclButtonBlockEdit = (props) => {
           schema={cclButtonSchema(
             Array.isArray(data?.href) && data?.href.length
               ? ['download', 'target']
-              : []
+              : [],
           )}
           title="Button component block"
           onChangeField={(id, value) => {

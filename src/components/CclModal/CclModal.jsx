@@ -5,7 +5,7 @@ import './modal.less';
 function CclModal(props) {
   const [open, setOpen] = React.useState(false);
   let { trigger, children, size } = props;
-  
+
   return (
     <Modal
       onClose={() => setOpen(false)}

@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 function CclButton(props) {
-  
   let {
     url = '#',
     disabled = false,
@@ -15,8 +14,8 @@ function CclButton(props) {
   } = props;
 
   let buttonClass = classNames('ccl-button', {
-    'ccl-button-green': mode == 'filled',
-    'ccl-button--default': mode == 'default',
+    'ccl-button-green': mode === 'filled',
+    'ccl-button--default': mode === 'default',
   });
 
   function hasProtocol(url) {

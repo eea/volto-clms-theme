@@ -1,15 +1,9 @@
 import React from 'react';
 
-import {
-  SidebarPortal,
-  BlocksToolbar,
-  Icon,
-  BlocksForm,
-} from '@plone/volto/components'; // BlocksForm, Icon,
+import { SidebarPortal } from '@plone/volto/components'; // BlocksForm, Icon,
 import { CardContainerSchema } from './CardContainerSchema';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 
-import { setSidebarTab } from '@plone/volto/actions';
 import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 
 import './styles.less';

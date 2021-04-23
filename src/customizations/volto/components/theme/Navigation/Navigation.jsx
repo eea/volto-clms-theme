@@ -8,24 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { NavLink } from 'react-router-dom';
-import { defineMessages, injectIntl } from 'react-intl';
-import { Menu } from 'semantic-ui-react';
-import cx from 'classnames';
+import { injectIntl } from 'react-intl';
 import { getBaseUrl } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 
 import { getNavigation } from '@plone/volto/actions';
-
-const messages = defineMessages({
-  closeMobileMenu: {
-    id: 'Close menu',
-    defaultMessage: 'Close menu',
-  },
-  openMobileMenu: {
-    id: 'Open menu',
-    defaultMessage: 'Open menu',
-  },
-});
 
 /**
  * Navigation container class.
@@ -45,7 +32,7 @@ class Navigation extends Component {
       PropTypes.shape({
         title: PropTypes.string,
         url: PropTypes.string,
-      })
+      }),
     ).isRequired,
     lang: PropTypes.string.isRequired,
   };
@@ -73,7 +60,7 @@ class Navigation extends Component {
   UNSAFE_componentWillMount() {
     this.props.getNavigation(
       getBaseUrl(this.props.pathname),
-      config.settings.navDepth
+      config.settings.navDepth,
     );
   }
 
@@ -87,7 +74,7 @@ class Navigation extends Component {
     if (nextProps.pathname !== this.props.pathname) {
       this.props.getNavigation(
         getBaseUrl(nextProps.pathname),
-        config.settings.navDepth
+        config.settings.navDepth,
       );
     }
   }
@@ -151,6 +138,6 @@ export default compose(
       items: state.navigation.items,
       lang: state.intl.locale,
     }),
-    { getNavigation }
-  )
+    { getNavigation },
+  ),
 )(Navigation);

@@ -3,23 +3,13 @@
  * @module components/theme/Header/Header
  */
 
-import React, { Component, Link } from 'react';
-import { Container, Segment, List, Dropdown } from 'semantic-ui-react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  Anontools,
-  Logo,
-  Navigation,
-  SearchWidget,
-} from '@plone/volto/components';
+import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 
-import { BodyClass, isCmsUi } from '@plone/volto/helpers';
-import split from 'lodash/split';
-import join from 'lodash/join';
-import trim from 'lodash/trim';
-import cx from 'classnames';
+import { BodyClass } from '@plone/volto/helpers';
 
 import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal';
 import CclLanguageSelector from '@eea/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
@@ -64,7 +54,6 @@ class Header extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const isCmsUI = isCmsUi(this.props.pathname);
     return (
       <header className="ccl-header">
         {/* Body class depending on sections */}
@@ -75,6 +64,9 @@ class Header extends Component {
             <div
               className="ccl-main-menu-collapse-button"
               onClick={() =>
+                this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen })
+              }
+              onKeyDown={() =>
                 this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen })
               }
             >
@@ -127,7 +119,9 @@ class Header extends Component {
                 </li>
                 <li>
                   <CclModal
-                    trigger={<a className="header-login-link">Login/Register</a>}
+                    trigger={
+                      <a className="header-login-link">Login/Register</a>
+                    }
                     size="tiny"
                   >
                     <div className="modal-login-title">Login</div>

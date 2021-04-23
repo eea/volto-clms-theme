@@ -8,7 +8,11 @@ import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 import CclButton from '@eea/volto-clms-theme/components/CclButton/CclButton';
 import { CclTabs } from '@eea/volto-clms-theme/components/CclTab';
-import { mockDatabaseInfo, mockMetadata, mockDownloadDataset } from './mockDatasetInfo';
+import {
+  mockDatabaseInfo,
+  mockMetadata,
+  mockDownloadDataset,
+} from './mockDatasetInfo';
 
 /**
  * Full view component class.
@@ -18,36 +22,31 @@ import { mockDatabaseInfo, mockMetadata, mockDownloadDataset } from './mockDatas
  */
 
 const CLMSDatasetDetailView = ({ content }) => {
+  return (
+    <div className="ccl-container ">
+      <h1 className="page-title">{content.title}</h1>
+      <CclTabs>
+        <div tabTitle="Dataset Info">{mockDatabaseInfo()}</div>
 
-    return (
-        <div className="ccl-container ">
-            <h1 className="page-title">{content.title}</h1>
-            <CclTabs>
-                <div tabTitle="Dataset Info">
-                    {mockDatabaseInfo()}
-                </div>
+        <div tabTitle="Metadata">{mockMetadata()}</div>
+        <div tabTitle="Download dataset">{mockDownloadDataset()}</div>
 
-                <div tabTitle="Metadata">
-                    {mockMetadata()}
-                </div>
-                <div tabTitle="Download dataset">
-                    {mockDownloadDataset()}
-                </div>
-
-                <div underPanel={true}>
-                    <nav className="left-menu-detail">
-                        <div className="menu-detail-image">
-                            <img src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg" alt="Placeholder image" />
-                        </div>
-                        <div className="menu-detail-button">
-                            <CclButton>View dataset on map viewer</CclButton>
-                        </div>
-                    </nav>
-                </div>
-            </CclTabs>
+        <div underPanel={true}>
+          <nav className="left-menu-detail">
+            <div className="menu-detail-image">
+              <img
+                src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
+                alt="Placeholder image"
+              />
+            </div>
+            <div className="menu-detail-button">
+              <CclButton>View dataset on map viewer</CclButton>
+            </div>
+          </nav>
         </div>
-    );
-
+      </CclTabs>
+    </div>
+  );
 };
 
 /**
@@ -97,7 +96,7 @@ CLMSDatasetDetailView.propTypes = {
          * Type of the item
          */
         '@type': PropTypes.string,
-      })
+      }),
     ),
   }).isRequired,
 };

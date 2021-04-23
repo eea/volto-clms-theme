@@ -24,7 +24,7 @@ function CclCard(props) {
           <a href="./dataset-catalogue/dataset-info.html">{card.product}</a>
         </div>
         <div className="card-description">{card.description}</div>
-        {type == 'block' && (
+        {type === 'block' && (
           <div className="card-button">
             <Link to={card.Url} className="ccl-button ccl-button--default">
               {intl.formatMessage(messages.accessToProduct)}
