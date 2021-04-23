@@ -30,11 +30,15 @@ function CclCard(props) {
   return (
       <div className={"card-" + type}>
           <div className="card-image">
-            {card.image && <img src={card.image.src} alt={card.image.alt} /> }
+            {card.image?.scales && <img src={card.image.scales.preview.download} alt={card.image.alt} /> }
           </div>
         <div className="card-text">
           <div className="card-title">
-            <a href="./dataset-catalogue/dataset-info.html">{card.product}</a>
+            <Link
+                to={card['@id'] || card.url || '/'}
+              >
+            {card.title}
+            </Link>
           </div>
           <div className="card-description">
             {card.description}
@@ -42,7 +46,7 @@ function CclCard(props) {
           {type == 'block' &&
             <div className="card-button">
               <Link
-                to={card.Url}
+                to={card['@id'] || card.url || '/'}
                 className="ccl-button ccl-button--default"
               >
                 {intl.formatMessage(messages.accessToProduct)}

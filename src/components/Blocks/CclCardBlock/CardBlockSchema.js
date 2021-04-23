@@ -4,14 +4,15 @@ export const CardBlockSchema = () => ({
       {
         id: 'default',
         title: 'Default',
-        fields: ['product', 'image', 'description', 'Url', 'cardStyle'],
+        fields: ['title', 'image', 'description', 'url', 'cardStyle'],
       },
     ],
     properties: {
-      product: {
-        title: 'Product',
-        description: 'Product card title',
+      title: {
+        title: 'Title',
+        description: 'Card title',
         type: 'string',
+        placeholder: 'Card title here',
       },
       image: {
         title: 'Card image',
@@ -20,8 +21,8 @@ export const CardBlockSchema = () => ({
         title: 'Product description',
         type: 'string',
       },
-      Url: {
-        title: 'Url',
+      url: {
+        title: 'url',
         type: 'string',
       },
       cardStyle: {

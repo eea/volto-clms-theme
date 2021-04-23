@@ -2,14 +2,36 @@ import React from 'react';
 import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
 
 const CclCardBlockView = props => {
+    const { data } = props
     const card = {
-        "product": "Dataset preview title",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
+        "title": data.title,
+        "description": data.description,
         "image": {
-          "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-          "alt": "Image alt text",
+          "scales": {
+            "icon": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+            "large": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+            "listing": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+            "mini": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+            "preview": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+            "thumb": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+            "tile": {
+              "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+            },
+          },
         },
-        "absolute_url": "/en/product-portfolio/how-our-products-are-created",
+        "url": data.url,
       }
 
     return <CclCard card={card} />;

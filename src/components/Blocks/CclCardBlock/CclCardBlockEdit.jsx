@@ -22,16 +22,37 @@ const CclCardBlockEdit = (props) => {
         } = props;
   // console.log(props)
   let card = {
-    "product": data.product,
+    "product": data.title,
     "description": data.description,
     "image": {
-      "src":
-        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-      "alt": 'Image alt text',
+      "scales": {
+        "icon": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+        "large": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+        "listing": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+        "mini": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+        "preview": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+        "thumb": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+        "tile": {
+          "download":"https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
+        },
+      },
     },
-    "url": '/en/product-portfolio/how-our-products-are-created',
+    "url": data.url,
   };
-
+  // console.log(data)
+  
   return (
     <>
 
