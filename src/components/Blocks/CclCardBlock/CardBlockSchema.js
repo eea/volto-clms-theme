@@ -34,6 +34,5 @@ export const CardBlockSchema = () => ({
         ],
       }
     },
-    required: ['product'],
-  });
-
+  required: ['product'],
+});

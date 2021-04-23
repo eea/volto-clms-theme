@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid';
-import { map } from 'lodash';
 export const emptyCard = (count) => {
   const blocks = {};
   const items = [];

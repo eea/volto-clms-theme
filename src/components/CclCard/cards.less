@@ -1,89 +1,108 @@
 /* Cards */
 .card-line {
+  position: relative;
   display: flex;
   padding: 1rem 0;
-  position: relative;
 }
+
 .card-line:not(:last-of-type) {
   border-bottom: solid 1px #a0b12833;
 }
+
 .card-line.hide-line {
   border-bottom: none;
 }
+
 .card-line .card-image {
   margin-right: 1rem;
 }
+
 .card-line img {
-  height: 6rem;
   width: 8rem;
+  height: 6rem;
   object-fit: cover;
   opacity: 0.5;
 }
+
 .card-text {
   width: 100%;
 }
+
 .card-title {
-  font-size: 1.125rem;
-  font-weight: bold;
   margin-bottom: 1rem;
   color: #a0b128;
+  font-size: 1.125rem;
+  font-weight: bold;
   text-decoration: none;
 }
+
 .card-title a {
   text-decoration: none;
 }
+
 .card-title a:hover {
   text-decoration: underline;
 }
+
 .card-description {
   line-height: 1.5rem;
 }
+
 .card-line-color {
-  display: flex;
   position: relative;
-  background-color: #a0b1280f;
+  display: flex;
   padding: 0;
   margin-bottom: 1rem;
+  background-color: #a0b1280f;
 }
+
 .card-line-color .card-text {
   padding: 1.5rem;
 }
+
 .card-line-color .card-image {
   margin: 0;
 }
+
 .card-line-color .card-button {
   margin-top: 1.5rem;
 }
+
 .card-line-color img {
-  height: 100%;
   width: 20vw;
+  height: 100%;
   object-fit: cover;
   opacity: 0.5;
 }
-@media (max-width: 480px) { 
+@media (max-width: 480px) {
   .card-line-color {
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
+
   .card-line-color img {
     width: 100%;
   }
 }
+
 .card-block {
+  width: 100%;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 100%;
   margin-bottom: 1rem;
   background-color: #a0b1280f;
 }
+
 .card-block img {
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
   opacity: 0.5;
 }
+
 .card-block .card-text {
   padding: 1.5rem;
 }
+
 .card-block .card-description {
   margin-bottom: 1rem;
 }
@@ -91,6 +110,7 @@
   .card-block {
     width: calc(50% - 0.5rem);
   }
+
   .card-block:nth-child(odd) {
     margin-right: 1rem;
   }
@@ -100,44 +120,53 @@
 .card-news {
   display: flex;
 }
+
 .card-news:not(:last-of-type) {
-  margin-bottom: 1rem;
-  border-bottom: solid 1px #ebebeb;
   padding-bottom: 1rem;
+  border-bottom: solid 1px #ebebeb;
+  margin-bottom: 1rem;
 }
+
 .card-news .card-news-image {
-  margin-right: 1.5rem;
   flex-shrink: 0;
+  margin-right: 1.5rem;
 }
+
 .card-news .card-news-image img {
-  height: 10rem;
   width: 10rem;
+  height: 10rem;
   object-fit: cover;
   opacity: 0.5;
 }
+
 .card-news-text .card-news-title {
+  margin-bottom: 1rem;
   font-size: 1.125rem;
   font-weight: bold;
-  margin-bottom: 1rem;
 }
+
 .card-news-text .card-news-title a {
   text-decoration: none;
 }
-.card-news-text .card-news-title a:hover{
+
+.card-news-text .card-news-title a:hover {
   text-decoration: underline;
 }
+
 .card-news-text .card-news-date {
-  color: #adb0b8;
   margin-bottom: 1rem;
+  color: #adb0b8;
 }
+
 .card-news-text .card-news-description {
-  font-size: 1rem;
   margin-bottom: 0;
+  font-size: 1rem;
 }
-@media (max-width: 480px) { 
+@media (max-width: 480px) {
   .card-news {
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
+
   .card-news .card-news-text {
     margin-top: 1rem;
   }
@@ -147,56 +176,79 @@
 .card-event {
   display: flex;
 }
+
 .card-event:not(:last-of-type) {
-  margin-bottom: 1rem;
-  border-bottom: solid 1px #ebebeb;
   padding-bottom: 1rem;
+  border-bottom: solid 1px #ebebeb;
+  margin-bottom: 1rem;
 }
+
 .card-event .card-event-image {
-  margin-right: 1.5rem;
   flex-shrink: 0;
+  margin-right: 1.5rem;
 }
+
 .card-event .card-event-image img {
-  height: 10rem;
   width: 10rem;
+  height: 10rem;
   object-fit: cover;
   opacity: 0.5;
 }
+
 .card-event-text .card-event-title {
+  margin-bottom: 1rem;
   font-size: 1.125rem;
   font-weight: bold;
-  margin-bottom: 1rem;
 }
+
 .card-event-text .card-event-title a {
   text-decoration: none;
 }
+
 .card-event-text .card-event-title a:hover {
   text-decoration: underline;
-}.card-event-text .card-event-description {
-  font-size: 1rem;
-  margin-bottom: 0;
 }
-@media (max-width: 480px) { 
+
+.card-event-text .card-event-description {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+@media (max-width: 480px) {
   .card-event {
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
+
   .card-event .card-event-text {
     margin-top: 1rem;
   }
 }
+
 .card-event i {
+  width: 1rem;
   margin-right: 0.5rem;
-  width: 1rem
 }
-.card-event-when, .card-event-where {
-  margin-bottom: 1rem;
+
+.card-event-when,
+.card-event-where {
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
-.card-event-when-title, .card-event-where-title {
+
+.card-event-when-title,
+.card-event-where-title {
+  margin-bottom: 0.5em;
   color: #a0b128;
   font-weight: bold;
-  margin-bottom: 0.5em;
+}
+
+/* Documents */
+.card-doc {
+  padding: 1rem;
+}
+
+.card-doc:not(:last-of-type) {
+  border-bottom: solid 1px #a0b12833;
 }
 
 /* Documents */
@@ -206,19 +258,17 @@
 .card-doc:not(:last-of-type) {
   border-bottom: solid 1px #a0b12833;
 }
-
-/** added card-doc CODESYNTAX **/
-.card-doc .card-title {
+.card-doc-title {
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #a0b128;
 }
-.card-doc .card-text {
+.card-doc-text {
   display: flex;
   justify-content: space-between;
 }
-.card-doc .card-size {
+.card-doc-size {
   white-space: nowrap;
   margin-left: 1rem;
 }
@@ -237,4 +287,24 @@
 .card-work-number-title, .card-work-deadline-title {
   font-weight: bold;
   margin-right: 0.25rem;
+}
+
+/* Work opportunities */
+.card-work {
+  padding: 2rem;
+  background: #a0b1280f;
+}
+
+.card-work:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+.card-work-number {
+  margin-bottom: 1rem;
+}
+
+.card-work-number-title,
+.card-work-deadline-title {
+  margin-right: 0.25rem;
+  font-weight: bold;
 }

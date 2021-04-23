@@ -122,24 +122,24 @@ class Navigation extends Component {
     const { lang } = this.props;
 
     return (
-        <ul className="ccl-header-main-menu">
-          {this.props.items.map((item) => (
-            <li key={item.url}>
-              <NavLink
-                to={item.url === '' ? '/' : item.url}
-                key={item.url}
-                activeClassName="active"
-                exact={
-                  config.settings.isMultilingual
-                    ? item.url === `/${lang}`
-                    : item.url === ''
-                }
-              >
-                {item.title}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+      <ul className="ccl-header-main-menu">
+        {this.props.items.map((item) => (
+          <li key={item.url}>
+            <NavLink
+              to={item.url === '' ? '/' : item.url}
+              key={item.url}
+              activeClassName="active"
+              exact={
+                config.settings.isMultilingual
+                  ? item.url === `/${lang}`
+                  : item.url === ''
+              }
+            >
+              {item.title}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     );
   }
 }

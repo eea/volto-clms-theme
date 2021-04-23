@@ -9,7 +9,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
-
 import CopernicusImage from '@eea/volto-clms-theme/../theme/clms/img/EU-Cop-logo.svg';
 import LandImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-land-text.svg';
 
@@ -46,7 +45,6 @@ const Logo = () => {
   return (
     <div className="ccl-header-logos-container">
       <div className="ccl-header-logo-container">
-        
         <Link
           to={settings.isMultilingual ? `/${lang}` : '/'}
           title={intl.formatMessage(messages.copernicussite)}
@@ -59,7 +57,7 @@ const Logo = () => {
             height={44}
           />
         </Link>
-         <Link
+        <Link
           to={settings.isMultilingual ? `/${lang}` : '/'}
           title={intl.formatMessage(messages.site)}
           className="ccl-header-logo ccl-service-button"

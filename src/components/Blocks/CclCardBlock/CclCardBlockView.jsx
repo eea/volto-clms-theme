@@ -1,5 +1,5 @@
 import React from 'react';
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
+import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 
 const CclCardBlockView = props => {
     const { data } = props
@@ -34,7 +34,7 @@ const CclCardBlockView = props => {
         "url": data.url,
       }
 
-    return <CclCard card={card} />;
+  return <CclCard card={card} />;
 };
 
 export default CclCardBlockView;

@@ -5,7 +5,7 @@ import { CardContainerSchema, ContainerSelectorSchema } from './CardContainerSch
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 
 import { setSidebarTab } from '@plone/volto/actions';
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
+import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 
 import "./styles.less"
 
@@ -116,7 +116,18 @@ const CclCardContainerBlockEdit = props => {
         setSelectedBlock(-1)
       }
     }, []);
-    console.log(data)
+
+    let extras = []
+    if (data.cardOrigin == 'selection'){
+        extras.push('containerSelection')
+        extras.push('contentTypes')
+    } else if(data.cardOrigin == 'current'){
+        extras.push('contentTypes')
+    } else if(data.cardOrigin == 'custom'){
+        extras.push('customCards')
+    }
+    console.log(extras)
+
     return (
         <>
             <div 
@@ -129,11 +140,6 @@ const CclCardContainerBlockEdit = props => {
                   {data.title || 'Card container'}
             </div>
             <div>
-            <p
-                onClick={() => {
-                    setSelectedBlock(-1);
-                }}>
-                    {"Select card container form"}</p>
                 {data.cardOrigin == "custom" ? (
                         <>
                         {panels.map(([uid, panel], index) => (
@@ -143,25 +149,23 @@ const CclCardContainerBlockEdit = props => {
                                     }}
                             >
                                 <CclCard 
-
                                     type={data.cardStyle || "line"} 
                                     card={data.customCards.blocks[uid]}
                                 />
-                                <p>{JSON.stringify(data.customCards.blocks[uid])}</p>
                             </div>
                         ))}
                         </>
                     ) : (
                     <div className="card-container">
-                        <CclCard type={data.cardStyle || "line"} card={card} />
-                        <CclCard type={data.cardStyle || "line"} card={card} />
+                        <CclCard type={data.cardStyle} card={card} />
+                        <CclCard type={data.cardStyle} card={card} />
                     </div>
                     ) }
             
             </div>
                 <SidebarPortal selected={selected && selectedBlock == -1}>
                     <InlineForm
-                    schema={CardContainerSchema(type_options, data.cardOrigin == 'selection' ? ['containerSelection'] : [])}
+                    schema={CardContainerSchema(type_options, extras)}
                     title="Card container block"
                     onChangeField={(id, value) => {
                       onChangeBlock(block, {
@@ -197,7 +201,6 @@ const CclCardContainerBlockEdit = props => {
         </>
 
         )
-}   
-
+};
 
 export default compose(withObjectBrowser, injectIntl)(CclCardContainerBlockEdit);

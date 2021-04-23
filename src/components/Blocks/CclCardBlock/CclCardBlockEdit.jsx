@@ -1,26 +1,13 @@
 import React from 'react';
 import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 
-import {
-  SidebarPortal,
-  BlocksToolbar,
-  Icon,
-  BlocksForm,
-} from '@plone/volto/components'; // BlocksForm, Icon,
+import { SidebarPortal } from '@plone/volto/components';
 import { CardBlockSchema } from './CardBlockSchema';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 
 const CclCardBlockEdit = (props) => {
+  const { block, data, onChangeBlock, selected } = props;
 
-  const { 
-          block, 
-          data, 
-          onChangeBlock, 
-          pathname, 
-          selected, 
-          manage 
-        } = props;
-  // console.log(props)
   let card = {
     "product": data.title,
     "description": data.description,
@@ -55,14 +42,13 @@ const CclCardBlockEdit = (props) => {
   
   return (
     <>
-
-
       <div
-      onClick={() => {
-        props.setSidebarTab(1);
-      }}
-      aria-hidden="true">
-        <CclCard type={data.cardStyle || "line"} card={card} />
+        onClick={() => {
+          props.setSidebarTab(1);
+        }}
+        aria-hidden="true"
+      >
+        <CclCard type={data.cardStyle || 'line'} card={card} />
       </div>
 
       <SidebarPortal selected={selected}>
