@@ -22,9 +22,9 @@ const CclCardContainerBlockView = (props) => {
     );
   }
 
-  let portal_type =
-    data.contentTypes?.length > 0 ? { portal_type: data.contentTypes } : {};
   React.useEffect(() => {
+    let portal_type =
+      data.contentTypes?.length > 0 ? { portal_type: data.contentTypes } : {};
     dispatch(
       searchContent(
         path,
@@ -37,7 +37,7 @@ const CclCardContainerBlockView = (props) => {
         id,
       ),
     );
-  }, []);
+  }, [path, data, id, dispatch]);
 
   var cardStyle = data.cardStyle || 'line';
   return (

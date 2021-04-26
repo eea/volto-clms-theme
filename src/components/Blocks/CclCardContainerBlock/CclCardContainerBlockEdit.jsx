@@ -21,8 +21,6 @@ import { emptyCard, getPanels } from './utils';
 const CclCardContainerBlockEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;
 
-  const [selectedBlock, setSelectedBlock] = useState(-1);
-
   const regex = /[a-zA-Z]+(?!.*[a-zA-Z]+)/;
   const types = useSelector((state) => state.types.types);
   const type_options = types.map((type) => [
@@ -85,10 +83,14 @@ const CclCardContainerBlockEdit = (props) => {
       });
     }
     /* eslint-disable-next-line */
+  }, []);
+
+  const [selectedBlock, setSelectedBlock] = useState(-1);
+  React.useEffect(() => {
     if (!selected) {
       setSelectedBlock(-1);
     }
-  }, []);
+  }, [selected]);
 
   let extras = [];
   if (data.cardOrigin === 'selection') {
