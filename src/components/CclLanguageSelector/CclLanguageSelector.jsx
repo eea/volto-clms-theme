@@ -32,7 +32,7 @@ function CclLanguageSelector(props) {
   const dispatch = useDispatch();
   const currentLang = useSelector((state) => state.intl.locale);
   const translations = useSelector(
-    (state) => state.content.data?.['@components']?.translations?.items
+    (state) => state.content.data?.['@components']?.translations?.items,
   );
 
   function changeLanguage(language) {
@@ -45,7 +45,7 @@ function CclLanguageSelector(props) {
       updateIntl({
         locale: language,
         messages: locales[language],
-      })
+      }),
     );
   }
 
@@ -56,7 +56,8 @@ function CclLanguageSelector(props) {
           <div className="header-lang-icon">
             <i className="ccl-icon-language"></i>
             <span className="header-lang-code">{currentLang}</span>
-          </div>}
+          </div>
+        }
         size="fullscreen"
       >
         <div className="ccl-container">
@@ -83,7 +84,7 @@ function CclLanguageSelector(props) {
                     })}
                   >
                     <span className="language-link" lang-code={lang}>
-                      {lang != currentLang ? (
+                      {lang !== currentLang ? (
                         <Link
                           to={
                             translation
@@ -140,7 +141,7 @@ function CclLanguageSelector(props) {
                       })}
                     >
                       <span className="language-link" lang-code={lang}>
-                        {lang != currentLang ? (
+                        {lang !== currentLang ? (
                           <Link
                             to={
                               translation
@@ -167,8 +168,8 @@ function CclLanguageSelector(props) {
             </div>
           </div>
         </CclModal>
-      </div >
-    </div >
+      </div>
+    </div>
   ) : (
     <Helmet>
       <html lang={config.settings.defaultLanguage} />
@@ -181,7 +182,7 @@ CclLanguageSelector.propTypes = {
 };
 
 CclLanguageSelector.defaultProps = {
-  onClickAction: () => { },
+  onClickAction: () => {},
 };
 
 export default CclLanguageSelector;

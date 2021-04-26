@@ -10,6 +10,9 @@ const CclExpandableFilter = (props) => {
         className="ccl-dropdown__link  ccl-expandable__button"
         aria-expanded={expanded}
         onClick={() => setExpanded(!expanded)}
+        onKeyDown={() => setExpanded(!expanded)}
+        tabIndex="0"
+        role="button"
       >
         {title}
       </div>

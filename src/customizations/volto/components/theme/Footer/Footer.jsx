@@ -5,15 +5,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Image,
-  Container,
-  List,
-  Segment,
-  Input,
-  Button,
-} from 'semantic-ui-react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { Image, Button } from 'semantic-ui-react';
+import { injectIntl } from 'react-intl';
 
 import CopernicusImage from '@eea/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
 import AtmosphereImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
@@ -28,20 +21,13 @@ import EEAImage from '@eea/volto-clms-theme/../theme/clms/img/ec-logo-white.svg'
 import CclFooterBlock from '@eea/volto-clms-theme/components/CclFooterBlock/CclFooterBlock';
 import './footer.less';
 
-const messages = defineMessages({
-  copyright: {
-    id: 'Copyright',
-    defaultMessage: 'Copyright',
-  },
-});
-
 /**
  * Component to display the footer.
  * @function Footer
  * @param {Object} intl Intl object
  * @returns {string} Markup of the component
  */
-const Footer = ({ intl }) => (
+const Footer = () => (
   <footer className="ccl-footer">
     <div className="ccl-footer-main">
       <div className="ccl-footer-logo">
