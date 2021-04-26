@@ -1,31 +1,50 @@
-import React from 'react';
+import React, { useState }  from 'react';
 
 import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { searchContent } from '@plone/volto/actions';
 
 const CclCardContainerBlockView = props => {
-    const card = {
-      "title": "Product Title 11",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    }
-    var cards = props.metadata ? props.metadata.items : props.properties.items
+    const {data, metadata, properties, id} = props;
 
-    return <div className="card-container">
-        {props.data.customCards ? (
-            <>
-                <CclCard type={props.data.cardStyle || "line"} card={card} />
-                <CclCard type={props.data.cardStyle || "line"} card={card} />
-            </>
-        ) : (
-            cards && cards.map((card)=>(
-                    <CclCard type={props.data.cardStyle || "line"} card={card} />
+    const searchSubrequests = useSelector(state => state.search.subrequests);
+    const dispatch = useDispatch();
+    let cards = searchSubrequests?.[props.id]?.items;
+    
+    let path = ""
+    if (data.cardOrigin == "current") {
+        path = metadata ? (metadata.['@id']) : (properties.['@id'])
+    } else if (data.cardOrigin == "selection"){
+        path = data.containerSelection ? data.containerSelection[0].['@id'] : ""
+    } else if (data.cardOrigin = "custom"){
+        cards = data.customCards.blocks_layout.items.map((uid) => (
+            data.customCards.blocks.[uid]
+        ))
+    }
+
+    let portal_type = data.contentTypes?.length > 0 ? {portal_type: data.contentTypes} : {}
+    React.useEffect(() => {
+        dispatch(
+          searchContent(
+            path,
+            {
+              sort_on: 'effective',
+              sort_order: 'reverse',
+              fullobjects: 1,
+              ...portal_type,
+            },
+            id,
+          ),
+        );
+    }, [dispatch, id]);
+
+    var cardStyle = data.cardStyle || "line"
+    return <div className={cardStyle === "line" || cardStyle === "doc" ? "" : "card-container"}>
+        {
+            cards && cards.map((card, index)=>(
+                    <CclCard key={index} type={cardStyle} card={card} />
                 ))
-            
-        )}
+        }
         </div>;
 };
 

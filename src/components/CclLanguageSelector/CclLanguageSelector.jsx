@@ -9,16 +9,13 @@ import { Link } from 'react-router-dom';
 import cookie from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
-import { find, map } from 'lodash';
+import { find } from 'lodash';
 import { updateIntl } from 'react-intl-redux';
 import langmap from 'langmap';
 import { Helmet } from '@plone/volto/helpers';
-import {useEffect} from 'react';
 import config from '@plone/volto/registry';
-
 import { flattenToAppURL } from '@plone/volto/helpers';
-
-import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal'; 
+import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal';
 import { FormattedMessage } from 'react-intl';
 
 let locales = {};
@@ -35,7 +32,7 @@ function CclLanguageSelector(props) {
   const dispatch = useDispatch();
   const currentLang = useSelector((state) => state.intl.locale);
   const translations = useSelector(
-    (state) => state.content.data?.['@components']?.translations?.items,
+    (state) => state.content.data?.['@components']?.translations?.items
   );
 
   function changeLanguage(language) {
@@ -48,119 +45,143 @@ function CclLanguageSelector(props) {
       updateIntl({
         locale: language,
         messages: locales[language],
-      }),
+      })
     );
   }
 
   return config.settings.isMultilingual ? (
     <div className="ccl-header-lang">
+      <CclModal
+        trigger={
+          <div className="header-lang-icon">
+            <i className="ccl-icon-language"></i>
+            <span className="header-lang-code">{currentLang}</span>
+          </div>}
+        size="fullscreen"
+      >
+        <div className="ccl-container">
+          <div className="modal-language-header">
+            <div className="modal-language-title">
+              <i className="ccl-icon-language"></i>
+              <h3 className="modal-title">
+                <FormattedMessage
+                  id="Select your language"
+                  defaultMessage="Select your language"
+                />
+              </h3>
+            </div>
+          </div>
+          <div className="modal-language-body">
+            <div className="language-list">
+              {config.settings.supportedLanguages.map((lang) => {
+                const translation = find(translations, { language: lang });
+                return (
+                  <div
+                    key={lang}
+                    className={cx(lang, 'language-item', {
+                      'language-item-selected': lang === currentLang,
+                    })}
+                  >
+                    <span className="language-link" lang-code={lang}>
+                      {lang != currentLang ? (
+                        <Link
+                          to={
+                            translation
+                              ? flattenToAppURL(translation['@id'])
+                              : `/${lang}`
+                          }
+                          title={langmap[lang].nativeName}
+                          onClick={() => {
+                            props.onClickAction();
+                            changeLanguage(lang);
+                          }}
+                          key={`language-selector-${lang}`}
+                        >
+                          {langmap[lang].nativeName}
+                        </Link>
+                      ) : (
+                        langmap[lang].nativeName
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </CclModal>
 
-    <CclModal 
-            trigger=<div className="header-lang-icon">
-        <i className="ccl-icon-language"></i>
-        <span className="header-lang-code">{currentLang}</span>
-      </div>
-            size="fullscreen"
-          >
-          <div className="ccl-container">
-            <div className="modal-language-header">
-              <div className="modal-language-title">
-                <i className="ccl-icon-language"></i>
-                <h3 className="modal-title" >      
-                  <FormattedMessage id="Select your language" defaultMessage="Select your language" />
-                </h3>
-              </div>
-            </div>
-            <div className="modal-language-body">
-              <div className="language-list">
-              {config.settings.supportedLanguages.map((lang) => {
-                const translation = find(translations, { language: lang });
-                return (
-                  <div key={lang} className={cx(lang, 'language-item', {'language-item-selected': lang === currentLang })}>
-                    <span className="language-link" lang-code={lang}>
-                      { lang!=currentLang ? 
-                        <Link
-                          to={translation ? flattenToAppURL(translation['@id']) : `/${lang}`}
-                          title={langmap[lang].nativeName}
-                          onClick={() => {
-                            props.onClickAction();
-                            changeLanguage(lang);
-                          }}
-                          key={`language-selector-${lang}`}
-                        >
-                          {langmap[lang].nativeName}
-                        </Link>
-                        :
-                          langmap[lang].nativeName
-                      }
-                    </span>
-                  </div>
-                );
-              })}
-              </div>
-            </div>
-          </div>
-        </CclModal>
-      
       <div className="header-lang-text">
-        <CclModal 
-            trigger=<span>{langmap[currentLang].nativeName}</span>
-            size="fullscreen"
-          >
+        <CclModal
+          trigger={<span>{langmap[currentLang].nativeName}</span>}
+          size="fullscreen"
+        >
           <div className="ccl-container">
             <div className="modal-language-header">
               <div className="modal-language-title">
                 <i className="ccl-icon-language"></i>
-                <h3 className="modal-title" >      
-                  <FormattedMessage id="Select your language" defaultMessage="Select your language" />
+                <h3 className="modal-title">
+                  <FormattedMessage
+                    id="Select your language"
+                    defaultMessage="Select your language"
+                  />
                 </h3>
               </div>
             </div>
             <div className="modal-language-body">
               <div className="language-list">
-              {config.settings.supportedLanguages.map((lang) => {
-                const translation = find(translations, { language: lang });
-                return (
-                  <div key={lang} className={cx(lang, 'language-item', {'language-item-selected': lang === currentLang })}>
-                    <span className="language-link" lang-code={lang}>
-                      { lang!=currentLang ? 
-                        <Link
-                          to={translation ? flattenToAppURL(translation['@id']) : `/${lang}`}
-                          title={langmap[lang].nativeName}
-                          onClick={() => {
-                            props.onClickAction();
-                            changeLanguage(lang);
-                          }}
-                          key={`language-selector-${lang}`}
-                        >
-                          {langmap[lang].nativeName}
-                        </Link>
-                        :
+                {config.settings.supportedLanguages.map((lang) => {
+                  const translation = find(translations, { language: lang });
+                  return (
+                    <div
+                      key={lang}
+                      className={cx(lang, 'language-item', {
+                        'language-item-selected': lang === currentLang,
+                      })}
+                    >
+                      <span className="language-link" lang-code={lang}>
+                        {lang != currentLang ? (
+                          <Link
+                            to={
+                              translation
+                                ? flattenToAppURL(translation['@id'])
+                                : `/${lang}`
+                            }
+                            title={langmap[lang].nativeName}
+                            onClick={() => {
+                              props.onClickAction();
+                              changeLanguage(lang);
+                            }}
+                            key={`language-selector-${lang}`}
+                          >
+                            {langmap[lang].nativeName}
+                          </Link>
+                        ) : (
                           langmap[lang].nativeName
-                      }
-                    </span>
-                  </div>
-                );
-              })}
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </CclModal>
-      </div>
-    </div>
+      </div >
+    </div >
   ) : (
     <Helmet>
       <html lang={config.settings.defaultLanguage} />
     </Helmet>
   );
-};
+}
 
 CclLanguageSelector.propTypes = {
   onClickAction: PropTypes.func,
 };
 
 CclLanguageSelector.defaultProps = {
-  onClickAction: () => {},
+  onClickAction: () => { },
 };
 
 export default CclLanguageSelector;

@@ -6,50 +6,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
-
 import { Container, Image } from 'semantic-ui-react';
-
 import ContextNavigationComponent from '@plone/volto/components/theme/Navigation/ContextNavigation';
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
+import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
 
 /**
     this cards elements are used for testing until we have real contentTypes
   **/
-  var cards = [
-    {
-      "title": "Product Title 11",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    },{
-      "title": "Product Title 2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    },{
-      "title": "Product Title 3",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    },{
-      "title": "Product Title 4",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
+var cards = [
+  {
+    title: 'Product Title 11',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+    image: {
+      src:
+        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+      alt: 'Image alt text',
     },
-  ]
+    absolute_url: '/en/product-portfolio/how-our-products-are-created',
+  },
+  {
+    title: 'Product Title 2',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+    image: {
+      src:
+        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+      alt: 'Image alt text',
+    },
+    absolute_url: '/en/product-portfolio/how-our-products-are-created',
+  },
+  {
+    title: 'Product Title 3',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+    image: {
+      src:
+        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+      alt: 'Image alt text',
+    },
+    absolute_url: '/en/product-portfolio/how-our-products-are-created',
+  },
+  {
+    title: 'Product Title 4',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+    image: {
+      src:
+        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+      alt: 'Image alt text',
+    },
+    absolute_url: '/en/product-portfolio/how-our-products-are-created',
+  },
+];
 
 /**
  * Component to display the default view.
@@ -67,9 +76,7 @@ const CLMSDocumentView = ({ content, intl, location }) => {
         </div>
         <div className="rigth-content cont-w-75">
           <div className="product-block">
-            {content.description && (
-              <h2>{content.description}</h2>
-            )}
+            {content.description && <h2>{content.description}</h2>}
             {content.image && (
               <Image
                 className="document-image"
@@ -91,15 +98,13 @@ const CLMSDocumentView = ({ content, intl, location }) => {
               />
             )}
           </div>
-          {cards && 
+          {cards && (
             <div className="card-container">
               {cards.map((card, index) => (
-                <CclCard key={index} type={"line"} card={card} />
-                ))
-              }
+                <CclCard key={index} type={'line'} card={card} />
+              ))}
             </div>
-
-          }
+          )}
         </div>
       </div>
     </Container>

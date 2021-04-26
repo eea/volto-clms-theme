@@ -5,7 +5,14 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Image, Container, List, Segment, Input, Button } from 'semantic-ui-react';
+import {
+  Image,
+  Container,
+  List,
+  Segment,
+  Input,
+  Button,
+} from 'semantic-ui-react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 
 import CopernicusImage from '@eea/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
@@ -18,10 +25,8 @@ import EmergencyImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-eme
 import ECImage from '@eea/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import EEAImage from '@eea/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
 
-
-
 import CclFooterBlock from '@eea/volto-clms-theme/components/CclFooterBlock/CclFooterBlock';
-import "./footer.less";
+import './footer.less';
 
 const messages = defineMessages({
   copyright: {
@@ -51,49 +56,49 @@ const Footer = ({ intl }) => (
       <div className="ccl-container ccl-container-flex">
         <CclFooterBlock title={'Copernicus Services'}>
           <div className="ccl-footer-services">
-            <div className='ccl-footer-services-row'>
-              <Link to="#" className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-atmosphere">
-                <Image
-                  src={AtmosphereImage}
-                  height={60}
-                />
+            <div className="ccl-footer-services-row">
+              <Link
+                to="#"
+                className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-atmosphere"
+              >
+                <Image src={AtmosphereImage} height={60} />
                 <span>Atmosphere</span>
               </Link>
-              <Link to="#" className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-marine">
-                <Image
-                  src={MarineImage}
-                  height={60}
-                />
+              <Link
+                to="#"
+                className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-marine"
+              >
+                <Image src={MarineImage} height={60} />
                 <span>Marine</span>
               </Link>
-              <Link to="#" className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-land">
-                <Image
-                  src={LandImage}
-                  height={60}
-                />
+              <Link
+                to="#"
+                className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-land"
+              >
+                <Image src={LandImage} height={60} />
                 <span>Land</span>
               </Link>
             </div>
-            <div className='ccl-footer-services-row'>
-              <Link to="#" className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-security">
-                <Image
-                  src={SecurityImage}
-                  height={60}
-                />
+            <div className="ccl-footer-services-row">
+              <Link
+                to="#"
+                className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-security"
+              >
+                <Image src={SecurityImage} height={60} />
                 <span>Security</span>
               </Link>
-              <Link to="#" className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-climate">
-                <Image
-                  src={ClimateImage}
-                  height={60}
-                />
+              <Link
+                to="#"
+                className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-climate"
+              >
+                <Image src={ClimateImage} height={60} />
                 <span>Climate Change</span>
               </Link>
-              <Link to="#" className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-emergency">
-                <Image
-                  src={EmergencyImage}
-                  height={60}
-                />
+              <Link
+                to="#"
+                className="ccl-service-button ccl-service-button-link ccl-service-button-w ccl-service-button-emergency"
+              >
+                <Image src={EmergencyImage} height={60} />
                 <span>Emergency</span>
               </Link>
             </div>
@@ -103,17 +108,29 @@ const Footer = ({ intl }) => (
           <form action="" className="ccl-form">
             <div className="ccl-footer-form">
               <div className="ccl-footer-newsletter">
-                <input placeholder='Enter an email adress' type="text" />
+                <input placeholder="Enter an email adress" type="text" />
                 <Button>Subscribe</Button>
               </div>
             </div>
 
-            <div >
+            <div>
               <div className="ccl-form-group">
-                <input type="checkbox" id="footer_privacy" name="footerPrivacy" value=""
-                  className="ccl-checkbox  ccl-form-check-input" aria-required="true" />
-                <label className="ccl-form-check-label" htmlFor="footer_privacy">
-                  I agree to the <a href="./personal-data-protection.html" target="_blank">privacy policy.</a>
+                <input
+                  type="checkbox"
+                  id="footer_privacy"
+                  name="footerPrivacy"
+                  value=""
+                  className="ccl-checkbox  ccl-form-check-input"
+                  required={true}
+                />
+                <label
+                  className="ccl-form-check-label"
+                  htmlFor="footer_privacy"
+                >
+                  I agree to the{' '}
+                  <a href="./personal-data-protection.html" target="_blank">
+                    privacy policy.
+                  </a>
                 </label>
               </div>
             </div>
@@ -121,30 +138,47 @@ const Footer = ({ intl }) => (
 
           <h3 className="ccl-footer-column-title">Follow us</h3>
           <div className="ccl-footer-social">
-            <a href="https://www.youtube.com/channel/UCpuwnbuwGG20enAdE50g6TA" target="_blank" rel="noreferrer" aria-label="Youtube"><span className="ccl-icon-youtube"></span></a>
-            <a href="https://twitter.com/CopernicusLand" target="_blank" rel="noreferrer" aria-label="Twitter"><span className="ccl-icon-twitter"></span></a>
-            <a href="https://www.facebook.com/CopernicusEU" target="_blank" rel="noreferrer" aria-label="Facebook"><span className="ccl-icon-facebook"></span></a>
+            <a
+              href="https://www.youtube.com/channel/UCpuwnbuwGG20enAdE50g6TA"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Youtube"
+            >
+              <span className="ccl-icon-youtube"></span>
+            </a>
+            <a
+              href="https://twitter.com/CopernicusLand"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Twitter"
+            >
+              <span className="ccl-icon-twitter"></span>
+            </a>
+            <a
+              href="https://www.facebook.com/CopernicusEU"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+            >
+              <span className="ccl-icon-facebook"></span>
+            </a>
           </div>
         </CclFooterBlock>
         <CclFooterBlock title={'Implemented by'}>
           <div className="footer-implemented footer-implemented-eea">
             <Link to="#" className="ccl-svg ccl-service-button-icon">
-              <Image
-                src={ECImage}
-                height={70}
-              />
+              <Image src={ECImage} height={70} />
             </Link>
           </div>
           <div className="footer-implemented footer-implemented-ec">
             <Link to="#" className="ccl-svg ccl-service-button-icon">
-              <Image
-                src={EEAImage}
-                height={90}
-              />
+              <Image src={EEAImage} height={90} />
             </Link>
             <span>DG Joint Research Center</span>
           </div>
-          <h3 className="ccl-footer-column-title">Expert support provided by</h3>
+          <h3 className="ccl-footer-column-title">
+            Expert support provided by
+          </h3>
           <p>EIONET Action Group on Land monitoring in Europe (EAGLE)</p>
         </CclFooterBlock>
       </div>
@@ -154,23 +188,33 @@ const Footer = ({ intl }) => (
     <div className="ccl-footer-bottom">
       <ul className="ccl-footer-legal">
         <li>
-          <a className="ccl-link" href="./disclaimer.html">Disclaimer</a>
+          <a className="ccl-link" href="./disclaimer.html">
+            Disclaimer
+          </a>
         </li>
         <li>
-          <a className="ccl-link" href="./data-policy.html">Data policy</a>
+          <a className="ccl-link" href="./data-policy.html">
+            Data policy
+          </a>
         </li>
         <li>
-          <a className="ccl-link" href="./personal-data-protection.html">Personal data protection</a>
+          <a className="ccl-link" href="./personal-data-protection.html">
+            Personal data protection
+          </a>
         </li>
         <li>
-          <a className="ccl-link" href="./cookies.html">Cookies</a>
+          <a className="ccl-link" href="./cookies.html">
+            Cookies
+          </a>
         </li>
         <li>
-          <a className="ccl-link" href="./sitemap.html">Sitemap</a>
+          <a className="ccl-link" href="./sitemap.html">
+            Sitemap
+          </a>
         </li>
       </ul>
     </div>
-  </footer >
+  </footer>
 );
 
 /**
