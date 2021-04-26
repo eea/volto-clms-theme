@@ -5,9 +5,9 @@ export const emptyCard = (count) => {
   for (let x = 0; x < count; x++) {
     const id = uuid();
     blocks[id] = {};
-    blocks[id].title='Custom title ' + x;
-    blocks[id].description='Custom description for the card ' + x;
-    blocks[id].['@type']='customCard';
+    blocks[id].title = 'Custom title ' + x;
+    blocks[id].description = 'Custom description for the card ' + x;
+    blocks[id]['@type'] = 'customCard';
     items.push(id);
   }
 

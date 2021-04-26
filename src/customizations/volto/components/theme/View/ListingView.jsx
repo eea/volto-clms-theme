@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
-import CclVerticalFilterMenu from '@eea/volto-clms-theme/components/CclVerticalFilterMenu/CclVerticalFilterMenu';
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
+import CclVerticalFilterMenu from '@eeacms/volto-clms-theme/components/CclVerticalFilterMenu/CclVerticalFilterMenu';
 
 const messages = defineMessages({
   datasetSearchPlaceholder: {
