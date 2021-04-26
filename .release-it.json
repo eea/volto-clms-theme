@@ -5,7 +5,7 @@
     "git.requireCommits": true
   },
   "github": {
-    "release": true,
+    "release": false,
     "releaseName": "${version}",
     "releaseNotes": "npx auto-changelog --stdout --sort-commits date --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
   },
