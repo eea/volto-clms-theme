@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
-import CclButton from '@eea/volto-clms-theme/components/CclButton/CclButton';
-import { CclTabs } from '@eea/volto-clms-theme/components/CclTab';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
 import {
   mockDatabaseInfo,
   mockMetadata,

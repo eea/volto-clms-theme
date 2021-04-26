@@ -3,26 +3,16 @@
  * @module components/theme/Header/Header
  */
 
-import React, { Component, Link } from 'react';
-import { Container, Segment, List, Dropdown } from 'semantic-ui-react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  Anontools,
-  Logo,
-  Navigation,
-  SearchWidget,
-} from '@plone/volto/components';
+import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 
-import { BodyClass, isCmsUi } from '@plone/volto/helpers';
-import split from 'lodash/split';
-import join from 'lodash/join';
-import trim from 'lodash/trim';
-import cx from 'classnames';
+import { BodyClass } from '@plone/volto/helpers';
 
-import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal';
-import CclLanguageSelector from '@eea/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 
 import './header.less';
 /**
@@ -64,7 +54,7 @@ class Header extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const isCmsUI = isCmsUi(this.props.pathname);
+    // const isCmsUI = isCmsUi(this.props.pathname);
     return (
       <header className="ccl-header">
         {/* Body class depending on sections */}
@@ -77,6 +67,11 @@ class Header extends Component {
               onClick={() =>
                 this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen })
               }
+              onKeyDown={() =>
+                this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen })
+              }
+              tabIndex="0"
+              role="button"
             >
               <span className="ccl-icon-menu"></span>
             </div>
@@ -87,38 +82,43 @@ class Header extends Component {
                   mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,
                 })
               }
+              onKeyDown={() =>
+                this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen })
+              }
+              tabIndex="0"
+              role="button"
             >
               <span className="ccl-icon-zoom"></span>
             </div>
             <div className="ccl-header-tools-container">
               <ul className="ccl-header-menu-tools">
                 <li className="header-dropdown">
-                  <a href="#">
+                  <a href="/news">
                     News <span className="ccl-icon-chevron-thin-down"></span>
                   </a>
                   <ul>
                     <li>
-                      <a href="#">Newsletter</a>
+                      <a href="/newsletter">Newsletter</a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <a href="#">Work opportunities</a>
+                  <a href="/work-opportunities">Work opportunities</a>
                 </li>
                 <li className="header-dropdown">
-                  <a href="#">
+                  <a href="/technical-support">
                     Technical support{' '}
                     <span className="ccl-icon-chevron-thin-down"></span>
                   </a>
                   <ul>
                     <li>
-                      <a href="#">FAQs</a>
+                      <a href="/faqs">FAQs</a>
                     </li>
                     <li>
-                      <a href="#">Write to service desk</a>
+                      <a href="/write-to-service-desk">Write to service desk</a>
                     </li>
                     <li>
-                      <a href="#">How-to guides</a>
+                      <a href="/how-to-guides">How-to guides</a>
                     </li>
                   </ul>
                 </li>
@@ -180,6 +180,9 @@ class Header extends Component {
               </ul>
               <div
                 onMouseOut={(e) => {
+                  this.setState({ mobileSearchBoxOpen: false });
+                }}
+                onBlur={(e) => {
                   this.setState({ mobileSearchBoxOpen: false });
                 }}
                 className={

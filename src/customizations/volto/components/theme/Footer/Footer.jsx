@@ -5,35 +5,21 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Image,
-  Container,
-  List,
-  Segment,
-  Input,
-  Button,
-} from 'semantic-ui-react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { Image, Button } from 'semantic-ui-react';
+import { injectIntl } from 'react-intl';
 
-import CopernicusImage from '@eea/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
-import AtmosphereImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
-import MarineImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
-import LandImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
-import SecurityImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
-import ClimateImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
-import EmergencyImage from '@eea/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
-import ECImage from '@eea/volto-clms-theme/../theme/clms/img/eea-logo.svg';
-import EEAImage from '@eea/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
+import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
+import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
+import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
+import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
+import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
+import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
+import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
+import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
+import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
 
-import CclFooterBlock from '@eea/volto-clms-theme/components/CclFooterBlock/CclFooterBlock';
+import CclFooterBlock from '@eeacms/volto-clms-theme/components/CclFooterBlock/CclFooterBlock';
 import './footer.less';
-
-const messages = defineMessages({
-  copyright: {
-    id: 'Copyright',
-    defaultMessage: 'Copyright',
-  },
-});
 
 /**
  * Component to display the footer.
@@ -41,7 +27,7 @@ const messages = defineMessages({
  * @param {Object} intl Intl object
  * @returns {string} Markup of the component
  */
-const Footer = ({ intl }) => (
+const Footer = () => (
   <footer className="ccl-footer">
     <div className="ccl-footer-main">
       <div className="ccl-footer-logo">

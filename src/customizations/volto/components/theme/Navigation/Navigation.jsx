@@ -8,24 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { NavLink } from 'react-router-dom';
-import { defineMessages, injectIntl } from 'react-intl';
-import { Menu } from 'semantic-ui-react';
-import cx from 'classnames';
+import { injectIntl } from 'react-intl';
 import { getBaseUrl } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 
 import { getNavigation } from '@plone/volto/actions';
-
-const messages = defineMessages({
-  closeMobileMenu: {
-    id: 'Close menu',
-    defaultMessage: 'Close menu',
-  },
-  openMobileMenu: {
-    id: 'Open menu',
-    defaultMessage: 'Open menu',
-  },
-});
 
 /**
  * Navigation container class.
