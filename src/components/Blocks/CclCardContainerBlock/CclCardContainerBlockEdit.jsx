@@ -88,15 +88,7 @@ const CclCardContainerBlockEdit = (props) => {
     if (!selected) {
       setSelectedBlock(-1);
     }
-  }, [
-    block,
-    data,
-    selected,
-    onChangeBlock,
-    setSelectedBlock,
-    properties,
-    data?.customCards,
-  ]);
+  }, []);
 
   let extras = [];
   if (data.cardOrigin === 'selection') {

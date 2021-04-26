@@ -37,7 +37,7 @@ const CclCardContainerBlockView = (props) => {
         id,
       ),
     );
-  }, [dispatch, id, path, portal_type]);
+  }, []);
 
   var cardStyle = data.cardStyle || 'line';
   return (
