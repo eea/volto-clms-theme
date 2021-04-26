@@ -1,5 +1,5 @@
 import React from 'react';
-import CclExpandableFilter from '@eea/volto-clms-theme/components/CclExpandableFilter/CclExpandableFilter';
+import CclExpandableFilter from '@eeacms/volto-clms-theme/components/CclExpandableFilter/CclExpandableFilter';
 
 const CclVerticalFilterMenu = (props) => {
   let { filters } = props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
 import { SidebarPortal } from '@plone/volto/components';
 import { CardBlockSchema } from './CardBlockSchema';

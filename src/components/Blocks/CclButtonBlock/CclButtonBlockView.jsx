@@ -1,5 +1,5 @@
 import React from 'react';
-import CclButton from '@eea/volto-clms-theme/components/CclButton/CclButton';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 const CclButtonBlockView = (props) => {
   const { data } = props;

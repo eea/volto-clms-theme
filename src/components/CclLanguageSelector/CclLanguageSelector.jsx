@@ -15,7 +15,7 @@ import langmap from 'langmap';
 import { Helmet } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 import { flattenToAppURL } from '@plone/volto/helpers';
-import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { FormattedMessage } from 'react-intl';
 
 let locales = {};

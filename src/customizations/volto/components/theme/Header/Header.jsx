@@ -11,8 +11,8 @@ import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 
 import { BodyClass } from '@plone/volto/helpers';
 
-import CclModal from '@eea/volto-clms-theme/components/CclModal/CclModal';
-import CclLanguageSelector from '@eea/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 
 import './header.less';
 /**

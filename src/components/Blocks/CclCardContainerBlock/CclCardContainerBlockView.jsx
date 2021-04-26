@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard';
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchContent } from '@plone/volto/actions';
 
