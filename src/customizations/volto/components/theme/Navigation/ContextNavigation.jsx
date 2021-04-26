@@ -5,20 +5,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
-import { defineMessages, useIntl } from 'react-intl';
 
 import { flattenToAppURL } from '@plone/volto/helpers';
-import { Icon } from '@plone/volto/components';
 import { withContentNavigation } from '@plone/volto/components/theme/Navigation/withContentNavigation';
-
-import leftIcon from '@plone/volto/icons/left-key.svg';
-
-const messages = defineMessages({
-  navigation: {
-    id: 'Navigation',
-    defaultMessage: 'Navigation',
-  },
-});
 
 function renderNode(node, level) {
   return (
@@ -49,7 +38,6 @@ function renderNode(node, level) {
 export function ContextNavigationComponent(props) {
   const { navigation = {} } = props;
   const { items = [] } = navigation;
-  const intl = useIntl();
 
   return items.length ? (
     <nav className="left-menu">{items.map(renderNode)}</nav>

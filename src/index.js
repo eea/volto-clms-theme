@@ -1,20 +1,20 @@
-import CLMSDocumentView from '@eea/volto-clms-theme/components/CLMSDocumentView/CLMSDocumentView';
-import CLMSDatasetDetailView from '@eea/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
+import CLMSDocumentView from '@eeacms/volto-clms-theme/components/CLMSDocumentView/CLMSDocumentView';
+import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 
-import CclContextNavigationBlockView from '@eea/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockView';
-import CclContextNavigationBlockEdit from '@eea/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockEdit';
+import CclContextNavigationBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockView';
+import CclContextNavigationBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockEdit';
 import navSVG from '@plone/volto/icons/nav.svg';
 
-import CclCardContainerBlockView from '@eea/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockView';
-import CclCardContainerBlockEdit from '@eea/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockEdit';
+import CclCardContainerBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockView';
+import CclCardContainerBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockEdit';
 import containerSVG from '@plone/volto/icons/apps.svg';
 
-import CclButtonBlockView from '@eea/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockView';
-import CclButtonBlockEdit from '@eea/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockEdit';
+import CclButtonBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockView';
+import CclButtonBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockEdit';
 import linkSVG from '@plone/volto/icons/link.svg';
 
-import CclCardBlockView from '@eea/volto-clms-theme/components/Blocks/CclCardBlock/CclCardBlockView';
-import CclCardBlockEdit from '@eea/volto-clms-theme/components/Blocks/CclCardBlock/CclCardBlockEdit';
+import CclCardBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclCardBlock/CclCardBlockView';
+import CclCardBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclCardBlock/CclCardBlockEdit';
 import cardSVG from '@plone/volto/icons/indent.svg';
 
 import Schema from '@plone/volto/components/manage/Blocks/Block/Schema';

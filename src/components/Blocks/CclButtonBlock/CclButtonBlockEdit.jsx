@@ -1,5 +1,5 @@
 import React from 'react';
-import CclButton from '@eea/volto-clms-theme/components/CclButton/CclButton';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { cclButtonSchema } from './Schema';
