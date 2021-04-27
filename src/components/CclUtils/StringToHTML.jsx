@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * Citation component doc.
+ * StringToHTML component doc.
  * @function StringToHTML
  * @param {string} string string to parse to html.
- * @param {boolean} marginBottom Default: false.
- * @param {node} children Add any html element.
- * @example <StringToHTML string="<p>Validation status</p>"/>
+ * @example <StringToHTML string="<p>HTML String</p>"/>
  *
  */
 function StringToHTML({ string }) {
