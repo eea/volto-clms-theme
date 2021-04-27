@@ -65,10 +65,7 @@
     "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'",
     "cypress:run": "../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "../../../node_modules/cypress/bin/cypress open",
-    "devel:stylelint": "./node_modules/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'",
-    "devel:stylelint:fix": "yarn devel:stylelint --fix",
-    "devel:lint": "./node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
-    "devel:lint:fix": "./node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'"
+    "precommit": "yarn stylelint && yarn prettier && yarn lint"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
