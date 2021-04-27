@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
  * CclInfoDescription component doc.
  * @function CclInfoDescription
  * @param {string} title Header of Citation.
- * @param {boolean} marginBottom Default: false.
- * @param {node} children Add any html element.
+ * @param {string} tooltip Tooltip info text.
+ * @param {string} description Description.
  * @example <CclInfoDescription 
         title="Validation status"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
@@ -14,12 +14,12 @@ import PropTypes from 'prop-types';
       </CclInfoDescription>
  * 
  */
-function CclInfoDescription({ title, description }) {
+function CclInfoDescription({ title, description, tooltip = 'Info' }) {
   return (
     <div className="dataset-info-field">
       <div className="dataset-field-title">
         <h3>{title}</h3>
-        <span className="info-icon" tooltip="Info" direction="up">
+        <span className="info-icon" tooltip={tooltip} direction="up">
           <i className="fas fa-info-circle"></i>
         </span>
       </div>

@@ -5,6 +5,7 @@ import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCita
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DataSetInfoContent = (data) => {
+  console.log('data: ', data);
   return (
     <div>
       <CclCitation title="TITLE" marginBottom={true}>
@@ -12,14 +13,33 @@ const DataSetInfoContent = (data) => {
       </CclCitation>
       <CclInfoContainer>
         <h2>Dataset Info</h2>
-        <CclInfoDescription
-          title="Data resource title"
-          description={data.dataResourceTitle}
-        ></CclInfoDescription>
-        <CclInfoDescription
-          title="Data resource abstract"
-          description={<StringToHTML string={data.dataResourceAbstract.data} />}
-        ></CclInfoDescription>
+
+        {data?.dataResourceAbstract?.data && (
+          <CclInfoDescription
+            title="Data resource title"
+            description={data.dataResourceTitle}
+          ></CclInfoDescription>
+        )}
+
+        {data?.dataResourceAbstract?.data && (
+          <CclInfoDescription
+            title="Data resource abstract"
+            description={
+              <StringToHTML string={data.dataResourceAbstract.data} />
+            }
+            tooltip="Hello word!"
+          ></CclInfoDescription>
+        )}
+
+        {data?.dataSources && (
+          <CclInfoDescription
+            title="Resource type"
+            description={
+              <StringToHTML string={data.dataResourceAbstract.data} />
+            }
+            tooltip="Hello word!"
+          ></CclInfoDescription>
+        )}
       </CclInfoContainer>
     </div>
   );
