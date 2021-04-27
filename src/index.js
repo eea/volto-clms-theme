@@ -165,7 +165,7 @@ const applyConfig = (config) => {
     contentTypesViews: {
       ...config.contentTypesViews,
       Document: CLMSDocumentView,
-      dataset: CLMSDatasetDetailView,
+      DataSet: CLMSDatasetDetailView,
     },
   };
   config.blocks = {
