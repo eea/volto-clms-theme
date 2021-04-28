@@ -40,12 +40,14 @@ const CLMSDatasetDetailView = ({ content }) => {
 
         <div underPanel={true}>
           <nav className="left-menu-detail">
-            <div className="menu-detail-image">
-              <img
-                src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
-                alt="Placeholder"
-              />
-            </div>
+            {content?.image && (
+              <div className="menu-detail-image">
+                <img
+                  src={content?.image?.scales?.mini?.download}
+                  alt="Placeholder"
+                />
+              </div>
+            )}
             <div className="menu-detail-button">
               <CclButton>View dataset on map viewer</CclButton>
             </div>
