@@ -1,1 +1,3 @@
-export StringToHTML from './StringToHTML';
+import StringToHTML from './StringToHTML';
+
+export { StringToHTML };

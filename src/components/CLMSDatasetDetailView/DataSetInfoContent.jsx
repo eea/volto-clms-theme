@@ -5,7 +5,6 @@ import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCita
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DataSetInfoContent = (data) => {
-  console.log('data: ', data);
   return (
     <div>
       <CclCitation title="TITLE" marginBottom={true}>
