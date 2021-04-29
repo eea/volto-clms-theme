@@ -13,6 +13,7 @@ import { BodyClass } from '@plone/volto/helpers';
 
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 
 import './header.less';
 /**
@@ -90,38 +91,10 @@ class Header extends Component {
             >
               <span className="ccl-icon-zoom"></span>
             </div>
+
             <div className="ccl-header-tools-container">
               <ul className="ccl-header-menu-tools">
-                <li className="header-dropdown">
-                  <a href="/news">
-                    News <span className="ccl-icon-chevron-thin-down"></span>
-                  </a>
-                  <ul>
-                    <li>
-                      <a href="/newsletter">Newsletter</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="/work-opportunities">Work opportunities</a>
-                </li>
-                <li className="header-dropdown">
-                  <a href="/technical-support">
-                    Technical support{' '}
-                    <span className="ccl-icon-chevron-thin-down"></span>
-                  </a>
-                  <ul>
-                    <li>
-                      <a href="/faqs">FAQs</a>
-                    </li>
-                    <li>
-                      <a href="/write-to-service-desk">Write to service desk</a>
-                    </li>
-                    <li>
-                      <a href="/how-to-guides">How-to guides</a>
-                    </li>
-                  </ul>
-                </li>
+                <CclTopMainMenu></CclTopMainMenu>
                 <li className="header-vertical-line">
                   <div>|</div>
                 </li>
