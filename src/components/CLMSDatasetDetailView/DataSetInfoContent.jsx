@@ -1,15 +1,17 @@
 import React from 'react';
 import { CclInfoDescription, CclInfoContainer } from '../CclInfoDescription';
-// import CclCitation from '../CclCitation/CclCitation';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DataSetInfoContent = (data) => {
-  console.log('data: ', data);
   return (
     <div>
-      <CclCitation title="TITLE" marginBottom={true}>
-        <p>Kaixo mundua citation</p>
+      <CclCitation title="Validation status (MOCK)" marginBottom={true}>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
+          mauris ante, a iaculis leo placerat quis.
+        </p>
       </CclCitation>
       <CclInfoContainer>
         <h2>Dataset Info</h2>
@@ -31,14 +33,28 @@ const DataSetInfoContent = (data) => {
           ></CclInfoDescription>
         )}
 
-        {data?.dataSources && (
+        {data?.dataSources?.data && (
           <CclInfoDescription
             title="Resource type"
-            description={
-              <StringToHTML string={data.dataResourceAbstract.data} />
-            }
+            description={<StringToHTML string={data.dataSources.data} />}
             tooltip="Hello word!"
           ></CclInfoDescription>
+        )}
+        {data?.dataResourceLocator && (
+          <>
+            <CclInfoDescription
+              title="Resource locator"
+              description={
+                <>
+                  {data.dataResourceLocator}
+                  <br />
+                  <CclButton url={data.dataResourceLocator} target="_blank">
+                    Go to resource locator
+                  </CclButton>
+                </>
+              }
+            ></CclInfoDescription>
+          </>
         )}
       </CclInfoContainer>
     </div>
