@@ -32,7 +32,7 @@ function CclCitation({ title, marginBottom = false, children }) {
 
 CclCitation.propTypes = {
   title: PropTypes.string.isRequired,
-  childen: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
   marginBottom: PropTypes.bool,
 };
 export default CclCitation;

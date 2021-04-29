@@ -6,6 +6,6 @@ function CclInfoContainer({ children }) {
 }
 
 CclInfoContainer.propTypes = {
-  childen: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 export default CclInfoContainer;
