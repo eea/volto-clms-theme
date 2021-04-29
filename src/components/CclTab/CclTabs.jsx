@@ -60,7 +60,9 @@ const CclTabs = (props) => {
             .filter((item) => !!item.props.tabTitle)
             .map((child, index) => {
               return child.props.tabTitle !== activeTab ? (
-                <div key={index} className="deactivate-content">{child.props.children}</div>
+                <div key={index} className="deactivate-content">
+                  {child.props.children}
+                </div>
               ) : (
                 child.props.children
               );
