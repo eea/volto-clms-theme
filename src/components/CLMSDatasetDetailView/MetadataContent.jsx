@@ -6,7 +6,6 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 const MetadataContent = (data) => {
   return (
     <>
-      {/* {JSON.stringify(data)} */}
       <CclButton
         className="ccl-button ccl-button--default download-dataset-metadata"
         url={data['@id']}
