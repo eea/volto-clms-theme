@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * CclInfoDescription component doc.
@@ -20,7 +22,7 @@ function CclInfoDescription({ title, description, tooltip = 'Info' }) {
       <div className="dataset-field-title">
         <h3>{title}</h3>
         <span className="info-icon" tooltip={tooltip} direction="up">
-          <i className="fas fa-info-circle"></i>
+          <FontAwesomeIcon icon={faInfoCircle} />
         </span>
       </div>
       <div className="dataset-field-description">{description}</div>
@@ -30,6 +32,7 @@ function CclInfoDescription({ title, description, tooltip = 'Info' }) {
 
 CclInfoDescription.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+    .isRequired,
 };
 export default CclInfoDescription;
