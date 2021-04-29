@@ -7,12 +7,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
-  mockDatabaseInfo,
-  mockMetadata,
-  mockDownloadDataset,
-} from './mockDatasetInfo';
+  DataSetInfoContent,
+  DownloadDataSetContent,
+  MetadataContent,
+} from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
+
+// import {
+//   mockDatabaseInfo,
+//   mockMetadata,
+//   mockDownloadDataset,
+// } from './mockDatasetInfo';
+// import CclCitation from '../CclCitation/CclCitation';
+// import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 
 /**
  * Full view component class.
@@ -26,19 +34,20 @@ const CLMSDatasetDetailView = ({ content }) => {
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
       <CclTabs>
-        <div tabTitle="Dataset Info">{mockDatabaseInfo()}</div>
-
-        <div tabTitle="Metadata">{mockMetadata()}</div>
-        <div tabTitle="Download dataset">{mockDownloadDataset()}</div>
+        <div tabTitle="Dataset Info">{DataSetInfoContent(content)}</div>
+        <div tabTitle="Metadata">{MetadataContent(content)}</div>
+        <div tabTitle="Download dataset">{DownloadDataSetContent(content)}</div>
 
         <div underPanel={true}>
           <nav className="left-menu-detail">
-            <div className="menu-detail-image">
-              <img
-                src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
-                alt="Placeholder"
-              />
-            </div>
+            {content?.image && (
+              <div className="menu-detail-image">
+                <img
+                  src={content?.image?.scales?.mini?.download}
+                  alt="Placeholder"
+                />
+              </div>
+            )}
             <div className="menu-detail-button">
               <CclButton>View dataset on map viewer</CclButton>
             </div>

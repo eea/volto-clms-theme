@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -17,7 +17,11 @@
     "type": "git",
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.35",
+    "@fortawesome/free-solid-svg-icons": "5.15.3",
+    "@fortawesome/react-fontawesome": "0.1.14"
+  },
   "prettier": {
     "trailingComma": "all",
     "singleQuote": true,
@@ -65,10 +69,7 @@
     "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'",
     "cypress:run": "../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "../../../node_modules/cypress/bin/cypress open",
-    "devel:stylelint": "./node_modules/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'",
-    "devel:stylelint:fix": "yarn devel:stylelint --fix",
-    "devel:lint": "./node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
-    "devel:lint:fix": "./node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'"
+    "precommit": "yarn stylelint && yarn prettier && yarn lint"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
