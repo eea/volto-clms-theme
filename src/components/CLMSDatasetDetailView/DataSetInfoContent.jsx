@@ -7,7 +7,7 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 const DataSetInfoContent = (data) => {
   return (
     <div>
-      <CclCitation title="Validation status (MOCK)" marginBottom={true}>
+      <CclCitation title="Validation status" marginBottom={true}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
           mauris ante, a iaculis leo placerat quis.
@@ -20,6 +20,7 @@ const DataSetInfoContent = (data) => {
           <CclInfoDescription
             title="Data resource title"
             description={data.dataResourceTitle}
+            tooltip="Name by which the cited resource is known"
           ></CclInfoDescription>
         )}
 
@@ -29,7 +30,7 @@ const DataSetInfoContent = (data) => {
             description={
               <StringToHTML string={data.dataResourceAbstract.data} />
             }
-            tooltip="Hello word!"
+            tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
           ></CclInfoDescription>
         )}
 
@@ -37,7 +38,7 @@ const DataSetInfoContent = (data) => {
           <CclInfoDescription
             title="Resource type"
             description={<StringToHTML string={data.dataSources.data} />}
-            tooltip="Hello word!"
+            tooltip="Scope to which metadata applies."
           ></CclInfoDescription>
         )}
         {data?.dataResourceLocator && (
@@ -46,13 +47,12 @@ const DataSetInfoContent = (data) => {
               title="Resource locator"
               description={
                 <>
-                  {data.dataResourceLocator}
-                  <br />
                   <CclButton url={data.dataResourceLocator} target="_blank">
                     Go to resource locator
                   </CclButton>
                 </>
               }
+              tooltip="URL address to locate the data"
             ></CclInfoDescription>
           </>
         )}
