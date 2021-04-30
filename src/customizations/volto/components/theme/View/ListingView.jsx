@@ -5,10 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Segment, Container, Image } from 'semantic-ui-react';
-
+import { Container } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
+import CclVerticalFilterMenu from '@eeacms/volto-clms-theme/components/CclVerticalFilterMenu/CclVerticalFilterMenu';
+
 const messages = defineMessages({
   datasetSearchPlaceholder: {
     id: 'Search datasets',
@@ -19,9 +20,6 @@ const messages = defineMessages({
     defaultMessage: 'Search',
   },
 });
-import CclCard from '@eea/volto-clms-theme/components/CclCard/CclCard'; 
-import CclVerticalFilterMenu from '@eea/volto-clms-theme/components/CclVerticalFilterMenu/CclVerticalFilterMenu'; 
-import CclExpandableFilter from '@eea/volto-clms-theme/components/CclExpandableFilter/CclExpandableFilter'; 
 
 /**
  * List view component class.
@@ -30,7 +28,6 @@ import CclExpandableFilter from '@eea/volto-clms-theme/components/CclExpandableF
  * @returns {string} Markup of the component.
  */
 const ListingView = ({ content, pathname }) => {
-
   const intl = useIntl();
 
   /**
@@ -38,87 +35,148 @@ const ListingView = ({ content, pathname }) => {
   **/
   var cards = [
     {
-      "title": "Dataset Title 11",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
+      title: 'Dataset Title 11',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+      image: {
+        src:
+          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        alt: 'Image alt text',
       },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    },{
-      "title": "Dataset Title 2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    },{
-      "title": "Dataset Title 3",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
-    },{
-      "title": "Dataset Title 4",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.",
-      "image": {
-        "src": "https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg",
-        "alt": "Image alt text",
-      },
-      "absolute_url": "/en/product-portfolio/how-our-products-are-created",
+      absolute_url: '/en/product-portfolio/how-our-products-are-created',
     },
-  ]
+    {
+      title: 'Dataset Title 2',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+      image: {
+        alt: 'Image alt text',
+      },
+      absolute_url: '/en/product-portfolio/how-our-products-are-created',
+    },
+    {
+      title: 'Dataset Title 3',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+      image: {
+        src:
+          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        alt: 'Image alt text',
+      },
+      absolute_url: '/en/product-portfolio/how-our-products-are-created',
+    },
+    {
+      title: 'Dataset Title 4',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
+      image: {
+        src:
+          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        alt: 'Image alt text',
+      },
+      absolute_url: '/en/product-portfolio/how-our-products-are-created',
+    },
+  ];
   /**
     this cards and filters elements are used for testing until we have real contentTypes
   **/
   var filters = [
     {
-      "title":"Sort By", 
-      "children": <>
-                <div className="ccl-form-group">
-                  <input type="checkbox" id="sort-by-name" name="field_gdpr[value]" value="name" className="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
-                  <label className="ccl-form-check-label" htmlFor="sort-by-name">
-                    <span>Name</span>
-                  </label>
-                </div>
-                <div className="ccl-form-group">
-                  <input type="checkbox" id="sort-by-date" name="field_gdpr[value]" value="date" className="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
-                  <label className="ccl-form-check-label" htmlFor="sort-by-date">
-                    <span>Date</span>
-                  </label>
-                </div>
-               </>, 
+      title: 'Sort By',
+      children: (
+        <>
+          <div className="ccl-form-group">
+            <input
+              type="checkbox"
+              id="sort-by-name"
+              name="field_gdpr[value]"
+              value="name"
+              className="ccl-checkbox ccl-required ccl-form-check-input"
+              required="true"
+            />
+            <label className="ccl-form-check-label" htmlFor="sort-by-name">
+              <span>Name</span>
+            </label>
+          </div>
+          <div className="ccl-form-group">
+            <input
+              type="checkbox"
+              id="sort-by-date"
+              name="field_gdpr[value]"
+              value="date"
+              className="ccl-checkbox ccl-required ccl-form-check-input"
+              required="true"
+            />
+            <label className="ccl-form-check-label" htmlFor="sort-by-date">
+              <span>Date</span>
+            </label>
+          </div>
+        </>
+      ),
     },
     {
-      "title": "Type of resources",
-      "children": <div className="ccl-form-group">
-                  <input type="checkbox" id="resources_" name="field_gdpr[value]" value="..." className="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
-                  <label className="ccl-form-check-label" htmlFor="resources_">...</label>
-                </div>,
+      title: 'Type of resources',
+      children: (
+        <div className="ccl-form-group">
+          <input
+            type="checkbox"
+            id="resources_"
+            name="field_gdpr[value]"
+            value="..."
+            className="ccl-checkbox ccl-required ccl-form-check-input"
+            required="true"
+          />
+          <label className="ccl-form-check-label" htmlFor="resources_">
+            ...
+          </label>
+        </div>
+      ),
     },
     {
-      "title": "GEMET keyword",
-      "children": <div className="ccl-form-group">
-                  <input type="checkbox" id="resources_" name="field_gdpr[value]" value="..." className="ccl-checkbox ccl-required ccl-form-check-input" aria-required="true" />
-                  <label className="ccl-form-check-label" htmlFor="resources_">...</label>
-                </div>,
-    }
-  ]
+      title: 'GEMET keyword',
+      children: (
+        <div className="ccl-form-group">
+          <input
+            type="checkbox"
+            id="resources_"
+            name="field_gdpr[value]"
+            value="..."
+            className="ccl-checkbox ccl-required ccl-form-check-input"
+            required="true"
+          />
+          <label className="ccl-form-check-label" htmlFor="resources_">
+            ...
+          </label>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <Container id="page-home" className="page-section">
       <h1 className="page-title">{content.title}</h1>
       <div className="page-description">{content.description}</div>
       <form className="ccl-form search-form">
-        <input type="text" className="ccl-text-input" id="datasets_search" name="" placeholder={intl.formatMessage(messages.datasetSearchPlaceholder)} aria-label={messages.datasetSearchPlaceholder} />
-        <button className="ccl-button" type="submit" aria-label={intl.formatMessage(messages.search)}>
+        <input
+          type="text"
+          className="ccl-text-input"
+          id="datasets_search"
+          name=""
+          placeholder={intl.formatMessage(messages.datasetSearchPlaceholder)}
+          aria-label={messages.datasetSearchPlaceholder}
+        />
+        <button
+          className="ccl-button"
+          type="submit"
+          aria-label={intl.formatMessage(messages.search)}
+        >
           <span className="ccl-icon-zoom"></span>
         </button>
       </form>
       <div className="search-results">
-        <span>Displaying</span> <span className="search-results-current">1 - 10</span> of <span className="search-results-total"></span>300
+        <span>Displaying</span>{' '}
+        <span className="search-results-current">1 - 10</span> of{' '}
+        <span className="search-results-total"></span>300
       </div>
       <hr />
       <div className="ccl-container ccl-container-flex">
@@ -127,15 +185,15 @@ const ListingView = ({ content, pathname }) => {
         </div>
         <div className="left-content cont-w-75">
           <div className="card-container">
-          {cards.map((card) => (
-            <CclCard key={card['@id']} type="line" card={card} />
-            ))
-          }
+            {cards.map((card) => (
+              <CclCard key={card['@id']} type="line" card={card} />
+            ))}
           </div>
         </div>
       </div>
     </Container>
-  );}
+  );
+};
 
 /**
  * Property types.
