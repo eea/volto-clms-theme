@@ -6,11 +6,15 @@ import './table.less';
 function CclTable(props) {
   const { dataset } = props;
   const type = null;
-  
+
   return (
     <div className="dataset-download-table">
       <h2>{dataset?.title || 'Download table default title'}</h2>
-      <p>Please note that you can only download the latest version of our datasets from this website. If you are looking for older versions please contact us.</p>
+      <p>
+        Please note that you can only download the latest version of our
+        datasets from this website. If you are looking for older versions please
+        contact us.
+      </p>
       <p>{dataset?.description || 'Download table default description'}</p>
       <div className="custom-table dataset-table">
         <table>
@@ -29,7 +33,9 @@ function CclTable(props) {
               <td>{dataset?.year || 'YYYY'}</td>
               <td>{dataset?.resolution || '000m'}</td>
               <td>
-                <span className={"tag tag-" + (type || 'raster')}>{dataset?.datasetType || 'Raster'}</span>
+                <span className={'tag tag-' + (type || 'raster')}>
+                  {dataset?.datasetType || 'Raster'}
+                </span>
               </td>
               <td>{dataset?.format || 'Format'}</td>
               <td>{dataset?.version || 'v0.0'}</td>
@@ -39,7 +45,9 @@ function CclTable(props) {
               <td>{dataset?.year || 'YYYY'}</td>
               <td>{dataset?.resolution || '000m'}</td>
               <td>
-                <span className={"tag tag-" + (type || 'raster')}>{dataset?.datasetType || 'Raster'}</span>
+                <span className={'tag tag-' + (type || 'raster')}>
+                  {dataset?.datasetType || 'Raster'}
+                </span>
               </td>
               <td>{dataset?.format || 'Format'}</td>
               <td>{dataset?.version || 'v0.0'}</td>
@@ -49,7 +57,9 @@ function CclTable(props) {
               <td>{dataset?.year || 'YYYY'}</td>
               <td>{dataset?.resolution || '000m'}</td>
               <td>
-                <span className={"tag tag-" + (type || 'raster')}>{dataset?.datasetType || 'Raster'}</span>
+                <span className={'tag tag-' + (type || 'raster')}>
+                  {dataset?.datasetType || 'Raster'}
+                </span>
               </td>
               <td>{dataset?.format || 'Format'}</td>
               <td>{dataset?.version || 'v0.0'}</td>
@@ -58,7 +68,7 @@ function CclTable(props) {
           </tbody>
         </table>
       </div>
-      <CclButton disabled = {true}>Add to cart</CclButton>
+      <CclButton disabled={true}>Add to cart</CclButton>
     </div>
   );
 }
