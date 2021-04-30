@@ -78,16 +78,17 @@ const DataSetInfoContent = (data) => {
         <h2>Found the dataset in this products</h2>
         <div class="card-container">
           <CclCard
-          type="block"
-          title="Dataset title"
-          description={data.description}
-          image={data.image}
-        ></CclCard><CclCard
-        type="block"
-        title="Dataset title"
-        description={data.description}
-        image={data.image}
-      ></CclCard>    
+            type="block"
+            title="Dataset title"
+            description={data.description}
+            image={data.image}
+          ></CclCard>
+          <CclCard
+            type="block"
+            title="Dataset title"
+            description={data.description}
+            image={data.image}
+          ></CclCard>
         </div>
       </CclInfoContainer>
     </div>
