@@ -4,7 +4,6 @@ import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCita
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-import CclCardContainerBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockView';
 
 const DataSetInfoContent = (data) => {
   return (
