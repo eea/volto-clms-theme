@@ -1,47 +1,97 @@
-import React from 'react'
-import { Image } from 'semantic-ui-react'
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-import "./cards.less"
-
-import { defineMessages, useIntl } from 'react-intl';
-const messages = defineMessages({
-  accessToProduct: {
-    id: 'Access to product',
-    defaultMessage: 'Access to product',
-  },
-});
+import './cards.less';
+import PropTypes from 'prop-types';
 
 function CclCard(props) {
-  var {type, card, children} = props
-  const intl = useIntl();
-
+  const { type, children, card } = props;
+  let url = card ? card['@id'] || card.url || '/' : '/';
   return (
-      <div className={"card-" + type}>
-          <div className="card-image">
-            {card.image && <img src={card.image.src} alt={card.image.alt} /> }
+    <div className={'card-' + (type || 'line')}>
+      {type === 'doc' ? (
+        <>
+          <div className="card-doc-title">
+            {card?.title || 'Card default title'}
           </div>
-        <div className="card-text">
-          <div className="card-title">
-            <a href="./dataset-catalogue/dataset-info.html">{card.title}</a>
-          </div>
-          <div className="card-description">
-            {card.description}
-          </div>
-          {type == 'block' &&
-            <div className="card-button">
-              <Link
-                to={card.absolute_url}
-                className="ccl-button ccl-button--default"
-              >
-                {intl.formatMessage(messages.accessToProduct)}
-              </Link>
+          <div className="card-doc-text">
+            <div className="doc-description">
+              {card?.description || 'Card default description text'}
             </div>
-          }
-          {children}
-        </div>
-      </div>
-  )
+            <div className="card-doc-size">{card?.docInfo || 'DOC'}</div>
+            {children}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="card-image">
+            {card?.image?.scales ? (
+              <img
+                src={card.image.scales.preview.download}
+                alt={card.image.alt}
+              />
+            ) : (
+              <img
+                src={
+                  'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                }
+                alt={'placeholder'}
+              />
+            )}
+          </div>
+          <div className={'card-text'}>
+            <div className="card-title">
+              <Link to={url}>{card?.title || 'Card default title'}</Link>
+            </div>
+            <div className="card-description">
+              {card?.description || 'Card default description text'}
+            </div>
+            {children}
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
-export default CclCard
+/**
+ * Property types.
+ * @property {Object} propTypes Property types.
+ * @static
+ */
+CclCard.propTypes = {
+  type: PropTypes.string,
+  card: PropTypes.shape({
+    '@id': PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    docInfo: PropTypes.string,
+    image: PropTypes.shape({
+      scales: PropTypes.shape({
+        icon: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+        large: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+        listing: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+        mini: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+        preview: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+        thumb: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+        tile: PropTypes.shape({
+          download: PropTypes.string,
+        }),
+      }),
+    }),
+  }),
+  children: PropTypes.node,
+};
+
+export default CclCard;

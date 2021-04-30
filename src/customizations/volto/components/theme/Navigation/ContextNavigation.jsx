@@ -5,38 +5,27 @@ import { Link as RouterLink } from 'react-router-dom';
 import cx from 'classnames';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
-import { defineMessages, useIntl } from 'react-intl';
 
 import { flattenToAppURL } from '@plone/volto/helpers';
-import { Icon } from '@plone/volto/components';
 import { withContentNavigation } from '@plone/volto/components/theme/Navigation/withContentNavigation';
-
-import leftIcon from '@plone/volto/icons/left-key.svg';
-
-const messages = defineMessages({
-  navigation: {
-    id: 'Navigation',
-    defaultMessage: 'Navigation',
-  },
-});
 
 function renderNode(node, level) {
   return (
-    <div className={node.is_current ? "card active" : "card"} key={node['@id']} >
-        <RouterLink
-          to={flattenToAppURL(node.href)}
-          title={node.description}
-          className={cx(`contenttype-${node.type}`, {
-            in_path: node.is_in_path,
-          })}
-        >
-          {node.thumb ? <Image src={flattenToAppURL(node.thumb)} /> : ''}
-          {node.title}
-        </RouterLink>
-        {(node.items?.length && (
-          <List.List>{node.items.map(renderNode)}</List.List>
-        )) ||
-          ''}
+    <div className={node.is_current ? 'card active' : 'card'} key={node['@id']}>
+      <RouterLink
+        to={flattenToAppURL(node.href)}
+        title={node.description}
+        className={cx(`contenttype-${node.type}`, {
+          in_path: node.is_in_path,
+        })}
+      >
+        {node.thumb ? <Image src={flattenToAppURL(node.thumb)} /> : ''}
+        {node.title}
+      </RouterLink>
+      {(node.items?.length && (
+        <List.List>{node.items.map(renderNode)}</List.List>
+      )) ||
+        ''}
     </div>
   );
 }
@@ -49,12 +38,9 @@ function renderNode(node, level) {
 export function ContextNavigationComponent(props) {
   const { navigation = {} } = props;
   const { items = [] } = navigation;
-  const intl = useIntl();
 
   return items.length ? (
-    <nav className="left-menu">
-      {items.map(renderNode)}
-    </nav>
+    <nav className="left-menu">{items.map(renderNode)}</nav>
   ) : (
     ''
   );

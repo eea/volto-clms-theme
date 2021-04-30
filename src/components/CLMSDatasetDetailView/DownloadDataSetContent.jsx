@@ -29,6 +29,7 @@ const DownloadDataSetContent = (data, type) => {
             ></CclTable>
           </div>
   );
+
 };
 
 export default DownloadDataSetContent;

@@ -10,9 +10,6 @@ import { compose } from 'redux';
 import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { Icon } from '@plone/volto/components';
-// import zoomSVG from '@plone/volto/icons/zoom.svg';
-
 const messages = defineMessages({
   search: {
     id: 'Search',
@@ -103,19 +100,26 @@ class SearchWidget extends Component {
    */
   render() {
     return (
-      <Form className="ccl-header-search" action="/search" onSubmit={this.onSubmit}>
-          <Input
-            aria-label={this.props.intl.formatMessage(messages.search)}
-            onChange={this.onChangeText}
-            name="SearchableText"
-            value={this.state.text}
-            autoComplete="off"
-            placeholder={this.props.intl.formatMessage(messages.searchSite)}
-            title={this.props.intl.formatMessage(messages.search)}
-          />
-          <button type="submit" aria-label={this.props.intl.formatMessage(messages.search)}>
-            <span className="ccl-icon-zoom"></span>
-          </button>
+      <Form
+        className="ccl-header-search"
+        action="/search"
+        onSubmit={this.onSubmit}
+      >
+        <Input
+          aria-label={this.props.intl.formatMessage(messages.search)}
+          onChange={this.onChangeText}
+          name="SearchableText"
+          value={this.state.text}
+          autoComplete="off"
+          placeholder={this.props.intl.formatMessage(messages.searchSite)}
+          title={this.props.intl.formatMessage(messages.search)}
+        />
+        <button
+          type="submit"
+          aria-label={this.props.intl.formatMessage(messages.search)}
+        >
+          <span className="ccl-icon-zoom"></span>
+        </button>
       </Form>
     );
   }

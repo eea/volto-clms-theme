@@ -8,24 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { NavLink } from 'react-router-dom';
-import { defineMessages, injectIntl } from 'react-intl';
-import { Menu } from 'semantic-ui-react';
-import cx from 'classnames';
+import { injectIntl } from 'react-intl';
 import { getBaseUrl } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 
 import { getNavigation } from '@plone/volto/actions';
-
-const messages = defineMessages({
-  closeMobileMenu: {
-    id: 'Close menu',
-    defaultMessage: 'Close menu',
-  },
-  openMobileMenu: {
-    id: 'Open menu',
-    defaultMessage: 'Open menu',
-  },
-});
 
 /**
  * Navigation container class.
@@ -122,24 +109,24 @@ class Navigation extends Component {
     const { lang } = this.props;
 
     return (
-        <ul className="ccl-header-main-menu">
-          {this.props.items.map((item) => (
-            <li key={item.url}>
-              <NavLink
-                to={item.url === '' ? '/' : item.url}
-                key={item.url}
-                activeClassName="active"
-                exact={
-                  config.settings.isMultilingual
-                    ? item.url === `/${lang}`
-                    : item.url === ''
-                }
-              >
-                {item.title}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+      <ul className="ccl-header-main-menu">
+        {this.props.items.map((item) => (
+          <li key={item.url}>
+            <NavLink
+              to={item.url === '' ? '/' : item.url}
+              key={item.url}
+              activeClassName="active"
+              exact={
+                config.settings.isMultilingual
+                  ? item.url === `/${lang}`
+                  : item.url === ''
+              }
+            >
+              {item.title}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     );
   }
 }
