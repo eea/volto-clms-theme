@@ -29,12 +29,16 @@ const CclTopMainMenuElement = ({ element, isChildren = false }) => {
     <li className={contents && 'header-dropdown'}>
       {contents ? (
         <>
-          <Link to={element.remoteUrl}>
+          <Link to={element.remoteUrl || element.url}>
             {element.title} <span className="ccl-icon-chevron-thin-down"></span>
           </Link>
           <ul>
-            {contents?.map((element) => (
-              <CclTopMainMenuElement element={element} isChildren={true} />
+            {contents?.map((element, index) => (
+              <CclTopMainMenuElement
+                key={index}
+                element={element}
+                isChildren={true}
+              />
             ))}
           </ul>
         </>

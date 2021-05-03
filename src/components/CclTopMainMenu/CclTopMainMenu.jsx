@@ -18,8 +18,8 @@ const CclTopMainMenu = (props) => {
 
   return (
     <>
-      {contents?.map((element) => (
-        <CclTopMainMenuElement element={element} />
+      {contents?.map((element, index) => (
+        <CclTopMainMenuElement key={index} element={element} />
       ))}
     </>
   );
