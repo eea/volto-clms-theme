@@ -3,6 +3,7 @@ import { CclInfoDescription, CclInfoContainer } from '../CclInfoDescription';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
 const DataSetInfoContent = (data) => {
   return (
@@ -56,6 +57,38 @@ const DataSetInfoContent = (data) => {
             ></CclInfoDescription>
           </>
         )}
+        <div class="dataset-info-documents dropdown">
+          <div class="ccl-expandable__button" aria-expanded="true">
+            <h2>Technical documents (X docs)</h2>
+          </div>
+          <div class="documents-dropdown">
+            <CclCard
+              title={data.title}
+              description={data.description}
+              docInfo={data.docInfo}
+            ></CclCard>
+            <CclCard
+              title={data.title}
+              description={data.description}
+              docInfo={data.docInfo}
+            ></CclCard>
+          </div>
+        </div>
+        <h2>Found the dataset in this products</h2>
+        <div class="card-container">
+          <CclCard
+            type="block"
+            title="Dataset title"
+            description={data.description}
+            image={data.image}
+          ></CclCard>
+          <CclCard
+            type="block"
+            title="Dataset title"
+            description={data.description}
+            image={data.image}
+          ></CclCard>
+        </div>
       </CclInfoContainer>
     </div>
   );
