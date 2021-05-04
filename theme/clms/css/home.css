@@ -1,5 +1,14 @@
 /*@import url("carousel.css");*/
 
+.contenttype-plone-site #page-document.ui.container {
+  width: 100% !important;
+}
+
+.contenttype-plone-site .ui.basic.segment.content-area {
+  padding-top: 0;
+  margin-top: 0;
+}
+
 /* Presentation band */
 @media (min-width: 1200px) {
   .ccl-header .ccl-header-tools .ccl-container {
