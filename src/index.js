@@ -1,7 +1,9 @@
 import CLMSDocumentView from '@eeacms/volto-clms-theme/components/CLMSDocumentView/CLMSDocumentView';
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 
-import customBlocks from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
+import customBlocks, {
+  customGroupBlocksOrder,
+} from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 
 const applyConfig = (config) => {
   config.views = {
@@ -15,9 +17,12 @@ const applyConfig = (config) => {
   config.blocks = {
     ...config.blocks,
     blocksConfig: { ...config.blocks.blocksConfig, ...customBlocks },
+    groupBlocksOrder: [
+      ...config.blocks.groupBlocksOrder,
+      customGroupBlocksOrder,
+    ],
   };
 
   return config;
 };
-
 export default applyConfig;
