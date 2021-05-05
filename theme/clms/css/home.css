@@ -9,6 +9,15 @@
   margin-top: 0;
 }
 
+.contenttype-plone-site .block {
+  margin-bottom: 0;
+}
+
+.contenttype-plone-site .ui.basic.segment.content-area {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 /* Presentation band */
 @media (min-width: 1200px) {
   .ccl-header .ccl-header-tools .ccl-container {
