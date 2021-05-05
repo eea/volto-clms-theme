@@ -98,9 +98,10 @@ pipeline {
     stage('Report to SonarQube') {
       // Exclude Pull-Requests
       when {
-        allOf {
+        not {
           environment name: 'CHANGE_ID', value: ''
         }
+        environment name: 'CHANGE_TARGET', value: 'master'
       }
       steps {
         node(label: 'swarm') {
