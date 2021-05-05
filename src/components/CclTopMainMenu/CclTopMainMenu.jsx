@@ -36,9 +36,7 @@ const CclTopMainMenu = () => {
                     <ul>
                       {item.navigationRoot?.map((element, index) => (
                         <li>
-                          <Link
-                            to={{ pathname: element.linkUrl?.[0]?.['@id'] }}
-                          >
+                          <Link to={{ pathname: element?.['@id'] }}>
                             {element.title}
                           </Link>
                         </li>
