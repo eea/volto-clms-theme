@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SidebarPortal } from '@plone/volto/components'; // BlocksForm, Icon,
-import { CardContainerSchema } from './CardContainerSchema';
+import { CardContainerSchema, CardBlockSchema } from './CardContainerSchema';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
@@ -14,7 +14,6 @@ import { injectIntl } from 'react-intl';
 
 import { useSelector } from 'react-redux';
 
-import { CardBlockSchema } from '@eeacms/volto-clms-theme/components/Blocks/CclCardBlock/CardBlockSchema';
 import { isEmpty } from 'lodash';
 import { emptyCard, getPanels } from './utils';
 

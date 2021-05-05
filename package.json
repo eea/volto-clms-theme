@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -61,8 +61,9 @@
     "release": "release-it",
     "bootstrap": "node bootstrap",
     "stylelint": "../../../node_modules/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'",
+    "stylelint:theme": "../../../node_modules/stylelint/bin/stylelint.js --allow-empty-input 'theme/**/*.{css,less}'",
     "stylelint:overrides": "../../../node_modules/.bin/stylelint --syntax less --allow-empty-input 'theme/**/*.overrides' 'src/**/*.overrides'",
-    "stylelint:fix": "yarn stylelint --fix && yarn stylelint:overrides --fix",
+    "stylelint:fix": "yarn stylelint --fix && yarn stylelint:overrides --fix && yarn stylelint:theme --fix",
     "prettier": "../../../node_modules/.bin/prettier --single-quote --check 'src/**/*.{js,jsx,json,css,less,md}'",
     "prettier:fix": "../../../node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css,less,md}'",
     "lint": "../../../node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
