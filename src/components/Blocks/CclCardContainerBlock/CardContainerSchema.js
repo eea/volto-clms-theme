@@ -79,4 +79,5 @@ export const CardBlockSchema = () => ({
       type: 'string',
     },
   },
+  required: [],
 });
