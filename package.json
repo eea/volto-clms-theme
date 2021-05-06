@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -17,10 +17,14 @@
     "type": "git",
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
+  "addons": [
+    "@collective/volto-dropdownmenu"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
-    "@fortawesome/react-fontawesome": "0.1.14"
+    "@fortawesome/react-fontawesome": "0.1.14",
+    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5"
   },
   "prettier": {
     "trailingComma": "all",
