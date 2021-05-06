@@ -17,7 +17,7 @@ import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-cl
 import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
-
+import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
 import CclFooterBlock from '@eeacms/volto-clms-theme/components/CclFooterBlock/CclFooterBlock';
 import './footer.less';
 
