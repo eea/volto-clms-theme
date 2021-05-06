@@ -3,7 +3,7 @@
 /*
 */
 .contenttype-plone-site #page-document.ui.container {
-  width: 100vmax !important;
+  width: calc(100vmax - (100vmax - 100%)) !important;
   margin: 0 0 !important;
 }
 
