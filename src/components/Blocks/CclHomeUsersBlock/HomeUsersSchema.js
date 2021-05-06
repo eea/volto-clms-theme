@@ -1,4 +1,4 @@
-import {CardBlockSchema} from '../CclCardBlock/CardBlockSchema';
+import { CardBlockSchema } from '../CclCardBlock/CardBlockSchema';
 export const HomeUsersSchema = () => ({
   title: 'Home users',
   fieldsets: [
