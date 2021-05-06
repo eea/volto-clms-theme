@@ -7,20 +7,20 @@ const CclHomeProductsBlockView = (props) => {
   );
   return (
     <div className="home-products-container">
-      {products?.map((panel, index) => (
+      {products?.map((product, index) => (
         <div
           key={index}
           className={
-            panel.productIcon === 'iconless'
+            product.productIcon === 'iconless'
               ? 'home-product home-product-main'
               : 'home-product'
           }
-          id={panel.productIcon === 'iconless' ? '' : panel.productIcon}
+          id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
-          {panel.productIcon === 'iconless' ? (
-            <h3>{panel.title}</h3>
+          {product.productIcon === 'iconless' ? (
+            <h3>{product.title}</h3>
           ) : (
-            <div className="home-product-title">{panel.title}</div>
+            <div className="home-product-title">{product.title}</div>
           )}
         </div>
       ))}
