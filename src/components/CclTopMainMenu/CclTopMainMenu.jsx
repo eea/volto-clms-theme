@@ -8,7 +8,7 @@ const CclTopMainMenu = () => {
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
-  const pathname = useSelector((state) => state.router?.location.pathname);
+  const pathname = useSelector(() => '/header');
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
 
   return (
@@ -19,7 +19,7 @@ const CclTopMainMenu = () => {
             ?.filter(
               (item) => item.mode === 'dropdown' || item.linkUrl?.[0]?.['@id'],
             )
-            ?.map((item, index) =>
+            ?.map((item) =>
               item.mode === 'simpleLink' ? (
                 <li>
                   <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
