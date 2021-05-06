@@ -3,8 +3,8 @@
 /*
 */
 .contenttype-plone-site #page-document.ui.container {
-  width: 100% !important;
-  margin: revert !important;
+  width: 100vmax !important;
+  margin: 0 0 !important;
 }
 
 .contenttype-plone-site .ui.basic.segment.content-area {
