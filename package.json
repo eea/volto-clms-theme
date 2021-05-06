@@ -24,7 +24,9 @@
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
-    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5"
+    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
+    "react-slick": "0.28.1",
+    "slick-carousel": "1.8.1"
   },
   "prettier": {
     "trailingComma": "all",
