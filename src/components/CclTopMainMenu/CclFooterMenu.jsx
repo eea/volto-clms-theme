@@ -7,7 +7,7 @@ const CclFooterMenu = () => {
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
-  const pathname = useSelector((state) => state.router?.location.pathname);
+  const pathname = useSelector(() => '/footer');
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
 
   return (
