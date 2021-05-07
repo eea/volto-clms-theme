@@ -4,10 +4,10 @@ import { getItemsByPath } from '@collective/volto-dropdownmenu/utils';
 import { Link } from 'react-router-dom';
 
 const CclFooterMenu = () => {
+  const pathname = 'footer';
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
-  const pathname = useSelector(() => '/footer');
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
 
   return (

@@ -1,14 +1,13 @@
 import React from 'react';
-
 import { useSelector } from 'react-redux';
 import { getItemsByPath } from '@collective/volto-dropdownmenu/utils';
 import { Link } from 'react-router-dom';
 
 const CclTopMainMenu = () => {
+  const pathname = 'header';
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
-  const pathname = useSelector(() => '/header');
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
 
   return (
