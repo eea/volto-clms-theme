@@ -6,12 +6,10 @@ import setLanguagePath from './multilingualPath';
 
 const CclTopMainMenu = () => {
   const pathname = setLanguagePath('header');
-
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
-
   return (
     <>
       {menu?.length > 0

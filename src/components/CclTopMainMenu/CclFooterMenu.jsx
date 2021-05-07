@@ -10,7 +10,6 @@ const CclFooterMenu = () => {
     (state) => state.dropdownMenuNavItems?.result,
   );
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
-  console.log('menu: ', menu);
   return (
     <>
       {menu?.length > 0
