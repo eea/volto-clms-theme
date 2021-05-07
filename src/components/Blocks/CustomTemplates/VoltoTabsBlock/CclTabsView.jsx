@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import '@eeacms/volto-tabs-block/less/menu.less';
 
 const MenuItem = (props) => {
-  const { activeTab = null, tabs = {}, setActiveTab = () => { } } = props;
+  const { activeTab = null, tabs = {}, setActiveTab = () => {} } = props;
   const { tab, index } = props;
   const title = tabs[tab].title;
   const tabIndex = index + 1;
@@ -46,7 +46,7 @@ const CclTabsView = (props) => {
     tabs = {},
     activeTabIndex = 0,
     hashlink = {},
-    setActiveTab = () => { },
+    setActiveTab = () => {},
   } = props;
   const uiContainer = data.align === 'full' ? 'ui container' : '';
   const menuAlign = data.menuAlign || 'left';
@@ -82,8 +82,6 @@ const CclTabsView = (props) => {
     /* eslint-disable-next-line */
   }, [hashlink.counter]);
 
-  console.log('props: ', props);
-
   // const panes = tabsList.map((tab, index) => {
   //   return {
   //     id: tab,
@@ -112,61 +110,88 @@ const CclTabsView = (props) => {
   //     },
   //   };
   // });
-  const TabsComponent = () =>
-    tabsList.map((tab, index) => {
-      const { activeTab = null, tabs = {}, setActiveTab = () => { } } = props;
-      // const { tab, index } = props;
-      const title = tabs[tab].title;
-      const tabIndex = index + 1;
 
-      const defaultTitle = `Tab ${tabIndex}`;
+  const PanelsComponent = () => {
+    return (
+      <>
+        <div class="panels">
+          {tabsList.map((tab, index) => {
+            const {
+              activeTab = null,
+              tabs = {},
+              setActiveTab = () => {},
+            } = props;
+            return (
+              <div
+                className={cx('panel', tab === activeTab && 'panel-selected')}
+                id="news_panel"
+                role="tabpanel"
+                aria-hidden="false"
+              >
+                <RenderBlocks
+                  {...props}
+                  metadata={metadata}
+                  content={tabs[tab]}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+  const TabsComponent = () => {
+    return (
+      <>
+        <div class="tabs" role="tablist">
+          {tabsList.map((tab, index) => {
+            const {
+              activeTab = null,
+              tabs = {},
+              setActiveTab = () => {},
+            } = props;
+            // const { tab, index } = props;
+            const title = tabs[tab].title;
+            const tabIndex = index + 1;
 
-      return (
-        <>
-          <span
-            class=" "
-            id={tabIndex}
-            role="tab"
-            aria-controls={title || defaultTitle}
-            aria-selected="true"
-            active={tab === activeTab}
-            className={cx('tab', tab === activeTab && 'tab-selected')}
-            onClick={() => {
-              if (activeTab !== tab) {
-                setActiveTab(tab);
-              }
-            }}
-            onKeyDown={() => {
-              if (activeTab !== tab) {
-                setActiveTab(tab);
-              }
-            }}
-            tabIndex="0"
-          >
-            {/* <i class="far fa-newspaper"></i>  */}
-            <FontAwesomeIcon
-              icon={['far', 'newspaper']}
-              style={{ marginRight: '1rem' }}
-            />
-            {title || defaultTitle}
-          </span>{' '}
-          <div class="panels">
-            <div
-              className={cx('panel', tab === activeTab && 'panel-selected')}
-              id="news_panel"
-              role="tabpanel"
-              aria-hidden="false"
-            >
-              <RenderBlocks
-                {...props}
-                metadata={metadata}
-                content={tabs[tab]}
-              />
-            </div>
-          </div>
-        </>
-      );
-    });
+            const defaultTitle = `Tab ${tabIndex}`;
+            return (
+              <>
+                <span
+                  class=" "
+                  id={tabIndex}
+                  role="tab"
+                  aria-controls={title || defaultTitle}
+                  aria-selected={tab === activeTab}
+                  active={tab === activeTab}
+                  className={cx('tab', tab === activeTab && 'tab-selected')}
+                  onClick={() => {
+                    if (activeTab !== tab) {
+                      setActiveTab(tab);
+                    }
+                  }}
+                  onKeyDown={() => {
+                    if (activeTab !== tab) {
+                      setActiveTab(tab);
+                    }
+                  }}
+                  tabIndex="0"
+                >
+                  {/* <i class="far fa-newspaper"></i>  */}
+                  <FontAwesomeIcon
+                    icon={['far', 'newspaper']}
+                    style={{ marginRight: '1rem' }}
+                  />
+                  {title || defaultTitle}
+                </span>{' '}
+              </>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       {/* <Tab
@@ -180,13 +205,12 @@ const CclTabsView = (props) => {
       /> */}
       {/* CCLTABS */}
       <div class="ccl-container tab-container">
-        <div class="tabs" role="tablist">
-          <TabsComponent />
-        </div>
+        <TabsComponent />
+        <PanelsComponent />
       </div>
       {/* CCLTABS */}
 
-      <div class="ccl-container tab-container">
+      {/* <div class="ccl-container tab-container">
         <div class="tabs" role="tablist">
           <span
             class="tab tab-selected"
@@ -388,7 +412,7 @@ const CclTabsView = (props) => {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
