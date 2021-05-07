@@ -24,13 +24,34 @@ import homeBand from '@plone/volto/icons/image-wide.svg';
 
 import CclHomeSearchBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView';
 import CclHomeSearchBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit';
+import {
+  DefaultEdit,
+  DefaultView,
+  defaultSchema,
+} from '@eeacms/volto-tabs-block/components';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+
+import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
   title: 'Ccl Blocks',
 };
 
-const customBlocks = {
+const customBlocks = (config) => ({
+  ...config.blocks.blocksConfig,
+  [TABS_BLOCK]: {
+    ...config.blocks.blocksConfig[TABS_BLOCK],
+    templates: {
+      HomeTabs: {
+        title: 'Home Tabs',
+        edit: DefaultEdit,
+        view: CclTabsView,
+        schema: defaultSchema,
+      },
+      ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
+    },
+  },
   contextNavigation: {
     id: 'contextNavigation', // The name (id) of the block
     title: 'Context Navigation', // The display name of the block
@@ -149,6 +170,6 @@ const customBlocks = {
       view: [], // Future proof (not implemented yet) view user role(s)
     },
   },
-};
+});
 
 export default customBlocks;
