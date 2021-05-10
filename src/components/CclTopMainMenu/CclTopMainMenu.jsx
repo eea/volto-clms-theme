@@ -1,16 +1,15 @@
 import React from 'react';
-
 import { useSelector } from 'react-redux';
 import { getItemsByPath } from '@collective/volto-dropdownmenu/utils';
 import { Link } from 'react-router-dom';
+import setLanguagePath from './multilingualPath';
 
 const CclTopMainMenu = () => {
+  const pathname = setLanguagePath('header');
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
-  const pathname = useSelector((state) => state.router?.location.pathname);
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
-
   return (
     <>
       {menu?.length > 0
@@ -19,7 +18,7 @@ const CclTopMainMenu = () => {
             ?.filter(
               (item) => item.mode === 'dropdown' || item.linkUrl?.[0]?.['@id'],
             )
-            ?.map((item, index) =>
+            ?.map((item) =>
               item.mode === 'simpleLink' ? (
                 <li>
                   <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>

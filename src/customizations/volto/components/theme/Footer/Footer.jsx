@@ -17,7 +17,7 @@ import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-cl
 import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
-
+import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
 import CclFooterBlock from '@eeacms/volto-clms-theme/components/CclFooterBlock/CclFooterBlock';
 import './footer.less';
 
@@ -169,35 +169,9 @@ const Footer = () => (
         </CclFooterBlock>
       </div>
     </div>
-
-    {/** BUKATUTA */}
     <div className="ccl-footer-bottom">
       <ul className="ccl-footer-legal">
-        <li>
-          <a className="ccl-link" href="./disclaimer.html">
-            Disclaimer
-          </a>
-        </li>
-        <li>
-          <a className="ccl-link" href="./data-policy.html">
-            Data policy
-          </a>
-        </li>
-        <li>
-          <a className="ccl-link" href="./personal-data-protection.html">
-            Personal data protection
-          </a>
-        </li>
-        <li>
-          <a className="ccl-link" href="./cookies.html">
-            Cookies
-          </a>
-        </li>
-        <li>
-          <a className="ccl-link" href="./sitemap.html">
-            Sitemap
-          </a>
-        </li>
+        <CclFooterMenu></CclFooterMenu>
       </ul>
     </div>
   </footer>
