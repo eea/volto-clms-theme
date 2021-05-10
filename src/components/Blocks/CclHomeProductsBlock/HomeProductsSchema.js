@@ -23,7 +23,7 @@ export const HomeProductsSchema = () => ({
 });
 
 export const ProductSchema = () => ({
-  title: 'Poduct',
+  title: 'Product',
   fieldsets: [
     {
       id: 'default',

@@ -1,7 +1,10 @@
-/*@import url("carousel.css");*/
+@import url('carousel.css');
 
+/*
+*/
 .contenttype-plone-site #page-document.ui.container {
-  width: 100% !important;
+  width: calc(100vmax - (100vmax - 100%)) !important;
+  margin: 0 0 !important;
 }
 
 .contenttype-plone-site .ui.basic.segment.content-area {

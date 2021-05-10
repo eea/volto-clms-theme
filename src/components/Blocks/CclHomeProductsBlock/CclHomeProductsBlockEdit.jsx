@@ -30,20 +30,19 @@ const CclHomeProductsBlockEdit = (props) => {
     }
     /* eslint-disable-next-line */
   }, []);
-  const [selectedBlock, setSelectedBlock] = useState(-1);
+  const [selectedProductBlock, setSelectedProductBlock] = useState(-1);
   React.useEffect(() => {
     if (!selected) {
-      setSelectedBlock(-1);
+      setSelectedProductBlock(-1);
     }
   }, [selected]);
-  //   console.log(data)
   return (
     <>
       <div
         className="homeProducts-header"
         onClick={() => {
           props.setSidebarTab(1);
-          setSelectedBlock(-1);
+          setSelectedProductBlock(-1);
         }}
         aria-hidden="true"
       >
@@ -60,10 +59,10 @@ const CclHomeProductsBlockEdit = (props) => {
             }
             id={panel.productIcon === 'iconless' ? '' : panel.productIcon}
             onClick={() => {
-              setSelectedBlock(uid);
+              setSelectedProductBlock(uid);
             }}
             onKeyDown={() => {
-              setSelectedBlock(uid);
+              setSelectedProductBlock(uid);
             }}
             role="button"
             tabIndex="0"
@@ -76,7 +75,7 @@ const CclHomeProductsBlockEdit = (props) => {
           </div>
         ))}
       </div>
-      <SidebarPortal selected={selected && selectedBlock === -1}>
+      <SidebarPortal selected={selected && selectedProductBlock === -1}>
         <InlineForm
           schema={HomeProductsSchema()}
           title="Home products block"
@@ -90,7 +89,9 @@ const CclHomeProductsBlockEdit = (props) => {
         />
       </SidebarPortal>
       <SidebarPortal
-        selected={selected && selectedBlock !== -1 && data.products?.blocks}
+        selected={
+          selected && selectedProductBlock !== -1 && data.products?.blocks
+        }
       >
         <InlineForm
           schema={ProductSchema()}
@@ -102,15 +103,15 @@ const CclHomeProductsBlockEdit = (props) => {
                 ...data.products,
                 blocks: {
                   ...data.products.blocks,
-                  [selectedBlock]: {
-                    ...data.products.blocks[selectedBlock],
+                  [selectedProductBlock]: {
+                    ...data.products.blocks[selectedProductBlock],
                     [id]: value,
                   },
                 },
               },
             });
           }}
-          formData={data.products?.blocks[selectedBlock]}
+          formData={data.products?.blocks[selectedProductBlock]}
         />
       </SidebarPortal>
     </>
