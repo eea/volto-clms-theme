@@ -16,7 +16,7 @@ const applyConfig = (config) => {
   };
   config.blocks = {
     ...config.blocks,
-    blocksConfig: { ...config.blocks.blocksConfig, ...customBlocks },
+    blocksConfig: { ...customBlocks(config) },
     groupBlocksOrder: [
       ...config.blocks.groupBlocksOrder,
       customGroupBlocksOrder,
