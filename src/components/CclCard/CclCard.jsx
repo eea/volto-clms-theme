@@ -8,18 +8,41 @@ function CclCard(props) {
   let url = card ? card['@id'] || card.url || '/' : '/';
   return (
     <div className={'card-' + (type || 'line')}>
-      {type === 'doc' ? (
+      {type === 'doc' || type === 'news' ? (
         <>
-          <div className="card-doc-title">
-            {card?.title || 'Card default title'}
-          </div>
-          <div className="card-doc-text">
-            <div className="doc-description">
-              {card?.description || 'Card default description text'}
-            </div>
-            <div className="card-doc-size">{card?.docInfo || 'DOC'}</div>
-            {children}
-          </div>
+          {type === 'doc' && (
+            <>
+              <div className="card-doc-title">
+                {card?.title || 'Card default title'}
+              </div>
+              <div className="card-doc-text">
+                <div className="doc-description">
+                  {card?.description || 'Card default description text'}
+                </div>
+                <div className="card-doc-size">{card?.docInfo || 'DOC'}</div>
+                {children}
+              </div>
+            </>
+          )}
+          {type === 'news' && (
+            <>
+              <div className="card-news-image">
+                <img
+                  src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
+                  alt="Placeholder"
+                />
+              </div>
+              <div className="card-news-text">
+                <div className="card-news-title">
+                  <Link to={url}>{card?.title || 'Card default title'}</Link>
+                </div>
+                <div className="card-news-date">
+                  {new Date(card?.effective).toLocaleDateString()}
+                </div>
+                <p className="card-news-description">{card?.description}</p>
+              </div>
+            </>
+          )}
         </>
       ) : (
         <>

@@ -54,6 +54,10 @@ const customBlocks = (config) => ({
         label: 'CclCards Block',
         template: CclListingCards,
       },
+      CclCardsnews: {
+        label: 'CclCards News',
+        template: CclListingCards,
+      },
     },
   },
   contextNavigation: {
