@@ -1,4 +1,3 @@
-import CLMSDocumentView from '@eeacms/volto-clms-theme/components/CLMSDocumentView/CLMSDocumentView';
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 
 import customBlocks, {
@@ -10,7 +9,6 @@ const applyConfig = (config) => {
     ...config.views,
     contentTypesViews: {
       ...config.contentTypesViews,
-      Document: CLMSDocumentView,
       DataSet: CLMSDatasetDetailView,
     },
   };
