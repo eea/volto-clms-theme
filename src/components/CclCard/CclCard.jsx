@@ -28,7 +28,10 @@ function CclCard(props) {
             <>
               <div className="card-news-image">
                 <img
-                  src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
+                  src={
+                    card?.image?.download ||
+                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                  }
                   alt="Placeholder"
                 />
               </div>
