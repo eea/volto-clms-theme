@@ -31,6 +31,7 @@ const empty = () => {
 };
 
 const TabsWidget = (props) => {
+  
   const [blockStyleVisible, setBlockStyleVisible] = React.useState(false);
   const [activeTabId, setActiveTabId] = React.useState(0);
   const [activeFontAwesomePopup, setActiveFontAwesomePopup] = React.useState(0);
@@ -42,6 +43,7 @@ const TabsWidget = (props) => {
     blocks[id],
   ]);
   const activeTabData = blocks[activeTabId] || {};
+  console.log("props: ", props);
 
   return (
     <FormFieldWrapper
@@ -125,6 +127,7 @@ const TabsWidget = (props) => {
                           ...activeTabData?.icon,
                         }}
                         onChangeField={(idTab, formValue) => {
+                          console.log("FORMVALUE-. ", formValue);
                           onChange(id, {
                             ...value,
                             blocks: {
@@ -139,23 +142,6 @@ const TabsWidget = (props) => {
                             },
                           });
                         }}
-                        // title={
-                        //   <>
-                        //     {/* {fontAwesomeSchema.title} */}
-                        //     <button
-                        //       onClick={() => {
-                        //         setActiveFontAwesomePopup(false);
-                        //       }}
-                        //       style={{ float: 'right' }}
-                        //     >
-                        //       <Icon name={clearSVG} size="24px" />
-                        //     </button>
-                        //   </>
-                        // }
-                        // onChangeField={(id, value) => {
-                        //   onChangeValue(id, value);
-                        // }}
-                        // formData={data}
                       />
                     </SidebarPopup>
 

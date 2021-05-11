@@ -89,9 +89,10 @@ const CclTabsView = (props) => {
               tabs = {},
               setActiveTab = () => {},
             } = props;
+            console.log('TAB: ', props);
             const title = tabs[tab].title;
             const tabIndex = index + 1;
-
+            const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
             const defaultTitle = `Tab ${tabIndex}`;
             return (
               <>
@@ -115,10 +116,12 @@ const CclTabsView = (props) => {
                   }}
                   tabIndex="0"
                 >
-                  <FontAwesomeIcon
-                    icon={['far', 'newspaper']}
-                    style={{ marginRight: '1rem' }}
-                  />
+                  {fa_icon && (
+                    <FontAwesomeIcon
+                      icon={['far', fa_icon]}
+                      style={{ marginRight: '1rem' }}
+                    />
+                  )}
                   {title || defaultTitle}
                 </span>{' '}
               </>
