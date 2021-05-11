@@ -89,7 +89,6 @@ const CclTabsView = (props) => {
               tabs = {},
               setActiveTab = () => {},
             } = props;
-            console.log('TAB: ', props);
             const title = tabs[tab].title;
             const tabIndex = index + 1;
             const fa_icon = tabs[tab]?.icon?.fontAwesome || null;

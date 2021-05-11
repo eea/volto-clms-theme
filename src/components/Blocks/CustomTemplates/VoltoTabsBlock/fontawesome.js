@@ -3,8 +3,14 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 library.add(fas, far);
 
+/**
+ * Return fontAwesome icon list
+ * @example
+ * import { far } from '@fortawesome/free-regular-svg-icons';
+ * let fa_icon_list = getFontAwesomeIconList([far]);
+ * @returns [{prefix:far, iconName:"newspaper"},...]
+ */
 export const getFontAwesomeIconList = (fa_icons_types) => {
-//   const fa_icons_types = [far];
   const fa_list = [];
   fa_icons_types.forEach((icons_type) => {
     const fa_keys = Object.keys(icons_type);
