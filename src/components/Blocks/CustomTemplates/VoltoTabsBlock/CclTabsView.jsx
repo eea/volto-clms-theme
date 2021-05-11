@@ -2,10 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
-import { Menu, Tab } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { SimpleMarkdown } from '@eeacms/volto-tabs-block/utils';
 import './fontawesome';
 import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,7 +14,6 @@ const CclTabsView = (props) => {
     metadata = {},
     data = {},
     tabsList = [],
-    tabs = {},
     activeTabIndex = 0,
     hashlink = {},
     setActiveTab = () => {},
@@ -46,7 +43,16 @@ const CclTabsView = (props) => {
     if (!hashlinkOnMount) {
       setHashlinkOnMount(true);
     }
-  }, [hashlink.counter]);
+  }, [
+    activeTabIndex,
+    data.id,
+    hashlink.counter,
+    hashlink.hash,
+    hashlinkOnMount,
+    props,
+    setActiveTab,
+    tabsList,
+  ]);
 
   const PanelsComponent = () => {
     return (

@@ -6,7 +6,6 @@ import { Icon, FormFieldWrapper } from '@plone/volto/components';
 import { DragDropList } from '@plone/volto/components';
 import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
-
 import dragSVG from '@plone/volto/icons/drag.svg';
 import themeSVG from '@plone/volto/icons/theme.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,7 +31,6 @@ const empty = () => {
 };
 
 const TabsWidget = (props) => {
-  console.log(props);
   const [blockStyleVisible, setBlockStyleVisible] = React.useState(false);
   const [activeTabId, setActiveTabId] = React.useState(0);
   const [activeFontAwesomePopup, setActiveFontAwesomePopup] = React.useState(0);
@@ -127,10 +125,6 @@ const TabsWidget = (props) => {
                           ...activeTabData?.icon,
                         }}
                         onChangeField={(idTab, formValue) => {
-                          console.log('VAlue: ', value);
-                          console.log('ID: ', id);
-                          console.log('activeTabData: ', activeTabData);
-                          console.log("activeTabId: ", activeTabId);
                           onChange(id, {
                             ...value,
                             blocks: {

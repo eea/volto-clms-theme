@@ -26,7 +26,6 @@ import CclHomeSearchBlockView from '@eeacms/volto-clms-theme/components/Blocks/C
 import CclHomeSearchBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit';
 import {
   DefaultEdit,
-  DefaultView,
   defaultSchema,
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
