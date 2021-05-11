@@ -42,8 +42,8 @@ const customBlocks = (config) => ({
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     templates: {
-      HomeTabs: {
-        title: 'Home Tabs',
+      CCLTabs: {
+        title: 'CCL Tabs (Copernicus Style Guide)',
         edit: DefaultEdit,
         view: CclTabsView,
         schema: defaultSchema,
