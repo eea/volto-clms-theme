@@ -18,14 +18,16 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
-    "@collective/volto-dropdownmenu"
+    "@collective/volto-dropdownmenu",
+    "@eeacms/volto-tabs-block"
   ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
-    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5"
+    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
+    "@eeacms/volto-tabs-block":"https://github.com/eea/volto-tabs-block.git#1.2.1"
   },
   "prettier": {
     "trailingComma": "all",
