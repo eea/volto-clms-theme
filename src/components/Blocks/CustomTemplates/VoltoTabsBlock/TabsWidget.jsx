@@ -9,13 +9,15 @@ import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
 import dragSVG from '@plone/volto/icons/drag.svg';
 import themeSVG from '@plone/volto/icons/theme.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIcons } from '@fortawesome/free-solid-svg-icons';
+import { faIcons, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import trashSVG from '@plone/volto/icons/delete.svg';
 import plusSVG from '@plone/volto/icons/circle-plus.svg';
 import { SidebarPopup } from '@plone/volto/components';
 import { fontAwesomeSchema } from './fontAwesomeSchema';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import clearSVG from '@plone/volto/icons/clear.svg';
+import './fontawesome';
+import { Header, Grid } from 'semantic-ui-react';
 
 export function moveColumn(formData, source, destination) {
   return {
@@ -119,6 +121,53 @@ const TabsWidget = (props) => {
                               <Icon name={clearSVG} size="24px" />
                             </button>
                           </>
+                        }
+                        footer={
+                          <div
+                            className="inline field help"
+                            style={{
+                              marginTop: '10px',
+                              marginBottom: '10px',
+                            }}
+                          >
+                            <Grid>
+                              <Grid.Row stretched>
+                                <Grid.Column width={12}>
+                                  <Header as="h2">
+                                    Selected icon:
+                                    {value?.blocks?.[activeTabId]?.icon
+                                      ?.fontAwesome ? (
+                                      <FontAwesomeIcon
+                                        icon={[
+                                          'far',
+                                          value?.blocks?.[activeTabId]?.icon
+                                            ?.fontAwesome,
+                                        ]}
+                                        style={{ marginLeft: '1rem' }}
+                                      />
+                                    ) : (
+                                      ' None'
+                                    )}
+                                  </Header>
+                                </Grid.Column>
+                              </Grid.Row>
+                              <Grid.Row stretched>
+                                <Grid.Column width={12}>
+                                  <a
+                                    href="https://fontawesome.com/icons?d=gallery&p=2&s=regular&m=free"
+                                    rel="noreferrer"
+                                    target="_blank"
+                                  >
+                                    Font Awesome (regular) icons gallery{' '}
+                                    <FontAwesomeIcon
+                                      icon={faExternalLinkAlt}
+                                      style={{ marginLeft: '1rem' }}
+                                    />
+                                  </a>
+                                </Grid.Column>
+                              </Grid.Row>
+                            </Grid>
+                          </div>
                         }
                         formData={{
                           ...activeTabData?.icon,
