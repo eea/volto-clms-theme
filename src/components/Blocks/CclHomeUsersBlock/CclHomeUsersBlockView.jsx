@@ -55,11 +55,8 @@ const CclHomeUsersBlockView = (props) => {
             <div index={index} key={index}>
               <div className="ccl-list-item ">
                 <div className="ccl-list-item-image">
-                  {card?.image?.scales ? (
-                    <img
-                      src={card.image.scales.preview.download}
-                      alt={card.image.alt}
-                    />
+                  {card?.image?.url ? (
+                    <img src={card.image.url} alt={card.image.alt} />
                   ) : (
                     <img
                       src={
