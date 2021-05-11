@@ -1,0 +1,34 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple) '../../theme.config';
+
+@borderColor: rgba(120, 192, 215, 0.75);
+
+.block-editor-homeUsers {
+  .block-column .ui.block.inner {
+    .block {
+      margin-bottom: 0;
+    }
+  }
+
+  .block.homeUsers.selected::before,
+  .block.homeUsers:hover::before {
+    border-style: dashed;
+  }
+
+  .homeUsers-header {
+    position: absolute;
+    z-index: 3;
+    top: -1.3em;
+    left: 0;
+    width: fit-content;
+    padding: 0 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: @pageBackground;
+    color: @borderColor;
+    cursor: pointer;
+    text-align: center;
+  }
+}

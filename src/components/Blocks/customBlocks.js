@@ -32,6 +32,11 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
 import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
+import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+
+import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
+import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
+
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
   title: 'Ccl Blocks',
@@ -49,6 +54,30 @@ const customBlocks = (config) => ({
         schema: defaultSchema,
       },
       ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
+  listing: {
+    ...config.blocks.blocksConfig.listing,
+    templates: {
+      ...config.blocks.blocksConfig.listing.templates,
+      CclCardsline: {
+        label: 'CclCards Image Line',
+        template: CclListingCards,
+      },
+      'CclCardsline-color': {
+        label: 'CclCards Colored Line',
+        template: CclListingCards,
+      },
+      CclCardsdoc: {
+        label: 'CclCards Line',
+        template: CclListingCards,
+      },
+      CclCardsblock: {
+        label: 'CclCards Block',
+        template: CclListingCards,
+      },
+      CclCardsnews: {
+        label: 'CclCards News',
+        template: CclListingCards,
+      },
     },
   },
   contextNavigation: {
@@ -160,6 +189,22 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeSearchBlockView, // The view mode component
     edit: CclHomeSearchBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  homeUsers: {
+    id: 'homeUsers', // The name (id) of the block
+    title: 'Home Users', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclHomeUsersBlockView, // The view mode component
+    edit: CclHomeUsersBlockEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
