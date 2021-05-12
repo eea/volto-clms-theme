@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { HomeUsersSchema, CardBlockSchema } from './HomeUsersSchema';
-import { SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import { SidebarPortal, Icon, InlineForm } from '@plone/volto/components';
 import { isEmpty } from 'lodash';
 import { emptyCard, getPanels } from './utils';
-// import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-// import { CardBlockSchema } from '../CclCardBlock/CardBlockSchema';
+import { defineMessages, useIntl } from 'react-intl';
 import './styles.less';
 
 /** upload image */
@@ -13,21 +11,35 @@ import { Dimmer, Loader, Message, Image, Label } from 'semantic-ui-react';
 import { readAsDataURL } from 'promise-file-reader';
 import { getBaseUrl } from '@plone/volto/helpers';
 import { createContent } from '@plone/volto/actions';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Icon } from '@plone/volto/components';
 
 import uploadSVG from '@plone/volto/icons/upload.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 
+const messages = defineMessages({
+  uploadImage: {
+    id: 'Upload image',
+    defaultMessage: 'Upload or select an image',
+  },
+  uploadingFile: {
+    id: 'Uploading file',
+    defaultMessage: 'Uploading file',
+  },
+  removeImage: {
+    id: 'Remove image',
+    defaultMessage: 'Remove image',
+  },
+});
+
 function onUploadImage(pathname, e, setUploading, dispatch) {
   e.stopPropagation();
+  e.preventDefault();
   const target = e.target;
   const file = target.files[0];
-  setUploading(true);
   readAsDataURL(file).then((data) => {
+    setUploading(true);
     const fields = data.match(/^data:(.*);(.*),(.*)$/);
     dispatch(
       createContent(getBaseUrl(pathname), {
@@ -43,16 +55,42 @@ function onUploadImage(pathname, e, setUploading, dispatch) {
   });
 }
 
-const CclHomeUsersBlockEdit = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    selected,
-    editable,
-    request,
-    content,
-  } = props;
+function onChangeCardBlockImage(
+  onChangeBlock,
+  block,
+  data,
+  selectedCardBlock,
+  imageValue,
+) {
+  onChangeBlock(block, {
+    ...data,
+    customCards: {
+      ...data.customCards,
+      blocks: {
+        ...data.customCards.blocks,
+        [selectedCardBlock]: {
+          ...data.customCards.blocks[selectedCardBlock],
+          image: imageValue,
+        },
+      },
+    },
+  });
+}
+
+const CclHomeUsersBlockEdit = ({
+  block,
+  data,
+  onChangeBlock,
+  selected,
+  editable,
+  request,
+  content,
+  setSidebarTab,
+  openObjectBrowser,
+  pathname,
+}) => {
+  const intl = useIntl();
+
   const properties = isEmpty(data?.customCards?.blocks)
     ? emptyCard(4)
     : data.customCards;
@@ -89,21 +127,9 @@ const CclHomeUsersBlockEdit = (props) => {
 
   React.useEffect(() => {
     if (request.loaded && !request.loading) {
-      onChangeBlock(block, {
-        ...data,
-        customCards: {
-          ...data.customCards,
-          blocks: {
-            ...data.customCards.blocks,
-            [selectedCardBlock]: {
-              ...data.customCards.blocks[selectedCardBlock],
-              image: {
-                url: content.image.download,
-                alt: content.image.filename,
-              },
-            },
-          },
-        },
+      onChangeCardBlockImage(onChangeBlock, block, data, selectedCardBlock, {
+        url: content.image.download,
+        alt: content.image.filename,
       });
     }
     /* eslint-disable-next-line */
@@ -114,7 +140,7 @@ const CclHomeUsersBlockEdit = (props) => {
       <div
         className="homeUsers-header"
         onClick={() => {
-          props.setSidebarTab(1);
+          setSidebarTab(1);
           setSelectedCardBlock(-1);
         }}
         aria-hidden="true"
@@ -136,7 +162,6 @@ const CclHomeUsersBlockEdit = (props) => {
               role="button"
               tabIndex="0"
             >
-              {/* <CclCard type={'line'} card={panel} /> */}
               <div className="card-line">
                 <div className="card-image">
                   {panel.image?.url ? (
@@ -149,53 +174,36 @@ const CclHomeUsersBlockEdit = (props) => {
                             color="red"
                             pointing="below"
                             onClick={() =>
-                              onChangeBlock(block, {
-                                ...data,
-                                customCards: {
-                                  ...data.customCards,
-                                  blocks: {
-                                    ...data.customCards.blocks,
-                                    [selectedCardBlock]: {
-                                      ...data.customCards.blocks[
-                                        selectedCardBlock
-                                      ],
-                                      image: {},
-                                    },
-                                  },
-                                },
-                              })
+                              onChangeCardBlockImage(
+                                onChangeBlock,
+                                block,
+                                data,
+                                selectedCardBlock,
+                                {},
+                              )
                             }
                           >
-                            Remove image
+                            {intl.formatMessage(messages.removeImage)}
                           </Label>
                         )}
                       <Image
                         size="small"
-                        // src={`${flattenToAppURL(panel.image.url)}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
                           if (selected && uid === selectedCardBlock) {
-                            props.openObjectBrowser({
+                            openObjectBrowser({
                               onSelectItem: (url, element) =>
-                                onChangeBlock(block, {
-                                  ...data,
-                                  customCards: {
-                                    ...data.customCards,
-                                    blocks: {
-                                      ...data.customCards.blocks,
-                                      [selectedCardBlock]: {
-                                        ...data.customCards.blocks[
-                                          selectedCardBlock
-                                        ],
-                                        image: {
-                                          url: element.getURL,
-                                          alt: element.title,
-                                        },
-                                      },
-                                    },
+                                onChangeCardBlockImage(
+                                  onChangeBlock,
+                                  block,
+                                  data,
+                                  selectedCardBlock,
+                                  {
+                                    url: element.getURL,
+                                    alt: element.title,
                                   },
-                                }),
+                                ),
                             });
                           } else {
                             setSelectedCardBlock(uid);
@@ -210,21 +218,16 @@ const CclHomeUsersBlockEdit = (props) => {
                         {uid === selectedCardBlock && uploading && (
                           <Dimmer active>
                             <Loader indeterminate>
-                              {/* {this.props.intl.formatMessage("messages.uploading")} */}
-                              Uploading file
+                              {intl.formatMessage(messages.uploadingFile)}
                             </Loader>
                           </Dimmer>
                         )}
                         <center>
-                          <h4>
-                            {/* {props.intl.formatMessage('messages.image')} */}
-                            Image message
-                          </h4>
+                          <h4>{intl.formatMessage(messages.uploadImage)}</h4>
                           {editable && (
                             <>
                               <p>
                                 <label className="file">
-                                  {/* {props.intl.formatMessage('messages.browse')} */}
                                   <Icon
                                     className="ui button"
                                     name={uploadSVG}
@@ -234,7 +237,7 @@ const CclHomeUsersBlockEdit = (props) => {
                                     type="file"
                                     onChange={(e) =>
                                       onUploadImage(
-                                        props.pathname,
+                                        pathname,
                                         e,
                                         setUploading,
                                         dispatch,
@@ -244,7 +247,6 @@ const CclHomeUsersBlockEdit = (props) => {
                                   />
                                 </label>
                                 <label className="file">
-                                  {/* {props.intl.formatMessage('messages.browse')} */}
                                   <Icon
                                     className="ui button"
                                     name={navSVG}
@@ -255,26 +257,18 @@ const CclHomeUsersBlockEdit = (props) => {
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       e.preventDefault();
-                                      props.openObjectBrowser({
+                                      openObjectBrowser({
                                         onSelectItem: (url, element) =>
-                                          onChangeBlock(block, {
-                                            ...data,
-                                            customCards: {
-                                              ...data.customCards,
-                                              blocks: {
-                                                ...data.customCards.blocks,
-                                                [selectedCardBlock]: {
-                                                  ...data.customCards.blocks[
-                                                    selectedCardBlock
-                                                  ],
-                                                  image: {
-                                                    url: element.getURL,
-                                                    alt: element.title,
-                                                  },
-                                                },
-                                              },
+                                          onChangeCardBlockImage(
+                                            onChangeBlock,
+                                            block,
+                                            data,
+                                            selectedCardBlock,
+                                            {
+                                              url: element.getURL,
+                                              alt: element.title,
                                             },
-                                          }),
+                                          ),
                                       });
                                     }}
                                     style={{ display: 'none' }}
