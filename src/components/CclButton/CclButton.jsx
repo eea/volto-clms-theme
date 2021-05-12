@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-function CclButton(props) {
-  let {
-    url = '#',
-    disabled = false,
-    download = false,
-    mode = 'default',
-    children,
-    ...opts
-  } = props;
-
+function CclButton({
+  url = '#',
+  disabled = false,
+  download = false,
+  mode = 'default',
+  children,
+  ...opts
+}) {
   let buttonClass = classNames('ccl-button', {
     'ccl-button-green': mode === 'filled',
     'ccl-button--default': mode === 'default',
