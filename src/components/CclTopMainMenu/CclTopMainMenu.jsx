@@ -18,15 +18,15 @@ const CclTopMainMenu = () => {
             ?.filter(
               (item) => item.mode === 'dropdown' || item.linkUrl?.[0]?.['@id'],
             )
-            ?.map((item) =>
+            ?.map((item, index) =>
               item.mode === 'simpleLink' ? (
-                <li>
+                <li key={index}>
                   <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
                     {item.title}
                   </Link>
                 </li>
               ) : (
-                <li className="header-dropdown">
+                <li className="header-dropdown" key={index}>
                   <>
                     <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
                       {item.title}{' '}
@@ -34,7 +34,7 @@ const CclTopMainMenu = () => {
                     </Link>
                     <ul>
                       {item.navigationRoot?.map((element, index) => (
-                        <li>
+                        <li key={index}>
                           <Link to={{ pathname: element?.['@id'] }}>
                             {element.title}
                           </Link>

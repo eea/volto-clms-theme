@@ -24,6 +24,15 @@ import homeBand from '@plone/volto/icons/image-wide.svg';
 
 import CclHomeSearchBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView';
 import CclHomeSearchBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit';
+import {
+  DefaultEdit,
+  defaultSchema,
+} from '@eeacms/volto-tabs-block/components';
+import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
+
+import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
+
+import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
@@ -33,7 +42,46 @@ export const customGroupBlocksOrder = {
   title: 'Ccl Blocks',
 };
 
-const customBlocks = {
+const customBlocks = (config) => ({
+  ...config.blocks.blocksConfig,
+  [TABS_BLOCK]: {
+    ...config.blocks.blocksConfig[TABS_BLOCK],
+    templates: {
+      CCLTabs: {
+        title: 'CCL Tabs (Copernicus Style Guide)',
+        edit: DefaultEdit,
+        view: CclTabsView,
+        schema: defaultSchema,
+      },
+      ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
+    },
+  },
+  listing: {
+    ...config.blocks.blocksConfig.listing,
+    templates: {
+      ...config.blocks.blocksConfig.listing.templates,
+      CclCardsline: {
+        label: 'CclCards Image Line',
+        template: CclListingCards,
+      },
+      'CclCardsline-color': {
+        label: 'CclCards Colored Line',
+        template: CclListingCards,
+      },
+      CclCardsdoc: {
+        label: 'CclCards Line',
+        template: CclListingCards,
+      },
+      CclCardsblock: {
+        label: 'CclCards Block',
+        template: CclListingCards,
+      },
+      CclCardsnews: {
+        label: 'CclCards News',
+        template: CclListingCards,
+      },
+    },
+  },
   contextNavigation: {
     id: 'contextNavigation', // The name (id) of the block
     title: 'Context Navigation', // The display name of the block
@@ -152,7 +200,6 @@ const customBlocks = {
       view: [], // Future proof (not implemented yet) view user role(s)
     },
   },
-
   homeUsers: {
     id: 'homeUsers', // The name (id) of the block
     title: 'Home Users', // The display name of the block
@@ -169,6 +216,6 @@ const customBlocks = {
       view: [], // Future proof (not implemented yet) view user role(s)
     },
   },
-};
+});
 
 export default customBlocks;
