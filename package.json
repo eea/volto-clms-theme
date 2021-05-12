@@ -77,7 +77,8 @@
     "cypress:run": "../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "../../../node_modules/cypress/bin/cypress open",
     "precommit": "yarn stylelint && yarn prettier && yarn lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "docker run -it --rm -v $(pwd):/opt/frontend/my-volto-project/src/addons/volto-clms-theme -e GIT_NAME=volto-clms-theme -e NAMESPACE=@eeacms plone/volto-addon-ci"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders 1`] = `
+<div
+  className="footer-clms-col"
+>
+  <div
+    className="footer-clms-col-title border-bottom"
+  >
+    <h3>
+      Footer block title
+    </h3>
+  </div>
+  <p>
+    children component
+  </p>
+</div>
+`;
