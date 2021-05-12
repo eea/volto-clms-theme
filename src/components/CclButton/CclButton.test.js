@@ -2,7 +2,6 @@ import CclButton from './CclButton';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import { reducePropsToState } from '../../../../../../omelette/src/helpers/Helmet/HelmetUtils';
 
 describe('CclButton', () => {
   it('Check external link', () => {
