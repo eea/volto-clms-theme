@@ -20,6 +20,7 @@ export const CardContainerSchema = (types, extras) => ({
         ['line-color', 'Colored Line card'],
         ['doc', 'Line card'],
         ['block', 'Block card'],
+        ['event', 'Event card'],
       ],
       default: 'line',
     },

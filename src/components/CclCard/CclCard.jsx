@@ -8,7 +8,7 @@ function CclCard(props) {
   let url = card ? card['@id'] || card.url || '/' : '/';
   return (
     <div className={'card-' + (type || 'line')}>
-      {type === 'doc' || type === 'news' ? (
+      {type === 'doc' || type === 'news' || type === 'event' ? (
         <>
           {type === 'doc' && (
             <>
@@ -43,6 +43,47 @@ function CclCard(props) {
                   {new Date(card?.effective).toLocaleDateString()}
                 </div>
                 <p className="card-news-description">{card?.description}</p>
+              </div>
+            </>
+          )}
+          {type === 'event' && (
+            <>
+              <div className="card-event-image">
+                {card?.image?.scales ? (
+                  <img
+                    src={card.image.scales.preview.download}
+                    alt={card.image.alt}
+                  />
+                ) : (
+                  <img
+                    src={
+                      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                    }
+                    alt={'placeholder'}
+                  />
+                )}
+              </div>
+              <div className={'card-event-text'}>
+                <div className="card-event-title">
+                  <Link to={'event_detail'}>
+                    {card?.title || 'Event default title'}
+                  </Link>
+                </div>
+                <div className="card-event-when">
+                  <i className="far fa-calendar-alt"></i>
+                  <div className="card-event-when-text">
+                    {card?.when || 'dd/mm/yyyy - dd/mm/yyyy'}
+                  </div>
+                </div>
+                <div className="card-event-where">
+                  <i className="fas fa-map-marker-alt"></i>
+                  <div className="card-event-where-text">
+                    {card?.where || 'Virtual'}
+                  </div>
+                </div>
+                <div className="card-description">
+                  {card?.description || 'Event default description text'}
+                </div>
               </div>
             </>
           )}

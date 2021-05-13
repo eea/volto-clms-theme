@@ -1,5 +1,5 @@
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
-
+import EventsView from '@eeacms/volto-clms-theme/components/CLMSEvents/EventsView';
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
@@ -11,6 +11,7 @@ const applyConfig = (config) => {
     contentTypesViews: {
       ...config.contentTypesViews,
       DataSet: CLMSDatasetDetailView,
+      Event: EventsView,
     },
   };
   config.blocks = {
