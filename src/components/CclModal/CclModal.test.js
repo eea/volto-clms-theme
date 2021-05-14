@@ -1,11 +1,10 @@
 import CclModal from './CclModal';
 import renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
 
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('CclModal', () => {
@@ -52,7 +51,7 @@ describe('CclModal', () => {
     mobileLang.simulate('click');
 
     const closeModal = component.find('.ccl-icon-close');
-    closeModal.simulate('click').simulate('keydown')
+    closeModal.simulate('click').simulate('keydown');
     // component.find('.header-login-link').at(0).simulate('click');
     expect(mockCallBack.mock.calls.length).toEqual(1);
     // const mobileSel = wrapper.find('div.header-lang-icon');
