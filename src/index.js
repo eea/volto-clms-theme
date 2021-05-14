@@ -1,4 +1,5 @@
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
+import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
 
 import customBlocks, {
   customGroupBlocksOrder,
@@ -11,6 +12,7 @@ const applyConfig = (config) => {
     contentTypesViews: {
       ...config.contentTypesViews,
       DataSet: CLMSDatasetDetailView,
+      'News Item': CLMSNewsItemView,
     },
   };
   config.blocks = {
