@@ -13,7 +13,7 @@ export const CLMSEventView = (props) => {
               ? content?.image?.download
               : 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
           }
-          alt="Placeholder"
+          alt={content?.image ? content?.image?.filename : 'Placeholder'}
         ></img>
         <div className="event-detail-content">
           <StringToHTML string={content.text?.data || ''} />
