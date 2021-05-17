@@ -31,6 +31,7 @@ export const CardBlockSchema = () => ({
         ['line', 'Line card'],
         ['block', 'Block card'],
         ['line-color', 'Colored Line card'],
+        ['event', 'Event card'],
       ],
     },
   },
