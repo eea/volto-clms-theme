@@ -5,7 +5,6 @@ const EventsView = (content) => {
   return (
     <>
       <div className="ccl-container">
-        <h1 className="page-title">{'Events'}</h1>
         <CclCard
           type={'event'}
           title={content.title}

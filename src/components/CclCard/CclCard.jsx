@@ -65,20 +65,20 @@ function CclCard(props) {
               </div>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
-                  <Link to={'custom_events/event_detail'}>
+                  <Link to={url}>
                     {card?.title || 'Event default title'}
                   </Link>
                 </div>
                 <div className="card-event-when">
                   <i className="far fa-calendar-alt"></i>
                   <div className="card-event-when-text">
-                    {card?.when || 'dd/mm/yyyy - dd/mm/yyyy'}
+                    {new Date(card?.effective).toLocaleDateString() || 'dd/mm/yyyy - dd/mm/yyyy'}
                   </div>
                 </div>
                 <div className="card-event-where">
                   <i className="fas fa-map-marker-alt"></i>
                   <div className="card-event-where-text">
-                    {card?.where || 'Virtual'}
+                    {card?.Location || 'Virtual'}
                   </div>
                 </div>
                 <div className="card-description">

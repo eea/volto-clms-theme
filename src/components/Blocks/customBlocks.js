@@ -81,9 +81,9 @@ const customBlocks = (config) => ({
         label: 'CclCards News',
         template: CclListingCards,
       },
-      CclCardsevents: {
+      CclCardsevent: {
         label: 'CclCards Events',
-        template: EventsView,
+        template: CclListingCards,
       },
     },
   },
