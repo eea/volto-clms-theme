@@ -26,14 +26,16 @@ const CclListingCards = ({ items, linkMore, isEditMode, template }) => {
   const regex = /CclCards/;
 
   const cardType = template.replace(regex, '');
+  let containerClass = '';
+  if (cardType in ['news', 'event']) {
+    containerClass = 'ccl-container';
+  } else if (!(cardType in ['line', 'doc'])) {
+    containerClass = 'card-container';
+  }
 
   return (
     <>
-      <div
-        className={
-          cardType === 'line' || cardType === 'doc' ? '' : 'card-container'
-        }
-      >
+      <div className={containerClass}>
         {items.map((item, index) => (
           <CclCard key={index} type={cardType} card={item} />
         ))}
