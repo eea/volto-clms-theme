@@ -33,7 +33,6 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
-import EventsView from '@eeacms/volto-clms-theme/components/CLMSEvents/EventsView';
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
