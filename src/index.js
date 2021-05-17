@@ -1,8 +1,10 @@
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
-
+import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
+import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
+import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 
 const applyConfig = (config) => {
   config.views = {
@@ -10,6 +12,8 @@ const applyConfig = (config) => {
     contentTypesViews: {
       ...config.contentTypesViews,
       DataSet: CLMSDatasetDetailView,
+      'News Item': CLMSNewsItemView,
+      Event: CLMSEventView,
     },
   };
   config.blocks = {
@@ -20,7 +24,7 @@ const applyConfig = (config) => {
       customGroupBlocksOrder,
     ],
   };
-
+  config.widgets.type.tabs = TabsWidget;
   return config;
 };
 export default applyConfig;

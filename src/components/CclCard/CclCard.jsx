@@ -2,13 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './cards.less';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function CclCard(props) {
   const { type, children, card } = props;
   let url = card ? card['@id'] || card.url || '/' : '/';
+  let start = new Date(card?.start);
+  let end = new Date(card?.end);
   return (
     <div className={'card-' + (type || 'line')}>
-      {type === 'doc' || type === 'news' ? (
+      {type === 'doc' || type === 'news' || type === 'event' ? (
         <>
           {type === 'doc' && (
             <>
@@ -16,9 +19,7 @@ function CclCard(props) {
                 {card?.title || 'Card default title'}
               </div>
               <div className="card-doc-text">
-                <div className="doc-description">
-                  {card?.description || 'Card default description text'}
-                </div>
+                <div className="doc-description">{card?.description}</div>
                 <div className="card-doc-size">{card?.docInfo || 'DOC'}</div>
                 {children}
               </div>
@@ -46,6 +47,46 @@ function CclCard(props) {
               </div>
             </>
           )}
+          {type === 'event' && (
+            <>
+              <div className="card-event-image">
+                {card?.image?.scales ? (
+                  <img
+                    src={card.image.scales.preview.download}
+                    alt={card.image.alt}
+                  />
+                ) : (
+                  <img
+                    src={
+                      card?.image?.download ||
+                      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                    }
+                    alt={'placeholder'}
+                  />
+                )}
+              </div>
+              <div className={'card-event-text'}>
+                <div className="card-event-title">
+                  <Link to={url}>{card?.title || 'Event default title'}</Link>
+                </div>
+                <div className="card-event-when">
+                  <FontAwesomeIcon icon={['far', 'calendar-alt']} />
+                  <div className="card-event-when-text">
+                    {start.toLocaleDateString() === end.toLocaleDateString()
+                      ? start.toLocaleDateString()
+                      : start.toLocaleDateString() +
+                        ' - ' +
+                        end.toLocaleDateString()}
+                  </div>
+                </div>
+                <div className="card-event-where">
+                  <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
+                  <div className="card-event-where-text">{card?.location}</div>
+                </div>
+                <p className="card-description">{card?.description}</p>
+              </div>
+            </>
+          )}
         </>
       ) : (
         <>
@@ -68,9 +109,7 @@ function CclCard(props) {
             <div className="card-title">
               <Link to={url}>{card?.title || 'Card default title'}</Link>
             </div>
-            <div className="card-description">
-              {card?.description || 'Card default description text'}
-            </div>
+            <div className="card-description">{card?.description}</div>
             {children}
           </div>
         </>

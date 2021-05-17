@@ -15,8 +15,8 @@ const CclFooterMenu = () => {
       {menu?.length > 0
         ? menu
             ?.filter((item) => item.visible)
-            ?.map((item) => (
-              <li>
+            ?.map((item, index) => (
+              <li key={index}>
                 <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
                   {item.title}
                 </Link>

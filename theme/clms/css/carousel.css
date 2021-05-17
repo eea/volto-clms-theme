@@ -1,5 +1,5 @@
 /* Slider */
- .slick-slider {
+.slick-slider {
   position: relative;
 
   display: block;
@@ -69,8 +69,6 @@
   visibility: hidden;
 }
 
-/*
-*/
 .slick-slide {
   display: none;
   height: 100%;
