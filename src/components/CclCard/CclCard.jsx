@@ -65,7 +65,7 @@ function CclCard(props) {
               </div>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
-                  <Link to={'event_detail'}>
+                  <Link to={'custom_events/event_detail'}>
                     {card?.title || 'Event default title'}
                   </Link>
                 </div>
