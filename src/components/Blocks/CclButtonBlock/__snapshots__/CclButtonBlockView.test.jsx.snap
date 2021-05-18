@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a CclButtonBlockView component 1`] = `
+<a
+  className="ccl-button ccl-button--default"
+  disabled={true}
+  download={true}
+  href="https://www.google.com/@@download/file"
+  target="_blank"
+>
+  Text example...
+</a>
+`;
+
+exports[`renders a CclButtonBlockView component 2`] = `
+<a
+  className="ccl-button ccl-button--default"
+  disabled={true}
+  download={false}
+  href="https://www.google.com"
+>
+  Text example...
+</a>
+`;

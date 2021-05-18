@@ -6,51 +6,86 @@ import { MemoryRouter } from 'react-router-dom';
 
 import CclButtonBlockEdit from './CclButtonBlockEdit';
 
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+// import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+
+Enzyme.configure({ adapter: new Adapter() });
+
 global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 
 const mockStore = configureStore();
-test('renders an CclButtonBlockEditView hero block component', () => {
-  const store = mockStore({
-    content: {
-      create: {},
-      data: {},
-    },
-    intl: {
-      locale: 'en',
-      messages: {},
-    },
+
+describe('CclButtonBlockEdit', () => {
+  it('CclButtonBlockEdit block clicks', () => {
+    const store = mockStore({
+      content: {
+        create: {},
+        data: {},
+      },
+      intl: {
+        locale: 'en',
+        messages: {},
+      },
+    });
+    const data = {
+      href: 'https://www.google.com',
+      disabled: false,
+      style: 'default',
+      download: false,
+    };
+    // const component = shallow(
+    const component = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CclButtonBlockEdit
+            data={data}
+            selected={false}
+            block="1234"
+            onChangeBlock={() => {}}
+            setSidebarTab={() => {}}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+    const legend = component.find('.ccl-block-editor-header legend');
+    legend.simulate('click');
+
+    expect(1).toBe(1);
   });
-  const data = {
-    href: 'https://www.google.com',
-    disabled: false,
-    style: 'default',
-    download: false,
-  };
-  const component = renderer.create(
-    <Provider store={store}>
-      <MemoryRouter>
-        <CclButtonBlockEdit
-          data={data}
-          selected={false}
-          block="1234"
-          content={{}}
-          request={{
-            loading: false,
-            loaded: false,
-          }}
-          pathname="/news"
-          onChangeBlock={() => {}}
-          onSelectBlock={() => {}}
-          onDeleteBlock={() => {}}
-          createContent={() => {}}
-          onFocusPreviousBlock={() => {}}
-          onFocusNextBlock={() => {}}
-          handleKeyDown={() => {}}
-          index={1}
-        />
-      </MemoryRouter>
-    </Provider>,
-  );
-  const json = component.toJSON();
-  expect(json).toMatchSnapshot();
+  it('renders an CclButtonBlockEdit block component', () => {
+    const store = mockStore({
+      content: {
+        create: {},
+        data: {},
+      },
+      intl: {
+        locale: 'en',
+        messages: {},
+      },
+    });
+    const data = {
+      href: ['https://www.google.com', 'https://www.google.com'],
+      disabled: true,
+    };
+    const component = renderer.create(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CclButtonBlockEdit
+            data={data}
+            selected={false}
+            block="1234"
+            onChangeBlock={() => {}}
+            onSelectBlock={() => {}}
+            onChangeField={() => {}}
+            setSidebarTab={() => {}}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const json = component.toJSON();
+    expect(json).toMatchSnapshot();
+  });
 });
