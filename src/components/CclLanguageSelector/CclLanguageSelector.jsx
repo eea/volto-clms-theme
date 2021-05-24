@@ -11,12 +11,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
 import { find } from 'lodash';
 import { updateIntl } from 'react-intl-redux';
-import langmap from 'langmap';
-import { Helmet } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { FormattedMessage } from 'react-intl';
+
+import { Helmet, langmap } from '@plone/volto/helpers'; // volto 13.0.1 upgrade
 
 let locales = {};
 

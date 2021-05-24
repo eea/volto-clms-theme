@@ -9,7 +9,7 @@ import './styles.less';
 /** upload image */
 import { Dimmer, Loader, Message, Image, Label } from 'semantic-ui-react';
 import { readAsDataURL } from 'promise-file-reader';
-import { getBaseUrl } from '@plone/volto/helpers';
+import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
 import { createContent } from '@plone/volto/actions';
 import { compose } from 'redux';
 import { connect, useDispatch } from 'react-redux';
@@ -128,7 +128,7 @@ const CclHomeUsersBlockEdit = ({
   React.useEffect(() => {
     if (request.loaded && !request.loading) {
       onChangeCardBlockImage(onChangeBlock, block, data, selectedCardBlock, {
-        url: content.image.download,
+        url: flattenToAppURL(content['@id']),
         alt: content.image.filename,
       });
     }
@@ -200,7 +200,7 @@ const CclHomeUsersBlockEdit = ({
                                   data,
                                   selectedCardBlock,
                                   {
-                                    url: element.getURL,
+                                    url: element['@id'],
                                     alt: element.title,
                                   },
                                 ),
@@ -209,7 +209,7 @@ const CclHomeUsersBlockEdit = ({
                             setSelectedCardBlock(uid);
                           }
                         }}
-                        src={panel.image.url}
+                        src={`${panel.image.url}/@@images/image`}
                       />
                     </>
                   ) : (
@@ -265,7 +265,7 @@ const CclHomeUsersBlockEdit = ({
                                             data,
                                             selectedCardBlock,
                                             {
-                                              url: element.getURL,
+                                              url: element['@id'],
                                               alt: element.title,
                                             },
                                           ),
