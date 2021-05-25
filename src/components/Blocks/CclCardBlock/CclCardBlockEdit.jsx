@@ -49,15 +49,15 @@ const CclCardBlockEdit = (props) => {
 
   return (
     <>
-      <div
-        onClick={() => {
-          props.setSidebarTab(1);
-        }}
-        aria-hidden="true"
-      >
-        <CclCard type={data.cardStyle || 'line'} card={card} />
+      <div className="ccl-block-editor-header">
+        <legend
+          onClick={() => {
+            props.setSidebarTab(1);
+          }}
+          aria-hidden="true"
+        />
       </div>
-
+      <CclCard type={data.cardStyle || 'line'} card={card} />
       <SidebarPortal selected={selected}>
         <InlineForm
           schema={CardBlockSchema()}

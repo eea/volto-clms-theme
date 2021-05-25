@@ -43,19 +43,17 @@ const DataSetInfoContent = (data) => {
           ></CclInfoDescription>
         )}
         {data?.dataResourceLocator && (
-          <>
-            <CclInfoDescription
-              title="Resource locator"
-              description={
-                <>
-                  <CclButton url={data.dataResourceLocator} target="_blank">
-                    Go to resource locator
-                  </CclButton>
-                </>
-              }
-              tooltip="URL address to locate the data"
-            ></CclInfoDescription>
-          </>
+          <CclInfoDescription
+            title="Resource locator"
+            description={
+              <>
+                <CclButton url={data.dataResourceLocator} target="_blank">
+                  Go to resource locator
+                </CclButton>
+              </>
+            }
+            tooltip="URL address to locate the data"
+          ></CclInfoDescription>
         )}
         <div class="dataset-info-documents dropdown">
           <div class="ccl-expandable__button" aria-expanded="true">
