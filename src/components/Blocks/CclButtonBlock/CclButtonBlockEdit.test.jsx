@@ -51,8 +51,7 @@ describe('CclButtonBlockEdit', () => {
     );
     const legend = component.find('.ccl-block-editor-header legend');
     legend.simulate('click');
-
-    expect(1).toBe(1);
+    expect(legend).toBeDefined();
   });
   it('renders an CclButtonBlockEdit block component', () => {
     const store = mockStore({

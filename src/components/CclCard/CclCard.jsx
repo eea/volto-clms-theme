@@ -50,20 +50,13 @@ function CclCard(props) {
           {type === 'event' && (
             <>
               <div className="card-event-image">
-                {card?.image?.scales ? (
-                  <img
-                    src={card.image.scales.preview.download}
-                    alt={card.image.alt}
-                  />
-                ) : (
-                  <img
-                    src={
-                      card?.image?.download ||
-                      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                    }
-                    alt={'placeholder'}
-                  />
-                )}
+                <img
+                  src={
+                    card?.image?.download ||
+                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                  }
+                  alt={'placeholder'}
+                />
               </div>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
@@ -91,19 +84,12 @@ function CclCard(props) {
       ) : (
         <>
           <div className="card-image">
-            {card?.image?.scales ? (
-              <img
-                src={card.image.scales.preview.download}
-                alt={card.image.alt}
-              />
-            ) : (
-              <img
-                src={
-                  'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                }
-                alt={'placeholder'}
-              />
-            )}
+            <img
+              src={
+                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+              }
+              alt={'placeholder'}
+            />
           </div>
           <div className={'card-text'}>
             <div className="card-title">
@@ -155,6 +141,8 @@ CclCard.propTypes = {
         }),
       }),
     }),
+    start: PropTypes.string,
+    end: PropTypes.string,
   }),
   children: PropTypes.node,
 };

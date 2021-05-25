@@ -17,8 +17,8 @@ function CclTab(props) {
   return (
     <div
       className={className}
-      onClick={onTabClick}
-      onKeyDown={onTabClick}
+      onClick={() => onTabClick()}
+      onKeyDown={() => onTabClick()}
       tabIndex="0"
       role="button"
     >
