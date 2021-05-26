@@ -8,28 +8,29 @@ import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
-const CclListingCards = ({ items, linkMore, isEditMode, template }) => {
+const CclListingCards = (props) => {
+  const { items, linkHref, linkTitle, isEditMode, variation } = props;
   let link = null;
-  let href = linkMore?.href || '';
+  let href = linkHref?.[0]?.['@id'] || '';
 
   if (isInternalURL(href)) {
     link = (
       <ConditionalLink to={flattenToAppURL(href)} condition={!isEditMode}>
-        {linkMore?.title || href}
+        {linkTitle || href}
       </ConditionalLink>
     );
   } else if (href) {
-    link = <a href={href}>{linkMore?.title || href}</a>;
+    link = <a href={href}>{linkTitle || href}</a>;
   }
 
-  // const { settings } = config;
+  // // const { settings } = config;
   const regex = /CclCards/;
 
-  const cardType = template.replace(regex, '');
+  const cardType = variation.replace(regex, '');
   let containerClass = '';
-  if (cardType in ['news', 'event']) {
+  if (['news', 'event'].includes(cardType)) {
     containerClass = 'ccl-container';
-  } else if (!(cardType in ['line', 'doc'])) {
+  } else if (!['line', 'doc'].includes(cardType)) {
     containerClass = 'card-container';
   }
 
@@ -40,7 +41,6 @@ const CclListingCards = ({ items, linkMore, isEditMode, template }) => {
           <CclCard key={index} type={cardType} card={item} />
         ))}
       </div>
-
       {link && <div className="footer">{link}</div>}
     </>
   );
@@ -48,7 +48,7 @@ const CclListingCards = ({ items, linkMore, isEditMode, template }) => {
 
 CclListingCards.propTypes = {
   items: PropTypes.arrayOf(PropTypes.any).isRequired,
-  linkMore: PropTypes.any,
+  linkHref: PropTypes.any,
   isEditMode: PropTypes.bool,
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -25,12 +25,12 @@
     "@eeacms/volto-metadata-block"
   ],
   "dependencies": {
-    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
+    "@collective/volto-dropdownmenu": "2.2.6",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
-    "@eeacms/volto-tabs-block": "github:eea/volto-tabs-block.git#1.2.1",
+    "@eeacms/volto-tabs-block": "1.2.3",
     "react-slick": "0.28.1",
     "slick-carousel": "1.8.1",
     "@eeacms/volto-accordion-block": "^3.0.0",
