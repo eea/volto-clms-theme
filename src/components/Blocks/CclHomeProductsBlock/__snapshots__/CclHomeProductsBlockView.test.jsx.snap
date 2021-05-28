@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
+<div
+  className="home-products-container"
+>
+  <div
+    className="home-product"
+    id="home-product"
+  >
+    <div
+      className="home-product-title"
+    >
+      example title1
+    </div>
+  </div>
+  <div
+    className="home-product"
+    id="home-product"
+  >
+    <div
+      className="home-product-title"
+    >
+      example title2
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders a CclHomeProductsBlockView component iconless style 1`] = `
+<div
+  className="home-products-container"
+>
+  <div
+    className="home-product home-product-main"
+    id=""
+  >
+    <h3>
+      example title1
+    </h3>
+  </div>
+  <div
+    className="home-product home-product-main"
+    id=""
+  >
+    <h3>
+      example title2
+    </h3>
+  </div>
+</div>
+`;
