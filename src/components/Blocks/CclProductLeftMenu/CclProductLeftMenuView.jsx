@@ -11,7 +11,7 @@ const CclProductLeftMenuView = (props) => {
   return (
     <nav className="left-menu-detail">
       <div className="menu-detail-image">
-        <img src={metadata.image.download} alt={metadata.image.filename} />
+        <img src={metadata?.image?.download} alt={metadata?.image?.filename} />
       </div>
       {buttons.map((button, index) => (
         <div key={index} className={'menu-detail-button'}>

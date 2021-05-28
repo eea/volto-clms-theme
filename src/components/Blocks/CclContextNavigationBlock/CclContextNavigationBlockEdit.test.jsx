@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
-import CclContextNavigationBlockView from './CclContextNavigationBlockView';
+import CclContextNavigationBlockEdit from './CclContextNavigationBlockEdit';
 import { MemoryRouter } from 'react-router-dom';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -13,8 +13,8 @@ global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 
 const mockStore = configureStore();
 
-describe('CclContextNavigationBlockView', () => {
-  it('Check context navigation view', () => {
+describe('CclSearchBlock', () => {
+  it('Check context navigation edit', () => {
     const store = mockStore({
       content: {
         create: {},
@@ -26,17 +26,17 @@ describe('CclContextNavigationBlockView', () => {
       },
     });
     const pathname = '/example';
-
-    const ContextNavigationBlockView = renderer.create(
-      <Provider store={store}>
-        <MemoryRouter>
-          <CclContextNavigationBlockView pathname={pathname}>
-            <p>Search block edit test</p>
-          </CclContextNavigationBlockView>
-        </MemoryRouter>
-      </Provider>,
-    );
-    const json = ContextNavigationBlockView.toJSON();
-    expect(json).toMatchSnapshot();
+    const ContextNavigationBlockEdit = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <CclContextNavigationBlockEdit pathname={pathname}>
+              <p>Search block view test</p>
+            </CclContextNavigationBlockEdit>
+          </MemoryRouter>
+        </Provider>,
+      )
+      .toJSON();
+    expect(ContextNavigationBlockEdit).toMatchSnapshot();
   });
 });

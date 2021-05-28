@@ -46,7 +46,14 @@ const CclProductLeftMenuEdit = (props) => {
     <>
       <nav className="left-menu-detail">
         <div className="menu-detail-image">
-          <img src={metadata.image.download} alt={metadata.image.filename} />
+          <img
+            src={
+              metadata?.image
+                ? `data:${metadata?.image?.['contet-type']};${metadata?.image?.encoding},${metadata?.image?.data}`
+                : 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+            }
+            alt={metadata?.image?.filename}
+          />
         </div>
         {panels.map(([uid, panel], index) => (
           <div
