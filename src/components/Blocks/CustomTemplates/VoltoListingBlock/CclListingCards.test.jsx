@@ -48,7 +48,7 @@ describe('CclListingCards', () => {
             variation={variation}
           ></CclListingCards>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(component).toBeDefined();
   });
@@ -88,7 +88,7 @@ describe('CclListingCards', () => {
             variation={variation}
           ></CclListingCards>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(component).toBeDefined();
   });
@@ -128,7 +128,7 @@ describe('CclListingCards', () => {
             variation={variation}
           ></CclListingCards>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(component).toBeDefined();
   });
@@ -164,7 +164,7 @@ describe('CclListingCards', () => {
             variation={variation}
           ></CclListingCards>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(component).toBeDefined();
   });
@@ -202,7 +202,7 @@ describe('CclListingCards', () => {
             variation={variation}
           ></CclListingCards>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(component).toBeDefined();
   });
@@ -240,7 +240,7 @@ describe('CclListingCards', () => {
             variation={variation}
           ></CclListingCards>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
     expect(component).toBeDefined();
   });
