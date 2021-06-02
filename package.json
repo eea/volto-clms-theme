@@ -22,7 +22,10 @@
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
-    "@eeacms/volto-metadata-block"
+    "@eeacms/volto-metadata-block",
+    "volto-slate:simpleLink",
+    "react-intersection-observer",
+    "@eeacms/volto-block-style"
   ],
   "dependencies": {
     "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
