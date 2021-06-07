@@ -22,8 +22,7 @@
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
-    "@eeacms/volto-metadata-block",
-    "@eeacms/volto-arcgis-block"
+    "@eeacms/volto-metadata-block"
   ],
   "dependencies": {
     "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
@@ -36,8 +35,7 @@
     "slick-carousel": "1.8.1",
     "@eeacms/volto-accordion-block": "^3.0.0",
     "@eeacms/volto-columns-block": "4.4.2",
-    "@eeacms/volto-metadata-block": "^2.1.0",
-    "@eeacms/volto-arcgis-block": "github:eea/volto-arcgis-block"
+    "@eeacms/volto-metadata-block": "^2.1.0"
   },
   "prettier": {
     "trailingComma": "all",
