@@ -33,9 +33,12 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoArcgisBlock/CclMapMenu';
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
+
+import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
@@ -44,6 +47,23 @@ export const customGroupBlocksOrder = {
 
 const customBlocks = (config) => ({
   ...config.blocks.blocksConfig,
+  [ARCGIS_BLOCK]: {
+    ...config.blocks.blocksConfig[ARCGIS_BLOCK],
+    styles: {
+      ...config.blocks.blocksConfig[ARCGIS_BLOCK]?.styles,
+      land: {
+        title: 'Copernicus Land',
+        customClass: 'land',
+      },
+    },
+    extraMenu: {
+      ...config.blocks.blocksConfig[ARCGIS_BLOCK]?.extraMenu,
+      land: {
+        title: 'Land Products',
+        component: CclMapMenu,
+      },
+    },
+  },
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     templates: {
