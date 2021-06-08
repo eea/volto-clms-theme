@@ -37,6 +37,7 @@ import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplat
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
+// eslint-disable-next-line no-use-before-define
 import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 
 export const customGroupBlocksOrder = {
