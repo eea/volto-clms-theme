@@ -19,6 +19,7 @@
   },
   "addons": [
     "@collective/volto-dropdownmenu",
+    "@eeacms/volto-arcgis-block",
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
@@ -26,6 +27,7 @@
   ],
   "dependencies": {
     "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
+    "@eeacms/volto-arcgis-block": "git://github.com/eea/volto-arcgis-block.git#develop",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
@@ -101,7 +103,6 @@
     "stylelint-config-idiomatic-order": "8.1.0",
     "stylelint-prettier": "1.1.2",
     "@cypress/code-coverage": "^3.9.5",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "@eeacms/volto-arcgis-block": "git://github.com/eea/volto-arcgis-block.git#develop"
+    "babel-plugin-transform-class-properties": "^6.24.1"
   }
 }
