@@ -77,33 +77,46 @@ const customBlocks = (config) => ({
   },
   listing: {
     ...config.blocks.blocksConfig.listing,
-    templates: {
-      ...config.blocks.blocksConfig.listing.templates,
-      CclCardsline: {
-        label: 'CclCards Image Line',
+    showLinkMore: true,
+    variations: [
+      ...config.blocks.blocksConfig.listing.variations,
+      {
+        id: 'CclCardsline-color',
+        isDefault: false,
+        title: 'CclCards Colored Line',
         template: CclListingCards,
       },
-      'CclCardsline-color': {
-        label: 'CclCards Colored Line',
+      {
+        id: 'CclCardsline',
+        isDefault: false,
+        title: 'CclCards Image Line',
         template: CclListingCards,
       },
-      CclCardsdoc: {
-        label: 'CclCards Line',
+      {
+        id: 'CclCardsdoc',
+        isDefault: false,
+        title: 'CclCards Line',
         template: CclListingCards,
       },
-      CclCardsblock: {
-        label: 'CclCards Block',
+      {
+        id: 'CclCardsblock',
+        isDefault: false,
+        title: 'CclCards Block',
         template: CclListingCards,
       },
-      CclCardsnews: {
-        label: 'CclCards News',
+      {
+        id: 'CclCardsnews',
+        isDefault: false,
+        title: 'CclCards News',
         template: CclListingCards,
       },
-      CclCardsevent: {
-        label: 'CclCards Events',
+      {
+        id: 'CclCardsevent',
+        isDefault: false,
+        title: 'CclCards Events',
         template: CclListingCards,
       },
-    },
+    ],
   },
   contextNavigation: {
     id: 'contextNavigation', // The name (id) of the block
