@@ -88,7 +88,9 @@ const CclUseCaseListEdit = (props) => {
                         <span>
                           {useCase.topics.map((topic) => topic.title)}
                         </span>
-                        <span>{useCase.effective}</span>
+                        <span>
+                          {new Date(useCase?.effective).toLocaleDateString()}
+                        </span>
                         <span>{useCase.responsibleOrganization}</span>
                       </div>
                     </div>

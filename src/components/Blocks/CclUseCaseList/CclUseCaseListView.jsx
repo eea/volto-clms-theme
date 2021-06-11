@@ -47,8 +47,8 @@ const CclUseCaseListView = (props) => {
             {intl.formatMessage(messages.xUseCases)}
           </div>
           <div className="use-cases-products-list">
-            {Object.keys(productGroups).map((productToken) => (
-              <div className="use-cases-dropdown">
+            {Object.keys(productGroups).map((productToken, index) => (
+              <div key={index} className="use-cases-dropdown">
                 <div
                   className="ccl-expandable__button"
                   aria-expanded={expanded.includes(productToken)}
@@ -76,20 +76,24 @@ const CclUseCaseListView = (props) => {
                   {productGroups[productToken].title}
                 </div>
                 <div className="use-cases-element-container">
-                  {productGroups[productToken].useCases.map((useCase) => (
-                    <div className="use-cases-element">
-                      <div className="use-case-element-title">
-                        {useCase.title}
+                  {productGroups[productToken].useCases.map(
+                    (useCase, index) => (
+                      <div key={index} className="use-cases-element">
+                        <div className="use-case-element-title">
+                          {useCase.title}
+                        </div>
+                        <div className="use-case-element-description">
+                          <span>
+                            {useCase.topics.map((topic) => topic.title)}
+                          </span>
+                          <span>
+                            {new Date(useCase?.effective).toLocaleDateString()}
+                          </span>
+                          <span>{useCase.responsibleOrganization}</span>
+                        </div>
                       </div>
-                      <div className="use-case-element-description">
-                        <span>
-                          {useCase.topics.map((topic) => topic.title)}
-                        </span>
-                        <span>{useCase.effective}</span>
-                        <span>{useCase.responsibleOrganization}</span>
-                      </div>
-                    </div>
-                  ))}
+                    ),
+                  )}
                 </div>
               </div>
             ))}
