@@ -20,10 +20,12 @@
   "addons": [
     "@collective/volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
-    "@eeacms/volto-tabs-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
-    "@eeacms/volto-metadata-block"
+    "@eeacms/volto-metadata-block",
+    "@eeacms/volto-resize-helper",
+    "volto-slate:simpleLink",
+    "@eeacms/volto-tabs-block"
   ],
   "dependencies": {
     "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
@@ -36,8 +38,9 @@
     "react-slick": "0.28.1",
     "slick-carousel": "1.8.1",
     "@eeacms/volto-accordion-block": "^3.0.0",
-    "@eeacms/volto-columns-block": "4.4.2",
-    "@eeacms/volto-metadata-block": "^2.1.0"
+    "@eeacms/volto-columns-block": "4.4.3",
+    "@eeacms/volto-metadata-block": "^2.1.0",
+    "volto-slate": "2.6.2"
   },
   "prettier": {
     "trailingComma": "all",
