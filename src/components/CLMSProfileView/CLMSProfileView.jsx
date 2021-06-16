@@ -123,7 +123,6 @@ class CLMSProfileView extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.userId);
-    this.setState({ user: this.props.user });
   }
   /**
    * Cancel handler
