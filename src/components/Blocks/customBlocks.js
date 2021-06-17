@@ -40,6 +40,9 @@ import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/Cc
 
 import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 
+import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
+import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
+
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
   title: 'Ccl Blocks',
@@ -244,6 +247,22 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeUsersBlockView, // The view mode component
     edit: CclHomeUsersBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  useCaseList: {
+    id: 'useCaseList', // The name (id) of the block
+    title: 'UseCase List', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclUseCaseListView, // The view mode component
+    edit: CclUseCaseListEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus

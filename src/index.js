@@ -27,6 +27,12 @@ const applyConfig = (config) => {
   };
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget.bounding_widget = BoundingWidget;
+  config.settings = {
+    ...config.settings,
+    isMultilingual: true,
+    supportedLanguages: ['en', 'fr', 'de'],
+    defaultLanguage: 'en',
+  };
   return config;
 };
 export default applyConfig;
