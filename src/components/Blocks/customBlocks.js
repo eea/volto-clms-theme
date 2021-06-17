@@ -33,9 +33,15 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoArcgisBlock/CclMapMenu';
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
+
+import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
+
+import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
+import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
@@ -44,6 +50,23 @@ export const customGroupBlocksOrder = {
 
 const customBlocks = (config) => ({
   ...config.blocks.blocksConfig,
+  [ARCGIS_BLOCK]: {
+    ...config.blocks.blocksConfig[ARCGIS_BLOCK],
+    styles: {
+      ...config.blocks.blocksConfig[ARCGIS_BLOCK]?.styles,
+      land: {
+        title: 'Copernicus Land',
+        customClass: 'land',
+      },
+    },
+    extraMenu: {
+      ...config.blocks.blocksConfig[ARCGIS_BLOCK]?.extraMenu,
+      land: {
+        title: 'Land Products',
+        component: CclMapMenu,
+      },
+    },
+  },
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     templates: {
@@ -224,6 +247,22 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeUsersBlockView, // The view mode component
     edit: CclHomeUsersBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  useCaseList: {
+    id: 'useCaseList', // The name (id) of the block
+    title: 'UseCase List', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclUseCaseListView, // The view mode component
+    edit: CclUseCaseListEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus

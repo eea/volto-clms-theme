@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 
 import uploadSVG from '@plone/volto/icons/upload.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
+import editingSVG from '@plone/volto/icons/editing.svg';
 
 const messages = defineMessages({
   uploadImage: {
@@ -30,6 +31,10 @@ const messages = defineMessages({
   removeImage: {
     id: 'Remove image',
     defaultMessage: 'Remove image',
+  },
+  editImage: {
+    id: 'Edit image',
+    defaultMessage: 'Edit',
   },
 });
 
@@ -186,8 +191,11 @@ const CclHomeUsersBlockEdit = ({
                             {intl.formatMessage(messages.removeImage)}
                           </Label>
                         )}
-                      <Image
-                        size="small"
+
+                      <div
+                        role="button"
+                        tabindex="0"
+                        className="ui image edit-image-container"
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
@@ -209,8 +217,39 @@ const CclHomeUsersBlockEdit = ({
                             setSelectedCardBlock(uid);
                           }
                         }}
-                        src={`${panel.image.url}/@@images/image`}
-                      />
+                        onKeyDown={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          if (selected && uid === selectedCardBlock) {
+                            openObjectBrowser({
+                              onSelectItem: (url, element) =>
+                                onChangeCardBlockImage(
+                                  onChangeBlock,
+                                  block,
+                                  data,
+                                  selectedCardBlock,
+                                  {
+                                    url: element['@id'],
+                                    alt: element.title,
+                                  },
+                                ),
+                            });
+                          } else {
+                            setSelectedCardBlock(uid);
+                          }
+                        }}
+                      >
+                        <Image
+                          size="small"
+                          src={`${panel.image.url}/@@images/image`}
+                        />
+                        {selected && uid === selectedCardBlock && (
+                          <div className="edit-image">
+                            <Icon className="ui" name={editingSVG} size={35} />
+                            {intl.formatMessage(messages.editImage)}
+                          </div>
+                        )}
+                      </div>
                     </>
                   ) : (
                     <div className="image-add">

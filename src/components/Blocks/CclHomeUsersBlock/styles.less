@@ -36,6 +36,35 @@
   .block .card-image img {
     width: 300px;
   }
+
+  .card-image .edit-image-container {
+    position: relative;
+    text-align: center;
+  }
+
+  .edit-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: none !important;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .edit-image-container:hover {
+    cursor: pointer;
+
+    .edit-image {
+      display: block !important;
+    }
+
+    img {
+      opacity: 0.8;
+    }
+  }
 }
 
 .ccl-list-items .ccl-list-item .ccl-list-item-image img {
