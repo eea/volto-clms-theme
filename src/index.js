@@ -5,6 +5,7 @@ import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
+import BoundingWidget from './components/Widgets/BoundingWidget';
 
 const applyConfig = (config) => {
   config.views = {
@@ -25,6 +26,7 @@ const applyConfig = (config) => {
     ],
   };
   config.widgets.type.tabs = TabsWidget;
+  config.widgets.widget.bounding_widget = BoundingWidget;
   return config;
 };
 export default applyConfig;
