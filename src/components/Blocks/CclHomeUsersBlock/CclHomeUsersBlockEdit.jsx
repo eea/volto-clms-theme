@@ -134,7 +134,7 @@ const CclHomeUsersBlockEdit = ({
     if (request.loaded && !request.loading) {
       onChangeCardBlockImage(onChangeBlock, block, data, selectedCardBlock, {
         url: flattenToAppURL(content['@id']),
-        alt: content.image.filename,
+        alt: content?.image?.filename,
       });
     }
     /* eslint-disable-next-line */
