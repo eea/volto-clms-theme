@@ -1,22 +1,27 @@
-export const HomeBgImageSchema = (config) => {
+export const HomeBgImageSchema = (config, hasButton) => {
   const variationsConfig = config.blocks.blocksConfig['homeBgImage'].variations;
   const variations = Object.keys(variationsConfig).map((variation) => [
     variationsConfig[variation].id,
     variationsConfig[variation].title,
   ]);
+  const hasButtonFieldset = hasButton
+    ? [
+        {
+          id: 'buttonStyle',
+          title: 'Button style',
+          fields: ['buttonTitle', 'style', 'disabled'],
+        },
+      ]
+    : [];
   return {
     title: 'Card container',
     fieldsets: [
       {
         id: 'default',
         title: 'Default',
-        fields: ['title', 'subtitle', 'description', 'hasButton', 'variation'],
+        fields: ['title', 'subtitle', 'description', 'variation', 'hasButton'],
       },
-      {
-        id: 'buttonStyle',
-        title: 'Button style',
-        fields: ['buttonTitle', 'style', 'disabled'],
-      },
+      ...hasButtonFieldset,
     ],
     properties: {
       title: {
@@ -63,6 +68,6 @@ export const HomeBgImageSchema = (config) => {
         default: false,
       },
     },
-    required: ['blockStyle'],
+    required: ['title'],
   };
 };

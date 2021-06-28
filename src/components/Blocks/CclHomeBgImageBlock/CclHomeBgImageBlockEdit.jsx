@@ -1,93 +1,59 @@
-import React, { useState } from 'react';
-import { readAsDataURL } from 'promise-file-reader';
-import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
-import { createContent } from '@plone/volto/actions';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react';
+import { HomeBgImageSchema } from './CclHomeBgImageSchema';
+import { SidebarPortal, BlockDataForm } from '@plone/volto/components';
 
 import config from '@plone/volto/registry';
 
-function onUploadImage(pathname, e, setUploading, dispatch) {
-  e.stopPropagation();
-  e.preventDefault();
-  const target = e.target;
-  const file = target.files[0];
-  readAsDataURL(file).then((data) => {
-    const fields = data.match(/^data:(.*);(.*),(.*)$/);
-    dispatch(
-      createContent(getBaseUrl(pathname), {
-        '@type': 'Image',
-        image: {
-          data: fields[3],
-          encoding: fields[2],
-          'content-type': fields[1],
-          filename: file.name,
-        },
-      }),
-    );
-    setUploading(true);
-  });
-}
-
 const CclHomeBgImageBlockEdit = (props) => {
-  const { block, data, onChangeBlock, selected, request, content } = props;
-  let extras = [];
-  extras.push('customButton');
-
-  const [uploading, setUploading] = useState(false);
-  React.useEffect(() => {
-    if (!__SERVER__) {
-      setUploading(false);
-    }
-  }, [selected]);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      if (request.loaded && !request.loading && uploading) {
-        onChangeBlock(block, {
-          ...data,
-          image: {
-            url: flattenToAppURL(content['@id']),
-            alt: content?.image?.filename,
-          },
-        });
-        setUploading(false);
-      }
-    }, 2000);
-    /* eslint-disable-next-line */
-  }, [request.loaded, request.loading]);
-
+  const { block, data, onChangeBlock, selected } = props;
   const variationsConfig = config.blocks.blocksConfig['homeBgImage'].variations;
   let BodyTemplate = '';
+  let variationId = '';
   if (!!data?.variation) {
     for (let variation in variationsConfig) {
       if (variationsConfig[variation].id === data.variation) {
+        variationId = data.variation;
         BodyTemplate = variationsConfig[variation].template;
       }
     }
   } else {
     for (let variation in variationsConfig) {
       if (variationsConfig[variation].isDefault === true) {
+        variationId = variationsConfig[variation].id;
         BodyTemplate = variationsConfig[variation].template;
       }
     }
   }
+  React.useEffect(() => {
+    onChangeBlock(block, {
+      ...data,
+      variation: variationId,
+    });
+    /* eslint-disable-next-line */
+  }, []);
   return (
-    <BodyTemplate
-      onChangeBlock={onChangeBlock}
-      isEditMode={true}
-      onUploadImage={onUploadImage}
-      {...props}
-    />
+    <>
+      <BodyTemplate
+        onChangeBlock={onChangeBlock}
+        isEditMode={true}
+        {...props}
+      />
+      <SidebarPortal selected={selected}>
+        <BlockDataForm
+          schema={HomeBgImageSchema(config, data.hasButton)}
+          title="Carousel Div block"
+          onChangeField={(id, value) => {
+            onChangeBlock(block, {
+              ...data,
+              [id]: value,
+            });
+          }}
+          formData={data}
+          block={block}
+        />
+      </SidebarPortal>
+    </>
   );
 };
 
-export default compose(
-  connect(
-    (state) => ({
-      request: state.content.create,
-      content: state.content.data,
-    }),
-    { createContent },
-  ),
-)(CclHomeBgImageBlockEdit);
+export default CclHomeBgImageBlockEdit;
