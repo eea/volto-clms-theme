@@ -17,7 +17,9 @@ const CclWhiteBgView = (props) => {
       {isEditMode && <CclHomeImageEditor {...props} />}
       <div className="ccl-container">
         <div className="home-map-banner">
-          <h3>{data?.title || 'Default title'}</h3>
+          <h1>{data?.title}</h1>
+          <h2>{data?.subtitle}</h2>
+          <h3>{data?.description} </h3>
           {data.hasButton === true && (
             <CclButton
               url={
