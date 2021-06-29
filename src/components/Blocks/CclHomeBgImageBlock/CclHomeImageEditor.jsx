@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimmer, Loader, Message, Label } from 'semantic-ui-react';
+import { Dimmer, Loader, Message } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,8 @@ import { connect } from 'react-redux';
 import uploadSVG from '@plone/volto/icons/upload.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import editingSVG from '@plone/volto/icons/editing.svg';
-
+import deleteSVG from '@plone/volto/icons/delete.svg';
+import './styles.less';
 const messages = defineMessages({
   uploadImage: {
     id: 'Upload image',
@@ -24,11 +25,15 @@ const messages = defineMessages({
   },
   removeImage: {
     id: 'Remove image',
-    defaultMessage: 'Remove image',
+    defaultMessage: 'Remove',
   },
   editImage: {
     id: 'Edit image',
     defaultMessage: 'Edit',
+  },
+  editOrRemoveImage: {
+    id: 'Edit or remove image',
+    defaultMessage: 'Edit or remove image',
   },
 });
 
@@ -147,57 +152,75 @@ const CclHomeImageEditor = (props) => {
           </center>
         </Message>
       )}
-      {!!data.image?.url && (
+      {!!data.image?.url && selected && (
         <>
-          <Label
-            as="a"
-            color="red"
-            pointing="below"
-            onClick={() =>
-              onChangeBlock(block, {
-                ...data,
-                image: {},
-              })
-            }
-          >
-            {intl.formatMessage(messages.removeImage)}
-          </Label>
-          <div
-            role="button"
-            tabindex="0"
-            className="ui image edit-image-container"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              openObjectBrowser({
-                onSelectItem: (url, element) =>
-                  onChangeBlock(block, {
-                    ...data,
-                    image: {
-                      url: element['@id'],
-                      alt: element.title,
-                    },
-                  }),
-              });
-            }}
-            onKeyDown={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              openObjectBrowser({
-                onSelectItem: (url, element) =>
-                  onChangeBlock(block, {
-                    ...data,
-                    image: {
-                      url: element['@id'],
-                      alt: element.title,
-                    },
-                  }),
-              });
-            }}
-          >
-            <Icon className="ui" name={editingSVG} size={35} />
-            {intl.formatMessage(messages.editImage)}
-          </div>
+          <Message className="image-message">
+            <center>
+              <h4>{intl.formatMessage(messages.editOrRemoveImage)}</h4>
+              <div className="image-in-row">
+                <div
+                  role="button"
+                  tabindex="0"
+                  className="ui image"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openObjectBrowser({
+                      onSelectItem: (url, element) =>
+                        onChangeBlock(block, {
+                          ...data,
+                          image: {
+                            url: element['@id'],
+                            alt: element.title,
+                          },
+                        }),
+                    });
+                  }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openObjectBrowser({
+                      onSelectItem: (url, element) =>
+                        onChangeBlock(block, {
+                          ...data,
+                          image: {
+                            url: element['@id'],
+                            alt: element.title,
+                          },
+                        }),
+                    });
+                  }}
+                >
+                  <div className="image-editor-icon">
+                    <Icon className="ui" name={editingSVG} size={35} />
+                    {intl.formatMessage(messages.editImage)}
+                  </div>
+                </div>
+                <div
+                  role="button"
+                  tabindex="0"
+                  className="ui image"
+                  onClick={() =>
+                    onChangeBlock(block, {
+                      ...data,
+                      image: {},
+                    })
+                  }
+                  onKeyDown={(e) => {
+                    onChangeBlock(block, {
+                      ...data,
+                      image: {},
+                    });
+                  }}
+                >
+                  <div className="image-editor-icon">
+                    <Icon className="ui" name={deleteSVG} size={35} />
+                    {intl.formatMessage(messages.removeImage)}
+                  </div>
+                </div>
+              </div>
+            </center>
+          </Message>
         </>
       )}
     </>
