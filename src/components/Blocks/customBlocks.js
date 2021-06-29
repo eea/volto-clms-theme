@@ -38,6 +38,13 @@ import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplat
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
 
+import CclHomeBgImageBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclHomeBgImageBlockView';
+import CclHomeBgImageBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclHomeBgImageBlockEdit';
+import CclGreenBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclGreenBgView';
+import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
+
+import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
+
 import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
@@ -255,6 +262,36 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
+  },
+  homeBgImage: {
+    id: 'homeBgImage', // The name (id) of the block
+    title: 'Home BG Image', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclHomeBgImageBlockView, // The view mode component
+    edit: CclHomeBgImageBlockEdit, // The edit mode component
+    schema: BlockSettingsSchema,
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+    variations: [
+      {
+        id: 'green-bg',
+        isDefault: true,
+        title: 'Green background carousel',
+        template: CclGreenBgView,
+      },
+      {
+        id: 'white-bg',
+        title: 'White background carousel',
+        template: CclWhiteBgView,
+      },
+    ],
   },
   useCaseList: {
     id: 'useCaseList', // The name (id) of the block

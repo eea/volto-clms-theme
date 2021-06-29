@@ -5,21 +5,33 @@ import ObjectListWidget from '@plone/volto/components/manage/Widgets/ObjectListW
 const ItemSchema = {
   title: 'Bounding-box',
   properties: {
-    east: {
-      title: 'East',
-      type: 'number',
-    },
     west: {
       title: 'West',
+      description: 'West side Longitude, between -180 and 180',
       type: 'number',
+      minimum: -180,
+      maximum: 180,
+    },
+    east: {
+      title: 'East',
+      description: 'East side Longitude, between -180 and 180',
+      type: 'number',
+      minimum: -180,
+      maximum: 180,
     },
     north: {
       title: 'North',
+      description: 'North side Latitude, between -90 and 90',
       type: 'number',
+      minimum: -90,
+      maximum: 90,
     },
     south: {
       title: 'South',
+      description: 'South side Latitude, between -90 and 90',
       type: 'number',
+      minimum: -90,
+      maximum: 90,
     },
   },
   fieldsets: [

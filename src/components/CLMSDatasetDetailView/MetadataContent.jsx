@@ -89,12 +89,14 @@ const MetadataContent = (data) => {
         <CclInfoDescription
           title="Responsible party"
           tooltip="Organisation associated with the resource. Organisation name, contact information (email)."
-          description={<StringToHTML string={data.owners.data} />}
+          description={<StringToHTML string="{data.owners.data}" />}
         />
         <CclInfoDescription
           title="Responsible party role"
           tooltip="Function performed by the party"
-          description={<StringToHTML string={data.responsiblePartyRole.data} />}
+          description={
+            <StringToHTML string="{data.responsiblePartyRole.data}" />
+          }
         />
       </CclInfoContainer>
     </>
