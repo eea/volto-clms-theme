@@ -9,7 +9,7 @@ export const HomeBgImageSchema = (config, hasButton) => {
         {
           id: 'buttonStyle',
           title: 'Button style',
-          fields: ['buttonTitle', 'style', 'disabled'],
+          fields: ['buttonTitle', 'href', 'style', 'disabled'],
         },
       ]
     : [];
@@ -53,6 +53,14 @@ export const HomeBgImageSchema = (config, hasButton) => {
         title: 'Title',
         description: 'Add button text',
         type: 'string',
+      },
+      href: {
+        title: 'URL',
+        description: 'Select site content or paste external url',
+        widget: 'object_browser',
+        mode: 'link',
+        selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
+        allowExternals: true,
       },
       style: {
         title: 'Button style',

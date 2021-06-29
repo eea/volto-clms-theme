@@ -17,9 +17,9 @@ const CclGreenBgView = (props) => {
       {isEditMode && <CclHomeImageEditor {...props} />}
       <div className="ccl-container">
         <div className="ccl-banner-top-main-block-title">
-          <h1>{data?.title || 'Default title'}</h1>
-          <h2>{data?.subtitle || 'Default subtitle'}</h2>
-          <h3>{data?.description || 'Default description'} </h3>
+          <h1>{data?.title}</h1>
+          <h2>{data?.subtitle}</h2>
+          <h3>{data?.description} </h3>
           {data.hasButton === true && (
             <CclButton
               url={
