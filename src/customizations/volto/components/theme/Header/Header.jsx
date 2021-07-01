@@ -51,6 +51,12 @@ class Header extends Component {
     this.props.getUser(this.props.token);
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.token !== this.props.token) {
+      this.props.getUser(nextProps.token);
+    }
+  }
+
   push = (selector) => {
     this.setState(() => ({
       pushed: true,
