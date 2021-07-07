@@ -1,5 +1,0 @@
-Toolbar example:
-
-```js
-<Toolbar />
-```

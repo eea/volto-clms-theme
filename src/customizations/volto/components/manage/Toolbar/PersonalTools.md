@@ -1,5 +1,0 @@
-PersonalTools example:
-
-```js
-<PersonalTools />
-```
