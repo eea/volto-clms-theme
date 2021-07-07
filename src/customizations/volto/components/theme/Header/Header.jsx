@@ -179,7 +179,6 @@ class Header extends Component {
                                   <a
                                     href="/logout"
                                     className="header-login-link"
-                                    className="header-login-link"
                                   >
                                     {this.props.token &&
                                       this.props.user.roles &&
