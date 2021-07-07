@@ -57,7 +57,7 @@ const CclTabsView = (props) => {
   const PanelsComponent = () => {
     return (
       <>
-        <div class="panels">
+        <div className="panels">
           {tabsList.map((tab, index) => {
             const { activeTab = null, tabs = {} } = props;
             return (
@@ -82,7 +82,7 @@ const CclTabsView = (props) => {
   const TabsComponent = () => {
     return (
       <>
-        <div class="tabs" role="tablist">
+        <div className="tabs" role="tablist">
           {tabsList.map((tab, index) => {
             const {
               activeTab = null,
@@ -96,12 +96,13 @@ const CclTabsView = (props) => {
             return (
               <>
                 <span
-                  class=" "
+                  className=" "
                   id={tabIndex}
                   role="tab"
                   aria-controls={title || defaultTitle}
                   aria-selected={tab === activeTab}
                   active={tab === activeTab}
+                  // eslint-disable-next-line react/jsx-no-duplicate-props
                   className={cx('tab', tab === activeTab && 'tab-selected')}
                   onClick={() => {
                     if (activeTab !== tab) {
@@ -133,7 +134,7 @@ const CclTabsView = (props) => {
 
   return (
     <>
-      <div class="ccl-container tab-container">
+      <div className="ccl-container tab-container">
         <TabsComponent />
         <PanelsComponent />
       </div>

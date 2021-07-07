@@ -76,6 +76,6 @@ export const HomeBgImageSchema = (config, hasButton) => {
         default: false,
       },
     },
-    required: ['title'],
+    required: [],
   };
 };
