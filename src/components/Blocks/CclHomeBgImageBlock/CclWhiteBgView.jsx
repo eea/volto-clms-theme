@@ -17,25 +17,27 @@ const CclWhiteBgView = (props) => {
       {isEditMode && <CclHomeImageEditor {...props} />}
       <div className="ccl-container">
         <div className="home-map-banner">
-          <h1>{data?.title}</h1>
-          <h2>{data?.subtitle}</h2>
-          <h3>{data?.description} </h3>
-          {data.hasButton === true && (
+          {data.title && <h1>{data?.title}</h1>}
+          {data.subtitle && <h2>{data?.subtitle}</h2>}
+          {data.description && <h3>{data?.description} </h3>}
+          {data?.hasButton === true && (
             <CclButton
               url={
-                data.download && data?.href?.[0]?.['@type'] === 'File'
+                data?.download && data?.href?.[0]?.['@type'] === 'File'
                   ? data?.href?.[0]?.['@id'] + '/@@download/file'
                   : data?.href?.[0]?.['@id']
               }
               disabled={data?.disabled}
               download={data?.download || data?.href?.[0]?.['@type'] === 'File'}
               target={
-                data.target ||
-                (data.download && data.href[0]['@type'] === 'File' && '_blank')
+                data?.target ||
+                (data?.download &&
+                  data?.href[0]['@type'] === 'File' &&
+                  '_blank')
               }
-              mode={data.style}
+              mode={data?.style}
             >
-              {data.buttonTitle || 'Text example...'}
+              {data?.buttonTitle || 'Text example...'}
             </CclButton>
           )}
         </div>

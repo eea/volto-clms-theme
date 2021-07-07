@@ -6,7 +6,7 @@ const CclHomeBgImageBlockView = (props) => {
   const variationsConfig = config.blocks.blocksConfig['homeBgImage'].variations;
   let BodyTemplate = '';
   for (let variation in variationsConfig) {
-    if (variationsConfig[variation].id === data.variation) {
+    if (variationsConfig[variation].id === data?.variation) {
       BodyTemplate = variationsConfig[variation].template;
     }
   }
