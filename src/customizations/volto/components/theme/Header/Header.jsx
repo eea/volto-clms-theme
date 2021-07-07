@@ -95,8 +95,6 @@ class Header extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    // const isCmsUI = isCmsUi(this.props.pathname);
-    // if (this.props.user.roles && this.props.user.roles[0] === 'Member') {
     return (
       <>
         {this.props.user.roles === 'Manager'}
@@ -317,7 +315,6 @@ class Header extends Component {
         </header>
       </>
     );
-    // }
   }
 }
 
