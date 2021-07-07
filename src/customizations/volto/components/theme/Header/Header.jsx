@@ -46,9 +46,7 @@ class Header extends Component {
         username: PropTypes.string,
       }),
     }).isRequired,
-    userId: PropTypes.string.isRequired,
     getUser: PropTypes.func.isRequired,
-    loadComponent: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -60,17 +58,6 @@ class Header extends Component {
       this.props.getUser(nextProps.token);
     }
   }
-
-  push = (selector) => {
-    this.setState(() => ({
-      pushed: true,
-    }));
-    this.props.loadComponent(selector);
-  };
-
-  pull = () => {
-    this.props.unloadComponent();
-  };
 
   /**
    * Default properties.

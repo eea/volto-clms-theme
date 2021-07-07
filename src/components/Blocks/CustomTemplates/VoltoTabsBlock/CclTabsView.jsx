@@ -56,89 +56,81 @@ const CclTabsView = (props) => {
 
   const PanelsComponent = () => {
     return (
-      <>
-        <div className="panels">
-          {tabsList.map((tab, index) => {
-            const { activeTab = null, tabs = {} } = props;
-            return (
-              <div
-                className={cx('panel', tab === activeTab && 'panel-selected')}
-                id="news_panel"
-                role="tabpanel"
-                aria-hidden="false"
-              >
-                <RenderBlocks
-                  {...props}
-                  metadata={metadata}
-                  content={tabs[tab]}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </>
+      <div className="panels">
+        {tabsList.map((tab, index) => {
+          const { activeTab = null, tabs = {} } = props;
+          return (
+            <div
+              key={index}
+              className={cx('panel', tab === activeTab && 'panel-selected')}
+              id="news_panel"
+              role="tabpanel"
+              aria-hidden="false"
+            >
+              <RenderBlocks
+                {...props}
+                metadata={metadata}
+                content={tabs[tab]}
+              />
+            </div>
+          );
+        })}
+      </div>
     );
   };
   const TabsComponent = () => {
     return (
-      <>
-        <div className="tabs" role="tablist">
-          {tabsList.map((tab, index) => {
-            const {
-              activeTab = null,
-              tabs = {},
-              setActiveTab = () => {},
-            } = props;
-            const title = tabs[tab].title;
-            const tabIndex = index + 1;
-            const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
-            const defaultTitle = `Tab ${tabIndex}`;
-            return (
-              <>
-                <span
-                  className=" "
-                  id={tabIndex}
-                  role="tab"
-                  aria-controls={title || defaultTitle}
-                  aria-selected={tab === activeTab}
-                  active={tab === activeTab}
-                  // eslint-disable-next-line react/jsx-no-duplicate-props
-                  className={cx('tab', tab === activeTab && 'tab-selected')}
-                  onClick={() => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                  onKeyDown={() => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                  tabIndex="0"
-                >
-                  {fa_icon && (
-                    <FontAwesomeIcon
-                      icon={['far', fa_icon]}
-                      style={{ marginRight: '1rem' }}
-                    />
-                  )}
-                  {title || defaultTitle}
-                </span>{' '}
-              </>
-            );
-          })}
-        </div>
-      </>
+      <div className="tabs" role="tablist">
+        {tabsList.map((tab, index) => {
+          const {
+            activeTab = null,
+            tabs = {},
+            setActiveTab = () => {},
+          } = props;
+          const title = tabs[tab].title;
+          const tabIndex = index + 1;
+          const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
+          const defaultTitle = `Tab ${tabIndex}`;
+          return (
+            <span
+              key={index}
+              id={tabIndex}
+              role="tab"
+              aria-controls={title || defaultTitle}
+              aria-selected={tab === activeTab}
+              active={(tab === activeTab).toString()}
+              className={cx('tab', tab === activeTab && 'tab-selected')}
+              onClick={() => {
+                if (activeTab !== tab) {
+                  setActiveTab(tab);
+                }
+              }}
+              onKeyDown={() => {
+                if (activeTab !== tab) {
+                  setActiveTab(tab);
+                }
+              }}
+              tabIndex="0"
+            >
+              {fa_icon && (
+                <FontAwesomeIcon
+                  icon={['far', fa_icon]}
+                  style={{ marginRight: '1rem' }}
+                />
+              )}
+              {title || defaultTitle}
+            </span>
+          );
+        })}
+      </div>
     );
   };
 
   return (
-    <>
-      <div className="ccl-container tab-container">
-        <TabsComponent />
-        <PanelsComponent />
-      </div>
-    </>
+    <div className="ccl-container tab-container">
+      <TabsComponent />
+      <PanelsComponent />
+    </div>
   );
 };
 
