@@ -1,1 +1,1 @@
-module.exports = require('@plone/volto/babel');
+module.exports = require('./babel');
