@@ -37,7 +37,7 @@ const CclWhiteBgView = (props) => {
               }
               mode={data?.style}
             >
-              {data?.buttonTitle || 'Text example...'}
+              {data?.buttonTitle}
             </CclButton>
           )}
         </div>
