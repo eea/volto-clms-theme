@@ -41,10 +41,7 @@ class Header extends Component {
       email: PropTypes.string,
       home_page: PropTypes.string,
       location: PropTypes.string,
-      roles: PropTypes.shape({
-        0: PropTypes.string,
-        username: PropTypes.string,
-      }),
+      roles: PropTypes.array,
     }).isRequired,
     getUser: PropTypes.func.isRequired,
   };
@@ -137,35 +134,32 @@ class Header extends Component {
                       trigger={
                         <>
                           {(this.props.token && (
+                            <>
                               <a href="/profile" className="header-login-link">
-                                {(this.props.token &&
+                                {this.props.token &&
                                   'Hello ' +
-                                    (this.props.user.fullname ??
-                                      this.props.user.id)) ||
-                                  this.props.user.fullname ||
-                                  'Login/Register'}
+                                    (this.props.user.fullname ||
+                                      this.props.user.id ||
+                                      '')}
                               </a>
-                            ) && (
-                              <>
-                                <a
-                                  href="/profile"
-                                  className="header-login-link"
-                                >
-                                  {(this.props.token &&
-                                    'Hello ' +
-                                      (this.props.user.fullname ??
-                                        this.props.user.id)) ||
-                                    this.props.user.fullname ||
-                                    'Login/Register'}
-                                </a>
-                                <a href="/logout" className="header-login-link">
-                                  {this.props.token &&
-                                    this.props.user.roles &&
-                                    this.props.user.roles[0] === 'Member' &&
-                                    ' | Logout'}
-                                </a>
-                              </>
-                            )) || (
+                              {this.props.token &&
+                                this.props.user.roles &&
+                                this.props.user.roles[0] === 'Member' && (
+                                  <>
+                                    <span class="header-vertical-line">
+                                      {' '}
+                                      -{' '}
+                                    </span>
+                                    <a
+                                      href="/logout"
+                                      className="header-login-link"
+                                    >
+                                      Logout
+                                    </a>
+                                  </>
+                                )}
+                            </>
+                          )) || (
                             <a href="/login" className="header-login-link">
                               Login/Register
                             </a>
