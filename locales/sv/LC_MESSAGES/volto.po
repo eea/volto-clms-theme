@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+  #: components/Blocks/CclUseCaseList/CclUseCaseListEdit
+#: components/Blocks/CclUseCaseList/CclUseCaseListView
+msgid " use cases"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Add"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Back"
+msgstr ""
+
+#: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
+msgid "Breadcrumbs"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Changes saved"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Collection"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Contents"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+msgid "Copernicus Land Logo"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+msgid "Copernicus Logo"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+msgid "Copernicus Site"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Default"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "E-mail"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Edit"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+msgid "Edit image"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+msgid "Edit or remove image"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Enter full name, e.g. John Smith."
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "File"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Full Name"
+msgstr ""
+
+#: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
+msgid "Home"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+msgid "Land Monitoring Service Site"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Link"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Location"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "More"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "News Item"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Page"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Personal Information"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Personal Preferences"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Personal tools"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Portrait"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+msgid "Remove image"
+msgstr ""
+
+#: customizations/volto/components/theme/SearchWidget/SearchWidget
+#: customizations/volto/components/theme/View/ListingView
+msgid "Search"
+msgstr ""
+
+#: customizations/volto/components/theme/SearchWidget/SearchWidget
+msgid "Search Site"
+msgstr ""
+
+#: customizations/volto/components/theme/View/ListingView
+msgid "Search datasets"
+msgstr ""
+
+#: components/CclLanguageSelector/CclLanguageSelector
+msgid "Select your language"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+msgid "Shrink toolbar"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Success"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "The user portrait/avatar"
+msgstr ""
+
+#: customizations/volto/components/manage/Blocks/Title/Edit
+msgid "Type the title…"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+msgid "Upload image"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+msgid "Uploading file"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "UserProfile"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "We will use this address if you need to recover your password"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+msgid "Your location - either city and country - or in a company setting, where your office is located."
+msgstr ""
+
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
+msgid "countText"
+msgstr ""
+
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
+msgid "searchDatasetsPlaceholder"
+msgstr ""
