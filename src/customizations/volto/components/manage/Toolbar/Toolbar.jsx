@@ -147,10 +147,10 @@ class Toolbar extends Component {
         0: PropTypes.string,
         username: PropTypes.string,
       }),
-    }).isRequired,
-    userId: PropTypes.string.isRequired,
+    }),
+    userId: PropTypes.string,
     getUser: PropTypes.func.isRequired,
-    loadComponent: PropTypes.func.isRequired,
+    loadComponent: PropTypes.func,
     content: PropTypes.shape({
       '@type': PropTypes.string,
       is_folderish: PropTypes.bool,
