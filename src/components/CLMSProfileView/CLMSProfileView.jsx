@@ -65,6 +65,14 @@ const messages = defineMessages({
     defaultMessage:
       'Your location - either city and country - or in a company setting, where your office is located.',
   },
+  tokenTitle: {
+    id: 'Token',
+    defaultMessage: 'API Tokens',
+  },
+  tokenDescription: {
+    id: 'Open Api Token creator/editor',
+    defaultMessage: 'Open Api Token creator/editor.',
+  },
   saved: {
     id: 'Changes saved',
     defaultMessage: 'Changes saved',
@@ -185,72 +193,177 @@ class CLMSProfileView extends Component {
             )}
           </>
         )}
-
         {loggedIn && (
-          <Container>
-            <h1 className="page-title">
-              {this.props.intl.formatMessage(messages.UserProfile)}
-            </h1>
-            <div>
-              {this.props.loaded && (
-                <Form
-                  formData={this.props.user}
-                  schema={{
-                    fieldsets: [
-                      {
-                        id: 'default',
-                        title: this.props.intl.formatMessage(messages.default),
-                        fields: ['fullname', 'email', 'portrait', 'location'],
-                      },
-                    ],
-                    properties: {
-                      fullname: {
-                        description: this.props.intl.formatMessage(
-                          messages.fullnameDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.fullnameTitle,
-                        ),
-                        type: 'string',
-                      },
-                      email: {
-                        description: this.props.intl.formatMessage(
-                          messages.emailDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.emailTitle,
-                        ),
-                        type: 'string',
-                      },
-                      portrait: {
-                        description: this.props.intl.formatMessage(
-                          messages.portraitDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.portraitTitle,
-                        ),
-                        type: 'object',
-                      },
-                      location: {
-                        description: this.props.intl.formatMessage(
-                          messages.locationDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.locationTitle,
-                        ),
-                        type: 'string',
-                      },
-                    },
-                    required: ['email'],
-                  }}
-                  onSubmit={this.onSubmit}
-                  onCancel={this.onCancel}
-                  loading={this.props.loading}
-                />
-              )}
-            </div>
-          </Container>
+          <>
+            <Container className="ccl-container tab-container">
+              <div class="tabs" role="tablist">
+                <span
+                  class="tab tab-selected"
+                  id="user_tab"
+                  role="tab"
+                  aria-controls="user_panel"
+                  aria-selected="true"
+                >
+                  <i class="far fa-newspaper"></i>USER PROFILE
+                </span>
+                <span
+                  class="tab"
+                  id="token_tab"
+                  role="tab"
+                  aria-controls="token_panel"
+                  aria-selected="false"
+                >
+                  <i class="far fa-calendar-alt"></i>API TOKENS
+                </span>
+              </div>
+              <div class="panels">
+                <div
+                  class="panel panel-selected"
+                  id="news_panel"
+                  role="tabpanel"
+                  aria-hidden="false"
+                >
+                  {this.props.loaded && (
+                    <>
+                      <Form
+                        id="user_panel"
+                        formData={this.props.user}
+                        schema={{
+                          fieldsets: [
+                            {
+                              id: 'default',
+                              title: this.props.intl.formatMessage(
+                                messages.default,
+                              ),
+                              fields: [
+                                'fullname',
+                                'email',
+                                'portrait',
+                                'location',
+                              ],
+                            },
+                          ],
+                          properties: {
+                            fullname: {
+                              description: this.props.intl.formatMessage(
+                                messages.fullnameDescription,
+                              ),
+                              title: this.props.intl.formatMessage(
+                                messages.fullnameTitle,
+                              ),
+                              type: 'string',
+                            },
+                            email: {
+                              description: this.props.intl.formatMessage(
+                                messages.emailDescription,
+                              ),
+                              title: this.props.intl.formatMessage(
+                                messages.emailTitle,
+                              ),
+                              type: 'string',
+                            },
+                            portrait: {
+                              description: this.props.intl.formatMessage(
+                                messages.portraitDescription,
+                              ),
+                              title: this.props.intl.formatMessage(
+                                messages.portraitTitle,
+                              ),
+                              type: 'object',
+                            },
+                            location: {
+                              description: this.props.intl.formatMessage(
+                                messages.locationDescription,
+                              ),
+                              title: this.props.intl.formatMessage(
+                                messages.locationTitle,
+                              ),
+                              type: 'string',
+                            },
+                          },
+                          required: ['email'],
+                        }}
+                        onSubmit={this.onSubmit}
+                        onCancel={this.onCancel}
+                        loading={this.props.loading}
+                      />
+                      <div
+                        class="panel"
+                        id="events_panel"
+                        role="tabpanel"
+                        aria-hidden="true"
+                      >
+                        <Form
+                          id="token_panel"
+                          formData={this.props.user}
+                          schema={{
+                            fieldsets: [
+                              {
+                                id: 'default',
+                                title: this.props.intl.formatMessage(
+                                  messages.default,
+                                ),
+                                fields: [
+                                  'fullname',
+                                  'email',
+                                  'portrait',
+                                  'location',
+                                ],
+                              },
+                            ],
+                            properties: {
+                              fullname: {
+                                description: this.props.intl.formatMessage(
+                                  messages.fullnameDescription,
+                                ),
+                                title: this.props.intl.formatMessage(
+                                  messages.fullnameTitle,
+                                ),
+                                type: 'string',
+                              },
+                              email: {
+                                description: this.props.intl.formatMessage(
+                                  messages.emailDescription,
+                                ),
+                                title: this.props.intl.formatMessage(
+                                  messages.emailTitle,
+                                ),
+                                type: 'string',
+                              },
+                              portrait: {
+                                description: this.props.intl.formatMessage(
+                                  messages.portraitDescription,
+                                ),
+                                title: this.props.intl.formatMessage(
+                                  messages.portraitTitle,
+                                ),
+                                type: 'object',
+                              },
+                              location: {
+                                description: this.props.intl.formatMessage(
+                                  messages.locationDescription,
+                                ),
+                                title: this.props.intl.formatMessage(
+                                  messages.locationTitle,
+                                ),
+                                type: 'string',
+                              },
+                            },
+                            required: ['email'],
+                          }}
+                          onSubmit={this.onSubmit}
+                          onCancel={this.onCancel}
+                          loading={this.props.loading}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Container>
+          </>
         )}
+        ;
       </>
     );
   }
