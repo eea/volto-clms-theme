@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getItemsByPath } from '@collective/volto-dropdownmenu/utils';
+import { getItemsByPath } from 'volto-dropdownmenu/utils';
 import { Link } from 'react-router-dom';
 import setLanguagePath from './multilingualPath';
 

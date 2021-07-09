@@ -1,0 +1,249 @@
+msgid ""
+  msgstr ""
+  "Project-Id-Version: Plone\n"
+  "POT-Creation-Date: 2021-07-08T13:18:00.799Z\n"
+  "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+  "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+  "MIME-Version: 1.0\n"
+  "Content-Type: text/plain; charset=utf-8\n"
+  "Content-Transfer-Encoding: 8bit\n"
+  "Plural-Forms: nplurals=1; plural=0;\n"
+  "Language-Code: en\n"
+  "Language-Name: English\n"
+  "Preferred-Encodings: utf-8\n"
+  "Domain: volto\n"
+ 
+  #: components/Blocks/CclUseCaseList/CclUseCaseListEdit
+#: components/Blocks/CclUseCaseList/CclUseCaseListView
+# defaultMessage:  use cases
+msgid " use cases"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Add
+msgid "Add"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Back
+msgid "Back"
+msgstr ""
+
+#: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
+# defaultMessage: Breadcrumbs
+msgid "Breadcrumbs"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Changes saved
+msgid "Changes saved"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Collection
+msgid "Collection"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Contents
+msgid "Contents"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+# defaultMessage: Copernicus Land Logo
+msgid "Copernicus Land Logo"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+# defaultMessage: Copernicus Logo
+msgid "Copernicus Logo"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+# defaultMessage: Copernicus Site
+msgid "Copernicus Site"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Default
+msgid "Default"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: E-mail
+msgid "E-mail"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Edit
+msgid "Edit"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+# defaultMessage: Edit
+msgid "Edit image"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+# defaultMessage: Edit or remove image
+msgid "Edit or remove image"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Enter full name, e.g. John Smith.
+msgid "Enter full name, e.g. John Smith."
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: File
+msgid "File"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Full Name
+msgid "Full Name"
+msgstr ""
+
+#: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
+# defaultMessage: Home
+msgid "Home"
+msgstr ""
+
+#: customizations/volto/components/theme/Logo/Logo
+# defaultMessage: Land Monitoring Service Site
+msgid "Land Monitoring Service Site"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Link
+msgid "Link"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Location
+msgid "Location"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: More
+msgid "More"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: News Item
+msgid "News Item"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Page
+msgid "Page"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Personal Information
+msgid "Personal Information"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Personal Preferences
+msgid "Personal Preferences"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Personal tools
+msgid "Personal tools"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Portrait
+msgid "Portrait"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+# defaultMessage: Remove
+msgid "Remove image"
+msgstr ""
+
+#: customizations/volto/components/theme/SearchWidget/SearchWidget
+#: customizations/volto/components/theme/View/ListingView
+# defaultMessage: Search
+msgid "Search"
+msgstr ""
+
+#: customizations/volto/components/theme/SearchWidget/SearchWidget
+# defaultMessage: Search Site
+msgid "Search Site"
+msgstr ""
+
+#: customizations/volto/components/theme/View/ListingView
+# defaultMessage: Search datasets
+msgid "Search datasets"
+msgstr ""
+
+#: components/CclLanguageSelector/CclLanguageSelector
+# defaultMessage: Select your language
+msgid "Select your language"
+msgstr ""
+
+#: customizations/volto/components/manage/Toolbar/Toolbar
+# defaultMessage: Shrink toolbar
+msgid "Shrink toolbar"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Success
+msgid "Success"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: The user portrait/avatar
+msgid "The user portrait/avatar"
+msgstr ""
+
+#: customizations/volto/components/manage/Blocks/Title/Edit
+# defaultMessage: Type the title…
+msgid "Type the title…"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+# defaultMessage: Upload or select an image
+msgid "Upload image"
+msgstr ""
+
+#: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+# defaultMessage: Uploading file
+msgid "Uploading file"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: User Profile
+msgid "UserProfile"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: We will use this address if you need to recover your password
+msgid "We will use this address if you need to recover your password"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSProfileView
+# defaultMessage: Your location - either city and country - or in a company setting, where your office is located.
+msgid "Your location - either city and country - or in a company setting, where your office is located."
+msgstr ""
+
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
+# defaultMessage: More than {count} datasets in our 
+msgid "countText"
+msgstr ""
+
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
+#: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
+# defaultMessage: Search datasets
+msgid "searchDatasetsPlaceholder"
+msgstr ""
