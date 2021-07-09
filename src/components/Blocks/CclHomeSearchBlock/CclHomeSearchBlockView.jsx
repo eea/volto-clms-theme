@@ -14,7 +14,12 @@ const messages = defineMessages({
 });
 
 function hasProtocol(url) {
-  return url.startsWith('https://') || url.startsWith('http://') ? true : false;
+  if (url) {
+    return url.startsWith('https://') || url.startsWith('http://')
+      ? true
+      : false;
+  }
+  return false;
 }
 
 const CclSearchBlockView = (props) => {
@@ -47,9 +52,9 @@ const CclSearchBlockView = (props) => {
         <div className="home-datasets-text">
           <span>{intl.formatMessage(messages.countText, { count: 999 })}</span>
           {hasProtocol(url) ? (
-            <a href={url}>{data.linkText}</a>
+            <a href={url && url}>{data.linkText}</a>
           ) : (
-            <Link to={url}>{data.linkText}</Link>
+            <Link to={url && url}>{data.linkText}</Link>
           )}
         </div>
       </div>
