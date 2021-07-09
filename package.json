@@ -18,7 +18,7 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
-    "@collective/volto-dropdownmenu",
+    "volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
