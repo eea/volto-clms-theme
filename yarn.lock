@@ -766,12 +766,6 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
-"@collective/volto-dropdownmenu@github:collective/volto-dropdownmenu#2.2.6":
-  version "2.2.6"
-  resolved "https://codeload.github.com/collective/volto-dropdownmenu/tar.gz/2c3b20a1bad9d2221d3f1db1285d33eab17ed7ea"
-  dependencies:
-    react-outside-click-handler "1.3.0"
-
 "@cypress/browserify-preprocessor@3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@cypress/browserify-preprocessor/-/browserify-preprocessor-3.0.1.tgz#ab86335b0c061d11f5ad7df03f06b1877b836f71"
@@ -7214,6 +7208,13 @@ vm-browserify@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
+
+volto-dropdownmenu@2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/volto-dropdownmenu/-/volto-dropdownmenu-2.2.7.tgz#58efeef7350ab9b82233370bb6a4ea7038f36e47"
+  integrity sha512-O+kg9/r85+1UTf3Du1urMuzbo+A0rsDopCtHx32RK53+g7rmUkOxMXO985FZ+6x/Up9ORa6/A+UupxH+/DcWzg==
+  dependencies:
+    react-outside-click-handler "1.3.0"
 
 volto-slate@2.6.2:
   version "2.6.2"
