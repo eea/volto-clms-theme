@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.10",
+  "version": "1.0.13",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -18,7 +18,7 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
-    "@collective/volto-dropdownmenu",
+    "volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
@@ -28,7 +28,7 @@
     "@eeacms/volto-tabs-block"
   ],
   "dependencies": {
-    "@collective/volto-dropdownmenu": "github:collective/volto-dropdownmenu#2.2.5",
+    "volto-dropdownmenu": "2.2.7",
     "@eeacms/volto-arcgis-block": "git://github.com/eea/volto-arcgis-block.git#develop",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
@@ -89,8 +89,9 @@
     "prettier:fix": "../../../node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css,less,md}'",
     "lint": "../../../node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
     "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'",
-    "cypress:run": "../../../node_modules/cypress/bin/cypress run",
-    "cypress:open": "../../../node_modules/cypress/bin/cypress open",
+    "i18n": "NODE_ENV=production node src/i18n.js",
+    "cypress:run": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress run",
+    "cypress:open": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress open",
     "precommit": "yarn stylelint && yarn prettier && yarn lint",
     "prepare": "husky install",
     "test": "docker run -it --rm -v $(pwd):/opt/frontend/my-volto-project/src/addons/volto-clms-theme -e GIT_NAME=volto-clms-theme -e NAMESPACE=@eeacms plone/volto-addon-ci"
