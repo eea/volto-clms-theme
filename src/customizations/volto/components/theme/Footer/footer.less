@@ -243,7 +243,7 @@
   margin-top: 0;
 }
 
-.ccl-footer .footer-privacy-check {
+.ccl-footer .footer-privacy-check + p {
   margin: 1rem 0;
 }
 
@@ -332,6 +332,8 @@
   height: 100%;
 }
 
+/*---CS ADDITION---*/
+
 .ccl-form-check-label {
   color: white !important;
 }
@@ -358,27 +360,6 @@
 }
 
 /*-------------------*/
-@media (max-width: 1240px) {
-  .ccl-footer-services-row a .ccl-footer-services-row span {
-    width: 35%;
-  }
-}
-
-@media (max-width: 900px) {
-  .ccl-footer-services-row a .ccl-footer-services-row span {
-    width: 50%;
-  }
-}
-
-@media (max-width: 576px) {
-  .ccl-footer-services-row a .ccl-footer-services-row span {
-    width: 50%;
-  }
-}
-
-.ccl-container {
-  width: 100%;
-}
 
 .ccl-footer-newsletter {
   display: inline-flex;
@@ -386,53 +367,28 @@
   margin-bottom: 1rem;
 }
 
-.ccl-footer-newsletter input {
-  display: block;
-  width: 100%;
-  padding: 8px 16px;
-  // background-color: transparent;
-  border: 1px solid #fff !important;
-  background-color: transparent !important;
-  // max-width: 60%;
-  border-radius: 0 !important;
-  // padding: 0.2rem 0rem;
-  color: #fff !important;
-  font-family: 'Lato';
-  font-size: 1rem;
-  line-height: 1rem;
+.footer-privacy-check input#footer_privacy {
+  display: none;
 }
 
-.ccl-footer-newsletter input:focus {
-  outline: none;
-  outline-offset: none;
+.ccl-footer .ccl-footer-main .ccl-footer-col form.ccl-footer-form {
+  display: inline-block;
+  margin: 0;
 }
 
-.ccl-footer-form input::placeholder {
-  color: white !important;
-  font-weight: 100;
-  opacity: 0.6;
+.ccl-ec-svg-wrapper {
+  display: inline-block;
 }
 
-.ccl-footer-newsletter button.ui.button {
-  max-width: 40% !important;
-  padding: 8px 16px;
-  margin: 0 !important;
-  background-color: white !important;
-  border-radius: 0;
-  color: #a0b128;
+#ccl-svg--_img_eea_logo_svg .st0 {
+  fill: #005a9a;
 }
 
-.ccl-footer-social span {
-  padding: 10px !important;
-  font-size: x-large;
+#ccl-svg--_img_eea_logo_svg .st1 {
+  fill: #008a8b;
+  stroke: none;
 }
 
-.ccl-footer-checkbox {
-  padding-top: 15px;
-}
-
-.ccl-footer-column-title {
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #dadada;
-  font-size: 1.3rem;
+#ccl-svg--_img_eea_logo_svg .st2 {
+  fill: #fff;
 }
