@@ -41,6 +41,7 @@
     "@eeacms/volto-columns-block": "4.4.3",
     "@eeacms/volto-metadata-block": "^2.1.0",
     "volto-slate": "2.6.2",
+    "react-svg": "14.0.4",
     "@eeacms/volto-resize-helper": "0.2.1"
   },
   "prettier": {
