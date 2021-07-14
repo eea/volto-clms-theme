@@ -11,80 +11,24 @@ import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Helmet } from '@plone/volto/helpers';
 import jwtDecode from 'jwt-decode';
-import { Form, Toast, Forbidden, Unauthorized } from '@plone/volto/components';
-import { toast } from 'react-toastify';
+import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import { Container } from 'semantic-ui-react';
+import {
+  CLMSUserProfileView,
+  CLMSApiTokensView,
+} from '@eeacms/volto-clms-theme/components/CLMSProfileView';
 
 const messages = defineMessages({
   UserProfile: {
     id: 'UserProfile',
     defaultMessage: 'User Profile',
   },
-  personalInformation: {
-    id: 'Personal Information',
-    defaultMessage: 'Personal Information',
-  },
-  default: {
-    id: 'Default',
-    defaultMessage: 'Default',
-  },
-  fullnameTitle: {
-    id: 'Full Name',
-    defaultMessage: 'Full Name',
-  },
-  fullnameDescription: {
-    id: 'Enter full name, e.g. John Smith.',
-    defaultMessage: 'Enter full name, e.g. John Smith.',
-  },
-  emailTitle: {
-    id: 'E-mail',
-    defaultMessage: 'E-mail',
-  },
-  emailDescription: {
-    id: 'We will use this address if you need to recover your password',
-    defaultMessage:
-      'We will use this address if you need to recover your password',
-  },
-  portraitTitle: {
-    id: 'Portrait',
-    defaultMessage: 'Portrait',
-  },
-  portraitDescription: {
-    id: 'The user portrait/avatar',
-    defaultMessage: 'The user portrait/avatar',
-  },
-  locationTitle: {
-    id: 'Location',
-    defaultMessage: 'Location',
-  },
-  locationDescription: {
-    id:
-      'Your location - either city and country - or in a company setting, where your office is located.',
-    defaultMessage:
-      'Your location - either city and country - or in a company setting, where your office is located.',
-  },
   tokenTitle: {
-    id: 'Token',
-    defaultMessage: 'API Tokens',
-  },
-  tokenDescription: {
-    id: 'Open Api Token creator/editor',
-    defaultMessage: 'Open Api Token creator/editor.',
-  },
-  saved: {
-    id: 'Changes saved',
-    defaultMessage: 'Changes saved',
-  },
-  back: {
-    id: 'Back',
-    defaultMessage: 'Back',
-  },
-  success: {
-    id: 'Success',
-    defaultMessage: 'Success',
+    id: 'tokenTitle',
+    defaultMessage: 'Api token',
   },
 });
 
@@ -100,6 +44,7 @@ class CLMSProfileView extends Component {
    * @static
    */
   static propTypes = {
+    content: PropTypes.object,
     children: PropTypes.instanceOf(Array),
     lang: PropTypes.string,
     user: PropTypes.shape({
@@ -124,52 +69,6 @@ class CLMSProfileView extends Component {
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.getUser(this.props.userId);
-  }
-
-  /**
-   * Cancel handler
-   * @method onCancel
-   * @param
-   * @returns {undefined}
-   */
-  onCancel() {
-    this.props.history.push(
-      this.props.returnUrl || getBaseUrl(this.props.pathname),
-    );
-  }
-
-  /**
-   * Submit handler
-   * @method onSubmit
-   * @param {object} data Form data.
-   * @returns {undefined}
-   */
-  onSubmit(data) {
-    // We don't want the user to change his login name/username or the roles
-    // from this form
-    // Backend will complain anyways, but we clean the data here before it does
-    delete data.id;
-    delete data.username;
-    delete data.roles;
-    this.props.updateUser(this.props.userId, data);
-    toast.success(
-      <Toast
-        success
-        title={this.props.intl.formatMessage(messages.success)}
-        content={this.props.intl.formatMessage(messages.saved)}
-      />,
-    );
-    // this.props.closeMenu();
-  }
 
   /**
    * Render method.
@@ -200,78 +99,7 @@ class CLMSProfileView extends Component {
           <>
             <CclTabs>
               <div tabTitle="USER PROFILE">
-                {
-                  <Container>
-                    <h1 className="page-title">
-                      {this.props.intl.formatMessage(messages.UserProfile)}
-                    </h1>
-                    <div>
-                      {this.props.loaded && (
-                        <Form
-                          formData={this.props.user}
-                          schema={{
-                            fieldsets: [
-                              {
-                                id: 'default',
-                                title: this.props.intl.formatMessage(
-                                  messages.default,
-                                ),
-                                fields: [
-                                  'fullname',
-                                  'email',
-                                  'portrait',
-                                  'location',
-                                ],
-                              },
-                            ],
-                            properties: {
-                              fullname: {
-                                description: this.props.intl.formatMessage(
-                                  messages.fullnameDescription,
-                                ),
-                                title: this.props.intl.formatMessage(
-                                  messages.fullnameTitle,
-                                ),
-                                type: 'string',
-                              },
-                              email: {
-                                description: this.props.intl.formatMessage(
-                                  messages.emailDescription,
-                                ),
-                                title: this.props.intl.formatMessage(
-                                  messages.emailTitle,
-                                ),
-                                type: 'string',
-                              },
-                              portrait: {
-                                description: this.props.intl.formatMessage(
-                                  messages.portraitDescription,
-                                ),
-                                title: this.props.intl.formatMessage(
-                                  messages.portraitTitle,
-                                ),
-                                type: 'object',
-                              },
-                              location: {
-                                description: this.props.intl.formatMessage(
-                                  messages.locationDescription,
-                                ),
-                                title: this.props.intl.formatMessage(
-                                  messages.locationTitle,
-                                ),
-                                type: 'string',
-                              },
-                            },
-                            required: ['email'],
-                          }}
-                          onSubmit={this.onSubmit}
-                          onCancel={this.onCancel}
-                          loading={this.props.loading}
-                        />
-                      )}
-                    </div>
-                  </Container>
-                }
+                {CLMSUserProfileView(this.props.content)}
               </div>
               <div tabTitle="API TOKENS">
                 {
