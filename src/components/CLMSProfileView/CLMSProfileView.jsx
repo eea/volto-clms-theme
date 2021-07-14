@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import qs from 'query-string';
 import { compose } from 'redux';
 import jwtDecode from 'jwt-decode';
 import { getUser, updateUser } from '@plone/volto/actions';
@@ -31,7 +30,6 @@ class CLMSProfileView extends Component {
   static propTypes = {
     content: PropTypes.object,
     children: PropTypes.instanceOf(Array),
-    lang: PropTypes.string,
     user: PropTypes.shape({
       '@id': PropTypes.string,
       description: PropTypes.string,
@@ -46,10 +44,6 @@ class CLMSProfileView extends Component {
       return_url: PropTypes.string,
     }),
     userId: PropTypes.string,
-    loaded: PropTypes.bool,
-    loading: PropTypes.bool,
-    returnUrl: PropTypes.string,
-    pathname: PropTypes.string,
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
@@ -84,16 +78,11 @@ class CLMSProfileView extends Component {
 
 export default compose(
   connect(
-    (state, props) => ({
-      lang: state.intl.locale,
+    (state) => ({
       user: state.users.user,
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
-      loaded: state.users.get.loaded,
-      loading: state.users.update.loading,
-      returnUrl: qs.parse(props.location.search).return_url,
-      pathname: props.location.pathname,
     }),
     { getUser, updateUser, getBaseUrl },
   ),

@@ -6,17 +6,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import qs from 'query-string';
 import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
-import { Helmet } from '@plone/volto/helpers';
 import jwtDecode from 'jwt-decode';
-import { Form, Toast, Forbidden, Unauthorized } from '@plone/volto/components';
+import { Form, Toast } from '@plone/volto/components';
 import { toast } from 'react-toastify';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
-
 import { Container } from 'semantic-ui-react';
+
 const messages = defineMessages({
   UserProfile: {
     id: 'UserProfile',
@@ -83,7 +81,6 @@ class CLMSUserProfileView extends Component {
    * @static
    */
   static propTypes = {
-    lang: PropTypes.string,
     user: PropTypes.shape({
       '@id': PropTypes.string,
       description: PropTypes.string,
@@ -100,32 +97,13 @@ class CLMSUserProfileView extends Component {
     userId: PropTypes.string,
     loaded: PropTypes.bool,
     loading: PropTypes.bool,
-    returnUrl: PropTypes.string,
-    pathname: PropTypes.string,
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-  }
-
   componentDidMount() {
     this.props.getUser(this.props.userId);
-  }
-  /**
-   * Cancel handler
-   * @method onCancel
-   * @param
-   * @returns {undefined}
-   */
-  onCancel() {
-    this.props.history.push(
-      this.props.returnUrl || getBaseUrl(this.props.pathname),
-    );
   }
 
   /**
@@ -160,23 +138,6 @@ class CLMSUserProfileView extends Component {
     const loggedIn = !!this.props.userId;
     return (
       <>
-        <Helmet title={this.props.intl.formatMessage(messages.UserProfile)} />
-        {!loggedIn && (
-          <>
-            {this.props.token ? (
-              <Forbidden
-                pathname={this.props.pathname}
-                staticContext={this.props.staticContext}
-              />
-            ) : (
-              <Unauthorized
-                pathname={this.props.pathname}
-                staticContext={this.props.staticContext}
-              />
-            )}
-          </>
-        )}
-
         {loggedIn && (
           <Container>
             <h1 className="page-title">
@@ -251,15 +212,12 @@ export default compose(
   injectIntl,
   connect(
     (state, props) => ({
-      lang: state.intl.locale,
       user: state.users.user,
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
       loaded: state.users.get.loaded,
       loading: state.users.update.loading,
-      returnUrl: qs.parse(props.location).return_url,
-      pathname: props.pathname,
     }),
     { getUser, updateUser, getBaseUrl },
   ),
