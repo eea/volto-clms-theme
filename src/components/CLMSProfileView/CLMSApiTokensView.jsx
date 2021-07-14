@@ -103,6 +103,7 @@ class CLMSUserProfileView extends Component {
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
+    input: PropTypes.string,
   };
 
   constructor(props) {
@@ -193,13 +194,21 @@ class CLMSUserProfileView extends Component {
 
                   <CclModal
                     trigger={
-                      // input-a beteta badago bakarrik klikatzeko aukera eman
-                      <CclButton
-                        mode={'filled'}
-                        disabled={'create_new_token' === null ? true : false}
-                      >
-                        {this.props.intl.formatMessage(messages.createToken)}
-                      </CclButton>
+                      <>
+                        {('create_new_token' !== '' && (
+                          <CclButton mode={'filled'}>
+                            {this.props.intl.formatMessage(
+                              messages.createToken,
+                            )}
+                          </CclButton>
+                        )) || (
+                          <CclButton mode={'filled'} disabled={true}>
+                            {this.props.intl.formatMessage(
+                              messages.createToken,
+                            )}
+                          </CclButton>
+                        )}
+                      </>
                     }
                     size="fullscreen"
                   >

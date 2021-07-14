@@ -70,7 +70,6 @@ class CLMSProfileView extends Component {
             </CclTabs>
           </>
         )}
-        ;
       </>
     );
   }
