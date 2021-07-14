@@ -22,10 +22,6 @@ const messages = defineMessages({
     id: 'UserProfile',
     defaultMessage: 'User Profile',
   },
-  personalInformation: {
-    id: 'Personal Information',
-    defaultMessage: 'Personal Information',
-  },
   default: {
     id: 'Default',
     defaultMessage: 'Default',
@@ -68,10 +64,6 @@ const messages = defineMessages({
   saved: {
     id: 'Changes saved',
     defaultMessage: 'Changes saved',
-  },
-  back: {
-    id: 'Back',
-    defaultMessage: 'Back',
   },
   success: {
     id: 'Success',
@@ -157,7 +149,6 @@ class CLMSUserProfileView extends Component {
         content={this.props.intl.formatMessage(messages.saved)}
       />,
     );
-    // this.props.closeMenu();
   }
 
   /**

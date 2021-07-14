@@ -8,29 +8,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import { compose } from 'redux';
-import { defineMessages, injectIntl } from 'react-intl';
-import { Helmet } from '@plone/volto/helpers';
 import jwtDecode from 'jwt-decode';
-import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
-import { Container } from 'semantic-ui-react';
 import {
   CLMSUserProfileView,
   CLMSApiTokensView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
-
-const messages = defineMessages({
-  UserProfile: {
-    id: 'UserProfile',
-    defaultMessage: 'User Profile',
-  },
-  tokenTitle: {
-    id: 'tokenTitle',
-    defaultMessage: 'Api token',
-  },
-});
 
 /**
  * CLMSProfileView class.
@@ -79,22 +64,6 @@ class CLMSProfileView extends Component {
     const loggedIn = !!this.props.userId;
     return (
       <>
-        <Helmet title={this.props.intl.formatMessage(messages.UserProfile)} />
-        {!loggedIn && (
-          <>
-            {this.props.token ? (
-              <Forbidden
-                pathname={this.props.pathname}
-                staticContext={this.props.staticContext}
-              />
-            ) : (
-              <Unauthorized
-                pathname={this.props.pathname}
-                staticContext={this.props.staticContext}
-              />
-            )}
-          </>
-        )}
         {loggedIn && (
           <>
             <CclTabs>
@@ -102,13 +71,7 @@ class CLMSProfileView extends Component {
                 {CLMSUserProfileView(this.props.content)}
               </div>
               <div tabTitle="API TOKENS">
-                {
-                  <Container>
-                    <h1 className="page-title">
-                      {this.props.intl.formatMessage(messages.tokenTitle)}
-                    </h1>
-                  </Container>
-                }
+                {CLMSApiTokensView(this.props.content)}
               </div>
             </CclTabs>
           </>
@@ -120,7 +83,6 @@ class CLMSProfileView extends Component {
 }
 
 export default compose(
-  injectIntl,
   connect(
     (state, props) => ({
       lang: state.intl.locale,
