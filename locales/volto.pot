@@ -1,7 +1,7 @@
 msgid ""
   msgstr ""
   "Project-Id-Version: Plone\n"
-  "POT-Creation-Date: 2021-07-08T13:18:00.799Z\n"
+  "POT-Creation-Date: 2021-07-14T06:49:06.709Z\n"
   "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
   "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
   "MIME-Version: 1.0\n"
@@ -73,6 +73,11 @@ msgstr ""
 #: components/CLMSProfileView/CLMSProfileView
 # defaultMessage: E-mail
 msgid "E-mail"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: EIONET Action Group on Land monitoring in Europe (EAGLE)
+msgid "EIONETActionGroup"
 msgstr ""
 
 #: customizations/volto/components/manage/Toolbar/Toolbar
@@ -236,14 +241,94 @@ msgstr ""
 msgid "Your location - either city and country - or in a company setting, where your office is located."
 msgstr ""
 
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: I agree to the {link}
+msgid "agreePrivacyPolicy"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: privacy policy.
+msgid "agreePrivacyPolicyLinkText"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Copernicus Services
+msgid "copernicusServices"
+msgstr ""
+
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 # defaultMessage: More than {count} datasets in our 
 msgid "countText"
 msgstr ""
 
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Expert support provided by
+msgid "expertSupportProvidedBy"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Follow Us
+msgid "followUs"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Atmosphere
+msgid "footerAtmosphere"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Climate Change
+msgid "footerClimateChange"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Emergency
+msgid "footerEmergency"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Land
+msgid "footerLand"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Marine
+msgid "footerMarine"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Security
+msgid "footerSecurity"
+msgstr ""
+
+#: customizations/volto/components/theme/Header/Header
+# defaultMessage: Hello 
+msgid "hello"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: DG Joint Research Center
+msgid "jointResearchCenter"
+msgstr ""
+
+#: customizations/volto/components/theme/Header/Header
+# defaultMessage: Login/Register
+msgid "loginRegister"
+msgstr ""
+
+#: customizations/volto/components/theme/Header/Header
+# defaultMessage: Logout
+msgid "logout"
+msgstr ""
+
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 # defaultMessage: Search datasets
 msgid "searchDatasetsPlaceholder"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Subscribe
+msgid "subscribe"
 msgstr ""
