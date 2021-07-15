@@ -70,6 +70,14 @@ const messages = defineMessages({
     id: 'Go back button',
     defaultMessage: 'Go back to the token list',
   },
+  existingTokens: {
+    id: 'existing tokens',
+    defaultMessage: 'Existing tokens',
+  },
+  existingTokensDescription: {
+    id: 'existing tokens description',
+    defaultMessage: 'These are your avaliable tokens',
+  },
 });
 
 /**
@@ -112,17 +120,26 @@ class CLMSApiTokensView extends Component {
     this.onClose = this.onClose.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
-    this.state = { value: '', modal: true, createdToken: false };
+    this.state = {
+      value: '',
+      modal: true,
+      createdToken: false,
+      textToCopy: '',
+      button: true,
+    };
   }
 
   onClose() {
     this.setState({ createdToken: false, modal: false });
   }
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({
+      value: event.target.value,
+      textToCopy: event.target.value,
+    });
   }
   handleClick() {
-    this.setState({ createdToken: true, modal: true });
+    this.setState({ createdToken: true, modal: true, button: false });
   }
   componentDidMount() {
     this.props.getUser(this.props.userId);
@@ -146,9 +163,6 @@ class CLMSApiTokensView extends Component {
    * @returns {undefined}
    */
   onSubmit(data) {
-    // We don't want the user to change his login name/username or the roles
-    // from this form
-    // Backend will complain anyways, but we clean the data here before it does
     delete data.id;
     delete data.username;
     delete data.roles;
@@ -179,6 +193,13 @@ class CLMSApiTokensView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
+              {/* Token guztien mapeoa eta bakoitzaren ondoan borratzeko aukera hemen
+               ** Back to the token list botoian klikatzean lehen pantailara heldu baina Create new token botoia ikusi behar da*/}
+              {this.state.modal === false && (
+                <CclButton mode={'filled'} onClick={this.handleClick}>
+                  {this.props.intl.formatMessage(messages.createTitle)}
+                </CclButton>
+              )}
               {this.state.modal === true && (
                 <CclModal
                   trigger={
@@ -232,6 +253,9 @@ class CLMSApiTokensView extends Component {
                             </p>
                             <form className="ccl-form search-form">
                               <input
+                                onChange={this.handleChange}
+                                //texttoCopy pasa ordez sortutako tokena pasa behar zaio
+                                value={this.state.textToCopy}
                                 type="text"
                                 className="ccl-text-input"
                                 id="created_token"
@@ -240,7 +264,14 @@ class CLMSApiTokensView extends Component {
                                 aria-label="Created token"
                               />
                             </form>
-                            <CclButton mode={'filled'}>
+                            <CclButton
+                              mode={'filled'}
+                              onClick={() => {
+                                navigator.clipboard.writeText(
+                                  this.state.textToCopy,
+                                );
+                              }}
+                            >
                               {this.props.intl.formatMessage(
                                 messages.copyButton,
                               )}
