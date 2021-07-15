@@ -77,7 +77,7 @@ const messages = defineMessages({
  * @class CLMSProfileView
  * @extends Component
  */
-class CLMSUserProfileView extends Component {
+class CLMSApiTokensView extends Component {
   /**
    * Property types.
    * @property {Object} propTypes Property types.
@@ -105,13 +105,25 @@ class CLMSUserProfileView extends Component {
     getBaseUrl: PropTypes.func.isRequired,
     input: PropTypes.string,
   };
-
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.onClose = this.onClose.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
+    this.state = { value: '', modal: true, createdToken: false };
   }
 
+  onClose() {
+    this.setState({ createdToken: false, modal: false });
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+  handleClick() {
+    this.setState({ createdToken: true, modal: true });
+  }
   componentDidMount() {
     this.props.getUser(this.props.userId);
   }
@@ -167,85 +179,89 @@ class CLMSUserProfileView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              <CclModal
-                trigger={
-                  <CclButton mode={'filled'}>
-                    {this.props.intl.formatMessage(messages.createTitle)}
-                  </CclButton>
-                }
-                size="fullscreen"
-              >
-                <div>
-                  <h3>{this.props.intl.formatMessage(messages.createTitle)}</h3>
-                  <p>
-                    {this.props.intl.formatMessage(messages.createDescription)}
-                  </p>
-                  <p> {this.props.intl.formatMessage(messages.createName)}</p>
-                  <form className="ccl-form search-form">
-                    <input
-                      type="text"
-                      className="ccl-text-input"
-                      id="create_new_token"
-                      name="createToken"
-                      placeholder=""
-                      aria-label="Name of the new token"
-                    />
-                  </form>
-
-                  <CclModal
-                    trigger={
+              {this.state.modal === true && (
+                <CclModal
+                  trigger={
+                    <CclButton mode={'filled'}>
+                      {this.props.intl.formatMessage(messages.createTitle)}
+                    </CclButton>
+                  }
+                  size="fullscreen"
+                >
+                  <div>
+                    <h3>
+                      {this.props.intl.formatMessage(messages.createTitle)}
+                    </h3>
+                    <p>
+                      {this.props.intl.formatMessage(
+                        messages.createDescription,
+                      )}
+                    </p>
+                    <p> {this.props.intl.formatMessage(messages.createName)}</p>
+                    <form
+                      className="ccl-form search-form"
+                      onSubmit={this.onSubmit}
+                    >
+                      <input
+                        onChange={this.handleChange}
+                        type="text"
+                        className="ccl-text-input"
+                        id="create_new_token"
+                        name="createToken"
+                        placeholder=""
+                        aria-label="Name of the new token"
+                      />
+                    </form>
+                    {(this.state.value !== '' && (
                       <>
-                        {('create_new_token' !== '' && (
-                          <CclButton mode={'filled'}>
-                            {this.props.intl.formatMessage(
-                              messages.createToken,
-                            )}
-                          </CclButton>
-                        )) || (
-                          <CclButton mode={'filled'} disabled={true}>
-                            {this.props.intl.formatMessage(
-                              messages.createToken,
-                            )}
-                          </CclButton>
-                        )}
+                        <CclButton
+                          onClick={this.handleClick}
+                          mode={'filled'}
+                          disabled={
+                            this.state.createdToken === true && (false || true)
+                          }
+                        >
+                          {this.props.intl.formatMessage(messages.createToken)}
+                        </CclButton>
+                        {(this.state.createdToken === true && (
+                          <div>
+                            <p>
+                              {this.props.intl.formatMessage(
+                                messages.createdToken,
+                              )}
+                            </p>
+                            <form className="ccl-form search-form">
+                              <input
+                                type="text"
+                                className="ccl-text-input"
+                                id="created_token"
+                                name="createdToken"
+                                placeholder=""
+                                aria-label="Created token"
+                              />
+                            </form>
+                            <CclButton mode={'filled'}>
+                              {this.props.intl.formatMessage(
+                                messages.copyButton,
+                              )}
+                            </CclButton>
+                            <CclButton mode={'filled'} onClick={this.onClose}>
+                              {this.props.intl.formatMessage(
+                                messages.goBackButton,
+                              )}
+                            </CclButton>
+                          </div>
+                        )) ||
+                          ''}
                       </>
-                    }
-                    size="fullscreen"
-                  >
-                    <div>
-                      <h3>
-                        {this.props.intl.formatMessage(messages.createdTitle)}
-                      </h3>
-                      <p>
-                        {this.props.intl.formatMessage(
-                          messages.createdDescription,
-                        )}
-                      </p>
-                      <p>
-                        {this.props.intl.formatMessage(messages.createdToken)}
-                      </p>
-                      <form className="ccl-form search-form">
-                        <input
-                          type="text"
-                          className="ccl-text-input"
-                          id="created_token"
-                          name="createdToken"
-                          placeholder=""
-                          aria-label="Created token"
-                        />
-                      </form>
-                      {/*Inputa beteta dagoenean bakarrik klikatu*/}
-                      <CclButton disabled={true}>
-                        {this.props.intl.formatMessage(messages.copyButton)}
+                    )) || (
+                      <CclButton mode={'filled'} disabled={true}>
+                        {this.props.intl.formatMessage(messages.createToken)}
                       </CclButton>
-                      {/*Botoi honetan klikatzean modal danak itxi*/}
-                      <CclButton>
-                        {this.props.intl.formatMessage(messages.goBackButton)}
-                      </CclButton>
-                    </div>
-                  </CclModal>
-                </div>
-              </CclModal>
+                    )}
+                  </div>
+                </CclModal>
+              )}
             </div>
           </Container>
         )}
@@ -267,4 +283,4 @@ export default compose(
     }),
     { getUser, updateUser, getBaseUrl },
   ),
-)(CLMSUserProfileView);
+)(CLMSApiTokensView);
