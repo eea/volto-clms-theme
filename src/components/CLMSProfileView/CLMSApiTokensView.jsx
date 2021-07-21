@@ -117,12 +117,14 @@ class CLMSApiTokensView extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.showCreated = this.showCreated.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.state = {
       value: '',
-      modal: true,
+      createNewToken: true,
+      modal: false,
       createdToken: false,
       textToCopy: '',
       button: true,
@@ -130,7 +132,13 @@ class CLMSApiTokensView extends Component {
   }
 
   onClose() {
-    this.setState({ createdToken: false, modal: false });
+    this.setState({
+      createdToken: false,
+      modal: false,
+      value: '',
+      textToCopy: '',
+      createNewToken: false,
+    });
   }
   handleChange(event) {
     this.setState({
@@ -139,7 +147,20 @@ class CLMSApiTokensView extends Component {
     });
   }
   handleClick() {
-    this.setState({ createdToken: true, modal: true, button: false });
+    this.setState({
+      createdToken: true,
+      modal: false,
+      button: false,
+      createNewToken: true,
+    });
+  }
+  showCreated() {
+    this.setState({
+      createdToken: true,
+      modal: true,
+      button: false,
+      createNewToken: true,
+    });
   }
   componentDidMount() {
     this.props.getUser(this.props.userId);
@@ -195,15 +216,19 @@ class CLMSApiTokensView extends Component {
               <p>{this.props.intl.formatMessage(messages.description)}</p>
               {/* Token guztien mapeoa eta bakoitzaren ondoan borratzeko aukera hemen
                ** Back to the token list botoian klikatzean lehen pantailara heldu baina Create new token botoia ikusi behar da*/}
-              {this.state.modal === false && (
-                <CclButton mode={'filled'} onClick={this.handleClick}>
+              {this.state.createNewToken === false && (
+                <CclButton
+                  mode={'filled'}
+                  onClick={this.handleClick}
+                  {...(this.state.value === '')}
+                >
                   {this.props.intl.formatMessage(messages.createTitle)}
                 </CclButton>
               )}
-              {this.state.modal === true && (
+              {this.state.createNewToken === true && (
                 <CclModal
                   trigger={
-                    <CclButton mode={'filled'}>
+                    <CclButton mode={'filled'} {...(this.state.value === '')}>
                       {this.props.intl.formatMessage(messages.createTitle)}
                     </CclButton>
                   }
