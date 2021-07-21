@@ -227,6 +227,7 @@ class CLMSApiTokensView extends Component {
               )}
               {this.state.createNewToken === true && (
                 <CclModal
+                  onClick={() => this.onClose}
                   trigger={
                     <CclButton mode={'filled'} {...(this.state.value === '')}>
                       {this.props.intl.formatMessage(messages.createTitle)}
@@ -278,9 +279,9 @@ class CLMSApiTokensView extends Component {
                             </p>
                             <form className="ccl-form search-form">
                               <input
-                                onChange={this.handleChange}
                                 //texttoCopy pasa ordez sortutako tokena pasa behar zaio
                                 value={this.state.textToCopy}
+                                disabled="disabled"
                                 type="text"
                                 className="ccl-text-input"
                                 id="created_token"
