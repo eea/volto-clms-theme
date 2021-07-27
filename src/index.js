@@ -34,7 +34,6 @@ const applyConfig = (config) => {
     isMultilingual: true,
     supportedLanguages: [
       'bg',
-      'bs-BA',
       'cs',
       'hr',
       'da',
