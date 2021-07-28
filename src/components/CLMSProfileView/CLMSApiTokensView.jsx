@@ -128,6 +128,9 @@ class CLMSApiTokensView extends Component {
       createdToken: false,
       textToCopy: '',
       button: true,
+      error: null,
+      isLoaded: false,
+      items: [],
     };
   }
 
@@ -154,6 +157,7 @@ class CLMSApiTokensView extends Component {
       createNewToken: true,
     });
   }
+
   showCreated() {
     this.setState({
       createdToken: true,
@@ -162,9 +166,31 @@ class CLMSApiTokensView extends Component {
       createNewToken: true,
     });
   }
+
   componentDidMount() {
     this.props.getUser(this.props.userId);
+    const origin = 'http://localhost:8080/Plone/@service-keys';
+    fetch(origin)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result.items,
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        },
+      );
   }
+
   /**
    * Cancel handler
    * @method onCancel
@@ -203,6 +229,7 @@ class CLMSApiTokensView extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    const { items } = this.state;
     const loggedIn = !!this.props.userId;
     return (
       <>
@@ -214,8 +241,7 @@ class CLMSApiTokensView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              {/* Token guztien mapeoa eta bakoitzaren ondoan borratzeko aukera hemen
-               ** Back to the token list botoian klikatzean lehen pantailara heldu baina Create new token botoia ikusi behar da*/}
+              {/* Token guztien mapeoa eta bakoitzaren ondoan borratzeko aukera hemen*/}
               {this.state.createNewToken === false && (
                 <CclButton
                   mode={'filled'}
@@ -278,9 +304,13 @@ class CLMSApiTokensView extends Component {
                               )}
                             </p>
                             <form className="ccl-form search-form">
+                              <ul>
+                                {items.map((item) => (
+                                  <li>{item.private_key}</li>
+                                ))}
+                              </ul>
                               <input
-                                //texttoCopy pasa ordez sortutako tokena pasa behar zaio
-                                value={this.state.textToCopy}
+                                value={this.state.value}
                                 disabled="disabled"
                                 type="text"
                                 className="ccl-text-input"
