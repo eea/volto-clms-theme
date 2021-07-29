@@ -17,6 +17,8 @@ import { getBaseUrl } from '@plone/volto/helpers';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Container } from 'semantic-ui-react';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+// eslint-disable-next-line import/no-unresolved
+import { getTokens } from 'actions/tokens/tokens';
 
 const messages = defineMessages({
   ApiTokens: {
@@ -109,9 +111,17 @@ class CLMSApiTokensView extends Component {
     returnUrl: PropTypes.string,
     pathname: PropTypes.string,
     getUser: PropTypes.func.isRequired,
+    getTokens: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
     input: PropTypes.string,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        '@id': PropTypes.string,
+        title: PropTypes.string,
+        key_id: PropTypes.string,
+      }),
+    ),
   };
   constructor(props) {
     super(props);
@@ -128,11 +138,18 @@ class CLMSApiTokensView extends Component {
       createdToken: false,
       textToCopy: '',
       button: true,
-      error: null,
-      isLoaded: false,
-      items: [],
+      /* error: null,
+      isLoaded: false,*/
     };
   }
+  /**
+   * Default properties.
+   * @property {Object} defaultProps Default properties.
+   * @static
+   */
+  static defaultProps = {
+    items: [],
+  };
 
   onClose() {
     this.setState({
@@ -169,26 +186,10 @@ class CLMSApiTokensView extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.userId);
-    const origin = 'http://localhost:8080/Plone/@service-keys';
-    fetch(origin)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.items,
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        },
-      );
+    //honekin Promise bueltatzen dugu objetua bueltatu beharrean
+    this.props.getTokens();
+    // getTokens action-a ekartzen didana, promise osoa ekartzen du eta promise barruan dagoen object-a bakarrik behar dugu .json funtzioa erabiltzeko
+    console.log(this.props.items);
   }
 
   /**
@@ -229,7 +230,6 @@ class CLMSApiTokensView extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { items } = this.state;
     const loggedIn = !!this.props.userId;
     return (
       <>
@@ -241,7 +241,13 @@ class CLMSApiTokensView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              {/* Token guztien mapeoa eta bakoitzaren ondoan borratzeko aukera hemen*/}
+              {this.props.items.map((item) => (
+                <>
+                  <p>{item.title}</p>
+                  <p>{item.key_id}</p>
+                </>
+              ))}
+              {/* Token bakoitzaren ondoan borratzeko aukera hemen */}
               {this.state.createNewToken === false && (
                 <CclButton
                   mode={'filled'}
@@ -304,11 +310,6 @@ class CLMSApiTokensView extends Component {
                               )}
                             </p>
                             <form className="ccl-form search-form">
-                              <ul>
-                                {items.map((item) => (
-                                  <li>{item.private_key}</li>
-                                ))}
-                              </ul>
                               <input
                                 value={this.state.value}
                                 disabled="disabled"
@@ -367,7 +368,8 @@ export default compose(
         : '',
       returnUrl: qs.parse(props.location).return_url,
       pathname: props.pathname,
+      items: state.tokens.items,
     }),
-    { getUser, updateUser, getBaseUrl },
+    { getUser, updateUser, getBaseUrl, getTokens },
   ),
 )(CLMSApiTokensView);
