@@ -75,10 +75,10 @@ const applyConfig = (config) => {
       path: '/**/profile',
       component: ProfileView,
     },
-    {
-      path: '/download-by-area',
-      component: CLMSMapViewerView,
-    },
+    // {
+    //   path: '/download-by-area',
+    //   component: CLMSMapViewerView,
+    // },
     {
       path: '/**/download-by-area',
       component: CLMSMapViewerView,
