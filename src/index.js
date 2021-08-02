@@ -7,8 +7,10 @@ import customBlocks, {
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
+import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 
 const applyConfig = (config) => {
+  // console.log('config: ', config);
   config.views = {
     ...config.views,
     contentTypesViews: {
@@ -30,7 +32,11 @@ const applyConfig = (config) => {
   config.widgets.widget.bounding_widget = BoundingWidget;
   config.settings = {
     ...config.settings,
-    nonContentRoutes: [...config.settings.nonContentRoutes, '/profile'],
+    nonContentRoutes: [
+      ...config.settings.nonContentRoutes,
+      '/profile',
+      '/download-by-area',
+    ],
     isMultilingual: true,
     supportedLanguages: [
       'bg',
@@ -68,6 +74,14 @@ const applyConfig = (config) => {
     {
       path: '/**/profile',
       component: ProfileView,
+    },
+    {
+      path: '/download-by-area',
+      component: CLMSMapViewerView,
+    },
+    {
+      path: '/**/download-by-area',
+      component: CLMSMapViewerView,
     },
   ];
   return config;
