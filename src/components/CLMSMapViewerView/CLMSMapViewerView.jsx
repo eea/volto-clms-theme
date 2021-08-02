@@ -3,11 +3,10 @@
  * @module components/CLMSMapViewView/CLMSMapViewView
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
 import { MapViewer } from '@eeacms/volto-arcgis-block/components';
-
 import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
 
 const CLMSMapViewerView = (props) => {
@@ -31,20 +30,9 @@ const CLMSMapViewerView = (props) => {
     ],
   };
 
-  console.log('CONFIG: ', config_by_area);
-  // concatExtraItems([
-  //   { title: 'Download by area', url: props.location.pathname },
-  // ]);
-  // window.Breadcrumbs.concatExtraItems();
   return (
     <div>
       <Helmet title={formatMessage(messages.DownloadByArea)} />
-      {/* <Breadcrumbs
-        pathname={props.location.pathname}
-        extraItems={[
-          { title: 'Download by area', url: props.location.pathname },
-        ]}
-      ></Breadcrumbs> */}
       <MapViewer
         cfg={config_by_area}
         customClass={'land'}
