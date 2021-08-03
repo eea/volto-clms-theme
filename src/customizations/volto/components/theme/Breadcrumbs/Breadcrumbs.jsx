@@ -46,6 +46,12 @@ class Breadcrumbs extends Component {
         url: PropTypes.string,
       }),
     ).isRequired,
+    extraItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        url: PropTypes.string,
+      }),
+    ),
   };
 
   /**
@@ -66,6 +72,20 @@ class Breadcrumbs extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.pathname !== this.props.pathname) {
       this.props.getBreadcrumbs(getBaseUrl(nextProps.pathname));
+    }
+  }
+
+  /**
+   * Component can concat extra breadcrumb items
+   */
+  componentDidUpdate() {
+    if (this.props.extraItems) {
+      let values_items = this.props.items.map((item) => item.url);
+      let values_extra_items = this.props.extraItems.map((item) => item.url);
+      if (!values_items.some((r) => values_extra_items.includes(r))) {
+        this.props.extraItems.map((item) => this.props.items.push(item));
+        this.setState({ items: this.props.items });
+      }
     }
   }
 
