@@ -8,7 +8,7 @@ import { Helmet } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
 import { MapViewer } from '@eeacms/volto-arcgis-block/components';
 import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
-import Breadcrumbs from '@plone/volto/components/theme/Breadcrumbs/Breadcrumbs';
+// import Breadcrumbs from '@plone/volto/components/theme/Breadcrumbs/Breadcrumbs';
 
 const CLMSMapViewerView = (props) => {
   const { formatMessage } = useIntl();
@@ -62,7 +62,7 @@ const CLMSMapViewerView = (props) => {
   return (
     <div>
       <Helmet title={formatMessage(messages.DownloadByArea)} />
-      <Breadcrumbs
+      {/* <Breadcrumbs
         pathname={props.location.pathname.replace('download-by-area', '')}
         extraItems={[
           {
@@ -70,9 +70,10 @@ const CLMSMapViewerView = (props) => {
             url: props.location.pathname,
           },
         ]}
-      ></Breadcrumbs>
+      ></Breadcrumbs> */}
       <MapViewer
         cfg={config_by_area}
+        url={props.location.pathname.replace('download-by-area', '@mapviewer')}
         customClass={'land'}
         id={props.location.pathname}
       ></MapViewer>
