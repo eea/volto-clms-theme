@@ -26,7 +26,7 @@ const CclListingCards = (props) => {
   // // const { settings } = config;
   const regex = /CclCards/;
 
-  const cardType = variation.replace(regex, '');
+  const cardType = variation?.replace(regex, '');
   let containerClass = '';
   if (['news', 'event'].includes(cardType)) {
     containerClass = 'ccl-container';

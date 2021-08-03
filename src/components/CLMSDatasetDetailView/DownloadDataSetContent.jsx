@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const DownloadDataSetContent = (data, type) => {
   let url = '/register';
-
   return (
     <div>
       <div className="login-block">
@@ -22,7 +21,9 @@ const DownloadDataSetContent = (data, type) => {
           Use this option if you would like to download the dataset for area(s)
           of interest.
         </p>
-        <CclButton disabled={true}>Go to download by area</CclButton>
+        <CclButton url={data['@id'] + '/download-by-area'}>
+          Go to download by area
+        </CclButton>
       </div>
       <CclTable type={type} dataset={data}></CclTable>
     </div>
