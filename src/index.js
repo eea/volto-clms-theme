@@ -9,9 +9,9 @@ import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
+import { extraBreadcrumbItemsReducer } from './reducers';
 
 const applyConfig = (config) => {
-  // console.log('config: ', config);
   config.views = {
     ...config.views,
     contentTypesViews: {
@@ -29,6 +29,11 @@ const applyConfig = (config) => {
       customGroupBlocksOrder,
     ],
   };
+  config.addonReducers = {
+    ...config.addonReducers,
+    extra_breadcrumbs: extraBreadcrumbItemsReducer,
+  };
+
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget.bounding_widget = BoundingWidget;
   config.widgets.widget.layer_widget = MapLayersWidget;
@@ -77,10 +82,6 @@ const applyConfig = (config) => {
       path: '/**/profile',
       component: ProfileView,
     },
-    // {
-    //   path: '/download-by-area',
-    //   component: CLMSMapViewerView,
-    // },
     {
       path: '/**/download-by-area',
       component: CLMSMapViewerView,

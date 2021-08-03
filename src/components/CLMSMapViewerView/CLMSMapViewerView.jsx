@@ -3,14 +3,16 @@
  * @module components/CLMSMapViewView/CLMSMapViewView
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
 import { MapViewer } from '@eeacms/volto-arcgis-block/components';
 import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
-// import Breadcrumbs from '@plone/volto/components/theme/Breadcrumbs/Breadcrumbs';
-
+import { useDispatch } from 'react-redux';
+import { getExtraBreadcrumbItems } from '../../actions';
 const CLMSMapViewerView = (props) => {
+  const dispatch = useDispatch();
+
   const { formatMessage } = useIntl();
   const messages = defineMessages({
     DownloadByArea: {
@@ -18,6 +20,27 @@ const CLMSMapViewerView = (props) => {
       defaultMessage: 'Download by area',
     },
   });
+
+  useEffect(() => {
+    dispatch(
+      getExtraBreadcrumbItems([
+        {
+          title: formatMessage(messages.DownloadByArea),
+          pathname: props.location.pathname,
+        },
+      ]),
+    );
+
+    // returned function will be called on component unmount
+    return () => {
+      dispatch(getExtraBreadcrumbItems([]));
+    };
+  }, [
+    dispatch,
+    formatMessage,
+    messages.DownloadByArea,
+    props.location.pathname,
+  ]);
 
   const config_by_area = {
     ...config,
@@ -62,15 +85,6 @@ const CLMSMapViewerView = (props) => {
   return (
     <div>
       <Helmet title={formatMessage(messages.DownloadByArea)} />
-      {/* <Breadcrumbs
-        pathname={props.location.pathname.replace('download-by-area', '')}
-        extraItems={[
-          {
-            title: formatMessage(messages.DownloadByArea),
-            url: props.location.pathname,
-          },
-        ]}
-      ></Breadcrumbs> */}
       <MapViewer
         cfg={config_by_area}
         url={props.location.pathname.replace('download-by-area', '@mapviewer')}
