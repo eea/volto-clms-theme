@@ -7,6 +7,7 @@ import customBlocks, {
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
+import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 
 const applyConfig = (config) => {
@@ -30,6 +31,7 @@ const applyConfig = (config) => {
   };
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget.bounding_widget = BoundingWidget;
+  config.widgets.widget.layer_widget = MapLayersWidget;
   config.settings = {
     ...config.settings,
     nonContentRoutes: [
