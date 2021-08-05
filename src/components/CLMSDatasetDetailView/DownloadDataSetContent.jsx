@@ -1,10 +1,11 @@
 import React from 'react';
 import CclTable from '@eeacms/volto-clms-theme/components/CclTable/CclTable';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const DownloadDataSetContent = (data, type) => {
   let url = '/register';
+  const location = useLocation();
 
   return (
     <div>
@@ -22,7 +23,9 @@ const DownloadDataSetContent = (data, type) => {
           Use this option if you would like to download the dataset for area(s)
           of interest.
         </p>
-        <CclButton disabled={true}>Go to download by area</CclButton>
+        <CclButton url={location.pathname + '/download-by-area'}>
+          Go to download by area
+        </CclButton>
       </div>
       <CclTable type={type} dataset={data}></CclTable>
     </div>
