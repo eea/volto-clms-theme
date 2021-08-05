@@ -2,12 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCartItems } from '@eeacms/volto-clms-theme/actions';
 import { Message } from 'semantic-ui-react';
-
+import jwtDecode from 'jwt-decode';
+import { useSelector } from 'react-redux';
 const useCartState = () => {
   const CART_SESSION_KEY = 'cart_session';
   const [cart, setCart] = useState([]);
   const [savedToCard, setSavedToCard] = useState(false);
   const [toasTime, setToastTime] = useState(3000);
+  const isLoggedIn = useSelector((state) =>
+    state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
+  )
+    ? true
+    : false;
+  // const state = store.getState();
+  // const [loggedInStatus, setLoggedInStatus] = useState(
+  //   useSelector((state) =>
+  //     state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
+  //   ),
+  // );
 
   const dispatch = useDispatch();
 
@@ -58,7 +70,6 @@ const useCartState = () => {
 
   useEffect(() => {
     getCartSessionStorage();
-
     // window.addEventListener('resize', checkScreenSize);
     // return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
@@ -81,12 +92,15 @@ const useCartState = () => {
       </>
     );
   };
+
   // return [cart, addCartItem, removeCartSessionStorage];
+
   return {
     cart: cart,
     addCartItem: addCartItem,
     removeAllCart: removeAllCart,
     Toast: Toast,
+    isLoggedIn: isLoggedIn,
   };
 };
 
