@@ -9,7 +9,7 @@ import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
-import { extraBreadcrumbItemsReducer } from './reducers';
+import { extraBreadcrumbItemsReducer, cartItemsReducer } from './reducers';
 
 const applyConfig = (config) => {
   config.views = {
@@ -32,6 +32,7 @@ const applyConfig = (config) => {
   config.addonReducers = {
     ...config.addonReducers,
     extra_breadcrumbs: extraBreadcrumbItemsReducer,
+    cart_items: cartItemsReducer,
   };
 
   config.widgets.type.tabs = TabsWidget;
