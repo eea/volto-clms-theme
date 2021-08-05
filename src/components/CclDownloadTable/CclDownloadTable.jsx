@@ -108,12 +108,19 @@ function CclDownloadTable(props) {
       >
         Add to cart
       </CclButton>
+
+      <CclButton url="/cart" disabled={!isLoggedIn}>
+        Show cart
+      </CclButton>
+
+      <br></br>
+
       <CclButton
         onClick={() => {
           removeAll();
         }}
       >
-        Remove
+        Remove (For develop)
       </CclButton>
       <Toast message="Added to cart" time={5000}></Toast>
     </div>

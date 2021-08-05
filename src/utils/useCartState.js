@@ -14,6 +14,7 @@ const useCartState = () => {
   )
     ? true
     : false;
+  // const cartState = useSelector((state) => state.cart_items.items);
   // const state = store.getState();
   // const [loggedInStatus, setLoggedInStatus] = useState(
   //   useSelector((state) =>
@@ -25,7 +26,7 @@ const useCartState = () => {
 
   const saveItems = (values) => {
     let items = cleanDuplicatesEntries(values);
-    sessionStorage.setItem(CART_SESSION_KEY, JSON.stringify(items));
+    localStorage.setItem(CART_SESSION_KEY, JSON.stringify(items));
     setCart(items);
 
     setSavedToCard(true);
@@ -33,21 +34,13 @@ const useCartState = () => {
   };
 
   const removeAllCart = () => {
-    sessionStorage.removeItem(CART_SESSION_KEY);
+    localStorage.removeItem(CART_SESSION_KEY);
     setCart([]);
   };
 
   const getCartSessionStorage = () => {
-    setCart(JSON.parse(sessionStorage.getItem(CART_SESSION_KEY)) || []);
+    setCart(JSON.parse(localStorage.getItem(CART_SESSION_KEY)) || []);
   };
-
-  // const setCartSessionStorage = (value) => {
-  //   sessionStorage.setItem(
-  //     CART_SESSION_KEY,
-  //     JSON.stringify(cleanDuplicatesEntries(value)),
-  //   );
-  //   getCartSessionStorage();
-  // };
 
   const addCartItem = async (value) => {
     await getCartSessionStorage();
