@@ -1,5 +1,6 @@
 import React from 'react';
-import CclTable from '@eeacms/volto-clms-theme/components/CclTable/CclTable';
+// import CclTable from '@eeacms/volto-clms-theme/components/CclTable/CclTable';
+import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -27,7 +28,8 @@ const DownloadDataSetContent = (data, type) => {
           Go to download by area
         </CclButton>
       </div>
-      <CclTable type={type} dataset={data}></CclTable>
+      <CclDownloadTable></CclDownloadTable>
+      {/* <CclTable type={type} dataset={data}></CclTable> */}
     </div>
   );
 };

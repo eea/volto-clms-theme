@@ -9,7 +9,8 @@ import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
-import { extraBreadcrumbItemsReducer } from './reducers';
+import { extraBreadcrumbItemsReducer, cartItemsReducer } from './reducers';
+import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
 
 const applyConfig = (config) => {
   config.views = {
@@ -32,6 +33,7 @@ const applyConfig = (config) => {
   config.addonReducers = {
     ...config.addonReducers,
     extra_breadcrumbs: extraBreadcrumbItemsReducer,
+    cart_items: cartItemsReducer,
   };
 
   config.widgets.type.tabs = TabsWidget;
@@ -43,6 +45,7 @@ const applyConfig = (config) => {
       ...config.settings.nonContentRoutes,
       '/profile',
       '/download-by-area',
+      '/cart',
     ],
     isMultilingual: true,
     supportedLanguages: [
@@ -85,6 +88,10 @@ const applyConfig = (config) => {
     {
       path: '/**/download-by-area',
       component: CLMSMapViewerView,
+    },
+    {
+      path: '/cart',
+      component: CLMSDownloadCartView,
     },
   ];
   return config;
