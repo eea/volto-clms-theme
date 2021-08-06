@@ -28,8 +28,9 @@ const ItemSchema = {
     },
     type: {
       title: 'Type',
-      description: 'Enter the file type of this file. Ex.: Raster',
+      description: 'Enter the file type of this file. Ex.: Raster or Vector',
       type: 'string',
+      // controlled vocabulary: 'raster' or 'vector'
     },
     format: {
       title: 'Format',
@@ -45,6 +46,12 @@ const ItemSchema = {
       title: 'Size',
       description: 'Enter the size of this file. Ex.: 3.5 GB',
       type: 'string',
+    },
+    source: {
+      title: 'Source',
+      description: 'Enter the source of this file.',
+      type: 'string',
+      // controlled vocabulary: values to be provided by the user
     },
     path: {
       title: 'Path',
@@ -65,6 +72,7 @@ const ItemSchema = {
         'format',
         'version',
         'size',
+        'source',
         'path',
       ],
     },
