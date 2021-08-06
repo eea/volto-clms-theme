@@ -76,20 +76,6 @@ class Breadcrumbs extends Component {
   }
 
   /**
-   * Component can concat extra breadcrumb items
-   */
-  componentDidUpdate() {
-    if (this.props.extraItems) {
-      let values_items = this.props.items.map((item) => item.url);
-      let values_extra_items = this.props.extraItems.map((item) => item.url);
-      if (!values_items.some((r) => values_extra_items.includes(r))) {
-        this.props.extraItems.map((item) => this.props.items.push(item));
-        this.setState({ items: this.props.items });
-      }
-    }
-  }
-
-  /**
    * Render method.
    * @method render
    * @returns {string} Markup for the component.
@@ -147,7 +133,7 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      items: state.breadcrumbs.items,
+      items: state.breadcrumbs.items.concat(state.extra_breadcrumbs.items),
       root: state.breadcrumbs.root,
     }),
     { getBreadcrumbs },
