@@ -8,6 +8,7 @@ import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsW
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 import { extraBreadcrumbItemsReducer, cartItemsReducer } from './reducers';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
@@ -39,6 +40,7 @@ const applyConfig = (config) => {
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget.bounding_widget = BoundingWidget;
   config.widgets.widget.layer_widget = MapLayersWidget;
+  config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
   config.settings = {
     ...config.settings,
     nonContentRoutes: [
