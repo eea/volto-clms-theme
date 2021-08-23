@@ -7,6 +7,7 @@ import customBlocks, {
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
+import tokens from './reducers/tokens/tokens';
 
 const applyConfig = (config) => {
   config.views = {
@@ -71,6 +72,10 @@ const applyConfig = (config) => {
       component: ProfileView,
     },
   ];
+  config.addonReducers = {
+    ...config.addonReducers,
+    tokens,
+  };
   return config;
 };
 export default applyConfig;
