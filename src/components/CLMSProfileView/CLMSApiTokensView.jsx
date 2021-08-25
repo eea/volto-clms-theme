@@ -10,14 +10,16 @@ import qs from 'query-string';
 import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
 import jwtDecode from 'jwt-decode';
-import { Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Container } from 'semantic-ui-react';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import { getTokens, createTokens } from '../../actions/tokens/tokens';
+import {
+  getTokens,
+  createTokens,
+  deleteTokens,
+} from '../../actions/tokens/tokens';
 
 const messages = defineMessages({
   ApiTokens: {
@@ -83,6 +85,10 @@ const messages = defineMessages({
     id: 'existing tokens description',
     defaultMessage: 'These are your avaliable tokens',
   },
+  deleteButton: {
+    id: 'Delete the token',
+    defaultMessage: 'Delete',
+  },
 });
 
 /**
@@ -115,10 +121,23 @@ class CLMSApiTokensView extends Component {
     pathname: PropTypes.string,
     getUser: PropTypes.func.isRequired,
     getTokens: PropTypes.func.isRequired,
+    createTokens: PropTypes.func,
+    deleteTokens: PropTypes.func,
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
     input: PropTypes.string,
     createdTokens: PropTypes.arrayOf(
+      PropTypes.shape({
+        '@id': PropTypes.string,
+        client_id: PropTypes.string,
+        ip_range: PropTypes.string,
+        issued: PropTypes.string,
+        key_id: PropTypes.string,
+        last_used: PropTypes.string,
+        title: PropTypes.string,
+      }),
+    ),
+    newTokens: PropTypes.arrayOf(
       PropTypes.shape({
         '@id': PropTypes.string,
         client_id: PropTypes.string,
@@ -138,6 +157,7 @@ class CLMSApiTokensView extends Component {
     this.onClose = this.onClose.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
+    this.deleteToken = this.deleteToken.bind(this);
     this.state = {
       tokenTitle: '',
       createNewToken: true,
@@ -156,7 +176,14 @@ class CLMSApiTokensView extends Component {
    */
   static defaultProps = {
     createdTokens: [],
+    newTokens: [],
   };
+
+  deleteToken() {
+    this.props.deleteTokens();
+    console.log('tu madre');
+    console.log(this.props.deleteTokens());
+  }
 
   onClose() {
     this.setState({
@@ -179,9 +206,9 @@ class CLMSApiTokensView extends Component {
       modal: false,
       button: false,
       createNewToken: true,
+      tokenTitle: event.target.value,
     });
-    // this.props.createTokens();
-    console.log(this.props.createdTokens);
+    this.props.createTokens();
   }
 
   showCreated() {
@@ -217,7 +244,6 @@ class CLMSApiTokensView extends Component {
    * @returns {undefined}
    */
   onSubmit(data) {
-    console.log(data);
     // delete data.id;
     // delete data.username;
     // delete data.roles;
@@ -248,14 +274,15 @@ class CLMSApiTokensView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              {/* Token bakoitzaren ondoan borratzeko aukera hemen */}
               {this.props.createdTokens?.map((item) => (
                 <>
                   <p>{item.title}</p>
                   <p>{item.key_id}</p>
+                  <CclButton mode={'filled'} onclick={this.deleteToken}>
+                    {this.props.intl.formatMessage(messages.deleteButton)}
+                  </CclButton>
                 </>
               ))}
-              {/* Token bakoitzaren ondoan borratzeko aukera hemen */}
               {this.state.createNewToken === false && (
                 <CclButton
                   mode={'filled'}
@@ -314,12 +341,14 @@ class CLMSApiTokensView extends Component {
                           />
                         </div>
                       </div>
+                      {/* Botoi hau konpondu behar da */}
                       <CclButton
                         mode={'filled'}
                         disabled={
                           this.state.createdToken === true ||
                           this.state.tokenTitle === ''
                         }
+                        onClick={this.handleClick}
                         type="submit"
                       >
                         {this.props.intl.formatMessage(messages.createToken)}
@@ -335,7 +364,7 @@ class CLMSApiTokensView extends Component {
                               )}
                             </p>
                             <form className="ccl-form search-form">
-                              {this.props.createdTokens?.map((item, key) => (
+                              {this.props.newTokens?.map((item, key) => (
                                 <input
                                   key={key}
                                   value={item.private_key}
@@ -393,7 +422,9 @@ export default compose(
       returnUrl: qs.parse(props.location).return_url,
       pathname: props.pathname,
       createdTokens: state.tokens.get.items,
+      newTokens: state.tokens.create.items,
+      // deleteToken: 'state.tokens.delete/${id}',
     }),
-    { getUser, updateUser, getBaseUrl, getTokens, createTokens },
+    { getUser, updateUser, getBaseUrl, getTokens, createTokens, deleteTokens },
   ),
 )(CLMSApiTokensView);

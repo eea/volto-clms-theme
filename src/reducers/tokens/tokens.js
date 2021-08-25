@@ -1,5 +1,4 @@
 import { map } from 'lodash';
-import { flattenToAppURL } from '@plone/volto/helpers';
 
 // eslint-disable-next-line import/no-unresolved
 import {
@@ -107,6 +106,15 @@ export default function tokens(state = initialState, action = {}) {
         },
       };
     case `${DELETE_TOKENS}_SUCCESS`:
+      return {
+        ...state,
+        delete: {
+          ...state.delete,
+          error: null,
+          loaded: true,
+          loading: false,
+        },
+      };
     case `${GET_TOKENS}_FAIL`:
       return {
         ...state,
@@ -119,6 +127,16 @@ export default function tokens(state = initialState, action = {}) {
         },
       };
     case `${CREATE_TOKENS}_FAIL`:
+      return {
+        ...state,
+        create: {
+          ...state.create,
+          error: action.error,
+          tokens: [],
+          loaded: false,
+          loading: false,
+        },
+      };
     case `${DELETE_TOKENS}_FAIL`:
     default:
       return state;
