@@ -177,12 +177,13 @@ class CLMSApiTokensView extends Component {
   static defaultProps = {
     createdTokens: [],
     newTokens: [],
+    // tokenToDelete: [],
   };
 
-  deleteToken() {
-    this.props.deleteTokens();
-    console.log('tu madre');
-    console.log(this.props.deleteTokens());
+  deleteToken(id) {
+    this.props.deleteTokens(id);
+    // console.log(this.props.createdTokens);
+    // console.log(deleteTokens(id));
   }
 
   onClose() {
@@ -274,11 +275,15 @@ class CLMSApiTokensView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              {this.props.createdTokens?.map((item) => (
+              {this.props.createdTokens?.map((item, id) => (
                 <>
                   <p>{item.title}</p>
                   <p>{item.key_id}</p>
-                  <CclButton mode={'filled'} onclick={this.deleteToken}>
+                  <CclButton
+                    mode={'filled'}
+                    /* konponentea kargatzean borratzen dira sortutako token danak */
+                    onClick={this.deleteToken(id)}
+                  >
                     {this.props.intl.formatMessage(messages.deleteButton)}
                   </CclButton>
                 </>
@@ -319,17 +324,17 @@ class CLMSApiTokensView extends Component {
                       className="ccl-form user-form contact-form"
                       onSubmit={this.onSubmit}
                     >
-                      <div class="ccl-fieldset">
-                        <div class="ccl-form-group">
+                      <div className="ccl-fieldset">
+                        <div className="ccl-form-group">
                           <label
-                            class="ccl-form-label"
-                            for="contact_form_subject"
+                            className="ccl-form-label"
+                            htmlFor="contact_form_subject"
                           >
                             {this.props.intl.formatMessage(
                               messages.tokenTitleLabel,
                             )}
                           </label>
-                          <span class="label-required">*</span>
+                          <span className="label-required">*</span>
                           <input
                             onChange={this.handleChange}
                             type="text"
@@ -423,7 +428,6 @@ export default compose(
       pathname: props.pathname,
       createdTokens: state.tokens.get.items,
       newTokens: state.tokens.create.items,
-      // deleteToken: 'state.tokens.delete/${id}',
     }),
     { getUser, updateUser, getBaseUrl, getTokens, createTokens, deleteTokens },
   ),
