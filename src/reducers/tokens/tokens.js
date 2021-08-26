@@ -138,7 +138,6 @@ export default function tokens(state = initialState, action = {}) {
         },
       };
     case `${DELETE_TOKENS}_FAIL`:
-      return 'cannot get item id';
     default:
       return state;
   }

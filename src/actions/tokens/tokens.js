@@ -39,15 +39,15 @@ export function createTokens(content) {
 /**
  * Delete token function.
  * @function deletetoken
- * @param {string} id token id
+ * @param {string} key_id token id
  * @returns {Object} Delete token action.
  */
-export function deleteTokens(id) {
+export function deleteTokens(key_id) {
   return {
     type: DELETE_TOKENS,
     request: {
       op: 'del',
-      path: `/@service-keys/${id}`,
+      path: `/@service-keys/${key_id}`,
     },
   };
 }

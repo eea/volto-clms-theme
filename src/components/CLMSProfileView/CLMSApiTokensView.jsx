@@ -153,7 +153,7 @@ class CLMSApiTokensView extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.showCreated = this.showCreated.bind(this);
+    // this.showCreated = this.showCreated.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -180,10 +180,9 @@ class CLMSApiTokensView extends Component {
     // tokenToDelete: [],
   };
 
-  deleteToken(id) {
-    this.props.deleteTokens(id);
-    // console.log(this.props.createdTokens);
-    // console.log(deleteTokens(id));
+  deleteToken(key_id) {
+    this.props.deleteTokens(key_id);
+    this.props.getTokens();
   }
 
   onClose() {
@@ -201,7 +200,7 @@ class CLMSApiTokensView extends Component {
       textToCopy: event.target.value,
     });
   }
-  handleClick(event) {
+  handleClick(event, content) {
     this.setState({
       createdToken: true,
       modal: false,
@@ -209,17 +208,17 @@ class CLMSApiTokensView extends Component {
       createNewToken: true,
       tokenTitle: event.target.value,
     });
-    this.props.createTokens();
+    this.props.createTokens(content);
   }
 
-  showCreated() {
+  /* showCreated() {
     this.setState({
       createdToken: true,
       modal: true,
       button: false,
       createNewToken: true,
     });
-  }
+  } */
 
   componentDidMount() {
     this.props.getUser(this.props.userId);
@@ -275,14 +274,15 @@ class CLMSApiTokensView extends Component {
             <div>
               <h3>{this.props.intl.formatMessage(messages.title)}</h3>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              {this.props.createdTokens?.map((item, id) => (
+              {this.props.createdTokens?.map((item) => (
                 <>
                   <p>{item.title}</p>
                   <p>{item.key_id}</p>
                   <CclButton
                     mode={'filled'}
-                    /* konponentea kargatzean borratzen dira sortutako token danak */
-                    onClick={this.deleteToken(id)}
+                    onClick={() => {
+                      this.deleteToken(item.key_id);
+                    }}
                   >
                     {this.props.intl.formatMessage(messages.deleteButton)}
                   </CclButton>
