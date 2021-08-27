@@ -2,14 +2,23 @@ import React, { useState } from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import PropTypes from 'prop-types';
 import './download-table.less';
-import { prePackagedCollection } from './mockData';
 import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 import { Checkbox } from 'semantic-ui-react';
-
 function CclDownloadTable(props) {
   const { dataset } = props;
   const { addCartItem, Toast, isLoggedIn, removeAllCart } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
+  // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
+  const prePackagedCollection = dataset.downloadable_files.items.map(
+    (element) => {
+      return {
+        ...element,
+        name: dataset.title,
+        UID: dataset.UID,
+        unique_id: element['@id'].concat(dataset.UID),
+      };
+    },
+  );
 
   const selectCart = (id, checked) => {
     if (checked) setCartSelection(cartSelection.concat(id));
@@ -18,7 +27,7 @@ function CclDownloadTable(props) {
 
   const selectAllCart = (checked) => {
     if (checked) {
-      setCartSelection(prePackagedCollection.map((item) => item.id));
+      setCartSelection(prePackagedCollection.map((item) => item.unique_id));
     } else {
       setCartSelection([]);
     }
@@ -26,7 +35,7 @@ function CclDownloadTable(props) {
 
   const addToCard = () => {
     let selectedCartItems = prePackagedCollection.filter(
-      (item) => cartSelection.includes(item.id) && item,
+      (item) => cartSelection.includes(item.unique_id) && item,
     );
     addCartItem(selectedCartItems);
   };
@@ -34,8 +43,10 @@ function CclDownloadTable(props) {
   const removeAll = () => {
     removeAllCart();
   };
+
   return (
     <div className="dataset-download-table">
+      <Toast message="Added to cart" time={5000}></Toast>
       <h2>{dataset?.title || 'Download table default title'}</h2>
       <p>
         Please note that you can only download the latest version of our
@@ -52,7 +63,7 @@ function CclDownloadTable(props) {
                   <Checkbox
                     onChange={(e, data) => selectAllCart(data.checked)}
                     checked={prePackagedCollection
-                      .map((item) => item.id)
+                      .map((item, key) => item.unique_id)
                       .every(function (val) {
                         return cartSelection.indexOf(val) !== -1;
                       })}
@@ -68,33 +79,34 @@ function CclDownloadTable(props) {
             </tr>
           </thead>
           <tbody>
-            {prePackagedCollection.map((dataset) => {
+            {prePackagedCollection.map((dataset_file, key) => {
               return (
-                <tr>
+                <tr key={key}>
                   {isLoggedIn && (
                     <td>
                       <Checkbox
                         onChange={(e, data) =>
-                          selectCart(dataset.id, data.checked)
+                          selectCart(dataset_file.unique_id, data.checked)
                         }
-                        checked={cartSelection.includes(dataset.id)}
+                        checked={cartSelection.includes(dataset_file.unique_id)}
                       />
                     </td>
                   )}
-                  <td>{dataset?.year || 'YYYY'}</td>
-                  <td>{dataset?.resolution || '000m'}</td>
+                  <td>{dataset_file?.year || 'YYYY'}</td>
+                  <td>{dataset_file?.resolution || '000m'}</td>
                   <td>
                     <span
                       className={
-                        'tag tag-' + (dataset?.type.toLowerCase() || 'raster')
+                        'tag tag-' +
+                        (dataset_file?.type.toLowerCase() || 'raster')
                       }
                     >
-                      {dataset?.type || 'Raster'}
+                      {dataset_file?.type || 'Raster'}
                     </span>
                   </td>
-                  <td>{dataset?.format || 'Format'}</td>
-                  <td>{dataset?.version || 'v0.0'}</td>
-                  <td>{dataset?.size || '000.0MB'}</td>
+                  <td>{dataset_file?.format || 'Format'}</td>
+                  <td>{dataset_file?.version || 'v0.0'}</td>
+                  <td>{dataset_file?.size || '000.0MB'}</td>
                 </tr>
               );
             })}
@@ -122,7 +134,6 @@ function CclDownloadTable(props) {
       >
         Remove (For develop)
       </CclButton>
-      <Toast message="Added to cart" time={5000}></Toast>
     </div>
   );
 }
@@ -135,14 +146,20 @@ function CclDownloadTable(props) {
 CclDownloadTable.propTypes = {
   type: PropTypes.string,
   dataset: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
-    year: PropTypes.string,
-    resolution: PropTypes.string,
-    type: PropTypes.string,
-    format: PropTypes.string,
-    version: PropTypes.string,
-    size: PropTypes.string,
+    downloadable_files: PropTypes.shape({
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string,
+          description: PropTypes.string,
+          year: PropTypes.string,
+          resolution: PropTypes.string,
+          type: PropTypes.string,
+          format: PropTypes.string,
+          version: PropTypes.string,
+          size: PropTypes.string,
+        }),
+      ),
+    }),
   }),
 };
 export default CclDownloadTable;
