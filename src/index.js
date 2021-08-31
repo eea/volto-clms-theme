@@ -3,6 +3,7 @@ import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemVi
 import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
 import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
 import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
+import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
@@ -30,6 +31,7 @@ const applyConfig = (config) => {
       Event: CLMSEventView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
+      'eea.meeting.subscriber': CLMSMeetingSubscriberView,
     },
   };
   config.blocks = {
