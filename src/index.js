@@ -1,6 +1,8 @@
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
 import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
+import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
+import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
@@ -10,7 +12,12 @@ import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
-import { extraBreadcrumbItemsReducer, cartItemsReducer } from './reducers';
+import {
+  extraBreadcrumbItemsReducer,
+  cartItemsReducer,
+  meetingRegisterReducer,
+  meetingSubscribersReducer,
+} from './reducers';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
 
 const applyConfig = (config) => {
@@ -21,6 +28,8 @@ const applyConfig = (config) => {
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
+      'eea.meeting': CLMSMeetingView,
+      'eea.meeting.subscribers': CLMSMeetingSubscribersView,
     },
   };
   config.blocks = {
@@ -35,6 +44,8 @@ const applyConfig = (config) => {
     ...config.addonReducers,
     extra_breadcrumbs: extraBreadcrumbItemsReducer,
     cart_items: cartItemsReducer,
+    meeting_register: meetingRegisterReducer,
+    subscribers: meetingSubscribersReducer,
   };
 
   config.widgets.type.tabs = TabsWidget;
