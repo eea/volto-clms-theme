@@ -3,7 +3,7 @@
  * @module reducers/extraBreadcrumbItemsReducer
  */
 
-import { GET_EXTRA_BREADCRUMB_ITEMS } from '../actions';
+import { GET_EXTRA_BREADCRUMB_ITEMS } from '../../actions/extra_breadcrumbs/extra_breadcrumb';
 
 const initialState = {
   items: [],
