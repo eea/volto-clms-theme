@@ -16,11 +16,12 @@ import { compose } from 'redux';
 
 import { BodyClass } from '@plone/volto/helpers';
 
-import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 
 import './header.less';
+import { FormattedMessage, injectIntl } from 'react-intl';
+
 /**
  * Header component class.
  * @class Header
@@ -130,91 +131,40 @@ class Header extends Component {
                     <div>|</div>
                   </li>
                   <li>
-                    <CclModal
-                      trigger={
-                        <>
-                          {(this.props.token && (
+                    {(this.props.token && (
+                      <>
+                        <a href="/profile" className="header-login-link">
+                          {this.props.token &&
+                            'Hello ' +
+                              (this.props.user.fullname ||
+                                this.props.user.id ||
+                                '')}
+                        </a>
+                        {this.props.token &&
+                          this.props.user.roles &&
+                          this.props.user.roles[0] === 'Member' && (
                             <>
-                              <a href="/profile" className="header-login-link">
-                                {this.props.token &&
-                                  'Hello ' +
-                                    (this.props.user.fullname ||
-                                      this.props.user.id ||
-                                      '')}
+                              <span class="header-vertical-line"> - </span>
+                              <a href="/logout" className="header-login-link">
+                                <FormattedMessage
+                                  id="logout"
+                                  defaultMessage="Logout"
+                                />
                               </a>
-                              {this.props.token &&
-                                this.props.user.roles &&
-                                this.props.user.roles[0] === 'Member' && (
-                                  <>
-                                    <span class="header-vertical-line">
-                                      {' '}
-                                      -{' '}
-                                    </span>
-                                    <a
-                                      href="/logout"
-                                      className="header-login-link"
-                                    >
-                                      Logout
-                                    </a>
-                                  </>
-                                )}
                             </>
-                          )) || (
-                            <a href="/login" className="header-login-link">
-                              Login/Register
-                            </a>
                           )}
-                        </>
-                      }
-                      size="tiny"
-                    >
-                      <div className="modal-login-title">Login</div>
-                      <div className="modal-login-content">
-                        <div className="modal-login-field">
-                          <i className="fas fa-user"></i>
-                          <input
-                            type="text"
-                            className="ccl-text-input"
-                            placeholder="User name"
-                            aria-label="User name"
-                          />
-                        </div>
-                        <div className="modal-login-field">
-                          <i className="fas fa-unlock-alt"></i>
-                          <input
-                            type="password"
-                            className="ccl-text-input"
-                            placeholder="Password"
-                            aria-label="Password"
-                          />
-                        </div>
-                        <a href="./reset-password.html">
-                          Forgot your password?
-                        </a>
-                      </div>
-                      <button className="ccl-button ccl-button-green modal-login-button">
-                        Login
-                      </button>
-                      <hr />
-                      <div className="modal-login-title">New user</div>
-                      <div className="modal-login-text">
-                        Registration is free. Personal data will only be used
-                        internally. For more details, see the{' '}
-                        <a
-                          href="./personal-data-protection.html"
-                          target="_blank"
-                        >
-                          Personal data protection
-                        </a>
-                        .
-                      </div>
+                      </>
+                    )) || (
                       <a
-                        href="./register.html"
-                        className="ccl-button ccl-button--default"
+                        href={`${this.props.locale}/login`}
+                        className="header-login-link"
                       >
-                        Register
+                        <FormattedMessage
+                          id="loginRegister"
+                          defaultMessage="Login/Register"
+                        />
                       </a>
-                    </CclModal>
+                    )}
                   </li>
                 </ul>
                 <div
@@ -248,46 +198,52 @@ class Header extends Component {
               >
                 <Navigation pathname={this.props.pathname} />
                 <ul className="ccl-header-menu-tools ccl-collapsible-toolmenu">
-                  <li className="header-dropdown">
-                    <a href="./news.html">
-                      News<span className="ccl-icon-chevron-thin-down"></span>
-                    </a>
-                    <ul>
-                      <li>
-                        <a href="./newsletter.html">Newsletter</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="./work-opportunities.html">Work opportunities</a>
-                  </li>
-                  <li className="header-dropdown">
-                    <span>
-                      Technical support
-                      <span className="ccl-icon-chevron-thin-down"></span>
-                    </span>
-                    <ul>
-                      <li>
-                        <a href="./faq/faq-general.html">FAQs</a>
-                      </li>
-                      <li>
-                        <a href="./service-desk.html">Write to service desk</a>
-                      </li>
-                      <li>
-                        <a href="./guides.html">How-to guides</a>
-                      </li>
-                    </ul>
-                  </li>
+                  <CclTopMainMenu></CclTopMainMenu>
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  <li>
-                    <span className="header-login-link">
-                      {(this.props.token && 'Logout') ||
-                        this.props.user.fullname ||
-                        'Login/Register'}
-                    </span>
-                  </li>
+                  {(this.props.token && (
+                    <>
+                      <li>
+                        <a href="/profile" className="header-login-link">
+                          {this.props.token &&
+                            (
+                              <FormattedMessage
+                                id="hello"
+                                defaultMessage="Hello "
+                              />
+                            ) +
+                              (this.props.user.fullname ||
+                                this.props.user.id ||
+                                '')}
+                        </a>
+                      </li>
+                      {this.props.token &&
+                        this.props.user.roles &&
+                        this.props.user.roles[0] === 'Member' && (
+                          <li>
+                            <a href="/logout" className="header-login-link">
+                              <FormattedMessage
+                                id="logout"
+                                defaultMessage="Logout"
+                              />
+                            </a>
+                          </li>
+                        )}
+                    </>
+                  )) || (
+                    <li>
+                      <a
+                        href={`${this.props.locale}/login`}
+                        className="header-login-link"
+                      >
+                        <FormattedMessage
+                          id="loginRegister"
+                          defaultMessage="Login/Register"
+                        />
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </nav>
             </div>
@@ -300,8 +256,10 @@ class Header extends Component {
 }
 
 export default compose(
+  injectIntl,
   connect(
     (state) => ({
+      locale: state.intl.locale,
       user: state.users.user,
       token: state.userSession.token
         ? jwtDecode(state.userSession.token).sub

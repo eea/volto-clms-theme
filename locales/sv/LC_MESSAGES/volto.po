@@ -61,6 +61,10 @@ msgstr ""
 msgid "E-mail"
 msgstr ""
 
+#: customizations/volto/components/theme/Footer/Footer
+msgid "EIONETActionGroup"
+msgstr ""
+
 #: customizations/volto/components/manage/Toolbar/Toolbar
 msgid "Edit"
 msgstr ""
@@ -191,12 +195,76 @@ msgstr ""
 msgid "Your location - either city and country - or in a company setting, where your office is located."
 msgstr ""
 
+#: customizations/volto/components/theme/Footer/Footer
+msgid "agreePrivacyPolicy"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "agreePrivacyPolicyLinkText"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "copernicusServices"
+msgstr ""
+
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 msgid "countText"
 msgstr ""
 
+#: customizations/volto/components/theme/Footer/Footer
+msgid "expertSupportProvidedBy"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "followUs"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "footerAtmosphere"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "footerClimateChange"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "footerEmergency"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "footerLand"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "footerMarine"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "footerSecurity"
+msgstr ""
+
+#: customizations/volto/components/theme/Header/Header
+msgid "hello"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "jointResearchCenter"
+msgstr ""
+
+#: customizations/volto/components/theme/Header/Header
+msgid "loginRegister"
+msgstr ""
+
+#: customizations/volto/components/theme/Header/Header
+msgid "logout"
+msgstr ""
+
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 msgid "searchDatasetsPlaceholder"
+msgstr ""
+
+#: customizations/volto/components/theme/Footer/Footer
+msgid "subscribe"
 msgstr ""
