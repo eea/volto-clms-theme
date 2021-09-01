@@ -22,16 +22,16 @@ export function getTokens() {
 /**
  * Create token function.
  * @function createTokens
- * @param {Object|Array} content Token data.
+ * @param {Object|Array} tokenTitle Token data.
  * @returns {Object} Create token action.
  */
-export function createTokens(content) {
+export function createTokens(tokenTitle) {
   return {
     type: CREATE_TOKENS,
     request: {
       op: 'post',
       path: `/@service-keys`,
-      data: content,
+      data: { title: tokenTitle },
     },
   };
 }

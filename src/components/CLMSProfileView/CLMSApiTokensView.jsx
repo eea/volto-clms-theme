@@ -166,6 +166,7 @@ class CLMSApiTokensView extends Component {
       modal: false,
       createdToken: false,
       textToCopy: '',
+      key_id: '',
       /*button: true,
       error: null,
       isLoaded: false,*/
@@ -214,17 +215,21 @@ class CLMSApiTokensView extends Component {
     });
   }
 
-  handlePost(content) {
+  handlePost(tokenTitle) {
     this.setState({
       createdToken: true,
       modal: false,
       button: false,
       createNewToken: true,
+      key_id: '',
     });
-    this.props.createTokens(content);
+    this.props.createTokens(tokenTitle);
     this.props.getTokens();
-    this.props.newTokens.concat(this.state.tokenTitle);
-    console.log(this.props.newTokens);
+    // this.props.newTokens.concat(this.state.tokenTitle);
+    // this.props.createdTokens.concat(this.state.tokens.create.items);
+    console.log(this.props.createdTokens);
+    // console.log(this.props.newTokens);
+    // console.log(this.state.key_id);
   }
 
   componentDidMount() {
@@ -300,11 +305,7 @@ class CLMSApiTokensView extends Component {
               <br></br>
               <br></br>
               {this.state.createNewToken === false && (
-                <CclButton
-                  mode={'filled'}
-                  onClick={this.handleClick}
-                  // {...(this.state.tokenTitle === '')}
-                >
+                <CclButton mode={'filled'} onClick={this.handleClick}>
                   {this.props.intl.formatMessage(messages.createTitle)}
                 </CclButton>
               )}
@@ -312,10 +313,7 @@ class CLMSApiTokensView extends Component {
                 <CclModal
                   onClick={() => this.onClose}
                   trigger={
-                    <CclButton
-                      mode={'filled'}
-                      // {...(this.state.tokenTitle === '')}
-                    >
+                    <CclButton mode={'filled'}>
                       {this.props.intl.formatMessage(messages.createTitle)}
                     </CclButton>
                   }
@@ -331,10 +329,7 @@ class CLMSApiTokensView extends Component {
                       )}
                     </p>
                     <p> {this.props.intl.formatMessage(messages.createName)}</p>
-                    <form
-                      className="ccl-form user-form contact-form"
-                      // onSubmit={this.handlePost}
-                    >
+                    <form className="ccl-form user-form contact-form">
                       <div className="ccl-fieldset">
                         <div className="ccl-form-group">
                           <label
@@ -384,10 +379,10 @@ class CLMSApiTokensView extends Component {
                               )}
                             </p>
                             <form className="ccl-form search-form">
-                              {this.props.newTokens?.map((item, key) => (
+                              {this.props.createdTokens?.map((item) => (
                                 <input
-                                  // key={key}
-                                  value={item.private_key}
+                                  key={item.key_id}
+                                  value={item.public_key}
                                   disabled="disabled"
                                   type="text"
                                   className="ccl-text-input"
