@@ -225,11 +225,6 @@ class CLMSApiTokensView extends Component {
     });
     this.props.createTokens(tokenTitle);
     this.props.getTokens();
-    // this.props.newTokens.concat(this.state.tokenTitle);
-    // this.props.createdTokens.concat(this.state.tokens.create.items);
-    console.log(this.props.createdTokens);
-    // console.log(this.props.newTokens);
-    // console.log(this.state.key_id);
   }
 
   componentDidMount() {
@@ -379,31 +374,37 @@ class CLMSApiTokensView extends Component {
                               )}
                             </p>
                             <form className="ccl-form search-form">
-                              {this.props.createdTokens?.map((item) => (
-                                <input
-                                  key={item.key_id}
-                                  value={item.public_key}
-                                  disabled="disabled"
-                                  type="text"
-                                  className="ccl-text-input"
-                                  id="created_token"
-                                  name="createdToken"
-                                  placeholder=""
-                                  aria-label="Created token"
-                                />
+                              {this.props.newTokens?.map((item) => (
+                                <>
+                                  {(item.public_key !== undefined && (
+                                    <>
+                                      <input
+                                        value={item.public_key}
+                                        disabled="disabled"
+                                        type="text"
+                                        className="ccl-text-input"
+                                        id="created_token"
+                                        name="createdToken"
+                                        placeholder=""
+                                        aria-label="Created token"
+                                      />
+                                      <CclButton
+                                        mode={'filled'}
+                                        onClick={() => {
+                                          navigator.clipboard.writeText(
+                                            item.public_key,
+                                          );
+                                        }}
+                                      >
+                                        {this.props.intl.formatMessage(
+                                          messages.copyButton,
+                                        )}
+                                      </CclButton>
+                                    </>
+                                  )) ||
+                                    ''}
+                                </>
                               ))}
-                              <CclButton
-                                mode={'filled'}
-                                onClick={() => {
-                                  navigator.clipboard.writeText(
-                                    this.state.textToCopy,
-                                  );
-                                }}
-                              >
-                                {this.props.intl.formatMessage(
-                                  messages.copyButton,
-                                )}
-                              </CclButton>
                             </form>
                             <CclButton mode={'filled'} onClick={this.onClose}>
                               {this.props.intl.formatMessage(

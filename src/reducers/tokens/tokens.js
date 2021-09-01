@@ -93,7 +93,7 @@ export default function tokens(state = initialState, action = {}) {
         create: {
           ...state.create,
           error: null,
-          items: map(action.result.items, (item) => ({
+          items: map(action.result, (item) => ({
             client_id: item.client_id,
             ip_range: item.ip_range,
             issued: item.issued,
