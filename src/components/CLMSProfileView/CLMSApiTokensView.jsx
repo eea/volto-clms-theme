@@ -155,9 +155,7 @@ class CLMSApiTokensView extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handlePost = this.handlePost.bind(this);
-    // this.showCreated = this.showCreated.bind(this);
     this.onClose = this.onClose.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.deleteToken = this.deleteToken.bind(this);
     this.state = {
@@ -167,9 +165,6 @@ class CLMSApiTokensView extends Component {
       createdToken: false,
       textToCopy: '',
       key_id: '',
-      /*button: true,
-      error: null,
-      isLoaded: false,*/
     };
   }
   /**
@@ -188,6 +183,7 @@ class CLMSApiTokensView extends Component {
   }
 
   onClose() {
+    this.componentDidMount();
     this.setState({
       createdToken: false,
       modal: false,
@@ -195,7 +191,6 @@ class CLMSApiTokensView extends Component {
       textToCopy: '',
       createNewToken: false,
     });
-    this.props.getTokens();
   }
 
   handleChange(event) {
@@ -230,6 +225,15 @@ class CLMSApiTokensView extends Component {
   componentDidMount() {
     this.props.getUser(this.props.userId);
     this.props.getTokens();
+    this.setState({
+      value: '',
+      tokenTitle: '',
+      createNewToken: true,
+      modal: false,
+      createdToken: false,
+      textToCopy: '',
+      key_id: '',
+    });
   }
 
   /**
@@ -242,26 +246,6 @@ class CLMSApiTokensView extends Component {
     this.props.history.push(
       this.props.returnUrl || getBaseUrl(this.props.pathname),
     );
-  }
-
-  /**
-   * Submit handler
-   * @method onSubmit
-   * @param {object} data Form data.
-   * @returns {undefined}
-   */
-  onSubmit(data) {
-    // delete data.id;
-    // delete data.username;
-    // delete data.roles;
-    // this.props.updateUser(this.props.userId, data);
-    // toast.success(
-    //   <Toast
-    //     success
-    //     title={this.props.intl.formatMessage(messages.success)}
-    //     content={this.props.intl.formatMessage(messages.saved)}
-    //   />,
-    // );
   }
 
   /**
@@ -346,7 +330,6 @@ class CLMSApiTokensView extends Component {
                             placeholder=""
                             aria-label="Name of the new token"
                           />
-                          {/* Botoi hontan klikatzean post-a egin behar da */}
                           <input
                             className="ccl-button ccl-button-green"
                             type="button"
