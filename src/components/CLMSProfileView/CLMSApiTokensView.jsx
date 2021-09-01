@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import qs from 'query-string';
 import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
-// import { ToastContainer, toast } from 'react-toastify';
 import jwtDecode from 'jwt-decode';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
@@ -213,7 +212,6 @@ class CLMSApiTokensView extends Component {
 
   handlePost(tokenTitle) {
     this.setState({
-      value: '',
       createdToken: true,
       modal: false,
       button: false,
@@ -229,6 +227,7 @@ class CLMSApiTokensView extends Component {
     this.setState({
       value: '',
       tokenTitle: '',
+      button: false,
       createNewToken: true,
       modal: false,
       createdToken: false,
