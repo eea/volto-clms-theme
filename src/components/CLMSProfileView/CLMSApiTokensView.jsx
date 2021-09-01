@@ -185,6 +185,7 @@ class CLMSApiTokensView extends Component {
   onClose() {
     this.componentDidMount();
     this.setState({
+      value: '',
       createdToken: false,
       modal: false,
       tokenTitle: '',
@@ -212,10 +213,10 @@ class CLMSApiTokensView extends Component {
 
   handlePost(tokenTitle) {
     this.setState({
+      value: '',
       createdToken: true,
       modal: false,
       button: false,
-      createNewToken: true,
       key_id: '',
     });
     this.props.createTokens(tokenTitle);
