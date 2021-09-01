@@ -7,7 +7,11 @@ import customBlocks, {
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import BoundingWidget from './components/Widgets/BoundingWidget';
-import tokens from './reducers/tokens/tokens';
+import reducers from './reducers';
+import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
+import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
 
 const applyConfig = (config) => {
   config.views = {
@@ -27,11 +31,19 @@ const applyConfig = (config) => {
       customGroupBlocksOrder,
     ],
   };
+
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget.bounding_widget = BoundingWidget;
+  config.widgets.widget.layer_widget = MapLayersWidget;
+  config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
   config.settings = {
     ...config.settings,
-    nonContentRoutes: [...config.settings.nonContentRoutes, '/profile'],
+    nonContentRoutes: [
+      ...config.settings.nonContentRoutes,
+      '/profile',
+      '/download-by-area',
+      '/cart',
+    ],
     isMultilingual: true,
     supportedLanguages: [
       'bg',
@@ -70,10 +82,18 @@ const applyConfig = (config) => {
       path: '/**/profile',
       component: ProfileView,
     },
+    {
+      path: '/**/download-by-area',
+      component: CLMSMapViewerView,
+    },
+    {
+      path: '/cart',
+      component: CLMSDownloadCartView,
+    },
   ];
   config.addonReducers = {
     ...config.addonReducers,
-    tokens,
+    ...reducers,
   };
   return config;
 };

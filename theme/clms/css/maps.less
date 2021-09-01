@@ -28,6 +28,7 @@
 
   .esri-component.esri-zoom.esri-widget {
     margin-bottom: 0;
+    background: none;
     box-shadow: none;
   }
 
@@ -57,43 +58,166 @@
     cursor: auto;
   }
 
-  .esri-basemap-gallery {
-    display: none;
-  }
-
-  .esri-view-height-small
-    .esri-ui-corner
-    .esri-component.esri-widget--panel-height-only {
-    max-height: 260px;
-  }
-
-  .esri-basemap-gallery__item:first-child {
-    margin: 0;
-  }
-
-  .basemap-gallery-container {
+  
+  /* Basemap */
+  .basemap-container {
     display: flex;
-  }
-
-  .esri-basemap-gallery {
-    margin: 0 !important;
-  }
-
-  .basemap-gallery-container {
     box-shadow: none !important;
   }
 
-  .map-menu {
+
+  .esri-basemap-gallery {
     display: none;
-    max-width: min-content;
+    margin: 0 !important;
+  }
+  
+  .esri-basemap-gallery__item:first-child {
+    margin: 0;
+  }
+  
+  .esri-view-height-small .esri-ui-corner .esri-widget--panel-height-only {
+    max-height: 260px;
+  }
+  
+  .esri-basemap-gallery__item--selected, .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover, .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+    border-left-color: #7c8921;
+    background-color: #a0b1280f;
+  }
+  .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item--selected, .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover, .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+    border-color: #a0b128;
   }
 
-  .map-menu * {
+  /* Measure */
+  .measurement-container {
+    display: flex;
+    box-shadow: none !important;
+  }
+
+  .measurement-container .measurement-area.esri-measurement {
+    display: block;
+    width: 225px;
+    flex-direction: column;
+  }
+
+  .measurement-panel {
+    display: none;
+  }
+
+  .measurement-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    background: white;
+  }
+
+  .measurement-buttons .esri-widget--button {
+    width: 100%;
+    border-bottom: solid 4px transparent !important;
+    background-color: white;
+    color: #a0b128;
+  }
+
+  .measurement-buttons .esri-widget--button:hover {
+    background-color: white;
+    color: #a0b128;
+  }
+
+  .measurement-buttons .esri-widget--button.active {
+    border-color: #a0b128 !important;
+  }
+
+  .esri-measurement .esri-area-measurement-2d__clear-button,
+  .esri-measurement .esri-distance-measurement-2d__clear-button {
+    border-color: #a0b128;
+    background-color: white;
+    color: #a0b128;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+  }
+
+  .esri-measurement .esri-area-measurement-2d__clear-button:hover,
+  .esri-measurement .esri-distance-measurement-2d__clear-button:hover {
+    border-color: #a0b128;
+    background-color: #a0b128;
+    color: white;
+  }
+
+  .esri-measurement p {
+    font-size: 1rem;
+  }
+
+  .measurement-coords {
+    display: none;
+    max-width: 225px;
+    padding: 1rem;
+    background-color: white;
+  }
+
+  /* Print */
+  .print-container {
+    display: flex;
+    box-shadow: none !important;
+  }
+
+  .esri-print {
+    display: none;
+    max-height: 260px;
+  }
+
+  .esri-print__layout-tab {
+    font-size: 1rem;
+  }
+
+  .esri-print .esri-button {
+    border-color: #a0b128;
+    background-color: white;
+    color: #a0b128;
+    transition: all 0.3s ease-out;
+  }
+
+  .esri-print .esri-button:hover {
+    border-color: #a0b128;
+    background-color: #a0b128;
+    color: white;
+  }
+
+  /* Area */
+  .area-container {
+    display: flex;
+    box-shadow: none !important;
+  }
+
+  .area-panel {
+    display: none;
+    width: 260px;
+    padding: 1rem;
+    background-color: white;
+    font-size: 1rem;
+  }
+
+  .area-panel .ccl-form-group:not(:first-of-type) {
+    margin-top: 0.5rem;
+  }
+
+  .area-panel fieldset {
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+
+  /* Left menu */
+  .map-menu {
+    display: none;
+    width: 450px;
+  }
+
+  .map-menu {
+    color: black;
     font-size: 1rem;
   }
 
   .map-menu.tab-container .tab {
     display: inline-block;
+    width: 50%;
     padding: 1rem;
     border-bottom: solid 4px white;
     margin: 0;
@@ -101,6 +225,7 @@
     color: #273b4b;
     cursor: pointer;
     font-weight: bold;
+    text-align: center;
   }
 
   .map-menu.tab-container .tab-selected {
@@ -110,6 +235,7 @@
 
   .map-menu.tab-container .tabs {
     border-bottom: solid 1px #adb0b8;
+    background-color: white;
     white-space: nowrap;
   }
 
@@ -133,6 +259,10 @@
     line-height: inherit;
   }
 
+  .map-menu .ccl-expandable__button::after {
+    font-family: 'ccl-icons';
+  }
+
   .map-menu .ccl-expandable__button[aria-expanded='true']::after {
     content: '\e914';
     transform: rotate(-180deg);
@@ -144,7 +274,7 @@
     width: 100%;
     height: 440px;
     padding: 0;
-    background: #fffffff6;
+    background: #ffffff;
     overflow-y: auto;
   }
 
@@ -152,6 +282,7 @@
     display: none;
     animation: fadein 0.8s;
   }
+
   @keyframes fadein {
     from {
       opacity: 0;
@@ -238,6 +369,7 @@
   }
 
   .map-menu-dropdown .map-menu-products-container {
+    padding-right: 0 !important;
     background-color: white;
   }
 
@@ -252,14 +384,34 @@
   }
 
   .map-menu-dropdown .map-menu-dataset {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 0.5rem;
+  }
+
+  .map-menu-dataset > div:first-of-type {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .map-menu-layers-container {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .map-menu-icons {
+    display: inline-block;
+    white-space: nowrap;
   }
 
   .map-menu-icon {
     margin-left: 0.5rem;
     color: #a0b128;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 1rem;
     text-decoration: none;
   }
 
@@ -275,52 +427,44 @@
     background-color: white;
   }
 
-  #active_panel .no-active-datasets:first-child {
-    display: none;
-  }
-
-  #active_panel .no-active-datasets:last-child {
+  #active_panel .no-active-datasets {
     display: block;
     margin: 1rem;
   }
 
-  .active-dataset {
+  #active_panel .active-layer + .no-active-datasets {
+    display: none;
+  }
+
+  .active-layer {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 0 1rem 1rem 1rem;
-    border-bottom: solid 1px #a0b12833;
-    margin-bottom: 0.5rem;
-  }
-
-  #active_panel .active-dataset:not(:first-of-type) {
     padding: 1rem;
+    border-bottom: solid 1px #a0b12833;
   }
 
-  .active-dataset i.fa-long-arrow-alt-up {
-    visibility: hidden;
+  .active-layer-options {
+    white-space: nowrap;
   }
 
-  .active-dataset + .active-dataset i.fa-long-arrow-alt-up {
-    visibility: visible;
-  }
-
-  .active-dataset:last-of-type i.fa-long-arrow-alt-down {
-    visibility: hidden;
-  }
-
-  .active-dataset-options i {
+  .active-layer-options i {
     margin: 0;
     color: #a0b128;
     cursor: pointer;
     font-size: 1rem;
   }
 
-  .active-dataset i:hover {
+  .active-layer-options i:hover {
     color: #7c8921;
   }
 
-  .active-dataset-options > span {
+  .active-layer-options > span {
     margin-left: 1rem;
+  }
+  
+  #nolayers_message {
+    padding: 1rem;
   }
 
   /* Download area */
@@ -373,5 +517,28 @@
 
   .map-download-block .ccl-form-group:not(:first-of-type) {
     margin-top: 0.5rem;
+  }
+
+  /* Legend*/
+  .legend-panel {
+    display: none;
+  }
+
+  .legend-container {
+    display: flex;
+  }
+
+  /* Login */
+  .map-login-block {
+    display: none;
+    margin: 1rem;
+  }
+
+  .map-area-block {
+    display: none;
+  }
+
+  .map-area-block button {
+    margin: 1rem;
   }
 }

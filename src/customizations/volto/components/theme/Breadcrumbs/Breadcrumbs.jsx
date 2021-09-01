@@ -46,6 +46,12 @@ class Breadcrumbs extends Component {
         url: PropTypes.string,
       }),
     ).isRequired,
+    extraItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        url: PropTypes.string,
+      }),
+    ),
   };
 
   /**
@@ -127,7 +133,7 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      items: state.breadcrumbs.items,
+      items: state.breadcrumbs.items.concat(state.extra_breadcrumbs.items),
       root: state.breadcrumbs.root,
     }),
     { getBreadcrumbs },

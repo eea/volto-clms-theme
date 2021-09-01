@@ -1,373 +1,535 @@
-/* Map viewer */
-.map-container {
-  position: relative;
+.land .map-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  color: #273b4b;
-  font-size: 2rem;
-  touch-action: auto;
+.land .loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	color: #273b4b;
+	font-size: 2rem;
+	touch-action: auto;
 }
 
-.map {
-  width: 100%;
-  height: 600px;
-  padding: 0;
-  margin: 0;
+.land .map {
+	width: 100%;
+	height: 600px;
+	padding: 0;
+	margin: 0;
 }
 
-.esri-view .esri-view-surface--inset-outline:focus::after {
-  outline: none !important;
+.land .esri-view .esri-view-surface--inset-outline:focus::after {
+	outline: none !important;
 }
 
-.esri-component.esri-zoom.esri-widget {
-  margin-bottom: 0;
-  box-shadow: none;
+.land .esri-component.esri-zoom.esri-widget {
+	margin-bottom: 0;
+	background: none;
+	box-shadow: none;
 }
 
-.esri-widget--button {
-  width: 36px;
-  height: 36px;
-  border: none !important;
-  background-color: #a0b128cc;
-  box-shadow: none !important;
-  color: white;
-  font-size: 18px;
-  line-height: 1.1rem;
-  outline: none;
+.land .esri-widget--button {
+	width: 36px;
+	height: 36px;
+	border: none !important;
+	background-color: #a0b128cc;
+	box-shadow: none !important;
+	color: white;
+	font-size: 18px;
+	line-height: 1.1rem;
+	outline: none;
 }
 
-.esri-widget--button:hover {
-  background-color: #7c8921;
-  color: white;
+.land .esri-widget--button:hover {
+	background-color: #7c8921;
+	color: white;
 }
 
-.esri-widget--button.esri-disabled [class*='esri-icon'] {
-  color: white;
+.land .esri-widget--button.esri-disabled [class*='esri-icon'] {
+	color: white;
 }
 
-.esri-widget--button.esri-disabled {
-  background-color: #cfd893;
-  cursor: auto;
+.land .esri-widget--button.esri-disabled {
+	background-color: #cfd893;
+	cursor: auto;
 }
 
-.esri-basemap-gallery {
-  display: none;
+.land .basemap-container {
+	display: flex;
+	box-shadow: none !important;
 }
 
-.esri-view-height-small
-  .esri-ui-corner
-  .esri-component.esri-widget--panel-height-only {
-  max-height: 260px;
+.land .esri-basemap-gallery {
+	display: none;
+	margin: 0 !important;
 }
 
-.esri-basemap-gallery__item:first-child {
-  margin: 0;
+.land .esri-basemap-gallery__item:first-child {
+	margin: 0;
 }
 
-.basemap-gallery-container {
-  display: flex;
+.land .esri-view-height-small .esri-ui-corner .esri-widget--panel-height-only {
+	max-height: 260px;
 }
 
-.esri-basemap-gallery {
-  margin: 0 !important;
+.land .esri-basemap-gallery__item--selected,
+.land .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
+.land .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+	border-left-color: #7c8921;
+	background-color: #a0b1280f;
 }
 
-.basemap-gallery-container {
-  box-shadow: none !important;
+.land .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item--selected,
+.land .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
+.land .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+	border-color: #a0b128;
 }
 
-.map-menu {
-  display: none;
-  max-width: min-content;
+.land .measurement-container {
+	display: flex;
+	box-shadow: none !important;
 }
 
-.map-menu * {
-  font-size: 1rem;
+.land .measurement-container .measurement-area.esri-measurement {
+	display: block;
+	width: 225px;
+	flex-direction: column;
 }
 
-.map-menu.tab-container .tab {
-  display: inline-block;
-  padding: 1rem;
-  border-bottom: solid 4px white;
-  margin: 0;
-  background: white;
-  color: #273b4b;
-  cursor: pointer;
-  font-weight: bold;
+.land .measurement-panel {
+	display: none;
 }
 
-.map-menu.tab-container .tab-selected {
-  border-bottom: solid 4px #a0b128;
-  background: white;
+.land .measurement-buttons {
+	display: flex;
+	justify-content: space-evenly;
+	background: white;
 }
 
-.map-menu.tab-container .tabs {
-  border-bottom: solid 1px #adb0b8;
-  white-space: nowrap;
+.land .measurement-buttons .esri-widget--button {
+	width: 100%;
+	border-bottom: solid 4px transparent !important;
+	background-color: white;
+	color: #a0b128;
 }
 
-.map-left-menu-container {
-  display: flex;
-  box-shadow: none !important;
+.land .measurement-buttons .esri-widget--button:hover {
+	background-color: white;
+	color: #a0b128;
 }
 
-.map-menu .ccl-fieldset {
-  box-sizing: border-box;
-  padding: 0;
-  border: none;
-  margin: 0;
+.land .measurement-buttons .esri-widget--button.active {
+	border-color: #a0b128 !important;
 }
 
-.map-menu .ccl-fieldset .ccl-dropdown__link {
-  margin-top: 0;
+.land .esri-measurement .esri-area-measurement-2d__clear-button,
+.land .esri-measurement .esri-distance-measurement-2d__clear-button {
+	border-color: #a0b128;
+	background-color: white;
+	color: #a0b128;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
 
-.map-menu .ccl-form-legend {
-  line-height: inherit;
+.land .esri-measurement .esri-area-measurement-2d__clear-button:hover,
+.land .esri-measurement .esri-distance-measurement-2d__clear-button:hover {
+	border-color: #a0b128;
+	background-color: #a0b128;
+	color: white;
 }
 
-.map-menu .ccl-expandable__button[aria-expanded='true']::after {
-  content: '\e914';
-  transform: rotate(-180deg);
-  -webkit-transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+.land .esri-measurement p {
+	font-size: 1rem;
 }
 
-.map-menu .panels {
-  width: 100%;
-  height: 440px;
-  padding: 0;
-  background: #fffffff6;
-  overflow-y: auto;
+.land .measurement-coords {
+	display: none;
+	max-width: 225px;
+	padding: 1rem;
+	background-color: white;
 }
 
-.map-menu .panel {
-  display: none;
-  animation: fadein 0.8s;
+.land .print-container {
+	display: flex;
+	box-shadow: none !important;
 }
+
+.land .esri-print {
+	display: none;
+	max-height: 260px;
+}
+
+.land .esri-print__layout-tab {
+	font-size: 1rem;
+}
+
+.land .esri-print .esri-button {
+	border-color: #a0b128;
+	background-color: white;
+	color: #a0b128;
+	transition: all 0.3s ease-out;
+}
+
+.land .esri-print .esri-button:hover {
+	border-color: #a0b128;
+	background-color: #a0b128;
+	color: white;
+}
+
+.land .area-container {
+	display: flex;
+	box-shadow: none !important;
+}
+
+.land .area-panel {
+	display: none;
+	width: 260px;
+	padding: 1rem;
+	background-color: white;
+	font-size: 1rem;
+}
+
+.land .area-panel .ccl-form-group:not(:first-of-type) {
+	margin-top: 0.5rem;
+}
+
+.land .area-panel fieldset {
+	padding: 0;
+	border: none;
+	margin: 0;
+}
+
+.land .map-menu {
+	display: none;
+	width: 450px;
+}
+
+.land .map-menu {
+	color: black;
+	font-size: 1rem;
+}
+
+.land .map-menu.tab-container .tab {
+	display: inline-block;
+	width: 50%;
+	padding: 1rem;
+	border-bottom: solid 4px white;
+	margin: 0;
+	background: white;
+	color: #273b4b;
+	cursor: pointer;
+	font-weight: bold;
+	text-align: center;
+}
+
+.land .map-menu.tab-container .tab-selected {
+	border-bottom: solid 4px #a0b128;
+	background: white;
+}
+
+.land .map-menu.tab-container .tabs {
+	border-bottom: solid 1px #adb0b8;
+	background-color: white;
+	white-space: nowrap;
+}
+
+.land .map-left-menu-container {
+	display: flex;
+	box-shadow: none !important;
+}
+
+.land .map-menu .ccl-fieldset {
+	box-sizing: border-box;
+	padding: 0;
+	border: none;
+	margin: 0;
+}
+
+.land .map-menu .ccl-fieldset .ccl-dropdown__link {
+	margin-top: 0;
+}
+
+.land .map-menu .ccl-form-legend {
+	line-height: inherit;
+}
+
+.land .map-menu .ccl-expandable__button::after {
+	font-family: 'ccl-icons';
+}
+
+.land .map-menu .ccl-expandable__button[aria-expanded='true']::after {
+	content: '\e914';
+	transform: rotate(-180deg);
+	-webkit-transition: transform 0.3s ease-out;
+	transition: transform 0.3s ease-out;
+}
+
+.land .map-menu .panels {
+	width: 100%;
+	height: 440px;
+	padding: 0;
+	background: #ffffff;
+	overflow-y: auto;
+}
+
+.land .map-menu .panel {
+	display: none;
+	animation: fadein 0.8s;
+}
+
 @keyframes fadein {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
-.map-menu.tab-container .panel-selected {
-  display: block;
+.land .map-menu.tab-container .panel-selected {
+	display: block;
 }
 
-.map-menu-dropdown .ccl-expandable__button {
-  position: relative;
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0;
-  padding-right: 2.5rem;
-  border: none;
-  margin: 0.5rem 0;
-  background-color: white;
-  color: #212529;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
+.land .map-menu-dropdown .ccl-expandable__button {
+	position: relative;
+	display: -webkit-flex;
+	display: flex;
+	align-items: center;
+	padding: 0.5rem 0;
+	padding-right: 2.5rem;
+	border: none;
+	margin: 0.5rem 0;
+	background-color: white;
+	color: #212529;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: bold;
+	text-decoration: none;
 }
 
-.map-menu-dropdown .ccl-expandable__button::after {
-  position: absolute;
-  right: 0;
-  font-family: 'ccl-icons';
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+.land .map-menu-dropdown .ccl-expandable__button::after {
+	position: absolute;
+	right: 0;
+	font-family: 'ccl-icons';
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 
-.map-menu-dropdown .ccl-expandable__button[aria-expanded='false']::after {
-  content: '\e914';
-  transform: rotate(0deg);
-  -webkit-transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='false']::after {
+	content: '\e914';
+	transform: rotate(0deg);
+	-webkit-transition: transform 0.3s ease-out;
+	transition: transform 0.3s ease-out;
 }
 
-.map-menu-dropdown .ccl-expandable__button[aria-expanded='true']::after {
-  content: '\e914';
-  transform: rotate(-180deg);
-  -webkit-transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='true']::after {
+	content: '\e914';
+	transform: rotate(-180deg);
+	-webkit-transition: transform 0.3s ease-out;
+	transition: transform 0.3s ease-out;
 }
 
-.map-menu-dropdown .ccl-expandable__button::after {
-  margin-right: 0;
-  color: #a0b128;
+.land .map-menu-dropdown .ccl-expandable__button::after {
+	margin-right: 0;
+	color: #a0b128;
 }
 
-.map-menu-dropdown .ccl-expandable__button:hover::after {
-  color: #7c8921;
+.land .map-menu-dropdown .ccl-expandable__button:hover::after {
+	color: #7c8921;
 }
 
-.map-menu-dropdown .ccl-expandable__button[aria-expanded='false'] + * {
-  display: none;
+.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='false']+* {
+	display: none;
 }
 
-.map-menu-dropdown .ccl-expandable__button[aria-expanded='true'] + * {
-  display: block;
+.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='true']+* {
+	display: block;
 }
 
-.map-menu-dropdown > .ccl-expandable__button {
-  margin-bottom: 0;
+.land .map-menu-dropdown>.ccl-expandable__button {
+	margin-bottom: 0;
 }
 
-.map-menu-dropdown,
-.map-menu-product-dropdown {
-  margin: 0 1rem;
+.land .map-menu-dropdown,
+.land .map-menu-product-dropdown {
+	margin: 0 1rem;
 }
 
-.map-menu-product-dropdown .ccl-expandable__button {
-  margin-top: 0;
+.land .map-menu-product-dropdown .ccl-expandable__button {
+	margin-top: 0;
 }
 
-.map-menu-dropdown .map-menu-products-container {
-  background-color: white;
+.land .map-menu-dropdown .map-menu-products-container {
+	padding-right: 0 !important;
+	background-color: white;
 }
 
-.map-menu-dropdown .ccl-expandable__button + .ccl-form {
-  padding: 0 1rem 0 1rem;
+.land .map-menu-dropdown .ccl-expandable__button+.ccl-form {
+	padding: 0 1rem 0 1rem;
 }
 
-.map-menu-dropdown .ccl-form .ccl-form-group {
-  display: flex;
-  align-items: center;
-  margin-top: 0;
+.land .map-menu-dropdown .ccl-form .ccl-form-group {
+	display: flex;
+	align-items: center;
+	margin-top: 0;
 }
 
-.map-menu-dropdown .map-menu-dataset {
-  margin-bottom: 0.5rem;
+.land .map-menu-dropdown .map-menu-dataset {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
 }
 
-.map-menu-icon {
-  margin-left: 0.5rem;
-  color: #a0b128;
-  cursor: pointer;
-  font-size: 0.85rem;
-  text-decoration: none;
+.land .map-menu-dataset>div:first-of-type {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
 }
 
-.map-menu-dropdown i:hover {
-  color: #7c8921;
+.land .map-menu-layers-container {
+	width: 100%;
+	margin-top: 0.5rem;
+	margin-left: 1rem;
 }
 
-.map-menu-product-dropdown {
-  margin-right: 0;
+.land .map-menu-icons {
+	display: inline-block;
+	white-space: nowrap;
 }
 
-.map-menu-product-dropdown .map-product-checkbox {
-  background-color: white;
+.land .map-menu-icon {
+	margin-left: 0.5rem;
+	color: #a0b128;
+	cursor: pointer;
+	font-size: 1rem;
+	text-decoration: none;
 }
 
-#active_panel .no-active-datasets:first-child {
-  display: none;
+.land .map-menu-dropdown i:hover {
+	color: #7c8921;
 }
 
-#active_panel .no-active-datasets:last-child {
-  display: block;
-  margin: 1rem;
+.land .map-menu-product-dropdown {
+	margin-right: 0;
 }
 
-.active-dataset {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1rem 1rem 1rem;
-  border-bottom: solid 1px #a0b12833;
-  margin-bottom: 0.5rem;
+.land .map-menu-product-dropdown .map-product-checkbox {
+	background-color: white;
 }
 
-#active_panel .active-dataset:not(:first-of-type) {
-  padding: 1rem;
+.land #active_panel .no-active-datasets {
+	display: block;
+	margin: 1rem;
 }
 
-.active-dataset i.fa-long-arrow-alt-up {
-  visibility: hidden;
+.land #active_panel .active-layer+.no-active-datasets {
+	display: none;
 }
 
-.active-dataset + .active-dataset i.fa-long-arrow-alt-up {
-  visibility: visible;
+.land .active-layer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem;
+	border-bottom: solid 1px #a0b12833;
 }
 
-.active-dataset:last-of-type i.fa-long-arrow-alt-down {
-  visibility: hidden;
+.land .active-layer-options {
+	white-space: nowrap;
 }
 
-.active-dataset-options i {
-  margin: 0;
-  color: #a0b128;
-  cursor: pointer;
-  font-size: 1rem;
+.land .active-layer-options i {
+	margin: 0;
+	color: #a0b128;
+	cursor: pointer;
+	font-size: 1rem;
 }
 
-.active-dataset i:hover {
-  color: #7c8921;
+.land .active-layer-options i:hover {
+	color: #7c8921;
 }
 
-.active-dataset-options > span {
-  margin-left: 1rem;
+.land .active-layer-options>span {
+	margin-left: 1rem;
 }
 
-/* Download area */
-.map-download-area-container {
-  position: relative;
+.land #nolayers_message {
+	padding: 1rem;
 }
 
-.map-download-block {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30%;
-  min-width: 350px;
-  max-width: 500px;
-  padding: 1.5rem;
-  margin-top: 15px;
-  margin-left: 15px;
-  background-color: white;
+.land .map-download-area-container {
+	position: relative;
 }
 
-.map-download-title {
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+.land .map-download-block {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 30%;
+	min-width: 350px;
+	max-width: 500px;
+	padding: 1.5rem;
+	margin-top: 15px;
+	margin-left: 15px;
+	background-color: white;
 }
 
-.map-download-title span {
-  color: #a0b128;
+.land .map-download-title {
+	margin-bottom: 1.5rem;
+	font-size: 1.25rem;
 }
 
-.map-download-area,
-.map-download-resource {
-  margin-bottom: 1.5rem;
+.land .map-download-title span {
+	color: #a0b128;
 }
 
-.map-download-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+.land .map-download-area,
+.land .map-download-resource {
+	margin-bottom: 1.5rem;
 }
 
-.map-download-area .ccl-form-legend + .ccl-form-group {
-  margin-top: 0.5rem;
+.land .map-download-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	font-weight: bold;
 }
 
-.map-download-buttons {
-  display: flex;
-  justify-content: space-between;
+.land .map-download-area .ccl-form-legend+.ccl-form-group {
+	margin-top: 0.5rem;
 }
 
-.map-download-block .ccl-form-group:not(:first-of-type) {
-  margin-top: 0.5rem;
+.land .map-download-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.land .map-download-block .ccl-form-group:not(:first-of-type) {
+	margin-top: 0.5rem;
+}
+
+.land .legend-panel {
+	display: none;
+}
+
+.land .legend-container {
+	display: flex;
+}
+
+.land .map-login-block {
+	display: none;
+	margin: 1rem;
+}
+
+.land .map-area-block {
+	display: none;
+}
+
+.land .map-area-block button {
+	margin: 1rem;
 }

@@ -3,8 +3,10 @@
  * @module reducers/root
  */
 
-import defaultReducers from '@plone/volto/reducers';
+// import defaultReducers from '@plone/volto/reducers';
 import tokens from './tokens/tokens';
+import cartItemsReducer from './cart/cart_reducer';
+import extraBreadcrumbItemsReducer from './extra_breadcrumbs/extra_breadcrumb_reducer'
 
 /**
  * Root reducer.
@@ -14,9 +16,11 @@ import tokens from './tokens/tokens';
  * @returns {Object} New state.
  */
 const reducers = {
-  ...defaultReducers,
+  // ...defaultReducers,
   // Add your reducers here
   tokens,
+  cartItemsReducer,
+  extraBreadcrumbItemsReducer,
 };
 
 export default reducers;
