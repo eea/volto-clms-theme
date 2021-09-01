@@ -54,7 +54,8 @@ export const CLMSMeetingSubscribersView = (props) => {
   };
   React.useEffect(() => {
     dispatch(MeetingSubscribers(location.pathname));
-  }, [dispatch, location]);
+    /* eslint-disable-next-line */
+  }, []);
 
   function handleSubscribersManipulationClick(manipulation_type) {
     dispatch(

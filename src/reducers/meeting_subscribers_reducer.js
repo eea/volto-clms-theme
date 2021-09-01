@@ -25,7 +25,6 @@ export const meetingSubscribersReducer = (
         error: null,
         loaded: false,
         loading: true,
-        items: [],
         message: '',
       };
     case `${MEETING_SUBSCRIBERS}_FAIL`:
@@ -34,7 +33,6 @@ export const meetingSubscribersReducer = (
         error: action.error,
         loaded: false,
         loading: false,
-        items: [],
         message: '',
       };
 
