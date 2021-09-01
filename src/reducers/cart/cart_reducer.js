@@ -3,7 +3,7 @@
  * @module reducers/cartItemsReducer
  */
 
-import { GET_CART_ITEMS } from '../actions';
+import { GET_CART_ITEMS } from '../../actions/cart/cart';
 
 const initialState = {
   items: [],

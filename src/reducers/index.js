@@ -6,7 +6,7 @@
 // import defaultReducers from '@plone/volto/reducers';
 import tokens from './tokens/tokens';
 import cartItemsReducer from './cart/cart_reducer';
-import extraBreadcrumbItemsReducer from './extra_breadcrumbs/extra_breadcrumb_reducer'
+import extraBreadcrumbItemsReducer from './extra_breadcrumbs/extra_breadcrumb_reducer';
 
 /**
  * Root reducer.
