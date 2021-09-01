@@ -3,7 +3,7 @@
  * @module reducers/cartItemsReducer
  */
 
-import { SET_CART_ITEMS, GET_CART_ITEMS } from '../actions';
+import { SET_CART_ITEMS, GET_CART_ITEMS } from '../../actions/cart/cart';
 import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
 
 const initialState = {

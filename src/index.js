@@ -1,17 +1,22 @@
+// VIEWS IMPORTS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
 import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
-import customBlocks, {
-  customGroupBlocksOrder,
-} from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
-import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
+import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
+import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+// WIDGET IMPORTS
+import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
-import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
-import { extraBreadcrumbItemsReducer, cartItemsReducer } from './reducers';
-import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+// CUSTOMIZED BLOCKS IMPORTS
+import customBlocks, {
+  customGroupBlocksOrder,
+} from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
+// CUSTOM REDUCERS IMPORT
+import reducers from './reducers';
+// COMPONENTS FOR ROUTES
 import { Sitemap, Search, ContactForm } from '@plone/volto/components';
 
 const applyConfig = (config) => {
@@ -31,11 +36,6 @@ const applyConfig = (config) => {
       ...config.blocks.groupBlocksOrder,
       customGroupBlocksOrder,
     ],
-  };
-  config.addonReducers = {
-    ...config.addonReducers,
-    extra_breadcrumbs: extraBreadcrumbItemsReducer,
-    cart_items: cartItemsReducer,
   };
 
   config.widgets.type.tabs = TabsWidget;
@@ -115,6 +115,10 @@ const applyConfig = (config) => {
       component: ContactForm,
     },
   ];
+  config.addonReducers = {
+    ...config.addonReducers,
+    ...reducers,
+  };
   return config;
 };
 export default applyConfig;
