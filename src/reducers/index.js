@@ -19,8 +19,8 @@ const reducers = {
   // ...defaultReducers,
   // Add your reducers here
   tokens,
-  cartItemsReducer,
-  extraBreadcrumbItemsReducer,
+  extra_breadcrumbs: extraBreadcrumbItemsReducer,
+  cart_items: cartItemsReducer,
 };
 
 export default reducers;
