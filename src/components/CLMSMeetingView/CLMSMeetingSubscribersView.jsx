@@ -13,7 +13,6 @@ export const CLMSMeetingSubscribersView = (props) => {
   const dispatch = useDispatch();
   let location = useLocation();
   const subscribers = useSelector((store) => store.subscribers);
-  // const meeting_subscribers_manipulation = useSelector((store) => store.meeting_subscribers_manipulation);
   const messages = defineMessages({
     user_name: {
       id: 'user_name',

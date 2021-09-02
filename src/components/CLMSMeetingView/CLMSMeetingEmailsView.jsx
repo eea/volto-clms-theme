@@ -9,7 +9,6 @@ export const CLMSMeetingEmailsView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
-
   const [currentPage, setcurrentPage] = useState(0);
   let location = useLocation();
   const [pageSize, setpageSize] = useState(15);

@@ -78,7 +78,7 @@ export const CLMSMeetingView = (props) => {
       <div className="event-detail">
         <div className="event-detail-content">
           <p>{content.description}</p>
-          <div class="ccl-container-flex">
+          <div className="ccl-container-flex">
             <div className="meeting-info-container left-content">
               <div className="dataset-info-field">
                 <div className="dataset-field-title">
@@ -114,7 +114,7 @@ export const CLMSMeetingView = (props) => {
                     <div className="dataset-field-description">
                       <a
                         title="View on map"
-                        itemprop="location"
+                        itemProp="location"
                         href={`http://maps.google.com?q=${content.location}`}
                       >
                         {content.location}
