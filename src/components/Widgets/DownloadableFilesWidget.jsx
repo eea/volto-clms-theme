@@ -3,14 +3,8 @@ import React from 'react';
 import ObjectListWidget from '@plone/volto/components/manage/Widgets/ObjectListWidget';
 
 const ItemSchema = {
-  title: 'DownloadableFilesWidget',
+  title: 'Downloadable File',
   properties: {
-    id: {
-      title: 'File id',
-      description:
-        'Enter the file id. This will be used only to identify this item.',
-      type: 'number',
-    },
     area: {
       title: 'Area',
       description: 'Enter the area of this file.',
@@ -29,7 +23,11 @@ const ItemSchema = {
     type: {
       title: 'Type',
       description: 'Enter the file type of this file. Ex.: Raster or Vector',
-      type: 'string',
+      choices: [
+        ['Raster', 'Raster'],
+        ['Vector', 'Vector'],
+      ],
+      // type: 'string',
       // controlled vocabulary: 'raster' or 'vector'
     },
     format: {
@@ -64,7 +62,6 @@ const ItemSchema = {
       id: 'default',
       title: 'File',
       fields: [
-        'id',
         'area',
         'year',
         'resolution',

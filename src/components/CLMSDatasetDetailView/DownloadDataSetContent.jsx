@@ -28,7 +28,7 @@ const DownloadDataSetContent = (data, type) => {
           Go to download by area
         </CclButton>
       </div>
-      <CclDownloadTable></CclDownloadTable>
+      <CclDownloadTable dataset={data}></CclDownloadTable>
       {/* <CclTable type={type} dataset={data}></CclTable> */}
     </div>
   );

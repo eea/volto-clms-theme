@@ -1,4 +1,26 @@
-import { extraBreadcrumbItemsReducer } from './extra_breadcrumb_reducer';
-import { cartItemsReducer } from './cart_reducer';
+/**
+ * Root reducer.
+ * @module reducers/root
+ */
 
-export { extraBreadcrumbItemsReducer, cartItemsReducer };
+// import defaultReducers from '@plone/volto/reducers';
+import tokens from './tokens/tokens';
+import { cartItemsReducer } from './cart/cart_reducer';
+import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
+
+/**
+ * Root reducer.
+ * @function
+ * @param {Object} state Current state.
+ * @param {Object} action Action to be handled.
+ * @returns {Object} New state.
+ */
+const reducers = {
+  // ...defaultReducers,
+  // Add your reducers here
+  tokens,
+  extra_breadcrumbs: extraBreadcrumbItemsReducer,
+  cart_items: cartItemsReducer,
+};
+
+export default reducers;
