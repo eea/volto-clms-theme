@@ -21,7 +21,9 @@ import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/C
 
 import './header.less';
 import { FormattedMessage, injectIntl } from 'react-intl';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
+import { getCartItems } from '@eeacms/volto-clms-theme/actions';
 /**
  * Header component class.
  * @class Header
@@ -49,8 +51,8 @@ class Header extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.token);
+    this.props.getCartItems(this.props.rawtoken);
   }
-
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.token !== this.props.token) {
       this.props.getUser(nextProps.token);
@@ -68,6 +70,7 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       mobileMenuOpen: false,
       mobileSearchBoxOpen: false,
@@ -81,8 +84,7 @@ class Header extends Component {
    */
   render() {
     return (
-      <>
-        {this.props.user.roles === 'Manager'}
+      <div>
         <header className="ccl-header">
           {/* Body class depending on sections */}
           <BodyClass className="ccl-style ccl-color_land" />
@@ -115,7 +117,7 @@ class Header extends Component {
                 }
                 onKeyDown={() =>
                   this.setState({
-                    mobileMenuOpen: !this.state.mobileMenuOpen,
+                    mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,
                   })
                 }
                 tabIndex="0"
@@ -131,20 +133,45 @@ class Header extends Component {
                     <div>|</div>
                   </li>
                   <li>
-                    {(this.props.token && (
+                    {(this.props.user.id && (
                       <>
-                        <a href="/profile" className="header-login-link">
-                          {this.props.token &&
-                            'Hello ' +
-                              (this.props.user.fullname ||
+                        <a
+                          href={`/${this.props.locale}/profile`}
+                          className="header-login-link"
+                        >
+                          {this.props.user.id && (
+                            <>
+                              <FormattedMessage
+                                id="hello"
+                                defaultMessage="Hello "
+                              />
+                              {this.props.user.fullname ||
                                 this.props.user.id ||
-                                '')}
+                                ''}
+                            </>
+                          )}
                         </a>
-                        {this.props.token &&
+                        {this.props.cart?.length !== 0 && this.props.cart && (
+                          <>
+                            <span className="header-vertical-line"> - </span>
+                            <span>
+                              <a
+                                href={`/${this.props.locale}/cart`}
+                                className="header-login-link"
+                              >
+                                <FontAwesomeIcon
+                                  icon={['fas', 'shopping-cart']}
+                                />
+                                <strong>{this.props.cart?.length}</strong>
+                              </a>
+                            </span>
+                          </>
+                        )}
+                        {this.props.user.id &&
                           this.props.user.roles &&
                           this.props.user.roles[0] === 'Member' && (
                             <>
-                              <span class="header-vertical-line"> - </span>
+                              <span className="header-vertical-line"> - </span>
                               <a href="/logout" className="header-login-link">
                                 <FormattedMessage
                                   id="logout"
@@ -156,7 +183,7 @@ class Header extends Component {
                       </>
                     )) || (
                       <a
-                        href={`${this.props.locale}/login`}
+                        href={`/${this.props.locale}/login`}
                         className="header-login-link"
                       >
                         <FormattedMessage
@@ -202,23 +229,28 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  {(this.props.token && (
+                  {(this.props.user.id && (
                     <>
                       <li>
-                        <a href="/profile" className="header-login-link">
-                          {this.props.token &&
-                            (
+                        <a
+                          href={`/${this.props.locale}/profile`}
+                          className="header-login-link"
+                        >
+                          {this.props.user.id && (
+                            <>
                               <FormattedMessage
                                 id="hello"
                                 defaultMessage="Hello "
                               />
-                            ) +
-                              (this.props.user.fullname ||
+                              {this.props.user.fullname ||
                                 this.props.user.id ||
-                                '')}
+                                ''}
+                            </>
+                          )}
                         </a>
                       </li>
-                      {this.props.token &&
+
+                      {this.props.user.id &&
                         this.props.user.roles &&
                         this.props.user.roles[0] === 'Member' && (
                           <li>
@@ -234,7 +266,7 @@ class Header extends Component {
                   )) || (
                     <li>
                       <a
-                        href={`${this.props.locale}/login`}
+                        href={`/${this.props.locale}/login`}
                         className="header-login-link"
                       >
                         <FormattedMessage
@@ -250,7 +282,7 @@ class Header extends Component {
           </div>
           <hr />
         </header>
-      </>
+      </div>
     );
   }
 }
@@ -260,11 +292,13 @@ export default compose(
   connect(
     (state) => ({
       locale: state.intl.locale,
+      cart: state.cart_items.items,
       user: state.users.user,
       token: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
+      rawtoken: state.userSession.token,
     }),
-    { getUser },
+    { getUser, getCartItems },
   ),
 )(Header);

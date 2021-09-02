@@ -102,7 +102,7 @@ class Breadcrumbs extends Component {
                 </li>
                 {this.props.items.map((item, index, items) => [
                   index < items.length - 1 ? (
-                    <li key={item.url} className="ccl-breadcrumb__segment">
+                    <li key={index} className="ccl-breadcrumb__segment">
                       <Link
                         to={item.url}
                         className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
@@ -112,7 +112,7 @@ class Breadcrumbs extends Component {
                     </li>
                   ) : (
                     <li
-                      key={item.url}
+                      key={index}
                       className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last"
                     >
                       <span>{item.title}</span>

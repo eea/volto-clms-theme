@@ -15,4 +15,9 @@ export {
   getExtraBreadcrumbItems,
   GET_EXTRA_BREADCRUMB_ITEMS,
 } from './extra_breadcrumbs/extra_breadcrumb';
-export { getCartItems, GET_CART_ITEMS } from './cart/cart';
+export {
+  getCartItems,
+  setCartItems,
+  SET_CART_ITEMS,
+  GET_CART_ITEMS,
+} from './cart/cart';

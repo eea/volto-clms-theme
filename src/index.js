@@ -16,6 +16,8 @@ import customBlocks, {
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 // CUSTOM REDUCERS IMPORT
 import reducers from './reducers';
+// COMPONENTS FOR ROUTES
+import { Sitemap, Search, ContactForm } from '@plone/volto/components';
 
 const applyConfig = (config) => {
   config.views = {
@@ -37,6 +39,12 @@ const applyConfig = (config) => {
   };
 
   config.widgets.type.tabs = TabsWidget;
+  config.widgets.widget = {
+    ...config.widgets.widget,
+    bounding_widget: BoundingWidget,
+    layer_widget: MapLayersWidget,
+    downloadable_files_widget: DownloadableFilesWidget,
+  };
   config.widgets.widget.bounding_widget = BoundingWidget;
   config.widgets.widget.layer_widget = MapLayersWidget;
   config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
@@ -91,8 +99,20 @@ const applyConfig = (config) => {
       component: CLMSMapViewerView,
     },
     {
-      path: '/cart',
+      path: '/**/cart',
       component: CLMSDownloadCartView,
+    },
+    {
+      path: `/(${config.settings.supportedLanguages.join('|')})/sitemap`,
+      component: Sitemap,
+    },
+    {
+      path: `/(${config.settings.supportedLanguages.join('|')})/search`,
+      component: Search,
+    },
+    {
+      path: `/(${config.settings.supportedLanguages.join('|')})/contact-form`,
+      component: ContactForm,
     },
   ];
   config.addonReducers = {
