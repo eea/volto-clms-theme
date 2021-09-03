@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { searchContent } from '@plone/volto/actions';
 import { useLocation } from 'react-router-dom';
 import { Pagination } from '@plone/volto/components';
@@ -145,8 +144,6 @@ export const CLMSMeetingEmailsView = (props) => {
                   onChangePageSize={onChangePageSize}
                 />
               </div>
-
-              <CclButton disabled={content.items === 0}>Export</CclButton>
             </div>
           </div>
         </div>

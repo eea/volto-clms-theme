@@ -1,4 +1,5 @@
 import React from 'react';
+import './meetingstyles.css';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import {
   When,
