@@ -1,3 +1,4 @@
 import CclTabsView from './CclTabsView';
+import CclVerticalTabsView from './CclVerticalTabsView';
 
-export { CclTabsView };
+export { CclTabsView, CclVerticalTabsView };
