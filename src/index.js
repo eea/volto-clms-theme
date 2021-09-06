@@ -5,6 +5,11 @@ import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLM
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
+import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
+import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
+import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
+import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -27,6 +32,11 @@ const applyConfig = (config) => {
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
+      'eea.meeting': CLMSMeetingView,
+      'eea.meeting.subscribers': CLMSMeetingSubscribersView,
+      'eea.meeting.subscriber': CLMSMeetingSubscriberView,
+      'eea.meeting.emails': CLMSMeetingEmailsView,
+      'eea.meeting.email': CLMSMeetingEmailView,
     },
   };
   config.blocks = {
