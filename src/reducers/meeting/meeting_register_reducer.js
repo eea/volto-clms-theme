@@ -3,7 +3,7 @@
  * @module reducers/cartItemsReducer
  */
 
-import { POST_MEETING_REGISTER } from '../actions';
+import { POST_MEETING_REGISTER } from '../../actions';
 
 const initialState = {
   error: null,

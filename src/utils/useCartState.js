@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCartItems } from '@eeacms/volto-clms-theme/actions';
+import { setCartItems } from '@eeacms/volto-clms-theme/actions';
 import { Message } from 'semantic-ui-react';
 import jwtDecode from 'jwt-decode';
 import { useSelector } from 'react-redux';
+export const CART_SESSION_KEY = 'cart_session';
+
 const useCartState = () => {
-  const CART_SESSION_KEY = 'cart_session';
   const [cart, setCart] = useState([]);
   const [savedToCard, setSavedToCard] = useState(false);
   const [toasTime, setToastTime] = useState(3000);
+  const CART_SESSION_USER_KEY = useSelector((state) =>
+    state.userSession.token
+      ? CART_SESSION_KEY.concat(state.userSession.token)
+      : CART_SESSION_KEY,
+  );
   const isLoggedIn = useSelector((state) =>
     state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
   )
@@ -26,7 +32,8 @@ const useCartState = () => {
 
   const saveItems = (values) => {
     let items = cleanDuplicatesEntries(values);
-    localStorage.setItem(CART_SESSION_KEY, JSON.stringify(items));
+    // localStorage.setItem(CART_SESSION_KEY, JSON.stringify(items));
+    localStorage.setItem(CART_SESSION_USER_KEY, JSON.stringify(items));
     setCart(items);
 
     setSavedToCard(true);
@@ -34,12 +41,12 @@ const useCartState = () => {
   };
 
   const removeAllCart = () => {
-    localStorage.removeItem(CART_SESSION_KEY);
+    localStorage.removeItem(CART_SESSION_USER_KEY);
     setCart([]);
   };
 
   const getCartSessionStorage = () => {
-    setCart(JSON.parse(localStorage.getItem(CART_SESSION_KEY)) || []);
+    setCart(JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || []);
   };
 
   const addCartItem = async (value) => {
@@ -51,24 +58,31 @@ const useCartState = () => {
     }
   };
 
-  // const removeCartItem = (id) => {
-  // ToDo
-  // sessionStorage.removeItem(CART_SESSION_KEY);
-  // };
+  const removeCartItem = async (id) => {
+    await getCartSessionStorage();
+    let newcart = cart.slice();
+    newcart.forEach((item) => {
+      if (item.unique_id === id) {
+        newcart.splice(newcart.indexOf(item), 1);
+      }
+    });
+    setCart(newcart);
+    saveItems(newcart);
+  };
 
   const cleanDuplicatesEntries = (arr) =>
     arr.filter(
-      (arr, index, self) => index === self.findIndex((t) => t.id === arr.id),
+      (arr, index, self) =>
+        index === self.findIndex((t) => t.unique_id === arr.unique_id),
     );
 
   useEffect(() => {
     getCartSessionStorage();
-    // window.addEventListener('resize', checkScreenSize);
-    // return () => window.removeEventListener('resize', checkScreenSize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    dispatch(getCartItems(cart));
+    dispatch(setCartItems(cart));
   }, [dispatch, cart]);
 
   const Toast = ({ message, time = toasTime }) => {
@@ -92,6 +106,7 @@ const useCartState = () => {
     cart: cart,
     addCartItem: addCartItem,
     removeAllCart: removeAllCart,
+    removeCartItem: removeCartItem,
     Toast: Toast,
     isLoggedIn: isLoggedIn,
   };

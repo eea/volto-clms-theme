@@ -3,8 +3,8 @@
  * @module reducers/cartItemsReducer
  */
 
-import { MEETING_SUBSCRIBERS } from '../actions';
-import { MEETING_SUBSCRIBERS_MANIPULATION } from '../actions';
+import { MEETING_SUBSCRIBERS } from '../../actions';
+import { MEETING_SUBSCRIBERS_MANIPULATION } from '../../actions';
 
 const initialState = {
   error: null,

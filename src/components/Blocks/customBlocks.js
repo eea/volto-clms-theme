@@ -30,9 +30,16 @@ import {
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
-import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
+import {
+  CclTabsView,
+  CclVerticalTabsView,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
-import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+import {
+  CclListingCards,
+  CclListingWorkOpportunities,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock';
+
 import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoArcgisBlock/CclMapMenu';
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
@@ -83,6 +90,12 @@ const customBlocks = (config) => ({
         view: CclTabsView,
         schema: defaultSchema,
       },
+      CCLVerticalTabs: {
+        title: 'CCL Vertical Tabs',
+        edit: DefaultEdit,
+        view: CclVerticalTabsView,
+        schema: defaultSchema,
+      },
       ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
     },
   },
@@ -126,6 +139,18 @@ const customBlocks = (config) => ({
         isDefault: false,
         title: 'CclCards Events',
         template: CclListingCards,
+      },
+      {
+        id: 'CclWOOpenTenders',
+        isDefault: false,
+        title: 'CclWO Open Tenders',
+        template: CclListingWorkOpportunities,
+      },
+      {
+        id: 'CclWOCloseTenders',
+        isDefault: false,
+        title: 'CclWO Close Tenders',
+        template: CclListingWorkOpportunities,
       },
     ],
   },
