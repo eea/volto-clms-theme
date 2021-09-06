@@ -22,7 +22,6 @@ export const meetingRegisterReducer = (state = initialState, action = {}) => {
         loaded: false,
         loading: true,
         logged_user_registration: false,
-        registered_message: '',
       };
     case `${POST_MEETING_REGISTER}_FAIL`:
       return {
@@ -31,7 +30,7 @@ export const meetingRegisterReducer = (state = initialState, action = {}) => {
         loaded: false,
         loading: false,
         logged_user_registration: false,
-        registered_message: action.message,
+        registered_message: action.result.message,
       };
 
     case `${POST_MEETING_REGISTER}_SUCCESS`:
@@ -41,7 +40,8 @@ export const meetingRegisterReducer = (state = initialState, action = {}) => {
         loaded: true,
         loading: false,
         logged_user_registration: true,
-        registered_message: action.message,
+        registered_message: 'You have succesfully registered to this meeting',
+        // registered_message: action.result.message,
       };
     default:
       return state;

@@ -11,10 +11,12 @@ import { postMeetingRegister } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { ToastContainer, toast } from 'react-toastify';
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
   const meeting_register = useSelector((store) => store.meeting_register);
+  let meeting_register_message = meeting_register?.registered_message || '';
   const isLoggedIn = useSelector((state) =>
     state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
   )
@@ -73,6 +75,14 @@ export const CLMSMeetingView = (props) => {
   function handleRegister() {
     dispatch(postMeetingRegister(content['@id']));
   }
+  function notify() {
+    meeting_register_message && toast(meeting_register_message);
+  }
+  React.useEffect(() => {
+    notify();
+
+    /* eslint-disable-next-line */
+  }, [meeting_register_message]);
   return (
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
@@ -246,6 +256,7 @@ export const CLMSMeetingView = (props) => {
             </div>
           </div>
           <StringToHTML string={content.text?.data || ''} />
+          {meeting_register.registered_message && <ToastContainer />}
         </div>
       </div>
     </div>
