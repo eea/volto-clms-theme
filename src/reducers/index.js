@@ -7,7 +7,8 @@
 import tokens from './tokens/tokens';
 import { cartItemsReducer } from './cart/cart_reducer';
 import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
-
+import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
+import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
 /**
  * Root reducer.
  * @function
@@ -21,6 +22,8 @@ const reducers = {
   tokens,
   extra_breadcrumbs: extraBreadcrumbItemsReducer,
   cart_items: cartItemsReducer,
+  meeting_register: meetingRegisterReducer,
+  subscribers: meetingSubscribersReducer,
 };
 
 export default reducers;
