@@ -33,6 +33,7 @@ import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import {
   CclTabsView,
   CclVerticalTabsView,
+  CclVerticalFaqTabsView,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import {
@@ -94,6 +95,12 @@ const customBlocks = (config) => ({
         title: 'CCL Vertical Tabs',
         edit: DefaultEdit,
         view: CclVerticalTabsView,
+        schema: defaultSchema,
+      },
+      CCLVerticalFaqTabs: {
+        title: 'CCL Vertical FAQ Tabs',
+        edit: DefaultEdit,
+        view: CclVerticalFaqTabsView,
         schema: defaultSchema,
       },
       ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
