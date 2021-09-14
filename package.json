@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "volto-dropdownmenu": "2.2.7",
-    "@eeacms/volto-arcgis-block": "0.1.2",
+    "@eeacms/volto-arcgis-block": "0.1.3",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
