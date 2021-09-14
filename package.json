@@ -42,6 +42,7 @@
     "@eeacms/volto-metadata-block": "^2.1.0",
     "volto-slate": "2.6.2",
     "react-svg": "14.0.4",
+    "react-native-mime-types": "2.3.0",
     "@eeacms/volto-resize-helper": "0.2.1"
   },
   "prettier": {
