@@ -212,8 +212,8 @@
 }
 
 .slick-dots {
-  /* position: absolute; */
-  /* bottom: -25px; */
+  position: relative;
+  bottom: -25px;
   display: block;
   width: 100%;
   padding: 0;
@@ -280,22 +280,22 @@
   opacity: 0.75;
 }
 
-.ccl-banner-top-container-slider .slick-arrow {
+.slick-slider .slick-arrow {
   z-index: 100;
   width: 2.2222222222rem;
   height: 2.2222222222rem;
 }
 
-.ccl-banner-top-container-slider .slick-arrow:before {
+.slick-slider .slick-arrow:before {
   font-size: 2.2222222222rem;
   font-weight: 900;
 }
 
-.ccl-banner-top-container-slider .slick-prev {
+.slick-slider .slick-prev {
   left: 0.2777777778rem;
 }
 
-.ccl-banner-top-container-slider .slick-next {
+.slick-slider .slick-next {
   right: 0.2777777778rem;
 }
 
