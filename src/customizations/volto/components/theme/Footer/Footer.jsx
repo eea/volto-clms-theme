@@ -17,10 +17,10 @@ import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
 import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
 import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
-import './footer.less';
 import { defineMessages, useIntl } from 'react-intl';
 import { ReactSVG } from 'react-svg';
 import { useSelector } from 'react-redux';
+import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
 
 const messages = defineMessages({
   copernicusServices: {
@@ -90,15 +90,6 @@ const messages = defineMessages({
 const Footer = () => {
   const intl = useIntl();
   const lang = useSelector((state) => state.intl.locale);
-  let personalDataLink = (
-    <a
-      href={`/${lang}/personal-data-protection`}
-      target="_blank"
-      rel="noreferrer"
-    >
-      {intl.formatMessage(messages.agreePrivacyPolicyLinkText)}
-    </a>
-  );
 
   return (
     <footer className="ccl-footer">
@@ -249,7 +240,18 @@ const Footer = () => {
                     htmlFor="footer_privacy"
                   >
                     {intl.formatMessage(messages.agreePrivacyPolicy, {
-                      link: personalDataLink,
+                      link: (
+                        <a
+                          href={`/${lang}/personal-data-protection`}
+                          target="_blank"
+                          rel="noreferrer"
+                          key="key-personal-data-protection"
+                        >
+                          {intl.formatMessage(
+                            messages.agreePrivacyPolicyLinkText,
+                          )}
+                        </a>
+                      ),
                     })}
                   </label>
                 </div>

@@ -12,7 +12,7 @@ import { Container } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { getBreadcrumbs } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
-import './breadcrumbs.less';
+import '@eeacms/volto-clms-theme/../theme/clms/css/breadcrumbs.css';
 
 const messages = defineMessages({
   home: {

@@ -19,11 +19,12 @@ import { BodyClass } from '@plone/volto/helpers';
 import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 
-import './header.less';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
 import { getCartItems } from '@eeacms/volto-clms-theme/actions';
+import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
+
 /**
  * Header component class.
  * @class Header
