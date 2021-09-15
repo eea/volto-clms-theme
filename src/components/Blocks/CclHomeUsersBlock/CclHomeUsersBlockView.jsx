@@ -70,10 +70,10 @@ const CclHomeUsersBlockView = (props) => {
             </div>
           ))}
         </Slider>
+        <a className="ccl-button ccl-button--default" href="./use-cases.html">
+          All use cases
+        </a>
       </div>
-      <a className="ccl-button ccl-button--default" href="./use-cases.html">
-        All use cases
-      </a>
     </div>
   );
 };
