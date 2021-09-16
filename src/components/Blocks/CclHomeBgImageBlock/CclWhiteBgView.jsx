@@ -7,7 +7,7 @@ const CclWhiteBgView = (props) => {
 
   return (
     <div
-      className="ccl-banner-top-container"
+      className="home-map-container"
       style={{
         backgroundImage:
           `url(${data?.image?.url}/@@images/image)` ||
