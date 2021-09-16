@@ -46,7 +46,7 @@ const Logo = () => {
     <div className="ccl-header-logos-container">
       <div className="ccl-header-logo-container">
         <Link
-          to={settings.isMultilingual ? `/${lang}` : '/'}
+          to={'https://www.copernicus.eu/en'}
           title={intl.formatMessage(messages.copernicussite)}
           className="ccl-header-logo ccl-service-button"
         >

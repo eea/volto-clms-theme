@@ -20,7 +20,10 @@ const CclHomeProductsBlockView = (props) => {
           {product.productIcon === 'iconless' ? (
             <h3>{product.title}</h3>
           ) : (
-            <div className="home-product-title">{product.title}</div>
+            <>
+              <div className="home-product-title">{product.title}</div>
+              <div class="home-product-description">{product.description}</div>
+            </>
           )}
         </div>
       ))}

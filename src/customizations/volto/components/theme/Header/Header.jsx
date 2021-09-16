@@ -189,7 +189,7 @@ class Header extends Component {
                       >
                         <FormattedMessage
                           id="loginRegister"
-                          defaultMessage="Login/Register"
+                          defaultMessage="Register/Login"
                         />
                       </a>
                     )}
@@ -272,7 +272,7 @@ class Header extends Component {
                       >
                         <FormattedMessage
                           id="loginRegister"
-                          defaultMessage="Login/Register"
+                          defaultMessage="Register/Login"
                         />
                       </a>
                     </li>
