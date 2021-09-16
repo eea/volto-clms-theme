@@ -110,7 +110,7 @@ class Navigation extends Component {
 
     return (
       <ul className="ccl-header-main-menu">
-        {this.props.items.map((item) => (
+        {this?.props?.items?.map((item) => (
           <li key={item.url}>
             <NavLink
               to={item.url === '' ? '/' : item.url}

@@ -55,11 +55,11 @@ const DataSetInfoContent = (data) => {
             tooltip="URL address to locate the data"
           ></CclInfoDescription>
         )}
-        <div class="dataset-info-documents dropdown">
-          <div class="ccl-expandable__button" aria-expanded="true">
+        <div className="dataset-info-documents dropdown">
+          <div className="ccl-expandable__button" aria-expanded="true">
             <h2>Technical documents (X docs)</h2>
           </div>
-          <div class="documents-dropdown">
+          <div className="documents-dropdown">
             <CclCard
               title={data.title}
               description={data.description}
@@ -73,7 +73,7 @@ const DataSetInfoContent = (data) => {
           </div>
         </div>
         <h2>Found the dataset in this products</h2>
-        <div class="card-container">
+        <div className="card-container">
           <CclCard
             type="block"
             title="Dataset title"

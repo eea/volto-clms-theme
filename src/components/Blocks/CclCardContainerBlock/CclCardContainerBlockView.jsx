@@ -17,7 +17,7 @@ const CclCardContainerBlockView = (props) => {
   } else if (data.cardOrigin === 'selection') {
     path = data.containerSelection ? data.containerSelection[0]['@id'] : '';
   } else if ((data.cardOrigin = 'custom')) {
-    cards = data.customCards.blocks_layout.items.map(
+    cards = data?.customCards?.blocks_layout?.items.map(
       (uid) => data.customCards.blocks[uid],
     );
   }

@@ -7,7 +7,7 @@ const CclButtonBlockView = (props) => {
   return (
     <CclButton
       url={
-        data.download && data?.href?.[0]?.['@type'] === 'File'
+        data?.download && data?.href?.[0]?.['@type'] === 'File'
           ? data?.href?.[0]?.['@id'] + '/@@download/file'
           : data?.href?.[0]?.['@id']
       }
@@ -15,7 +15,7 @@ const CclButtonBlockView = (props) => {
       download={data?.download || data?.href?.[0]?.['@type'] === 'File'}
       target={
         data.target ||
-        (data.download && data.href[0]['@type'] === 'File' && '_blank')
+        (data?.download && data.href[0]['@type'] === 'File' && '_blank')
       }
       mode={data.style}
     >

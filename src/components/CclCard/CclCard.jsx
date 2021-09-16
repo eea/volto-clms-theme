@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 import './cards.less';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as mime from 'react-native-mime-types';
 
+function bytesToSize(bytes) {
+  var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 Byte';
+  var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
 function CclCard(props) {
   const { type, children, card } = props;
   let url = card ? card['@id'] || card.url || '/' : '/';
@@ -16,11 +23,18 @@ function CclCard(props) {
           {type === 'doc' && (
             <>
               <div className="card-doc-title">
-                {card?.title || 'Card default title'}
+                <a href={card?.file?.download}>
+                  {card?.title || 'Card default title'}
+                </a>
               </div>
               <div className="card-doc-text">
                 <div className="doc-description">{card?.description}</div>
-                <div className="card-doc-size">{card?.docInfo || 'DOC'}</div>
+                {card?.file && (
+                  <div className="card-doc-size">
+                    {mime.extension(card?.file?.['content-type']).toUpperCase()}{' '}
+                    {bytesToSize(card?.file?.size) || ''}
+                  </div>
+                )}
                 {children}
               </div>
             </>
@@ -50,13 +64,20 @@ function CclCard(props) {
           {type === 'event' && (
             <>
               <div className="card-event-image">
-                <img
-                  src={
-                    card?.image?.download ||
-                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                  }
-                  alt={'placeholder'}
-                />
+                {card?.image?.scales ? (
+                  <img
+                    src={card?.image?.scales?.preview?.download}
+                    alt={card.image.alt}
+                  />
+                ) : (
+                  <img
+                    src={
+                      card?.image?.download ||
+                      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                    }
+                    alt={'placeholder'}
+                  />
+                )}
               </div>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
@@ -84,12 +105,19 @@ function CclCard(props) {
       ) : (
         <>
           <div className="card-image">
-            <img
-              src={
-                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-              }
-              alt={'placeholder'}
-            />
+            {card?.image?.scales ? (
+              <img
+                src={card?.image?.scales?.preview?.download}
+                alt={card.image.alt}
+              />
+            ) : (
+              <img
+                src={
+                  'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                }
+                alt={'placeholder'}
+              />
+            )}
           </div>
           <div className={'card-text'}>
             <div className="card-title">

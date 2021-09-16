@@ -37,7 +37,7 @@ const CclHomeUsersBlockView = (props) => {
     ],
   };
   const { data } = props;
-  let cards = data.customCards.blocks_layout.items.map(
+  let cards = data?.customCards?.blocks_layout?.items.map(
     (uid) => data.customCards.blocks[uid],
   );
 
@@ -70,10 +70,10 @@ const CclHomeUsersBlockView = (props) => {
             </div>
           ))}
         </Slider>
+        <a className="ccl-button ccl-button--default" href="./use-cases.html">
+          All use cases
+        </a>
       </div>
-      <a className="ccl-button ccl-button--default" href="./use-cases.html">
-        All use cases
-      </a>
     </div>
   );
 };

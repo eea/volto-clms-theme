@@ -4,7 +4,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 const CclProductLeftMenuView = (props) => {
   const { data, metadata } = props;
-  let buttons = data.buttons.blocks_layout.items.map(
+  let buttons = data?.buttons?.blocks_layout?.items.map(
     (uid) => data.buttons.blocks[uid],
   );
 
@@ -17,7 +17,7 @@ const CclProductLeftMenuView = (props) => {
         <div key={index} className={'menu-detail-button'}>
           <CclButton
             url={
-              button.download && button?.href?.[0]?.['@type'] === 'File'
+              button?.download && button?.href?.[0]?.['@type'] === 'File'
                 ? button?.href?.[0]?.['@id'] + '/@@download/file'
                 : button?.href?.[0]?.['@id']
             }
@@ -27,7 +27,7 @@ const CclProductLeftMenuView = (props) => {
             }
             target={
               button.target ||
-              (button.download &&
+              (button?.download &&
                 button.href[0]['@type'] === 'File' &&
                 '_blank')
             }

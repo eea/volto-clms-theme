@@ -47,11 +47,7 @@ const CclProductLeftMenuEdit = (props) => {
       <nav className="left-menu-detail">
         <div className="menu-detail-image">
           <img
-            src={
-              metadata?.image
-                ? `data:${metadata?.image?.['contet-type']};${metadata?.image?.encoding},${metadata?.image?.data}`
-                : 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-            }
+            src={metadata?.image?.download}
             alt={metadata?.image?.filename}
           />
         </div>
@@ -75,7 +71,7 @@ const CclProductLeftMenuEdit = (props) => {
             <CclButton
               url="#"
               disabled={data.buttons?.blocks[uid].disabled}
-              download={data.buttons?.blocks[uid].download}
+              download={data.buttons?.blocks[uid]?.download}
               mode={data.buttons?.blocks[uid].style}
             >
               {data.buttons?.blocks[uid].title || 'Text example...'}

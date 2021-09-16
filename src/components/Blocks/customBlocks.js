@@ -30,9 +30,17 @@ import {
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
-import { CclTabsView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
+import {
+  CclTabsView,
+  CclVerticalTabsView,
+  CclVerticalFaqTabsView,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
-import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+import {
+  CclListingCards,
+  CclListingWorkOpportunities,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock';
+
 import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoArcgisBlock/CclMapMenu';
 
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
@@ -49,6 +57,9 @@ import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
+
+import CclTechnicalLibrariesListView from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListView';
+import CclTechnicalLibrariesListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListEdit';
 
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
@@ -81,6 +92,18 @@ const customBlocks = (config) => ({
         title: 'CCL Tabs (Copernicus Style Guide)',
         edit: DefaultEdit,
         view: CclTabsView,
+        schema: defaultSchema,
+      },
+      CCLVerticalTabs: {
+        title: 'CCL Vertical Tabs',
+        edit: DefaultEdit,
+        view: CclVerticalTabsView,
+        schema: defaultSchema,
+      },
+      CCLVerticalFaqTabs: {
+        title: 'CCL Vertical FAQ Tabs',
+        edit: DefaultEdit,
+        view: CclVerticalFaqTabsView,
         schema: defaultSchema,
       },
       ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
@@ -126,6 +149,18 @@ const customBlocks = (config) => ({
         isDefault: false,
         title: 'CclCards Events',
         template: CclListingCards,
+      },
+      {
+        id: 'CclWOOpenTenders',
+        isDefault: false,
+        title: 'CclWO Open Tenders',
+        template: CclListingWorkOpportunities,
+      },
+      {
+        id: 'CclWOCloseTenders',
+        isDefault: false,
+        title: 'CclWO Close Tenders',
+        template: CclListingWorkOpportunities,
       },
     ],
   },
@@ -300,6 +335,22 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclUseCaseListView, // The view mode component
     edit: CclUseCaseListEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  technicalLibrariesList: {
+    id: 'technicalLibrariesList', // The name (id) of the block
+    title: 'Technical Libraries List', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclTechnicalLibrariesListView, // The view mode component
+    edit: CclTechnicalLibrariesListEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus

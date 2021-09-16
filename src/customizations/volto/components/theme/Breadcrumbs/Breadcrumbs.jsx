@@ -12,7 +12,7 @@ import { Container } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { getBreadcrumbs } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
-import './breadcrumbs.less';
+import '@eeacms/volto-clms-theme/../theme/clms/css/breadcrumbs.css';
 
 const messages = defineMessages({
   home: {
@@ -46,6 +46,12 @@ class Breadcrumbs extends Component {
         url: PropTypes.string,
       }),
     ).isRequired,
+    extraItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        url: PropTypes.string,
+      }),
+    ),
   };
 
   /**
@@ -94,9 +100,9 @@ class Breadcrumbs extends Component {
                     {this.props.intl.formatMessage(messages.home)}
                   </Link>
                 </li>
-                {this.props.items.map((item, index, items) => [
+                {this?.props?.items?.map((item, index, items) => [
                   index < items.length - 1 ? (
-                    <li key={item.url} className="ccl-breadcrumb__segment">
+                    <li key={index} className="ccl-breadcrumb__segment">
                       <Link
                         to={item.url}
                         className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
@@ -106,7 +112,7 @@ class Breadcrumbs extends Component {
                     </li>
                   ) : (
                     <li
-                      key={item.url}
+                      key={index}
                       className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last"
                     >
                       <span>{item.title}</span>
@@ -127,7 +133,7 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      items: state.breadcrumbs.items,
+      items: state.breadcrumbs.items.concat(state.extra_breadcrumbs.items),
       root: state.breadcrumbs.root,
     }),
     { getBreadcrumbs },
