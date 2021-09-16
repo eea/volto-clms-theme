@@ -29,10 +29,12 @@ function CclCard(props) {
               </div>
               <div className="card-doc-text">
                 <div className="doc-description">{card?.description}</div>
-                <div className="card-doc-size">
-                  {mime.extension(card?.file?.['content-type']).toUpperCase()}{' '}
-                  {bytesToSize(card?.file?.size) || ''}
-                </div>
+                {card?.file && (
+                  <div className="card-doc-size">
+                    {mime.extension(card?.file?.['content-type']).toUpperCase()}{' '}
+                    {bytesToSize(card?.file?.size) || ''}
+                  </div>
+                )}
                 {children}
               </div>
             </>
