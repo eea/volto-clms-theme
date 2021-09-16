@@ -2,7 +2,7 @@ import React from 'react';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
-  let products = data.products.blocks_layout.items.map(
+  let products = data?.products?.blocks_layout?.items.map(
     (uid) => data.products.blocks[uid],
   );
   return (

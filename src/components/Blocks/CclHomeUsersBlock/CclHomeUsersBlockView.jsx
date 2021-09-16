@@ -37,7 +37,7 @@ const CclHomeUsersBlockView = (props) => {
     ],
   };
   const { data } = props;
-  let cards = data.customCards.blocks_layout.items.map(
+  let cards = data?.customCards?.blocks_layout?.items.map(
     (uid) => data.customCards.blocks[uid],
   );
 
