@@ -9,7 +9,7 @@ function CclDownloadTable(props) {
   const { addCartItem, Toast, isLoggedIn, removeAllCart } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
-  const prePackagedCollection = dataset.downloadable_files.items.map(
+  const prePackagedCollection = dataset?.downloadable_files?.items.map(
     (element) => {
       return {
         ...element,

@@ -46,7 +46,10 @@ const CclProductLeftMenuEdit = (props) => {
     <>
       <nav className="left-menu-detail">
         <div className="menu-detail-image">
-          <img src={metadata.image.download} alt={metadata.image.filename} />
+          <img
+            src={metadata?.image?.download}
+            alt={metadata?.image?.filename}
+          />
         </div>
         {panels.map(([uid, panel], index) => (
           <div
@@ -68,7 +71,7 @@ const CclProductLeftMenuEdit = (props) => {
             <CclButton
               url="#"
               disabled={data.buttons?.blocks[uid].disabled}
-              download={data.buttons?.blocks[uid].download}
+              download={data.buttons?.blocks[uid]?.download}
               mode={data.buttons?.blocks[uid].style}
             >
               {data.buttons?.blocks[uid].title || 'Text example...'}

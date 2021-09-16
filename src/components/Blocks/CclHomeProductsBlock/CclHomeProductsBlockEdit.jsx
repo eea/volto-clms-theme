@@ -70,7 +70,10 @@ const CclHomeProductsBlockEdit = (props) => {
             {panel.productIcon === 'iconless' ? (
               <h3>{panel.title}</h3>
             ) : (
-              <div className="home-product-title">{panel.title}</div>
+              <>
+                <div className="home-product-title">{panel.title}</div>
+                <div class="home-product-description">{panel.description}</div>
+              </>
             )}
           </div>
         ))}

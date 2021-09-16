@@ -217,7 +217,9 @@ const Footer = () => {
             </div>
           </CclFooterColumn>
           <div className="ccl-footer-col">
-            <div className="ccl-footer-form-title">Newsletter</div>
+            <div className="ccl-footer-form-title">
+              Sign up to our newsletter
+            </div>
             <form action="" className="ccl-footer-form">
               <div className="ccl-footer-newsletter">
                 <input placeholder="Enter an email adress" type="text" />

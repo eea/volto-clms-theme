@@ -100,7 +100,7 @@ class Breadcrumbs extends Component {
                     {this.props.intl.formatMessage(messages.home)}
                   </Link>
                 </li>
-                {this.props.items.map((item, index, items) => [
+                {this?.props?.items?.map((item, index, items) => [
                   index < items.length - 1 ? (
                     <li key={index} className="ccl-breadcrumb__segment">
                       <Link

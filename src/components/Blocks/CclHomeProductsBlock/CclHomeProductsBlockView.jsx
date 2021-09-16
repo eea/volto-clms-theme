@@ -2,7 +2,7 @@ import React from 'react';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
-  let products = data.products.blocks_layout.items.map(
+  let products = data?.products?.blocks_layout?.items.map(
     (uid) => data.products.blocks[uid],
   );
   return (
@@ -20,7 +20,10 @@ const CclHomeProductsBlockView = (props) => {
           {product.productIcon === 'iconless' ? (
             <h3>{product.title}</h3>
           ) : (
-            <div className="home-product-title">{product.title}</div>
+            <>
+              <div className="home-product-title">{product.title}</div>
+              <div class="home-product-description">{product.description}</div>
+            </>
           )}
         </div>
       ))}

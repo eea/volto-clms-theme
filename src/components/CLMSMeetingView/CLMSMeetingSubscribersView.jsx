@@ -46,7 +46,7 @@ export const CLMSMeetingSubscribersView = (props) => {
 
   const selectAllSubscribers = (checked) => {
     if (checked) {
-      setSubscriberSelection(subscribers.items.map((item, key) => item.id));
+      setSubscriberSelection(subscribers?.items.map((item, key) => item.id));
     } else {
       setSubscriberSelection([]);
     }
@@ -82,7 +82,7 @@ export const CLMSMeetingSubscribersView = (props) => {
                         onChange={(e, data) =>
                           selectAllSubscribers(data.checked)
                         }
-                        checked={subscribers.items
+                        checked={subscribers?.items
                           .map((item, key) => item.id)
                           .every(function (val) {
                             return subscriberSelection.indexOf(val) !== -1;
@@ -96,7 +96,7 @@ export const CLMSMeetingSubscribersView = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {subscribers.items?.map((subscriber, index) => (
+                  {subscribers?.items?.map((subscriber, index) => (
                     <tr key={index}>
                       <td>
                         <Checkbox
