@@ -13,6 +13,9 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
     >
       example title1
     </div>
+    <div
+      className="home-product-description"
+    />
   </div>
   <div
     className="home-product"
@@ -23,6 +26,9 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
     >
       example title2
     </div>
+    <div
+      className="home-product-description"
+    />
   </div>
 </div>
 `;

@@ -17,7 +17,6 @@ Array [
       className="card-image"
     >
       <img
-        alt="placeholder"
         src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
       />
     </div>
