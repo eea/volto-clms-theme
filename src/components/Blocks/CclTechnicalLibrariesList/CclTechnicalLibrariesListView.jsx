@@ -28,9 +28,13 @@ const CclTechnicalLibrariesListView = (props) => {
   return (
     <>
       <div className="technical-libraries">
-        {libraries.map((item, index) => (
-          <CclCard key={index} type="doc" card={item} />
-        ))}
+        {libraries.length > 0 ? (
+          libraries.map((item, index) => (
+            <CclCard key={index} type="doc" card={item} />
+          ))
+        ) : (
+          <p>There are no technical libraries for this product.</p>
+        )}
       </div>
     </>
   );

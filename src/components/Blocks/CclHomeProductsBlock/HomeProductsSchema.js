@@ -28,12 +28,16 @@ export const ProductSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'productIcon', 'linkSelector'],
+      fields: ['title', 'description', 'productIcon', 'linkSelector'],
     },
   ],
   properties: {
     title: {
       title: 'Title',
+      type: 'string',
+    },
+    description: {
+      title: 'Description',
       type: 'string',
     },
     productIcon: {

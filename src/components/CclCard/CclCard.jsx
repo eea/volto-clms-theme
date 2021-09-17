@@ -66,7 +66,7 @@ function CclCard(props) {
               <div className="card-event-image">
                 {card?.image?.scales ? (
                   <img
-                    src={card.image.scales.preview.download}
+                    src={card?.image?.scales?.preview?.download}
                     alt={card.image.alt}
                   />
                 ) : (
@@ -107,7 +107,7 @@ function CclCard(props) {
           <div className="card-image">
             {card?.image?.scales ? (
               <img
-                src={card.image.scales.preview.download}
+                src={card?.image?.scales?.preview?.download}
                 alt={card.image.alt}
               />
             ) : (

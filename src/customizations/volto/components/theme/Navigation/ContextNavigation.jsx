@@ -22,8 +22,8 @@ function renderNode(node, level) {
         {node.thumb ? <Image src={flattenToAppURL(node.thumb)} /> : ''}
         {node.title}
       </RouterLink>
-      {(node.items?.length && (
-        <List.List>{node.items.map(renderNode)}</List.List>
+      {(node?.items?.length && (
+        <List.List>{node?.items?.map(renderNode)}</List.List>
       )) ||
         ''}
     </div>
