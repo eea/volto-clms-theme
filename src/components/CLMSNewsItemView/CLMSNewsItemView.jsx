@@ -19,7 +19,7 @@ const CLMSNewsItemView = (props) => {
             }
             alt={content?.image ? content?.image?.filename : 'Placeholder'}
           />
-          {/* <figcaption>Lorem ipsum dolor sit amet</figcaption> */}
+          <figcaption>{content?.description}</figcaption>
         </figure>
         <div className="news-detail-content">
           <StringToHTML string={content.text?.data || ''} />
