@@ -22,7 +22,9 @@ const CclHomeProductsBlockView = (props) => {
           ) : (
             <>
               <div className="home-product-title">{product.title}</div>
-              <div class="home-product-description">{product.description}</div>
+              <div className="home-product-description">
+                {product.description}
+              </div>
             </>
           )}
         </div>
