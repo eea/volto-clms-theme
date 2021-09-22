@@ -1,4 +1,5 @@
 import React from 'react';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 export const CLMSEventView = (props) => {
@@ -19,11 +20,25 @@ export const CLMSEventView = (props) => {
             }
             alt={content?.image ? content?.image?.filename : 'Placeholder'}
           />
-          {/* <figcaption>Lorem ipsum dolor sit amet</figcaption> */}
+          <figcaption>{content?.description}</figcaption>
         </figure>
+        <div class="event-detail-when">
+          <i class="far fa-calendar-alt"></i>
+          <div class="event-detail-when-text">
+            {new Date(content?.effective).toLocaleDateString()} -{' '}
+            {new Date(content?.end).toLocaleDateString()}
+          </div>
+        </div>
+        <div class="event-detail-where">
+          <i class="fas fa-map-marker-alt"></i>
+          <div class="event-detail-where-text">{content?.location}</div>
+        </div>
         <div className="event-detail-content">
           <StringToHTML string={content.text?.data || ''} />
         </div>
+        <CclButton url="#" disabled={false}>
+          {'Register here'}
+        </CclButton>
       </div>
     </div>
   );

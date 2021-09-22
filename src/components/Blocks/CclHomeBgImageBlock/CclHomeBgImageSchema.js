@@ -19,7 +19,15 @@ export const HomeBgImageSchema = (config, hasButton) => {
       {
         id: 'default',
         title: 'Default',
-        fields: ['title', 'subtitle', 'description', 'variation', 'hasButton'],
+        fields: [
+          'title',
+          'subtitle',
+          'description',
+          'variation',
+          'greenText',
+          'location',
+          'hasButton',
+        ],
       },
       ...hasButtonFieldset,
     ],
@@ -48,6 +56,16 @@ export const HomeBgImageSchema = (config, hasButton) => {
         title: 'Variation',
         type: 'array',
         choices: [...variations],
+      },
+      greenText: {
+        title: 'Left text',
+        description: 'Green bg left side text',
+        type: 'string',
+      },
+      location: {
+        title: 'Location',
+        description: 'Green bg location',
+        type: 'string',
       },
       buttonTitle: {
         title: 'Title',

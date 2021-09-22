@@ -45,9 +45,10 @@ const Logo = () => {
   return (
     <div className="ccl-header-logos-container">
       <div className="ccl-header-logo-container">
-        <Link
-          to={'https://www.copernicus.eu/en'}
-          title={intl.formatMessage(messages.copernicussite)}
+        <a
+          href="https://www.copernicus.eu/en"
+          target="_blank"
+          rel="noreferrer"
           className="ccl-header-logo ccl-service-button"
         >
           <Image
@@ -56,7 +57,7 @@ const Logo = () => {
             title={intl.formatMessage(messages.copernicuslogo)}
             height={44}
           />
-        </Link>
+        </a>
         <Link
           to={settings.isMultilingual ? `/${lang}` : '/'}
           title={intl.formatMessage(messages.site)}

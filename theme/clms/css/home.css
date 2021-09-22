@@ -106,7 +106,6 @@
   margin-right: 0.5rem;
 }
 
-
 /* Products band */
 .home-products-container {
   display: flex;
@@ -159,10 +158,11 @@
   font-weight: normal;
   text-align: center;
 }
-@media (max-width: 1200px) { 
+@media (max-width: 1200px) {
   .home-product-title {
     width: 100%;
   }
+
   .home-product-description {
     width: 100%;
   }
