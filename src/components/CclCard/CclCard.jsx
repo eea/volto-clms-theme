@@ -83,6 +83,9 @@ function CclCard(props) {
                 <div className="card-event-title">
                   <Link to={url}>{card?.title || 'Event default title'}</Link>
                 </div>
+                <div class="card-event-date">
+                  {new Date(card?.effective).toLocaleDateString()}
+                </div>
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                   <div className="card-event-when-text">
