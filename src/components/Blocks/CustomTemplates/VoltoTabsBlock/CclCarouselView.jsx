@@ -3,89 +3,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { /* Icon, */ RenderBlocks } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-/* import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
-import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
-import cx from 'classnames';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import '@eeacms/volto-tabs-block/less/carousel.less';*/
 
 const Slider = loadable(() => import('react-slick'));
-
-/* const Dots = (props) => {
-  const { activeTab = null, tabsList = [], slider = {} } = props;
-  return tabsList.length > 1 ? (
-    <div className="slick-dots-wrapper">
-      <div className="slick-line" />
-      <ul className={cx('slick-dots ui container', props.uiContainer)}>
-        {tabsList.map((tab, index) => (
-          <li
-            key={`dot-${tab}`}
-            className={cx({ 'slick-active': activeTab === tab })}
-          >
-            <button
-              onClick={() => {
-                if (slider.current) {
-                  slider.current.slickGoTo(index);
-                }
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  ) : (
-    ''
-  );
-};
-
-const ArrowsGroup = (props) => {
-  const { activeTab = null, tabsList = [], slider = {} } = props;
-  const currentSlide = tabsList.indexOf(activeTab);
-  const slideCount = tabsList.length;
-
-  return (
-    <div
-      className={cx({
-        'slick-arrows': true,
-        'one-arrow': currentSlide === 0 || currentSlide === slideCount - 1,
-      })}
-    >
-      {currentSlide > 0 ? (
-        <button
-          data-role="none"
-          className="slick-arrow slick-prev"
-          onClick={() => {
-            if (slider.current) {
-              slider.current.slickPrev();
-            }
-          }}
-        >
-          <Icon name={leftArrowSVG} size="50px" />
-        </button>
-      ) : (
-        ''
-      )}
-      {currentSlide < slideCount - 1 ? (
-        <button
-          data-role="none"
-          className="slick-arrow slick-next"
-          onClick={() => {
-            if (slider.current) {
-              slider.current.slickNext();
-            }
-          }}
-        >
-          <Icon name={rightArrowSVG} size="50px" />
-        </button>
-      ) : (
-        ''
-      )}
-    </div>
-  );
-}; */
 
 const View = (props) => {
   const slider = React.useRef(null);
@@ -100,7 +21,6 @@ const View = (props) => {
     setActiveTab = () => {},
   } = props;
   const activeTabIndex = tabsList.indexOf(activeTab);
-  // const uiContainer = data.align === 'full' ? 'ui container' : false;
 
   const settings = {
     dots: true,
@@ -108,7 +28,7 @@ const View = (props) => {
     speed: 1500,
     fade: true,
     cssEase: 'linear',
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     swipe: true,
     slidesToShow: 1,
@@ -165,11 +85,9 @@ const View = (props) => {
 
   return (
     <>
-      <Slider {...settings} ref={slider} className={'home-carousel'}>
+      <Slider {...settings} ref={slider} className="home-carousel">
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
-      {/* <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} />
-      <Dots activeTab={activeTab} tabsList={tabsList} slider={slider} /> */}
     </>
   );
 };
