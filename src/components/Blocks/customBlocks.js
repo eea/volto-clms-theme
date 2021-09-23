@@ -34,6 +34,7 @@ import {
   CclTabsView,
   CclVerticalTabsView,
   CclVerticalFaqTabsView,
+  CclCarouselView,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import {
@@ -104,6 +105,12 @@ const customBlocks = (config) => ({
         title: 'CCL Vertical FAQ Tabs',
         edit: DefaultEdit,
         view: CclVerticalFaqTabsView,
+        schema: defaultSchema,
+      },
+      CCLCarousel: {
+        title: 'CCL Carousel (Copernicus Style Guide)',
+        edit: DefaultEdit,
+        view: CclCarouselView,
         schema: defaultSchema,
       },
       ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
