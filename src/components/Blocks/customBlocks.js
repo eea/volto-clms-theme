@@ -34,6 +34,7 @@ import {
   CclTabsView,
   CclVerticalTabsView,
   CclVerticalFaqTabsView,
+  CclCarouselView,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import {
@@ -60,6 +61,9 @@ import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUs
 
 import CclTechnicalLibrariesListView from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListView';
 import CclTechnicalLibrariesListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListEdit';
+
+import upSVG from '@plone/volto/icons/up-key.svg';
+import downSVG from '@plone/volto/icons/down-key.svg';
 
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
@@ -104,6 +108,12 @@ const customBlocks = (config) => ({
         title: 'CCL Vertical FAQ Tabs',
         edit: DefaultEdit,
         view: CclVerticalFaqTabsView,
+        schema: defaultSchema,
+      },
+      CCLCarousel: {
+        title: 'CCL Carousel (Copernicus Style Guide)',
+        edit: DefaultEdit,
+        view: CclCarouselView,
         schema: defaultSchema,
       },
       ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
@@ -163,6 +173,13 @@ const customBlocks = (config) => ({
         template: CclListingWorkOpportunities,
       },
     ],
+  },
+  accordion: {
+    ...config.blocks.blocksConfig.accordion,
+    titleIcons: {
+      closed: { leftPosition: downSVG, rightPosition: downSVG },
+      opened: { leftPosition: upSVG, rightPosition: upSVG },
+    },
   },
   contextNavigation: {
     id: 'contextNavigation', // The name (id) of the block

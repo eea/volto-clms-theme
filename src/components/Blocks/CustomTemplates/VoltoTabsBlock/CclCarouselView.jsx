@@ -1,0 +1,103 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router';
+import loadable from '@loadable/component';
+import { RenderBlocks } from '@plone/volto/components';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import './custom.less';
+
+const Slider = loadable(() => import('react-slick'));
+
+const View = (props) => {
+  const slider = React.useRef(null);
+  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+  const {
+    activeTab = null,
+    data = {},
+    hashlink = {},
+    metadata = {},
+    tabsList = [],
+    tabs = {},
+    setActiveTab = () => {},
+  } = props;
+  const activeTabIndex = tabsList.indexOf(activeTab);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1500,
+    fade: true,
+    cssEase: 'linear',
+    autoplay: true,
+    autoplaySpeed: 3000,
+    swipe: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    touchMove: true,
+    beforeChange: (oldIndex, index) => {
+      setActiveTab(tabsList[index]);
+    },
+  };
+
+  React.useEffect(() => {
+    const urlHash = props.location.hash.substring(1) || '';
+    if (
+      hashlink.counter > 0 ||
+      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
+    ) {
+      const id = hashlink.hash || urlHash || '';
+      const index = tabsList.indexOf(id);
+      const parentId = data.id || props.id;
+      const parent = document.getElementById(parentId);
+      // TODO: Find the best way to add offset relative to header
+      //       The header can be static on mobile and relative on > mobile
+      // const headerWrapper = document.querySelector('.header-wrapper');
+      // const offsetHeight = headerWrapper?.offsetHeight || 0;
+      const offsetHeight = 0;
+      if (id !== parentId && index > -1 && parent) {
+        if (activeTabIndex !== index) {
+          slider.current.slickGoTo(index);
+        }
+        props.scrollToTarget(parent, offsetHeight);
+      } else if (id === parentId && parent) {
+        props.scrollToTarget(parent, offsetHeight);
+      }
+    }
+    if (!hashlinkOnMount) {
+      setHashlinkOnMount(true);
+    }
+    /* eslint-disable-next-line */
+  }, [hashlink.counter]);
+
+  const panes = tabsList.map((tab, index) => {
+    return {
+      id: tab,
+      renderItem: (
+        <RenderBlocks
+          key={`slide-${tab}`}
+          {...props}
+          metadata={metadata}
+          content={tabs[tab]}
+        />
+      ),
+    };
+  });
+
+  return (
+    <>
+      <Slider {...settings} ref={slider} className="home-carousel">
+        {panes.length ? panes.map((pane) => pane.renderItem) : ''}
+      </Slider>
+    </>
+  );
+};
+
+export default compose(
+  connect((state) => {
+    return {
+      hashlink: state.hashlink,
+    };
+  }),
+  withScrollToTarget,
+)(withRouter(View));

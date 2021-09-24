@@ -10,6 +10,7 @@ import { MapViewer } from '@eeacms/volto-arcgis-block/components';
 import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
 import { useDispatch } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
+import { getBaseUrl } from '@plone/volto/helpers';
 const CLMSMapViewerView = (props) => {
   const dispatch = useDispatch();
 
@@ -87,7 +88,7 @@ const CLMSMapViewerView = (props) => {
       <Helmet title={formatMessage(messages.DownloadByArea)} />
       <MapViewer
         cfg={config_by_area}
-        url={props.location.pathname.replace('download-by-area', '@mapviewer')}
+        url={getBaseUrl(props.location.pathname)}
         customClass={'land'}
         id={props.location.pathname}
       ></MapViewer>

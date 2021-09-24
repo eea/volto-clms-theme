@@ -6,6 +6,7 @@ import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './fontawesome';
 import cx from 'classnames';
+import './custom.less';
 
 const CclVerticalFaqTabsView = (props) => {
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);

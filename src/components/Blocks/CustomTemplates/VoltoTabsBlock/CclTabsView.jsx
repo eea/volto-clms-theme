@@ -99,8 +99,8 @@ const CclTabsView = (props) => {
               aria-controls={title || defaultTitle}
               aria-selected={tab === activeTab}
               active={(tab === activeTab).toString()}
-              /* classname hontan estiloa aldatu behar da aukeratutako tab-a urdin ikusteko */
-              className={cx('tab', tab !== activeTab && 'tab-selected')}
+              /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatu */
+              className={cx('tab', tab === activeTab && 'tab-selected')}
               onClick={() => {
                 if (activeTab !== tab) {
                   setActiveTab(tab);
