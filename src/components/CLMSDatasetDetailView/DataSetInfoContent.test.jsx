@@ -33,6 +33,7 @@ describe('DataSetInfoContent', () => {
         data: 'Source data',
       },
       dataResourceLocator: 'Resource locator',
+      dataResourceTitle: 'example dataResourceTitle',
     };
     const datasetInfo = renderer
       .create(
