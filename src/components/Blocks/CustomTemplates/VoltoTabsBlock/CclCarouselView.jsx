@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import './custom.less';
 
 const Slider = loadable(() => import('react-slick'));
 
