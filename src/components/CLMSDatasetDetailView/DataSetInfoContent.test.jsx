@@ -2,9 +2,23 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import DataSetInfoContent from './DataSetInfoContent';
 import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 describe('DataSetInfoContent', () => {
   it('Check dataset info view', () => {
+    const mockStore = configureStore();
+
+    const store = mockStore({
+      userSession: {
+        token: 'cart_session',
+      },
+      intl: {
+        locale: 'en',
+        messages: {},
+      },
+    });
+
     const data = {
       dataResourceAbstract: {
         title: 'example title',
@@ -22,11 +36,13 @@ describe('DataSetInfoContent', () => {
     };
     const datasetInfo = renderer
       .create(
-        <MemoryRouter>
-          <DataSetInfoContent data={data}>
-            <p>Dataset info view test</p>
-          </DataSetInfoContent>
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter>
+            <DataSetInfoContent data={data}>
+              <p>Dataset info view test</p>
+            </DataSetInfoContent>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(datasetInfo).toBeDefined();

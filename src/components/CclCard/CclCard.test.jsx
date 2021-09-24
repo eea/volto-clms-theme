@@ -10,6 +10,10 @@ describe('CclCard', () => {
         'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
       end:
         'Wed May 26 2024 12:49:04 GMT+0200 (hora de verano de Europa central)',
+      file: {
+        size: 92383,
+      },
+      title: 'Test 001',
     };
     let start = new Date(card?.start);
     let end = new Date(card?.end);

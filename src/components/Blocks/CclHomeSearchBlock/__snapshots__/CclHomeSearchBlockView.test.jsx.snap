@@ -8,7 +8,7 @@ exports[`CclSearchBlock Check search block edit 1`] = `
     className="ccl-container"
   >
     <h3>
-      Find and download data
+      Test title!
     </h3>
     <div
       className="home-datasets-search"
@@ -39,10 +39,11 @@ exports[`CclSearchBlock Check search block edit 1`] = `
       className="home-datasets-text"
     >
       <span>
-        More than XXX.XXX datasets in our 
+        More than 999 datasets in our 
       </span>
       <a
-        href="./dataset-catalogue.html"
+        href="/"
+        onClick={[Function]}
       >
         Dataset catalogue
       </a>
@@ -59,7 +60,7 @@ exports[`CclSearchBlock Check search block view 1`] = `
     className="ccl-container"
   >
     <h3>
-      Find and download data
+      Test title!
     </h3>
     <div
       className="home-datasets-search"
@@ -90,13 +91,12 @@ exports[`CclSearchBlock Check search block view 1`] = `
       className="home-datasets-text"
     >
       <span>
-        More than XXX.XXX datasets in our 
+        More than 999 datasets in our 
       </span>
       <a
-        href="./dataset-catalogue.html"
-      >
-        Dataset catalogue
-      </a>
+        href="/"
+        onClick={[Function]}
+      />
     </div>
   </div>
 </div>

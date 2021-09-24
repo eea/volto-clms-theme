@@ -3,8 +3,39 @@ import renderer from 'react-test-renderer';
 import CLMSDatasetDetailView from './CLMSDatasetDetailView';
 import { MemoryRouter } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+
 describe('CLMSDatasetDetailView', () => {
   it('Check metadata view', () => {
+    const mockStore = configureStore();
+
+    const store = mockStore({
+      content: {
+        title: 'Test title!',
+        // dataset: {
+        //   downloadable_files: {
+        //     items: {
+        //       name: 'dsad',
+        //       UID: '123',
+        //       unique_id: 123,
+        //       '@id': 123,
+        //     },
+        //   },
+        // },
+
+        // create: {},
+        // data: {},
+      },
+      userSession: {
+        token: '',
+      },
+      intl: {
+        locale: 'en',
+        messages: {},
+      },
+    });
+
     const content = {
       url: './example',
       download: true,
@@ -27,11 +58,13 @@ describe('CLMSDatasetDetailView', () => {
     };
     const DatasetDetailView = renderer
       .create(
-        <MemoryRouter>
-          <CLMSDatasetDetailView content={content}>
-            <p>Metadata view test</p>
-          </CLMSDatasetDetailView>
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter>
+            <CLMSDatasetDetailView content={content}>
+              <p>Metadata view test</p>
+            </CLMSDatasetDetailView>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(DatasetDetailView).toBeDefined();
