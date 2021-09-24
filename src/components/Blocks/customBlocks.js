@@ -62,6 +62,9 @@ import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUs
 import CclTechnicalLibrariesListView from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListView';
 import CclTechnicalLibrariesListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListEdit';
 
+import upSVG from '@plone/volto/icons/up-key.svg';
+import downSVG from '@plone/volto/icons/down-key.svg';
+
 export const customGroupBlocksOrder = {
   id: 'ccl_blocks',
   title: 'Ccl Blocks',
@@ -170,6 +173,13 @@ const customBlocks = (config) => ({
         template: CclListingWorkOpportunities,
       },
     ],
+  },
+  accordion: {
+    ...config.blocks.blocksConfig.accordion,
+    titleIcons: {
+      closed: { leftPosition: downSVG, rightPosition: downSVG },
+      opened: { leftPosition: upSVG, rightPosition: upSVG },
+    },
   },
   contextNavigation: {
     id: 'contextNavigation', // The name (id) of the block
