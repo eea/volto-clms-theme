@@ -100,7 +100,7 @@ function CclCard(props) {
                   <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
                   <div className="card-event-where-text">{card?.location}</div>
                 </div>
-                <p className="card-description">{card?.description}</p>
+                <p className="card-event-description">{card?.description}</p>
               </div>
             </>
           )}
