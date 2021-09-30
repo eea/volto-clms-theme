@@ -25,14 +25,18 @@ export const CLMSEventView = (props) => {
         <div className="event-detail-when">
           <i className="far fa-calendar-alt"></i>
           <div className="event-detail-when-text">
-            {new Date(content?.effective).toLocaleDateString()} -{' '}
+            {new Date(content?.start).toLocaleDateString()} -{' '}
             {new Date(content?.end).toLocaleDateString()}
           </div>
         </div>
-        <div className="event-detail-where">
-          <i className="fas fa-map-marker-alt"></i>
-          <div className="event-detail-where-text">{content?.location}</div>
-        </div>
+        {content?.location ? (
+          <div className="event-detail-where">
+            <i className="fas fa-map-marker-alt"></i>
+            <div className="event-detail-where-text">{content?.location}</div>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="event-detail-content">
           <StringToHTML string={content.text?.data || ''} />
         </div>
