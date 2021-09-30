@@ -319,7 +319,7 @@
 .home-news-events-block {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   padding: 3rem 1rem;
   background-color: #a0b1280f;
 }
