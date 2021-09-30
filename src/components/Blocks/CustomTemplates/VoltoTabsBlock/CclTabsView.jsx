@@ -128,9 +128,11 @@ const CclTabsView = (props) => {
   };
 
   return (
-    <div className="ccl-container tab-container">
-      <TabsComponent />
-      <PanelsComponent />
+    <div className="home-news-events-block">
+      <div className="ccl-container tab-container">
+        <TabsComponent />
+        <PanelsComponent />
+      </div>
     </div>
   );
 };
