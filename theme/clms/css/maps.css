@@ -455,7 +455,8 @@
 	font-size: 1rem;
 }
 
-.land .active-layer-options i:hover {
+.land .active-layer-options i:hover,
+.land .active-layer-options svg:hover {
 	color: #7c8921;
 }
 
