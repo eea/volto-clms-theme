@@ -117,7 +117,7 @@
   width: 33.3333%;
   height: 14vw;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   padding: 2rem;
   border: 1px solid #a0b128;
@@ -343,6 +343,10 @@
   width: 100%;
   padding: 2rem;
   background: #fffffff6;
+}
+
+.home-news-events-block .tab-container {
+  width: 100%;
 }
 
 .tab-container .panel {

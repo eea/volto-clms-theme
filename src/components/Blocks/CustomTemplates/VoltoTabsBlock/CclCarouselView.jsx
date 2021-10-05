@@ -26,15 +26,11 @@ const View = (props) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1500,
+    speed: 2000,
     fade: true,
     cssEase: 'linear',
     autoplay: true,
-    autoplaySpeed: 3000,
-    swipe: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    touchMove: true,
+    autoplaySpeed: 5000,
     beforeChange: (oldIndex, index) => {
       setActiveTab(tabsList[index]);
     },

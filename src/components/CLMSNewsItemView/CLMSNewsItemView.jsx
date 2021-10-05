@@ -7,10 +7,10 @@ const CLMSNewsItemView = (props) => {
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
       <div className="news-detail">
-        <div class="news-detail-date">
+        <div className="news-detail-date">
           {new Date(content?.effective).toLocaleDateString()}
         </div>
-        <figure class="news-detail-image">
+        <figure className="news-detail-image">
           <img
             src={
               content?.image
@@ -19,7 +19,7 @@ const CLMSNewsItemView = (props) => {
             }
             alt={content?.image ? content?.image?.filename : 'Placeholder'}
           />
-          <figcaption>{content?.description}</figcaption>
+          <figcaption>{content?.image_caption}</figcaption>
         </figure>
         <div className="news-detail-content">
           <StringToHTML string={content.text?.data || ''} />

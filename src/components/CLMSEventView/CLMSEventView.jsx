@@ -8,10 +8,10 @@ export const CLMSEventView = (props) => {
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
       <div className="event-detail">
-        <div class="event-detail-date">
+        <div className="event-detail-date">
           {new Date(content?.effective).toLocaleDateString()}
         </div>
-        <figure class="news-detail-image">
+        <figure className="news-detail-image">
           <img
             src={
               content?.image
@@ -20,19 +20,23 @@ export const CLMSEventView = (props) => {
             }
             alt={content?.image ? content?.image?.filename : 'Placeholder'}
           />
-          <figcaption>{content?.description}</figcaption>
+          <figcaption>{content?.image_caption}</figcaption>
         </figure>
-        <div class="event-detail-when">
-          <i class="far fa-calendar-alt"></i>
-          <div class="event-detail-when-text">
-            {new Date(content?.effective).toLocaleDateString()} -{' '}
+        <div className="event-detail-when">
+          <i className="far fa-calendar-alt"></i>
+          <div className="event-detail-when-text">
+            {new Date(content?.start).toLocaleDateString()} -{' '}
             {new Date(content?.end).toLocaleDateString()}
           </div>
         </div>
-        <div class="event-detail-where">
-          <i class="fas fa-map-marker-alt"></i>
-          <div class="event-detail-where-text">{content?.location}</div>
-        </div>
+        {content?.location ? (
+          <div className="event-detail-where">
+            <i className="fas fa-map-marker-alt"></i>
+            <div className="event-detail-where-text">{content?.location}</div>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="event-detail-content">
           <StringToHTML string={content.text?.data || ''} />
         </div>

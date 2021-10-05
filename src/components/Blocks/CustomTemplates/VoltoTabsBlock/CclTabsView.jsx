@@ -99,7 +99,7 @@ const CclTabsView = (props) => {
               aria-controls={title || defaultTitle}
               aria-selected={tab === activeTab}
               active={(tab === activeTab).toString()}
-              /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatu */
+              /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatuz nahikoa da */
               className={cx('tab', tab === activeTab && 'tab-selected')}
               onClick={() => {
                 if (activeTab !== tab) {
@@ -128,9 +128,11 @@ const CclTabsView = (props) => {
   };
 
   return (
-    <div className="ccl-container tab-container">
-      <TabsComponent />
-      <PanelsComponent />
+    <div className="home-news-events-block">
+      <div className="ccl-container tab-container">
+        <TabsComponent />
+        <PanelsComponent />
+      </div>
     </div>
   );
 };

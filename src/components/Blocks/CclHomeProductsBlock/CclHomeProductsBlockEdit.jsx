@@ -72,7 +72,9 @@ const CclHomeProductsBlockEdit = (props) => {
             ) : (
               <>
                 <div className="home-product-title">{panel.title}</div>
-                <div class="home-product-description">{panel.description}</div>
+                <div className="home-product-description">
+                  {panel.description}
+                </div>
               </>
             )}
           </div>
