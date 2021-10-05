@@ -83,7 +83,7 @@ function CclCard(props) {
                 <div className="card-event-title">
                   <Link to={url}>{card?.title || 'Event default title'}</Link>
                 </div>
-                <div class="card-event-date">
+                <div className="card-event-date">
                   {new Date(card?.effective).toLocaleDateString()}
                 </div>
                 <div className="card-event-when">
@@ -96,11 +96,19 @@ function CclCard(props) {
                         end.toLocaleDateString()}
                   </div>
                 </div>
-                <div className="card-event-where">
-                  <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
-                  <div className="card-event-where-text">{card?.location}</div>
-                </div>
-                <p className="card-event-description">{card?.description}</p>
+                {card?.location ? (
+                  <div className="card-event-where">
+                    <>
+                      <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
+                      <div className="card-event-where-text">
+                        {card?.location}
+                      </div>
+                    </>
+                  </div>
+                ) : (
+                  ''
+                )}
+                <p className="card-description">{card?.description}</p>
               </div>
             </>
           )}
