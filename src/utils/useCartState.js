@@ -11,8 +11,8 @@ const useCartState = () => {
   const [savedToCard, setSavedToCard] = useState(false);
   const [toasTime, setToastTime] = useState(3000);
   const CART_SESSION_USER_KEY = useSelector((state) =>
-    state.userSession.token
-      ? CART_SESSION_KEY.concat(state.userSession.token)
+    state.users.user.id
+      ? CART_SESSION_KEY.concat(`_${state.users.user.id}`)
       : CART_SESSION_KEY,
   );
   const isLoggedIn = useSelector((state) =>
