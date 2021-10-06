@@ -15,11 +15,14 @@ import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { postDownloadtool } from '../../actions';
+import { Button, Progress } from 'semantic-ui-react';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
   const { cart, removeCartItem, isLoggedIn } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
+  const [downloadPercent, setDownloadPercent] = useState(0);
+
   const selectCart = (id, checked) => {
     if (checked) setCartSelection(cartSelection.concat(id));
     else setCartSelection(cartSelection.filter((arr_id) => arr_id !== id));
@@ -60,7 +63,9 @@ const CLMSDownloadCartView = (props) => {
   const getSelectedCartItems = () => {
     return cart.filter((item) => cartSelection.indexOf(item.unique_id) > -1);
   };
-
+  const increment = () => {
+    setDownloadPercent(downloadPercent >= 100 ? 0 : downloadPercent + 20);
+  };
   return (
     <>
       <Helmet title={formatMessage(messages.Cart)} />
@@ -86,6 +91,17 @@ const CLMSDownloadCartView = (props) => {
               <FormattedMessage id="Cart" defaultMessage="Cart" />
             </h1>
             <div className="page-description">
+              {downloadPercent > 0 && (
+                <>
+                  <Progress percent={downloadPercent} indicating />
+                  <Button onClick={() => increment()}>
+                    {downloadPercent < 100
+                      ? 'Increment (For testing)'
+                      : 'Reset progress'}
+                  </Button>
+                  <br />
+                </>
+              )}
               <FormattedMessage
                 id="Lorem"
                 defaultMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
@@ -236,7 +252,7 @@ const CLMSDownloadCartView = (props) => {
                 <CclButton
                   onClick={() => {
                     let selectedItems = getSelectedCartItems();
-                    selectedItems.forearch((selected) => {
+                    selectedItems.forEach((selected) => {
                       const item = {
                         UserID: selected['UID'],
                         DatasetID: selected['@id'],
