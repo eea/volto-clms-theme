@@ -79,7 +79,7 @@ const useCartState = () => {
   useEffect(() => {
     getCartSessionStorage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [CART_SESSION_USER_KEY]);
 
   useEffect(() => {
     dispatch(setCartItems(cart));
