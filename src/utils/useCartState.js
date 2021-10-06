@@ -28,6 +28,10 @@ const useCartState = () => {
   //   ),
   // );
 
+  useEffect(() => {
+    getCartSessionStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [CART_SESSION_USER_KEY]);
   const dispatch = useDispatch();
 
   const saveItems = (values) => {
@@ -75,11 +79,6 @@ const useCartState = () => {
       (arr, index, self) =>
         index === self.findIndex((t) => t.unique_id === arr.unique_id),
     );
-
-  useEffect(() => {
-    getCartSessionStorage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [CART_SESSION_USER_KEY]);
 
   useEffect(() => {
     dispatch(setCartItems(cart));

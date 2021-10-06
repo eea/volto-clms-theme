@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { postDownloadtool } from '../../actions';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
@@ -55,6 +56,10 @@ const CLMSDownloadCartView = (props) => {
       dispatch(getExtraBreadcrumbItems([]));
     };
   }, [dispatch, formatMessage, messages.Cart, props.location.pathname]);
+
+  const getSelectedCartItems = () => {
+    return cart.filter((item) => cartSelection.indexOf(item.unique_id) > -1);
+  };
 
   return (
     <>
@@ -230,11 +235,19 @@ const CLMSDownloadCartView = (props) => {
               {cart.length !== 0 && (
                 <CclButton
                   onClick={() => {
-                    // eslint-disable-next-line no-alert
-                    alert(
-                      'ToDo\nSelected content:\n' +
-                        JSON.stringify(cartSelection),
-                    );
+                    let selectedItems = getSelectedCartItems();
+                    selectedItems.forearch((selected) => {
+                      const item = {
+                        UserID: selected['UID'],
+                        DatasetID: selected['@id'],
+                        //DatasetFormat: selected['type'], // Formats: "Shapefile"|"GDB"|"GPKG"|"Geojson"|"Geotiff"|"Netcdf"|"GML"|"WFS"
+                        DatasetFormat: 'Shapefile',
+                        // OutputFormat:selected['format'],
+                        // DatasetPath: selected['path'],
+                        OutputFormat: 'GDB',
+                      };
+                      dispatch(postDownloadtool(item));
+                    });
                   }}
                   disabled={cartSelection.length === 0}
                 >
