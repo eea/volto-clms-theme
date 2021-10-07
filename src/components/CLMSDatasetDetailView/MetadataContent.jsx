@@ -47,13 +47,13 @@ const MetadataContent = (data) => {
         <CclInfoDescription
           title="Lineage"
           tooltip="General explanation of the data produce knowledge's about the lineage of a dataset"
-          description={<StringToHTML string={data.qualityLineage.data} />}
+          description={<StringToHTML string={data.qualityLineage?.data} />}
         />
         <CclInfoDescription
           title="Spatial resolution"
           tooltip="A set of zero to many resolution distances (typically for gridded data and imagery-derived products) or equivalent scales (typically for maps or map-derived products)"
           description={
-            <StringToHTML string={data.qualitySpatialResolution.data} />
+            <StringToHTML string={data.qualitySpatialResolution?.data} />
           }
         />
       </CclInfoContainer>
@@ -63,7 +63,7 @@ const MetadataContent = (data) => {
           title="Specification"
           tooltip="A citation of the implementing rules adopted under Article 7(1) of Directive 2007/2/EC or other specification to which a particular resource conforms"
           description={
-            <StringToHTML string={data.conformitySpecification.data} />
+            <StringToHTML string={data.conformitySpecification?.data} />
           }
         />
       </CclInfoContainer>
@@ -73,14 +73,14 @@ const MetadataContent = (data) => {
           title="Conditions applying to access and use"
           tooltip="Restriction on the access and use of a resource or metadata"
           description={
-            <StringToHTML string={data.accessAndUseConstraints.data} />
+            <StringToHTML string={data.accessAndUseConstraints?.data} />
           }
         />
         <CclInfoDescription
           title="Limitation of public access"
           tooltip="Limitation and other reason for public access"
           description={
-            <StringToHTML string={data.accessAndUseLimitationPublic.data} />
+            <StringToHTML string={data.accessAndUseLimitationPublic?.data} />
           }
         />
       </CclInfoContainer>
@@ -89,13 +89,13 @@ const MetadataContent = (data) => {
         <CclInfoDescription
           title="Responsible party"
           tooltip="Organisation associated with the resource. Organisation name, contact information (email)."
-          description={<StringToHTML string="{data.owners.data}" />}
+          description={<StringToHTML string="{data.owners?.data}" />}
         />
         <CclInfoDescription
           title="Responsible party role"
           tooltip="Function performed by the party"
           description={
-            <StringToHTML string="{data.responsiblePartyRole.data}" />
+            <StringToHTML string="{data.responsiblePartyRole?.data}" />
           }
         />
       </CclInfoContainer>
