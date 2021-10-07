@@ -4,7 +4,6 @@
  */
 export const GET_CART_ITEMS = 'GET_CART_ITEMS';
 export const SET_CART_ITEMS = 'SET_CART_ITEMS';
-
 /**
  * Set Cart items.
  * @function setCartItems
@@ -22,10 +21,9 @@ export function setCartItems(items) {
  * @function getCartItems
  * @returns {Object} Get extra items action.
  */
-export function getCartItems(token, localStorage) {
+export function getCartItems(user_id) {
   return {
     type: GET_CART_ITEMS,
-    token,
-    localStorage,
+    user_id: user_id,
   };
 }
