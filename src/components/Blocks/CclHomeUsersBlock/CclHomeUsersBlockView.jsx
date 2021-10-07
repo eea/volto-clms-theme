@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './styles.less';
@@ -70,9 +71,7 @@ const CclHomeUsersBlockView = (props) => {
             </div>
           ))}
         </Slider>
-        <a className="ccl-button ccl-button--default" href="./use-cases.html">
-          All use cases
-        </a>
+        <CclButton url={'/use-cases'}>{'All use cases'}</CclButton>
       </div>
     </div>
   );
