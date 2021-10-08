@@ -1,21 +1,23 @@
 import React from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 const CclButtonBlockView = (props) => {
   const { data } = props;
+  const flattern_url = flattenToAppURL(data?.href?.[0]?.['@id']);
 
   return (
     <CclButton
       url={
-        data?.download && data?.href?.[0]?.['@type'] === 'File'
-          ? data?.href?.[0]?.['@id'] + '/@@download/file'
-          : data?.href?.[0]?.['@id']
+        data.download && data?.href?.[0]?.['@type'] === 'File'
+          ? flattern_url + '/@@download/file'
+          : flattern_url
       }
       disabled={data?.disabled}
       download={data?.download || data?.href?.[0]?.['@type'] === 'File'}
       target={
         data.target ||
-        (data?.download && data.href[0]['@type'] === 'File' && '_blank')
+        (data.download && data.href[0]['@type'] === 'File' && '_blank')
       }
       mode={data.style}
     >
