@@ -108,7 +108,7 @@ function CclCard(props) {
                 ) : (
                   ''
                 )}
-                <p className="card-description">{card?.description}</p>
+                <p className="card-event-description">{card?.description}</p>
               </div>
             </>
           )}
