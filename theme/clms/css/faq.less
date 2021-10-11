@@ -5,12 +5,14 @@
   }
 
   .accordion-title {
+    padding: 1rem;
     border-left: solid 4px #a0b128;
     color: #273b4b;
     font-size: 1.125rem;
   }
 
   h2.accordion-title span {
+    display: flex;
     font-size: 1.125rem;
   }
 
@@ -22,11 +24,11 @@
 
   h2.accordion-title span::before {
     margin-right: 1rem;
-    margin-bottom: 1rem;
     color: #a0b128;
     content: "Q";
     float: left;
     font-size: 1.75rem;
+    line-height: 1.125rem;
   }
 
   .accordion-block > .accordion {
@@ -40,8 +42,8 @@
     line-height: 1.5rem;
   }
 
-  .accordion .content > div > div {
-    margin-left: 2rem;
+  .accordion .content > div {
+    display: flex;
   }
 
   .accordion .content > div::before {
