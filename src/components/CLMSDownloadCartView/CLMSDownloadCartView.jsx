@@ -35,7 +35,11 @@ const CLMSDownloadCartView = (props) => {
 
   const selectAllCart = (checked) => {
     if (checked) {
-      setCartSelection(cart.map((item, key) => item.unique_id));
+      setCartSelection(
+        cart
+          .filter((item) => item.task_in_progress === false)
+          .map((item, key) => item.unique_id),
+      );
     } else {
       setCartSelection([]);
     }
@@ -75,7 +79,6 @@ const CLMSDownloadCartView = (props) => {
       (r) => r['unique_id'] === in_progress_dataset_id,
     )[0];
     if (started_processing_item['unique_id']) {
-      console.log('filter: ', started_processing_item);
       changeCartItemTaskStatus(started_processing_item['unique_id'], true);
     }
   };
@@ -153,6 +156,10 @@ const CLMSDownloadCartView = (props) => {
                               checked={
                                 cart
                                   ? cart
+                                      .filter(
+                                        (item) =>
+                                          item.task_in_progress === false,
+                                      )
                                       .map((item, key) => item.unique_id)
                                       .every(function (val) {
                                         return (
