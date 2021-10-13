@@ -104,7 +104,6 @@ const useCartState = () => {
       }
       return item;
     });
-    console.log('newcart: ', newcart);
     saveItems(newcart);
   };
   // return [cart, addCartItem, removeCartSessionStorage];

@@ -187,7 +187,14 @@ const CLMSDownloadCartView = (props) => {
                   <tbody>
                     {cart &&
                       cart.map((item, key) => (
-                        <tr key={key}>
+                        <tr
+                          key={key}
+                          style={
+                            item.task_in_progress
+                              ? { opacity: 0.5, backgroundColor: '#f5f5f5' }
+                              : {}
+                          }
+                        >
                           <td className="table-td-warning hidden-warning">
                             {!!item.warning && (
                               <span
