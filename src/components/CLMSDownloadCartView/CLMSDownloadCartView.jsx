@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
 import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 import { FormattedMessage } from 'react-intl';
@@ -15,14 +15,19 @@ import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { postDownloadtool } from '../../actions';
-import { Button, Progress } from 'semantic-ui-react';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
-  const { cart, removeCartItem, isLoggedIn } = useCartState();
+  const {
+    cart,
+    removeCartItem,
+    isLoggedIn,
+    changeCartItemTaskStatus,
+  } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
-  const [downloadPercent, setDownloadPercent] = useState(0);
-
+  const download_in_progress = useSelector(
+    (state) => state.downloadtool.download_in_progress,
+  );
   const selectCart = (id, checked) => {
     if (checked) setCartSelection(cartSelection.concat(id));
     else setCartSelection(cartSelection.filter((arr_id) => arr_id !== id));
@@ -63,9 +68,26 @@ const CLMSDownloadCartView = (props) => {
   const getSelectedCartItems = () => {
     return cart.filter((item) => cartSelection.indexOf(item.unique_id) > -1);
   };
-  const increment = () => {
-    setDownloadPercent(downloadPercent >= 100 ? 0 : downloadPercent + 20);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const setCartItemInProgress = (in_progress_dataset_id) => {
+    let started_processing_item = cart.filter(
+      (r) => r['unique_id'] === in_progress_dataset_id,
+    )[0];
+    if (started_processing_item['unique_id']) {
+      console.log('filter: ', started_processing_item);
+      changeCartItemTaskStatus(started_processing_item['unique_id'], true);
+    }
   };
+
+  useEffect(() => {
+    let progress_keys = Object.keys(download_in_progress);
+    progress_keys.forEach((progress_key) =>
+      setCartItemInProgress(download_in_progress[progress_key]['UserID']),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [download_in_progress]);
+
   return (
     <>
       <Helmet title={formatMessage(messages.Cart)} />
@@ -91,17 +113,6 @@ const CLMSDownloadCartView = (props) => {
               <FormattedMessage id="Cart" defaultMessage="Cart" />
             </h1>
             <div className="page-description">
-              {downloadPercent > 0 && (
-                <>
-                  <Progress percent={downloadPercent} indicating />
-                  <Button onClick={() => increment()}>
-                    {downloadPercent < 100
-                      ? 'Increment (For testing)'
-                      : 'Reset progress'}
-                  </Button>
-                  <br />
-                </>
-              )}
               <FormattedMessage
                 id="Lorem"
                 defaultMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
@@ -139,11 +150,17 @@ const CLMSDownloadCartView = (props) => {
                               onChange={(e, data) =>
                                 selectAllCart(data.checked)
                               }
-                              checked={cart
-                                .map((item, key) => item.unique_id)
-                                .every(function (val) {
-                                  return cartSelection.indexOf(val) !== -1;
-                                })}
+                              checked={
+                                cart
+                                  ? cart
+                                      .map((item, key) => item.unique_id)
+                                      .every(function (val) {
+                                        return (
+                                          cartSelection.indexOf(val) !== -1
+                                        );
+                                      })
+                                  : false
+                              }
                             />
                           </div>
                         </div>
@@ -187,6 +204,7 @@ const CLMSDownloadCartView = (props) => {
                                   checked={cartSelection.includes(
                                     item.unique_id,
                                   )}
+                                  disabled={item.task_in_progress}
                                 />
                               </div>
                             </div>
@@ -198,7 +216,7 @@ const CLMSDownloadCartView = (props) => {
                           <td>{item.resolution}</td>
                           <td>
                             <span
-                              className={'tag tag-' + item.type.toLowerCase()}
+                              className={'tag tag-' + item?.type?.toLowerCase()}
                             >
                               {item.type}
                             </span>
@@ -223,17 +241,21 @@ const CLMSDownloadCartView = (props) => {
                           <td>{item.version}</td>
                           <td>{item.size}</td>
                           <td>
-                            <FontAwesomeIcon
-                              icon={['fas', 'trash']}
-                              style={{ cursor: 'pointer' }}
-                              onClick={() => {
-                                removeCartItem(item.unique_id);
-                              }}
-                            />
+                            {item.task_in_progress ? (
+                              <FontAwesomeIcon icon="spinner" spin />
+                            ) : (
+                              <FontAwesomeIcon
+                                icon={['fas', 'trash']}
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => {
+                                  removeCartItem(item.unique_id);
+                                }}
+                              />
+                            )}
                           </td>
                         </tr>
                       ))}
-                    {cart.length === 0 && (
+                    {cart?.length === 0 && (
                       <>
                         <tr>
                           <td
@@ -248,18 +270,19 @@ const CLMSDownloadCartView = (props) => {
                   </tbody>
                 </table>
               </div>
-              {cart.length !== 0 && (
+              {cart?.length !== 0 && (
                 <CclButton
                   onClick={() => {
                     let selectedItems = getSelectedCartItems();
                     selectedItems.forEach((selected) => {
                       const item = {
-                        UserID: selected['UID'],
-                        DatasetID: selected['@id'],
+                        UserID: selected['unique_id'], // We need to send and return unique_id to can mark this element as a pending task selected['UID'], //USERID∫
+                        DatasetID: selected['UID'],
                         //DatasetFormat: selected['type'], // Formats: "Shapefile"|"GDB"|"GPKG"|"Geojson"|"Geotiff"|"Netcdf"|"GML"|"WFS"
                         DatasetFormat: 'Shapefile',
                         // OutputFormat:selected['format'],
                         // DatasetPath: selected['path'],
+
                         OutputFormat: 'GDB',
                       };
                       dispatch(postDownloadtool(item));

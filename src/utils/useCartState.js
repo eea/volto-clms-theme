@@ -96,6 +96,17 @@ const useCartState = () => {
     );
   };
 
+  const changeCartItemTaskStatus = async (unique_id, in_progress) => {
+    await getCartSessionStorage();
+    let newcart = cartState.map((item) => {
+      if (item['unique_id'] === unique_id) {
+        item['task_in_progress'] = in_progress;
+      }
+      return item;
+    });
+    console.log('newcart: ', newcart);
+    saveItems(newcart);
+  };
   // return [cart, addCartItem, removeCartSessionStorage];
 
   return {
@@ -105,6 +116,7 @@ const useCartState = () => {
     removeCartItem: removeCartItem,
     Toast: Toast,
     isLoggedIn: isLoggedIn,
+    changeCartItemTaskStatus: changeCartItemTaskStatus,
   };
 };
 
