@@ -29,8 +29,10 @@ const CclTopMainMenu = () => {
               ) : (
                 <li className="header-dropdown" key={index}>
                   <>
-                    <a> {item.title} </a>
-                    <span className="ccl-icon-chevron-thin-down header-dropdown"></span>
+                    <a>
+                      {item.title}{' '}
+                      <span className="ccl-icon-chevron-thin-down"></span>
+                    </a>
                     <ul>
                       {item.navigationRoot?.map((element, index) => (
                         <li key={index}>
