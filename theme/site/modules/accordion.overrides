@@ -21,3 +21,17 @@
   background: #a0b1280f;
   color: #212529;
 }
+
+h2.accordion-title span {
+  font-size: 1.125rem;
+}
+
+.accordion-title .icon {
+  min-width: 2rem;
+  color: #a0b128;
+  font-weight: bold;
+}
+
+.accordion-title:hover {
+   color: #273b4b !important;
+ }
