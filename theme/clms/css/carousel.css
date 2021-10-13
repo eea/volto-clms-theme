@@ -425,3 +425,7 @@
 .ccl-list-items.ccl-list-items-row .ccl-list-item {
   margin: 1rem;
 }
+
+.tabs-block .slick-slider:not(.slick-vertical) .slick-slide {
+  padding-top: 0;
+}
