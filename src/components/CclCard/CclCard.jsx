@@ -14,7 +14,7 @@ function bytesToSize(bytes) {
 }
 function CclCard(props) {
   const { type, children, card } = props;
-  let url = card ? card['@id'] || card.url || '/' : '/';
+  let url = card ? card['@id'] || card.hrerf || '/' : '/';
   let start = new Date(card?.start);
   let end = new Date(card?.end);
   return (
@@ -61,8 +61,8 @@ function CclCard(props) {
               </div>
               <div className="card-text">
                 <div className="card-description">{card?.description}</div>
-                <div class="card-button">
-                  <CclButton url={''}>Access to product</CclButton>
+                <div className="card-button">
+                  <CclButton url={url}>Access to product</CclButton>
                 </div>
                 {children}
               </div>

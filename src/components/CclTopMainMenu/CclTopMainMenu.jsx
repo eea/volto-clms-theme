@@ -28,10 +28,11 @@ const CclTopMainMenu = () => {
               ) : (
                 <li className="header-dropdown" key={index}>
                   <>
+                  <span className="ccl-icon-chevron-thin-down">
                     <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
                       {item.title}{' '}
-                      <span className="ccl-icon-chevron-thin-down"></span>
                     </Link>
+                  </span>
                     <ul>
                       {item.navigationRoot?.map((element, index) => (
                         <li key={index}>
