@@ -71,7 +71,7 @@ const CclHomeUsersBlockView = (props) => {
             </div>
           ))}
         </Slider>
-        <CclButton url={'/use-cases'}>{'All use cases'}</CclButton>
+        <CclButton url={'en/use-cases'}>{'All use cases'}</CclButton>
       </div>
     </div>
   );

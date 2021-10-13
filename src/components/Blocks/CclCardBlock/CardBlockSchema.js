@@ -4,7 +4,7 @@ export const CardBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'image', 'description', 'url', 'cardStyle'],
+      fields: ['title', 'image', 'description', 'href', 'cardStyle'],
     },
   ],
   properties: {
@@ -21,9 +21,13 @@ export const CardBlockSchema = () => ({
       title: 'Product description',
       type: 'string',
     },
-    url: {
-      title: 'url',
-      type: 'string',
+    href: {
+      title: 'URL',
+      description: 'Select site content or paste external url',
+      widget: 'object_browser',
+      mode: 'link',
+      selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
+      allowExternals: true,
     },
     cardStyle: {
       title: 'Card style',
@@ -32,6 +36,7 @@ export const CardBlockSchema = () => ({
         ['block', 'Block card'],
         ['line-color', 'Colored Line card'],
         ['event', 'Event card'],
+        ['news', 'News card'],
       ],
     },
   },
