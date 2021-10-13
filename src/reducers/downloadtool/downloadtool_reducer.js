@@ -9,7 +9,7 @@ const initialState = {
   error: null,
   loaded: false,
   loading: false,
-  downloadtool: {},
+  download_in_progress: {},
 };
 
 export const downloadtoolReducer = (state = initialState, action = {}) => {
@@ -35,7 +35,7 @@ export const downloadtoolReducer = (state = initialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        downloadtool: 'action.result',
+        download_in_progress: action.result,
       };
     default:
       return state;

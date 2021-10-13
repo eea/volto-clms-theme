@@ -12,7 +12,7 @@ export const SET_CART_ITEMS = 'SET_CART_ITEMS';
 export function setCartItems(items) {
   return {
     type: SET_CART_ITEMS,
-    items,
+    items: items,
   };
 }
 
@@ -21,6 +21,7 @@ export function setCartItems(items) {
  * @function getCartItems
  * @returns {Object} Get extra items action.
  */
+
 export function getCartItems(user_id) {
   return {
     type: GET_CART_ITEMS,
