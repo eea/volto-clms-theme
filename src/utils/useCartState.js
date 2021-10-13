@@ -7,70 +7,72 @@ import { useSelector } from 'react-redux';
 export const CART_SESSION_KEY = 'cart_session';
 
 const useCartState = () => {
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
   const [savedToCard, setSavedToCard] = useState(false);
   const [toasTime, setToastTime] = useState(3000);
-  const CART_SESSION_USER_KEY = useSelector((state) =>
-    state.users.user.id
-      ? CART_SESSION_KEY.concat(`_${state.users.user.id}`)
-      : CART_SESSION_KEY,
-  );
+  const [CART_SESSION_USER_KEY, SET_CART_SESSION_USER_KEY] = useState();
   const isLoggedIn = useSelector((state) =>
     state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
   )
     ? true
     : false;
-  // const cartState = useSelector((state) => state.cart_items.items);
-  // const state = store.getState();
-  // const [loggedInStatus, setLoggedInStatus] = useState(
-  //   useSelector((state) =>
-  //     state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
-  //   ),
-  // );
+
+  const user_id = useSelector((state) => state.users.user.id);
+  const cartState = useSelector((state) => state.cart_items.items);
 
   useEffect(() => {
+    user_id &&
+      SET_CART_SESSION_USER_KEY(CART_SESSION_KEY.concat(`_${user_id}`));
     getCartSessionStorage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [CART_SESSION_USER_KEY]);
+  }, [CART_SESSION_USER_KEY, user_id]);
   const dispatch = useDispatch();
 
   const saveItems = (values) => {
     let items = cleanDuplicatesEntries(values);
-    // localStorage.setItem(CART_SESSION_KEY, JSON.stringify(items));
     localStorage.setItem(CART_SESSION_USER_KEY, JSON.stringify(items));
-    setCart(items);
-
+    dispatch(setCartItems(items ?? []));
     setSavedToCard(true);
     setTimeout(() => setSavedToCard(false), toasTime);
   };
 
   const removeAllCart = () => {
     localStorage.removeItem(CART_SESSION_USER_KEY);
-    setCart([]);
+    dispatch(setCartItems([]));
   };
 
   const getCartSessionStorage = () => {
-    setCart(JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || []);
+    CART_SESSION_USER_KEY &&
+      dispatch(
+        setCartItems(
+          JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || [],
+        ),
+      );
   };
 
   const addCartItem = async (value) => {
+    let card_item = value.map((item) => {
+      item['task_in_progress'] = false;
+      return item;
+    });
     await getCartSessionStorage();
-    if (cart) {
-      saveItems(cart.concat(value));
+    if (cartState) {
+      saveItems(cartState.concat(card_item));
     } else {
-      saveItems(value);
+      saveItems(card_item);
     }
   };
 
   const removeCartItem = async (id) => {
     await getCartSessionStorage();
-    let newcart = cart.slice();
-    newcart.forEach((item) => {
+    let newcart = cartState.slice();
+    await newcart.forEach((item) => {
       if (item.unique_id === id) {
         newcart.splice(newcart.indexOf(item), 1);
       }
     });
-    setCart(newcart);
+
+    console.log(newcart);
     saveItems(newcart);
   };
 
@@ -79,10 +81,6 @@ const useCartState = () => {
       (arr, index, self) =>
         index === self.findIndex((t) => t.unique_id === arr.unique_id),
     );
-
-  useEffect(() => {
-    dispatch(setCartItems(cart));
-  }, [dispatch, cart]);
 
   const Toast = ({ message, time = toasTime }) => {
     return (
@@ -102,7 +100,7 @@ const useCartState = () => {
   // return [cart, addCartItem, removeCartSessionStorage];
 
   return {
-    cart: cart,
+    cart: cartState,
     addCartItem: addCartItem,
     removeAllCart: removeAllCart,
     removeCartItem: removeCartItem,
