@@ -24,7 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
 import { getCartItems } from '@eeacms/volto-clms-theme/actions';
 import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
-
+import { Link } from 'react-router-dom';
 /**
  * Header component class.
  * @class Header
@@ -136,8 +136,8 @@ class Header extends Component {
                   <li>
                     {(this.props.user.id && (
                       <>
-                        <a
-                          href={`/${this.props.locale}/profile`}
+                        <Link
+                          to={`/${this.props.locale}/profile`}
                           className="header-login-link"
                         >
                           {this.props.user.id && (
@@ -151,20 +151,20 @@ class Header extends Component {
                                 ''}
                             </>
                           )}
-                        </a>
+                        </Link>
                         {this.props.cart?.length !== 0 && this.props.cart && (
                           <>
                             <span className="header-vertical-line"> - </span>
                             <span>
-                              <a
-                                href={`/${this.props.locale}/cart`}
+                              <Link
+                                to={`/${this.props.locale}/cart`}
                                 className="header-login-link"
                               >
                                 <FontAwesomeIcon
                                   icon={['fas', 'shopping-cart']}
                                 />
                                 <strong>{this.props.cart?.length}</strong>
-                              </a>
+                              </Link>
                             </span>
                           </>
                         )}
@@ -173,25 +173,25 @@ class Header extends Component {
                           this.props.user.roles[0] === 'Member' && (
                             <>
                               <span className="header-vertical-line"> - </span>
-                              <a href="/logout" className="header-login-link">
+                              <Link to="/logout" className="header-login-link">
                                 <FormattedMessage
                                   id="logout"
                                   defaultMessage="Logout"
                                 />
-                              </a>
+                              </Link>
                             </>
                           )}
                       </>
                     )) || (
-                      <a
-                        href={`/${this.props.locale}/login`}
+                      <Link
+                        to={`/${this.props.locale}/login`}
                         className="header-login-link"
                       >
                         <FormattedMessage
                           id="loginRegister"
                           defaultMessage="Register/Login"
                         />
-                      </a>
+                      </Link>
                     )}
                   </li>
                 </ul>
@@ -233,8 +233,8 @@ class Header extends Component {
                   {(this.props.user.id && (
                     <>
                       <li>
-                        <a
-                          href={`/${this.props.locale}/profile`}
+                        <Link
+                          to={`/${this.props.locale}/profile`}
                           className="header-login-link"
                         >
                           {this.props.user.id && (
@@ -248,33 +248,33 @@ class Header extends Component {
                                 ''}
                             </>
                           )}
-                        </a>
+                        </Link>
                       </li>
 
                       {this.props.user.id &&
                         this.props.user.roles &&
                         this.props.user.roles[0] === 'Member' && (
                           <li>
-                            <a href="/logout" className="header-login-link">
+                            <Link to="/logout" className="header-login-link">
                               <FormattedMessage
                                 id="logout"
                                 defaultMessage="Logout"
                               />
-                            </a>
+                            </Link>
                           </li>
                         )}
                     </>
                   )) || (
                     <li>
-                      <a
-                        href={`/${this.props.locale}/login`}
+                      <Link
+                        to={`/${this.props.locale}/login`}
                         className="header-login-link"
                       >
                         <FormattedMessage
                           id="loginRegister"
                           defaultMessage="Register/Login"
                         />
-                      </a>
+                      </Link>
                     </li>
                   )}
                 </ul>

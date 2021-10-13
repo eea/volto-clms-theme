@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import './download-table.less';
 import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 import { Checkbox } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
+
 function CclDownloadTable(props) {
+  const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
   const { addCartItem, Toast, isLoggedIn, removeAllCart } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
@@ -121,7 +124,7 @@ function CclDownloadTable(props) {
         Add to cart
       </CclButton>
 
-      <CclButton url="/cart" disabled={!isLoggedIn}>
+      <CclButton url={`/${locale}/cart`} disabled={!isLoggedIn}>
         Show cart
       </CclButton>
 
