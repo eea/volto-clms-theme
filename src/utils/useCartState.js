@@ -72,7 +72,6 @@ const useCartState = () => {
       }
     });
 
-    console.log(newcart);
     saveItems(newcart);
   };
 
