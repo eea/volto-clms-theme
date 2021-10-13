@@ -45,7 +45,6 @@ const CclCardBlockEdit = (props) => {
     },
     url: data.url,
   };
-  console.log(data);
 
   return (
     <>
