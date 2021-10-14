@@ -7,8 +7,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDownloadtool, deleteDownloadtool } from '../../actions';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Loader } from 'semantic-ui-react';
+import { Loader, Popup } from 'semantic-ui-react';
 import removeSVG from '@plone/volto/icons/circle-dismiss.svg';
+import downloadSVG from '@plone/volto/icons/download.svg';
 import { Icon } from '@plone/volto/components';
 import './task_in_progress.less';
 
@@ -49,6 +50,7 @@ const CLMSTasksInProgress = (props) => {
     <>
       {taskInProgress.length !== 0 && (
         <div className="custom-table cart-table">
+          <h2>Tasks In Progress</h2>
           <table>
             <thead>
               <tr>
@@ -56,6 +58,7 @@ const CLMSTasksInProgress = (props) => {
                 <th>DatasetID || unique_id</th>
                 <th>OutputFormat</th>
                 <th>Status</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -71,9 +74,44 @@ const CLMSTasksInProgress = (props) => {
                     <td>{item.OutputFormat}</td>
 
                     <td>
-                      <Loader active inline indeterminate size="small" />
-
+                      <Popup
+                        content="In progress"
+                        size="small"
+                        trigger={
+                          <Loader active inline indeterminate size="small" />
+                        }
+                      />
                       {/* <FontAwesomeIcon icon="spinner" spin /> */}
+                    </td>
+                    <td>
+                      <Popup
+                        content="Download (Pending)"
+                        size="small"
+                        trigger={
+                          <button
+                            // disabled={true}
+                            onClick={() => {
+                              // deleteTaskInProgress(item.TaskID);
+                            }}
+                            style={{
+                              backgroundColor: 'none',
+                              color: 'inherit',
+                              border: 'none',
+                              padding: 0,
+                              font: 'inherit',
+                              cursor: 'pointer',
+                              outline: 'inherit',
+                            }}
+                          >
+                            <Icon
+                              name={downloadSVG}
+                              size="32px"
+                              color="#A0B128"
+                              title={'Download'}
+                            />
+                          </button>
+                        }
+                      />
                     </td>
                     <td>
                       {showDeleteTaskLoading === item.TaskID ? (
@@ -85,27 +123,33 @@ const CLMSTasksInProgress = (props) => {
                           className="red-loader"
                         />
                       ) : (
-                        <button
-                          onClick={() => {
-                            deleteTaskInProgress(item.TaskID);
-                          }}
-                          style={{
-                            backgroundColor: 'none',
-                            color: 'inherit',
-                            border: 'none',
-                            padding: 0,
-                            font: 'inherit',
-                            cursor: 'pointer',
-                            outline: 'inherit',
-                          }}
-                        >
-                          <Icon
-                            name={removeSVG}
-                            size="32px"
-                            color="#e40166"
-                            title={'remove'}
-                          />
-                        </button>
+                        <Popup
+                          content="Remove in progress task"
+                          size="small"
+                          trigger={
+                            <button
+                              onClick={() => {
+                                deleteTaskInProgress(item.TaskID);
+                              }}
+                              style={{
+                                backgroundColor: 'none',
+                                color: 'inherit',
+                                border: 'none',
+                                padding: 0,
+                                font: 'inherit',
+                                cursor: 'pointer',
+                                outline: 'inherit',
+                              }}
+                            >
+                              <Icon
+                                name={removeSVG}
+                                size="32px"
+                                color="#e40166"
+                                title={'Remove in progress task'}
+                              />
+                            </button>
+                          }
+                        />
                       )}
                       {/* <FontAwesomeIcon
                       icon={['fas', 'trash']}

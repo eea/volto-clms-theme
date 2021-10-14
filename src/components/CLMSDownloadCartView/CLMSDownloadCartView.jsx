@@ -142,6 +142,7 @@ const CLMSDownloadCartView = (props) => {
               </div>
               <CLMSTasksInProgress />
               <div className="custom-table cart-table">
+                <h2>My cart</h2>
                 <table>
                   <thead>
                     <tr>
