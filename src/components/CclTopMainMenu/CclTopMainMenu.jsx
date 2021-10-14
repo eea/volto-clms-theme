@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getItemsByPath } from 'volto-dropdownmenu/utils';
@@ -28,10 +29,10 @@ const CclTopMainMenu = () => {
               ) : (
                 <li className="header-dropdown" key={index}>
                   <>
-                    <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
+                    <a>
                       {item.title}{' '}
                       <span className="ccl-icon-chevron-thin-down"></span>
-                    </Link>
+                    </a>
                     <ul>
                       {item.navigationRoot?.map((element, index) => (
                         <li key={index}>
