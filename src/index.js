@@ -10,6 +10,7 @@ import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMS
 import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
 import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
 import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
+import ServiceDeskView from '@eeacms/volto-clms-theme/components/CLMSServiceDeskView/CLMSServiceDeskView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -37,6 +38,7 @@ const applyConfig = (config) => {
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
       'eea.meeting.emails': CLMSMeetingEmailsView,
       'eea.meeting.email': CLMSMeetingEmailView,
+      'Service desk': ServiceDeskView,
     },
   };
   config.blocks = {
