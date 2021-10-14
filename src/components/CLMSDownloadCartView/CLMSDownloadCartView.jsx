@@ -14,20 +14,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { postDownloadtool } from '../../actions';
+import { postDownloadtool, getDownloadtool } from '../../actions';
+import CLMSTasksInProgress from './CLMSTasksInProgress';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
-  const {
-    cart,
-    removeCartItem,
-    isLoggedIn,
-    changeCartItemTaskStatus,
-  } = useCartState();
+  const { cart, removeCartItem, isLoggedIn } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
-  const download_in_progress = useSelector(
-    (state) => state.downloadtool.download_in_progress,
+  const post_download_in_progress = useSelector(
+    (state) => state.post_downloadtool.download_in_progress,
   );
+  const user_id = useSelector((state) => state.users.user.id);
   const selectCart = (id, checked) => {
     if (checked) setCartSelection(cartSelection.concat(id));
     else setCartSelection(cartSelection.filter((arr_id) => arr_id !== id));
@@ -79,17 +76,20 @@ const CLMSDownloadCartView = (props) => {
       (r) => r['unique_id'] === in_progress_dataset_id,
     )[0];
     if (started_processing_item['unique_id']) {
-      changeCartItemTaskStatus(started_processing_item['unique_id'], true);
+      removeCartItem(started_processing_item['unique_id']);
+      dispatch(getDownloadtool(user_id));
     }
   };
 
   useEffect(() => {
-    let progress_keys = Object.keys(download_in_progress);
+    let progress_keys = Object.keys(post_download_in_progress);
     progress_keys.forEach((progress_key) =>
-      setCartItemInProgress(download_in_progress[progress_key]['UserID']),
+      setCartItemInProgress(
+        post_download_in_progress[progress_key]['DatasetID'],
+      ),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [download_in_progress]);
+  }, [post_download_in_progress]);
 
   return (
     <>
@@ -140,7 +140,7 @@ const CLMSDownloadCartView = (props) => {
                   </ul>
                 </div>
               </div>
-
+              <CLMSTasksInProgress />
               <div className="custom-table cart-table">
                 <table>
                   <thead>
@@ -290,8 +290,15 @@ const CLMSDownloadCartView = (props) => {
                     let selectedItems = getSelectedCartItems();
                     selectedItems.forEach((selected) => {
                       const item = {
-                        UserID: selected['unique_id'], // We need to send and return unique_id to can mark this element as a pending task selected['UID'], //USERID∫
-                        DatasetID: selected['UID'],
+                        UserID: user_id,
+                        /*, 
+                        UID: dataset unique id;
+                        DatasetID: dataset id;
+                        Format: Dataset format
+                        selected['unique_id']
+                        selected['UID']
+                        */
+                        DatasetID: selected['unique_id'] || selected['UID'], // provisional, We need to send and return unique_id to can mark this element as a pending task selected['UID'],
                         //DatasetFormat: selected['type'], // Formats: "Shapefile"|"GDB"|"GPKG"|"Geojson"|"Geotiff"|"Netcdf"|"GML"|"WFS"
                         DatasetFormat: 'Shapefile',
                         // OutputFormat:selected['format'],

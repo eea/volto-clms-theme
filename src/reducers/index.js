@@ -9,7 +9,10 @@ import { cartItemsReducer } from './cart/cart_reducer';
 import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
 import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
 import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
-import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
+import { postDownloadtoolReducer } from './downloadtool/post_downloadtool_reducer';
+import { getDownloadtoolReducer } from './downloadtool/get_downloadtool_reducer';
+import { deleteDownloadtoolReducer } from './downloadtool/delete_downloadtool_reducer';
+
 /**
  * Root reducer.
  * @function
@@ -25,7 +28,9 @@ const reducers = {
   cart_items: cartItemsReducer,
   meeting_register: meetingRegisterReducer,
   subscribers: meetingSubscribersReducer,
-  downloadtool: downloadtoolReducer,
+  post_downloadtool: postDownloadtoolReducer,
+  downloadtool: getDownloadtoolReducer,
+  delete_downloadtool: deleteDownloadtoolReducer,
 };
 
 export default reducers;

@@ -1,6 +1,6 @@
 /**
  * Downloadtool reducer.
- * @module reducers/downloadtool
+ * @module reducers/postdownloadtool
  */
 
 import { POST_DOWNLOADTOOL } from '../../actions';
@@ -12,7 +12,7 @@ const initialState = {
   download_in_progress: {},
 };
 
-export const downloadtoolReducer = (state = initialState, action = {}) => {
+export const postDownloadtoolReducer = (state = initialState, action = {}) => {
   switch (action?.type) {
     case `${POST_DOWNLOADTOOL}_PENDING`:
       return {
