@@ -18,11 +18,12 @@ export const cartItemsReducer = (state = initialState, action = {}) => {
         items: action.items,
       };
     case GET_CART_ITEMS:
+      const CART_SESSION_USER_KEY = action.user_id
+        ? CART_SESSION_KEY.concat(`_${action.user_id}`)
+        : CART_SESSION_KEY;
       return {
         ...state,
-        items: JSON.parse(
-          localStorage.getItem(CART_SESSION_KEY.concat(action.token)),
-        ),
+        items: JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)),
       };
     default:
       return state;
