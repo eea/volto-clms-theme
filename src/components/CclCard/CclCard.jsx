@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './cards.less';
 import PropTypes from 'prop-types';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as mime from 'react-native-mime-types';
 
@@ -13,12 +14,15 @@ function bytesToSize(bytes) {
 }
 function CclCard(props) {
   const { type, children, card } = props;
-  let url = card ? card['@id'] || card.url || '/' : '/';
+  let url = card ? card['@id'] || card.hrerf || '/' : '/';
   let start = new Date(card?.start);
   let end = new Date(card?.end);
   return (
     <div className={'card-' + (type || 'line')}>
-      {type === 'doc' || type === 'news' || type === 'event' ? (
+      {type === 'doc' ||
+      type === 'news' ||
+      type === 'event' ||
+      type === 'block' ? (
         <>
           {type === 'doc' && (
             <>
@@ -35,6 +39,31 @@ function CclCard(props) {
                     {bytesToSize(card?.file?.size) || ''}
                   </div>
                 )}
+                {children}
+              </div>
+            </>
+          )}
+          {type === 'block' && (
+            <>
+              <div className="card-block-image">
+                <img
+                  src={
+                    card?.image?.download ||
+                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                  }
+                  alt="Placeholder"
+                />
+              </div>
+              <div className="card-text">
+                <div className="card-title">
+                  <a href={card?.file?.download}>
+                    {card?.title || 'Card default title'}
+                  </a>
+                </div>
+                <div className="card-description">{card?.description}</div>
+                <div className="card-button">
+                  <CclButton url={url}>Access to product</CclButton>
+                </div>
                 {children}
               </div>
             </>
@@ -108,7 +137,7 @@ function CclCard(props) {
                 ) : (
                   ''
                 )}
-                <p className="card-description">{card?.description}</p>
+                <p className="card-event-description">{card?.description}</p>
               </div>
             </>
           )}

@@ -41,7 +41,7 @@ const CclCardBlockView = (props) => {
     url: data.url,
   };
 
-  return <CclCard card={card} />;
+  return <CclCard type={data.cardStyle || 'line'} card={card} />;
 };
 
 export default CclCardBlockView;

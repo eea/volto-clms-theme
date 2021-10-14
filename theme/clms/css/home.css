@@ -301,7 +301,7 @@
 }
 @media (min-width: 768px) {
   .home-map-banner {
-    max-width: 60%;
+    width: 40%;
   }
 }
 

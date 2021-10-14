@@ -361,7 +361,6 @@
 .ccl-list-carousel .slick-slide img {
   border: none !important;
   border-radius: 1.5rem;
-  opacity: 0.5;
 }
 
 .ccl-list-carousel .slick-slide:focus {
@@ -371,10 +370,12 @@
 /* Items */
 .ccl-list-items .ccl-list-item .ccl-list-item-image {
   width: 100%;
+  height: 12rem;
 }
 
 .ccl-list-items .ccl-list-item .ccl-list-item-image img {
   width: 100%;
+  height: 100%;
 }
 
 .ccl-list-items .ccl-list-item .ccl-list-item-date {
@@ -424,4 +425,8 @@
 
 .ccl-list-items.ccl-list-items-row .ccl-list-item {
   margin: 1rem;
+}
+
+.tabs-block .slick-slider:not(.slick-vertical) .slick-slide {
+  padding-top: 0;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 import PropTypes from 'prop-types';
 
 function CclButton(props) {
@@ -18,9 +19,26 @@ function CclButton(props) {
     'ccl-button--default': mode === 'default',
   });
 
-  return (
+  const flattern_url = flattenToAppURL(url);
+
+  function hasProtocol(url) {
+    return url.startsWith('https://') || url.startsWith('http://')
+      ? true
+      : false;
+  }
+  return hasProtocol(url) ? (
+    <a
+      href={flattern_url}
+      className={buttonClass}
+      disabled={disabled}
+      download={download}
+      {...opts}
+    >
+      {children}
+    </a>
+  ) : (
     <Link
-      to={url}
+      to={flattern_url}
       className={buttonClass}
       disabled={disabled}
       download={download}
