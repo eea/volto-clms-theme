@@ -54,16 +54,18 @@ function CclCard(props) {
                   alt="Placeholder"
                 />
               </div>
-              <div className="card-doc-title">
-                <a href={card?.file?.download}>
-                  {card?.title || 'Card default title'}
-                </a>
-              </div>
               <div className="card-text">
-                <div className="card-description">{card?.description}</div>
-                <div className="card-button">
-                  <CclButton url={url}>Access to product</CclButton>
+                <div className="card-title">
+                  <a href={card?.file?.download}>
+                    {card?.title || 'Card default title'}
+                  </a>
                 </div>
+                <div className="card-description">{card?.description}</div>
+                {url !== '/' && (
+                  <div className="card-button">
+                    <CclButton url={url}>Access to product</CclButton>
+                  </div>
+                )}
                 {children}
               </div>
             </>
