@@ -22,7 +22,7 @@ const CLMSDownloadCartView = (props) => {
   const { cart, removeCartItem, isLoggedIn } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   const post_download_in_progress = useSelector(
-    (state) => state.post_downloadtool.download_in_progress,
+    (state) => state.downloadtool.post_download_in_progress,
   );
   const user_id = useSelector((state) => state.users.user.id);
   const selectCart = (id, checked) => {
