@@ -25,7 +25,8 @@
     "@eeacms/volto-metadata-block",
     "@eeacms/volto-resize-helper",
     "volto-slate:simpleLink",
-    "@eeacms/volto-tabs-block"
+    "@eeacms/volto-tabs-block",
+    "@eeacms/volto-corsproxy"
   ],
   "dependencies": {
     "volto-dropdownmenu": "2.2.7",
@@ -43,7 +44,8 @@
     "volto-slate": "2.6.2",
     "react-svg": "14.0.4",
     "react-native-mime-types": "2.3.0",
-    "@eeacms/volto-resize-helper": "0.2.1"
+    "@eeacms/volto-resize-helper": "0.2.1",
+    "@eeacms/volto-corsproxy": "*"
   },
   "prettier": {
     "trailingComma": "all",
