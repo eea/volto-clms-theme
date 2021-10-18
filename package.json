@@ -20,7 +20,8 @@
   "addons": [
     "volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
-    "@eeacms/volto-corsproxy"
+    "@eeacms/volto-corsproxy",
+    "@eeacms/volto-eea-kitkat"
   ],
   "dependencies": {
     "volto-dropdownmenu": "2.2.7",
