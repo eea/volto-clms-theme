@@ -18,6 +18,7 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
+    "volto-slate:asDefault",
     "volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
     "@eeacms/volto-corsproxy",
