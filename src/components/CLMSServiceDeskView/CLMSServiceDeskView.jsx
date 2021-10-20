@@ -21,51 +21,60 @@ const ServiceDeskView = () => {
             <p>Please note, that the support is provided in English only.</p>
           </div>
           <div className="ccl-container">
-            <form class="ccl-form user-form contact-form">
-              <div class="ccl-fieldset">
-                <div class="ccl-form-group">
-                  <label class="ccl-form-label" for="contact_form_email">
+            <form className="ccl-form user-form contact-form">
+              <div className="ccl-fieldset">
+                <div className="ccl-form-group">
+                  <label
+                    className="ccl-form-label"
+                    htmlFor="contact_form_email"
+                  >
                     E-mail
                   </label>
-                  <span class="label-required">*</span>
+                  <span className="label-required">*</span>
                   <input
                     type="text"
-                    class="ccl-text-input"
+                    className="ccl-text-input"
                     id="contact_form_email"
                     name=""
                     placeholder="Enter an email address"
                   />
                 </div>
-                <div class="ccl-form-group">
-                  <label class="ccl-form-label" for="contact_form_subject">
+                <div className="ccl-form-group">
+                  <label
+                    className="ccl-form-label"
+                    htmlFor="contact_form_subject"
+                  >
                     Subject
                   </label>
-                  <span class="label-required">*</span>
-                  <span class="form-tip">
+                  <span className="label-required">*</span>
+                  <span className="form-tip">
                     A short indication of the problem, question or issue, i.e.
                     login, download, errors in the product, thematic question
                     etc.
                   </span>
                   <input
                     type="text"
-                    class="ccl-text-input"
+                    className="ccl-text-input"
                     id="contact_form_subject"
                     name=""
                     placeholder="Enter an subject"
                   />
                 </div>
-                <div class="ccl-form-group">
-                  <label class="ccl-form-label" for="contact_form_message">
+                <div className="ccl-form-group">
+                  <label
+                    className="ccl-form-label"
+                    htmlFor="contact_form_message"
+                  >
                     Message
                   </label>
-                  <span class="label-required">*</span>
-                  <span class="form-tip">
+                  <span className="label-required">*</span>
+                  <span className="form-tip">
                     A short description of the problem, question or issue.
                     Please don't forget to specify which product(s) you are
                     referring to in your message.
                   </span>
                   <textarea
-                    class="ccl-textarea"
+                    className="ccl-textarea"
                     id="contact_form_message"
                     name=""
                     cols="30"
@@ -73,15 +82,18 @@ const ServiceDeskView = () => {
                     placeholder="Enter a message"
                   ></textarea>
                 </div>
-                <div class="ccl-form-group">
-                  <label class="ccl-form-label" for="contact_form_verification">
+                <div className="ccl-form-group">
+                  <label
+                    className="ccl-form-label"
+                    htmlFor="contact_form_verification"
+                  >
                     Verification
                   </label>
-                  <span class="label-required">*</span>
-                  <div class="validation-image"></div>
+                  <span className="label-required">*</span>
+                  <div className="validation-image"></div>
                   <input
                     type="text"
-                    class="ccl-text-input"
+                    className="ccl-text-input"
                     id="contact_form_verification"
                     name=""
                     placeholder="Enter validation code"
