@@ -340,11 +340,11 @@
 
 /*---CS ADDITION---*/
 
-.ccl-form-check-label {
+.ccl-footer-form .ccl-form-check-label {
   color: white !important;
 }
 
-.ccl-form-check-label a {
+.ccl-footer-form .ccl-form-check-label a {
   text-decoration: underline;
 }
 
