@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.31",
+  "version": "1.0.34",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -18,18 +18,18 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
+    "volto-slate:asDefault",
     "volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
     "@eeacms/volto-columns-block",
     "@eeacms/volto-accordion-block",
     "@eeacms/volto-metadata-block",
     "@eeacms/volto-resize-helper",
-    "volto-slate:simpleLink",
     "@eeacms/volto-tabs-block"
   ],
   "dependencies": {
     "volto-dropdownmenu": "2.2.7",
-    "@eeacms/volto-arcgis-block": "0.1.8",
+    "@eeacms/volto-arcgis-block": "0.1.11",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
@@ -40,7 +40,6 @@
     "@eeacms/volto-accordion-block": "3.4.4",
     "@eeacms/volto-columns-block": "4.4.3",
     "@eeacms/volto-metadata-block": "^2.1.0",
-    "volto-slate": "2.6.2",
     "react-svg": "14.0.4",
     "react-native-mime-types": "2.3.0",
     "@eeacms/volto-resize-helper": "0.2.1"

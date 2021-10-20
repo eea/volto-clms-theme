@@ -5,9 +5,9 @@
  * @module components/theme/Header/Header
  */
 
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 
 import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import jwtDecode from 'jwt-decode';
@@ -25,6 +25,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getCartItems } from '@eeacms/volto-clms-theme/actions';
 import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
 import { Link } from 'react-router-dom';
+// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+
+const CartIconCounter = (props) => {
+  const { cart_items, users, intl } = useSelector((state) => state);
+
+  const cart = cart_items.items;
+  const user_id = users.user.id;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItems(user_id));
+  }, [user_id, dispatch]);
+  return (
+    cart?.length !== 0 &&
+    cart && (
+      <>
+        <span className="header-vertical-line"> - </span>
+        <span>
+          <Link to={`/${intl.locale}/cart`} className="header-login-link">
+            <FontAwesomeIcon icon={['fas', 'shopping-cart']} />
+            <strong>{cart?.length}</strong>
+          </Link>
+        </span>
+      </>
+    )
+  );
+};
 /**
  * Header component class.
  * @class Header
@@ -52,11 +79,13 @@ class Header extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.token);
-    this.props.getCartItems(this.props.rawtoken);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.token !== this.props.token) {
       this.props.getUser(nextProps.token);
+    }
+    if (nextProps.user.id !== this.props.user.id) {
+      this.props.getCartItems(this.props?.user?.id);
     }
   }
 
@@ -152,22 +181,7 @@ class Header extends Component {
                             </>
                           )}
                         </Link>
-                        {this.props.cart?.length !== 0 && this.props.cart && (
-                          <>
-                            <span className="header-vertical-line"> - </span>
-                            <span>
-                              <Link
-                                to={`/${this.props.locale}/cart`}
-                                className="header-login-link"
-                              >
-                                <FontAwesomeIcon
-                                  icon={['fas', 'shopping-cart']}
-                                />
-                                <strong>{this.props.cart?.length}</strong>
-                              </Link>
-                            </span>
-                          </>
-                        )}
+                        <CartIconCounter />
                         {this.props.user.id &&
                           this.props.user.roles &&
                           this.props.user.roles[0] === 'Member' && (
