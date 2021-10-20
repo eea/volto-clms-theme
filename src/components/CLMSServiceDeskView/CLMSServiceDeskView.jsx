@@ -1,17 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { Container } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 const ServiceDeskView = () => {
   return (
     <>
-      <div className="ccl-container">
+      <div className="ui container">
         <section className="page-section">
           <h1 className="page-title">Service desk</h1>
           <div className="page-description">
             <p>
-              Have you checked our <a href="en/faq">FAQ section</a>? If you
+              Have you checked our <a href="/en/faq">FAQ section</a>? If you
               haven't found an answer to your problem or question, please fill
               in this form to contact the Copernicus land service desk.
             </p>
