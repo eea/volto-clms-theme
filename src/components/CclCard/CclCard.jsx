@@ -64,10 +64,6 @@ function CclCard(props) {
                 <div className="card-button">
                   <CclButton url={url}>Access to product</CclButton>
                 </div>
-                <div className="card-description">{card?.description}</div>
-                <div className="card-button">
-                  <CclButton url={url}>Access to product</CclButton>
-                </div>
                 {children}
               </div>
             </>
