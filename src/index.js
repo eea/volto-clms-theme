@@ -38,7 +38,7 @@ const applyConfig = (config) => {
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
       'eea.meeting.emails': CLMSMeetingEmailsView,
       'eea.meeting.email': CLMSMeetingEmailView,
-      'Service desk': ServiceDeskView,
+      // 'Service desk': ServiceDeskView,
     },
   };
   config.blocks = {
@@ -105,6 +105,10 @@ const applyConfig = (config) => {
     {
       path: '/**/profile',
       component: ProfileView,
+    },
+    {
+      path: '/**/contact-service-desk',
+      component: ServiceDeskView,
     },
     {
       path: '/**/download-by-area',
