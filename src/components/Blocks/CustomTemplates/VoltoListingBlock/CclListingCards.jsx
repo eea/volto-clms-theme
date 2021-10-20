@@ -7,7 +7,6 @@ import { flattenToAppURL } from '@plone/volto/helpers';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-import './custom.less';
 
 const CclListingCards = (props) => {
   const { items, linkHref, linkTitle, isEditMode, variation } = props;
