@@ -36,22 +36,33 @@ const CclWorkOpportunity = (props) => {
   );
 };
 
-var Today = Date.now();
+function formatDate(date) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+var Today = formatDate(Date.now());
 
 const CclListingWorkOpportunities = (props) => {
-  const { items } = props;
+  const { items, variation } = props;
   const intl = useIntl();
 
-  var status = '';
-  if (items.submission_deadline > Today) {
-    status = 'OpenTenders';
-  } else {
-    status = 'CloseTenders';
-  }
+  const regex = /CclWO/;
+  const status = variation?.replace(regex, '');
   return (
     <>
       {items
-        .filter((item) => item.is_open && status === 'OpenTenders')
+        .filter(
+          (item) =>
+            item.submission_deadline < Today && status === 'OpenTenders',
+        )
         .map((item, index) => (
           <CclWorkOpportunity
             key={index}
@@ -60,7 +71,10 @@ const CclListingWorkOpportunities = (props) => {
           ></CclWorkOpportunity>
         ))}
       {items
-        .filter((item) => !item.is_open && status === 'CloseTenders')
+        .filter(
+          (item) =>
+            item.submission_deadline > Today && status === 'CloseTenders',
+        )
         .map((item, index) => (
           <CclWorkOpportunity
             key={index}
