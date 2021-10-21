@@ -36,13 +36,18 @@ const CclWorkOpportunity = (props) => {
   );
 };
 
+var Today = Date.now();
+
 const CclListingWorkOpportunities = (props) => {
-  const { items, variation } = props;
+  const { items } = props;
   const intl = useIntl();
 
-  const regex = /CclWO/;
-  const status = variation?.replace(regex, '');
-
+  var status = '';
+  if (items.submission_deadline > Today) {
+    status = 'OpenTenders';
+  } else {
+    status = 'CloseTenders';
+  }
   return (
     <>
       {items
