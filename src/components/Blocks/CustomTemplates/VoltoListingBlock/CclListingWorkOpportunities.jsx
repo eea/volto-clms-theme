@@ -61,7 +61,7 @@ const CclListingWorkOpportunities = (props) => {
       {items
         .filter(
           (item) =>
-            item.submission_deadline < Today && status === 'OpenTenders',
+            item.submission_deadline < Today && status === 'CloseTenders',
         )
         .map((item, index) => (
           <CclWorkOpportunity
@@ -73,7 +73,7 @@ const CclListingWorkOpportunities = (props) => {
       {items
         .filter(
           (item) =>
-            item.submission_deadline > Today && status === 'CloseTenders',
+            item.submission_deadline > Today && status === 'OpenTenders',
         )
         .map((item, index) => (
           <CclWorkOpportunity
