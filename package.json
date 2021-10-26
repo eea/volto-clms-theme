@@ -18,29 +18,23 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
-    "volto-dropdownmenu",
-    "@eeacms/volto-arcgis-block",
-    "@eeacms/volto-corsproxy",
-    "@eeacms/volto-eea-kitkat"
+    "volto-dropdownmenu"
   ],
   "dependencies": {
+    "@eeacms/volto-tabs-block": "1.2.7",
+    "@eeacms/volto-accordion-block": "3.4.7",
+    "@eeacms/volto-columns-block": "4.4.3",
+    "@eeacms/volto-metadata-block": "^2.1.0",
+    "@eeacms/volto-resize-helper": "0.2.1",
     "volto-dropdownmenu": "2.2.7",
-    "@eeacms/volto-arcgis-block": "0.1.11",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
-    "@eeacms/volto-tabs-block": "1.2.7",
     "react-slick": "0.28.1",
     "slick-carousel": "1.8.1",
-    "@eeacms/volto-accordion-block": "3.4.4",
-    "@eeacms/volto-columns-block": "4.4.3",
-    "@eeacms/volto-metadata-block": "^2.1.0",
     "react-svg": "14.0.4",
-    "react-native-mime-types": "2.3.0",
-    "@eeacms/volto-resize-helper": "0.2.1",
-    "@eeacms/volto-corsproxy": "*",
-    "@eeacms/volto-eea-kitkat": "4.1.1"
+    "react-native-mime-types": "2.3.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
