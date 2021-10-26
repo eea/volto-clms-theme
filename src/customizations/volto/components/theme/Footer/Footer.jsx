@@ -325,10 +325,10 @@ const Footer = () => {
               </a>
               <span>{intl.formatMessage(messages.jointResearchCenter)}</span>
             </div>
-            <div className="ccl-footer-col-title">
+            {/* <div className="ccl-footer-col-title">
               {intl.formatMessage(messages.expertSupportProvidedBy)}
             </div>
-            <p>{intl.formatMessage(messages.EIONETActionGroup)}</p>
+            <p>{intl.formatMessage(messages.EIONETActionGroup)}</p> */}
           </CclFooterColumn>
         </div>
       </div>
