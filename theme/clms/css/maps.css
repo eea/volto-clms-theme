@@ -1,567 +1,580 @@
 .land .map-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .land .loading {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	color: #273b4b;
-	font-size: 2rem;
-	touch-action: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #273b4b;
+  font-size: 2rem;
+  touch-action: auto;
 }
 
 .land .map {
-	width: 100%;
-	height: 600px;
-	padding: 0;
-	margin: 0;
+  width: 100%;
+  height: 600px;
+  padding: 0;
+  margin: 0;
 }
 
 .land .esri-view .esri-view-surface--inset-outline:focus::after {
-	outline: none !important;
+  outline: none !important;
 }
 
 .land .esri-component.esri-zoom.esri-widget {
-	margin-bottom: 0;
-	background: none;
-	box-shadow: none;
+  margin-bottom: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .land .esri-widget--button {
-	width: 36px;
-	height: 36px;
-	border: none !important;
-	background-color: #a0b128cc;
-	box-shadow: none !important;
-	color: white;
-	font-size: 18px;
-	line-height: 1.1rem;
-	outline: none;
+  width: 36px;
+  height: 36px;
+  border: none !important;
+  background-color: #a0b128cc;
+  box-shadow: none !important;
+  color: white;
+  font-size: 18px;
+  line-height: 1.1rem;
+  outline: none;
 }
 
 .land .esri-widget--button:hover {
-	background-color: #7c8921;
-	color: white;
+  background-color: #7c8921;
+  color: white;
 }
 
 .land .esri-widget--button.esri-disabled [class*='esri-icon'] {
-	color: white;
+  color: white;
 }
 
 .land .esri-widget--button.esri-disabled {
-	background-color: #cfd893;
-	cursor: auto;
+  background-color: #cfd893;
+  cursor: auto;
 }
 
 .land .basemap-container {
-	display: flex;
-	box-shadow: none !important;
+  display: flex;
+  box-shadow: none !important;
 }
 
 .land .esri-basemap-gallery {
-	display: none;
-	margin: 0 !important;
+  display: none;
+  margin: 0 !important;
 }
 
 .land .esri-basemap-gallery__item:first-child {
-	margin: 0;
+  margin: 0;
 }
 
 .land .esri-view-height-small .esri-ui-corner .esri-widget--panel-height-only {
-	max-height: 260px;
+  max-height: 260px;
 }
 
 .land .esri-basemap-gallery__item--selected,
 .land .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
 .land .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
-	border-left-color: #7c8921;
-	background-color: #a0b1280f;
+  border-left-color: #7c8921;
+  background-color: #a0b1280f;
 }
 
-.land .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item--selected,
-.land .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
-.land .esri-view-width-greater-than-large .esri-ui-corner .esri-basemap-gallery.esri-component .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
-	border-color: #a0b128;
+.land
+  .esri-view-width-greater-than-large
+  .esri-ui-corner
+  .esri-basemap-gallery.esri-component
+  .esri-basemap-gallery__item--selected,
+.land
+  .esri-view-width-greater-than-large
+  .esri-ui-corner
+  .esri-basemap-gallery.esri-component
+  .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:hover,
+.land
+  .esri-view-width-greater-than-large
+  .esri-ui-corner
+  .esri-basemap-gallery.esri-component
+  .esri-basemap-gallery__item.esri-basemap-gallery__item--selected:focus {
+  border-color: #a0b128;
 }
 
 .land .measurement-container {
-	display: flex;
-	box-shadow: none !important;
+  display: flex;
+  box-shadow: none !important;
 }
 
 .land .measurement-container .measurement-area.esri-measurement {
-	display: block;
-	width: 225px;
-	flex-direction: column;
+  display: block;
+  width: 225px;
+  flex-direction: column;
 }
 
 .land .measurement-panel {
-	display: none;
+  display: none;
 }
 
 .land .measurement-buttons {
-	display: flex;
-	justify-content: space-evenly;
-	background: white;
+  display: flex;
+  justify-content: space-evenly;
+  background: white;
 }
 
 .land .measurement-buttons .esri-widget--button {
-	width: 100%;
-	border-bottom: solid 4px transparent !important;
-	background-color: white;
-	color: #a0b128;
+  width: 100%;
+  border-bottom: solid 4px transparent !important;
+  background-color: white;
+  color: #a0b128;
 }
 
 .land .measurement-buttons .esri-widget--button:hover {
-	background-color: white;
-	color: #a0b128;
+  background-color: white;
+  color: #a0b128;
 }
 
 .land .measurement-buttons .esri-widget--button.active {
-	border-color: #a0b128 !important;
+  border-color: #a0b128 !important;
 }
 
 .land .esri-measurement .esri-area-measurement-2d__clear-button,
 .land .esri-measurement .esri-distance-measurement-2d__clear-button {
-	border-color: #a0b128;
-	background-color: white;
-	color: #a0b128;
-	-webkit-transition: all 0.3s ease-out;
-	transition: all 0.3s ease-out;
+  border-color: #a0b128;
+  background-color: white;
+  color: #a0b128;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .land .esri-measurement .esri-area-measurement-2d__clear-button:hover,
 .land .esri-measurement .esri-distance-measurement-2d__clear-button:hover {
-	border-color: #a0b128;
-	background-color: #a0b128;
-	color: white;
+  border-color: #a0b128;
+  background-color: #a0b128;
+  color: white;
 }
 
 .land .esri-measurement p {
-	font-size: 1rem;
+  font-size: 1rem;
 }
 
 .land .measurement-coords {
-	display: none;
-	max-width: 225px;
-	padding: 1rem;
-	background-color: white;
+  display: none;
+  max-width: 225px;
+  padding: 1rem;
+  background-color: white;
 }
 
 .land .print-container {
-	display: flex;
-	box-shadow: none !important;
+  display: flex;
+  box-shadow: none !important;
 }
 
 .land .esri-print {
-	display: none;
-	max-height: 260px;
+  display: none;
+  max-height: 260px;
 }
 
 .land .esri-print__layout-tab {
-	font-size: 1rem;
+  font-size: 1rem;
 }
 
 .land .esri-print .esri-button {
-	border-color: #a0b128;
-	background-color: white;
-	color: #a0b128;
-	transition: all 0.3s ease-out;
+  border-color: #a0b128;
+  background-color: white;
+  color: #a0b128;
+  transition: all 0.3s ease-out;
 }
 
 .land .esri-print .esri-button:hover {
-	border-color: #a0b128;
-	background-color: #a0b128;
-	color: white;
+  border-color: #a0b128;
+  background-color: #a0b128;
+  color: white;
 }
 
 .land .area-container {
-	display: flex;
-	box-shadow: none !important;
+  display: flex;
+  box-shadow: none !important;
 }
 
 .land .area-panel {
-	display: none;
-	width: 260px;
-	padding: 1rem;
-	background-color: white;
-	font-size: 1rem;
+  display: none;
+  width: 260px;
+  padding: 1rem;
+  background-color: white;
+  font-size: 1rem;
 }
 
 .land .area-panel .ccl-form-group:not(:first-of-type) {
-	margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .land .area-panel fieldset {
-	padding: 0;
-	border: none;
-	margin: 0;
+  padding: 0;
+  border: none;
+  margin: 0;
 }
 
 .land .map-menu {
-	display: none;
-	width: 450px;
+  display: none;
+  width: 450px;
 }
 
 .land .map-menu {
-	color: black;
-	font-size: 1rem;
+  color: black;
+  font-size: 1rem;
 }
 
 .land .map-menu.tab-container .tab {
-	display: inline-block;
-	width: 50%;
-	padding: 1rem;
-	border-bottom: solid 4px white;
-	margin: 0;
-	background: white;
-	color: #273b4b;
-	cursor: pointer;
-	font-weight: bold;
-	text-align: center;
+  display: inline-block;
+  width: 50%;
+  padding: 1rem;
+  border-bottom: solid 4px white;
+  margin: 0;
+  background: white;
+  color: #273b4b;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
 }
 
 .land .map-menu.tab-container .tab-selected {
-	border-bottom: solid 4px #a0b128;
-	background: white;
+  border-bottom: solid 4px #a0b128;
+  background: white;
 }
 
 .land .map-menu.tab-container .tabs {
-	border-bottom: solid 1px #dadada;
-	background-color: white;
-	white-space: nowrap;
+  border-bottom: solid 1px #dadada;
+  background-color: white;
+  white-space: nowrap;
 }
 
 .land .map-left-menu-container {
-	display: flex;
-	box-shadow: none !important;
+  display: flex;
+  box-shadow: none !important;
 }
 
 .land .map-menu .ccl-fieldset {
-	box-sizing: border-box;
-	padding: 0;
-	border: none;
-	margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  margin: 0;
 }
 
 .land .map-menu .ccl-fieldset .ccl-dropdown__link {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .land .map-menu .ccl-form-legend {
-	line-height: inherit;
+  line-height: inherit;
 }
 
 .land .map-menu .ccl-expandable__button::after {
-	font-family: 'ccl-icons';
+  font-family: 'ccl-icons';
 }
 
 .land .map-menu .ccl-expandable__button[aria-expanded='true']::after {
-	content: '\e914';
-	transform: rotate(-180deg);
-	-webkit-transition: transform 0.3s ease-out;
-	transition: transform 0.3s ease-out;
+  content: '\e914';
+  transform: rotate(-180deg);
+  -webkit-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .land .map-menu .panels {
-	width: 100%;
-	height: 440px;
-	padding: 0;
-	background: #ffffff;
-	overflow-y: auto;
+  width: 100%;
+  height: 440px;
+  padding: 0;
+  background: #ffffff;
+  overflow-y: auto;
 }
 
 .land .map-menu .panel {
-	display: none;
-	animation: fadein 0.8s;
+  display: none;
+  animation: fadein 0.8s;
 }
 
 @keyframes fadein {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .land .map-menu.tab-container .panel-selected {
-	display: block;
+  display: block;
 }
 
 .land .map-menu-dropdown .ccl-expandable__button {
-	position: relative;
-	display: -webkit-flex;
-	display: flex;
-	align-items: center;
-	padding: 0.5rem 0;
-	padding-right: 2.5rem;
-	border: none;
-	margin: 0.5rem 0;
-	background-color: white;
-	color: #212529;
-	cursor: pointer;
-	font-size: 1rem;
-	font-weight: bold;
-	text-decoration: none;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  padding-right: 2.5rem;
+  border: none;
+  margin: 0.5rem 0;
+  background-color: white;
+  color: #212529;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .land .map-menu-dropdown .ccl-expandable__button::after {
-	position: absolute;
-	right: 0;
-	font-family: 'ccl-icons';
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-	-webkit-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
+  position: absolute;
+  right: 0;
+  font-family: 'ccl-icons';
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .land .map-menu-dropdown .ccl-expandable__button[aria-expanded='false']::after {
-	content: '\e914';
-	transform: rotate(0deg);
-	-webkit-transition: transform 0.3s ease-out;
-	transition: transform 0.3s ease-out;
+  content: '\e914';
+  transform: rotate(0deg);
+  -webkit-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .land .map-menu-dropdown .ccl-expandable__button[aria-expanded='true']::after {
-	content: '\e914';
-	transform: rotate(-180deg);
-	-webkit-transition: transform 0.3s ease-out;
-	transition: transform 0.3s ease-out;
+  content: '\e914';
+  transform: rotate(-180deg);
+  -webkit-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .land .map-menu-dropdown .ccl-expandable__button::after {
-	margin-right: 0;
-	color: #a0b128;
+  margin-right: 0;
+  color: #a0b128;
 }
 
 .land .map-menu-dropdown .ccl-expandable__button:hover::after {
-	color: #7c8921;
+  color: #7c8921;
 }
 
-.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='false']+* {
-	display: none;
+.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='false'] + * {
+  display: none;
 }
 
-.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='true']+* {
-	display: block;
+.land .map-menu-dropdown .ccl-expandable__button[aria-expanded='true'] + * {
+  display: block;
 }
 
-.land .map-menu-dropdown>.ccl-expandable__button {
-	margin-bottom: 0;
+.land .map-menu-dropdown > .ccl-expandable__button {
+  margin-bottom: 0;
 }
 
 .land .map-menu-dropdown,
 .land .map-menu-product-dropdown {
-	margin: 0 1rem;
+  margin: 0 1rem;
 }
 
 .land .map-menu-product-dropdown .ccl-expandable__button {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .land .map-menu-dropdown .map-menu-products-container {
-	padding-right: 0 !important;
-	background-color: white;
+  padding-right: 0 !important;
+  background-color: white;
 }
 
-.land .map-menu-dropdown .ccl-expandable__button+.ccl-form {
-	padding: 0 1rem 0 1rem;
+.land .map-menu-dropdown .ccl-expandable__button + .ccl-form {
+  padding: 0 1rem 0 1rem;
 }
 
 .land .map-menu-dropdown .ccl-form .ccl-form-group {
-	display: flex;
-	align-items: center;
-	margin-top: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 0;
 }
 
 .land .map-menu-dropdown .map-menu-dataset {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
-.land .map-menu-dataset>div:first-of-type {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
+.land .map-menu-dataset > div:first-of-type {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .land .map-menu-layers-container {
-	width: 100%;
-	margin-top: 0.5rem;
-	margin-left: 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
 }
 
 .land .map-menu-icons {
-	display: inline-block;
-	white-space: nowrap;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .land .map-menu-icon {
-	margin-left: 0.5rem;
-	color: #a0b128;
-	cursor: pointer;
-	font-size: 1rem;
-	text-decoration: none;
+  margin-left: 0.5rem;
+  color: #a0b128;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
 }
 
 .land .map-menu-dropdown i:hover {
-	color: #7c8921;
+  color: #7c8921;
 }
 
 .land .map-menu-product-dropdown {
-	margin-right: 0;
+  margin-right: 0;
 }
 
 .land .map-menu-product-dropdown .map-product-checkbox {
-	background-color: white;
+  background-color: white;
 }
 
 .land #active_panel .no-active-datasets {
-	display: block;
-	margin: 1rem;
+  display: block;
+  margin: 1rem;
 }
 
-.land #active_panel .active-layer+.no-active-datasets {
-	display: none;
+.land #active_panel .active-layer + .no-active-datasets {
+  display: none;
 }
 
 .land .active-layer {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 1rem;
-	border-bottom: solid 1px #a0b12833;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: solid 1px #a0b12833;
 }
 
 .land .active-layer:hover {
-	background: #a0b1280d;
-	cursor: move;
+  background: #a0b1280d;
+  cursor: move;
 }
 
 .land .active-layer-options {
-	white-space: nowrap;
+  white-space: nowrap;
 }
 
 .land .active-layer-options i {
-	margin: 0;
-	color: #a0b128;
-	cursor: pointer;
-	font-size: 1rem;
+  margin: 0;
+  color: #a0b128;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .land .active-layer-options i:hover,
 .land .active-layer-options svg:hover {
-	color: #7c8921;
+  color: #7c8921;
 }
 
-.land .active-layer-options>span {
-	margin-left: 1rem;
+.land .active-layer-options > span {
+  margin-left: 1rem;
 }
 
 .land #nolayers_message {
-	padding: 1rem;
+  padding: 1rem;
 }
 
 .land .map-download-area-container {
-	position: relative;
+  position: relative;
 }
 
 .land .map-download-block {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 30%;
-	min-width: 350px;
-	max-width: 500px;
-	padding: 1.5rem;
-	margin-top: 15px;
-	margin-left: 15px;
-	background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  min-width: 350px;
+  max-width: 500px;
+  padding: 1.5rem;
+  margin-top: 15px;
+  margin-left: 15px;
+  background-color: white;
 }
 
 .land .map-download-title {
-	margin-bottom: 1.5rem;
-	font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .land .map-download-title span {
-	color: #a0b128;
+  color: #a0b128;
 }
 
 .land .map-download-area,
 .land .map-download-resource {
-	margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .land .map-download-header {
-	display: flex;
-	align-items: center;
-	margin-bottom: 0.5rem;
-	font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
-.land .map-download-area .ccl-form-legend+.ccl-form-group {
-	margin-top: 0.5rem;
+.land .map-download-area .ccl-form-legend + .ccl-form-group {
+  margin-top: 0.5rem;
 }
 
 .land .map-download-buttons {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .land .map-download-block .ccl-form-group:not(:first-of-type) {
-	margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .land .legend-panel {
-	display: none;
+  display: none;
 }
 
 .land .legend-container {
-	display: flex;
-	box-shadow: none !important;
+  display: flex;
+  box-shadow: none !important;
 }
 
 .land .map-login-block {
-	display: none;
-	margin: 1rem;
+  display: none;
+  margin: 1rem;
 }
 
 .land .map-area-block {
-	display: none;
+  display: none;
 }
 
 .land .map-area-block button {
-	margin: 1rem;
+  margin: 1rem;
 }
 
 .land .esri-time-slider__time-extent-group > * {
-	color: #273B4B;
+  color: #273b4b;
 }
 
 .land .esri-slider__thumb {
-	border-color: #a0b128;
-	outline: none !important;
+  border-color: #a0b128;
+  outline: none !important;
 }
 
 .land .esri-slider__thumb:hover {
-	border-color: #7c8921;
+  border-color: #7c8921;
 }
 
 .land .esri-slider__anchor--moving:focus .esri-slider__thumb {
-	border-color: #7c8921;
+  border-color: #7c8921;
 }
 
 .land .esri-time-slider__slider {
-	background-color: #a0b1280f;
+  background-color: #a0b1280f;
 }
 
 .land .esri-time-slider__slider .esri-slider {
-	background-color: transparent;
+  background-color: transparent;
 }

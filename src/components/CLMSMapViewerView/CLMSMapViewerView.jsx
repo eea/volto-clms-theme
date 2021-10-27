@@ -84,7 +84,8 @@ const CLMSMapViewerView = (props) => {
   };
 
   return (
-    <div>
+    <div className="ccl-container ">
+      <h1>aaaaaaaaaaaaaaaaaaaaaaa</h1>
       <Helmet title={formatMessage(messages.DownloadByArea)} />
       <MapViewer
         cfg={config_by_area}

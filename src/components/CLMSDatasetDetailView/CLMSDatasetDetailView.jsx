@@ -13,6 +13,7 @@ import {
   DownloadDataSetContent,
   MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
+import { useLocation } from 'react-router-dom';
 
 // import {
 //   mockDatabaseInfo,
@@ -30,6 +31,7 @@ import {
  */
 
 const CLMSDatasetDetailView = ({ content }) => {
+  const location = useLocation();
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
@@ -49,7 +51,9 @@ const CLMSDatasetDetailView = ({ content }) => {
               </div>
             )}
             <div className="menu-detail-button">
-              <CclButton>View dataset on map viewer</CclButton>
+              <CclButton url={location.pathname + '/map-viewer'}>
+                View dataset on map viewer
+              </CclButton>
             </div>
           </nav>
         </div>
