@@ -12,7 +12,7 @@
   margin: 0 !important;
 }
 
-.ui.container > div:not(.map-container) {
+#page-document.ui.container > :not(.map-container.land) {
   width: 1127px !important;
   margin-right: auto !important;
   margin-left: auto !important;
