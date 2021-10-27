@@ -7,6 +7,10 @@
   margin: 0 0 !important;
 }
 
+.accordion.ui.fluid.styled {
+  margin-bottom: 2rem;
+}
+
 #page-document.ui.container {
   width: 100% !important;
   margin: 0 !important;
