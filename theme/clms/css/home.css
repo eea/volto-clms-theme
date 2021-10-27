@@ -7,6 +7,17 @@
   margin: 0 0 !important;
 }
 
+#page-document.ui.container {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.ui.container > div:not(.map-container) {
+  width: 1127px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
 .contenttype-lrf:not(.section-cart) .ui.basic.segment.content-area {
   padding-top: 0;
   margin-top: 0;
