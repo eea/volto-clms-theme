@@ -18,7 +18,13 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
-    "volto-dropdownmenu"
+    "volto-dropdownmenu",
+    "@eeacms/volto-arcgis-block",
+    "@eeacms/volto-columns-block",
+    "@eeacms/volto-accordion-block",
+    "@eeacms/volto-metadata-block",
+    "@eeacms/volto-resize-helper",
+    "@eeacms/volto-tabs-block"
   ],
   "dependencies": {
     "@eeacms/volto-tabs-block": "1.2.7",
