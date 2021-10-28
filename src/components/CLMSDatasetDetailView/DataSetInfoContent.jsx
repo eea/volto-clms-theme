@@ -1,7 +1,7 @@
 import React from 'react';
 import { CclInfoDescription, CclInfoContainer } from '../CclInfoDescription';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+// import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
@@ -15,7 +15,7 @@ const DataSetInfoContent = (data) => {
         </p>
       </CclCitation>
       <CclInfoContainer>
-        <h2>Dataset Info</h2>
+        <h2>General Info</h2>
 
         {data?.dataResourceAbstract?.data && (
           <CclInfoDescription
@@ -42,7 +42,7 @@ const DataSetInfoContent = (data) => {
             tooltip="Scope to which metadata applies."
           ></CclInfoDescription>
         )}
-        {data?.dataResourceLocator && (
+        {/* {data?.dataResourceLocator && (
           <>
             <CclInfoDescription
               title="Resource locator"
@@ -56,7 +56,7 @@ const DataSetInfoContent = (data) => {
               tooltip="URL address to locate the data"
             ></CclInfoDescription>
           </>
-        )}
+        )} */}
         <div className="dataset-info-documents dropdown">
           <div className="ccl-expandable__button" aria-expanded="true">
             <h2>Technical documents (X docs)</h2>

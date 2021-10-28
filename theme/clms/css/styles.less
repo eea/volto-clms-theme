@@ -1078,3 +1078,10 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   color: #7c8921;
   text-decoration: underline;
 }
+
+div#page-document.ui.container {
+  div & {
+    width: calc(100vmax - (100vmax - 100%)) !important;
+    margin: 0 0 !important;
+  }
+}

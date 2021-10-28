@@ -36,7 +36,7 @@ const CLMSDatasetDetailView = ({ content }) => {
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
       <CclTabs>
-        <div tabTitle="Dataset Info">{DataSetInfoContent(content)}</div>
+        <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
         <div tabTitle="Download dataset">{DownloadDataSetContent(content)}</div>
 
