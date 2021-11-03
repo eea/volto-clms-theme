@@ -8,7 +8,7 @@ import jwtDecode from 'jwt-decode';
 import { injectIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 
-const DownloadDataSetContent = (data, type) => {
+const DownloadDataSetContent = (data) => {
   let url = '/register';
   const location = useLocation();
 

@@ -1078,11 +1078,14 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   text-decoration: underline;
 }
 
-div#page-document.ui.container {
-  div.map-container.land {
-    div & {
-      width: calc(100vmax - (100vmax - 100%)) !important;
-      margin: 0 0 !important;
-    }
-  }
+div#page-document.ui.container &,
+div.map-container.land {
+  width: calc(100vmax - (100vmax - 100%)) !important;
+  margin: 0 0 !important;
+}
+
+div#page-document.ui.container > :not(.map-container.land) {
+  width: 1127px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
