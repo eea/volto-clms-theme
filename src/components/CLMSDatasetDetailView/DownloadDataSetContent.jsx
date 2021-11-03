@@ -14,7 +14,7 @@ const DownloadDataSetContent = (data, type) => {
 
   return (
     <div>
-      {data.token === '' ? (
+      {data.token === '' && (
         <div className="login-block">
           <div className="login-content">
             <CclButton url={'/login'}>Login to download the data</CclButton>
@@ -23,28 +23,31 @@ const DownloadDataSetContent = (data, type) => {
             </p>
           </div>
         </div>
-      ) : (
-        ''
       )}
 
-      {data?.mapviewer_viewservice.length > 0 ? (
+      {data?.mapviewer_viewservice.length > 0 && (
         <div className="dataset-download-area">
           <h2>Download by area</h2>
           <p>
             Use this option if you would like to download the dataset for
             area(s) of interest.
           </p>
-          <CclButton url={location.pathname + '/download-by-area'}>
-            Go to download by area
-          </CclButton>
+          {data.token === '' ? (
+            <CclButton
+              url={location.pathname + '/download-by-area'}
+              disabled={true}
+            >
+              Go to download by area
+            </CclButton>
+          ) : (
+            <CclButton url={location.pathname + '/download-by-area'}>
+              Go to download by area
+            </CclButton>
+          )}
         </div>
-      ) : (
-        ''
       )}
-      {data.downloadable_files.items.length > 0 ? (
+      {data.downloadable_files.items.length > 0 && (
         <CclDownloadTable dataset={data}></CclDownloadTable>
-      ) : (
-        ''
       )}
     </div>
   );
