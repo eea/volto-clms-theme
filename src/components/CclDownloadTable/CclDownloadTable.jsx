@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
-  const { addCartItem, Toast, isLoggedIn, removeAllCart } = useCartState();
+  const { addCartItem, Toast, isLoggedIn } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
@@ -41,10 +41,6 @@ function CclDownloadTable(props) {
       (item) => cartSelection.includes(item.unique_id) && item,
     );
     addCartItem(selectedCartItems);
-  };
-
-  const removeAll = () => {
-    removeAllCart();
   };
 
   return (
@@ -124,19 +120,9 @@ function CclDownloadTable(props) {
         Add to cart
       </CclButton>
 
-      <CclButton url={`/${locale}/cart`} disabled={!isLoggedIn}>
-        Show cart
-      </CclButton>
+      {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
 
       <br></br>
-
-      <CclButton
-        onClick={() => {
-          removeAll();
-        }}
-      >
-        Remove (For develop)
-      </CclButton>
     </div>
   );
 }
