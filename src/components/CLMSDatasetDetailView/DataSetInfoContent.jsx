@@ -74,7 +74,7 @@ const DataSetInfoContent = (data) => {
             ></CclCard>
           </div>
         </div>
-        <h2>Found the dataset in this products</h2>
+        {/* <h2>Found the dataset in this products</h2>
         <div className="card-container">
           <CclCard
             type="block"
@@ -88,7 +88,7 @@ const DataSetInfoContent = (data) => {
             description={data.description}
             image={data.image}
           ></CclCard>
-        </div>
+        </div> */}
       </CclInfoContainer>
     </div>
   );

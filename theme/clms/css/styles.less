@@ -1079,8 +1079,15 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   text-decoration: underline;
 }
 
+/* div.map-container.land {
+  div#page-document.ui.container & {
+    width: calc(100vmax - (100vmax - 100%)) !important;
+    margin: 0 0 !important;
+  }
+} */
+
 div#page-document.ui.container {
-  div & {
+  div.map-container.land {
     width: calc(100vmax - (100vmax - 100%)) !important;
     margin: 0 0 !important;
   }
