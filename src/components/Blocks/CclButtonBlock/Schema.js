@@ -31,6 +31,7 @@ export const cclButtonSchema = (extras) => ({
       choices: [
         ['default', 'Default'],
         ['filled', 'Filled'],
+        ['left menu', 'Left Menu block'],
       ],
       default: 'default',
     },

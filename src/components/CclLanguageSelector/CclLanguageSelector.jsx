@@ -28,6 +28,10 @@ if (config.settings) {
   });
 }
 
+function Capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function CclLanguageSelector(props) {
   const dispatch = useDispatch();
   const currentLang = useSelector((state) => state.intl.locale);
@@ -55,7 +59,7 @@ function CclLanguageSelector(props) {
         trigger={
           <div className="header-lang-icon">
             <i className="ccl-icon-language"></i>
-            <span className="header-lang-code">{currentLang}</span>
+            <span className="header-lang-code">{Capitalize(currentLang)}</span>
           </div>
         }
         size="fullscreen"
@@ -76,6 +80,7 @@ function CclLanguageSelector(props) {
             <div className="language-list">
               {config.settings.supportedLanguages.map((lang) => {
                 const translation = find(translations, { language: lang });
+                // console.log(langmap[lang]);
                 return (
                   <div
                     key={lang}
@@ -98,10 +103,10 @@ function CclLanguageSelector(props) {
                           }}
                           key={`language-selector-${lang}`}
                         >
-                          {langmap[lang].nativeName}
+                          {Capitalize(langmap[lang].nativeName)}
                         </Link>
                       ) : (
-                        langmap[lang].nativeName
+                        Capitalize(langmap[lang].nativeName)
                       )}
                     </span>
                   </div>
@@ -114,7 +119,7 @@ function CclLanguageSelector(props) {
 
       <div className="header-lang-text">
         <CclModal
-          trigger={<span>{langmap[currentLang].nativeName}</span>}
+          trigger={<span>{Capitalize(langmap[currentLang].nativeName)}</span>}
           size="fullscreen"
         >
           <div className="ccl-container">
@@ -155,10 +160,10 @@ function CclLanguageSelector(props) {
                             }}
                             key={`language-selector-${lang}`}
                           >
-                            {langmap[lang].nativeName}
+                            {Capitalize(langmap[lang].nativeName)}
                           </Link>
                         ) : (
-                          langmap[lang].nativeName
+                          Capitalize(langmap[lang].nativeName)
                         )}
                       </span>
                     </div>
