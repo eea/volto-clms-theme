@@ -29,8 +29,8 @@ const ServiceDeskView = () => {
                     htmlFor="contact_form_email"
                   >
                     E-mail
+                    <span className="label-required">*</span>
                   </label>
-                  <span className="label-required">*</span>
                   <input
                     type="text"
                     className="ccl-text-input"
@@ -45,8 +45,8 @@ const ServiceDeskView = () => {
                     htmlFor="contact_form_subject"
                   >
                     Subject
+                    <span className="label-required">*</span>
                   </label>
-                  <span className="label-required">*</span>
                   <span className="form-tip">
                     A short indication of the problem, question or issue, i.e.
                     login, download, errors in the product, thematic question
@@ -66,8 +66,8 @@ const ServiceDeskView = () => {
                     htmlFor="contact_form_message"
                   >
                     Message
+                    <span className="label-required">*</span>
                   </label>
-                  <span className="label-required">*</span>
                   <span className="form-tip">
                     A short description of the problem, question or issue.
                     Please don't forget to specify which product(s) you are
@@ -88,8 +88,8 @@ const ServiceDeskView = () => {
                     htmlFor="contact_form_verification"
                   >
                     Verification
+                    <span className="label-required">*</span>
                   </label>
-                  <span className="label-required">*</span>
                   <div className="validation-image"></div>
                   <input
                     type="text"

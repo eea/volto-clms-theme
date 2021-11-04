@@ -13,7 +13,11 @@ import {
   DownloadDataSetContent,
   MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-
+import { useLocation } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import { injectIntl } from 'react-intl';
 // import {
 //   mockDatabaseInfo,
 //   mockMetadata,
@@ -29,14 +33,23 @@ import {
  * @returns {string} Markup of the component.
  */
 
-const CLMSDatasetDetailView = ({ content }) => {
+const CLMSDatasetDetailView = ({ content, token }) => {
+  const location = useLocation();
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
       <CclTabs>
-        <div tabTitle="Dataset Info">{DataSetInfoContent(content)}</div>
+        <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
-        <div tabTitle="Download dataset">{DownloadDataSetContent(content)}</div>
+        {content.mapviewer_viewservice.length === 0 &&
+        content.downloadable_files.items.length === 0 &&
+        token !== '' ? (
+          <div tabTitle=""></div>
+        ) : (
+          <div tabTitle="Download dataset">
+            {DownloadDataSetContent(content)}
+          </div>
+        )}
 
         <div underPanel={true}>
           <nav className="left-menu-detail">
@@ -48,9 +61,13 @@ const CLMSDatasetDetailView = ({ content }) => {
                 />
               </div>
             )}
-            <div className="menu-detail-button">
-              <CclButton>View dataset on map viewer</CclButton>
-            </div>
+            {content?.mapviewer_viewservice.length > 0 && (
+              <div className="menu-detail-button">
+                <CclButton url={location.pathname + 'map-viewer'}>
+                  View dataset on map viewer
+                </CclButton>
+              </div>
+            )}
           </nav>
         </div>
       </CclTabs>
@@ -110,4 +127,11 @@ CLMSDatasetDetailView.propTypes = {
   }).isRequired,
 };
 
-export default CLMSDatasetDetailView;
+export default compose(
+  injectIntl,
+  connect((state) => ({
+    token: state.userSession.token
+      ? jwtDecode(state.userSession.token).sub
+      : '',
+  })),
+)(CLMSDatasetDetailView);

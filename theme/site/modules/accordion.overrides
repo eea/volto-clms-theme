@@ -33,5 +33,5 @@ h2.accordion-title span {
 }
 
 .accordion-title:hover {
-   color: #273b4b !important;
- }
+  color: #273b4b !important;
+}
