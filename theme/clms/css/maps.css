@@ -557,3 +557,7 @@
 .land .esri-time-slider__slider .esri-slider {
 	background-color: transparent;
 }
+
+.land .esri-time-slider .esri-slider__segment--interactive {
+	background-color: #a0b128 ;
+}
