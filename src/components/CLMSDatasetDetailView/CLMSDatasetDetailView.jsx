@@ -65,7 +65,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             )}
             {content?.mapviewer_viewservice?.length > 0 && (
               <div className="menu-detail-button">
-                <CclButton url={location.pathname + 'map-viewer'}>
+                <CclButton url={location.pathname + '/map-viewer'}>
                   View dataset on map viewer
                 </CclButton>
               </div>
