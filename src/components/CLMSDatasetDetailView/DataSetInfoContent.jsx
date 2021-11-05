@@ -87,49 +87,49 @@ const DataSetInfoContent = (props) => {
           ></CclInfoDescription>
         )}
       </CclInfoContainer>
-      <div className="dataset-info-documents dropdown">
-        <Accordion fluid styled>
-          <React.Fragment>
-            <Accordion.Title
-              as={'h2'}
-              onClick={handleClick}
-              className={'accordion-title align-arrow-right'}
-            >
-              {isExclusive() ? (
-                <Icon
-                  name={
-                    props?.data?.right_arrows
-                      ? titleIcons.opened.rightPosition
-                      : titleIcons.opened.leftPosition
-                  }
-                  size="24px"
-                />
-              ) : (
-                <Icon
-                  name={
-                    props?.data?.right_arrows
-                      ? titleIcons.closed.rightPosition
-                      : titleIcons.closed.leftPosition
-                  }
-                  size="24px"
-                />
-              )}{' '}
-              <span>Technical documents (X docs)</span>
-            </Accordion.Title>
-            <Accordion.Content active={isExclusive()}>
-              <AnimateHeight animateOpacity duration={500} height={'auto'}>
-                {libraries.length > 0 ? (
-                  libraries.map((item, index) => (
-                    <CclCard key={index} type="doc" card={item} />
-                  ))
-                ) : (
-                  <p>There are no technical libraries for this product.</p>
-                )}{' '}
-              </AnimateHeight>
-            </Accordion.Content>
-          </React.Fragment>
-        </Accordion>
-      </div>
+      {libraries?.length > 0 && (
+        <div className="dataset-info-documents dropdown">
+          <div className="accordion-block">
+            <Accordion fluid styled>
+              <React.Fragment>
+                <Accordion.Title
+                  as={'h2'}
+                  onClick={handleClick}
+                  className={'accordion-title align-arrow-right'}
+                >
+                  {isExclusive() ? (
+                    <Icon
+                      name={
+                        props?.data?.right_arrows
+                          ? titleIcons.opened.rightPosition
+                          : titleIcons.opened.leftPosition
+                      }
+                      size="24px"
+                    />
+                  ) : (
+                    <Icon
+                      name={
+                        props?.data?.right_arrows
+                          ? titleIcons.closed.rightPosition
+                          : titleIcons.closed.leftPosition
+                      }
+                      size="24px"
+                    />
+                  )}
+                  <span>Technical documents</span>
+                </Accordion.Title>
+                <Accordion.Content active={isExclusive()}>
+                  <AnimateHeight animateOpacity duration={500} height={'auto'}>
+                    {libraries.map((item, index) => (
+                      <CclCard key={index} type="doc" card={item} />
+                    ))}
+                  </AnimateHeight>
+                </Accordion.Content>
+              </React.Fragment>
+            </Accordion>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
