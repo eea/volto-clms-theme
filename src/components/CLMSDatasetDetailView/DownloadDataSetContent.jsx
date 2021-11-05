@@ -25,7 +25,7 @@ const DownloadDataSetContent = (data) => {
         </div>
       )}
 
-      {data?.mapviewer_viewservice.length > 0 && (
+      {data?.mapviewer_viewservice?.length > 0 && (
         <div className="dataset-download-area">
           <h2>Download by area</h2>
           <p>
@@ -46,7 +46,7 @@ const DownloadDataSetContent = (data) => {
           )}
         </div>
       )}
-      {data.downloadable_files.items.length > 0 && (
+      {data.downloadable_files?.items?.length > 0 && (
         <CclDownloadTable dataset={data}></CclDownloadTable>
       )}
     </div>
