@@ -312,6 +312,11 @@
 /* Meet band */
 .home-meet-container {
   padding: 3rem 3rem;
+  padding-bottom: 6rem;
+}
+
+.ccl-container > .ccl-button {
+  float: right;
 }
 
 /* News/events band */

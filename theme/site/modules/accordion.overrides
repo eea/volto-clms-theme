@@ -35,3 +35,10 @@ h2.accordion-title span {
 .accordion-title:hover {
   color: #273b4b !important;
 }
+
+// Trelloko Product Portfolio / Product - The dots are not ok aligned tiketa egin behar bada hau aktibatu.
+/* .accordion.ui.fluid.styled > .content.active {
+  ul {
+    padding: 0.5em 1em 1.5em !important;
+  }
+} */
