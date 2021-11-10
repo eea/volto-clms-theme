@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { RenderBlocks } from '@plone/volto/components';
+import { Icon, RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './custom.less';
-
+import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
+import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
+// import cx from 'classnames';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '@eeacms/volto-tabs-block/less/carousel.less';
 const Slider = loadable(() => import('react-slick'));
 
 const View = (props) => {
@@ -29,13 +34,45 @@ const View = (props) => {
     speed: 2000,
     fade: true,
     cssEase: 'linear',
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     beforeChange: (oldIndex, index) => {
       setActiveTab(tabsList[index]);
     },
   };
+  const ArrowsGroup = (props) => {
+    // const { activeTab = null, tabsList = [], slider = {} } = props;
+    // const currentSlide = tabsList.indexOf(activeTab);
+    // const slideCount = tabsList.length;
 
+    return (
+      <div className={'slick-arrows'}>
+        <button
+          aria-label="Previous slide"
+          className="slick-prev slick-arrow"
+          onClick={() => {
+            if (slider.current) {
+              slider.current.slickPrev();
+            }
+          }}
+        >
+          <Icon name={leftArrowSVG} size="50px" />
+        </button>
+
+        <button
+          aria-label="Next slide"
+          className="slick-next slick-arrow"
+          onClick={() => {
+            if (slider.current) {
+              slider.current.slickNext();
+            }
+          }}
+        >
+          <Icon name={rightArrowSVG} size="50px" />
+        </button>
+      </div>
+    );
+  };
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
     if (
@@ -85,6 +122,7 @@ const View = (props) => {
       <Slider {...settings} ref={slider} className="home-carousel">
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
+      <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} />
     </>
   );
 };
