@@ -42,10 +42,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       <CclTabs>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
-        {content.mapviewer_viewservice?.length === 0 ||
-        (content.mapviewer_viewservice === null &&
-          content.downloadable_files?.items?.length === 0) ||
-        (content.downloadable_files === null && token !== '') ? (
+        {(content.mapviewer_viewservice?.length === 0 ||
+          content.mapviewer_viewservice === null) &&
+        (content.downloadable_files?.items?.length === 0 ||
+          content.downloadable_files === null) ? (
           <div tabTitle=""></div>
         ) : (
           <div tabTitle="Download dataset">
