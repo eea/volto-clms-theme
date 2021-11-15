@@ -1,6 +1,7 @@
 import React from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const CLMSEventView = (props) => {
   const { content } = props;
@@ -23,7 +24,7 @@ export const CLMSEventView = (props) => {
           <figcaption>{content?.image_caption}</figcaption>
         </figure>
         <div className="event-detail-when">
-          <i className="far fa-calendar-alt"></i>
+          <FontAwesomeIcon icon={['far', 'calendar-alt']} />
           <div className="event-detail-when-text">
             {new Date(content?.start).toLocaleDateString()} -{' '}
             {new Date(content?.end).toLocaleDateString()}
@@ -31,7 +32,7 @@ export const CLMSEventView = (props) => {
         </div>
         {content?.location ? (
           <div className="event-detail-where">
-            <i className="fas fa-map-marker-alt"></i>
+            <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />{' '}
             <div className="event-detail-where-text">{content?.location}</div>
           </div>
         ) : (

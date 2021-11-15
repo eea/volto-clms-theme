@@ -32,6 +32,7 @@ const ServiceDeskView = () => {
                     <span className="label-required">*</span>
                   </label>
                   <input
+                    // maxlength="10"
                     type="text"
                     className="ccl-text-input"
                     id="contact_form_email"

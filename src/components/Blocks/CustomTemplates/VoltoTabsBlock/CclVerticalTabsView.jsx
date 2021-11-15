@@ -6,6 +6,7 @@ import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './fontawesome';
 import cx from 'classnames';
+import { Route, NavLink } from 'react-router-dom';
 
 const CclVerticalTabsView = (props) => {
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
@@ -59,18 +60,20 @@ const CclVerticalTabsView = (props) => {
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
           return (
-            <div
-              key={index}
-              className={cx('panel', tab === activeTab && 'panel-selected')}
-              role="tabpanel"
-              aria-hidden="false"
-            >
-              <RenderBlocks
-                {...props}
-                metadata={metadata}
-                content={tabs[tab]}
-              />
-            </div>
+            <Route to={'#' + activeTab}>
+              <div
+                key={index}
+                className={cx('panel', tab === activeTab && 'panel-selected')}
+                role="tabpanel"
+                aria-hidden="false"
+              >
+                <RenderBlocks
+                  {...props}
+                  metadata={metadata}
+                  content={tabs[tab]}
+                />
+              </div>
+            </Route>
           );
         })}
       </div>
@@ -95,8 +98,8 @@ const CclVerticalTabsView = (props) => {
                 id={tabIndex}
                 className={cx('card', tab === activeTab && 'active')}
               >
-                <a
-                  href={'#' + tabIndex}
+                <NavLink
+                  to={'#' + title}
                   className="collapsed"
                   onClick={(e) => {
                     e.preventDefault();
@@ -111,7 +114,7 @@ const CclVerticalTabsView = (props) => {
                   }}
                 >
                   {title || defaultTitle}
-                </a>
+                </NavLink>
               </div>
             );
           })}
