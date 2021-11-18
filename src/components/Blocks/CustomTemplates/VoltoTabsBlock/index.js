@@ -1,5 +1,6 @@
 import CclTabsView from './CclTabsView';
 import CclVerticalTabsView from './CclVerticalTabsView';
+import CclRouteTabsView from './VerticalRouteTabsView';
 import CclVerticalFaqTabsView from './CclVerticalFaqTabsView';
 import CclCarouselView from './CclCarouselView';
 
@@ -8,4 +9,5 @@ export {
   CclVerticalTabsView,
   CclVerticalFaqTabsView,
   CclCarouselView,
+  CclRouteTabsView,
 };
