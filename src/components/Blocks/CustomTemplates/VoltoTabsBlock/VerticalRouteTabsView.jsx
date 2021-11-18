@@ -18,7 +18,6 @@ const CclRouteTabsView = (props) => {
     setActiveTab = () => {},
   } = props;
   const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
-  const [pressed, setPressed] = React.useState(false);
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
@@ -44,13 +43,16 @@ const CclRouteTabsView = (props) => {
     if (!hashlinkOnMount) {
       setHashlinkOnMount(true);
     }
+    if (window.performance) {
+      if (performance.navigation.type === 1) {
+        setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
+      }
+    }
     window.onpopstate = () => {
       if (window.location.hash.length > 0) {
-        setActiveTab(window.location.hash.substring(1));
-        setPressed(true);
+        setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
       } else {
         setActiveTab(tabsList[0]);
-        setPressed(true);
       }
     };
   }, [
@@ -77,8 +79,6 @@ const CclRouteTabsView = (props) => {
               role="tabpanel"
               aria-hidden="false"
             >
-              {/* Frogak hobeto ikusteko */}
-              <h3>Back button pressed: {pressed.toString()}</h3>
               <RenderBlocks
                 {...props}
                 metadata={metadata}
@@ -114,7 +114,7 @@ const CclRouteTabsView = (props) => {
                   content={tab}
                   exact={true}
                   // to={'#' + title.toLowerCase().replace(/\s/g, '-')}
-                  to={'#' + tab}
+                  to={'#' + `Tab${tabIndex}`}
                   className="collapsed"
                   onClick={() => {
                     if (activeTab !== tab) {
@@ -136,6 +136,7 @@ const CclRouteTabsView = (props) => {
       </div>
     );
   };
+  // console.log('props', props);
 
   return (
     <div className="ccl-container ccl-container-flex tab-container" id="froga">
