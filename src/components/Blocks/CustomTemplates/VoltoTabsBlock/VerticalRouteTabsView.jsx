@@ -114,7 +114,7 @@ const CclRouteTabsView = (props) => {
                   content={tab}
                   exact={true}
                   // to={'#' + title.toLowerCase().replace(/\s/g, '-')}
-                  to={'#' + `Tab${tabIndex}`}
+                  to={`#Tab${tabIndex}`}
                   className="collapsed"
                   onClick={() => {
                     if (activeTab !== tab) {
