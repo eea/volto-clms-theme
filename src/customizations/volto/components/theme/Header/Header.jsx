@@ -22,7 +22,7 @@ import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/C
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
-import { getCartItems } from '@eeacms/volto-clms-theme/actions';
+import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
 import { Link } from 'react-router-dom';
 // import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
