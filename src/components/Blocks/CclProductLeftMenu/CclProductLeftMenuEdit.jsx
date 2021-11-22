@@ -49,7 +49,7 @@ const CclProductLeftMenuEdit = (props) => {
         <div className="menu-detail-image">
           <img
             src={metadata?.image?.download}
-            alt={metadata?.image?.filename}
+            alt={metadata?.image?.filename || ''}
           />
         </div>
         {panels.map(([uid, panel], index) => (
