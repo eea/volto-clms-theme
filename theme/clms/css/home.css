@@ -8,7 +8,7 @@
 }
 
 .accordion.ui.fluid.styled {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .contenttype-lrf:not(.section-cart) .ui.basic.segment.content-area {
@@ -312,6 +312,11 @@
 /* Meet band */
 .home-meet-container {
   padding: 3rem 3rem;
+  padding-bottom: 6rem;
+}
+
+.ccl-container > .ccl-button {
+  float: right;
 }
 
 /* News/events band */

@@ -65,7 +65,7 @@ const messages = defineMessages({
   },
   followUs: {
     id: 'followUs',
-    defaultMessage: 'Follow Us',
+    defaultMessage: 'Follow us',
   },
   jointResearchCenter: {
     id: 'jointResearchCenter',

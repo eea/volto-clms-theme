@@ -6,10 +6,9 @@ import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './fontawesome';
 import cx from 'classnames';
-import { Route, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const CclVerticalTabsView = (props) => {
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+const CclRouteTabsView = (props) => {
   const {
     metadata = {},
     data = {},
@@ -18,6 +17,7 @@ const CclVerticalTabsView = (props) => {
     hashlink = {},
     setActiveTab = () => {},
   } = props;
+  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
 
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
@@ -43,6 +43,18 @@ const CclVerticalTabsView = (props) => {
     if (!hashlinkOnMount) {
       setHashlinkOnMount(true);
     }
+    if (
+      String(window.performance.getEntriesByType('navigation')[0].type) ===
+        'navigate' ||
+      String(window.performance.getEntriesByType('navigation')[0].type) ===
+        'reload'
+    ) {
+      if (window.location.hash.length === 0) {
+        setActiveTab(tabsList[0]);
+      } else {
+        setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
+      }
+    }
   }, [
     activeTabIndex,
     data.id,
@@ -60,25 +72,25 @@ const CclVerticalTabsView = (props) => {
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
           return (
-            <Route to={'#' + activeTab}>
-              <div
-                key={index}
-                className={cx('panel', tab === activeTab && 'panel-selected')}
-                role="tabpanel"
-                aria-hidden="false"
-              >
-                <RenderBlocks
-                  {...props}
-                  metadata={metadata}
-                  content={tabs[tab]}
-                />
-              </div>
-            </Route>
+            <div
+              id={tab}
+              key={index}
+              className={cx('panel', tab === activeTab && 'panel-selected')}
+              role="tabpanel"
+              aria-hidden="false"
+            >
+              <RenderBlocks
+                {...props}
+                metadata={metadata}
+                content={tabs[tab]}
+              />
+            </div>
           );
         })}
       </div>
     );
   };
+
   const TabsComponent = () => {
     return (
       <div className="left-content cont-w-25">
@@ -89,9 +101,8 @@ const CclVerticalTabsView = (props) => {
               tabs = {},
               setActiveTab = () => {},
             } = props;
-            const title = tabs[tab].title;
             const tabIndex = index + 1;
-            const defaultTitle = `Tab ${tabIndex}`;
+            const title = tabs[tab].title || `Tab ${tabIndex}`;
             return (
               <div
                 key={index}
@@ -99,10 +110,12 @@ const CclVerticalTabsView = (props) => {
                 className={cx('card', tab === activeTab && 'active')}
               >
                 <NavLink
-                  to={'#' + title}
+                  id={'tab' + tabIndex}
+                  content={tab}
+                  // to={'#' + title.toLowerCase().replace(/\s/g, '-')}
+                  to={`#Tab${tabIndex}`}
                   className="collapsed"
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     if (activeTab !== tab) {
                       setActiveTab(tab);
                     }
@@ -113,7 +126,7 @@ const CclVerticalTabsView = (props) => {
                     }
                   }}
                 >
-                  {title || defaultTitle}
+                  {title}
                 </NavLink>
               </div>
             );
@@ -122,9 +135,10 @@ const CclVerticalTabsView = (props) => {
       </div>
     );
   };
+  // console.log('props', props);
 
   return (
-    <div className="ccl-container ccl-container-flex tab-container">
+    <div className="ccl-container ccl-container-flex tab-container" id="froga">
       <TabsComponent />
       <PanelsComponent />
     </div>
@@ -135,7 +149,8 @@ export default compose(
   connect((state) => {
     return {
       hashlink: state.hashlink,
+      location: state.router.location.hash,
     };
   }),
   withScrollToTarget,
-)(withRouter(CclVerticalTabsView));
+)(withRouter(CclRouteTabsView));

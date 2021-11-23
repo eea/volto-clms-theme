@@ -35,15 +35,17 @@ import { injectIntl } from 'react-intl';
 
 const CLMSDatasetDetailView = ({ content, token }) => {
   const location = useLocation();
+
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
       <CclTabs>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
-        {content.mapviewer_viewservice?.length === 0 &&
-        content.downloadable_files?.items?.length === 0 &&
-        token !== '' ? (
+        {(content.mapviewer_viewservice?.length === 0 ||
+          content.mapviewer_viewservice === null) &&
+        (content.downloadable_files?.items?.length === 0 ||
+          content.downloadable_files === null) ? (
           <div tabTitle=""></div>
         ) : (
           <div tabTitle="Download dataset">

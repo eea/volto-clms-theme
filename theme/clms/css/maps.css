@@ -140,7 +140,6 @@
 
 .land .measurement-coords {
 	display: none;
-	max-width: 225px;
 	padding: 1rem;
 	background-color: white;
 }
@@ -204,7 +203,9 @@
 }
 
 .land .map-menu.tab-container .tab {
-	display: inline-block;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 	width: 50%;
 	padding: 1rem;
 	border-bottom: solid 4px white;
@@ -214,6 +215,7 @@
 	cursor: pointer;
 	font-weight: bold;
 	text-align: center;
+	white-space: normal;
 }
 
 .land .map-menu.tab-container .tab-selected {
@@ -222,6 +224,9 @@
 }
 
 .land .map-menu.tab-container .tabs {
+	display: flex;
+    align-items: stretch;
+    justify-content: space-around;
 	border-bottom: solid 1px #dadada;
 	background-color: white;
 	white-space: nowrap;
@@ -505,6 +510,7 @@
 .land .map-download-buttons {
 	display: flex;
 	justify-content: space-between;
+	margin: 0 1rem;
 }
 
 .land .map-download-block .ccl-form-group:not(:first-of-type) {
