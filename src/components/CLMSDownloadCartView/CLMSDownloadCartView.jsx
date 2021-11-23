@@ -8,7 +8,7 @@ import { Helmet } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
-import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { FormattedMessage } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Forbidden, Unauthorized } from '@plone/volto/components';

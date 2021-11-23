@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import PropTypes from 'prop-types';
 import './download-table.less';
-import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { Checkbox } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 
