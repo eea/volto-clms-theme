@@ -43,29 +43,18 @@ const CclRouteTabsView = (props) => {
     if (!hashlinkOnMount) {
       setHashlinkOnMount(true);
     }
-    /* if (window.performance) {
-      if (
-        performance.navigation.type === 1 ||
-        performance.navigation.type === 0
-      ) {
-        setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
-      }
-    } */
     if (
       String(window.performance.getEntriesByType('navigation')[0].type) ===
         'navigate' ||
       String(window.performance.getEntriesByType('navigation')[0].type) ===
         'reload'
     ) {
-      setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
-    }
-    window.onpopstate = () => {
-      if (window.location.hash.length > 0) {
-        setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
-      } else {
+      if (window.location.hash.length === 0) {
         setActiveTab(tabsList[0]);
+      } else {
+        setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
       }
-    };
+    }
   }, [
     activeTabIndex,
     data.id,
