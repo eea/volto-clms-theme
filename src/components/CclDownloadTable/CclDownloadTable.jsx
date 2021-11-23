@@ -47,7 +47,9 @@ function CclDownloadTable(props) {
   return (
     <div className="dataset-download-table">
       <Toast message="Added to cart" time={5000}></Toast>
-      <h2>{dataset?.title || 'Download table default title'}</h2>
+      <h2>
+        {/* dataset?.title ||  */ 'Download pre-packaged data collections'}
+      </h2>
       <p>
         Please note that you can only download the latest version of our
         datasets from this website. If you are looking for older versions please
