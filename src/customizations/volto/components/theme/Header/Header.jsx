@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { connect, useSelector, useDispatch } from 'react-redux';
 
 import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
+// import { SearchWidget } from '@eeacms/volto-clms-theme/src/customizations/volto/components/theme/SearchWidget/SearchWidget';
 import jwtDecode from 'jwt-decode';
 import { getUser } from '@plone/volto/actions';
 import { compose } from 'redux';
