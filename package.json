@@ -25,8 +25,7 @@
     "@eeacms/volto-metadata-block",
     "@eeacms/volto-resize-helper",
     "@eeacms/volto-tabs-block",
-    "@eeacms/volto-clms-utils",
-    "volto-form-block"
+    "@eeacms/volto-clms-utils"
   ],
   "dependencies": {
     "@eeacms/volto-tabs-block": "1.2.7",
@@ -44,8 +43,7 @@
     "react-svg": "14.0.4",
     "@eeacms/volto-arcgis-block": "*",
     "react-native-mime-types": "2.3.0",
-    "@eeacms/volto-clms-utils": "0.1.1",
-    "volto-form-block": "2.1.0"
+    "@eeacms/volto-clms-utils": "0.1.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
