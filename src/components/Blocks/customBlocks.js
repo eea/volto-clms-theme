@@ -36,6 +36,7 @@ import {
   CclRouteTabsView,
   CclVerticalFaqTabsView,
   CclCarouselView,
+  RoutingHOC,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import {
@@ -102,7 +103,7 @@ const customBlocks = (config) => ({
       CCLVerticalTabs: {
         title: 'CCL Vertical Tabs',
         edit: DefaultEdit,
-        view: CclVerticalTabsView,
+        view: RoutingHOC(CclVerticalTabsView),
         schema: defaultSchema,
       },
       CclRouteTabsView: {
