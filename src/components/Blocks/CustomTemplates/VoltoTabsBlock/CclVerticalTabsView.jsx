@@ -9,7 +9,7 @@ import cx from 'classnames';
 import { Route, NavLink } from 'react-router-dom';
 
 const CclVerticalTabsView = (props) => {
-  const { metadata = {}, tabsList = [] } = props;
+  const { metadata = {}, tabsList = [], ExtraComponent = null } = props;
   const PanelsComponent = () => {
     const { activeTab = null, tabs = {} } = props;
     return (
@@ -38,6 +38,7 @@ const CclVerticalTabsView = (props) => {
   const TabsComponent = () => {
     return (
       <div className="left-content cont-w-25">
+        {ExtraComponent ? <ExtraComponent /> : ''}
         <nav className="left-menu">
           {tabsList.map((tab, index) => {
             const {
