@@ -54,7 +54,7 @@ const CclGreenBgView = (props) => {
             role="button"
             tabIndex={0}
             className="ccl-banner-top-bar-right"
-            onClick={(console.log('showResults:', showResults), onClick)}
+            onClick={/* console.log('showResults:', showResults), */ onClick}
             onKeyDown={onKeyDown}
           >
             <span className="ccl-icon-map-dot"></span>
