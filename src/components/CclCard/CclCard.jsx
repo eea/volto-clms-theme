@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './cards.less';
 import PropTypes from 'prop-types';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as mime from 'react-native-mime-types';
 
@@ -56,14 +55,9 @@ function CclCard(props) {
               </div>
               <div className="card-text">
                 <div className="card-title">
-                  <a href={card?.file?.download || '#'}>
-                    {card?.title || 'Card default title'}
-                  </a>
+                  <a href={url}>{card?.title || 'Card default title'}</a>
                 </div>
                 <div className="card-description">{card?.description}</div>
-                <div className="card-button">
-                  <CclButton url={url}>Access to product</CclButton>
-                </div>
                 {children}
               </div>
             </>
