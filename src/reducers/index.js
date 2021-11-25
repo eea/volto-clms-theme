@@ -10,6 +10,7 @@ import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrum
 import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
 import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
 import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
+import { registryReducer } from './registry/registry';
 
 /**
  * Root reducer.
@@ -27,6 +28,7 @@ const reducers = {
   meeting_register: meetingRegisterReducer,
   subscribers: meetingSubscribersReducer,
   downloadtool: downloadtoolReducer,
+  registry: registryReducer,
 };
 
 export default reducers;
