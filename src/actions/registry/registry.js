@@ -12,6 +12,7 @@ export const GET_REGISTRY = 'GET_REGISTRY';
 export function getRegistry(registry_key) {
   return {
     type: GET_REGISTRY,
+    registry_key: registry_key,
     request: {
       op: 'get',
       path: `/@registry/${registry_key}`,
