@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
 import './ccl-login-modal.css';
@@ -14,10 +14,18 @@ import './ccl-login-modal.css';
  */
 function CclLoginModal() {
   const dispatch = useDispatch();
+  const registryRecords = useSelector((state) => state.registry.records);
+  const [loginUrl, setLoginUrl] = React.useState('');
+  const registry_key = 'clms.addon.login_url_controlpanel.login_url';
   useEffect(() => {
-    dispatch(getRegistry());
-  }, null);
+    dispatch(getRegistry(registry_key));
+  }, [dispatch]);
 
+  useEffect(() => {
+    if (registryRecords && registry_key in registryRecords) {
+      setLoginUrl(registryRecords[registry_key]);
+    }
+  }, [registryRecords]);
   return (
     <CclModal
       trigger={
@@ -39,7 +47,7 @@ function CclLoginModal() {
         </a>
         .
       </div>
-      <CclButton url="#" mode="filled">
+      <CclButton url={loginUrl || ''} mode="filled">
         Login
       </CclButton>
     </CclModal>

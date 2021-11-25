@@ -13,7 +13,6 @@ const getInitialState = {
 };
 
 export const registryReducer = (state = getInitialState, action = {}) => {
-  console.log('registryReducer', state, action);
   switch (action?.type) {
     case `${GET_REGISTRY}_PENDING`:
       return {
@@ -36,8 +35,8 @@ export const registryReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        registry: {
-          ...state.registry,
+        records: {
+          ...state.records,
           [action.registry_key]: action.result,
         },
       };
