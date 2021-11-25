@@ -20,7 +20,10 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "ApiTokens"
+msgstr ""
+
 #: customizations/volto/components/manage/Toolbar/Toolbar
 msgid "Back"
 msgstr ""
@@ -29,7 +32,11 @@ msgstr ""
 msgid "Breadcrumbs"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSDownloadCartView/CLMSDownloadCartView
+msgid "Cart"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Changes saved"
 msgstr ""
 
@@ -53,11 +60,43 @@ msgstr ""
 msgid "Copernicus Site"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Copy created token button"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Create token"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Create token description"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Create token name"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Created token description"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Created token name"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Default"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Delete the token"
+msgstr ""
+
+#: components/CLMSMapViewerView/CLMSMapViewerView
+msgid "DownloadByArea"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "E-mail"
 msgstr ""
 
@@ -78,7 +117,7 @@ msgstr ""
 msgid "Edit or remove image"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Enter full name, e.g. John Smith."
 msgstr ""
 
@@ -86,8 +125,12 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Full Name"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "Go back button"
 msgstr ""
 
 #: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
@@ -102,8 +145,12 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Location"
+msgstr ""
+
+#: components/CLMSDownloadCartView/CLMSDownloadCartView
+msgid "Lorem"
 msgstr ""
 
 #: customizations/volto/components/manage/Toolbar/Toolbar
@@ -118,7 +165,6 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
 #: customizations/volto/components/manage/Toolbar/Toolbar
 msgid "Personal Information"
 msgstr ""
@@ -131,8 +177,12 @@ msgstr ""
 msgid "Personal tools"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Portrait"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+msgid "ProcurementNo"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
@@ -161,11 +211,15 @@ msgstr ""
 msgid "Shrink toolbar"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+msgid "SubmissionDeadline"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Success"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "The user portrait/avatar"
 msgstr ""
 
@@ -183,15 +237,19 @@ msgstr ""
 msgid "Uploading file"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "UserProfile"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/Blocks/CustomTemplates/VoltoTabsBlock/CclProductTabsView
+msgid "View in the map viewer"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "We will use this address if you need to recover your password"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 msgid "Your location - either city and country - or in a company setting, where your office is located."
 msgstr ""
 
@@ -203,6 +261,16 @@ msgstr ""
 msgid "agreePrivacyPolicyLinkText"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "all"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "cc"
+msgstr ""
+
 #: customizations/volto/components/theme/Footer/Footer
 msgid "copernicusServices"
 msgstr ""
@@ -210,6 +278,63 @@ msgstr ""
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 msgid "countText"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "create title"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "created title"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "descripton"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+msgid "email"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_alldates"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_attendees"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_contactname"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_contactphone"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_website"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_what"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_when"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "event_where"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "existing tokens"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "existing tokens description"
 msgstr ""
 
 #: customizations/volto/components/theme/Footer/Footer
@@ -244,8 +369,17 @@ msgstr ""
 msgid "footerSecurity"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "from"
+msgstr ""
+
 #: customizations/volto/components/theme/Header/Header
 msgid "hello"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "hosting_organisation"
 msgstr ""
 
 #: customizations/volto/components/theme/Footer/Footer
@@ -260,11 +394,71 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "meetinglevel"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "meetingtype"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "modified"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+msgid "name"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+msgid "organisation"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "recipients"
+msgstr ""
+
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 msgid "searchDatasetsPlaceholder"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+msgid "state"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "subject"
+msgstr ""
+
 #: customizations/volto/components/theme/Footer/Footer
 msgid "subscribe"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "title"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+msgid "tokenTitleLabel"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+msgid "type"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+msgid "user_name"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+msgid "visit_external_website"
 msgstr ""

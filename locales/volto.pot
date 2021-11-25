@@ -1,7 +1,7 @@
 msgid ""
   msgstr ""
   "Project-Id-Version: Plone\n"
-  "POT-Creation-Date: 2021-07-14T06:49:06.709Z\n"
+  "POT-Creation-Date: 2021-11-25T09:38:45.965Z\n"
   "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
   "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
   "MIME-Version: 1.0\n"
@@ -24,7 +24,11 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: API Tokens
+msgid "ApiTokens"
+msgstr ""
+
 #: customizations/volto/components/manage/Toolbar/Toolbar
 # defaultMessage: Back
 msgid "Back"
@@ -35,7 +39,12 @@ msgstr ""
 msgid "Breadcrumbs"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSDownloadCartView/CLMSDownloadCartView
+# defaultMessage: Cart
+msgid "Cart"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Changes saved
 msgid "Changes saved"
 msgstr ""
@@ -65,12 +74,52 @@ msgstr ""
 msgid "Copernicus Site"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Copy to clipboard
+msgid "Copy created token button"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Create
+msgid "Create token"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Use this form to create a new token and name it in a way that you can recognize it.
+msgid "Create token description"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Name
+msgid "Create token name"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: This is your new token. Please note its value, because it will only be shown one. If you lose access to this token, you will need to delete it and create a new one
+msgid "Created token description"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Token
+msgid "Created token name"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Default
 msgid "Default"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Delete
+msgid "Delete the token"
+msgstr ""
+
+#: components/CLMSMapViewerView/CLMSMapViewerView
+# defaultMessage: Download by area
+msgid "DownloadByArea"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: E-mail
 msgid "E-mail"
 msgstr ""
@@ -96,7 +145,7 @@ msgstr ""
 msgid "Edit or remove image"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Enter full name, e.g. John Smith.
 msgid "Enter full name, e.g. John Smith."
 msgstr ""
@@ -106,9 +155,14 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Full Name
 msgid "Full Name"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Go back to the token list
+msgid "Go back button"
 msgstr ""
 
 #: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
@@ -126,9 +180,15 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Location
 msgid "Location"
+msgstr ""
+
+#: components/CLMSDownloadCartView/CLMSDownloadCartView
+# defaultMessage: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
+        mauris ante, a iaculis leo placerat quis.
+msgid "Lorem"
 msgstr ""
 
 #: customizations/volto/components/manage/Toolbar/Toolbar
@@ -146,7 +206,6 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
 #: customizations/volto/components/manage/Toolbar/Toolbar
 # defaultMessage: Personal Information
 msgid "Personal Information"
@@ -162,9 +221,14 @@ msgstr ""
 msgid "Personal tools"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Portrait
 msgid "Portrait"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+# defaultMessage: Procurement No:
+msgid "ProcurementNo"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
@@ -199,12 +263,17 @@ msgstr ""
 msgid "Shrink toolbar"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+# defaultMessage: Submission deadline:
+msgid "SubmissionDeadline"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Success
 msgid "Success"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: The user portrait/avatar
 msgid "The user portrait/avatar"
 msgstr ""
@@ -226,17 +295,22 @@ msgstr ""
 msgid "Uploading file"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: User Profile
 msgid "UserProfile"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/Blocks/CustomTemplates/VoltoTabsBlock/CclProductTabsView
+# defaultMessage: View in the map viewer
+msgid "View in the map viewer"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: We will use this address if you need to recover your password
 msgid "We will use this address if you need to recover your password"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSProfileView
+#: components/CLMSProfileView/CLMSUserProfileView
 # defaultMessage: Your location - either city and country - or in a company setting, where your office is located.
 msgid "Your location - either city and country - or in a company setting, where your office is located."
 msgstr ""
@@ -251,6 +325,18 @@ msgstr ""
 msgid "agreePrivacyPolicyLinkText"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: All
+msgid "all"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: CC
+msgid "cc"
+msgstr ""
+
 #: customizations/volto/components/theme/Footer/Footer
 # defaultMessage: Copernicus Services
 msgid "copernicusServices"
@@ -262,13 +348,84 @@ msgstr ""
 msgid "countText"
 msgstr ""
 
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: CREATE NEW TOKEN
+msgid "create title"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: NEW TOKEN CREATED
+msgid "created title"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: API tokens are used for machine-to-machine communication with the CLMS portal API. You need to create a new API token for each application in wich you need to use the CLMS portal API. In this screen you can create a new API token, check the list of your tokens and also delete those tokens.
+msgid "descripton"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: Email
+msgid "email"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: All dates
+msgid "event_alldates"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Attendees
+msgid "event_attendees"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Contact Name
+msgid "event_contactname"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Contact Phone
+msgid "event_contactphone"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Website
+msgid "event_website"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: What
+msgid "event_what"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: When
+msgid "event_when"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Where
+msgid "event_where"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Existing tokens
+msgid "existing tokens"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: These are your avaliable tokens
+msgid "existing tokens description"
+msgstr ""
+
 #: customizations/volto/components/theme/Footer/Footer
 # defaultMessage: Expert support provided by
 msgid "expertSupportProvidedBy"
 msgstr ""
 
 #: customizations/volto/components/theme/Footer/Footer
-# defaultMessage: Follow Us
+# defaultMessage: Follow us
 msgid "followUs"
 msgstr ""
 
@@ -302,9 +459,20 @@ msgstr ""
 msgid "footerSecurity"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: From
+msgid "from"
+msgstr ""
+
 #: customizations/volto/components/theme/Header/Header
 # defaultMessage: Hello 
 msgid "hello"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Hosting organisation
+msgid "hosting_organisation"
 msgstr ""
 
 #: customizations/volto/components/theme/Footer/Footer
@@ -313,7 +481,7 @@ msgid "jointResearchCenter"
 msgstr ""
 
 #: customizations/volto/components/theme/Header/Header
-# defaultMessage: Login/Register
+# defaultMessage: Register/Login
 msgid "loginRegister"
 msgstr ""
 
@@ -322,13 +490,86 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Level
+msgid "meetinglevel"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Type
+msgid "meetingtype"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Modified
+msgid "modified"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: Name
+msgid "name"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: Organisation
+msgid "organisation"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Recipients
+msgid "recipients"
+msgstr ""
+
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
 # defaultMessage: Search datasets
 msgid "searchDatasetsPlaceholder"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: State
+msgid "state"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Subject
+msgid "subject"
+msgstr ""
+
 #: customizations/volto/components/theme/Footer/Footer
 # defaultMessage: Subscribe
 msgid "subscribe"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: API Token management
+msgid "title"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Token title
+msgid "tokenTitleLabel"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingEmailsView
+#: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Type
+msgid "type"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingSubscribersView
+#: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: User Name
+msgid "user_name"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Visit external website
+msgid "visit_external_website"
 msgstr ""
