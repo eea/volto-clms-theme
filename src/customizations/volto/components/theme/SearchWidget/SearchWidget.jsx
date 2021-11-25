@@ -4,10 +4,9 @@
  */
 
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Form, Input } from 'semantic-ui-react';
 import { compose } from 'redux';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -90,11 +89,9 @@ class SearchWidget extends Component {
    */
   onSubmit(event) {
     // this.setState({ lang: this.props.locale });
-    const section = this.state.section
-      ? `&path=${this.props.locale + this.props.pathname}`
-      : '';
+    const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/search?SearchableText=${this.state.text}${section}`,
+      `/${this.props.locale}/search?SearchableText=${this.state.text}${section}`,
     );
     event.preventDefault();
   }

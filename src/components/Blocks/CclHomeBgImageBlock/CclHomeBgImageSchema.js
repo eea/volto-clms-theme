@@ -18,7 +18,7 @@ export const HomeBgImageSchema = (config, hasButton, hasLocationInfo) => {
         {
           id: 'locationInfo',
           title: 'Location info',
-          fields: ['locationInfoTitle', 'locationDescription'/* , 'infoLink' */],
+          fields: ['locationInfoTitle', 'locationDescription', 'locationHref'],
         },
       ]
     : [];
@@ -88,14 +88,14 @@ export const HomeBgImageSchema = (config, hasButton, hasLocationInfo) => {
         description: 'Green bg location description',
         type: 'string',
       },
-      // infoLink: {
-      //   title: 'URL',
-      //   description: 'Select site content or paste external url',
-      //   widget: 'object_browser',
-      //   mode: 'link',
-      //   selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
-      //   allowExternals: false,
-      // },
+      locationHref: {
+        title: 'location URL',
+        description: 'Select site content or paste external url',
+        widget: 'object_browser',
+        mode: 'link',
+        selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
+        allowExternals: true,
+      },
       buttonTitle: {
         title: 'Title',
         description: 'Add button text',
