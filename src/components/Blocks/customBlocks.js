@@ -64,6 +64,10 @@ import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUs
 import CclTechnicalLibrariesListView from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListView';
 import CclTechnicalLibrariesListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListEdit';
 
+import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
+import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingEdit';
+import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
+
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
@@ -94,7 +98,7 @@ const customBlocks = (config) => ({
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     templates: {
-      CCLTabs: {
+      default: {
         title: 'Horizontal Tabs',
         edit: DefaultEdit,
         view: CclTabsView,
@@ -109,7 +113,7 @@ const customBlocks = (config) => ({
       CCLProductTabs: {
         title: 'Vertical Product Tabs',
         edit: DefaultEdit,
-        view: CclProductTabsView,
+        view: RoutingHOC(CclProductTabsView),
         schema: defaultSchema,
       },
       CCLVerticalFaqTabs: {
@@ -130,53 +134,52 @@ const customBlocks = (config) => ({
     ...config.blocks.blocksConfig.listing,
     showLinkMore: true,
     variations: [
-      ...config.blocks.blocksConfig.listing.variations,
       {
-        id: 'CclCardsline-color',
-        isDefault: false,
-        title: 'CclCards Colored Line',
+        id: 'CclCardsdoc',
+        isDefault: true,
+        title: 'Line list',
         template: CclListingCards,
       },
       {
         id: 'CclCardsline',
         isDefault: false,
-        title: 'CclCards Image Line',
+        title: 'Line list with Image',
         template: CclListingCards,
       },
       {
-        id: 'CclCardsdoc',
+        id: 'CclCardsline-color',
         isDefault: false,
-        title: 'CclCards Line',
+        title: 'Colored Line list with Image',
         template: CclListingCards,
       },
       {
         id: 'CclCardsblock',
         isDefault: false,
-        title: 'CclCards Block',
+        title: 'Cards list',
         template: CclListingCards,
       },
       {
         id: 'CclCardsnews',
         isDefault: false,
-        title: 'CclCards News',
+        title: 'News Line list',
         template: CclListingCards,
       },
       {
         id: 'CclCardsevent',
         isDefault: false,
-        title: 'CclCards Events',
+        title: 'Events Line list',
         template: CclListingCards,
       },
       {
         id: 'CclWOOpenTenders',
         isDefault: false,
-        title: 'CclWO Open Tenders',
+        title: 'Open Work Opportunities',
         template: CclListingWorkOpportunities,
       },
       {
         id: 'CclWOCloseTenders',
         isDefault: false,
-        title: 'CclWO Close Tenders',
+        title: 'Closed Work Opportunities',
         template: CclListingWorkOpportunities,
       },
     ],
@@ -383,6 +386,61 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
+  },
+  relatedListing: {
+    id: 'relatedListing', // The name (id) of the block
+    title: 'Related items listing', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclRelatedListingView, // The view mode component
+    edit: CclRelatedListingEdit, // The edit mode component
+    schema: RelatedListingSchema,
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+    variations: [
+      {
+        id: 'CclCardsdoc',
+        isDefault: false,
+        title: 'Line list',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsline',
+        isDefault: false,
+        title: 'Line list with Image',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsline-color',
+        isDefault: false,
+        title: 'Colored Line list with Image',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsblock',
+        isDefault: false,
+        title: 'Cards list',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsnews',
+        isDefault: false,
+        title: 'News Line list',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsevent',
+        isDefault: false,
+        title: 'Events Line list',
+        template: CclListingCards,
+      },
+    ],
   },
 });
 
