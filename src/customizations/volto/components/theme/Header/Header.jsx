@@ -197,18 +197,7 @@ class Header extends Component {
                             </>
                           )}
                       </>
-                    )) || (
-                      <CclLoginModal />
-                      // <Link
-                      //   to={`/${this.props.locale}/login`}
-                      //   className="header-login-link"
-                      // >
-                      //   <FormattedMessage
-                      //     id="loginRegister"
-                      //     defaultMessage="Register/Login"
-                      //   />
-                      // </Link>
-                    )}
+                    )) || <CclLoginModal />}
                   </li>
                 </ul>
                 <div
