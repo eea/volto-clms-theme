@@ -9,7 +9,7 @@ const getInitialState = {
   error: null,
   loaded: false,
   loading: false,
-  registry: {},
+  records: {},
 };
 
 export const registryReducer = (state = getInitialState, action = {}) => {
