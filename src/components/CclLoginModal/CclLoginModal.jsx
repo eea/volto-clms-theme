@@ -5,6 +5,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
+import config from '@plone/volto/registry';
 import './ccl-login-modal.css';
 /**
  * Login Modal component doc.
@@ -16,16 +17,20 @@ function CclLoginModal() {
   const dispatch = useDispatch();
   const registryRecords = useSelector((state) => state.registry.records);
   const [loginUrl, setLoginUrl] = React.useState('');
-  const registry_key = 'clms.addon.login_url_controlpanel.login_url';
-  useEffect(() => {
-    dispatch(getRegistry(registry_key));
-  }, [dispatch]);
+  const registry_key = config.settings?.registry?.login_url || null;
 
   useEffect(() => {
     if (registryRecords && registry_key in registryRecords) {
       setLoginUrl(registryRecords[registry_key]);
     }
-  }, [registryRecords]);
+  }, [registryRecords, registry_key]);
+
+  function modalStatus(status) {
+    if (status === true) {
+      dispatch(getRegistry(registry_key));
+    }
+  }
+
   return (
     <CclModal
       trigger={
@@ -37,9 +42,10 @@ function CclLoginModal() {
         </div>
       }
       size="fullscreen"
+      modalStatus={modalStatus}
     >
-      <div class="modal-login-title">Login</div>
-      <div class="modal-login-text">
+      <div className="modal-login-title">Login</div>
+      <div className="modal-login-text">
         Registration is free. Personal data will only be used internally. more
         details, see the{' '}
         <a href="./personal-data-protection.html" target="_blank">
