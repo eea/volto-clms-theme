@@ -26,7 +26,8 @@
     "@eeacms/volto-resize-helper",
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-clms-utils",
-    "volto-form-block"
+    "volto-form-block",
+    "@eeacms/volto-taxonomy"
   ],
   "dependencies": {
     "@eeacms/volto-tabs-block": "1.2.7",
@@ -45,7 +46,8 @@
     "@eeacms/volto-arcgis-block": "*",
     "react-native-mime-types": "2.3.0",
     "@eeacms/volto-clms-utils": "0.1.1",
-    "volto-form-block": "2.1.0"
+    "volto-form-block": "2.1.0",
+    "@eeacms/volto-taxonomy": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
