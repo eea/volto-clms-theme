@@ -15,7 +15,7 @@ export function getRegistry(registry_key) {
     registry_key: registry_key,
     request: {
       op: 'get',
-      path: `/@registry/${registry_key}`,
+      path: `/@anon-registry/${registry_key}`,
     },
   };
 }
