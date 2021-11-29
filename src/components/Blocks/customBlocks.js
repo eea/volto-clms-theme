@@ -78,6 +78,11 @@ export const customGroupBlocksOrder = {
 
 const customBlocks = (config) => ({
   ...config.blocks.blocksConfig,
+  video: {
+    ...config.blocks.blocksConfig.video,
+    mostUsed: false,
+  },
+
   [ARCGIS_BLOCK]: {
     ...config.blocks.blocksConfig[ARCGIS_BLOCK],
     styles: {
@@ -100,6 +105,7 @@ const customBlocks = (config) => ({
     edit: FixTemplates(TabsEdit),
     view: FixTemplates(TabsView),
     deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
+    mostUsed: true, // A meta group `most used`, appearing at the top of the chooser
     templates: {
       default: {
         title: 'Horizontal Tabs',
@@ -189,6 +195,7 @@ const customBlocks = (config) => ({
   },
   accordion: {
     ...config.blocks.blocksConfig.accordion,
+    mostUsed: true,
     titleIcons: {
       closed: { leftPosition: downSVG, rightPosition: downSVG },
       opened: { leftPosition: upSVG, rightPosition: upSVG },
@@ -270,7 +277,7 @@ const customBlocks = (config) => ({
     view: CclProductLeftMenuView, // The view mode component
     edit: CclProductLeftMenuEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
-    mostUsed: true, // A meta group `most used`, appearing at the top of the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
     sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
     security: {
