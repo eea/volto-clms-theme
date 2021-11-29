@@ -61,9 +61,6 @@ import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 
-import CclTechnicalLibrariesListView from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListView';
-import CclTechnicalLibrariesListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListEdit';
-
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingEdit';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
@@ -119,7 +116,7 @@ const customBlocks = (config) => ({
       CCLVerticalFaqTabs: {
         title: 'Vertical FAQ Tabs',
         edit: DefaultEdit,
-        view: CclVerticalFaqTabsView,
+        view: RoutingHOC(CclVerticalFaqTabsView),
         schema: defaultSchema,
       },
       CCLCarousel: {
@@ -327,7 +324,7 @@ const customBlocks = (config) => ({
   },
   homeBgImage: {
     id: 'homeBgImage', // The name (id) of the block
-    title: 'Home BG Image', // The display name of the block
+    title: 'Carousel Item', // The display name of the block
     icon: homeBand, // The icon used in the block chooser
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeBgImageBlockView, // The view mode component
@@ -345,12 +342,12 @@ const customBlocks = (config) => ({
       {
         id: 'green-bg',
         isDefault: true,
-        title: 'Green background carousel',
+        title: 'Green background',
         template: CclGreenBgView,
       },
       {
         id: 'white-bg',
-        title: 'White background carousel',
+        title: 'White background',
         template: CclWhiteBgView,
       },
     ],
@@ -362,22 +359,6 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclUseCaseListView, // The view mode component
     edit: CclUseCaseListEdit, // The edit mode component
-    restricted: false, // If the block is restricted, it won't show in the chooser
-    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
-    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
-    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
-    security: {
-      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
-      view: [], // Future proof (not implemented yet) view user role(s)
-    },
-  },
-  technicalLibrariesList: {
-    id: 'technicalLibrariesList', // The name (id) of the block
-    title: 'Technical Libraries List', // The display name of the block
-    icon: homeBand, // The icon used in the block chooser
-    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
-    view: CclTechnicalLibrariesListView, // The view mode component
-    edit: CclTechnicalLibrariesListEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
