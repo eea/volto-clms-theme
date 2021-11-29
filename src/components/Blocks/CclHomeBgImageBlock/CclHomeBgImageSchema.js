@@ -1,4 +1,4 @@
-export const HomeBgImageSchema = (config, hasButton) => {
+export const HomeBgImageSchema = (config, hasButton, hasLocationInfo) => {
   const variationsConfig = config.blocks.blocksConfig['homeBgImage'].variations;
   const variations = Object.keys(variationsConfig).map((variation) => [
     variationsConfig[variation].id,
@@ -13,6 +13,15 @@ export const HomeBgImageSchema = (config, hasButton) => {
         },
       ]
     : [];
+  const hasLocationFieldset = hasLocationInfo
+    ? [
+        {
+          id: 'locationInfo',
+          title: 'Location info',
+          fields: ['locationInfoTitle', 'locationDescription', 'locationHref'],
+        },
+      ]
+    : [];
   return {
     title: 'Card container',
     fieldsets: [
@@ -24,11 +33,12 @@ export const HomeBgImageSchema = (config, hasButton) => {
           'subtitle',
           'description',
           'variation',
-          'greenText',
           'location',
+          'hasLocationInfo',
           'hasButton',
         ],
       },
+      ...hasLocationFieldset,
       ...hasButtonFieldset,
     ],
     properties: {
@@ -57,15 +67,34 @@ export const HomeBgImageSchema = (config, hasButton) => {
         type: 'array',
         choices: [...variations],
       },
-      greenText: {
-        title: 'Left text',
-        description: 'Green bg left side text',
-        type: 'string',
-      },
       location: {
         title: 'Location',
         description: 'Green bg location',
         type: 'string',
+      },
+      hasLocationInfo: {
+        title: 'Location info',
+        description: 'Green bg location info',
+        type: 'boolean',
+        default: false,
+      },
+      locationInfoTitle: {
+        title: 'Location info title',
+        description: 'Green bg location info title',
+        type: 'string',
+      },
+      locationDescription: {
+        title: 'Location description',
+        description: 'Green bg location description',
+        type: 'string',
+      },
+      locationHref: {
+        title: 'location URL',
+        description: 'Select site content or paste external url',
+        widget: 'object_browser',
+        mode: 'link',
+        selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
+        allowExternals: true,
       },
       buttonTitle: {
         title: 'Title',

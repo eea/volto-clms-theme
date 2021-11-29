@@ -330,7 +330,7 @@ const customBlocks = (config) => ({
   },
   homeBgImage: {
     id: 'homeBgImage', // The name (id) of the block
-    title: 'Home BG Image', // The display name of the block
+    title: 'Home Carousel', // The display name of the block
     icon: homeBand, // The icon used in the block chooser
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeBgImageBlockView, // The view mode component
