@@ -98,7 +98,7 @@ const customBlocks = (config) => ({
     ...config.blocks.blocksConfig[TABS_BLOCK],
     edit: FixTemplates(TabsEdit),
     view: FixTemplates(TabsView),
-    deprecated_templates: ['CCLVerticalTabs', 'CCLTabs', 'CclRouteTabsView'],
+    deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
     templates: {
       default: {
         title: 'Horizontal Tabs',
