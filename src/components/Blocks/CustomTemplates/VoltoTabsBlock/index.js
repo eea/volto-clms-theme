@@ -4,6 +4,7 @@ import CclVerticalFaqTabsView from './CclVerticalFaqTabsView';
 import CclCarouselView from './CclCarouselView';
 import RoutingHOC from './RoutingHOC';
 import CclProductTabsView from './CclProductTabsView';
+import FixTemplates from './FixTemplates';
 
 export {
   CclTabsView,
@@ -12,4 +13,5 @@ export {
   CclCarouselView,
   RoutingHOC,
   CclProductTabsView,
+  FixTemplates,
 };

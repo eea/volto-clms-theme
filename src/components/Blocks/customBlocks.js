@@ -27,6 +27,8 @@ import CclHomeSearchBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/C
 import {
   DefaultEdit,
   defaultSchema,
+  TabsEdit,
+  TabsView,
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
@@ -37,6 +39,7 @@ import {
   CclCarouselView,
   RoutingHOC,
   CclProductTabsView,
+  FixTemplates,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import {
@@ -94,6 +97,9 @@ const customBlocks = (config) => ({
   },
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
+    edit: FixTemplates(TabsEdit),
+    view: FixTemplates(TabsView),
+    deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
     templates: {
       default: {
         title: 'Horizontal Tabs',

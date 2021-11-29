@@ -37,7 +37,7 @@ const CclReatedListingEdit = (props) => {
   }
   if (!template_id) {
     for (let variation in variationsConfig) {
-      if (variationsConfig[variation].isDefault) {
+      if (variationsConfig[variation].id === data?.variation) {
         TemplateView = variationsConfig[variation].template;
         template_id = variationsConfig[variation].id;
       }
