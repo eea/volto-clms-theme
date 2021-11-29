@@ -7,9 +7,9 @@ import React, { Component } from 'react';
 import { Form, Input } from 'semantic-ui-react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import jwtDecode from 'jwt-decode';
 import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 
 const messages = defineMessages({
   search: {
@@ -88,7 +88,6 @@ class SearchWidget extends Component {
    * @returns {undefined}
    */
   onSubmit(event) {
-    // this.setState({ lang: this.props.locale });
     const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
       `/${this.props.locale}/search?SearchableText=${this.state.text}${section}`,
@@ -129,14 +128,9 @@ class SearchWidget extends Component {
 }
 
 export default compose(
+  withRouter,
   injectIntl,
   connect((state) => ({
     locale: state.intl.locale,
-    cart: state.cart_items.items,
-    user: state.users.user,
-    token: state.userSession.token
-      ? jwtDecode(state.userSession.token).sub
-      : '',
-    rawtoken: state.userSession.token,
   })),
 )(SearchWidget);

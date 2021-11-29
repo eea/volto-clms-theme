@@ -5,8 +5,10 @@ import CclHomeImageEditor from './CclHomeImageEditor';
 const CclGreenBgView = (props) => {
   const { data, isEditMode } = props;
   const [showResults, setShowResults] = React.useState(false);
-  const onClick = () => setShowResults(!showResults);
-  const onKeyDown = () => setShowResults(!showResults);
+  const onClick = () =>
+    setShowResults(showResults === props.id ? false : props.id);
+  const onKeyDown = () =>
+    setShowResults(showResults === props.id ? false : props.id);
 
   return (
     <div className="ccl-banner-top-container">
@@ -47,39 +49,39 @@ const CclGreenBgView = (props) => {
           </div>
         </div>
       </div>
-      <div className="ccl-banner-top-bar">
-        <div className="ccl-container">
-          <div className="ccl-banner-top-bar-left"></div>
-          <div
-            role="button"
-            tabIndex={0}
-            className="ccl-banner-top-bar-right"
-            onClick={/* console.log('showResults:', showResults), */ onClick}
-            onKeyDown={onKeyDown}
-          >
-            <span className="ccl-icon-map-dot"></span>
-            {data?.location}
-          </div>
-          {data?.hasLocationInfo === true && (
+      {data?.hasLocationInfo && (
+        <div className="ccl-banner-top-bar">
+          <div className="ccl-container">
+            <div className="ccl-banner-top-bar-left"></div>
             <div
-              class="ccl-banner-info"
-              // {...(showResults ? 'style=display:block' : 'style=display:none')}
-              style={showResults ? { display: 'block' } : { display: 'none' }}
+              role={'button'}
+              tabIndex={0}
+              className="ccl-banner-top-bar-right"
+              onClick={onClick}
+              onKeyDown={onKeyDown}
             >
-              <div class="ccl-banner-info-title">{data?.locationInfoTitle}</div>
-              <div class="ccl-banner-info-content">
-                <p>{data?.locationDescription}</p>
-              </div>
-              <a
-                class="ccl-banner-info-link"
-                href={'' + data?.locationHref?.[0]?.['@id']}
-              >
-                More info
-              </a>
+              <span className="ccl-icon-map-dot"></span>
+              {data?.location}
             </div>
-          )}
+            {showResults === props.id && (
+              <div class="ccl-banner-info" style={{ display: 'block' }}>
+                <div class="ccl-banner-info-title">
+                  {data?.locationInfoTitle}
+                </div>
+                <div class="ccl-banner-info-content">
+                  <p>{data?.locationDescription}</p>
+                </div>
+                <a
+                  class="ccl-banner-info-link"
+                  href={'' + data?.locationHref?.[0]?.['@id']}
+                >
+                  More info
+                </a>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
