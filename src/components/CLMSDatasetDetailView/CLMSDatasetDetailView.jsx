@@ -48,9 +48,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
           content.downloadable_files === null) ? (
           <div tabTitle=""></div>
         ) : (
-          <div tabTitle="Download dataset">
-            {DownloadDataSetContent(content)}
-          </div>
+          <div tabTitle="Download">{DownloadDataSetContent(content)}</div>
         )}
 
         <div underPanel={true}>
@@ -66,7 +64,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             {content?.mapviewer_viewservice?.length > 0 && (
               <div className="menu-detail-button">
                 <CclButton url={location.pathname + '/map-viewer'}>
-                  View dataset on map viewer
+                  View in the map viewer
                 </CclButton>
               </div>
             )}

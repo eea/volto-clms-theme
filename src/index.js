@@ -93,7 +93,12 @@ const applyConfig = (config) => {
       'sv',
     ],
     defaultLanguage: 'en',
+    registry: {
+      ...config.settings.registry,
+      login_url: 'clms.addon.login_url_controlpanel.login_url',
+    },
   };
+
   config.addonRoutes = [
     ...config.addonRoutes,
     {

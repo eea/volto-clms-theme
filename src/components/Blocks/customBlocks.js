@@ -27,16 +27,19 @@ import CclHomeSearchBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/C
 import {
   DefaultEdit,
   defaultSchema,
+  TabsEdit,
+  TabsView,
 } from '@eeacms/volto-tabs-block/components';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 
 import {
   CclTabsView,
   CclVerticalTabsView,
-  CclRouteTabsView,
   CclVerticalFaqTabsView,
   CclCarouselView,
   RoutingHOC,
+  CclProductTabsView,
+  FixTemplates,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 
 import {
@@ -93,38 +96,40 @@ const customBlocks = (config) => ({
   },
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
+    edit: FixTemplates(TabsEdit),
+    view: FixTemplates(TabsView),
+    deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
     templates: {
-      CCLTabs: {
-        title: 'CCL Tabs (Copernicus Style Guide)',
+      default: {
+        title: 'Horizontal Tabs',
         edit: DefaultEdit,
         view: CclTabsView,
         schema: defaultSchema,
       },
       CCLVerticalTabs: {
-        title: 'CCL Vertical Tabs',
+        title: 'Vertical Tabs',
         edit: DefaultEdit,
         view: RoutingHOC(CclVerticalTabsView),
         schema: defaultSchema,
       },
-      CclRouteTabsView: {
-        title: 'CCL Route Tabs',
+      CCLProductTabs: {
+        title: 'Vertical Product Tabs',
         edit: DefaultEdit,
-        view: CclRouteTabsView,
+        view: CclProductTabsView,
         schema: defaultSchema,
       },
       CCLVerticalFaqTabs: {
-        title: 'CCL Vertical FAQ Tabs',
+        title: 'Vertical FAQ Tabs',
         edit: DefaultEdit,
         view: CclVerticalFaqTabsView,
         schema: defaultSchema,
       },
       CCLCarousel: {
-        title: 'CCL Carousel (Copernicus Style Guide)',
+        title: 'Carousel',
         edit: DefaultEdit,
         view: CclCarouselView,
         schema: defaultSchema,
       },
-      ...(config.blocks.blocksConfig[TABS_BLOCK]?.templates || {}),
     },
   },
   listing: {

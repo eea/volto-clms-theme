@@ -453,7 +453,8 @@
 }
 
 .land .active-layer-options i:hover,
-.land .active-layer-options svg:hover {
+.land .active-layer-options svg:hover,
+.land .map-menu-icons svg:hover {
 	color: #7c8921;
 }
 
