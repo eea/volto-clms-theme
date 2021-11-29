@@ -94,7 +94,7 @@ const customBlocks = (config) => ({
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     templates: {
-      CCLTabs: {
+      default: {
         title: 'Horizontal Tabs',
         edit: DefaultEdit,
         view: CclTabsView,
