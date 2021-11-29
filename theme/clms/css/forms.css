@@ -40,7 +40,12 @@
 }
 
 .ccl-button--default:active,
-.ccl-button--default:focus,
+.ccl-button--default:focus {
+  background-color: #fff;
+  color: #a0b128;
+}
+
+
 .ccl-button--default:hover {
   background-color: #a0b128;
   color: #fff;
