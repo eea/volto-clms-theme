@@ -1,6 +1,6 @@
 import config from '@plone/volto/registry';
 
-const Schema = () => {
+const Schema = (types_schema) => {
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
   const variations = Object.keys(variationsConfig).map((variation) => [
@@ -13,20 +13,13 @@ const Schema = () => {
       {
         id: 'default',
         title: 'Default',
-        fields: ['title', 'content_type', 'variation'],
+        fields: ['content_type', 'variation'],
       },
     ],
     properties: {
-      title: {
-        title: 'Title',
-        type: 'string',
-      },
       content_type: {
         title: 'Content Type',
-        choices: [
-          ['News Item', 'News Item'],
-          ['Event', 'Event'],
-        ],
+        choices: [...types_schema],
       },
       variation: {
         title: 'Variation',

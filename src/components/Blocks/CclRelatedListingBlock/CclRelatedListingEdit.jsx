@@ -18,6 +18,8 @@ const CclReatedListingEdit = (props) => {
   const dispatch = useDispatch();
   const schema = config.blocks.blocksConfig['relatedListing'].schema;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
+  const types = useSelector((state) => state.types.types);
+  const types_schema = types.map((type) => [type.title, type.title]);
   const path = metadata ? metadata['@id'] : properties['@id'];
   const uid = metadata ? metadata['UID'] : properties['UID'];
   let libraries = searchSubrequests?.[props.id]?.items || [];
@@ -29,6 +31,7 @@ const CclReatedListingEdit = (props) => {
     if (!data?.variation && variationsConfig[variation].isDefault) {
       TemplateView = variationsConfig[variation].template;
       template_id = variationsConfig[variation].id;
+      data.variation = template_id;
     }
     if (variationsConfig[variation].id === data?.variation) {
       TemplateView = variationsConfig[variation].template;
@@ -40,8 +43,12 @@ const CclReatedListingEdit = (props) => {
       if (variationsConfig[variation].id === data?.variation) {
         TemplateView = variationsConfig[variation].template;
         template_id = variationsConfig[variation].id;
+        data.variation = template_id;
       }
     }
+  }
+  if (!data.content_type) {
+    data.content_type = 'News Item';
   }
   React.useEffect(() => {
     dispatch(
@@ -49,7 +56,7 @@ const CclReatedListingEdit = (props) => {
         path,
         {
           fullobjects: 1,
-          portal_type: data.content_type || 'News Item',
+          portal_type: data.content_type,
           path: '/',
           associated_products: uid,
         },
@@ -66,7 +73,7 @@ const CclReatedListingEdit = (props) => {
       </div>
       <SidebarPortal selected={selected}>
         <InlineForm
-          schema={schema()}
+          schema={schema(types_schema)}
           title="Related Listing block"
           onChangeField={(id, value) => {
             onChangeBlock(block, {
