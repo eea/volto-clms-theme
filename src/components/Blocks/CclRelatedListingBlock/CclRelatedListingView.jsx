@@ -15,10 +15,27 @@ const CclReatedListingView = (props) => {
   let TemplateView = '';
   let template_id = '';
   for (let variation in variationsConfig) {
+    if (!data?.variation && variationsConfig[variation].isDefault) {
+      TemplateView = variationsConfig[variation].template;
+      template_id = variationsConfig[variation].id;
+      data.variation = template_id;
+    }
     if (variationsConfig[variation].id === data?.variation) {
       TemplateView = variationsConfig[variation].template;
       template_id = variationsConfig[variation].id;
     }
+  }
+  if (template_id === '') {
+    for (let variation in variationsConfig) {
+      if (variationsConfig[variation].isDefault) {
+        TemplateView = variationsConfig[variation].template;
+        template_id = variationsConfig[variation].id;
+        data.variation = template_id;
+      }
+    }
+  }
+  if (!data.content_type) {
+    data.content_type = 'News Item';
   }
   React.useEffect(() => {
     dispatch(

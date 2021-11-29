@@ -38,9 +38,9 @@ const CclReatedListingEdit = (props) => {
       template_id = variationsConfig[variation].id;
     }
   }
-  if (!template_id) {
+  if (template_id === '') {
     for (let variation in variationsConfig) {
-      if (variationsConfig[variation].id === data?.variation) {
+      if (variationsConfig[variation].isDefault) {
         TemplateView = variationsConfig[variation].template;
         template_id = variationsConfig[variation].id;
         data.variation = template_id;
@@ -64,7 +64,6 @@ const CclReatedListingEdit = (props) => {
       ),
     );
   }, [path, data, id, uid, dispatch]);
-
   return (
     <>
       <div className="technical-libraries">
