@@ -393,7 +393,7 @@ const customBlocks = (config) => ({
       },
       {
         id: 'CclCardsline',
-        isDefault: false,
+        isDefault: true,
         title: 'Line list with Image',
         template: CclListingCards,
       },
