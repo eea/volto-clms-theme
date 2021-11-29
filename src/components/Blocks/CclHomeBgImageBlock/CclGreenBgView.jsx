@@ -4,12 +4,7 @@ import CclHomeImageEditor from './CclHomeImageEditor';
 
 const CclGreenBgView = (props) => {
   const { data, isEditMode } = props;
-  const [showResults, setShowResults] = React.useState(false);
-  const onClick = () =>
-    setShowResults(showResults === props.id ? false : props.id);
-  const onKeyDown = () =>
-    setShowResults(showResults === props.id ? false : props.id);
-
+  const { showInfo, setShowInfo } = props.properties;
   return (
     <div className="ccl-banner-top-container">
       <div
@@ -57,22 +52,22 @@ const CclGreenBgView = (props) => {
               role={'button'}
               tabIndex={0}
               className="ccl-banner-top-bar-right"
-              onClick={onClick}
-              onKeyDown={onKeyDown}
+              onClick={() => setShowInfo(!showInfo)}
+              onKeyDown={() => setShowInfo(!showInfo)}
             >
               <span className="ccl-icon-map-dot"></span>
               {data?.location}
             </div>
-            {showResults === props.id && (
-              <div class="ccl-banner-info" style={{ display: 'block' }}>
-                <div class="ccl-banner-info-title">
+            {showInfo && (
+              <div className="ccl-banner-info" style={{ display: 'block' }}>
+                <div className="ccl-banner-info-title">
                   {data?.locationInfoTitle}
                 </div>
-                <div class="ccl-banner-info-content">
+                <div className="ccl-banner-info-content">
                   <p>{data?.locationDescription}</p>
                 </div>
                 <a
-                  class="ccl-banner-info-link"
+                  className="ccl-banner-info-link"
                   href={'' + data?.locationHref?.[0]?.['@id']}
                 >
                   More info

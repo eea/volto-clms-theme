@@ -103,6 +103,7 @@ const View = (props) => {
     /* eslint-disable-next-line */
   }, [hashlink.counter]);
 
+  const [showInfo, setShowInfo] = React.useState(false);
   const panes = tabsList.map((tab, index) => {
     return {
       id: tab,
@@ -111,7 +112,11 @@ const View = (props) => {
           key={`slide-${tab}`}
           {...props}
           metadata={metadata}
-          content={tabs[tab]}
+          content={{
+            ...tabs[tab],
+            setShowInfo: setShowInfo,
+            showInfo: showInfo,
+          }}
         />
       ),
     };
