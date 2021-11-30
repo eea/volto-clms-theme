@@ -64,8 +64,9 @@ import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 
-import CclTechnicalLibrariesListView from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListView';
-import CclTechnicalLibrariesListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTechnicalLibrariesList/CclTechnicalLibrariesListEdit';
+import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
+import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingEdit';
+import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
 
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
@@ -77,6 +78,11 @@ export const customGroupBlocksOrder = {
 
 const customBlocks = (config) => ({
   ...config.blocks.blocksConfig,
+  video: {
+    ...config.blocks.blocksConfig.video,
+    mostUsed: false,
+  },
+
   [ARCGIS_BLOCK]: {
     ...config.blocks.blocksConfig[ARCGIS_BLOCK],
     styles: {
@@ -99,6 +105,7 @@ const customBlocks = (config) => ({
     edit: FixTemplates(TabsEdit),
     view: FixTemplates(TabsView),
     deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
+    mostUsed: true, // A meta group `most used`, appearing at the top of the chooser
     templates: {
       default: {
         title: 'Horizontal Tabs',
@@ -115,13 +122,13 @@ const customBlocks = (config) => ({
       CCLProductTabs: {
         title: 'Vertical Product Tabs',
         edit: DefaultEdit,
-        view: CclProductTabsView,
+        view: RoutingHOC(CclProductTabsView),
         schema: defaultSchema,
       },
       CCLVerticalFaqTabs: {
         title: 'Vertical FAQ Tabs',
         edit: DefaultEdit,
-        view: CclVerticalFaqTabsView,
+        view: RoutingHOC(CclVerticalFaqTabsView),
         schema: defaultSchema,
       },
       CCLCarousel: {
@@ -136,59 +143,59 @@ const customBlocks = (config) => ({
     ...config.blocks.blocksConfig.listing,
     showLinkMore: true,
     variations: [
-      ...config.blocks.blocksConfig.listing.variations,
       {
-        id: 'CclCardsline-color',
-        isDefault: false,
-        title: 'CclCards Colored Line',
+        id: 'CclCardsdoc',
+        isDefault: true,
+        title: 'Line list',
         template: CclListingCards,
       },
       {
         id: 'CclCardsline',
         isDefault: false,
-        title: 'CclCards Image Line',
+        title: 'Line list with Image',
         template: CclListingCards,
       },
       {
-        id: 'CclCardsdoc',
+        id: 'CclCardsline-color',
         isDefault: false,
-        title: 'CclCards Line',
+        title: 'Colored Line list with Image',
         template: CclListingCards,
       },
       {
         id: 'CclCardsblock',
         isDefault: false,
-        title: 'CclCards Block',
+        title: 'Cards list',
         template: CclListingCards,
       },
       {
         id: 'CclCardsnews',
         isDefault: false,
-        title: 'CclCards News',
+        title: 'News Line list',
         template: CclListingCards,
       },
       {
         id: 'CclCardsevent',
         isDefault: false,
-        title: 'CclCards Events',
+        title: 'Events Line list',
         template: CclListingCards,
       },
       {
         id: 'CclWOOpenTenders',
         isDefault: false,
-        title: 'CclWO Open Tenders',
+        title: 'Open Work Opportunities',
         template: CclListingWorkOpportunities,
       },
       {
         id: 'CclWOCloseTenders',
         isDefault: false,
-        title: 'CclWO Close Tenders',
+        title: 'Closed Work Opportunities',
         template: CclListingWorkOpportunities,
       },
     ],
   },
   accordion: {
     ...config.blocks.blocksConfig.accordion,
+    mostUsed: true,
     titleIcons: {
       closed: { leftPosition: downSVG, rightPosition: downSVG },
       opened: { leftPosition: upSVG, rightPosition: upSVG },
@@ -270,7 +277,7 @@ const customBlocks = (config) => ({
     view: CclProductLeftMenuView, // The view mode component
     edit: CclProductLeftMenuEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
-    mostUsed: true, // A meta group `most used`, appearing at the top of the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
     sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
     security: {
@@ -330,7 +337,7 @@ const customBlocks = (config) => ({
   },
   homeBgImage: {
     id: 'homeBgImage', // The name (id) of the block
-    title: 'Home Carousel', // The display name of the block
+    title: 'Carousel Item', // The display name of the block
     icon: homeBand, // The icon used in the block chooser
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeBgImageBlockView, // The view mode component
@@ -348,12 +355,12 @@ const customBlocks = (config) => ({
       {
         id: 'green-bg',
         isDefault: true,
-        title: 'Green background carousel',
+        title: 'Green background',
         template: CclGreenBgView,
       },
       {
         id: 'white-bg',
-        title: 'White background carousel',
+        title: 'White background',
         template: CclWhiteBgView,
       },
     ],
@@ -374,13 +381,14 @@ const customBlocks = (config) => ({
       view: [], // Future proof (not implemented yet) view user role(s)
     },
   },
-  technicalLibrariesList: {
-    id: 'technicalLibrariesList', // The name (id) of the block
-    title: 'Technical Libraries List', // The display name of the block
+  relatedListing: {
+    id: 'relatedListing', // The name (id) of the block
+    title: 'Related items listing', // The display name of the block
     icon: homeBand, // The icon used in the block chooser
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
-    view: CclTechnicalLibrariesListView, // The view mode component
-    edit: CclTechnicalLibrariesListEdit, // The edit mode component
+    view: CclRelatedListingView, // The view mode component
+    edit: CclRelatedListingEdit, // The edit mode component
+    schema: RelatedListingSchema,
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
@@ -389,6 +397,44 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
+    variations: [
+      {
+        id: 'CclCardsdoc',
+        isDefault: false,
+        title: 'Line list',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsline',
+        isDefault: true,
+        title: 'Line list with Image',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsline-color',
+        isDefault: false,
+        title: 'Colored Line list with Image',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsblock',
+        isDefault: false,
+        title: 'Cards list',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsnews',
+        isDefault: false,
+        title: 'News Line list',
+        template: CclListingCards,
+      },
+      {
+        id: 'CclCardsevent',
+        isDefault: false,
+        title: 'Events Line list',
+        template: CclListingCards,
+      },
+    ],
   },
 });
 
