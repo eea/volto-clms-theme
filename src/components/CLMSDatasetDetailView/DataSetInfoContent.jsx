@@ -12,11 +12,10 @@ import config from '@plone/volto/registry';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
-  const path = props.parent['@id'];
-  const parent = useSelector((state) => state.reduxAsyncConnect.content.parent);
-  const parentId = parent['@id'].split('/').pop();
+  const { UID, id } = props;
+  const path = props['@id'];
   const searchSubrequests = useSelector((state) => state.search.subrequests);
-  let libraries = searchSubrequests?.[props.id]?.items || [];
+  let libraries = searchSubrequests?.[id]?.items || [];
 
   React.useEffect(() => {
     dispatch(
@@ -26,12 +25,12 @@ const DataSetInfoContent = (props) => {
           fullobjects: 1,
           portal_type: 'TechnicalLibrary',
           path: '/',
-          associated_products: parentId,
+          associated_datasets: UID,
         },
-        props.id,
+        id,
       ),
     );
-  }, [path, props.id, parentId, dispatch]);
+  }, [path, id, UID, dispatch]);
 
   const [activeIndex, setActiveIndex] = React.useState([0]);
 

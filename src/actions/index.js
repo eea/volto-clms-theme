@@ -39,3 +39,5 @@ export {
   DELETE_DOWNLOADTOOL,
   deleteDownloadtool,
 } from './downloadtool/delete_downloadtool';
+
+export { GET_REGISTRY, getRegistry } from './registry/registry';

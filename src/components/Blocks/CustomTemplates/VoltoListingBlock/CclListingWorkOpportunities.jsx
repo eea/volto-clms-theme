@@ -36,19 +36,7 @@ const CclWorkOpportunity = (props) => {
   );
 };
 
-function formatDate(date) {
-  var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
-var Today = formatDate(Date.now());
+var Today = new Date();
 
 const CclListingWorkOpportunities = (props) => {
   const { items, variation } = props;
@@ -61,7 +49,8 @@ const CclListingWorkOpportunities = (props) => {
       {items
         .filter(
           (item) =>
-            item.submission_deadline < Today && status === 'CloseTenders',
+            new Date(item.submission_deadline) < Today &&
+            status === 'CloseTenders',
         )
         .map((item, index) => (
           <CclWorkOpportunity
@@ -73,7 +62,8 @@ const CclListingWorkOpportunities = (props) => {
       {items
         .filter(
           (item) =>
-            item.submission_deadline > Today && status === 'OpenTenders',
+            new Date(item.submission_deadline) > Today &&
+            status === 'OpenTenders',
         )
         .map((item, index) => (
           <CclWorkOpportunity

@@ -1,8 +1,10 @@
 import React from 'react';
 import CclVerticalTabsView from './CclVerticalTabsView';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 
 const CclProductTabsView = (props) => {
+  const locale = useSelector((state) => state.intl.locale);
   const ExtraComponent = () => (
     <div className="left-menu-detail">
       <div className="menu-detail-image">
@@ -20,7 +22,10 @@ const CclProductTabsView = (props) => {
         )}
       </div>
       <div className="menu-detail-button">
-        <a href="/" className="ccl-button ccl-button--default">
+        <a
+          href={'/' + locale + '/mapviewer?product=' + props.metadata['UID']}
+          className="ccl-button ccl-button--default"
+        >
           <FormattedMessage
             id="View in the map viewer"
             defaultMessage="View in the map viewer"
