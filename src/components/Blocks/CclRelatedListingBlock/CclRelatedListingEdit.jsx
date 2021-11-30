@@ -4,6 +4,7 @@ import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchContent } from '@plone/volto/actions';
 import config from '@plone/volto/registry';
+// import { getBaseUrl } from '@plone/volto/helpers';
 
 const CclReatedListingEdit = (props) => {
   const {
@@ -20,7 +21,7 @@ const CclReatedListingEdit = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   const types = useSelector((state) => state.types.types);
   const types_schema = types.map((type) => [type.title, type.title]);
-  const path = metadata ? metadata['@id'] : properties['@id'];
+  // const path = getBaseUrl(metadata ? metadata['@id'] : properties['@id']);
   const uid = metadata ? metadata['UID'] : properties['UID'];
   let libraries = searchSubrequests?.[props.id]?.items || [];
   const variationsConfig =
@@ -53,7 +54,7 @@ const CclReatedListingEdit = (props) => {
   React.useEffect(() => {
     dispatch(
       searchContent(
-        path,
+        '',
         {
           fullobjects: 1,
           portal_type: data.content_type,
@@ -63,7 +64,7 @@ const CclReatedListingEdit = (props) => {
         id,
       ),
     );
-  }, [path, data, id, uid, dispatch]);
+  }, [data, id, uid, dispatch]);
   return (
     <>
       <div className="technical-libraries">
