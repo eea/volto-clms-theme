@@ -52,7 +52,15 @@ const CclReatedListingView = (props) => {
     );
   }, [path, data, id, uid, dispatch]);
 
-  return <TemplateView items={libraries} variation={template_id} />;
+  return (
+    <>
+      {libraries.length > 0 ? (
+        <TemplateView items={libraries} variation={template_id} />
+      ) : (
+        <p>There are no related {data.content_type} items.</p>
+      )}
+    </>
+  );
 };
 
 export default CclReatedListingView;

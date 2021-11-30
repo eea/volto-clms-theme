@@ -68,7 +68,11 @@ const CclReatedListingEdit = (props) => {
     <>
       <div className="technical-libraries">
         <h2>Related Listings</h2>
-        <TemplateView items={libraries} variation={template_id} />
+        {libraries.length > 0 ? (
+          <TemplateView items={libraries} variation={template_id} />
+        ) : (
+          <p>There are no related {data.content_type} items.</p>
+        )}
       </div>
       <SidebarPortal selected={selected}>
         <InlineForm
