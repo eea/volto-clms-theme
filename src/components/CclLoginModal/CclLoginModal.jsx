@@ -44,17 +44,29 @@ function CclLoginModal() {
       size="fullscreen"
       modalStatus={modalStatus}
     >
-      <div className="modal-login-title">Login</div>
+      <div className="modal-login-title">Registration / Login</div>
       <div className="modal-login-text">
-        Registration is free. Personal data will only be used internally. more
-        details, see the{' '}
-        <a href="./personal-data-protection.html" target="_blank">
-          Personal data protection
-        </a>
-        .
+        <p>
+          This site uses EU Login to handle user registration and login. You can
+          read more about this service in the{' '}
+          <a href="https://ecas.ec.europa.eu/cas/about.html">
+            EU Login site help
+          </a>
+          .
+        </p>
+        <p>
+          {' '}
+          When you clik on the following link, you will be sent to EU Login and
+          after a successful login there you will be redirected back to this
+          site.
+        </p>
+        <p>
+          If you have any issues or questions, please contact us using the
+          <a href="/en/contact-service-helpdesk"> helpdesk</a>.
+        </p>
       </div>
       <CclButton url={loginUrl || ''} mode="filled">
-        Login
+        Login using EU Login
       </CclButton>
     </CclModal>
   );
