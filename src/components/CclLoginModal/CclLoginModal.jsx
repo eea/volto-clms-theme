@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
 import config from '@plone/volto/registry';
+import { toPublicURL } from '@plone/volto/helpers/Url/Url';
 import './ccl-login-modal.css';
 /**
  * Login Modal component doc.
@@ -44,18 +44,33 @@ function CclLoginModal() {
       size="fullscreen"
       modalStatus={modalStatus}
     >
-      <div className="modal-login-title">Login</div>
+      <div className="modal-login-title">Registration / Login</div>
       <div className="modal-login-text">
-        Registration is free. Personal data will only be used internally. more
-        details, see the{' '}
-        <a href="./personal-data-protection.html" target="_blank">
-          Personal data protection
-        </a>
-        .
+        <p>
+          This site uses EU Login to handle user registration and login. You can
+          read more about this service in the{' '}
+          <a href="https://ecas.ec.europa.eu/cas/about.html">
+            EU Login site help
+          </a>
+          .
+        </p>
+        <p>
+          {' '}
+          When you clik on the following link, you will be sent to EU Login and
+          after a successful login there you will be redirected back to this
+          site.
+        </p>
+        <p>
+          If you have any issues or questions, please contact us using the
+          <a href="/en/contact-service-helpdesk"> helpdesk</a>.
+        </p>
       </div>
-      <CclButton url={loginUrl || ''} mode="filled">
-        Login
-      </CclButton>
+      <a
+        href={toPublicURL(loginUrl) || '#'}
+        className="ccl-button ccl-button-green"
+      >
+        Login using EU Login
+      </a>
     </CclModal>
   );
 }
