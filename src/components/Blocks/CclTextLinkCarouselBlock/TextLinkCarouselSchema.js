@@ -1,5 +1,5 @@
-export const HomeProductsSchema = () => ({
-  title: 'Home poducts',
+export const TextLinkCarouselSchema = () => ({
+  title: 'Home text link carousel',
   fieldsets: [
     {
       id: 'default',
