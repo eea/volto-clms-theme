@@ -12,6 +12,7 @@ import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetin
 import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
+import TextLinkWidget from './components/Widgets/TextLinkWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
@@ -54,10 +55,12 @@ const applyConfig = (config) => {
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
     downloadable_files_widget: DownloadableFilesWidget,
+    text_link_widget: TextLinkWidget,
   };
   config.widgets.widget.bounding_widget = BoundingWidget;
   config.widgets.widget.layer_widget = MapLayersWidget;
   config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
+  config.widgets.widget.text_link_widget = TextLinkWidget;
   config.settings = {
     ...config.settings,
     nonContentRoutes: [
