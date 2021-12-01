@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
 import config from '@plone/volto/registry';
+import { toPublicURL } from '@plone/volto/helpers/Url/Url';
 import './ccl-login-modal.css';
 /**
  * Login Modal component doc.
@@ -65,9 +65,12 @@ function CclLoginModal() {
           <a href="/en/contact-service-helpdesk"> helpdesk</a>.
         </p>
       </div>
-      <CclButton url={loginUrl || ''} mode="filled">
+      <a
+        href={toPublicURL(loginUrl) || '#'}
+        className="ccl-button ccl-button-green"
+      >
         Login using EU Login
-      </CclButton>
+      </a>
     </CclModal>
   );
 }
