@@ -66,18 +66,12 @@ const CclGreenBgView = (props) => {
                 <div className="ccl-banner-info-content">
                   <p>{data?.locationDescription}</p>
                 </div>
-                {data?.locationHref?.[0].length > 0 ? (
-                  <a
-                    className="ccl-banner-info-link"
-                    href={'' + data?.locationHref?.[0]?.['@id']}
-                  >
-                    More info
-                  </a>
-                ) : (
-                  <a className="ccl-banner-info-link" href={'/#'}>
-                    More info
-                  </a>
-                )}
+                <a
+                  className="ccl-banner-info-link"
+                  href={'' + data?.locationHref?.[0]?.['@id']}
+                >
+                  More info
+                </a>
               </div>
             )}
           </div>
