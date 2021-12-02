@@ -43,7 +43,6 @@ function CclLoginModal() {
       }
       size="tiny"
       modalStatus={modalStatus}
-      // extraClassNames="login-modal-size"
     >
       <div className="modal-login-title">Registration / Login</div>
       <div className="modal-login-text">
