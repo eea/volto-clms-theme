@@ -129,6 +129,13 @@ const DataSetInfoContent = (props) => {
           </div>
         </div>
       )}
+
+      <CclCitation title="Dataset citation" marginBottom={true}>
+        <p>
+          © European Union, Copernicus Land Monitoring Service , European
+          Environment Agency (EEA)
+        </p>
+      </CclCitation>
     </div>
   );
 };
