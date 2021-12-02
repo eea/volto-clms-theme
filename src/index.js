@@ -17,6 +17,7 @@ import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import ContactWidget from './components/Widgets/ContactWidget';
+import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
 // CUSTOMIZED BLOCKS IMPORTS
 import customBlocks, {
   customGroupBlocksOrder,
@@ -57,6 +58,7 @@ const applyConfig = (config) => {
     layer_widget: MapLayersWidget,
     downloadable_files_widget: DownloadableFilesWidget,
     contact_widget: ContactWidget,
+    distribution_info_widget: DistributionInfoWidget,
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
   };
   config.settings = {
