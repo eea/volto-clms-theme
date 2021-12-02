@@ -3,7 +3,12 @@ import { Modal } from 'semantic-ui-react';
 import './modal.less';
 
 function CclModal(props) {
-  let { trigger, children, size, modalStatus } = props;
+  let {
+    trigger,
+    children,
+    size = 'fullscreen',
+    modalStatus = () => {},
+  } = props;
   const [open, setOpen] = React.useState(false);
 
   function openModal() {
