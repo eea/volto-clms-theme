@@ -275,7 +275,7 @@ const CLMSDownloadCartView = (props) => {
                         <tr>
                           <td
                             colSpan={11}
-                            style={{ textAlign: 'center', fontSize: '1.5em' }}
+                            style={{ textAlign: 'center', color: '#adb0b8', opacity: 0.5 }}
                           >
                             Empty cart
                           </td>
