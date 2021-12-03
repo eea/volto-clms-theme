@@ -212,14 +212,9 @@
 }
 
 .slick-dots {
-  position: relative;
-  bottom: -25px;
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
+  position: absolute;
+  z-index: 1;
+  bottom: 1.75rem;
 }
 
 .slick-dots li {

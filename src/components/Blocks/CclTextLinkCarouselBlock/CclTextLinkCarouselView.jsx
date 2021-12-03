@@ -25,7 +25,7 @@ const TextLinkCarouselView = (props) => {
       <Slider {...settings} ref={slider} className="text-carousel">
         {data?.textLink?.items.map((item, index) => (
           <div className="text-link-carousel-block" key={index}>
-            <a href={'' + item?.link[0]['@id']}>{item.text}</a>
+            <a href={'' + item?.link?.[0]?.['@id']}>{item.text}</a>
           </div>
         ))}
       </Slider>
