@@ -13,7 +13,7 @@ import {
   DownloadDataSetContent,
   MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
@@ -34,7 +34,7 @@ import { injectIntl } from 'react-intl';
  */
 
 const CLMSDatasetDetailView = ({ content, token }) => {
-  const location = useLocation();
+  const locale = useSelector((state) => state.intl.locale);
 
   return (
     <div className="ccl-container ">
@@ -63,7 +63,9 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             )}
             {content?.mapviewer_viewservice?.length > 0 && (
               <div className="menu-detail-button">
-                <CclButton url={location.pathname + '/map-viewer'}>
+                <CclButton
+                  url={'/' + locale + '/map-viewer?dataset=' + content.UID}
+                >
                   View in the map viewer
                 </CclButton>
               </div>
