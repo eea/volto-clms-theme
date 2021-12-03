@@ -3,13 +3,28 @@ import { Modal } from 'semantic-ui-react';
 import './modal.less';
 
 function CclModal(props) {
+  let {
+    trigger,
+    children,
+    size = 'fullscreen',
+    modalStatus = () => {},
+  } = props;
   const [open, setOpen] = React.useState(false);
-  let { trigger, children, size } = props;
+
+  function openModal() {
+    setOpen(true);
+    modalStatus(true);
+  }
+
+  function closeModal() {
+    setOpen(false);
+    modalStatus(false);
+  }
 
   return (
     <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onClose={() => closeModal()}
+      onOpen={() => openModal()}
       open={open}
       trigger={trigger}
       className={'modal-clms'}
@@ -21,8 +36,8 @@ function CclModal(props) {
             <span
               className="ccl-icon-close"
               aria-label="Close"
-              onClick={() => setOpen(false)}
-              onKeyDown={() => setOpen(false)}
+              onClick={() => closeModal()}
+              onKeyDown={() => closeModal()}
               tabIndex="0"
               role="button"
             ></span>

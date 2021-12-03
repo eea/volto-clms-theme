@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
 import { Link } from 'react-router-dom';
+import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 // import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 
 const CartIconCounter = (props) => {
@@ -205,15 +206,7 @@ class Header extends Component {
                     </>
                   )) || (
                     <li>
-                      <Link
-                        to={`/${this.props.locale}/login`}
-                        className="header-login-link"
-                      >
-                        <FormattedMessage
-                          id="loginRegister"
-                          defaultMessage="Register/Login"
-                        />
-                      </Link>
+                       <CclLoginModal />
                     </li>
                   )}
                 </ul>

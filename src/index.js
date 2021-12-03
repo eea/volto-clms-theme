@@ -10,9 +10,9 @@ import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMS
 import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
 import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
 import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
-import ServiceDeskView from '@eeacms/volto-clms-theme/components/CLMSServiceDeskView/CLMSServiceDeskView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
+import TextLinkWidget from './components/Widgets/TextLinkWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
@@ -55,10 +55,12 @@ const applyConfig = (config) => {
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
     downloadable_files_widget: DownloadableFilesWidget,
+    text_link_widget: TextLinkWidget,
   };
   config.widgets.widget.bounding_widget = BoundingWidget;
   config.widgets.widget.layer_widget = MapLayersWidget;
   config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
+  config.widgets.widget.text_link_widget = TextLinkWidget;
   config.settings = {
     ...config.settings,
     nonContentRoutes: [
@@ -94,7 +96,12 @@ const applyConfig = (config) => {
       'sv',
     ],
     defaultLanguage: 'en',
+    registry: {
+      ...config.settings.registry,
+      login_url: 'clms.addon.login_url_controlpanel.login_url',
+    },
   };
+
   config.addonRoutes = [
     ...config.addonRoutes,
     {
@@ -104,10 +111,6 @@ const applyConfig = (config) => {
     {
       path: '/**/profile',
       component: ProfileView,
-    },
-    {
-      path: '/**/contact-service-desk',
-      component: ServiceDeskView,
     },
     {
       path: '/**/download-by-area',

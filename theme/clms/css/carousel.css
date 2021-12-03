@@ -212,14 +212,9 @@
 }
 
 .slick-dots {
-  position: relative;
-  bottom: -25px;
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
+  position: absolute;
+  z-index: 1;
+  bottom: 1.75rem;
 }
 
 .slick-dots li {
@@ -429,4 +424,49 @@
 
 .tabs-block .slick-slider:not(.slick-vertical) .slick-slide {
   padding-top: 0;
+}
+
+/* .ccl-banner-top-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-right: auto;
+  margin-left: auto;
+} */
+
+/* Banner info */
+.ccl-banner-info {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 2rem;
+  display: none;
+  width: 100%;
+  padding: 1.5rem;
+  background: #ffffffd9;
+}
+
+@media (min-width: 768px) {
+  .ccl-banner-info {
+    width: 30%;
+  }
+}
+
+.ccl-banner-info .ccl-banner-info-title {
+  margin-bottom: 1rem;
+  color: black !important;
+  font-size: 1rem !important;
+  font-weight: bold;
+}
+
+.ccl-banner-info .ccl-banner-info-content p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.125rem;
+}
+
+.ccl-banner-info-link {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
 }

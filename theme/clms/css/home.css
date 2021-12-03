@@ -71,11 +71,22 @@
   color: #fff;
 }
 
+.ccl-banner-top-bar .ccl-container .ccl-banner-top-bar-right {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
 .ccl-banner-top-bar .ccl-container {
   display: flex;
   height: 100%;
   align-items: center;
   justify-content: space-between;
+}
+
+.ccl-banner-top-bar-left .ccl-banner-top-bar-right {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ccl-banner-top-bar .ccl-banner-top-bar-left,
