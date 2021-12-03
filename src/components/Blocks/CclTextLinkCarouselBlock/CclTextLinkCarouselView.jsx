@@ -6,7 +6,7 @@ const TextLinkCarouselView = (props) => {
   const { data } = props;
   const slider = React.useRef(null);
 
-  const { tabsList = [], setActiveTab = () => { } } = props;
+  const { tabsList = [], setActiveTab = () => {} } = props;
   const settings = {
     dots: false,
     infinite: true,

@@ -206,7 +206,7 @@ class Header extends Component {
                     </>
                   )) || (
                     <li>
-                       <CclLoginModal />
+                      <CclLoginModal />
                     </li>
                   )}
                 </ul>
