@@ -6,7 +6,7 @@ const TextLinkCarouselView = (props) => {
   const { data } = props;
   const slider = React.useRef(null);
 
-  const { tabsList = [], setActiveTab = () => {} } = props;
+  const { tabsList = [], setActiveTab = () => { } } = props;
   const settings = {
     dots: false,
     infinite: true,
@@ -22,13 +22,17 @@ const TextLinkCarouselView = (props) => {
 
   return (
     <>
-      <Slider {...settings} ref={slider} className="text-carousel">
-        {data?.textLink?.items.map((item, index) => (
-          <div className="text-link-carousel-block" key={index}>
-            <a href={'' + item?.link?.[0]?.['@id']}>{item.text}</a>
-          </div>
-        ))}
-      </Slider>
+      <div class="ccl-container">
+        <Slider {...settings} ref={slider} className="text-carousel">
+          {data?.textLink?.items.map((item, index) => (
+            <div className="text-link-carousel-block" key={index}>
+              <div className="text-link-carousel-block-content">
+                <a href={'' + item?.link?.[0]?.['@id']}>{item.text}</a>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
     </>
   );
 };
