@@ -15,10 +15,35 @@ div.tabs-block.CCLCarousel {
   }
 }
 
+.slick-slider.text-carousel {
+  div & {
+    position: relative !important;
+    z-index: 1;
+    right: 50% !important;
+    left: 0% !important;
+    width: 50vw !important;
+    max-width: initial !important;
+    // margin-top: -2rem;
+  }
+}
+
 .tabs-block .slick-slider {
   z-index: 1;
 }
 
 .slick-arrows {
   margin-top: -2rem !important;
+}
+
+.text-link-carousel-block {
+  height: 2rem;
+  padding: 0 1rem;
+  // border-top: 1px solid #6c6e73;
+  // border-bottom: 1px solid #6c6e73;
+  // background-color: #a0b128;
+}
+
+.text-link-carousel-block > a,
+.text-link-carousel-block > a:hover {
+  color: #fff;
 }
