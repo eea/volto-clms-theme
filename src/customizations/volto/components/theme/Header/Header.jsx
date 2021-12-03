@@ -41,10 +41,12 @@ const CartIconCounter = (props) => {
     cart?.length !== 0 &&
     cart && (
       <>
-        <span className="header-vertical-line"> - </span>
         <span>
           <Link to={`/${intl.locale}/cart`} className="header-login-link">
-            <FontAwesomeIcon icon={['fas', 'shopping-cart']} />
+            <FontAwesomeIcon
+              icon={['fas', 'shopping-cart']}
+              style={{ marginRight: '0.25rem' }}
+            />
             <strong>{cart?.length}</strong>
           </Link>
         </span>
@@ -162,18 +164,18 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  <li>
-                    {(this.props.user.id && (
-                      <>
+                  {(this.props.user.id && (
+                    <>
+                      <li>
                         <Link
                           to={`/${this.props.locale}/profile`}
                           className="header-login-link"
                         >
                           {this.props.user.id && (
                             <>
-                              <FormattedMessage
-                                id="hello"
-                                defaultMessage="Hello "
+                              <FontAwesomeIcon
+                                icon={['fas', 'user']}
+                                style={{ marginRight: '0.5rem' }}
                               />
                               {this.props.user.fullname ||
                                 this.props.user.id ||
@@ -181,11 +183,15 @@ class Header extends Component {
                             </>
                           )}
                         </Link>
+                      </li>
+                      <li>
                         <CartIconCounter />
-                        {this.props.user.id &&
-                          this.props.user.roles &&
-                          this.props.user.roles[0] === 'Member' && (
-                            <>
+                      </li>
+                      {this.props.user.id &&
+                        this.props.user.roles &&
+                        this.props.user.roles[0] === 'Member' && (
+                          <>
+                            <li>
                               <span className="header-vertical-line"> - </span>
                               <Link to="/logout" className="header-login-link">
                                 <FormattedMessage
@@ -193,10 +199,12 @@ class Header extends Component {
                                   defaultMessage="Logout"
                                 />
                               </Link>
-                            </>
-                          )}
-                      </>
-                    )) || (
+                            </li>
+                          </>
+                        )}
+                    </>
+                  )) || (
+                    <li>
                       <Link
                         to={`/${this.props.locale}/login`}
                         className="header-login-link"
@@ -206,8 +214,8 @@ class Header extends Component {
                           defaultMessage="Register/Login"
                         />
                       </Link>
-                    )}
-                  </li>
+                    </li>
+                  )}
                 </ul>
                 <div
                   onMouseOut={(e) => {
@@ -253,9 +261,9 @@ class Header extends Component {
                         >
                           {this.props.user.id && (
                             <>
-                              <FormattedMessage
-                                id="hello"
-                                defaultMessage="Hello "
+                              <FontAwesomeIcon
+                                icon={['fas', 'user']}
+                                style={{ marginRight: '0.5rem' }}
                               />
                               {this.props.user.fullname ||
                                 this.props.user.id ||
@@ -264,7 +272,6 @@ class Header extends Component {
                           )}
                         </Link>
                       </li>
-
                       {this.props.user.id &&
                         this.props.user.roles &&
                         this.props.user.roles[0] === 'Member' && (
