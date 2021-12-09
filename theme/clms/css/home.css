@@ -71,6 +71,17 @@
   color: #fff;
 }
 
+@media (max-width: 820px) {
+  .ccl-banner-top-bar {
+    height: 5rem;
+  }
+}
+@media (max-width: 420px) {
+  .ccl-banner-top-bar {
+    height: 7rem;
+  }
+}
+
 .ccl-banner-top-bar .ccl-container .ccl-banner-top-bar-right {
   margin-left: 0.5rem;
   cursor: pointer;

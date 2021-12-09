@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { Icon, RenderBlocks } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './custom.less';
-import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
-import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
 import cx from 'classnames';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -81,9 +79,7 @@ const View = (props) => {
               slider.current.slickPrev();
             }
           }}
-        >
-          <Icon name={leftArrowSVG} size="50px" />
-        </button>
+        ></button>
 
         <button
           aria-label="Next slide"
@@ -93,9 +89,7 @@ const View = (props) => {
               slider.current.slickNext();
             }
           }}
-        >
-          <Icon name={rightArrowSVG} size="50px" />
-        </button>
+        ></button>
       </div>
     );
   };

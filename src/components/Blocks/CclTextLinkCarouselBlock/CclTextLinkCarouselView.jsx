@@ -13,6 +13,7 @@ const TextLinkCarouselView = (props) => {
     speed: 500,
     fade: false,
     cssEase: 'linear',
+    arrows: false,
     autoplay: true,
     autoplaySpeed: 2000,
     beforeChange: (oldIndex, index) => {
