@@ -32,7 +32,7 @@ const View = (props) => {
     speed: 2000,
     fade: true,
     cssEase: 'linear',
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     beforeChange: (oldIndex, index) => {
       setActiveTab(tabsList[index]);
