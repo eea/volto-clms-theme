@@ -122,8 +122,13 @@
 }
 
 /* Arrows */
-.slick-prev,
-.slick-next {
+.slick-slider .slick-prev,
+.slick-slider .slick-next {
+  display: none !important;
+}
+
+.slick-arrows .slick-prev,
+.slick-arrows .slick-next {
   position: absolute;
   top: 50%;
 
@@ -345,6 +350,9 @@
 
   .slick-next {
     right: 20px !important;
+  }
+  .slick-dots{
+    display: none;
   }
 }
 
