@@ -6,13 +6,32 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 const MetadataContent = (data) => {
   return (
     <>
-      <CclButton
-        className="ccl-button ccl-button--default download-dataset-metadata"
-        url={data['@id']}
-        download={true}
-      >
-        Download metadata
-      </CclButton>
+      {data.geonetwork_identifiers?.items.map((item) => {
+        return item.type === 'EEA' ? (
+          <CclButton
+            className="ccl-button ccl-button--default download-dataset-metadata"
+            url={
+              'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
+              item.id
+            }
+            download={true}
+          >
+            Download metadata: {item.title}
+          </CclButton>
+        ) : (
+          <CclButton
+            className="ccl-button ccl-button--default download-dataset-metadata"
+            url={
+              'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
+              item.id
+            }
+            download={true}
+          >
+            Download metadata: {item.title}
+          </CclButton>
+        );
+      })}
+
       <CclInfoContainer>
         <h2>Data identification</h2>
         <CclInfoDescription
