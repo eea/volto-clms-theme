@@ -144,11 +144,10 @@ class CLMSApiTokensView extends Component {
         ip_range: PropTypes.string,
         issued: PropTypes.string,
         key_id: PropTypes.string,
-        last_used: PropTypes.string,
-        title: PropTypes.string,
       }),
     ),
   };
+
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -184,12 +183,8 @@ class CLMSApiTokensView extends Component {
   onClose() {
     this.componentDidMount();
     this.setState({
-      value: '',
-      createdToken: false,
-      modal: false,
-      tokenTitle: '',
-      textToCopy: '',
       createNewToken: false,
+      public_key: undefined,
     });
   }
 
@@ -203,10 +198,9 @@ class CLMSApiTokensView extends Component {
 
   handleClick() {
     this.setState({
-      createdToken: true,
       modal: false,
-      button: false,
       createNewToken: true,
+      public_key: undefined,
     });
   }
 
@@ -225,14 +219,14 @@ class CLMSApiTokensView extends Component {
     this.props.getUser(this.props.userId);
     this.props.getTokens();
     this.setState({
-      value: '',
-      tokenTitle: '',
+      value: undefined,
+      tokenTitle: undefined,
       button: false,
-      createNewToken: true,
+      // createNewToken: true,
       modal: false,
       createdToken: false,
-      textToCopy: '',
-      key_id: '',
+      textToCopy: undefined,
+      key_id: undefined,
     });
   }
 
@@ -270,14 +264,29 @@ class CLMSApiTokensView extends Component {
                   <div>
                     <p>{item.title}</p>
                     <p>{item.key_id}</p>
-                    <CclButton
-                      mode={'filled'}
-                      onClick={() => {
-                        this.deleteToken(item.key_id);
-                      }}
+                    <CclModal
+                      onClick={() => this.onClose}
+                      trigger={
+                        <CclButton mode={'filled'}>
+                          {this.props.intl.formatMessage(messages.deleteButton)}
+                        </CclButton>
+                      }
+                      size="small"
                     >
-                      {this.props.intl.formatMessage(messages.deleteButton)}
-                    </CclButton>
+                      <h4>This token will be deleted forever</h4>
+                      <p>
+                        You will not be able to use this token again. Only
+                        delete your tokens when you are absolutely sure of it
+                      </p>
+                      <CclButton
+                        mode={'filled'}
+                        onClick={() => {
+                          this.deleteToken(item.key_id);
+                        }}
+                      >
+                        {'I confirm that I want to delete this token'}
+                      </CclButton>
+                    </CclModal>
                   </div>
                 </>
               ))}
@@ -361,21 +370,30 @@ class CLMSApiTokensView extends Component {
                                 <>
                                   {(item.public_key !== undefined && (
                                     <>
-                                      <input
-                                        value={item.public_key}
+                                      <p>{'Download your service key.'}</p>
+                                      <p>
+                                        {
+                                          "This is the only time your private key will be displayed - it will not be stored on the server, and can't be recovered should you fail to save it."
+                                        }
+                                      </p>
+                                      <p>
+                                        {
+                                          'You should copy & paste this key into a .json file, and store this file in a location accessible only to your service application. This key grants anyone in possession of it full access to this account. You should therefore make sure to protect it with the least file system permissions possible.'
+                                        }
+                                      </p>
+
+                                      <textarea
                                         disabled="disabled"
-                                        type="text"
-                                        className="ccl-text-input"
                                         id="created_token"
                                         name="createdToken"
-                                        placeholder=""
-                                        aria-label="Created token"
+                                        class="ccl-text-input"
+                                        value={JSON.stringify(item)}
                                       />
                                       <CclButton
                                         mode={'filled'}
                                         onClick={() => {
                                           navigator.clipboard.writeText(
-                                            item.public_key,
+                                            JSON.stringify(item),
                                           );
                                         }}
                                       >

@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import loadable from '@loadable/component';
-import { Icon, RenderBlocks } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './custom.less';
-import rightArrowSVG from '@eeacms/volto-tabs-block/icons/right-arrow.svg';
-import leftArrowSVG from '@eeacms/volto-tabs-block/icons/left-arrow.svg';
-// import cx from 'classnames';
+import cx from 'classnames';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
@@ -29,7 +27,7 @@ const View = (props) => {
   const activeTabIndex = tabsList.indexOf(activeTab);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 2000,
     fade: true,
@@ -40,6 +38,32 @@ const View = (props) => {
       setActiveTab(tabsList[index]);
     },
   };
+
+  const Dots = (props) => {
+    const { activeTab = null, tabsList = [], slider = {} } = props;
+    return tabsList.length > 1 ? (
+      <ul className={cx('slick-dots', props.uiContainer)} role={'tablist'}>
+        {tabsList.map((tab, index) => (
+          <li
+            key={`dot-${tab}`}
+            className={cx({ 'slick-active': activeTab === tab })}
+            role={'presentation'}
+          >
+            <button
+              onClick={() => {
+                if (slider.current) {
+                  slider.current.slickGoTo(index);
+                }
+              }}
+            />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      ''
+    );
+  };
+
   const ArrowsGroup = (props) => {
     // const { activeTab = null, tabsList = [], slider = {} } = props;
     // const currentSlide = tabsList.indexOf(activeTab);
@@ -55,9 +79,7 @@ const View = (props) => {
               slider.current.slickPrev();
             }
           }}
-        >
-          <Icon name={leftArrowSVG} size="50px" />
-        </button>
+        ></button>
 
         <button
           aria-label="Next slide"
@@ -67,9 +89,7 @@ const View = (props) => {
               slider.current.slickNext();
             }
           }}
-        >
-          <Icon name={rightArrowSVG} size="50px" />
-        </button>
+        ></button>
       </div>
     );
   };
@@ -128,6 +148,7 @@ const View = (props) => {
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
       <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} />
+      <Dots activeTab={activeTab} tabsList={tabsList} slider={slider} />
     </>
   );
 };

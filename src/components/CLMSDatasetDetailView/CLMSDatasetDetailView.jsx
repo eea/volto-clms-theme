@@ -3,25 +3,26 @@
  * @module components/theme/View/CLMSDatasetDetailView
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
   MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-import { useLocation } from 'react-router-dom';
+import { Modal, Segment } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+
+// import { FormattedMessage } from 'react-intl';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import jwtDecode from 'jwt-decode';
-import { injectIntl } from 'react-intl';
-import { postImportGeonetwork } from '../../actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { Segment, Modal } from 'semantic-ui-react';
 import { getUser } from '@plone/volto/actions';
+import { injectIntl } from 'react-intl';
+import jwtDecode from 'jwt-decode';
+import { postImportGeonetwork } from '../../actions';
+import { useLocation } from 'react-router-dom';
 
 // import {
 //   mockDatabaseInfo,
@@ -44,17 +45,18 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const geonetwork_importation = useSelector(
     (state) => state.geonetwork_importation,
   );
-  const userSession = useSelector((state) => state.userSession);
+  // const userSession = useSelector((state) => state.userSession);
+  // const user_token = userSession.token ? jwtDecode(userSession.token).sub : '';
   const user = useSelector((state) => state.users?.user);
-  const user_token = userSession.token ? jwtDecode(userSession.token).sub : '';
   React.useEffect(() => {
-    dispatch(getUser(user_token));
-  }, [dispatch, user_token]);
+    dispatch(getUser(token));
+  }, [dispatch, token]);
 
   function handleImport(id, type) {
     dispatch(postImportGeonetwork(location.pathname, id, type));
   }
   const [open, setOpen] = React.useState({});
+  const locale = useSelector((state) => state.intl.locale);
 
   return (
     <div className="ccl-container ">
@@ -87,7 +89,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                     open={open[item.id]}
                     trigger={<CclButton>Import data</CclButton>}
                     className={'modal-clms'}
-                    size={'fullscreen'}
                   >
                     <div className={'modal-clms-background'}>
                       <div className={'modal-clms-container'}>
@@ -177,13 +178,11 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       <CclTabs>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
-        {(content.mapviewer_viewservice?.length === 0 ||
-          content.mapviewer_viewservice === null) &&
-        (content.downloadable_files?.items?.length === 0 ||
-          content.downloadable_files === null) ? (
-          <div tabTitle=""></div>
-        ) : (
+
+        {content?.downloadable_dataset ? (
           <div tabTitle="Download">{DownloadDataSetContent(content)}</div>
+        ) : (
+          <div tabTitle=""></div>
         )}
 
         <div underPanel={true}>
@@ -198,7 +197,9 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             )}
             {content?.mapviewer_viewservice?.length > 0 && (
               <div className="menu-detail-button">
-                <CclButton url={location.pathname + '/map-viewer'}>
+                <CclButton
+                  url={'/' + locale + '/map-viewer?dataset=' + content.UID}
+                >
                   View in the map viewer
                 </CclButton>
               </div>

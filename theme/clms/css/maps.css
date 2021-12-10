@@ -66,6 +66,10 @@
 }
 
 .land .esri-basemap-gallery__item:first-child {
+	margin-top: 0;
+}
+
+.land .esri-basemap-gallery__item {
 	margin: 0;
 }
 
