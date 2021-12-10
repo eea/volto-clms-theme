@@ -10,6 +10,7 @@ import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
 import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
 import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { registryReducer } from './registry/registry';
+import { importGeonetworkReducer } from './geonetwork/import_geonetwork_reducer';
 
 /**
  * Root reducer.
@@ -27,6 +28,7 @@ const reducers = {
   subscribers: meetingSubscribersReducer,
   downloadtool: downloadtoolReducer,
   registry: registryReducer,
+  geonetwork_importation: importGeonetworkReducer,
 };
 
 export default reducers;
