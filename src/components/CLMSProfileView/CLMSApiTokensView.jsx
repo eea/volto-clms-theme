@@ -144,8 +144,6 @@ class CLMSApiTokensView extends Component {
         ip_range: PropTypes.string,
         issued: PropTypes.string,
         key_id: PropTypes.string,
-        last_used: PropTypes.string,
-        title: PropTypes.string,
       }),
     ),
   };
@@ -389,9 +387,8 @@ class CLMSApiTokensView extends Component {
                                         id="created_token"
                                         name="createdToken"
                                         class="ccl-text-input"
-                                      >
-                                        {JSON.stringify(item)}
-                                      </textarea>
+                                        value={JSON.stringify(item)}
+                                      />
                                       <CclButton
                                         mode={'filled'}
                                         onClick={() => {
