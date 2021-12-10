@@ -11,9 +11,9 @@ import {
 import { Modal, Segment } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { FormattedMessage } from 'react-intl';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'redux';
@@ -87,7 +87,14 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                       setOpen({ ...open, [item.id]: true });
                     }}
                     open={open[item.id]}
-                    trigger={<CclButton>Import data</CclButton>}
+                    trigger={
+                      <CclButton>
+                        <FormattedMessage
+                          id="Import data"
+                          defaultMessage="Import data"
+                        />
+                      </CclButton>
+                    }
                     className={'modal-clms'}
                   >
                     <div className={'modal-clms-background'}>
@@ -107,7 +114,12 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                           ></span>
                         </div>
                         <div className="modal-login-text">
-                          <h1>Import from GeoNetwork</h1>
+                          <h1>
+                            <FormattedMessage
+                              id="Import from GeoNetwork"
+                              defaultMessage="Import from GeoNetwork"
+                            />
+                          </h1>
                           This action will import the data from{' '}
                           <strong>{item.title}</strong> (from {item.type}) into
                           this dataset.
@@ -122,7 +134,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                                 item.id
                               }
                             >
-                              EEA Geonetwork element
+                              <FormattedMessage
+                                id="EEA Geonetwork element"
+                                defaultMessage="EEA Geonetwork element"
+                              />
                             </a>
                           )}
                           {item.type === 'VITO' && (
@@ -134,7 +149,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                                 item.id
                               }
                             >
-                              VITO Geonetwork element
+                              <FormattedMessage
+                                id="VITO Geonetwork element"
+                                defaultMessage="VITO Geonetwork element"
+                              />
                             </a>
                           )}
                         </div>
@@ -145,7 +163,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                           }}
                           mode="filled"
                         >
-                          Import data
+                          <FormattedMessage
+                            id="Import data"
+                            defaultMessage="Import data"
+                          />
                         </CclButton>
                       </div>
                     </div>
@@ -200,7 +221,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 <CclButton
                   url={'/' + locale + '/map-viewer?dataset=' + content.UID}
                 >
-                  View in the map viewer
+                  <FormattedMessage
+                    id="View in the map viewer"
+                    defaultMessage="View in the map viewer"
+                  />
                 </CclButton>
               </div>
             )}
