@@ -276,13 +276,17 @@ class CLMSApiTokensView extends Component {
                       size="small"
                     >
                       <h4>This token will be deleted forever</h4>
+                      <p>
+                        You will not be able to use this token again. Only
+                        delete your tokens when you are absolutely sure of it
+                      </p>
                       <CclButton
                         mode={'filled'}
                         onClick={() => {
                           this.deleteToken(item.key_id);
                         }}
                       >
-                        {'Confirm Delete'}
+                        {'I confirm that I want to delete this token'}
                       </CclButton>
                     </CclModal>
                   </div>
