@@ -393,7 +393,7 @@ class CLMSApiTokensView extends Component {
                                         mode={'filled'}
                                         onClick={() => {
                                           navigator.clipboard.writeText(
-                                            item.public_key,
+                                            JSON.stringify(item),
                                           );
                                         }}
                                       >
