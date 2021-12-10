@@ -383,16 +383,15 @@ class CLMSApiTokensView extends Component {
                                           'You should copy & paste this key into a .json file, and store this file in a location accessible only to your service application. This key grants anyone in possession of it full access to this account. You should therefore make sure to protect it with the least file system permissions possible.'
                                         }
                                       </p>
-                                      <input
-                                        value={JSON.stringify(item)}
+
+                                      <textarea
                                         disabled="disabled"
-                                        type="text"
-                                        className="ccl-text-input"
                                         id="created_token"
                                         name="createdToken"
-                                        placeholder=""
-                                        aria-label="Created token"
-                                      />
+                                        class="ccl-text-input"
+                                      >
+                                        {JSON.stringify(item)}
+                                      </textarea>
                                       <CclButton
                                         mode={'filled'}
                                         onClick={() => {
