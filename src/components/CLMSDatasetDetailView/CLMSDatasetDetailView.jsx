@@ -112,16 +112,30 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                           this dataset.
                           <br />
                           <br />
-                          <a
-                            target="_blank"
-                            rel="noreferrer"
-                            href={
-                              'https://sdi.eea.europa.eu/catalogue/copernicus/api/records/' +
-                              item.id
-                            }
-                          >
-                            Geonetwork element
-                          </a>
+                          {item.type === 'EEA' && (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={
+                                'https://sdi.eea.europa.eu/catalogue/copernicus/api/records/' +
+                                item.id
+                              }
+                            >
+                              EEA Geonetwork element
+                            </a>
+                          )}
+                          {item.type === 'VITO' && (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={
+                                'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
+                                item.id
+                              }
+                            >
+                              VITO Geonetwork element
+                            </a>
+                          )}
                         </div>
                         <CclButton
                           onClick={() => {
