@@ -372,7 +372,7 @@ class CLMSApiTokensView extends Component {
                             <form className="ccl-form search-form">
                               {this.props.newTokens?.map((item) => (
                                 <>
-                                  {(item && (
+                                  {(item?.private_key && (
                                     <>
                                       <p>{'Download your service key.'}</p>
                                       <p>
