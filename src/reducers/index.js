@@ -10,6 +10,7 @@ import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
 import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
 import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { registryReducer } from './registry/registry';
+import { userschemaReducer } from './userschema/userschema';
 
 /**
  * Root reducer.
@@ -27,6 +28,7 @@ const reducers = {
   subscribers: meetingSubscribersReducer,
   downloadtool: downloadtoolReducer,
   registry: registryReducer,
+  userschema: userschemaReducer,
 };
 
 export default reducers;
