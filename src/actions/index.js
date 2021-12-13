@@ -41,3 +41,4 @@ export {
 } from './downloadtool/delete_downloadtool';
 
 export { GET_REGISTRY, getRegistry } from './registry/registry';
+export { getUserSchema } from './userschema/userschema';
