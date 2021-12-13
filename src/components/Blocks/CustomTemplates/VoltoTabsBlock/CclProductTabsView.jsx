@@ -23,7 +23,7 @@ const CclProductTabsView = (props) => {
       </div>
       <div className="menu-detail-button">
         <a
-          href={'/' + locale + '/mapviewer?product=' + props.metadata['UID']}
+          href={'/' + locale + '/map-viewer?product=' + props.metadata['UID']}
           className="ccl-button ccl-button--default"
         >
           <FormattedMessage

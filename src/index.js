@@ -12,9 +12,13 @@ import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetin
 import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
+import TextLinkWidget from './components/Widgets/TextLinkWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
+import ContactWidget from './components/Widgets/ContactWidget';
+import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
 // CUSTOMIZED BLOCKS IMPORTS
 import customBlocks, {
   customGroupBlocksOrder,
@@ -54,10 +58,11 @@ const applyConfig = (config) => {
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
     downloadable_files_widget: DownloadableFilesWidget,
+    contact_widget: ContactWidget,
+    distribution_info_widget: DistributionInfoWidget,
+    geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
+    text_link_widget: TextLinkWidget,
   };
-  config.widgets.widget.bounding_widget = BoundingWidget;
-  config.widgets.widget.layer_widget = MapLayersWidget;
-  config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
   config.settings = {
     ...config.settings,
     nonContentRoutes: [

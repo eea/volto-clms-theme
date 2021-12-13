@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import { Container } from 'semantic-ui-react';
+import { getUserSchema } from '../../actions';
 
 const messages = defineMessages({
   UserProfile: {
@@ -83,13 +84,18 @@ class CLMSUserProfileView extends Component {
   static propTypes = {
     user: PropTypes.shape({
       '@id': PropTypes.string,
-      description: PropTypes.string,
+      are_you_registering_on_behalf_on_an_organisation_: PropTypes.bool,
+      country: PropTypes.string,
       email: PropTypes.string,
       fullname: PropTypes.string,
+      how_do_you_intend_to_use_the_products: PropTypes.arrayOf(
+        PropTypes.string,
+      ),
       id: PropTypes.string,
-      location: PropTypes.string,
-      nickname: PropTypes.string,
-      portrait: PropTypes.string,
+      organisation_institutional_domain: PropTypes.arrayOf(PropTypes.string),
+      organisation_name: PropTypes.string,
+      organisation_url: PropTypes.string,
+      professional_thematic_domain: PropTypes.arrayOf(PropTypes.string),
       roles: PropTypes.array,
       username: PropTypes.string,
       return_url: PropTypes.string,
@@ -100,10 +106,12 @@ class CLMSUserProfileView extends Component {
     getUser: PropTypes.func.isRequired,
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
+    getUserSchema: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.props.getUser(this.props.userId);
+    this.props.getUserSchema();
   }
 
   /**
@@ -140,66 +148,30 @@ class CLMSUserProfileView extends Component {
       <>
         {loggedIn && (
           <Container>
-            <h1 className="page-title">
-              {this.props.intl.formatMessage(messages.UserProfile)}
-            </h1>
             <div>
-              {this.props.loaded && (
-                <Form
-                  formData={this.props.user}
-                  schema={{
-                    fieldsets: [
-                      {
-                        id: 'default',
-                        title: this.props.intl.formatMessage(messages.default),
-                        fields: ['fullname', 'email', 'portrait', 'location'],
-                      },
-                    ],
-                    properties: {
-                      fullname: {
-                        description: this.props.intl.formatMessage(
-                          messages.fullnameDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.fullnameTitle,
-                        ),
-                        type: 'string',
-                      },
-                      email: {
-                        description: this.props.intl.formatMessage(
-                          messages.emailDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.emailTitle,
-                        ),
-                        type: 'string',
-                      },
-                      portrait: {
-                        description: this.props.intl.formatMessage(
-                          messages.portraitDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.portraitTitle,
-                        ),
-                        type: 'object',
-                      },
-                      location: {
-                        description: this.props.intl.formatMessage(
-                          messages.locationDescription,
-                        ),
-                        title: this.props.intl.formatMessage(
-                          messages.locationTitle,
-                        ),
-                        type: 'string',
-                      },
-                    },
-                    required: ['email'],
-                  }}
-                  onSubmit={this.onSubmit}
-                  onCancel={this.onCancel}
-                  loading={this.props.loading}
-                />
-              )}
+              <h1 className="page-title">
+                {this.props.intl.formatMessage(messages.UserProfile)}
+              </h1>
+              <p>
+                Use this form to update your profile details. Be aware that if
+                you change your fullname and e-mail address they will be
+                rewriten when you log in again next time. This is because we are
+                using EU Login to enter this site. <br />
+                If you want to change your fullname and e-mail address, please
+                do so in your{' '}
+                <a href="https://ecas.ec.europa.eu/cas/">EU Login account</a>.
+              </p>
+              <div>
+                {this.props?.userschema?.loaded && (
+                  <Form
+                    formData={this.props.user}
+                    schema={this.props.userschema.userschema}
+                    onSubmit={this.onSubmit.bind(this)}
+                    onCancel={this.onCancel}
+                    loading={this.props.userschema.loading}
+                  />
+                )}
+              </div>
             </div>
           </Container>
         )}
@@ -218,7 +190,8 @@ export default compose(
         : '',
       loaded: state.users.get.loaded,
       loading: state.users.update.loading,
+      userschema: state.userschema,
     }),
-    { getUser, updateUser, getBaseUrl },
+    { getUser, updateUser, getBaseUrl, getUserSchema },
   ),
 )(CLMSUserProfileView);

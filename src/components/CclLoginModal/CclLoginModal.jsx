@@ -41,7 +41,7 @@ function CclLoginModal() {
           />
         </div>
       }
-      size="fullscreen"
+      size="tiny"
       modalStatus={modalStatus}
     >
       <div className="modal-login-title">Registration / Login</div>

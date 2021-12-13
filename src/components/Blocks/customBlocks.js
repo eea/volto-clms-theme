@@ -68,6 +68,9 @@ import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingEdit';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
 
+import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
+import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
+
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
@@ -435,6 +438,22 @@ const customBlocks = (config) => ({
         template: CclListingCards,
       },
     ],
+  },
+  textLinkCarousel: {
+    id: 'textLinkCarousel', // The name (id) of the block
+    title: 'Text and Link Carousel', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: TextLinkCarouselView, // The view mode component
+    edit: TextLinkCarouselEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
   },
 });
 
