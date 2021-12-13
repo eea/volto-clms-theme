@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
@@ -75,9 +74,4 @@ function CclLoginModal() {
   );
 }
 
-CclLoginModal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  marginBottom: PropTypes.bool,
-};
 export default CclLoginModal;
