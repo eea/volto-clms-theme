@@ -53,3 +53,5 @@ export {
   POST_IMPORT_GEONETWORK,
   postImportGeonetwork,
 } from './geonetwork/import_geonetwork';
+
+export { getUserSchema } from './userschema/userschema';
