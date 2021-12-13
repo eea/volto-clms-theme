@@ -3,18 +3,20 @@
  * @module components/CLMSProfileView/CLMSProfileView
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import jwtDecode from 'jwt-decode';
-import { getUser, updateUser } from '@plone/volto/actions';
-import { getBaseUrl } from '@plone/volto/helpers';
-import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
-  CLMSUserProfileView,
   CLMSApiTokensView,
+  CLMSUserProfileView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
+import React, { Component } from 'react';
+import { getUser, updateUser } from '@plone/volto/actions';
+
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { getBaseUrl } from '@plone/volto/helpers';
+import { getExtraBreadcrumbItems } from '../../actions';
+import jwtDecode from 'jwt-decode';
 
 /**
  * CLMSProfileView class.
@@ -61,8 +63,14 @@ class CLMSProfileView extends Component {
    */
   render() {
     const loggedIn = !!this.props.userId;
+    this.props.getExtraBreadcrumbItems([
+      {
+        title: 'Profile',
+        pathname: this.props.location.pathname,
+      },
+    ]);
     return (
-      <>
+      <div className="ccl-container ">
         {loggedIn && (
           <>
             <CclTabs>
@@ -75,7 +83,7 @@ class CLMSProfileView extends Component {
             </CclTabs>
           </>
         )}
-      </>
+      </div>
     );
   }
 }
@@ -88,6 +96,6 @@ export default compose(
         ? jwtDecode(state.userSession.token).sub
         : '',
     }),
-    { getUser, updateUser, getBaseUrl },
+    { getUser, updateUser, getBaseUrl, getExtraBreadcrumbItems },
   ),
 )(CLMSProfileView);
