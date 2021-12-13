@@ -130,7 +130,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                               target="_blank"
                               rel="noreferrer"
                               href={
-                                'https://sdi.eea.europa.eu/catalogue/copernicus/api/records/' +
+                                'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
                                 item.id
                               }
                             >
