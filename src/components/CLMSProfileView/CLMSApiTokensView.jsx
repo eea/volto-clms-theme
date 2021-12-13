@@ -67,7 +67,7 @@ const messages = defineMessages({
   },
   createdToken: {
     id: 'Created token name',
-    defaultMessage: 'Token',
+    defaultMessage: 'The token has been created successfuly',
   },
   copyButton: {
     id: 'Copy created token button',
@@ -144,6 +144,8 @@ class CLMSApiTokensView extends Component {
         ip_range: PropTypes.string,
         issued: PropTypes.string,
         key_id: PropTypes.string,
+        public_key: PropTypes.string,
+        private_key: PropTypes.string,
       }),
     ),
   };
@@ -185,6 +187,7 @@ class CLMSApiTokensView extends Component {
     this.setState({
       createNewToken: false,
       public_key: undefined,
+      private_key: undefined,
     });
   }
 
@@ -201,6 +204,7 @@ class CLMSApiTokensView extends Component {
       modal: false,
       createNewToken: true,
       public_key: undefined,
+      private_key: undefined,
     });
   }
 
@@ -257,7 +261,7 @@ class CLMSApiTokensView extends Component {
               {this.props.intl.formatMessage(messages.ApiTokens)}
             </h1>
             <div>
-              <h3>{this.props.intl.formatMessage(messages.title)}</h3>
+              <h2>{this.props.intl.formatMessage(messages.title)}</h2>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
               {this.props.createdTokens?.map((item) => (
                 <>
@@ -360,15 +364,15 @@ class CLMSApiTokensView extends Component {
                       <>
                         {(this.state.createdToken === true && (
                           <div>
-                            <p>
+                            <h3>
                               {this.props.intl.formatMessage(
                                 messages.createdToken,
                               )}
-                            </p>
+                            </h3>
                             <form className="ccl-form search-form">
                               {this.props.newTokens?.map((item) => (
                                 <>
-                                  {(item.public_key !== undefined && (
+                                  {(item?.private_key && (
                                     <>
                                       <p>{'Download your service key.'}</p>
                                       <p>
