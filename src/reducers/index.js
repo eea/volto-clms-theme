@@ -3,13 +3,14 @@
  * @module reducers/root
  */
 
-// import defaultReducers from '@plone/volto/reducers';
-import tokens from './tokens/tokens';
+import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
+import { importGeonetworkReducer } from './geonetwork/import_geonetwork_reducer';
 import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
 import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
-import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { registryReducer } from './registry/registry';
+// import defaultReducers from '@plone/volto/reducers';
+import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
 
 /**
@@ -28,6 +29,7 @@ const reducers = {
   subscribers: meetingSubscribersReducer,
   downloadtool: downloadtoolReducer,
   registry: registryReducer,
+  geonetwork_importation: importGeonetworkReducer,
   userschema: userschemaReducer,
 };
 

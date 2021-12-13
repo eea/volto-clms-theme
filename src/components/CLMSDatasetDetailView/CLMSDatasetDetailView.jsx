@@ -3,21 +3,27 @@
  * @module components/theme/View/CLMSDatasetDetailView
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
   MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-import { useSelector } from 'react-redux';
+import { Modal, Segment } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import jwtDecode from 'jwt-decode';
+import { getUser } from '@plone/volto/actions';
 import { injectIntl } from 'react-intl';
+import jwtDecode from 'jwt-decode';
+import { postImportGeonetwork } from '../../actions';
+import { useLocation } from 'react-router-dom';
+
 // import {
 //   mockDatabaseInfo,
 //   mockMetadata,
@@ -34,11 +40,162 @@ import { injectIntl } from 'react-intl';
  */
 
 const CLMSDatasetDetailView = ({ content, token }) => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const geonetwork_importation = useSelector(
+    (state) => state.geonetwork_importation,
+  );
+  // const userSession = useSelector((state) => state.userSession);
+  // const user_token = userSession.token ? jwtDecode(userSession.token).sub : '';
+  const user = useSelector((state) => state.users?.user);
+  React.useEffect(() => {
+    dispatch(getUser(token));
+  }, [dispatch, token]);
+
+  function handleImport(id, type) {
+    dispatch(postImportGeonetwork(location.pathname, id, type));
+  }
+  const [open, setOpen] = React.useState({});
   const locale = useSelector((state) => state.intl.locale);
 
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
+      {content.geonetwork_identifiers?.items?.length > 0 &&
+        user.roles &&
+        user.roles.includes('Manager') && (
+          <Segment.Group compact horizontal>
+            {content.geonetwork_identifiers?.items.map((item) => {
+              return (
+                <Segment
+                  padded={'very'}
+                  color={'olive'}
+                  key={item.id}
+                  loading={geonetwork_importation.loading}
+                  circular
+                >
+                  <strong>
+                    {item.title} (from {item.type}):{' '}
+                  </strong>
+                  <br />
+                  <br />
+                  <Modal
+                    onClose={() => {
+                      setOpen({ ...open, [item.id]: false });
+                    }}
+                    onOpen={() => {
+                      setOpen({ ...open, [item.id]: true });
+                    }}
+                    open={open[item.id]}
+                    trigger={
+                      <CclButton>
+                        <FormattedMessage
+                          id="Import data"
+                          defaultMessage="Import data"
+                        />
+                      </CclButton>
+                    }
+                    className={'modal-clms'}
+                  >
+                    <div className={'modal-clms-background'}>
+                      <div className={'modal-clms-container'}>
+                        <div className={'modal-close modal-clms-close'}>
+                          <span
+                            className="ccl-icon-close"
+                            aria-label="Close"
+                            onClick={() => {
+                              setOpen({ ...open, [item.id]: false });
+                            }}
+                            onKeyDown={() => {
+                              setOpen({ ...open, [item.id]: false });
+                            }}
+                            tabIndex="0"
+                            role="button"
+                          ></span>
+                        </div>
+                        <div className="modal-login-text">
+                          <h1>
+                            <FormattedMessage
+                              id="Import from GeoNetwork"
+                              defaultMessage="Import from GeoNetwork"
+                            />
+                          </h1>
+                          This action will import the data from{' '}
+                          <strong>{item.title}</strong> (from {item.type}) into
+                          this dataset.
+                          <br />
+                          <br />
+                          {item.type === 'EEA' && (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={
+                                'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
+                                item.id
+                              }
+                            >
+                              <FormattedMessage
+                                id="EEA Geonetwork element"
+                                defaultMessage="EEA Geonetwork element"
+                              />
+                            </a>
+                          )}
+                          {item.type === 'VITO' && (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={
+                                'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
+                                item.id
+                              }
+                            >
+                              <FormattedMessage
+                                id="VITO Geonetwork element"
+                                defaultMessage="VITO Geonetwork element"
+                              />
+                            </a>
+                          )}
+                        </div>
+                        <CclButton
+                          onClick={() => {
+                            handleImport(item.id, item.type);
+                            setOpen({ ...open, [item.id]: false });
+                          }}
+                          mode="filled"
+                        >
+                          <FormattedMessage
+                            id="Import data"
+                            defaultMessage="Import data"
+                          />
+                        </CclButton>
+                      </div>
+                    </div>
+                  </Modal>
+                  {geonetwork_importation.imported_data
+                    ?.requested_geonetwork_id === item.id && (
+                    <p>
+                      {geonetwork_importation.loaded &&
+                        geonetwork_importation.error === null && (
+                          <strong>
+                            {' '}
+                            The data has been successfully imported
+                          </strong>
+                        )}
+                    </p>
+                  )}
+                  {geonetwork_importation.imported_data?.status === 'error' && (
+                    <p>
+                      <strong>
+                        {' '}
+                        {geonetwork_importation.imported_data?.message}
+                      </strong>
+                    </p>
+                  )}
+                </Segment>
+              );
+            })}
+          </Segment.Group>
+        )}
       <CclTabs>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
@@ -64,7 +221,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 <CclButton
                   url={'/' + locale + '/map-viewer?dataset=' + content.UID}
                 >
-                  View in the map viewer
+                  <FormattedMessage
+                    id="View in the map viewer"
+                    defaultMessage="View in the map viewer"
+                  />
                 </CclButton>
               </div>
             )}
