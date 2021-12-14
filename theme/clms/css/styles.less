@@ -147,13 +147,15 @@ a:hover,
   margin-left: auto;
 }
 
-body.contenttype-lrf:not(.section-cart) main .ccl-container {
+body.contenttype-lrf:not(.section-cart):not(.profilecart) main .ccl-container {
   max-width: 1400px;
   margin-right: auto;
   margin-left: auto;
 }
 
-body:not(.contenttype-lrf:not(.section-cart)) main .ccl-container {
+body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
+  main
+  .ccl-container {
   max-width: 100%;
   padding: 0;
 }
@@ -1110,11 +1112,18 @@ body.section-map-viewer #page-document.ui.container {
   width: 100% !important;
 }
 
-body.searchlib-page div#page-document.ui.container {
+/*DataSet catalogue */
+body.searchlib-page div#page-document {
   top: 0em !important;
   width: 1127px !important;
+  max-width: 1127px !important;
 }
 
+div#page-document h1.documentFirstHeading {
+  display: block !important;
+}
+
+/**/
 .metadata.image img {
   max-width: 100%;
 }
