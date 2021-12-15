@@ -18,7 +18,7 @@ function CclDownloadTable(props) {
         ...element,
         name: dataset.title,
         UID: dataset.UID,
-        unique_id: element['@id'].concat(dataset.UID),
+        unique_id: `${dataset.UID}_${element['@id']}`,
       };
     },
   );
@@ -43,6 +43,7 @@ function CclDownloadTable(props) {
       .map((item) => ({
         UID: item.UID,
         file_id: item['@id'],
+        unique_id: item.unique_id,
       }));
     addCartItem(selectedCartItems);
   };

@@ -18,7 +18,7 @@ import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 
 const CLMSCartContent = (props) => {
   const dispatch = useDispatch();
-  const { removeCartItem } = useCartState();
+  const { cart, removeCartItem } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
@@ -82,7 +82,8 @@ const CLMSCartContent = (props) => {
           version: file_data.version,
           year: file_data.year,
           file_id: file_id,
-          unique_id: requested_card_items.UID + file_id || 'id_from_map_viewer',
+          unique_id:
+            `${requested_card_items.UID}_${file_id}` || 'id_from_map_viewer',
           dataset_uid: requested_card_items.UID,
           task_in_progress: false,
         });
@@ -133,6 +134,13 @@ const CLMSCartContent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post_download_in_progress]);
 
+  useEffect(() => {
+    const array_ids = cart.map((item) => item.unique_id);
+    const newCart = cartItems.filter((item) =>
+      array_ids.includes(item.unique_id),
+    );
+    setCartItems(newCart);
+  }, [cart]);
   return (
     <>
       <div className="custom-table cart-table">
