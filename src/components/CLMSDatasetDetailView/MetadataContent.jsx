@@ -1,6 +1,10 @@
-import React from 'react';
-import { CclInfoDescription, CclInfoContainer } from '../CclInfoDescription';
+import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
+
+import BoundingBoxComponent from './BoundingBoxComponent';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import ContactComponent from './ContactComponent';
+import DistributionInfoComponent from './DistributionInfoComponent';
+import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const MetadataContent = (data) => {
@@ -34,11 +38,27 @@ const MetadataContent = (data) => {
 
       <CclInfoContainer>
         <h2>Data identification</h2>
-        <CclInfoDescription
-          title="Resource title"
-          tooltip="Name by which the cited resource is known"
-          description={data.dataResourceTitle}
-        />
+        {data.dataResourceTitle && (
+          <CclInfoDescription
+            title="Resource title"
+            tooltip="Name by which the cited resource is known"
+            description={data.dataResourceTitle}
+          />
+        )}
+        {data.resourceEffective && (
+          <CclInfoDescription
+            title="Date of publication"
+            tooltip=""
+            description={data.resourceEffective}
+          />
+        )}
+        {data.resourceModified && (
+          <CclInfoDescription
+            title="Revision date"
+            tooltip=""
+            description={data.resourceModified}
+          />
+        )}
         <CclInfoDescription
           title="Resource abstract"
           tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
@@ -46,38 +66,110 @@ const MetadataContent = (data) => {
             <StringToHTML string={data.dataResourceAbstract?.data || ''} />
           }
         />
-      </CclInfoContainer>
-      <CclInfoContainer>
-        <h2>Classification of spatial data</h2>
-      </CclInfoContainer>
-      <CclInfoContainer>
-        <h2>Geographic reference</h2>
+        {data.keywords?.length > 0 && (
+          <CclInfoDescription
+            title="Keywords"
+            tooltip=""
+            description={data.keywords.map((keyword) => keyword).join(', ')}
+          />
+        )}
+        {data.geographicCoverage && (
+          <CclInfoDescription
+            title="Geographic coverage"
+            tooltip=""
+            description={JSON.stringify(data.geographicCoverage)}
+          />
+        )}
+        {data.accessAndUseLimitationPublic_line && (
+          <CclInfoDescription
+            title="Limitation of public access"
+            tooltip=""
+            description={data.accessAndUseLimitationPublic_line}
+          />
+        )}
         <CclInfoDescription
-          title="Coordinate Reference System"
-          tooltip="CRS of the resource"
-          description={data.coordinateReferenceSystem}
-        />
-      </CclInfoContainer>
-      <CclInfoContainer>
-        <h2>Temporal reference</h2>
-      </CclInfoContainer>
-      <CclInfoContainer>
-        <h2>Quality and validity</h2>
-        <CclInfoDescription
-          title="Lineage"
-          tooltip="General explanation of the data produce knowledge's about the lineage of a dataset"
-          description={<StringToHTML string={data.qualityLineage?.data} />}
-        />
-        <CclInfoDescription
-          title="Spatial resolution"
-          tooltip="A set of zero to many resolution distances (typically for gridded data and imagery-derived products) or equivalent scales (typically for maps or map-derived products)"
+          title="Conditions applying to access and use"
+          tooltip=""
           description={
-            <StringToHTML string={data.qualitySpatialResolution?.data} />
+            <StringToHTML string={data.accessAndUseConstraints?.data || ''} />
           }
         />
+        <CclInfoDescription
+          title="Spatial Resolution"
+          tooltip=""
+          description={
+            <StringToHTML string={data.qualitySpatialResolution?.data || ''} />
+          }
+        />
+        {data.classificationTopicCategory && (
+          <CclInfoDescription
+            title="Topic of Category"
+            tooltip=""
+            description={
+              data.classificationTopicCategory &&
+              data.classificationTopicCategory.map((topic) => topic).join(', ')
+            }
+          />
+        )}
+        {data.geographicBoundingBox?.items?.length > 0 && (
+          <CclInfoDescription
+            title="Bounding Boxes"
+            tooltip=""
+            description={data.geographicBoundingBox?.items.map((bbox) => {
+              return <BoundingBoxComponent bbox={bbox} />;
+            })}
+          />
+        )}
+        {data.temporalCoverage && (
+          <CclInfoDescription
+            title="Temporal Extent"
+            tooltip=""
+            description={
+              data.temporalCoverage &&
+              data.temporalCoverage.map((year) => year).join(', ')
+            }
+          />
+        )}
       </CclInfoContainer>
+      {data.dataResourceType && (
+        <CclInfoContainer>
+          <h2>Hierarchy Level</h2>
+          <CclInfoDescription
+            title="Resource Type"
+            tooltip=""
+            description={data.dataResourceType}
+          />
+        </CclInfoContainer>
+      )}
+      {data.responsiblePartyWithRole?.items?.length > 0 && (
+        <CclInfoContainer>
+          <h2>Contacts</h2>
+          <CclInfoDescription
+            title="Responsible Party with Role"
+            tooltip=""
+            description={data.responsiblePartyWithRole?.items.map((item) => {
+              return <ContactComponent contact={item} />;
+            })}
+          />
+        </CclInfoContainer>
+      )}
+      {data.coordinateReferenceSystemList.length > 0 && (
+        <CclInfoContainer>
+          <h2>Reference system info</h2>
+          <CclInfoDescription
+            title="Coordinate Reference System"
+            tooltip="CRS of the resource"
+            description={
+              data.coordinateReferenceSystemList &&
+              data.coordinateReferenceSystemList
+                .map((reference) => reference)
+                .join(', ')
+            }
+          />
+        </CclInfoContainer>
+      )}
       <CclInfoContainer>
-        <h2>Conformity</h2>
+        <h2>Data quality info</h2>
         <CclInfoDescription
           title="Specification"
           tooltip="A citation of the implementing rules adopted under Article 7(1) of Directive 2007/2/EC or other specification to which a particular resource conforms"
@@ -85,39 +177,31 @@ const MetadataContent = (data) => {
             <StringToHTML string={data.conformitySpecification?.data} />
           }
         />
-      </CclInfoContainer>
-      <CclInfoContainer>
-        <h2>Constraints related to access and use</h2>
+        {data.conformityPass && (
+          <CclInfoDescription
+            title="Pass"
+            tooltip=""
+            description={data.conformityPass}
+          />
+        )}
         <CclInfoDescription
-          title="Conditions applying to access and use"
-          tooltip="Restriction on the access and use of a resource or metadata"
-          description={
-            <StringToHTML string={data.accessAndUseConstraints?.data} />
-          }
-        />
-        <CclInfoDescription
-          title="Limitation of public access"
-          tooltip="Limitation and other reason for public access"
-          description={
-            <StringToHTML string={data.accessAndUseLimitationPublic?.data} />
-          }
+          title="Lineage"
+          tooltip="General explanation of the data produce knowledge's about the lineage of a dataset"
+          description={<StringToHTML string={data.qualityLineage?.data} />}
         />
       </CclInfoContainer>
-      <CclInfoContainer>
-        <h2>Responsible organisation</h2>
-        <CclInfoDescription
-          title="Responsible party"
-          tooltip="Organisation associated with the resource. Organisation name, contact information (email)."
-          description={<StringToHTML string={data.owners?.data} />}
-        />
-        <CclInfoDescription
-          title="Responsible party role"
-          tooltip="Function performed by the party"
-          description={
-            <StringToHTML string={data.responsiblePartyRole?.data} />
-          }
-        />
-      </CclInfoContainer>
+      {data.distributionInfo?.items?.length > 0 && (
+        <CclInfoContainer>
+          <h2>Distribution info</h2>
+          <CclInfoDescription
+            title="Resource Locator and Services"
+            tooltip=""
+            description={data.distributionInfo?.items.map((resource) => {
+              return <DistributionInfoComponent resource={resource} />;
+            })}
+          />
+        </CclInfoContainer>
+      )}
     </>
   );
 };
