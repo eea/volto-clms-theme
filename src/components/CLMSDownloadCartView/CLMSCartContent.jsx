@@ -82,8 +82,9 @@ const CLMSCartContent = (props) => {
           version: file_data.version,
           year: file_data.year,
           file_id: file_id,
-          unique_id: file_id || 'id_from_map_viewer',
+          unique_id: requested_card_items.UID + file_id || 'id_from_map_viewer',
           dataset_uid: requested_card_items.UID,
+          task_in_progress: false,
         });
         setCartItems(cleanDuplicatesEntries(cartItems));
       }
@@ -92,9 +93,8 @@ const CLMSCartContent = (props) => {
 
   const selectAllCart = (checked) => {
     if (checked) {
-      // console.log('checked', checked);
       setCartSelection(
-        localSessionCart
+        cartItems
           .filter((item) => item.task_in_progress === false)
           .map((item, key) => item.unique_id),
       );
@@ -109,14 +109,12 @@ const CLMSCartContent = (props) => {
   };
 
   const getSelectedCartItems = () => {
-    return localSessionCart.filter(
-      (item) => cartSelection.indexOf(item.unique_id) > -1,
-    );
+    return cartItems.filter((item) => cartItems.indexOf(item.unique_id) > -1);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setCartItemInProgress = (in_progress_dataset_id) => {
-    let started_processing_item = localSessionCart.filter(
+    let started_processing_item = cartItems.filter(
       (r) => r['unique_id'] === in_progress_dataset_id,
     )[0];
     if (started_processing_item['unique_id']) {
