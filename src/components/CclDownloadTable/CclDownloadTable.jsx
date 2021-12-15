@@ -6,7 +6,6 @@ import './download-table.less';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { Checkbox } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
@@ -38,9 +37,13 @@ function CclDownloadTable(props) {
   };
 
   const addToCard = () => {
-    let selectedCartItems = prePackagedCollection.filter(
-      (item) => cartSelection.includes(item.unique_id) && item,
-    );
+    let selectedCartItems = prePackagedCollection
+      .filter((item) => cartSelection.includes(item.unique_id) && item)
+      // Get only UID and unique_id from selectedCartItems array of objects
+      .map((item) => ({
+        UID: item.UID,
+        file_id: item['@id'],
+      }));
     addCartItem(selectedCartItems);
   };
 

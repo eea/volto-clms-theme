@@ -33,13 +33,12 @@ const CartIconCounter = (props) => {
 
   const cart = cart_items.items;
   const user_id = users.user.id;
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));
   }, [user_id, dispatch]);
   return (
-    cart?.length !== 0 &&
+    // cart?.length !== 0 &&
     cart && (
       <>
         <span>
