@@ -8,3 +8,4 @@
 export const GET_TOKENS = 'GET_TOKENS';
 export const CREATE_TOKENS = 'CREATE_TOKENS';
 export const DELETE_TOKENS = 'DELETE_TOKENS';
+export const GET_USERSCHEMA = 'GET_USERSCHEMA';
