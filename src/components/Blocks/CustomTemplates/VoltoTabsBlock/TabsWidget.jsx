@@ -201,7 +201,7 @@ const TabsWidget = (props) => {
                       }}
                       title="Sub Tab"
                     >
-                      <Icon name={leftMenuSVG} />
+                      <Icon size={'24px'} name={leftMenuSVG} />
                     </button>
                     <SidebarPopup open={activeSubTabPopup}>
                       <InlineForm

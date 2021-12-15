@@ -48,11 +48,9 @@ const CclVerticalTabsView = (props) => {
             } = props;
             const title = tabs[tab].title;
             const subTab = tabs[tab]?.subTab || false;
-            // check if next tab to the selected one is a subTab
-            const nextSubTab = tabs[index + 1]?.subTab || false;
             const tabIndex = index + 1;
-            // if nextSubTab is true rediret to de subTab tab
-            const preSubTabIndex = index + 2;
+            const nextTabIndex = index + 2;
+            const nextSubTab = tabs[tabsList[tabIndex]]?.subTab || false;
             const defaultTitle = `Tab ${tabIndex}`;
             return (
               <div
@@ -66,7 +64,7 @@ const CclVerticalTabsView = (props) => {
               >
                 {subTab === false && nextSubTab !== false ? (
                   <NavLink
-                    to={'#tab' + preSubTabIndex}
+                    to={'#tab' + nextTabIndex}
                     className="collapsed"
                     onClick={(e) => {
                       if (activeTab !== tab) {
