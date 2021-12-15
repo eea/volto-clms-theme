@@ -43,7 +43,6 @@ function CclDownloadTable(props) {
       .map((item) => ({
         UID: item.UID,
         file_id: item['@id'],
-        unique_id: item.unique_id,
       }));
     addCartItem(selectedCartItems);
   };
