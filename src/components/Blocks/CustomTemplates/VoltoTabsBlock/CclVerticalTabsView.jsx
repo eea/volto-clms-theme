@@ -47,30 +47,58 @@ const CclVerticalTabsView = (props) => {
               setActiveTab = () => {},
             } = props;
             const title = tabs[tab].title;
+            const subTab = tabs[tab]?.subTab || false;
+            // check if next tab to the selected one is a subTab
+            const nextSubTab = tabs[index + 1]?.subTab || false;
             const tabIndex = index + 1;
+            // if nextSubTab is true rediret to de subTab tab
+            const preSubTabIndex = index + 2;
             const defaultTitle = `Tab ${tabIndex}`;
             return (
               <div
                 key={index}
                 id={tabIndex}
-                className={cx('card', tab === activeTab && 'active')}
+                className={cx(
+                  'card',
+                  tab === activeTab && 'active',
+                  subTab && 'subcard',
+                )}
               >
-                <NavLink
-                  to={'#tab' + tabIndex}
-                  className="collapsed"
-                  onClick={(e) => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                  onKeyDown={() => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                >
-                  {title || defaultTitle}
-                </NavLink>
+                {subTab === false && nextSubTab !== false ? (
+                  <NavLink
+                    to={'#tab' + preSubTabIndex}
+                    className="collapsed"
+                    onClick={(e) => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                    onKeyDown={() => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                  >
+                    {title || defaultTitle}
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    to={'#tab' + tabIndex}
+                    className="collapsed"
+                    onClick={(e) => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                    onKeyDown={() => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                  >
+                    {title || defaultTitle}
+                  </NavLink>
+                )}
               </div>
             );
           })}

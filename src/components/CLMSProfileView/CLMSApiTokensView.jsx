@@ -67,7 +67,7 @@ const messages = defineMessages({
   },
   createdToken: {
     id: 'Created token name',
-    defaultMessage: 'Token',
+    defaultMessage: 'The token has been created successfuly',
   },
   copyButton: {
     id: 'Copy created token button',
@@ -144,8 +144,8 @@ class CLMSApiTokensView extends Component {
         ip_range: PropTypes.string,
         issued: PropTypes.string,
         key_id: PropTypes.string,
-        last_used: PropTypes.string,
-        title: PropTypes.string,
+        public_key: PropTypes.string,
+        private_key: PropTypes.string,
       }),
     ),
   };
@@ -187,6 +187,7 @@ class CLMSApiTokensView extends Component {
     this.setState({
       createNewToken: false,
       public_key: undefined,
+      private_key: undefined,
     });
   }
 
@@ -203,6 +204,7 @@ class CLMSApiTokensView extends Component {
       modal: false,
       createNewToken: true,
       public_key: undefined,
+      private_key: undefined,
     });
   }
 
@@ -259,7 +261,7 @@ class CLMSApiTokensView extends Component {
               {this.props.intl.formatMessage(messages.ApiTokens)}
             </h1>
             <div>
-              <h3>{this.props.intl.formatMessage(messages.title)}</h3>
+              <h2>{this.props.intl.formatMessage(messages.title)}</h2>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
               {this.props.createdTokens?.map((item) => (
                 <>
@@ -276,13 +278,17 @@ class CLMSApiTokensView extends Component {
                       size="small"
                     >
                       <h4>This token will be deleted forever</h4>
+                      <p>
+                        You will not be able to use this token again. Only
+                        delete your tokens when you are absolutely sure of it
+                      </p>
                       <CclButton
                         mode={'filled'}
                         onClick={() => {
                           this.deleteToken(item.key_id);
                         }}
                       >
-                        {'Confirm Delete'}
+                        {'I confirm that I want to delete this token'}
                       </CclButton>
                     </CclModal>
                   </div>
@@ -358,15 +364,15 @@ class CLMSApiTokensView extends Component {
                       <>
                         {(this.state.createdToken === true && (
                           <div>
-                            <p>
+                            <h3>
                               {this.props.intl.formatMessage(
                                 messages.createdToken,
                               )}
-                            </p>
+                            </h3>
                             <form className="ccl-form search-form">
                               {this.props.newTokens?.map((item) => (
                                 <>
-                                  {(item.public_key !== undefined && (
+                                  {(item?.private_key && (
                                     <>
                                       <p>{'Download your service key.'}</p>
                                       <p>
@@ -379,21 +385,19 @@ class CLMSApiTokensView extends Component {
                                           'You should copy & paste this key into a .json file, and store this file in a location accessible only to your service application. This key grants anyone in possession of it full access to this account. You should therefore make sure to protect it with the least file system permissions possible.'
                                         }
                                       </p>
-                                      <input
-                                        value={JSON.stringify(item)}
+
+                                      <textarea
                                         disabled="disabled"
-                                        type="text"
-                                        className="ccl-text-input"
                                         id="created_token"
                                         name="createdToken"
-                                        placeholder=""
-                                        aria-label="Created token"
+                                        class="ccl-text-input"
+                                        value={JSON.stringify(item)}
                                       />
                                       <CclButton
                                         mode={'filled'}
                                         onClick={() => {
                                           navigator.clipboard.writeText(
-                                            item.public_key,
+                                            JSON.stringify(item),
                                           );
                                         }}
                                       >
