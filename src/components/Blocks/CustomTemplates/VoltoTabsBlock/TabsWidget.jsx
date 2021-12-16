@@ -50,7 +50,6 @@ const TabsWidget = (props) => {
     blocks[id],
   ]);
   const activeTabData = blocks[activeTabId] || {};
-
   return (
     <FormFieldWrapper
       {...props}
