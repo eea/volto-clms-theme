@@ -208,6 +208,10 @@
   background-color: #a0b128;
 }
 
+.left-menu .subcard {
+  margin-left: 1rem;
+}
+
 .left-menu a {
   display: inline-block;
   width: 100%;

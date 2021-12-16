@@ -3,6 +3,7 @@
 @import url('home.css');
 @import url('menu.css');
 @import url('forms.css');
+@import url('block-form.less');
 /*@import url("cards.css");*/
 @import url('maps.less');
 
@@ -102,8 +103,8 @@ li {
 
 .ul-list li::marker,
 .ol-list li::marker,
-ul > li,
-ol > li {
+ul > li::marker,
+ol > li::marker {
   color: #a0b128;
 }
 
@@ -1112,12 +1113,18 @@ body.section-map-viewer #page-document.ui.container {
   width: 100% !important;
 }
 
+/*DataSet catalogue */
 body.searchlib-page div#page-document {
   top: 0em !important;
   width: 1127px !important;
   max-width: 1127px !important;
 }
 
+div#page-document h1.documentFirstHeading {
+  display: block !important;
+}
+
+/**/
 .metadata.image img {
   max-width: 100%;
 }
