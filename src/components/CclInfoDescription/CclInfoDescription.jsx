@@ -34,7 +34,6 @@ function CclInfoDescription({ title, description, tooltip }) {
 
 CclInfoDescription.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
-    .isRequired,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 export default CclInfoDescription;
