@@ -110,7 +110,9 @@ const CLMSCartContent = (props) => {
   };
 
   const getSelectedCartItems = () => {
-    return cartItems.filter((item) => cartItems.indexOf(item.unique_id) > -1);
+    return cartItems.filter(
+      (item) => cartSelection.indexOf(item.unique_id) > -1,
+    );
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,6 +143,23 @@ const CLMSCartContent = (props) => {
     );
     setCartItems(newCart);
   }, [cart]);
+
+  function startDownloading() {
+    let selectedItems = getSelectedCartItems();
+    const DatasetList = selectedItems.map((item) => {
+      return {
+        DatasetID: item.dataset_uid,
+        OutputFormat: item.format,
+        // OutputGCS: item.version,
+        FileID: item.file_id,
+      };
+    });
+
+    const body = {
+      Datasets: DatasetList,
+    };
+    dispatch(postDownloadtool(body));
+  }
   return (
     <>
       <div className="custom-table cart-table">
@@ -282,29 +301,7 @@ const CLMSCartContent = (props) => {
       </div>
       {localSessionCart?.length !== 0 && (
         <CclButton
-          onClick={() => {
-            let selectedItems = getSelectedCartItems();
-            selectedItems.forEach((selected) => {
-              const item = {
-                UserID: user_id,
-                /*, 
-                 UID: dataset unique id;
-                 DatasetID: dataset id;
-                 Format: Dataset format
-                 selected['unique_id']
-                 selected['UID']
-                 */
-                DatasetID: selected['unique_id'] || selected['UID'], // provisional, We need to send and return unique_id to can mark this element as a pending task selected['UID'],
-                //DatasetFormat: selected['type'], // Formats: "Shapefile"|"GDB"|"GPKG"|"Geojson"|"Geotiff"|"Netcdf"|"GML"|"WFS"
-                DatasetFormat: 'Shapefile',
-                // OutputFormat:selected['format'],
-                // DatasetPath: selected['path'],
-
-                OutputFormat: 'GDB',
-              };
-              dispatch(postDownloadtool(item));
-            });
-          }}
+          onClick={() => startDownloading()}
           disabled={cartSelection.length === 0}
         >
           Start downloading
