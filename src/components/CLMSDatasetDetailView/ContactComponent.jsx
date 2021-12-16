@@ -34,7 +34,7 @@ const ContactComponent = (props) => {
         )}
         {url && <div className="contact-item">{url}</div>}
         {urlTitle && <div className="contact-item">{urlTitle}</div>}
-        {roleCode && <div className="contact-item">{roleCode}</div>}
+        {roleCode && <div className="contact-item">Role: {roleCode}</div>}
       </div>
       <br />
     </div>
