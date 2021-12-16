@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import './cards.less';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import * as mime from 'react-native-mime-types';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 function bytesToSize(bytes) {
   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -26,7 +28,7 @@ function CclCard(props) {
           {type === 'doc' && (
             <>
               <div className="card-doc-title">
-                <a href={card?.file?.download || '#'}>
+                <a href={card?.file?.download || url}>
                   {card?.title || 'Card default title'}
                 </a>
               </div>
@@ -47,6 +49,7 @@ function CclCard(props) {
               <div className="card-block-image">
                 <img
                   src={
+                    card?.image?.scales?.preview ||
                     card?.image?.download ||
                     'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
                   }
