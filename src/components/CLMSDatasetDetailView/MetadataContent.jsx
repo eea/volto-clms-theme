@@ -4,6 +4,7 @@ import BoundingBoxComponent from './BoundingBoxComponent';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import ContactComponent from './ContactComponent';
 import DistributionInfoComponent from './DistributionInfoComponent';
+import { Label } from 'semantic-ui-react';
 import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
@@ -42,14 +43,14 @@ const MetadataContent = (data) => {
           <CclInfoDescription
             title="Date of publication"
             tooltip=""
-            description={data?.resourceEffective}
+            description={new Date(data?.resourceEffective).toLocaleDateString()}
           />
         )}
         {data?.resourceModified && (
           <CclInfoDescription
             title="Revision date"
             tooltip=""
-            description={data?.resourceModified}
+            description={new Date(data?.resourceModified).toLocaleDateString()}
           />
         )}
         <CclInfoDescription
@@ -63,7 +64,9 @@ const MetadataContent = (data) => {
           <CclInfoDescription
             title="Keywords"
             tooltip=""
-            description={data?.keywords.map((keyword) => keyword).join(', ')}
+            description={data?.keywords.map((keyword) => {
+              return <Label color="olive">{keyword}</Label>;
+            })}
           />
         )}
         {data?.geographicCoverage && (
@@ -90,9 +93,7 @@ const MetadataContent = (data) => {
         <CclInfoDescription
           title="Spatial Resolution"
           tooltip=""
-          description={
-            <StringToHTML string={data?.qualitySpatialResolution?.data || ''} />
-          }
+          description={data?.qualitySpatialResolution_line}
         />
         {data?.classificationTopicCategory && (
           <CclInfoDescription
@@ -100,7 +101,9 @@ const MetadataContent = (data) => {
             tooltip=""
             description={
               data?.classificationTopicCategory &&
-              data?.classificationTopicCategory.map((topic) => topic).join(', ')
+              data?.classificationTopicCategory.map((topic) => {
+                return <Label color="olive">{topic.title}</Label>;
+              })
             }
           />
         )}
@@ -119,7 +122,9 @@ const MetadataContent = (data) => {
             tooltip=""
             description={
               data?.temporalCoverage &&
-              data?.temporalCoverage.map((year) => year).join(', ')
+              data?.temporalCoverage.map((year) => {
+                return <Label color="olive">{year}</Label>;
+              })
             }
           />
         )}
@@ -158,9 +163,9 @@ const MetadataContent = (data) => {
               tooltip="CRS of the resource"
               description={
                 data?.coordinateReferenceSystemList &&
-                data?.coordinateReferenceSystemList
-                  .map((reference) => reference)
-                  .join(', ')
+                data?.coordinateReferenceSystemList.map((reference) => {
+                  return <Label color="olive">{reference}</Label>;
+                })
               }
             />
           </CclInfoContainer>
