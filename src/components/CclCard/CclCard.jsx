@@ -49,6 +49,7 @@ function CclCard(props) {
               <div className="card-block-image">
                 <img
                   src={
+                    card?.image?.scales?.preview ||
                     card?.image?.download ||
                     'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
                   }
