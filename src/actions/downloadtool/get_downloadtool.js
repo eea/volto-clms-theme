@@ -9,12 +9,12 @@ export const GET_DOWNLOADTOOL = 'GET_DOWNLOADTOOL';
  * @function GetDownloadtool
  * @returns {Object} Get extra items action.
  */
-export function getDownloadtool(user_id) {
+export function getDownloadtool() {
   return {
     type: GET_DOWNLOADTOOL,
     request: {
       op: 'get',
-      path: `/@datarequest_search?UserID=${user_id}&Status=In_progress`,
+      path: `/@datarequest_search?status=In_progress`,
     },
   };
 }
