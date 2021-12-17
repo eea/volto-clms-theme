@@ -64,16 +64,34 @@ const MetadataContent = (data) => {
           <CclInfoDescription
             title="Keywords"
             tooltip=""
-            description={data?.keywords.map((keyword) => {
-              return <Label color="olive">{keyword}</Label>;
-            })}
+            description={
+              <Label.Group>
+                {data?.keywords.map((keyword, key) => {
+                  return (
+                    <Label key={key} color="olive">
+                      {keyword}
+                    </Label>
+                  );
+                })}
+              </Label.Group>
+            }
           />
         )}
-        {data?.geographicCoverage && (
+        {data?.geographicCoverage?.geolocation && (
           <CclInfoDescription
             title="Geographic coverage"
             tooltip=""
-            description={JSON.stringify(data?.geographicCoverage)}
+            description={
+              <Label.Group>
+                {data?.geographicCoverage?.geolocation.map((location, key) => {
+                  return (
+                    <Label key={key} color="olive">
+                      {location.label}
+                    </Label>
+                  );
+                })}
+              </Label.Group>
+            }
           />
         )}
         {data?.accessAndUseLimitationPublic_line && (
@@ -100,10 +118,16 @@ const MetadataContent = (data) => {
             title="Topic of Category"
             tooltip=""
             description={
-              data?.classificationTopicCategory &&
-              data?.classificationTopicCategory.map((topic) => {
-                return <Label color="olive">{topic.title}</Label>;
-              })
+              <Label.Group>
+                {data?.classificationTopicCategory &&
+                  data?.classificationTopicCategory.map((topic, key) => {
+                    return (
+                      <Label key={key} color="olive">
+                        {topic.title}
+                      </Label>
+                    );
+                  })}
+              </Label.Group>
             }
           />
         )}
@@ -121,10 +145,16 @@ const MetadataContent = (data) => {
             title="Temporal Extent"
             tooltip=""
             description={
-              data?.temporalCoverage &&
-              data?.temporalCoverage.map((year) => {
-                return <Label color="olive">{year}</Label>;
-              })
+              <Label.Group>
+                {data?.temporalCoverage &&
+                  data?.temporalCoverage.map((year, key) => {
+                    return (
+                      <Label key={key} color="olive">
+                        {year}
+                      </Label>
+                    );
+                  })}
+              </Label.Group>
             }
           />
         )}
@@ -162,10 +192,18 @@ const MetadataContent = (data) => {
               title="Coordinate Reference System"
               tooltip="CRS of the resource"
               description={
-                data?.coordinateReferenceSystemList &&
-                data?.coordinateReferenceSystemList.map((reference) => {
-                  return <Label color="olive">{reference}</Label>;
-                })
+                <Label.Group>
+                  {data?.coordinateReferenceSystemList &&
+                    data?.coordinateReferenceSystemList.map(
+                      (reference, key) => {
+                        return (
+                          <Label key={key} color="olive">
+                            {reference}
+                          </Label>
+                        );
+                      },
+                    )}
+                </Label.Group>
               }
             />
           </CclInfoContainer>
@@ -179,11 +217,11 @@ const MetadataContent = (data) => {
             <StringToHTML string={data?.conformitySpecification?.data} />
           }
         />
-        {data?.conformityPass && (
+        {data?.conformityPass?.title && (
           <CclInfoDescription
             title="Pass"
             tooltip=""
-            description={data?.conformityPass}
+            description={data?.conformityPass?.title}
           />
         )}
         <CclInfoDescription
