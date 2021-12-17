@@ -4,12 +4,11 @@ import React from 'react';
 import cx from 'classnames';
 
 function CclTab(props) {
-  let { activeTab, tabTitle, onClick, tabId } = props;
+  let { activeTab, tabTitle, onClick, tabId, routing } = props;
 
   function onTabClick() {
     onClick(tabId);
   }
-
   return (
     <div
       className={cx('card', activeTab === tabId && 'active')}
@@ -19,7 +18,11 @@ function CclTab(props) {
       role="button"
       id={tabId}
     >
-      <NavLink to={'#' + tabId}>{tabTitle}</NavLink>
+      {routing ? (
+        <NavLink to={'#' + tabId}>{tabTitle}</NavLink>
+      ) : (
+        <NavLink to={'#'}>{tabTitle}</NavLink>
+      )}
     </div>
   );
 }

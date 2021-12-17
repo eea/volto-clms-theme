@@ -21,24 +21,29 @@ import PropTypes from 'prop-types';
  * 
  */
 const CclTabs = (props) => {
-  let { children } = props;
-  let [activeTab, setActiveTab] = useState(props.children[0].props.tabId || '');
+  let { children, routing = false } = props;
+  let [activeTab, setActiveTab] = useState(
+    props.children[0].props.tabId ||
+      props.children[0].props.tabTitle.replace(' ', ''),
+  );
 
   function onClickTabItem(tab) {
     setActiveTab(tab);
   }
   React.useEffect(() => {
     const hash = window.location.hash.substring(1) || '';
-    if (hash) {
-      setActiveTab(hash);
-    } else {
-      setActiveTab(
-        children
-          .filter((item) => !!item.props.tabTitle)[0]
-          .props?.tabTitle?.replace(' ', ''),
-      );
+    if (routing) {
+      if (hash) {
+        setActiveTab(hash);
+      } else {
+        setActiveTab(
+          children
+            .filter((item) => !!item.props.tabTitle)[0]
+            .props?.tabTitle?.replace(' ', ''),
+        );
+      }
     }
-  }, [children]);
+  }, [children, routing]);
 
   return (
     <div className="ccl-container-flex">
@@ -52,6 +57,7 @@ const CclTabs = (props) => {
                 <CclTab
                   activeTab={activeTab}
                   key={key}
+                  routing={routing}
                   tabId={tabTitle.replace(' ', '')}
                   tabTitle={tabTitle}
                   onClick={onClickTabItem}

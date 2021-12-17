@@ -190,7 +190,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             })}
           </Segment.Group>
         )}
-      <CclTabs>
+      <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
 
