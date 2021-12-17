@@ -10,8 +10,13 @@ import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { postDownloadtool, getDownloadtool } from '../../actions';
+import {
+  postDownloadtool,
+  getDownloadtool,
+  getFormatConversionTable,
+} from '../../actions';
 import { searchContent } from '@plone/volto/actions';
+import { Select } from 'semantic-ui-react';
 
 import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
@@ -25,9 +30,56 @@ const CLMSCartContent = (props) => {
   );
   const user_id = useSelector((state) => state.users.user.id);
   const requested_card_items = useSelector((state) => state.search.items[0]);
+  const formatConversionTable = useSelector(
+    (state) => state.downloadtool.format_conversion_table_in_progress,
+  );
+
+  // const [formatConversionTable, setFormatConversionTable] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [localSessionCart, setLocalSessionCart] = useState([]);
 
+  const countryOptions = [
+    { key: 'af', value: 'af', text: 'Afghanistan' },
+    { key: 'ax', value: 'ax', text: 'Aland Islands' },
+    { key: 'al', value: 'al', text: 'Albania' },
+    { key: 'dz', value: 'dz', text: 'Algeria' },
+    { key: 'as', value: 'as', text: 'American Samoa' },
+    { key: 'ad', value: 'ad', text: 'Andorra' },
+    { key: 'ao', value: 'ao', text: 'Angola' },
+    { key: 'ai', value: 'ai', text: 'Anguilla' },
+    { key: 'ag', value: 'ag', text: 'Antigua' },
+    { key: 'ar', value: 'ar', text: 'Argentina' },
+    { key: 'am', value: 'am', text: 'Armenia' },
+    { key: 'aw', value: 'aw', text: 'Aruba' },
+    { key: 'au', value: 'au', text: 'Australia' },
+    { key: 'at', value: 'at', text: 'Austria' },
+    { key: 'az', value: 'az', text: 'Azerbaijan' },
+    { key: 'bs', value: 'bs', text: 'Bahamas' },
+    { key: 'bh', value: 'bh', text: 'Bahrain' },
+    { key: 'bd', value: 'bd', text: 'Bangladesh' },
+    { key: 'bb', value: 'bb', text: 'Barbados' },
+    { key: 'by', value: 'by', text: 'Belarus' },
+    { key: 'be', value: 'be', text: 'Belgium' },
+    { key: 'bz', value: 'bz', text: 'Belize' },
+    { key: 'bj', value: 'bj', text: 'Benin' },
+  ];
+
+  //add json recived from @format_conversion_table endpoint to countryOptions array to be used in the cart component
+  useEffect(() => dispatch(getFormatConversionTable()), []);
+  useEffect(() => {
+    // console.log('formatConversionTable: ', formatConversionTable);
+  }, [formatConversionTable]);
+
+  /* function getAvailableConvertion(defaultValue) {
+    return formatConversionTable[defaultValue];
+    const keys = Object.keys(formatConversionTable[defaultValue]);
+
+    const filtered = keys.filter(function (key) {
+      return formatConversionTable[defaultValue][key];
+    });
+    console.log('filtered_values: ', filtered);
+    return { key: 'aaa', value: 'aaa', text: 'Kaixo' };
+  } */
   useEffect(() => {
     const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
     setLocalSessionCart(
@@ -122,9 +174,19 @@ const CLMSCartContent = (props) => {
     )[0];
     if (started_processing_item['unique_id']) {
       removeCartItem(started_processing_item['unique_id']);
+      dispatch(getFormatConversionTable());
       dispatch(getDownloadtool(user_id));
     }
   };
+
+  // const setFormatConversionTable = (format_conversion_table) => {
+  //   let start_format_conversion_table = cartItems.filter(
+  //     (r) => r['format'] === format_conversion_table,
+  //   )[0];
+  //   if (start_format_conversion_table['format']) {
+  //     dispatch(getFormatConversionTable());
+  //   }
+  // };
 
   useEffect(() => {
     let progress_keys = Object.keys(post_download_in_progress);
@@ -137,12 +199,13 @@ const CLMSCartContent = (props) => {
   }, [post_download_in_progress]);
 
   useEffect(() => {
-    const array_ids = cart.map((item) => item.unique_id);
+    const array_ids = cart?.map((item) => item.unique_id);
     const newCart = cartItems.filter((item) =>
       array_ids.includes(item.unique_id),
     );
     setCartItems(newCart);
   }, [cart]);
+
 
   function startDownloading() {
     let selectedItems = getSelectedCartItems();
@@ -160,6 +223,7 @@ const CLMSCartContent = (props) => {
     };
     dispatch(postDownloadtool(body));
   }
+
   return (
     <>
       <div className="custom-table cart-table">
@@ -247,7 +311,11 @@ const CLMSCartContent = (props) => {
                     </span>
                   </td>
                   <td className="table-td-format">
-                    {item.format}
+                    {/* {item.format} */}
+                    <Select
+                      value={countryOptions[0].value}
+                      // options={getAvailableConvertion(item.format)}
+                    />
                     {/* <div className="ccl-form">
                        <div className="ccl-form-group">
                          <select
