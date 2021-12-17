@@ -20,6 +20,10 @@ import { Select } from 'semantic-ui-react';
 
 import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
+import {
+  getAvailableConversion,
+  initializeIfNotCompatibleConversion,
+} from './conversion';
 
 const CLMSCartContent = (props) => {
   const dispatch = useDispatch();
@@ -34,52 +38,11 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.format_conversion_table_in_progress,
   );
 
-  // const [formatConversionTable, setFormatConversionTable] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [localSessionCart, setLocalSessionCart] = useState([]);
 
-  const countryOptions = [
-    { key: 'af', value: 'af', text: 'Afghanistan' },
-    { key: 'ax', value: 'ax', text: 'Aland Islands' },
-    { key: 'al', value: 'al', text: 'Albania' },
-    { key: 'dz', value: 'dz', text: 'Algeria' },
-    { key: 'as', value: 'as', text: 'American Samoa' },
-    { key: 'ad', value: 'ad', text: 'Andorra' },
-    { key: 'ao', value: 'ao', text: 'Angola' },
-    { key: 'ai', value: 'ai', text: 'Anguilla' },
-    { key: 'ag', value: 'ag', text: 'Antigua' },
-    { key: 'ar', value: 'ar', text: 'Argentina' },
-    { key: 'am', value: 'am', text: 'Armenia' },
-    { key: 'aw', value: 'aw', text: 'Aruba' },
-    { key: 'au', value: 'au', text: 'Australia' },
-    { key: 'at', value: 'at', text: 'Austria' },
-    { key: 'az', value: 'az', text: 'Azerbaijan' },
-    { key: 'bs', value: 'bs', text: 'Bahamas' },
-    { key: 'bh', value: 'bh', text: 'Bahrain' },
-    { key: 'bd', value: 'bd', text: 'Bangladesh' },
-    { key: 'bb', value: 'bb', text: 'Barbados' },
-    { key: 'by', value: 'by', text: 'Belarus' },
-    { key: 'be', value: 'be', text: 'Belgium' },
-    { key: 'bz', value: 'bz', text: 'Belize' },
-    { key: 'bj', value: 'bj', text: 'Benin' },
-  ];
-
-  //add json recived from @format_conversion_table endpoint to countryOptions array to be used in the cart component
   useEffect(() => dispatch(getFormatConversionTable()), []);
-  useEffect(() => {
-    // console.log('formatConversionTable: ', formatConversionTable);
-  }, [formatConversionTable]);
 
-  /* function getAvailableConvertion(defaultValue) {
-    return formatConversionTable[defaultValue];
-    const keys = Object.keys(formatConversionTable[defaultValue]);
-
-    const filtered = keys.filter(function (key) {
-      return formatConversionTable[defaultValue][key];
-    });
-    console.log('filtered_values: ', filtered);
-    return { key: 'aaa', value: 'aaa', text: 'Kaixo' };
-  } */
   useEffect(() => {
     const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
     setLocalSessionCart(
@@ -90,13 +53,8 @@ const CLMSCartContent = (props) => {
   useEffect(() => {
     if (localSessionCart?.length !== 0) {
       localSessionCart.forEach((item) => {
-        //   console.log('item', item);
         dispatch(
           searchContent('', {
-            // 'path.depth': 1,
-            // metadata_fields: '_all',
-            // b_size: 100000000,
-            // fullobjects: 1,
             portal_type: 'DataSet',
             UID: item.UID,
             fullobjects: true,
@@ -111,11 +69,11 @@ const CLMSCartContent = (props) => {
 
   useEffect(() => {
     if (requested_card_items?.downloadable_files?.items.length > 0) {
-      concartRequestedCartItem();
+      concatRequestedCartItem();
     }
   }, [requested_card_items]);
 
-  function concartRequestedCartItem() {
+  function concatRequestedCartItem() {
     const local_cart_file_ids = localSessionCart.map((item) => item.file_id);
     local_cart_file_ids.forEach((file_id) => {
       const file_data = requested_card_items.downloadable_files.items.find(
@@ -179,15 +137,6 @@ const CLMSCartContent = (props) => {
     }
   };
 
-  // const setFormatConversionTable = (format_conversion_table) => {
-  //   let start_format_conversion_table = cartItems.filter(
-  //     (r) => r['format'] === format_conversion_table,
-  //   )[0];
-  //   if (start_format_conversion_table['format']) {
-  //     dispatch(getFormatConversionTable());
-  //   }
-  // };
-
   useEffect(() => {
     let progress_keys = Object.keys(post_download_in_progress);
     progress_keys.forEach((progress_key) =>
@@ -205,7 +154,6 @@ const CLMSCartContent = (props) => {
     );
     setCartItems(newCart);
   }, [cart]);
-
 
   function startDownloading() {
     let selectedItems = getSelectedCartItems();
@@ -311,25 +259,23 @@ const CLMSCartContent = (props) => {
                     </span>
                   </td>
                   <td className="table-td-format">
-                    {/* {item.format} */}
                     <Select
-                      value={countryOptions[0].value}
-                      // options={getAvailableConvertion(item.format)}
+                      value={initializeIfNotCompatibleConversion(
+                        formatConversionTable,
+                        item.format,
+                      )}
+                      options={getAvailableConversion(
+                        formatConversionTable,
+                        item.format,
+                      )}
+                      onChange={(e, data) => {
+                        const objIndex = cartItems.findIndex(
+                          (obj) => obj.unique_id === item.unique_id,
+                        );
+                        cartItems[objIndex].format = data.value;
+                        setCartItems([...cartItems]);
+                      }}
                     />
-                    {/* <div className="ccl-form">
-                       <div className="ccl-form-group">
-                         <select
-                           className="ccl-select"
-                           id="select-ID-1"
-                           name="select-name-1"
-                           defaultValue={item.format}
-                         >
-                           <option value="GeoTiff" >GeoTiff</option>
-                           <option value="ESRI Geodatabase" >ESRI Geodatabase</option>
-                           <option value="SQLite Geodatabase" >SQLite Geodatabase</option>
-                         </select>
-                       </div>
-                     </div> */}
                   </td>
                   <td>{item.version}</td>
                   <td>{item.size}</td>
