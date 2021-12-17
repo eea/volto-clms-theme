@@ -7,6 +7,8 @@ import {
   GET_DOWNLOADTOOL,
   POST_DOWNLOADTOOL,
   DELETE_DOWNLOADTOOL,
+  GET_FORMATCONVERSIONTABLE,
+  GET_PROJECTIONS,
 } from '../../actions';
 
 const getInitialState = {
@@ -16,6 +18,8 @@ const getInitialState = {
   download_in_progress: {},
   delete_download_in_progress: {},
   post_download_in_progress: {},
+  format_conversion_table_in_progress: {},
+  projections_in_progress: {},
 };
 
 export const downloadtoolReducer = (state = getInitialState, action = {}) => {
@@ -89,6 +93,57 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         loading: false,
         delete_download_in_progress: action.result,
       };
+
+    case `${GET_FORMATCONVERSIONTABLE}_PENDING`:
+      return {
+        ...state,
+        error: null,
+        loaded: false,
+        loading: true,
+      };
+
+    case `${GET_FORMATCONVERSIONTABLE}_FAIL`:
+      return {
+        ...state,
+        error: null,
+        loaded: false,
+        loading: true,
+      };
+
+    case `${GET_FORMATCONVERSIONTABLE}_SUCCESS`:
+      return {
+        ...state,
+        error: null,
+        loaded: true,
+        loading: false,
+        format_conversion_table_in_progress: action.result,
+      };
+
+    case `${GET_PROJECTIONS}_PENDING`:
+      return {
+        ...state,
+        error: null,
+        loaded: false,
+        loading: true,
+      };
+
+    case `${GET_PROJECTIONS}_FAIL`:
+      return {
+        ...state,
+        error: null,
+        loaded: false,
+        loading: true,
+      };
+
+    case `${GET_PROJECTIONS}_SUCCESS`:
+      return {
+        ...state,
+        error: null,
+        loaded: true,
+        loading: false,
+        projections_in_progress: action.result,
+      };
+
     default:
       return state;
   }
