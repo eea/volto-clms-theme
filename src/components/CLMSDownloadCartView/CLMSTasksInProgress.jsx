@@ -24,8 +24,9 @@ const CLMSTasksInProgress = (props) => {
   const [showDeleteTaskLoading, setShowDeleteTaskLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(getDownloadtool(user_id));
-  }, [user_id, dispatch]);
+    dispatch(getDownloadtool());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let progress_keys = Object.keys(download_in_progress);
@@ -40,7 +41,7 @@ const CLMSTasksInProgress = (props) => {
   }, [download_in_progress]);
   const deleteTaskInProgress = (task_id) => {
     setShowDeleteTaskLoading(task_id);
-    dispatch(deleteDownloadtool(user_id, task_id));
+    dispatch(deleteDownloadtool(task_id));
     setTimeout(() => {
       dispatch(getDownloadtool(user_id));
       setShowDeleteTaskLoading(false);
