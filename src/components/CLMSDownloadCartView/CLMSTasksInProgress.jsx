@@ -3,15 +3,18 @@
  * @module components/CLMSInProgressTask/CLMSInProgressTask
  */
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDownloadtool, deleteDownloadtool } from '../../actions';
+import './task_in_progress.less';
+
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Loader, Popup } from 'semantic-ui-react';
-import removeSVG from '@plone/volto/icons/circle-dismiss.svg';
-import downloadSVG from '@plone/volto/icons/download.svg';
+import React, { useEffect, useState } from 'react';
+import { deleteDownloadtool, getDownloadtool } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Icon } from '@plone/volto/components';
-import './task_in_progress.less';
+import cancelledSVG from '@plone/volto/icons/spam.svg';
+import downloadSVG from '@plone/volto/icons/download.svg';
+import removeSVG from '@plone/volto/icons/delete.svg';
 
 const CLMSTasksInProgress = (props) => {
   const dispatch = useDispatch();
@@ -75,13 +78,29 @@ const CLMSTasksInProgress = (props) => {
                     <td>{item.OutputFormat}</td>
 
                     <td>
-                      <Popup
-                        content="In progress"
-                        size="small"
-                        trigger={
-                          <Loader active inline indeterminate size="small" />
-                        }
-                      />
+                      {(item.Status === 'In_progress' ||
+                        item[0]?.Status === 'In_progress') && (
+                        <Popup
+                          content="In progress"
+                          size="small"
+                          trigger={
+                            <Loader active inline indeterminate size="small" />
+                          }
+                        />
+                      )}
+                      {item.Status === 'Cancelled' && (
+                        <Popup
+                          content="Cancelled task"
+                          size="small"
+                          trigger={
+                            <Icon
+                              name={cancelledSVG}
+                              size="32px"
+                              title={'Cancelled task'}
+                            />
+                          }
+                        />
+                      )}
                       {/* <FontAwesomeIcon icon="spinner" spin /> */}
                     </td>
                     <td>
