@@ -14,6 +14,7 @@ import {
   postDownloadtool,
   getDownloadtool,
   getFormatConversionTable,
+  getProjections,
 } from '../../actions';
 import { searchContent } from '@plone/volto/actions';
 import { Select } from 'semantic-ui-react';
@@ -40,6 +41,12 @@ const CLMSCartContent = (props) => {
 
   const [cartItems, setCartItems] = useState([]);
   const [localSessionCart, setLocalSessionCart] = useState([]);
+
+  useEffect(() => dispatch(getProjections()), []);
+
+  const projections = useSelector(
+    (state) => state.downloadtool.projections_in_progress,
+  );
 
   useEffect(() => dispatch(getFormatConversionTable()), []);
 
@@ -206,6 +213,7 @@ const CLMSCartContent = (props) => {
               <th>Resolution</th>
               <th>Type</th>
               <th>Format</th>
+              <th>Projections</th>
               <th>Version</th>
               <th>Size</th>
               <th></th>
@@ -274,6 +282,26 @@ const CLMSCartContent = (props) => {
                         );
                         cartItems[objIndex].format = data.value;
                         setCartItems([...cartItems]);
+                      }}
+                    />
+                  </td>
+                  <td className="table-td-projections">
+                    <Select
+                      value={projections[0]}
+                      options={projections.map((item) => {
+                        return {
+                          key: item,
+                          value: item,
+                          text: item,
+                        };
+                      })}
+                      onChange={(e, data) => {
+                        const objIndex = cartItems.findIndex(
+                          (obj) => obj.unique_id === item.unique_id,
+                        );
+                        cartItems[objIndex].projection = data.value;
+                        setCartItems([...cartItems]);
+                        console.log('cartItems', cartItems);
                       }}
                     />
                   </td>
