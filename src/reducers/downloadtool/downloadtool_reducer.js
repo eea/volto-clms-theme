@@ -4,11 +4,11 @@
  */
 
 import {
-  GET_DOWNLOADTOOL,
-  POST_DOWNLOADTOOL,
   DELETE_DOWNLOADTOOL,
+  GET_DOWNLOADTOOL,
   GET_FORMATCONVERSIONTABLE,
   GET_PROJECTIONS,
+  POST_DOWNLOADTOOL,
 } from '../../actions';
 
 const getInitialState = {
@@ -108,9 +108,9 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
     case `${GET_FORMATCONVERSIONTABLE}_FAIL`:
       return {
         ...state,
-        error: null,
+        error: action.error,
         loaded: false,
-        loading: true,
+        loading: false,
       };
 
     case `${GET_FORMATCONVERSIONTABLE}_SUCCESS`:
@@ -133,9 +133,9 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
     case `${GET_PROJECTIONS}_FAIL`:
       return {
         ...state,
-        error: null,
+        error: action.error,
         loaded: false,
-        loading: true,
+        loading: false,
       };
 
     case `${GET_PROJECTIONS}_SUCCESS`:

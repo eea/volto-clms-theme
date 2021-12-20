@@ -4,15 +4,15 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { NavLink } from 'react-router-dom';
-import { injectIntl } from 'react-intl';
-import { getBaseUrl } from '@plone/volto/helpers';
-import config from '@plone/volto/registry';
 
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import config from '@plone/volto/registry';
+import { connect } from 'react-redux';
+import { getBaseUrl } from '@plone/volto/helpers';
 import { getNavigation } from '@plone/volto/actions';
+import { injectIntl } from 'react-intl';
 
 /**
  * Navigation container class.
