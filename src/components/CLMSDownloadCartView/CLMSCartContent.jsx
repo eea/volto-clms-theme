@@ -286,7 +286,7 @@ const CLMSCartContent = (props) => {
                   </td>
                   <td className="table-td-projections">
                     <Select
-                      value={projections[0]}
+                      value={item.projection || projections[0]}
                       options={projections.map((item) => {
                         return {
                           key: item,
