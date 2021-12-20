@@ -47,6 +47,13 @@ export {
   deleteDownloadtool,
 } from './downloadtool/delete_downloadtool';
 
+export {
+  GET_FORMATCONVERSIONTABLE,
+  getFormatConversionTable,
+} from './format_conversion_table/get_format_conversion_table';
+
+export { GET_PROJECTIONS, getProjections } from './projections/get_projections';
+
 export { GET_REGISTRY, getRegistry } from './registry/registry';
 
 export {
