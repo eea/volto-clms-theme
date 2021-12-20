@@ -5,40 +5,38 @@
  * @module components/theme/Header/Header
  */
 
-import React, { Component, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useSelector, useDispatch } from 'react-redux';
-
-import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
-import jwtDecode from 'jwt-decode';
-import { getUser } from '@plone/volto/actions';
-import { compose } from 'redux';
-
-import { BodyClass } from '@plone/volto/helpers';
-
-import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
-import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
+import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
+import React, { Component, useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+
+import { BodyClass } from '@plone/volto/helpers';
+import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
+import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
 // import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
-import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
-import { Link } from 'react-router-dom';
-import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
+import { getUser } from '@plone/volto/actions';
+import jwtDecode from 'jwt-decode';
+
 // import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 
 const CartIconCounter = (props) => {
   const { cart_items, users, intl } = useSelector((state) => state);
 
-  const cart = cart_items.items;
+  const cart = cart_items.items || [];
   const user_id = users.user.id;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));
   }, [user_id, dispatch]);
   return (
-    // cart?.length !== 0 &&
     cart && (
       <>
         <span>
@@ -247,6 +245,7 @@ class Header extends Component {
                   {(this.props.user.id && (
                     <>
                       <li>
+                        <CartIconCounter />
                         <Link
                           to={`/${this.props.locale}/profile`}
                           className="header-login-link"
@@ -279,6 +278,8 @@ class Header extends Component {
                     </>
                   )) || (
                     <li>
+                      <CartIconCounter />
+
                       <Link
                         to={`/${this.props.locale}/login`}
                         className="header-login-link"
