@@ -126,24 +126,22 @@ const CLMSCartContent = (props) => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const setCartItemInProgress = (in_progress_dataset_id) => {
-    let started_processing_item = cartItems.filter(
-      (r) => r['unique_id'] === in_progress_dataset_id,
-    )[0];
-    if (started_processing_item['unique_id']) {
-      removeCartItem(started_processing_item['unique_id']);
-      dispatch(getFormatConversionTable());
-      dispatch(getDownloadtool(user_id));
-    }
+  const setCartItemInProgress = (in_progress_unique_ids) => {
+    let started_processing_items = cartItems.filter((r) =>
+      in_progress_unique_ids.includes(r['unique_id']),
+    );
+    started_processing_items.forEach((item) => {
+      if (item['unique_id']) {
+        removeCartItem(item['unique_id'], user_id);
+        dispatch(getFormatConversionTable());
+        dispatch(getDownloadtool());
+      }
+    });
   };
 
   useEffect(() => {
-    let progress_keys = Object.keys(post_download_in_progress);
-    progress_keys.forEach((progress_key) =>
-      setCartItemInProgress(
-        post_download_in_progress[progress_key]['DatasetID'],
-      ),
-    );
+    setCartItemInProgress(post_download_in_progress['unique_ids']);
+    // console.log('post_download_in_progress', post_download_in_progress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post_download_in_progress]);
 
@@ -169,7 +167,8 @@ const CLMSCartContent = (props) => {
     const body = {
       Datasets: DatasetList,
     };
-    dispatch(postDownloadtool(body));
+    const unique_ids = selectedItems.map((item) => item.unique_id);
+    dispatch(postDownloadtool(body, unique_ids));
   }
 
   return (

@@ -68,7 +68,10 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        post_download_in_progress: action.result,
+        post_download_in_progress: {
+          unique_ids: action.unique_ids,
+          task_id: action.result['TaskID'],
+        },
       };
     case `${DELETE_DOWNLOADTOOL}_PENDING`:
       return {
