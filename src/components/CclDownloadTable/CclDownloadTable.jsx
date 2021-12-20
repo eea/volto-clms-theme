@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import PropTypes from 'prop-types';
 import './download-table.less';
+
+import React, { useState } from 'react';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { Checkbox } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 // import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import { Checkbox } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
@@ -19,7 +20,7 @@ function CclDownloadTable(props) {
         ...element,
         name: dataset.title,
         UID: dataset.UID,
-        unique_id: element['@id'].concat(dataset.UID),
+        unique_id: `${dataset.UID}_${element['@id']}`,
       };
     },
   );
@@ -38,9 +39,14 @@ function CclDownloadTable(props) {
   };
 
   const addToCard = () => {
-    let selectedCartItems = prePackagedCollection.filter(
-      (item) => cartSelection.includes(item.unique_id) && item,
-    );
+    let selectedCartItems = prePackagedCollection
+      .filter((item) => cartSelection.includes(item.unique_id) && item)
+      // Get only UID and unique_id from selectedCartItems array of objects
+      .map((item) => ({
+        UID: item.UID,
+        file_id: item['@id'],
+        unique_id: item.unique_id,
+      }));
     addCartItem(selectedCartItems);
   };
 
@@ -117,6 +123,7 @@ function CclDownloadTable(props) {
       </div>
 
       <CclButton
+        isButton={true}
         onClick={() => addToCard()}
         disabled={!isLoggedIn || cartSelection.length === 0}
       >

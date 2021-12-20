@@ -474,8 +474,10 @@
 
 .ccl-header .ccl-header-nav .ccl-header-main-menu > li:hover > a,
 .ccl-header .ccl-header-nav .ccl-header-main-menu > li.active > a,
+.ccl-header .ccl-header-nav .ccl-header-main-menu > li > a.active,
 .ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li:hover > a,
-.ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li.active > a {
+.ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li.active > a,
+.ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li > a.active {
   border-bottom: 1px solid;
 }
 
