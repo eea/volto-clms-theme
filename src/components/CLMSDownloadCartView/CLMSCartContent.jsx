@@ -301,7 +301,6 @@ const CLMSCartContent = (props) => {
                         );
                         cartItems[objIndex].projection = data.value;
                         setCartItems([...cartItems]);
-                        console.log('cartItems', cartItems);
                       }}
                     />
                   </td>
