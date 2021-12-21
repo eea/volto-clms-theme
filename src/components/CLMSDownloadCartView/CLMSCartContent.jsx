@@ -25,7 +25,11 @@ import { Select } from 'semantic-ui-react';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { searchContent } from '@plone/volto/actions';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-
+import {
+  getDownloadToolPostBody,
+  getCartObjectFromPrepackaged,
+  getCartObjectFromMapviewer,
+} from './cartUtils';
 const CLMSCartContent = (props) => {
   const dispatch = useDispatch();
   const { cart, removeCartItem } = useCartState();
@@ -34,7 +38,7 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.post_download_in_progress,
   );
   const user_id = useSelector((state) => state.users.user.id);
-  const requested_card_items = useSelector((state) => state.search.items[0]);
+  const requested_cart_items = useSelector((state) => state.search.items[0]);
   const formatConversionTable = useSelector(
     (state) => state.downloadtool.format_conversion_table_in_progress,
   );
@@ -75,34 +79,21 @@ const CLMSCartContent = (props) => {
   }, [localSessionCart, dispatch]);
 
   useEffect(() => {
-    if (requested_card_items?.downloadable_files?.items.length > 0) {
+    if (requested_cart_items?.downloadable_files?.items.length > 0) {
       concatRequestedCartItem();
     }
-  }, [requested_card_items]);
+  }, [requested_cart_items]);
 
   function concatRequestedCartItem() {
     const local_cart_file_ids = localSessionCart.map((item) => item.file_id);
     local_cart_file_ids.forEach((file_id) => {
-      const file_data = requested_card_items.downloadable_files.items.find(
+      const file_data = requested_cart_items.downloadable_files.items.find(
         (item) => item['@id'] === file_id,
       );
-
       if (file_data) {
-        cartItems.push({
-          name: requested_card_items.title,
-          area: file_data.area,
-          format: file_data.format,
-          resolution: file_data.resolution,
-          size: file_data.size,
-          source: 'Pre-packaged',
-          type: file_data.type,
-          version: file_data.version,
-          year: file_data.year,
-          file_id: file_id,
-          unique_id: `${requested_card_items.UID}_${file_id}`,
-          dataset_uid: requested_card_items.UID,
-          task_in_progress: false,
-        });
+        cartItems.push(
+          getCartObjectFromPrepackaged(file_data, requested_cart_items),
+        );
         setCartItems(cleanDuplicatesEntries(cartItems));
       }
     });
@@ -111,22 +102,8 @@ const CLMSCartContent = (props) => {
       (item) => item.area !== undefined,
     );
     local_cart_mapviewer_items.forEach((item) => {
-      if (requested_card_items['UID'] === item.UID) {
-        cartItems.push({
-          name: requested_card_items.dataResourceTitle || '-',
-          area: item.area || '-',
-          format: requested_card_items.dataset_full_format || '-',
-          resolution: requested_card_items.resolution || '-',
-          size: requested_card_items.size || '-',
-          source: 'Map viewer',
-          type: requested_card_items.dataResourceType || '-',
-          version: requested_card_items.version || '-',
-          year: requested_card_items.year || '-',
-          id: item.id,
-          unique_id: item.unique_id,
-          dataset_uid: requested_card_items.UID,
-          task_in_progress: false,
-        });
+      if (requested_cart_items['UID'] === item.UID) {
+        cartItems.push(getCartObjectFromMapviewer(item, requested_cart_items));
         setCartItems(cleanDuplicatesEntries(cartItems));
       }
     });
@@ -185,40 +162,15 @@ const CLMSCartContent = (props) => {
 
   function startDownloading() {
     let selectedItems = getSelectedCartItems();
-    const DatasetList = selectedItems.map((item) => {
-      let body_extras = {};
-      if (item.file_id) {
-        body_extras['FileID'] = item.file_id;
-      } else {
-        if (item.area.type === 'polygon') {
-          body_extras['BoundingBox'] = item.value;
-        }
-        if (item.area.type === 'nuts') {
-          body_extras['NUTS'] = item.value;
-        }
-        if (item.timeExtend) {
-          body_extras['TemporalFilter'] = {
-            StartDate: item.timeExtend[0],
-            EndDate: item.timeExtend[1],
-          };
-        }
-        if (item.format) {
-          body_extras['OutputFormat'] = item.format;
-        }
-        if (item.format) {
-          body_extras['OutputGCS'] = item.projection;
-        }
-      }
-      return { DatasetID: item.dataset_uid, ...body_extras };
-    });
-
-    const body = {
-      Datasets: DatasetList,
-    };
+    const body = getDownloadToolPostBody(selectedItems);
     const unique_ids = selectedItems.map((item) => item.unique_id);
     dispatch(postDownloadtool(body, unique_ids));
   }
-
+  const setProjectionValue = (unique_id, value) => {
+    const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
+    cartItems[objIndex].projection = value;
+    setCartItems([...cartItems]);
+  };
   return (
     <>
       {localSessionCart?.length !== 0 ? (
@@ -332,7 +284,10 @@ const CLMSCartContent = (props) => {
                     <td className="table-td-projections">
                       <Select
                         disabled={item.file_id === undefined ? false : true}
-                        value={item.projection || projections[0]}
+                        value={
+                          item.projection ||
+                          setProjectionValue(item.unique_id, projections[0])
+                        }
                         options={projections.map((item) => {
                           return {
                             key: item,
@@ -341,11 +296,7 @@ const CLMSCartContent = (props) => {
                           };
                         })}
                         onChange={(e, data) => {
-                          const objIndex = cartItems.findIndex(
-                            (obj) => obj.unique_id === item.unique_id,
-                          );
-                          cartItems[objIndex].projection = data.value;
-                          setCartItems([...cartItems]);
+                          setProjectionValue(item.unique_id, data.value);
                         }}
                       />
                     </td>
