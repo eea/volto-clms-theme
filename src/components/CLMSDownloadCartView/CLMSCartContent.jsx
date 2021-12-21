@@ -5,26 +5,26 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Checkbox } from 'semantic-ui-react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import {
-  postDownloadtool,
-  getDownloadtool,
-  getFormatConversionTable,
-  getProjections,
-} from '../../actions';
-import { searchContent } from '@plone/volto/actions';
-import { Select } from 'semantic-ui-react';
-
-import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
-import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import {
   getAvailableConversion,
   initializeIfNotCompatibleConversion,
 } from './conversion';
+import {
+  getDownloadtool,
+  getFormatConversionTable,
+  getProjections,
+  postDownloadtool,
+} from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { Checkbox } from 'semantic-ui-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Select } from 'semantic-ui-react';
+import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
+import { searchContent } from '@plone/volto/actions';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSCartContent = (props) => {
   const dispatch = useDispatch();
@@ -38,17 +38,17 @@ const CLMSCartContent = (props) => {
   const formatConversionTable = useSelector(
     (state) => state.downloadtool.format_conversion_table_in_progress,
   );
-
-  const [cartItems, setCartItems] = useState([]);
-  const [localSessionCart, setLocalSessionCart] = useState([]);
-
-  useEffect(() => dispatch(getProjections()), []);
-
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
   );
 
-  useEffect(() => dispatch(getFormatConversionTable()), []);
+  const [cartItems, setCartItems] = useState([]);
+  const [localSessionCart, setLocalSessionCart] = useState([]);
+
+  useEffect(() => {
+    dispatch(getProjections());
+    dispatch(getFormatConversionTable());
+  }, [dispatch]);
 
   useEffect(() => {
     const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
