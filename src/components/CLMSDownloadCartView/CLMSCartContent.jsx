@@ -99,8 +99,7 @@ const CLMSCartContent = (props) => {
           version: file_data.version,
           year: file_data.year,
           file_id: file_id,
-          unique_id:
-            `${requested_card_items.UID}_${file_id}` || 'id_from_map_viewer',
+          unique_id: `${requested_card_items.UID}_${file_id}`,
           dataset_uid: requested_card_items.UID,
           task_in_progress: false,
         });
@@ -112,7 +111,7 @@ const CLMSCartContent = (props) => {
       (item) => item.area !== undefined,
     );
     local_cart_mapviewer_items.forEach((item) => {
-      if (requested_card_items['UID'] === item.id) {
+      if (requested_card_items['UID'] === item.UID) {
         cartItems.push({
           name: requested_card_items.dataResourceTitle,
           area: item.area,
@@ -124,8 +123,7 @@ const CLMSCartContent = (props) => {
           version: requested_card_items.version,
           year: requested_card_items.year,
           id: item.id,
-          unique_id:
-            `${requested_card_items.UID}_${'file_id'}` || 'id_from_map_viewer',
+          unique_id: item.unique_id,
           dataset_uid: requested_card_items.UID,
           task_in_progress: false,
         });
@@ -207,165 +205,155 @@ const CLMSCartContent = (props) => {
 
   return (
     <>
-      <div className="custom-table cart-table">
-        <h2>My cart</h2>
-        <table>
-          <thead>
-            <tr>
-              <th className="table-th-warning"></th>
-              <th className="table-th-checkbox">
-                <div className="ccl-form">
-                  <div className="ccl-form-group">
-                    <Checkbox
-                      onChange={(e, data) => selectAllCart(data.checked)}
-                      checked={
-                        cartItems
-                          ? cartItems
-                              .filter((item) => item.task_in_progress === false)
-                              .map((item, key) => item.unique_id)
-                              .every(function (val) {
-                                return cartSelection.indexOf(val) !== -1;
-                              })
-                          : false
-                      }
-                    />
-                  </div>
-                </div>
-              </th>
-              <th>Name</th>
-              <th>Source</th>
-              <th>Area</th>
-              <th>Year</th>
-              <th>Resolution</th>
-              <th>Type</th>
-              <th>Format</th>
-              <th>Projections</th>
-              <th>Version</th>
-              <th>Size</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartItems &&
-              cartItems.map((item, key) => (
-                <tr
-                  key={key}
-                  style={
-                    item.task_in_progress
-                      ? { opacity: 0.5, backgroundColor: '#f5f5f5' }
-                      : {}
-                  }
-                >
-                  <td className="table-td-warning hidden-warning">
-                    {!!item.warning && (
-                      <span
-                        className="info-icon"
-                        tooltip={item.warning}
-                        direction="up"
-                      >
-                        <FontAwesomeIcon
-                          icon={['fas', 'exclamation-triangle']}
-                        />
-                      </span>
-                    )}
-                  </td>
-                  <td className="table-td-checkbox">
-                    <div className="ccl-form">
-                      <div className="ccl-form-group">
-                        <Checkbox
-                          onChange={(e, data) =>
-                            selectCart(item.unique_id, data.checked)
-                          }
-                          checked={cartSelection.includes(item.unique_id)}
-                          disabled={item.task_in_progress}
-                        />
-                      </div>
+      {localSessionCart?.length !== 0 ? (
+        <div className="custom-table cart-table">
+          <h2>My cart</h2>
+          <table>
+            <thead>
+              <tr>
+                <th className="table-th-warning"></th>
+                <th className="table-th-checkbox">
+                  <div className="ccl-form">
+                    <div className="ccl-form-group">
+                      <Checkbox
+                        onChange={(e, data) => selectAllCart(data.checked)}
+                        checked={
+                          cartItems
+                            ? cartItems
+                                .filter(
+                                  (item) => item.task_in_progress === false,
+                                )
+                                .map((item, key) => item.unique_id)
+                                .every(function (val) {
+                                  return cartSelection.indexOf(val) !== -1;
+                                })
+                            : false
+                        }
+                      />
                     </div>
-                  </td>
-                  <td>{item.name}</td>
-                  <td>{item.source}</td>
-                  <td>{item.area}</td>
-                  <td>{item.year}</td>
-                  <td>{item.resolution}</td>
-                  <td>
-                    <span className={'tag tag-' + item?.type?.toLowerCase()}>
-                      {item.type}
-                    </span>
-                  </td>
-                  <td className="table-td-format">
-                    <Select
-                      value={initializeIfNotCompatibleConversion(
-                        formatConversionTable,
-                        item.format,
+                  </div>
+                </th>
+                <th>Name</th>
+                <th>Source</th>
+                <th>Area</th>
+                <th>Year</th>
+                <th>Resolution</th>
+                <th>Type</th>
+                <th>Format</th>
+                <th>Projections</th>
+                <th>Version</th>
+                <th>Size</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems &&
+                cartItems.map((item, key) => (
+                  <tr
+                    key={key}
+                    style={
+                      item.task_in_progress
+                        ? { opacity: 0.5, backgroundColor: '#f5f5f5' }
+                        : {}
+                    }
+                  >
+                    <td className="table-td-warning hidden-warning">
+                      {!!item.warning && (
+                        <span
+                          className="info-icon"
+                          tooltip={item.warning}
+                          direction="up"
+                        >
+                          <FontAwesomeIcon
+                            icon={['fas', 'exclamation-triangle']}
+                          />
+                        </span>
                       )}
-                      options={getAvailableConversion(
-                        formatConversionTable,
-                        item.format,
-                      )}
-                      onChange={(e, data) => {
-                        const objIndex = cartItems.findIndex(
-                          (obj) => obj.unique_id === item.unique_id,
-                        );
-                        cartItems[objIndex].format = data.value;
-                        setCartItems([...cartItems]);
-                      }}
-                    />
-                  </td>
-                  <td className="table-td-projections">
-                    <Select
-                      value={item.projection || projections[0]}
-                      options={projections.map((item) => {
-                        return {
-                          key: item,
-                          value: item,
-                          text: item,
-                        };
-                      })}
-                      onChange={(e, data) => {
-                        const objIndex = cartItems.findIndex(
-                          (obj) => obj.unique_id === item.unique_id,
-                        );
-                        cartItems[objIndex].projection = data.value;
-                        setCartItems([...cartItems]);
-                      }}
-                    />
-                  </td>
-                  <td>{item.version}</td>
-                  <td>{item.size}</td>
-                  <td>
-                    {item.task_in_progress ? (
-                      <FontAwesomeIcon icon="spinner" spin />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={['fas', 'trash']}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                          removeCartItem(item.unique_id);
+                    </td>
+                    <td className="table-td-checkbox">
+                      <div className="ccl-form">
+                        <div className="ccl-form-group">
+                          <Checkbox
+                            onChange={(e, data) =>
+                              selectCart(item.unique_id, data.checked)
+                            }
+                            checked={cartSelection.includes(item.unique_id)}
+                            disabled={item.task_in_progress}
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>{item.name || '-'}</td>
+                    <td>{item.source || '-'}</td>
+                    <td>{item.area.type || '-'}</td>
+                    <td>{item.year || '-'}</td>
+                    <td>{item.resolution || '-'}</td>
+                    <td>
+                      <span className={'tag tag-' + item?.type?.toLowerCase()}>
+                        {item.type || '-'}
+                      </span>
+                    </td>
+                    <td className="table-td-format">
+                      <Select
+                        value={initializeIfNotCompatibleConversion(
+                          formatConversionTable,
+                          item.format,
+                        )}
+                        options={getAvailableConversion(
+                          formatConversionTable,
+                          item.format,
+                        )}
+                        onChange={(e, data) => {
+                          const objIndex = cartItems.findIndex(
+                            (obj) => obj.unique_id === item.unique_id,
+                          );
+                          cartItems[objIndex].format = data.value;
+                          setCartItems([...cartItems]);
                         }}
                       />
-                    )}
-                  </td>
-                </tr>
-              ))}
-            {localSessionCart?.length === 0 && (
-              <>
-                <tr>
-                  <td
-                    colSpan={11}
-                    style={{
-                      textAlign: 'center',
-                      color: '#adb0b8',
-                      opacity: 0.5,
-                    }}
-                  >
-                    Empty cart
-                  </td>
-                </tr>
-              </>
-            )}
-          </tbody>
-        </table>
-      </div>
+                    </td>
+                    <td className="table-td-projections">
+                      <Select
+                        value={item.projection || projections[0]}
+                        options={projections.map((item) => {
+                          return {
+                            key: item,
+                            value: item,
+                            text: item,
+                          };
+                        })}
+                        onChange={(e, data) => {
+                          const objIndex = cartItems.findIndex(
+                            (obj) => obj.unique_id === item.unique_id,
+                          );
+                          cartItems[objIndex].projection = data.value;
+                          setCartItems([...cartItems]);
+                        }}
+                      />
+                    </td>
+                    <td>{item.version}</td>
+                    <td>{item.size}</td>
+                    <td>
+                      {item.task_in_progress ? (
+                        <FontAwesomeIcon icon="spinner" spin />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={['fas', 'trash']}
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            removeCartItem(item.unique_id);
+                          }}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <h2 style={{ textAlign: 'center' }}>Empty cart</h2>
+      )}
       {localSessionCart?.length !== 0 && (
         <CclButton
           onClick={() => startDownloading()}
