@@ -16,14 +16,7 @@ export const getAvailableConversion = (conversionTable, defaultValue) => {
         text: item,
       };
     });
-  return [
-    ...filtered_values,
-    {
-      key: defaultValue,
-      value: defaultValue,
-      text: defaultValue,
-    },
-  ];
+  return filtered_values;
 };
 
 export const initializeIfNotCompatibleConversion = (
