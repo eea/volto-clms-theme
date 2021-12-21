@@ -71,17 +71,9 @@ const CLMSTasksInProgress = (props) => {
                     key={key}
                     style={{ opacity: 0.5, backgroundColor: '#f5f5f5' }}
                   >
+                    <td>{item.DatasetID || item.Datasets[0]['DatasetID']}</td>
                     <td>
-                      {item.DatasetID ||
-                        JSON.parse(item.TransformationData).Datasets[0][
-                          'DatasetID'
-                        ]}
-                    </td>
-                    <td>
-                      {item.OutputFormat ||
-                        JSON.parse(item.TransformationData).Datasets[0][
-                          'OutputFormat'
-                        ]}
+                      {item.OutputFormat || item.Datasets[0]['OutputFormat']}
                     </td>
 
                     <td>
