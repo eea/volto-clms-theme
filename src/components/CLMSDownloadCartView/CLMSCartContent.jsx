@@ -186,14 +186,30 @@ const CLMSCartContent = (props) => {
   function startDownloading() {
     let selectedItems = getSelectedCartItems();
     const DatasetList = selectedItems.map((item) => {
-      return {
-        DatasetID: item.dataset_uid,
-        OutputFormat: item.format,
-        // OutputGCS: item.version,
-        ...{ FileID: item.file_id && item.file_id },
-        ...{ Area: item.area && item.area },
-        // FileID: item.file_id,
-      };
+      let body_extras = {};
+      if (item.file_id) {
+        body_extras['FileID'] = item.file_id;
+      } else {
+        if (item.area.type === 'polygon') {
+          body_extras['BoundingBox'] = item.value;
+        }
+        if (item.area.type === 'nuts') {
+          body_extras['NUTS'] = item.value;
+        }
+        if (item.timeExtend) {
+          body_extras['TemporalFilter'] = {
+            StartDate: item.timeExtend[0],
+            EndDate: item.timeExtend[1],
+          };
+        }
+        if (item.format) {
+          body_extras['OutputFormat'] = item.format;
+        }
+        if (item.format) {
+          body_extras['OutputGCS'] = item.projection;
+        }
+      }
+      return { DatasetID: item.dataset_uid, ...body_extras };
     });
 
     const body = {
