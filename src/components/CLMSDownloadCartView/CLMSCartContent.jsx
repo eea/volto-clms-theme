@@ -295,6 +295,7 @@ const CLMSCartContent = (props) => {
                     </td>
                     <td className="table-td-format">
                       <Select
+                        disabled={item.file_id === undefined ? false : true}
                         value={initializeIfNotCompatibleConversion(
                           formatConversionTable,
                           item.format,
@@ -314,6 +315,7 @@ const CLMSCartContent = (props) => {
                     </td>
                     <td className="table-td-projections">
                       <Select
+                        disabled={item.file_id === undefined ? false : true}
                         value={item.projection || projections[0]}
                         options={projections.map((item) => {
                           return {
