@@ -5,7 +5,6 @@ export const getDownloadToolPostBody = (selectedItems) => {
       body_extras['FileID'] = item.file_id;
     } else {
       if (item.area.type === 'polygon') {
-        debugger;
         body_extras['BoundingBox'] = item.area.value;
       }
       if (item.area.type === 'nuts') {
