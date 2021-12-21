@@ -28,8 +28,7 @@ const CLMSTasksInProgress = (props) => {
 
   useEffect(() => {
     dispatch(getDownloadtool());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let progress_keys = Object.keys(download_in_progress);
