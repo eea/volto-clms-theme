@@ -63,7 +63,7 @@ const CLMSCartContent = (props) => {
         dispatch(
           searchContent('', {
             portal_type: 'DataSet',
-            UID: item.UID,
+            UID: item.UID || item.id,
             fullobjects: true,
             // metadata_fields: '_all',
             // metadata_fields: 'downloadable_files',
@@ -101,6 +101,31 @@ const CLMSCartContent = (props) => {
           file_id: file_id,
           unique_id:
             `${requested_card_items.UID}_${file_id}` || 'id_from_map_viewer',
+          dataset_uid: requested_card_items.UID,
+          task_in_progress: false,
+        });
+        setCartItems(cleanDuplicatesEntries(cartItems));
+      }
+    });
+
+    const local_cart_mapviewer_items = localSessionCart.filter(
+      (item) => item.area !== undefined,
+    );
+    local_cart_mapviewer_items.forEach((item) => {
+      if (requested_card_items['UID'] === item.id) {
+        cartItems.push({
+          name: requested_card_items.dataResourceTitle,
+          area: item.area,
+          format: requested_card_items.dataset_full_format,
+          resolution: requested_card_items.resolution,
+          size: requested_card_items.size,
+          source: requested_card_items.dataset_full_source,
+          type: requested_card_items.dataResourceType,
+          version: requested_card_items.version,
+          year: requested_card_items.year,
+          id: item.id,
+          unique_id:
+            `${requested_card_items.UID}_${'file_id'}` || 'id_from_map_viewer',
           dataset_uid: requested_card_items.UID,
           task_in_progress: false,
         });
@@ -167,7 +192,9 @@ const CLMSCartContent = (props) => {
         DatasetID: item.dataset_uid,
         OutputFormat: item.format,
         // OutputGCS: item.version,
-        FileID: item.file_id,
+        ...{ FileID: item.file_id && item.file_id },
+        ...{ Area: item.area && item.area },
+        // FileID: item.file_id,
       };
     });
 
