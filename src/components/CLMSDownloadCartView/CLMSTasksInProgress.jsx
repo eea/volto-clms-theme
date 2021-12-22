@@ -28,8 +28,7 @@ const CLMSTasksInProgress = (props) => {
 
   useEffect(() => {
     dispatch(getDownloadtool());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let progress_keys = Object.keys(download_in_progress);
@@ -72,21 +71,13 @@ const CLMSTasksInProgress = (props) => {
                     key={key}
                     style={{ opacity: 0.5, backgroundColor: '#f5f5f5' }}
                   >
+                    <td>{item.DatasetID || item.Datasets[0]['DatasetID']}</td>
                     <td>
-                      {item.DatasetID ||
-                        JSON.parse(item.TransformationData).Datasets[0][
-                          'DatasetID'
-                        ]}
-                    </td>
-                    <td>
-                      {item.OutputFormat ||
-                        JSON.parse(item.TransformationData).Datasets[0][
-                          'OutputFormat'
-                        ]}
+                      {item.OutputFormat || item.Datasets[0]['OutputFormat']}
                     </td>
 
                     <td>
-                      {item.Status === undefined && (
+                      {item.Status === 'In_progress' && (
                         <Popup
                           content="In progress"
                           size="small"
@@ -108,7 +99,6 @@ const CLMSTasksInProgress = (props) => {
                           }
                         />
                       )}
-                      {/* <FontAwesomeIcon icon="spinner" spin /> */}
                     </td>
                     <td>
                       {item.Status !== 'Cancelled' && (
