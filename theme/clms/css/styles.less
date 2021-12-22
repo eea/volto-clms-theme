@@ -1129,8 +1129,21 @@ div#page-document h1.documentFirstHeading {
   max-width: 100%;
 }
 
-.block-editor-accordion {
+ .block-editor-accordion {
   legend  {
-  z-index: 1 !important;
+  z-index: 2 !important;
   }
 }
+
+// .tabs-block .block-toolbar {
+//   z-index: 1 !important;
+// } 
+
+.block-editor-accordion > .block-toolbar {
+  z-index: 1 !important;
+}
+
+
+// .block-chooser {
+//   z-index: 10 !important;
+// }
