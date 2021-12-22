@@ -6,10 +6,12 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-  getAvailableConversion,
-  initializeIfNotCompatibleConversion,
-} from './conversion';
+  getCartObjectFromMapviewer,
+  getCartObjectFromPrepackaged,
+  getDownloadToolPostBody,
+} from './cartUtils';
 import {
+  getDatasetsByUid,
   getDownloadtool,
   getFormatConversionTable,
   getProjections,
@@ -23,13 +25,9 @@ import { Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select } from 'semantic-ui-react';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
-import { searchContent } from '@plone/volto/actions';
+import { getAvailableConversion } from './conversion';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import {
-  getDownloadToolPostBody,
-  getCartObjectFromPrepackaged,
-  getCartObjectFromMapviewer,
-} from './cartUtils';
+
 const CLMSCartContent = (props) => {
   const dispatch = useDispatch();
   const { cart, removeCartItem } = useCartState();
@@ -38,7 +36,7 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.post_download_in_progress,
   );
   const user_id = useSelector((state) => state.users.user.id);
-  const requested_cart_items = useSelector((state) => state.search.items[0]);
+  const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
   const formatConversionTable = useSelector(
     (state) => state.downloadtool.format_conversion_table_in_progress,
   );
@@ -63,48 +61,37 @@ const CLMSCartContent = (props) => {
 
   useEffect(() => {
     if (localSessionCart?.length !== 0) {
-      localSessionCart.forEach((item) => {
-        dispatch(
-          searchContent('', {
-            portal_type: 'DataSet',
-            UID: item.UID || item.id,
-            fullobjects: true,
-            // metadata_fields: '_all',
-            // metadata_fields: 'downloadable_files',
-            // metadata_fields: 'UID'
-          }),
-        );
-      });
+      const uidsList = [
+        ...new Set(localSessionCart.map((item) => item.UID || item.id)),
+      ];
+      dispatch(getDatasetsByUid(uidsList));
     }
   }, [localSessionCart, dispatch]);
 
   useEffect(() => {
-    if (requested_cart_items?.downloadable_files?.items.length > 0) {
+    if (datasets?.length > 0) {
       concatRequestedCartItem();
     }
-  }, [requested_cart_items]);
+  }, [datasets]);
 
   function concatRequestedCartItem() {
-    const local_cart_file_ids = localSessionCart.map((item) => item.file_id);
-    local_cart_file_ids.forEach((file_id) => {
-      const file_data = requested_cart_items.downloadable_files.items.find(
-        (item) => item['@id'] === file_id,
+    localSessionCart.forEach((localItem) => {
+      const requestedItem = datasets.find(
+        (requestedItem) => requestedItem.UID === localItem.UID,
       );
-      if (file_data) {
-        cartItems.push(
-          getCartObjectFromPrepackaged(file_data, requested_cart_items),
+      if (requestedItem) {
+        const file_data = requestedItem?.downloadable_files?.items.find(
+          (item) => item['@id'] === localItem.file_id,
         );
-        setCartItems(cleanDuplicatesEntries(cartItems));
-      }
-    });
-
-    const local_cart_mapviewer_items = localSessionCart.filter(
-      (item) => item.area !== undefined,
-    );
-    local_cart_mapviewer_items.forEach((item) => {
-      if (requested_cart_items['UID'] === item.UID) {
-        cartItems.push(getCartObjectFromMapviewer(item, requested_cart_items));
-        setCartItems(cleanDuplicatesEntries(cartItems));
+        if (file_data) {
+          cartItems.push(
+            getCartObjectFromPrepackaged(file_data, requestedItem),
+          );
+          setCartItems(cleanDuplicatesEntries(cartItems));
+        } else if (localItem.area) {
+          cartItems.push(getCartObjectFromMapviewer(localItem, requestedItem));
+          setCartItems(cleanDuplicatesEntries(cartItems));
+        }
       }
     });
   }
@@ -148,7 +135,6 @@ const CLMSCartContent = (props) => {
 
   useEffect(() => {
     setCartItemInProgress(post_download_in_progress['unique_ids']);
-    // console.log('post_download_in_progress', post_download_in_progress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post_download_in_progress]);
 
@@ -204,11 +190,11 @@ const CLMSCartContent = (props) => {
                 <th>Name</th>
                 <th>Source</th>
                 <th>Area</th>
-                <th>Year</th>
-                <th>Resolution</th>
+                {/* <th>Year</th>
+                <th>Resolution</th> */}
                 <th>Type</th>
                 <th>Format</th>
-                <th>Projections</th>
+                <th>Projection</th>
                 <th>Version</th>
                 <th>Size</th>
                 <th></th>
@@ -254,51 +240,56 @@ const CLMSCartContent = (props) => {
                     <td>{item.name || '-'}</td>
                     <td>{item.source || '-'}</td>
                     <td>{item.area.type || '-'}</td>
-                    <td>{item.year || '-'}</td>
-                    <td>{item.resolution || '-'}</td>
+                    {/* <td>{item.year || '-'}</td>
+                    <td>{item.resolution || '-'}</td> */}
                     <td>
                       <span className={'tag tag-' + item?.type?.toLowerCase()}>
                         {item.type || '-'}
                       </span>
                     </td>
                     <td className="table-td-format">
-                      <Select
-                        disabled={item.file_id === undefined ? false : true}
-                        value={initializeIfNotCompatibleConversion(
-                          formatConversionTable,
-                          item.format,
-                        )}
-                        options={getAvailableConversion(
-                          formatConversionTable,
-                          item.format,
-                        )}
-                        onChange={(e, data) => {
-                          const objIndex = cartItems.findIndex(
-                            (obj) => obj.unique_id === item.unique_id,
-                          );
-                          cartItems[objIndex].format = data.value;
-                          setCartItems([...cartItems]);
-                        }}
-                      />
+                      {!item.file_id ? (
+                        <Select
+                          placeholder="Select format"
+                          value={item.format?.token || item.format}
+                          options={getAvailableConversion(
+                            formatConversionTable,
+                            item.format?.token || item.format,
+                          )}
+                          onChange={(e, data) => {
+                            const objIndex = cartItems.findIndex(
+                              (obj) => obj.unique_id === item.unique_id,
+                            );
+                            cartItems[objIndex].format = data.value;
+                            setCartItems([...cartItems]);
+                          }}
+                        />
+                      ) : (
+                        item.format?.token || item.format
+                      )}
                     </td>
                     <td className="table-td-projections">
-                      <Select
-                        disabled={item.file_id === undefined ? false : true}
-                        value={
-                          item.projection ||
-                          setProjectionValue(item.unique_id, projections[0])
-                        }
-                        options={projections.map((item) => {
-                          return {
-                            key: item,
-                            value: item,
-                            text: item,
-                          };
-                        })}
-                        onChange={(e, data) => {
-                          setProjectionValue(item.unique_id, data.value);
-                        }}
-                      />
+                      {!item.file_id ? (
+                        <Select
+                          placeholder="Select projection"
+                          value={
+                            item.projection ||
+                            setProjectionValue(item.unique_id, projections[0])
+                          }
+                          options={projections.map((item) => {
+                            return {
+                              key: item,
+                              value: item,
+                              text: item,
+                            };
+                          })}
+                          onChange={(e, data) => {
+                            setProjectionValue(item.unique_id, data.value);
+                          }}
+                        />
+                      ) : (
+                        item.projection
+                      )}
                     </td>
                     <td>{item.version}</td>
                     <td>{item.size}</td>

@@ -77,7 +77,7 @@ const CLMSTasksInProgress = (props) => {
                     </td>
 
                     <td>
-                      {item.Status === undefined && (
+                      {item.Status === 'In_progress' && (
                         <Popup
                           content="In progress"
                           size="small"
@@ -99,7 +99,6 @@ const CLMSTasksInProgress = (props) => {
                           }
                         />
                       )}
-                      {/* <FontAwesomeIcon icon="spinner" spin /> */}
                     </td>
                     <td>
                       {item.Status !== 'Cancelled' && (
