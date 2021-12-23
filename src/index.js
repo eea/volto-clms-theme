@@ -2,6 +2,7 @@
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
 import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
+import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
@@ -36,6 +37,7 @@ const applyConfig = (config) => {
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
+      TechnicalLibrary: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
