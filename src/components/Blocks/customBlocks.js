@@ -157,13 +157,13 @@ const customBlocks = (config) => ({
       {
         id: 'CclCardsblock',
         isDefault: false,
-        title: '2 collumns Cards list',
+        title: '2 Column Cards list',
         template: CclListingCards,
       },
       {
-        id: 'CclCardsthreeCollums',
+        id: 'CclCardsthreeColums',
         isDefault: false,
-        title: '3 collumns Cards list',
+        title: '3 Column Cards list',
         template: CclListingCards,
       },
       {
