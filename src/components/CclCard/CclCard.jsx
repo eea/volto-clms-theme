@@ -29,9 +29,7 @@ function CclCard(props) {
           {type === 'doc' && (
             <>
               <div className="card-doc-title">
-                <a href={/* card?.file?.download || */ url}>
-                  {card?.title || 'Card default title'}
-                </a>
+                <Link to={url}>{card?.title || 'Card default title'}</Link>
               </div>
               <div className="card-doc-text">
                 <div className="doc-description">{card?.description}</div>
@@ -59,7 +57,7 @@ function CclCard(props) {
               </div>
               <div className="card-text">
                 <div className="card-title">
-                  <a href={url}>{card?.title || 'Card default title'}</a>
+                  <Link to={url}>{card?.title || 'Card default title'}</Link>
                 </div>
                 <div className="card-description">{card?.description}</div>
                 {children}
@@ -80,7 +78,7 @@ function CclCard(props) {
               </div>
               <div className="card-text">
                 <div className="card-title">
-                  <a href={url}>{card?.title || 'Card default title'}</a>
+                  <Link to={url}>{card?.title || 'Card default title'}</Link>
                 </div>
                 <div className="card-description">{card?.description}</div>
                 {children}
