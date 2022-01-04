@@ -23,12 +23,13 @@ function CclCard(props) {
       {type === 'doc' ||
       type === 'news' ||
       type === 'event' ||
-      type === 'block' ? (
+      type === 'block' ||
+      type === 'threeCollums' ? (
         <>
           {type === 'doc' && (
             <>
               <div className="card-doc-title">
-                <a href={card?.file?.download || url}>
+                <a href={/* card?.file?.download || */ url}>
                   {card?.title || 'Card default title'}
                 </a>
               </div>
@@ -47,6 +48,27 @@ function CclCard(props) {
           {type === 'block' && (
             <>
               <div className="card-block-image">
+                <img
+                  src={
+                    card?.image?.scales?.preview?.download ||
+                    card?.image?.download ||
+                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                  }
+                  alt="Placeholder"
+                />
+              </div>
+              <div className="card-text">
+                <div className="card-title">
+                  <a href={url}>{card?.title || 'Card default title'}</a>
+                </div>
+                <div className="card-description">{card?.description}</div>
+                {children}
+              </div>
+            </>
+          )}
+          {type === 'threeCollums' && (
+            <>
+              <div className="card-threeCollums-image">
                 <img
                   src={
                     card?.image?.scales?.preview?.download ||
