@@ -52,6 +52,11 @@ export {
   getFormatConversionTable,
 } from './format_conversion_table/get_format_conversion_table';
 
+export {
+  DATASETS_BY_UID,
+  getDatasetsByUid,
+} from './datasets_by_uid/datasets_by_uid';
+
 export { GET_PROJECTIONS, getProjections } from './projections/get_projections';
 
 export { GET_REGISTRY, getRegistry } from './registry/registry';

@@ -1,15 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router';
-import loadable from '@loadable/component';
-import { RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './custom.less';
-import cx from 'classnames';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '@eeacms/volto-tabs-block/less/carousel.less';
+
+import React from 'react';
+import { RenderBlocks } from '@plone/volto/components';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import cx from 'classnames';
+import loadable from '@loadable/component';
+import { withRouter } from 'react-router';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 const Slider = loadable(() => import('react-slick'));
 
 const View = (props) => {
@@ -32,7 +33,7 @@ const View = (props) => {
     speed: 2000,
     fade: true,
     cssEase: 'linear',
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 5000,
     beforeChange: (oldIndex, index) => {
       setActiveTab(tabsList[index]);
