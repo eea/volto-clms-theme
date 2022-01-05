@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const messages = defineMessages({
   ProcurementNo: {
@@ -18,9 +20,16 @@ const messages = defineMessages({
 });
 
 const CclWorkOpportunity = (props) => {
-  const { item, intl } = props;
+  const { item, intl, user } = props;
   return (
     <div className="card-work">
+      {user.roles && user.roles.includes('Manager') && (
+        <>
+          <Link to={item['@id'] + '/edit'}>Edit</Link>
+          <br />
+          <br />
+        </>
+      )}
       <div className="card-work-number">
         <span className="card-work-number-title">
           {item['@type'] === 'WorkOpportunity'
@@ -48,6 +57,7 @@ var Today = new Date();
 const CclListingWorkOpportunities = (props) => {
   const { items, variation } = props;
   const intl = useIntl();
+  const user = useSelector((state) => state.users?.user);
   return (
     <>
       {items
@@ -61,6 +71,7 @@ const CclListingWorkOpportunities = (props) => {
             key={index}
             item={item}
             intl={intl}
+            user={user}
           ></CclWorkOpportunity>
         ))}
       {items
@@ -74,6 +85,7 @@ const CclListingWorkOpportunities = (props) => {
             key={index}
             item={item}
             intl={intl}
+            user={user}
           ></CclWorkOpportunity>
         ))}
     </>
