@@ -36,7 +36,6 @@ const CclWorkOpportunity = (props) => {
             ? intl.formatMessage(messages.ReferenceNo)
             : intl.formatMessage(messages.ProcurementNo)}
         </span>
-        {/*TODO: condition to the link text with WorkOpportunity/Tender after backend modifications*/}
         <a href={item.url || ''}>{item.procurement_no}</a>
       </div>
       <div className="card-work-title">
