@@ -6,6 +6,7 @@ const RoutingHOC = (TabView) =>
     const {
       data = {},
       tabsList = [],
+      tabs,
       activeTabIndex = 0,
       hashlink = {},
       setActiveTab = () => {},
@@ -40,7 +41,16 @@ const RoutingHOC = (TabView) =>
         String(window.performance.getEntriesByType('navigation')[0].type) ===
           'reload'
       ) {
-        if (window.location.hash.length === 0) {
+        if (
+          window.location.hash.length === 0 &&
+          tabs[tabsList[1]]?.subTab?.subtab &&
+          !tabs[tabsList[0]]?.subTab?.subtab
+        ) {
+          setActiveTab(tabsList[1]);
+        } else if (
+          window.location.hash.length === 0 &&
+          !tabs[tabsList[1]]?.subTab?.subtab
+        ) {
           setActiveTab(tabsList[0]);
         } else {
           setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
@@ -55,6 +65,7 @@ const RoutingHOC = (TabView) =>
       props,
       setActiveTab,
       tabsList,
+      tabs,
     ]);
 
     return <TabView {...props} />;

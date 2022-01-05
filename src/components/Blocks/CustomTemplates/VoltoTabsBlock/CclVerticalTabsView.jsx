@@ -51,7 +51,6 @@ const CclVerticalTabsView = (props) => {
             const title = tabs[tab].title;
             const subTab = tabs[tab]?.subTab?.subtab || false;
             const tabIndex = index + 1;
-            const nextTabIndex = index + 2;
             const nextSubTab =
               tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
             const defaultTitle = `Tab ${tabIndex}`;
@@ -65,26 +64,26 @@ const CclVerticalTabsView = (props) => {
                   subTab && 'subcard',
                 )}
               >
-                <NavLink
-                  to={
-                    subTab === false && nextSubTab !== false
-                      ? '#tab' + nextTabIndex
-                      : '#tab' + tabIndex
-                  }
-                  className="collapsed"
-                  onClick={(e) => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                  onKeyDown={() => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                >
-                  {title || defaultTitle}
-                </NavLink>
+                {subTab === false && nextSubTab !== false ? (
+                  <span>{title || defaultTitle}</span>
+                ) : (
+                  <NavLink
+                    to={'#tab' + tabIndex}
+                    className="collapsed"
+                    onClick={(e) => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                    onKeyDown={() => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                  >
+                    {title || defaultTitle}
+                  </NavLink>
+                )}
               </div>
             );
           })}

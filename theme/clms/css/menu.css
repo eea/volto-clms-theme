@@ -212,7 +212,8 @@
   margin-left: 1rem;
 }
 
-.left-menu a {
+.left-menu a,
+.left-menu span {
   display: inline-block;
   width: 100%;
   padding: 1rem;

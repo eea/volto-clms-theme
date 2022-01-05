@@ -1,10 +1,10 @@
 .documentFirstHeading {
+  position: unset !important;
   padding-bottom: 1rem;
   border-bottom: solid 1px #a0b128 !important;
   margin-right: auto !important;
   margin-bottom: 1.5rem;
   margin-left: auto !important;
-  position: unset !important;
 }
 
 .documentFirstHeading:before {

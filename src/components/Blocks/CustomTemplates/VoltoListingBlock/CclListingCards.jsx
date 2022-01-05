@@ -9,7 +9,7 @@ import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
 const CclListingCards = (props) => {
-  const { items, linkHref, linkTitle, isEditMode, variation } = props;
+  const { items, linkHref, linkTitle, isEditMode, variation = 'doc' } = props;
   let link = null;
   let href = linkHref?.[0]?.['@id'] || '';
 
@@ -23,22 +23,20 @@ const CclListingCards = (props) => {
     link = <a href={href}>{linkTitle || href}</a>;
   }
 
-  // // const { settings } = config;
-  const regex = /CclCards/;
-
-  const cardType = variation?.replace(regex, '');
   let containerClass = '';
-  if (['news', 'event'].includes(cardType)) {
+  if (['news', 'event'].includes(variation)) {
     containerClass = 'ccl-container';
-  } else if (!['line', 'doc'].includes(cardType)) {
+  } else if (!['line', 'doc'].includes(variation)) {
     containerClass = 'card-container';
+  } else {
+    containerClass = '';
   }
 
   return (
     <>
       <div className={containerClass}>
         {items.map((item, index) => (
-          <CclCard key={index} type={cardType} card={item} />
+          <CclCard key={index} type={variation} card={item} />
         ))}
       </div>
       {link && <div className="footer">{link}</div>}
