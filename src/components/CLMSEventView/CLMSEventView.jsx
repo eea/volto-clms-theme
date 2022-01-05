@@ -1,4 +1,3 @@
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
@@ -43,9 +42,6 @@ export const CLMSEventView = (props) => {
         <div className="event-detail-content">
           <StringToHTML string={content.text?.data || ''} />
         </div>
-        <CclButton url="#" disabled={false}>
-          {'Register here'}
-        </CclButton>
       </div>
     </div>
   );

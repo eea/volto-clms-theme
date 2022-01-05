@@ -23,14 +23,13 @@ function CclCard(props) {
       {type === 'doc' ||
       type === 'news' ||
       type === 'event' ||
-      type === 'block' ? (
+      type === 'block' ||
+      type === 'threeColums' ? (
         <>
           {type === 'doc' && (
             <>
               <div className="card-doc-title">
-                <a href={card?.file?.download || url}>
-                  {card?.title || 'Card default title'}
-                </a>
+                <Link to={url}>{card?.title || 'Card default title'}</Link>
               </div>
               <div className="card-doc-text">
                 <div className="doc-description">{card?.description}</div>
@@ -53,12 +52,33 @@ function CclCard(props) {
                     card?.image?.download ||
                     'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
                   }
-                  alt="Placeholder"
+                  alt={card?.image?.alt || 'Placeholder'}
                 />
               </div>
               <div className="card-text">
                 <div className="card-title">
-                  <a href={url}>{card?.title || 'Card default title'}</a>
+                  <Link to={url}>{card?.title || 'Card default title'}</Link>
+                </div>
+                <div className="card-description">{card?.description}</div>
+                {children}
+              </div>
+            </>
+          )}
+          {type === 'threeColums' && (
+            <>
+              <div className="card-threeColums-image">
+                <img
+                  src={
+                    card?.image?.scales?.preview?.download ||
+                    card?.image?.download ||
+                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                  }
+                  alt={card?.image?.alt || 'Placeholder'}
+                />
+              </div>
+              <div className="card-text">
+                <div className="card-title">
+                  <Link to={url}>{card?.title || 'Card default title'}</Link>
                 </div>
                 <div className="card-description">{card?.description}</div>
                 {children}
@@ -70,10 +90,11 @@ function CclCard(props) {
               <div className="card-news-image">
                 <img
                   src={
+                    card?.image?.scales?.mini?.download ||
                     card?.image?.download ||
                     'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
                   }
-                  alt="Placeholder"
+                  alt={card?.image?.alt || 'Placeholder'}
                 />
               </div>
               <div className="card-news-text">
@@ -90,20 +111,14 @@ function CclCard(props) {
           {type === 'event' && (
             <>
               <div className="card-event-image">
-                {card?.image?.scales ? (
-                  <img
-                    src={card?.image?.scales?.preview?.download}
-                    alt={card.image.alt}
-                  />
-                ) : (
-                  <img
-                    src={
-                      card?.image?.download ||
-                      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                    }
-                    alt={'placeholder'}
-                  />
-                )}
+                <img
+                  src={
+                    card?.image?.scales?.mini?.download ||
+                    card?.image?.download ||
+                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                  }
+                  alt={card?.image?.alt || 'Placeholder'}
+                />
               </div>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
@@ -142,19 +157,14 @@ function CclCard(props) {
       ) : (
         <>
           <div className="card-image">
-            {card?.image?.scales ? (
-              <img
-                src={card?.image?.scales?.preview?.download}
-                alt={card.image.alt}
-              />
-            ) : (
-              <img
-                src={
-                  'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                }
-                alt={'placeholder'}
-              />
-            )}
+            <img
+              src={
+                card?.image?.scales?.mini?.download ||
+                card?.image?.download ||
+                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+              }
+              alt={card?.image?.alt || 'Placeholder'}
+            />
           </div>
           <div className={'card-text'}>
             <div className="card-title">

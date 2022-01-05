@@ -3,43 +3,41 @@
  * @module components/manage/Toolbar/Toolbar
  */
 
+import { BodyClass, getBaseUrl } from '@plone/volto/helpers';
 import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
-import cookie from 'react-cookie';
 import { filter, find } from 'lodash';
-import cx from 'classnames';
-import config from '@plone/volto/registry';
-
-import More from '@plone/volto/components/manage/Toolbar/More';
-import PersonalTools from '@plone/volto/components/manage/Toolbar/PersonalTools';
-import Types from '@plone/volto/components/manage/Toolbar/Types';
-import PersonalInformation from '@plone/volto/components/manage/Preferences/PersonalInformation';
-import PersonalPreferences from '@plone/volto/components/manage/Preferences/PersonalPreferences';
-import StandardWrapper from '@plone/volto/components/manage/Toolbar/StandardWrapper';
 import {
   getTypes,
   listActions,
   setExpandedToolbar,
-  getUser,
+  unlockContent,
 } from '@plone/volto/actions';
-import jwtDecode from 'jwt-decode';
-import { Icon } from '@plone/volto/components';
-import { BodyClass, getBaseUrl } from '@plone/volto/helpers';
-import { Pluggable } from '@plone/volto/components/manage/Pluggable';
 
-import pastanagaSmall from '@plone/volto/components/manage/Toolbar/pastanaga-small.svg';
-import pastanagalogo from '@plone/volto/components/manage/Toolbar/pastanaga.svg';
-import penSVG from '@plone/volto/icons/pen.svg';
-import folderSVG from '@plone/volto/icons/folder.svg';
+import { Icon } from '@plone/volto/components';
+import { Link } from 'react-router-dom';
+import More from '@plone/volto/components/manage/Toolbar/More';
+import PersonalInformation from '@plone/volto/components/manage/Preferences/PersonalInformation';
+import PersonalPreferences from '@plone/volto/components/manage/Preferences/PersonalPreferences';
+import PersonalTools from '@plone/volto/components/manage/Toolbar/PersonalTools';
+import { Pluggable } from '@plone/volto/components/manage/Pluggable';
+import PropTypes from 'prop-types';
+import StandardWrapper from '@plone/volto/components/manage/Toolbar/StandardWrapper';
+import Types from '@plone/volto/components/manage/Toolbar/Types';
 import addSVG from '@plone/volto/icons/add-document.svg';
-import moreSVG from '@plone/volto/icons/more.svg';
-import userSVG from '@plone/volto/icons/user.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
+import { compose } from 'redux';
+import config from '@plone/volto/registry';
+import { connect } from 'react-redux';
+import cookie from 'react-cookie';
+import cx from 'classnames';
+import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
+import folderSVG from '@plone/volto/icons/folder.svg';
+import jwtDecode from 'jwt-decode';
+import moreSVG from '@plone/volto/icons/more.svg';
+import penSVG from '@plone/volto/icons/pen.svg';
+import unlockSVG from '@plone/volto/icons/unlock.svg';
+import userSVG from '@plone/volto/icons/user.svg';
 
 const messages = defineMessages({
   edit: {
@@ -98,6 +96,10 @@ const messages = defineMessages({
     id: 'Back',
     defaultMessage: 'Back',
   },
+  unlock: {
+    id: 'Unlock',
+    defaultMessage: 'Unlock',
+  },
 });
 
 const toolbarComponents = {
@@ -134,23 +136,10 @@ class Toolbar extends Component {
       object: PropTypes.arrayOf(PropTypes.object),
       object_buttons: PropTypes.arrayOf(PropTypes.object),
       user: PropTypes.arrayOf(PropTypes.object),
-      roles: PropTypes.arrayOf(PropTypes.object),
     }),
     token: PropTypes.string,
-    pathname: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      fullname: PropTypes.string,
-      email: PropTypes.string,
-      home_page: PropTypes.string,
-      location: PropTypes.string,
-      roles: PropTypes.shape({
-        0: PropTypes.string,
-        username: PropTypes.string,
-      }),
-    }),
     userId: PropTypes.string,
-    getUser: PropTypes.func.isRequired,
-    loadComponent: PropTypes.func,
+    pathname: PropTypes.string.isRequired,
     content: PropTypes.shape({
       '@type': PropTypes.string,
       is_folderish: PropTypes.bool,
@@ -165,6 +154,8 @@ class Toolbar extends Component {
       }),
     ),
     listActions: PropTypes.func.isRequired,
+    unlockContent: PropTypes.func,
+    unlockRequest: PropTypes.objectOf(PropTypes.any),
     inner: PropTypes.element.isRequired,
     hideDefaultViewButtons: PropTypes.bool,
   };
@@ -177,6 +168,7 @@ class Toolbar extends Component {
   static defaultProps = {
     actions: null,
     token: null,
+    userId: null,
     content: null,
     hideDefaultViewButtons: false,
     types: [],
@@ -202,7 +194,6 @@ class Toolbar extends Component {
     this.props.listActions(getBaseUrl(this.props.pathname));
     this.props.getTypes(getBaseUrl(this.props.pathname));
     this.props.setExpandedToolbar(this.state.expanded);
-    this.props.getUser(this.props.token);
     document.addEventListener('mousedown', this.handleClickOutside, false);
   }
 
@@ -217,22 +208,12 @@ class Toolbar extends Component {
       this.props.listActions(getBaseUrl(nextProps.pathname));
       this.props.getTypes(getBaseUrl(nextProps.pathname));
     }
-    if (nextProps.token !== this.props.token) {
-      this.props.getUser(nextProps.token);
-      this.props.roles = nextProps.roles;
+
+    // Unlock
+    if (this.props.unlockRequest.loading && nextProps.unlockRequest.loaded) {
+      this.props.listActions(getBaseUrl(nextProps.pathname));
     }
   }
-
-  push = (selector) => {
-    this.setState(() => ({
-      pushed: true,
-    }));
-    this.props.loadComponent(selector);
-  };
-
-  pull = () => {
-    this.props.unloadComponent();
-  };
 
   /**
    * Component will receive props
@@ -302,6 +283,10 @@ class Toolbar extends Component {
     this.closeMenu();
   };
 
+  unlock = (e) => {
+    this.props.unlockContent(getBaseUrl(this.props.pathname), true);
+  };
+
   /**
    * Render method.
    * @method render
@@ -309,13 +294,16 @@ class Toolbar extends Component {
    */
   render() {
     const path = getBaseUrl(this.props.pathname);
-    const editAction = find(this.props.actions.object, { id: 'edit' });
+    const lock = this.props.content?.lock;
+    const unlockAction =
+      lock?.locked && lock?.stealable && lock?.creator !== this.props.userId;
+    const editAction =
+      !unlockAction && find(this.props.actions.object, { id: 'edit' });
     const folderContentsAction = find(this.props.actions.object, {
       id: 'folderContents',
     });
     const { expanded } = this.state;
-
-    if (this.props.roles && this.props.roles[0] === 'Manager') {
+    if (this.props.roles && this.props.roles?.includes('Manager')) {
       return (
         this.props.token && (
           <>
@@ -415,6 +403,26 @@ class Toolbar extends Component {
                   )}
                   {!this.props.hideDefaultViewButtons && (
                     <>
+                      {unlockAction && (
+                        <button
+                          aria-label={this.props.intl.formatMessage(
+                            messages.unlock,
+                          )}
+                          className="unlock"
+                          onClick={(e) => this.unlock(e)}
+                          tabIndex={0}
+                        >
+                          <Icon
+                            name={unlockSVG}
+                            size="30px"
+                            className="unlock"
+                            title={this.props.intl.formatMessage(
+                              messages.unlock,
+                            )}
+                          />
+                        </button>
+                      )}
+
                       {editAction && (
                         <Link
                           aria-label={this.props.intl.formatMessage(
@@ -423,7 +431,12 @@ class Toolbar extends Component {
                           className="edit"
                           to={`${path}/edit`}
                         >
-                          <Icon name={penSVG} size="30px" className="circled" />
+                          <Icon
+                            name={penSVG}
+                            size="30px"
+                            className="circled"
+                            title={this.props.intl.formatMessage(messages.edit)}
+                          />
                         </Link>
                       )}
                       {this.props.content &&
@@ -436,7 +449,13 @@ class Toolbar extends Component {
                             )}
                             to={`${path}/contents`}
                           >
-                            <Icon name={folderSVG} size="30px" />
+                            <Icon
+                              name={folderSVG}
+                              size="30px"
+                              title={this.props.intl.formatMessage(
+                                messages.contents,
+                              )}
+                            />
                           </Link>
                         )}
                       {this.props.content &&
@@ -474,7 +493,13 @@ class Toolbar extends Component {
                             tabIndex={0}
                             id="toolbar-add"
                           >
-                            <Icon name={addSVG} size="30px" />
+                            <Icon
+                              name={addSVG}
+                              size="30px"
+                              title={this.props.intl.formatMessage(
+                                messages.add,
+                              )}
+                            />
                           </button>
                         )}
                       <div className="toolbar-button-spacer" />
@@ -491,6 +516,7 @@ class Toolbar extends Component {
                           className="mobile hidden"
                           name={moreSVG}
                           size="30px"
+                          title={this.props.intl.formatMessage(messages.more)}
                         />
                         {this.state.showMenu ? (
                           <Icon
@@ -511,7 +537,6 @@ class Toolbar extends Component {
                 </div>
                 <div className="toolbar-bottom">
                   <Pluggable name="main.toolbar.bottom" />
-                  <img className="minipastanaga" src={pastanagaSmall} alt="" />
                   {!this.props.hideDefaultViewButtons && (
                     <button
                       className="user"
@@ -522,13 +547,15 @@ class Toolbar extends Component {
                       tabIndex={0}
                       id="toolbar-personal"
                     >
-                      <Icon name={userSVG} size="30px" />
+                      <Icon
+                        name={userSVG}
+                        size="30px"
+                        title={this.props.intl.formatMessage(
+                          messages.personalTools,
+                        )}
+                      />
                     </button>
                   )}
-                  <div className="divider" />
-                  <div className="pastanagalogo">
-                    <img src={pastanagalogo} alt="" />
-                  </div>
                 </div>
               </div>
               <div className="toolbar-handler">
@@ -560,13 +587,15 @@ export default compose(
     (state, props) => ({
       actions: state.actions.actions,
       roles: state.users.user.roles,
-      token: state.userSession.token
+      token: state.userSession.token,
+      userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
       content: state.content.data,
       pathname: props.pathname,
       types: filter(state.types.types, 'addable'),
+      unlockRequest: state.content.unlock,
     }),
-    { getTypes, listActions, setExpandedToolbar, getUser },
+    { getTypes, listActions, setExpandedToolbar, unlockContent },
   ),
 )(Toolbar);

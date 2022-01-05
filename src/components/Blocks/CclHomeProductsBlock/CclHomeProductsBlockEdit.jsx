@@ -36,6 +36,7 @@ const CclHomeProductsBlockEdit = (props) => {
       setSelectedProductBlock(-1);
     }
   }, [selected]);
+
   return (
     <>
       <div
@@ -110,7 +111,10 @@ const CclHomeProductsBlockEdit = (props) => {
                   ...data.products.blocks,
                   [selectedProductBlock]: {
                     ...data.products.blocks[selectedProductBlock],
+                    // productIcon: {
+                    //   ...data.products.blocks[selectedProductBlock].productIcon,
                     [id]: value,
+                    // },
                   },
                 },
               },
