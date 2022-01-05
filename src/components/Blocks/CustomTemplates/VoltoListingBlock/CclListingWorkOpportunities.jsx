@@ -7,6 +7,10 @@ const messages = defineMessages({
     id: 'ProcurementNo',
     defaultMessage: 'Procurement No:',
   },
+  ReferenceNo: {
+    id: 'ReferenceNo',
+    defaultMessage: 'Reference No:',
+  },
   SubmissionDeadline: {
     id: 'SubmissionDeadline',
     defaultMessage: 'Submission deadline:',
@@ -19,8 +23,11 @@ const CclWorkOpportunity = (props) => {
     <div className="card-work">
       <div className="card-work-number">
         <span className="card-work-number-title">
-          {intl.formatMessage(messages.ProcurementNo)}
+          {item['@type'] === 'WorkOpportunity'
+            ? intl.formatMessage(messages.ReferenceNo)
+            : intl.formatMessage(messages.ProcurementNo)}
         </span>
+        {/*TODO: condition to the link text with WorkOpportunity/Tender after backend modifications*/}
         <a href={item.url || ''}>{item.procurement_no}</a>
       </div>
       <div className="card-work-title">
