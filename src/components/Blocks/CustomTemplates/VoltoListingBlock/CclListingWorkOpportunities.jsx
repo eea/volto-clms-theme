@@ -41,16 +41,13 @@ var Today = new Date();
 const CclListingWorkOpportunities = (props) => {
   const { items, variation } = props;
   const intl = useIntl();
-
-  const regex = /CclWO/;
-  const status = variation?.replace(regex, '');
   return (
     <>
       {items
         .filter(
           (item) =>
             new Date(item.submission_deadline) < Today &&
-            status === 'CloseTenders',
+            variation === 'CloseTenders',
         )
         .map((item, index) => (
           <CclWorkOpportunity
@@ -63,7 +60,7 @@ const CclListingWorkOpportunities = (props) => {
         .filter(
           (item) =>
             new Date(item.submission_deadline) > Today &&
-            status === 'OpenTenders',
+            variation === 'OpenTenders',
         )
         .map((item, index) => (
           <CclWorkOpportunity
