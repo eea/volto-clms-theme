@@ -24,7 +24,7 @@ function CclCard(props) {
       type === 'news' ||
       type === 'event' ||
       type === 'block' ||
-      type === 'threeColums' ? (
+      type === 'threeColumns' ? (
         <>
           {type === 'doc' && (
             <>
@@ -64,9 +64,9 @@ function CclCard(props) {
               </div>
             </>
           )}
-          {type === 'threeColums' && (
+          {type === 'threeColumns' && (
             <>
-              <div className="card-threeColums-image">
+              <div className="card-threeColumns-image">
                 <img
                   src={
                     card?.image?.scales?.preview?.download ||
