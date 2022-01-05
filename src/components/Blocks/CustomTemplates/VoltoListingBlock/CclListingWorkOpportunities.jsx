@@ -45,7 +45,7 @@ const CclWorkOpportunity = (props) => {
         <span className="card-work-deadline-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
-        {item.submission_deadline}
+        {new Date(item.submission_deadline).toLocaleDateString()}
       </div>
     </div>
   );
