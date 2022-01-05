@@ -185,21 +185,19 @@ class Header extends Component {
                       <li>
                         <CartIconCounter />
                       </li>
-                      {this.props.user.id &&
-                        this.props.user.roles &&
-                        this.props.user.roles[0] === 'Member' && (
-                          <>
-                            <li>
-                              <span className="header-vertical-line"> - </span>
-                              <Link to="/logout" className="header-login-link">
-                                <FormattedMessage
-                                  id="logout"
-                                  defaultMessage="Logout"
-                                />
-                              </Link>
-                            </li>
-                          </>
-                        )}
+                      {this.props.user.id && (
+                        <>
+                          <li>
+                            <span className="header-vertical-line"> - </span>
+                            <Link to="/logout" className="header-login-link">
+                              <FormattedMessage
+                                id="logout"
+                                defaultMessage="Logout"
+                              />
+                            </Link>
+                          </li>
+                        </>
+                      )}
                     </>
                   )) || (
                     <li>
