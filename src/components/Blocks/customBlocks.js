@@ -46,6 +46,9 @@ import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
+import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
+import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
+import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
@@ -293,39 +296,66 @@ const customBlocks = (config) => ({
     variations: [
       {
         id: 'CclCardsdoc',
-        isDefault: false,
+        isDefault: true,
         title: 'Line list',
-        template: CclListingCards,
+        template: VariationHOC(CclListingCards, 'doc'),
+        fullobjects: true,
       },
       {
         id: 'CclCardsline',
-        isDefault: true,
+        isDefault: false,
         title: 'Line list with Image',
-        template: CclListingCards,
+        template: VariationHOC(CclListingCards, 'line'),
+        fullobjects: true,
       },
       {
         id: 'CclCardsline-color',
         isDefault: false,
         title: 'Colored Line list with Image',
-        template: CclListingCards,
+        template: VariationHOC(CclListingCards, 'line-color'),
+        fullobjects: true,
       },
       {
         id: 'CclCardsblock',
         isDefault: false,
-        title: 'Cards list',
-        template: CclListingCards,
+        title: '2 Column Cards list',
+        template: VariationHOC(CclListingCards, 'block'),
+        fullobjects: true,
+      },
+      {
+        id: 'CclCardsthreeColumns',
+        isDefault: false,
+        title: '3 Column Cards list',
+        template: VariationHOC(CclListingCards, 'threeColumns'),
+        fullobjects: true,
       },
       {
         id: 'CclCardsnews',
         isDefault: false,
         title: 'News Line list',
-        template: CclListingCards,
+        template: VariationHOC(CclListingCards, 'news'),
+        fullobjects: true,
       },
       {
         id: 'CclCardsevent',
         isDefault: false,
         title: 'Events Line list',
-        template: CclListingCards,
+        template: VariationHOC(CclListingCards, 'event'),
+        fullobjects: true,
+      },
+      {
+        id: 'CclWOOpenTenders',
+        isDefault: false,
+        title: 'Open Work Opportunities',
+        template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
+        fullobjects: true,
+      },
+      {
+        id: 'CclWOCloseTenders',
+        isDefault: false,
+        title: 'Closed Work Opportunities',
+        template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
+        fullobjects: true,
       },
     ],
   },
@@ -359,6 +389,39 @@ const customBlocks = (config) => ({
     security: {
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  search: {
+    ...config.blocks.blocksConfig.search,
+    variations: [
+      {
+        id: 'facetsModalRightSide',
+        title: 'Facets on modal right side',
+        view: RightModalFacets,
+        isDefault: true,
+      },
+      ...config.blocks.blocksConfig.search.variations,
+    ],
+    extensions: {
+      ...config.blocks.blocksConfig.search.extensions,
+      facetWidgets: {
+        ...config.blocks.blocksConfig.search.extensions.facetWidgets,
+        types: [
+          {
+            id: 'accordionCheckboxFacet',
+            title: 'Accordion Checkbox',
+            view: AccordionCheckboxFacet,
+            isDefault: true,
+          },
+          {
+            id: 'accordionLabelFacet',
+            title: 'Accordion Label',
+            view: AccordionLabelFacet,
+            isDefault: false,
+          },
+          ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
+        ],
+      },
     },
   },
   homeBgImage: {
