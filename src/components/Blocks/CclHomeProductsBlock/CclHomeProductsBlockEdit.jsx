@@ -36,7 +36,6 @@ const CclHomeProductsBlockEdit = (props) => {
       setSelectedProductBlock(-1);
     }
   }, [selected]);
-
   return (
     <>
       <div
@@ -95,9 +94,7 @@ const CclHomeProductsBlockEdit = (props) => {
         />
       </SidebarPortal>
       <SidebarPortal
-        selected={
-          selected && selectedProductBlock !== -1 && data.products?.blocks
-        }
+        selected={selected && data.products?.blocks[selectedProductBlock]}
       >
         <InlineForm
           schema={ProductSchema()}
@@ -111,10 +108,7 @@ const CclHomeProductsBlockEdit = (props) => {
                   ...data.products.blocks,
                   [selectedProductBlock]: {
                     ...data.products.blocks[selectedProductBlock],
-                    // productIcon: {
-                    //   ...data.products.blocks[selectedProductBlock].productIcon,
                     [id]: value,
-                    // },
                   },
                 },
               },
