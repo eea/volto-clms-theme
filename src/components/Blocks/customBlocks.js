@@ -46,6 +46,9 @@ import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
+import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
+import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
+import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
@@ -359,6 +362,39 @@ const customBlocks = (config) => ({
     security: {
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  search: {
+    ...config.blocks.blocksConfig.search,
+    variations: [
+      ...config.blocks.blocksConfig.search.variations,
+      {
+        id: 'facetsModalRightSide',
+        title: 'Facets on modal right side',
+        view: RightModalFacets,
+        isDefault: false,
+      },
+    ],
+    extensions: {
+      ...config.blocks.blocksConfig.search.extensions,
+      facetWidgets: {
+        ...config.blocks.blocksConfig.search.extensions.facetWidgets,
+        types: [
+          ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
+          {
+            id: 'accordionCheckboxFacet',
+            title: 'Accordion Checkbox',
+            view: AccordionCheckboxFacet,
+            isDefault: false,
+          },
+          {
+            id: 'accordionLabelFacet',
+            title: 'Accordion Label',
+            view: AccordionLabelFacet,
+            isDefault: false,
+          },
+        ],
+      },
     },
   },
   homeBgImage: {
