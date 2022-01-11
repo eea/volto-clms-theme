@@ -129,6 +129,12 @@ const RightModalFacets = (props) => {
                   </div>
                 }
                 data={data}
+                setFacets={(f) => {
+                  flushSync(() => {
+                    setFacets(f);
+                    onTriggerSearch(searchedText || '', f);
+                  });
+                }}
               >
                 <div id="right-modal-facets" className="facets">
                   <Facets

@@ -367,25 +367,24 @@ const customBlocks = (config) => ({
   search: {
     ...config.blocks.blocksConfig.search,
     variations: [
-      ...config.blocks.blocksConfig.search.variations,
       {
         id: 'facetsModalRightSide',
         title: 'Facets on modal right side',
         view: RightModalFacets,
-        isDefault: false,
+        isDefault: true,
       },
+      ...config.blocks.blocksConfig.search.variations,
     ],
     extensions: {
       ...config.blocks.blocksConfig.search.extensions,
       facetWidgets: {
         ...config.blocks.blocksConfig.search.extensions.facetWidgets,
         types: [
-          ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
           {
             id: 'accordionCheckboxFacet',
             title: 'Accordion Checkbox',
             view: AccordionCheckboxFacet,
-            isDefault: false,
+            isDefault: true,
           },
           {
             id: 'accordionLabelFacet',
@@ -393,6 +392,7 @@ const customBlocks = (config) => ({
             view: AccordionLabelFacet,
             isDefault: false,
           },
+          ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
         ],
       },
     },
