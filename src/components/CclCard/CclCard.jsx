@@ -130,11 +130,9 @@ function CclCard(props) {
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                   <div className="card-event-when-text">
-                    {start.toLocaleDateString() === end.toLocaleDateString()
-                      ? start.toLocaleDateString()
-                      : start.toLocaleDateString() +
-                        ' - ' +
-                        end.toLocaleDateString()}
+                    {start.toLocaleString() === end.toLocaleString()
+                      ? start.toLocaleString()
+                      : start.toLocaleString() + ' - ' + end.toLocaleString()}
                   </div>
                 </div>
                 {card?.location ? (
