@@ -6,6 +6,7 @@
 import {
   CLMSApiTokensView,
   CLMSUserProfileView,
+  CLMSNewsletterView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
 import React, { Component } from 'react';
 import { getUser, updateUser } from '@plone/volto/actions';
@@ -79,6 +80,9 @@ class CLMSProfileView extends Component {
               </div>
               <div tabTitle="API TOKENS">
                 {CLMSApiTokensView(this.props.content)}
+              </div>
+              <div tabTitle="SUBSCRIBE TO NEWSLETTER">
+                {CLMSNewsletterView(this.props.content)}
               </div>
             </CclTabs>
           </>

@@ -31,14 +31,15 @@ const CclListingCards = (props) => {
   } else {
     containerClass = '';
   }
-
   return (
     <>
-      <div className={containerClass}>
-        {items.map((item, index) => (
-          <CclCard key={index} type={variation} card={item} />
-        ))}
-      </div>
+      {items && items.length > 0
+        ? items.map((item, index) => (
+            <div className={containerClass}>
+              <CclCard key={index} type={variation} card={item} />
+            </div>
+          ))
+        : 'There are no items to display'}
       {link && <div className="footer">{link}</div>}
     </>
   );
