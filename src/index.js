@@ -39,6 +39,7 @@ const applyConfig = (config) => {
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
       TechnicalLibrary: CLMSDownloadableFileView,
+      File: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
