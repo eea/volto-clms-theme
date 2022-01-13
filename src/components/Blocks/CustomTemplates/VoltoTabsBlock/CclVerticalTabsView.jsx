@@ -18,9 +18,8 @@ const CclVerticalTabsView = (props) => {
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
           return (
-            <Route to={'#' + activeTab}>
+            <Route key={index} to={'#' + activeTab}>
               <div
-                key={index}
                 className={cx('panel', tab === activeTab && 'panel-selected')}
                 role="tabpanel"
                 aria-hidden="false"
