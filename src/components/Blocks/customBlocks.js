@@ -284,7 +284,8 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclRelatedListingView, // The view mode component
     edit: CclRelatedListingEdit, // The edit mode component
-    schema: RelatedListingSchema,
+    schema: BlockSettingsSchema,
+    blockSchema: RelatedListingSchema,
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus

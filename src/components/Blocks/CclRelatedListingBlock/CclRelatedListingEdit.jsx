@@ -17,7 +17,7 @@ const CclReatedListingEdit = (props) => {
     metadata,
   } = props;
   const dispatch = useDispatch();
-  const schema = config.blocks.blocksConfig['relatedListing'].schema;
+  const schema = config.blocks.blocksConfig['relatedListing'].blockSchema;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   const types = useSelector((state) => state.types.types);
   const types_schema = types.map((type) => [type.title, type.title]);
@@ -77,7 +77,7 @@ const CclReatedListingEdit = (props) => {
       </div>
       <SidebarPortal selected={selected}>
         <InlineForm
-          schema={schema(types_schema)}
+          schema={schema({ types_schema })}
           title="Related Listing block"
           onChangeField={(id, value) => {
             onChangeBlock(block, {
