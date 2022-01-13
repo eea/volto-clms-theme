@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { injectIntl } from 'react-intl';

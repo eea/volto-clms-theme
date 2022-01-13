@@ -96,7 +96,7 @@ class CLMSNewsletterView extends Component {
     });
   }
   handlePost() {
-    this.state.subscribeNewsletter = subscribeNewsletter(this.props.user.email);
+    // this.subscribeNewsletter = subscribeNewsletter(this.props.user.email);
   }
 
   componentDidMount() {
