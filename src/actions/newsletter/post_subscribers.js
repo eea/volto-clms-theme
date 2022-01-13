@@ -26,13 +26,13 @@ export function subscribeNewsletter(email) {
  * @function unsubscribeNewsletter
  * @returns {Object} Get extra items action.
  */
-export function unsubscribeNewsletter(email) {
+export function unsubscribeNewsletter(value) {
   return {
     type: POST_UNSUBSCRIBERS,
     request: {
       op: 'post',
       path: `/@newsletter-notification-unsubscribe`,
-      data: { email: email },
+      data: { email: value },
     },
   };
 }

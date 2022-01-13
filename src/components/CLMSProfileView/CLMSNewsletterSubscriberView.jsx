@@ -4,13 +4,14 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
 import { Container } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { getSubscribers } from '../../actions';
+import { getUser, updateUser } from '@plone/volto/actions';
+import { getBaseUrl } from '@plone/volto/helpers';
 
 /**
  * CLMSProfileView class.
@@ -18,17 +19,8 @@ import { getSubscribers } from '../../actions';
  * @extends Component
  */
 class CLMSNewsletterSubscriberView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      subscribers: [],
-    };
-  }
   componentDidMount() {
     this.props.getSubscribers();
-    this.setState({
-      subscribers: ['undefined', 'froga'],
-    });
   }
   /**
    * Render method.
@@ -63,8 +55,11 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      subscribers: state.subscribers,
+      user: state.users.user,
+      loaded: state.users.get.loaded,
+      loading: state.users.update.loading,
+      userschema: state.userschema,
     }),
-    { getSubscribers },
+    { getUser, updateUser, getBaseUrl, getSubscribers },
   ),
 )(CLMSNewsletterSubscriberView);

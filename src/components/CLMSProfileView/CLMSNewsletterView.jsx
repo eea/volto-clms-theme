@@ -70,6 +70,7 @@ class CLMSNewsletterView extends Component {
       username: PropTypes.string,
       return_url: PropTypes.string,
     }),
+    subscribeNewsletter: PropTypes.func,
     userId: PropTypes.string,
     loaded: PropTypes.bool,
     loading: PropTypes.bool,
@@ -95,8 +96,9 @@ class CLMSNewsletterView extends Component {
       value: event.target.value,
     });
   }
-  handlePost() {
-    this.state.subscribeNewsletter = subscribeNewsletter(this.props.user.email);
+  handlePost(e) {
+    e.preventDefault();
+    this.props.subscribeNewsletter(this.state.value);
   }
 
   componentDidMount() {
@@ -204,7 +206,6 @@ export default compose(
       loaded: state.users.get.loaded,
       loading: state.users.update.loading,
       userschema: state.userschema,
-      subscribeNewsletter: state.subscribeNewsletter,
     }),
     { getUser, updateUser, getBaseUrl, subscribeNewsletter },
   ),
