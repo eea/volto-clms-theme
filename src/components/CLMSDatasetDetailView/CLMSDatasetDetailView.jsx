@@ -125,36 +125,30 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                           this dataset.
                           <br />
                           <br />
-                          {item.type === 'EEA' && (
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={
-                                'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
-                                item.id
-                              }
-                            >
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={
+                              item.type === 'EEA'
+                                ? 'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
+                                  item.id
+                                : 'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
+                                  item.id
+                            }
+                          >
+                            {item.type === 'EEA' && (
                               <FormattedMessage
                                 id="EEA Geonetwork element"
                                 defaultMessage="EEA Geonetwork element"
                               />
-                            </a>
-                          )}
-                          {item.type === 'VITO' && (
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={
-                                'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
-                                item.id
-                              }
-                            >
+                            )}
+                            {item.type === 'VITO' && (
                               <FormattedMessage
                                 id="VITO Geonetwork element"
                                 defaultMessage="VITO Geonetwork element"
                               />
-                            </a>
-                          )}
+                            )}
+                          </a>
                         </div>
                         <CclButton
                           onClick={() => {
@@ -196,7 +190,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             })}
           </Segment.Group>
         )}
-      <CclTabs>
+      <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         <div tabTitle="Metadata">{MetadataContent(content)}</div>
 

@@ -1,12 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router';
-import { RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './fontawesome';
+
+import { NavLink, Route } from 'react-router-dom';
+
+import React from 'react';
+import { RenderBlocks } from '@plone/volto/components';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import cx from 'classnames';
-import { Route, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 const CclVerticalTabsView = (props) => {
   const { metadata = {}, tabsList = [], ExtraComponent = null } = props;
@@ -47,30 +49,41 @@ const CclVerticalTabsView = (props) => {
               setActiveTab = () => {},
             } = props;
             const title = tabs[tab].title;
+            const subTab = tabs[tab]?.subTab?.subtab || false;
             const tabIndex = index + 1;
+            const nextSubTab =
+              tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
             const defaultTitle = `Tab ${tabIndex}`;
             return (
               <div
                 key={index}
                 id={tabIndex}
-                className={cx('card', tab === activeTab && 'active')}
+                className={cx(
+                  'card',
+                  tab === activeTab && 'active',
+                  subTab && 'subcard',
+                )}
               >
-                <NavLink
-                  to={'#tab' + tabIndex}
-                  className="collapsed"
-                  onClick={(e) => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                  onKeyDown={() => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
-                  }}
-                >
-                  {title || defaultTitle}
-                </NavLink>
+                {subTab === false && nextSubTab !== false ? (
+                  <span>{title || defaultTitle}</span>
+                ) : (
+                  <NavLink
+                    to={'#tab' + tabIndex}
+                    className="collapsed"
+                    onClick={(e) => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                    onKeyDown={() => {
+                      if (activeTab !== tab) {
+                        setActiveTab(tab);
+                      }
+                    }}
+                  >
+                    {title || defaultTitle}
+                  </NavLink>
+                )}
               </div>
             );
           })}

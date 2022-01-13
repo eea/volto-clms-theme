@@ -3,8 +3,10 @@
 @import url('home.css');
 @import url('menu.css');
 @import url('forms.css');
+@import url('block-form.less');
 /*@import url("cards.css");*/
 @import url('maps.less');
+@import url('title.css');
 
 html {
   font-size: 16px !important;
@@ -888,6 +890,11 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   padding-right: 2.5rem;
 }
 
+.dataset-download-table .ui.message {
+  left: 25%;
+  width: 50%;
+}
+
 /* Downloads */
 .download-block {
   position: relative;
@@ -1029,6 +1036,10 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   background-color: #273b4b;
 }
 
+.tag-dataset {
+  background-color: #adb0b8;
+}
+
 /* Pagination */
 .px-paginate-container {
   display: flex;
@@ -1126,4 +1137,14 @@ div#page-document h1.documentFirstHeading {
 /**/
 .metadata.image img {
   max-width: 100%;
+}
+
+ .block-editor-accordion {
+  legend  {
+  z-index: 2 !important;
+  }
+}
+
+.block-editor-accordion > .block-toolbar {
+  z-index: 1 !important;
 }

@@ -233,7 +233,7 @@ export const CLMSMeetingView = (props) => {
                   </>
                 )}
               </div>
-              {content.subscribers_link && (
+              {content.allow_register && content.subscribers_link && (
                 <>
                   <div className="card-button">
                     <a

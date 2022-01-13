@@ -1,32 +1,34 @@
-// VIEWS IMPORTS
-import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
-import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
-import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
-import ProfileView from './components/CLMSProfileView/CLMSProfileView';
-import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
-import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
-import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
-import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
-import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
-import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
-import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
-// WIDGET IMPORTS
-import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
-import TextLinkWidget from './components/Widgets/TextLinkWidget';
-import BoundingWidget from './components/Widgets/BoundingWidget';
-import MapLayersWidget from './components/Widgets/MapLayersWidget';
-import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
-import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
-import ContactWidget from './components/Widgets/ContactWidget';
-import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
+// COMPONENTS FOR ROUTES
+import { ContactForm, Search, Sitemap } from '@plone/volto/components';
 // CUSTOMIZED BLOCKS IMPORTS
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
+
+import BoundingWidget from './components/Widgets/BoundingWidget';
+// VIEWS IMPORTS
+import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
+import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
+import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
+import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
+import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
+import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
+import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
+import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
+import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
+import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
+import ContactWidget from './components/Widgets/ContactWidget';
+import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
+import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
+import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import ProfileView from './components/CLMSProfileView/CLMSProfileView';
+// WIDGET IMPORTS
+import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
+import TextLinkWidget from './components/Widgets/TextLinkWidget';
 // CUSTOM REDUCERS IMPORT
 import reducers from './reducers';
-// COMPONENTS FOR ROUTES
-import { Sitemap, Search, ContactForm } from '@plone/volto/components';
 
 const applyConfig = (config) => {
   config.views = {
@@ -36,6 +38,7 @@ const applyConfig = (config) => {
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
+      TechnicalLibrary: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
@@ -48,7 +51,7 @@ const applyConfig = (config) => {
     blocksConfig: { ...customBlocks(config) },
     groupBlocksOrder: [
       ...config.blocks.groupBlocksOrder,
-      customGroupBlocksOrder,
+      ...customGroupBlocksOrder,
     ],
   };
 

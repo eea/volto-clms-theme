@@ -126,6 +126,54 @@
   }
 }
 
+/* three-column */
+.card-threeColumns {
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+  background-color: #a0b1280f;
+}
+
+.card-threeColumns .card-threeColumns-image {
+  height: 12rem;
+}
+
+.card-threeColumns img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-threeColumns .card-text {
+  padding: 1.5rem;
+}
+
+.card-threeColumns .card-description {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .card-threeColumns {
+    width: calc(50% - 0.5rem);
+  }
+
+  .card-threeColumns:nth-child(1) {
+    margin-right: 1rem;
+  }
+}
+
+@media (min-width: 1103px) {
+  .card-threeColumns {
+    width: calc(32.5% - 0.5rem);
+  }
+
+  .card-threeColumns:nth-child(3n + 1),
+  .card-threeColumns:nth-child(3n + 2) {
+    margin-right: 1rem;
+  }
+}
+
 /* News */
 .card-news {
   display: flex;

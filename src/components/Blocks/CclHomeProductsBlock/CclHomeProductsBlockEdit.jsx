@@ -94,9 +94,7 @@ const CclHomeProductsBlockEdit = (props) => {
         />
       </SidebarPortal>
       <SidebarPortal
-        selected={
-          selected && selectedProductBlock !== -1 && data.products?.blocks
-        }
+        selected={selected && data.products?.blocks[selectedProductBlock]}
       >
         <InlineForm
           schema={ProductSchema()}
