@@ -1,28 +1,17 @@
 import React from 'react';
 import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
+import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
 // import { getBaseUrl } from '@plone/volto/helpers';
 
 const CclReatedListingEdit = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    selected,
-    id,
-    properties,
-    metadata,
-  } = props;
-  const dispatch = useDispatch();
+  const { block, data, onChangeBlock, selected } = props;
   const schema = config.blocks.blocksConfig['relatedListing'].blockSchema;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   const types = useSelector((state) => state.types.types);
   const types_schema = types.map((type) => [type.title, type.title]);
   // const path = getBaseUrl(metadata ? metadata['@id'] : properties['@id']);
-  const uid = metadata ? metadata['UID'] : properties['UID'];
   let libraries = searchSubrequests?.[props.id]?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
@@ -51,20 +40,6 @@ const CclReatedListingEdit = (props) => {
   if (!data.content_type) {
     data.content_type = 'News Item';
   }
-  React.useEffect(() => {
-    dispatch(
-      searchContent(
-        '',
-        {
-          fullobjects: 1,
-          portal_type: data.content_type,
-          path: '/',
-          associated_products: uid,
-        },
-        id,
-      ),
-    );
-  }, [data, id, uid, dispatch]);
   return (
     <>
       <div className="technical-libraries">

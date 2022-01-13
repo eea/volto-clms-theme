@@ -39,18 +39,19 @@ const CclReatedListingView = (props) => {
     data.content_type = 'News Item';
   }
   React.useEffect(() => {
-    dispatch(
-      searchContent(
-        '',
-        {
-          fullobjects: 1,
-          portal_type: data.content_type || 'News Item',
-          path: '/',
-          associated_products: uid,
-        },
-        id,
-      ),
-    );
+    uid &&
+      dispatch(
+        searchContent(
+          '',
+          {
+            fullobjects: 1,
+            portal_type: data.content_type || 'News Item',
+            path: '/',
+            associated_products: uid,
+          },
+          id,
+        ),
+      );
   }, [data, id, uid, dispatch]);
 
   return (
