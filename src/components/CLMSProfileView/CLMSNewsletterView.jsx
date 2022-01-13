@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import { Container, Button } from 'semantic-ui-react';
+import { subscribeNewsletter } from '../../actions';
 
 const messages = defineMessages({
   Newsletter: {
@@ -79,7 +80,7 @@ class CLMSNewsletterView extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    // this.handlePost = this.handlePost.bind(this);
+    this.handlePost = this.handlePost.bind(this);
     this.state = {
       tokenTitle: '',
       createNewToken: true,
@@ -93,6 +94,9 @@ class CLMSNewsletterView extends Component {
     this.setState({
       value: event.target.value,
     });
+  }
+  handlePost() {
+    this.state.subscribeNewsletter = subscribeNewsletter(this.props.user.email);
   }
 
   componentDidMount() {
@@ -173,7 +177,7 @@ class CLMSNewsletterView extends Component {
                         type="submit"
                         aria-label={'submit'}
                         title={'submit'}
-                        onClick={this.handleClick}
+                        onClick={this.handlePost}
                       >
                         <Icon className="circled" name={aheadSVG} size="30px" />
                       </Button>
@@ -200,7 +204,8 @@ export default compose(
       loaded: state.users.get.loaded,
       loading: state.users.update.loading,
       userschema: state.userschema,
+      subscribeNewsletter: state.subscribeNewsletter,
     }),
-    { getUser, updateUser, getBaseUrl },
+    { getUser, updateUser, getBaseUrl, subscribeNewsletter },
   ),
 )(CLMSNewsletterView);
