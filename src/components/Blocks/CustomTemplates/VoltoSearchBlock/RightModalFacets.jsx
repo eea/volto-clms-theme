@@ -68,8 +68,7 @@ const RightModalFacets = (props) => {
               <SearchInput {...props} isLive={isLive} />
               {data.showSearchButton && (
                 <Button primary onClick={() => onTriggerSearch(searchText)}>
-                  {data.searchButtonLabel ||
-                    intl.formatMessage(messages.searchButtonText)}
+                  <span class="ccl-icon-zoom"></span>
                 </Button>
               )}
             </div>
@@ -88,71 +87,73 @@ const RightModalFacets = (props) => {
             />
           </div>
 
-          <div className="search-results-count-sort filters-container">
+          <div className="search-results-count-sort search-filters">
             <SearchDetails text={searchedText} total={totalItems} />
-            {data.showSortOn && (
-              <SortOn
-                data={data}
-                querystring={querystring}
-                isEditMode={isEditMode}
-                sortOrder={sortOrder}
-                sortOn={sortOn}
-                setSortOn={(sortOn) => {
-                  flushSync(() => {
-                    setSortOn(sortOn);
-                    onTriggerSearch(searchedText || '', facets, sortOn);
-                  });
-                }}
-                setSortOrder={(sortOrder) => {
-                  flushSync(() => {
-                    setSortOrder(sortOrder);
-                    onTriggerSearch(
-                      searchedText || '',
-                      facets,
-                      sortOn,
-                      sortOrder,
-                    );
-                  });
-                }}
-              />
-            )}
-            {data.facets?.length && (
-              <CclFiltersModal
-                trigger={
-                  <div className="filters-element filters-element-filter">
-                    <div className="filters-title">
-                      <Icon className="ui" name={filterSVG} size={20} />
-                      <span className="filters-title-bold">
-                        {data.facetsTitle}
-                      </span>
+            <div className="filters-container">
+              {data.showSortOn && (
+                <SortOn
+                  data={data}
+                  querystring={querystring}
+                  isEditMode={isEditMode}
+                  sortOrder={sortOrder}
+                  sortOn={sortOn}
+                  setSortOn={(sortOn) => {
+                    flushSync(() => {
+                      setSortOn(sortOn);
+                      onTriggerSearch(searchedText || '', facets, sortOn);
+                    });
+                  }}
+                  setSortOrder={(sortOrder) => {
+                    flushSync(() => {
+                      setSortOrder(sortOrder);
+                      onTriggerSearch(
+                        searchedText || '',
+                        facets,
+                        sortOn,
+                        sortOrder,
+                      );
+                    });
+                  }}
+                />
+              )}
+              {data.facets?.length && (
+                <CclFiltersModal
+                  trigger={
+                    <div className="filters-element">
+                      <div className="filters-title">
+                        <Icon className="ui" name={filterSVG} size={20} />
+                        <span className="filters-title-bold">
+                          {data.facetsTitle}
+                        </span>
+                      </div>
                     </div>
+                  }
+                  data={data}
+                  setFacets={(f) => {
+                    flushSync(() => {
+                      setFacets(f);
+                      onTriggerSearch(searchedText || '', f);
+                    });
+                  }}
+                >
+                  <div id="right-modal-facets" className="facets">
+                    <Facets
+                      querystring={querystring}
+                      data={data}
+                      facets={facets}
+                      isEditMode={isEditMode}
+                      setFacets={(f) => {
+                        flushSync(() => {
+                          setFacets(f);
+                          onTriggerSearch(searchedText || '', f);
+                        });
+                      }}
+                      facetWrapper={FacetWrapper}
+                    />
                   </div>
-                }
-                data={data}
-                setFacets={(f) => {
-                  flushSync(() => {
-                    setFacets(f);
-                    onTriggerSearch(searchedText || '', f);
-                  });
-                }}
-              >
-                <div id="right-modal-facets" className="facets">
-                  <Facets
-                    querystring={querystring}
-                    data={data}
-                    facets={facets}
-                    isEditMode={isEditMode}
-                    setFacets={(f) => {
-                      flushSync(() => {
-                        setFacets(f);
-                        onTriggerSearch(searchedText || '', f);
-                      });
-                    }}
-                    facetWrapper={FacetWrapper}
-                  />
-                </div>
-              </CclFiltersModal>
-            )}
+                </CclFiltersModal>
+              )}
+            </div>
           </div>
           {children}
         </Grid.Column>
