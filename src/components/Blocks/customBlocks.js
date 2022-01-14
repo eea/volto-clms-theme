@@ -100,7 +100,7 @@ const customBlocks = (config) => ({
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     edit: FixTemplates(TabsEdit),
-    view: FixTemplates(TabsView),
+    view: TabsView,
     deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
     mostUsed: true, // A meta group `most used`, appearing at the top of the chooser
     templates: {
