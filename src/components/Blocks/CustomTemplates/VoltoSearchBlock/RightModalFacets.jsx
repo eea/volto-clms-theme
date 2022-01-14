@@ -67,7 +67,14 @@ const RightModalFacets = (props) => {
             <div className="search-wrapper">
               <SearchInput {...props} isLive={isLive} />
               {data.showSearchButton && (
-                <Button primary onClick={() => onTriggerSearch(searchText)}>
+                <Button
+                  primary
+                  onClick={() => onTriggerSearch(searchText)}
+                  aria-label={
+                    data.searchButtonLabel ||
+                    intl.formatMessage(messages.searchButtonText)
+                  }
+                >
                   <span class="ccl-icon-zoom"></span>
                 </Button>
               )}
