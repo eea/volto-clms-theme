@@ -53,11 +53,13 @@ const RightModalFacets = (props) => {
 
   return (
     <Grid className="searchBlock-facets right-column-facets" stackable>
-      <Grid.Row>
-        <Grid.Column>
-          {data.headline && <h2 className="headline">{data.headline}</h2>}
-        </Grid.Column>
-      </Grid.Row>
+      {data?.headline && (
+        <Grid.Row>
+          <Grid.Column>
+            {data.headline && <h2 className="headline">{data.headline}</h2>}
+          </Grid.Column>
+        </Grid.Row>
+      )}
 
       <Grid.Row>
         <Grid.Column mobile={12} tablet={12} computer={12}>
@@ -75,7 +77,7 @@ const RightModalFacets = (props) => {
                     intl.formatMessage(messages.searchButtonText)
                   }
                 >
-                  <span class="ccl-icon-zoom"></span>
+                  <span className="ccl-icon-zoom"></span>
                 </Button>
               )}
             </div>
