@@ -4,10 +4,10 @@
  */
 
 import {
-  GET_SUBSCRIBERS,
+  // GET_SUBSCRIBERS,
   POST_SUBSCRIBE_TO_EVENT,
-  POST_UNSUBSCRIBERS,
-  DEL_SUBSCRIBERS,
+  // POST_UNSUBSCRIBERS,
+  // DEL_SUBSCRIBERS,
 } from '../../actions';
 
 const getInitialState = {

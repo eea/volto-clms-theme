@@ -3,7 +3,6 @@
  * @module reducers/root
  */
 
-import { subscribeToEvent } from '../actions';
 import { datasetsByUidReducer } from './datasets_by_uid/datasets_by_uid';
 import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
