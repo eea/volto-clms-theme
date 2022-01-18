@@ -21,17 +21,23 @@ const CclProductTabsView = (props) => {
           />
         )}
       </div>
-      <div className="menu-detail-button">
-        <a
-          href={'/' + locale + '/map-viewer?product=' + props.metadata['UID']}
-          className="ccl-button ccl-button--default"
-        >
-          <FormattedMessage
-            id="View in the map viewer"
-            defaultMessage="View in the map viewer"
-          />
-        </a>
-      </div>
+      {props.metadata?.show_in_mapviewer_link && (
+        <>
+          <div className="menu-detail-button">
+            <a
+              href={
+                '/' + locale + '/map-viewer?product=' + props.metadata['UID']
+              }
+              className="ccl-button ccl-button--default"
+            >
+              <FormattedMessage
+                id="View in the map viewer"
+                defaultMessage="View in the map viewer"
+              />
+            </a>
+          </div>
+        </>
+      )}
     </div>
   );
 
