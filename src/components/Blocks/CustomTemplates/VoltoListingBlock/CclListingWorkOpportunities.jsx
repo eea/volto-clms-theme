@@ -37,7 +37,8 @@ const CclWorkOpportunity = (props) => {
             ? intl.formatMessage(messages.ReferenceNo)
             : intl.formatMessage(messages.ProcurementNo)}
         </span>
-        <a href={item.url || ''}>{item.procurement_no}</a>
+        {item.url ? (<a href={item.url || ''}>{item.procurement_no}</a>) : ({item.procurement_no})}
+
       </div>
       <div className="card-work-title">
         <p>{item.description}</p>
