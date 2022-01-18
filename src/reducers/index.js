@@ -3,6 +3,7 @@
  * @module reducers/root
  */
 
+import { subscribeToEvent } from '../actions';
 import { datasetsByUidReducer } from './datasets_by_uid/datasets_by_uid';
 import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
@@ -13,6 +14,7 @@ import { registryReducer } from './registry/registry';
 // import defaultReducers from '@plone/volto/reducers';
 import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
+import { subscribeToEventReducer } from './subscribe_to_event/subscribe_to_event_reducer';
 
 /**
  * Root reducer.
@@ -33,6 +35,7 @@ const reducers = {
   geonetwork_importation: importGeonetworkReducer,
   userschema: userschemaReducer,
   datasetsByUid: datasetsByUidReducer,
+  subscribe_to_event: subscribeToEventReducer,
 };
 
 export default reducers;

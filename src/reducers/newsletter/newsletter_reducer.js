@@ -38,7 +38,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        subscribers: [...action.result, 'test'],
+        subscribers: action.result,
       };
     case `${POST_SUBSCRIBERS}_PENDING`:
       return {

@@ -85,3 +85,11 @@ export {
   deleteSubscriptionRequest,
   deleteUnsubscriptionRequest,
 } from './newsletter/del_subscribers';
+
+export {
+  POST_SUBSCRIBE_TO_EVENT,
+  subscribeToEvent,
+  confirmSubscribeToEvent,
+  unsubscribeToEvent,
+  confirmUnsubscribeToEvent,
+} from './subscribe_to_event/post_subscribe_to_event';
