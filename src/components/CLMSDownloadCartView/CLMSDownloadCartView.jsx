@@ -85,7 +85,12 @@ const CLMSDownloadCartView = (props) => {
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
     }
-  }, [download_in_progress, localSessionCart, dispatch]);
+  }, [
+    download_in_progress,
+    localSessionCart,
+    localSessionCart.length,
+    dispatch,
+  ]);
 
   return (
     <>
