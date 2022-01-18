@@ -11,7 +11,6 @@ import {
   getDownloadToolPostBody,
 } from './cartUtils';
 import {
-  getDatasetsByUid,
   getDownloadtool,
   getFormatConversionTable,
   getProjections,
@@ -19,7 +18,6 @@ import {
 } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,6 +27,7 @@ import { getAvailableConversion } from './conversion';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSCartContent = (props) => {
+  const { localSessionCart } = props;
   const dispatch = useDispatch();
   const { cart, removeCartItem } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
@@ -45,28 +44,11 @@ const CLMSCartContent = (props) => {
   );
 
   const [cartItems, setCartItems] = useState([]);
-  const [localSessionCart, setLocalSessionCart] = useState([]);
 
   useEffect(() => {
     dispatch(getProjections());
     dispatch(getFormatConversionTable());
   }, [dispatch]);
-
-  useEffect(() => {
-    const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
-    setLocalSessionCart(
-      JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || [],
-    );
-  }, [user_id]);
-
-  useEffect(() => {
-    if (localSessionCart?.length !== 0) {
-      const uidsList = [
-        ...new Set(localSessionCart.map((item) => item.UID || item.id)),
-      ];
-      dispatch(getDatasetsByUid(uidsList));
-    }
-  }, [localSessionCart, dispatch]);
 
   useEffect(() => {
     if (datasets?.length > 0) {
@@ -190,8 +172,6 @@ const CLMSCartContent = (props) => {
                 <th>Name</th>
                 <th>Source</th>
                 <th>Area</th>
-                {/* <th>Year</th>
-                <th>Resolution</th> */}
                 <th>Type</th>
                 <th>Format</th>
                 <th>Projection</th>
@@ -240,8 +220,6 @@ const CLMSCartContent = (props) => {
                     <td>{item.name || '-'}</td>
                     <td>{item.source || '-'}</td>
                     <td>{item.area?.type || '-'}</td>
-                    {/* <td>{item.year || '-'}</td>
-                    <td>{item.resolution || '-'}</td> */}
                     <td>
                       <span className={'tag tag-' + item?.type?.toLowerCase()}>
                         {item.type || '-'}
