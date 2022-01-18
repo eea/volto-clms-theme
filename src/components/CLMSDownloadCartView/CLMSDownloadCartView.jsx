@@ -85,12 +85,8 @@ const CLMSDownloadCartView = (props) => {
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
     }
-  }, [
-    download_in_progress,
-    localSessionCart,
-    localSessionCart.length,
-    dispatch,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [download_in_progress, localSessionCart, dispatch]);
 
   return (
     <>
