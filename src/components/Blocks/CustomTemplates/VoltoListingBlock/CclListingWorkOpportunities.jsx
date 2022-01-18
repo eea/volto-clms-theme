@@ -25,13 +25,14 @@ const CclWorkOpportunity = (props) => {
     <div className="card-work">
       {user.roles && user.roles.includes('Manager') && (
         <>
-          <Link to={item['@id'] + '/edit'}>Edit</Link>
+          <Link to={item['@id'] + '/edit'}>Edit this item</Link>
           <br />
           <br />
         </>
       )}
       <div className="card-work-number">
         <span className="card-work-number-title">
+          <h2>{item.title}</h2>
           {item['@type'] === 'WorkOpportunity'
             ? intl.formatMessage(messages.ReferenceNo)
             : intl.formatMessage(messages.ProcurementNo)}
