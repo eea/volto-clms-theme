@@ -88,6 +88,7 @@ export {
 
 export {
   POST_SUBSCRIBE_TO_EVENT,
+  POST_UNSUBSCRIBE_TO_EVENT,
   subscribeToEvent,
   confirmSubscribeToEvent,
   unsubscribeToEvent,

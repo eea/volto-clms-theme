@@ -1,19 +1,21 @@
-/**
- * Newsletter reducer.
- * @module newsletter/newsletter_reducer
- */
-
 import {
   // GET_SUBSCRIBERS,
   POST_SUBSCRIBE_TO_EVENT,
-  // POST_UNSUBSCRIBERS,
+  POST_UNSUBSCRIBE_TO_EVENT,
   // DEL_SUBSCRIBERS,
 } from '../../actions';
 
 const getInitialState = {
-  error: null,
-  loaded: false,
-  loading: false,
+  subscribe: {
+    error: null,
+    loaded: false,
+    loading: false,
+  },
+  unsubscribe: {
+    error: null,
+    loaded: false,
+    loading: false,
+  },
 };
 
 export const subscribeToEventReducer = (
@@ -21,70 +23,68 @@ export const subscribeToEventReducer = (
   action = {},
 ) => {
   switch (action.type) {
-    // case `${GET_SUBSCRIBERS}_PENDING`:
-    //   return {
-    //     ...state,
-    //     error: null,
-    //     loaded: false,
-    //     loading: true,
-    //   };
-    // case `${GET_SUBSCRIBERS}_FAIL`:
-    //   return {
-    //     ...state,
-    //     error: true,
-    //     loaded: false,
-    //     loading: false,
-    //   };
-    // case `${GET_SUBSCRIBERS}_SUCCESS`:
-    //   return {
-    //     ...state,
-    //     error: null,
-    //     loaded: true,
-    //     loading: false,
-    //     subscribers: action.result,
-    //   };
     case `${POST_SUBSCRIBE_TO_EVENT}_PENDING`:
       return {
         ...state,
-        error: null,
-        loaded: false,
-        loading: true,
+        subscribe: {
+          ...state.subscribe,
+          error: null,
+          loaded: false,
+          loading: true,
+        },
+        // ...state.unsubscribe,
       };
     case `${POST_SUBSCRIBE_TO_EVENT}_FAIL`:
       return {
         ...state,
-        error: true,
-        loaded: false,
-        loading: false,
+        subscribe: {
+          ...state.subscribe,
+          error: true,
+          loaded: false,
+          loading: false,
+        },
       };
     case `${POST_SUBSCRIBE_TO_EVENT}_SUCCESS`:
       return {
         ...state,
-        error: null,
-        loaded: true,
-        loading: false,
+        subscribe: {
+          ...state.subscribe,
+          error: null,
+          loaded: true,
+          loading: false,
+        },
       };
-    // case `${POST_UNSUBSCRIBERS}_PENDING`:
-    //   return {
-    //     ...state,
-    //     error: null,
-    //     loaded: false,
-    //     loading: true,
-    //   };
-    // case `${POST_UNSUBSCRIBERS}_FAIL`:
-    //   return {
-    //     ...state,
-    //     error: true,
-    //     loaded: false,
-    //     loading: false,
-    //   };
-    // case `${POST_UNSUBSCRIBERS}_SUCCESS`:
-    //   return {
-    //     ...state,
-    //     error: null,
-    //     loaded: true,
-    //     loading: false,
-    //   };
+
+    case `${POST_UNSUBSCRIBE_TO_EVENT}_PENDING`:
+      return {
+        ...state,
+        unsubscribe: {
+          ...state.unsubscribe,
+          error: null,
+          loaded: false,
+          loading: true,
+        },
+      };
+    case `${POST_UNSUBSCRIBE_TO_EVENT}_FAIL`:
+      return {
+        ...state,
+        unsubscribe: {
+          ...state.unsubscribe,
+          error: true,
+          loaded: false,
+          loading: false,
+        },
+      };
+    case `${POST_UNSUBSCRIBE_TO_EVENT}_SUCCESS`:
+      return {
+        ...state,
+        unsubscribe: {
+          ...state.unsubscribe,
+          error: null,
+          loaded: true,
+          loading: false,
+        },
+      };
     // case `${DEL_SUBSCRIBERS}_PENDING`:
     //   return {
     //     ...state,
