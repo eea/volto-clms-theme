@@ -33,13 +33,13 @@ const CclListingCards = (props) => {
   }
   return (
     <>
-      {items && items.length > 0
-        ? items.map((item, index) => (
-            <div className={containerClass}>
+      <div className={containerClass}>
+        {items && items.length > 0
+          ? items.map((item, index) => (
               <CclCard key={index} type={variation} card={item} />
-            </div>
-          ))
-        : 'There are no items to display'}
+            ))
+          : 'There are no items to display'}
+      </div>
       {link && <div className="footer">{link}</div>}
     </>
   );

@@ -79,3 +79,19 @@ export {
   unsubscribeNewsletter,
   confirmUnsubscribe,
 } from './newsletter/post_subscribers';
+export {
+  POST_SUBSCRIBE_TO_EVENT,
+  POST_UNSUBSCRIBE_TO_EVENT,
+  subscribeToEvent,
+  confirmSubscribeToEvent,
+  unsubscribeToEvent,
+  confirmUnsubscribeToEvent,
+} from './subscribe_to_event/post_subscribe_to_event';
+export {
+  POST_SUBSCRIBE_TO_NEWS,
+  POST_UNSUBSCRIBE_TO_NEWS,
+  subscribeToNews,
+  confirmSubscribeToNews,
+  unsubscribeToNews,
+  confirmUnsubscribeToNews,
+} from './subscribe_to_news/post_subscribe_to_news';
