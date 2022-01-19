@@ -17,8 +17,6 @@ function bytesToSize(bytes) {
 function CclCard(props) {
   const { type, children, card } = props;
   let url = card ? card['@id'] || card.hrerf || '/' : '/';
-  let start = new Date(card?.start);
-  let end = new Date(card?.end);
   return (
     <div className={'card-' + (type || 'line')}>
       {type === 'doc' ||
