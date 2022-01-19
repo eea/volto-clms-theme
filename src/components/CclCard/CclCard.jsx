@@ -1,6 +1,7 @@
 import './cards.less';
 
 import * as mime from 'react-native-mime-types';
+import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -127,9 +128,12 @@ function CclCard(props) {
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                   <div className="card-event-when-text">
-                    {start.toLocaleString() === end.toLocaleString()
-                      ? start.toLocaleString()
-                      : start.toLocaleString() + ' - ' + end.toLocaleString()}
+                    <When
+                      start={card.start}
+                      end={card.end}
+                      whole_day={card.whole_day}
+                      open_end={card.open_end}
+                    />
                   </div>
                 </div>
                 {card?.location ? (
