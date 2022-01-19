@@ -63,7 +63,6 @@ export const subscribeToEventReducer = (
         },
       };
     case `${POST_CONFIRM_SUBSCRIBE_TO_EVENT}_FAIL`:
-      console.log('state: ', action);
       return {
         ...state,
         confirm_subscribe: {
