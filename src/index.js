@@ -25,6 +25,8 @@ import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifi
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import NewsletterSubscriptionConfirmView from './components/NewsletterSubscriptionConfirm/NewsletterSubscriptionConfirmView';
+import NewsletterUnsubscriptionConfirmView from './components/NewsletterSubscriptionConfirm/NewsletterUnsubscriptionConfirmView';
+
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
@@ -131,11 +133,11 @@ const applyConfig = (config) => {
     },
     {
       path: '/newsletter-notification-unsubscription/:id',
-      component: NewsletterSubscriptionConfirmView,
+      component: NewsletterUnsubscriptionConfirmView,
     },
     {
       path: '/**/newsletter-notification-unsubscription/:id',
-      component: NewsletterSubscriptionConfirmView,
+      component: NewsletterUnsubscriptionConfirmView,
     },
     {
       path: '/**/download-by-area',
