@@ -116,7 +116,7 @@ const CLMSTasksInProgress = (props) => {
                             return dataset['OutputFormat'] ? (
                               <li>{dataset['OutputFormat']}</li>
                             ) : (
-                              <li>-</li>
+                              <li>Pre-packaged</li>
                             );
                           })}
                         </ul>
