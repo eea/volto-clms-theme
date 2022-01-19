@@ -14,6 +14,7 @@ import { registryReducer } from './registry/registry';
 import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
 import { subscribeToEventReducer } from './subscribe_to_event/subscribe_to_event_reducer';
+import { subscribeToNewsReducer } from './subscribe_to_news/subscribe_to_news_reducer';
 
 /**
  * Root reducer.
@@ -35,6 +36,7 @@ const reducers = {
   userschema: userschemaReducer,
   datasetsByUid: datasetsByUidReducer,
   subscribe_to_event: subscribeToEventReducer,
+  subscribe_to_news: subscribeToNewsReducer,
 };
 
 export default reducers;

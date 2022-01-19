@@ -1,6 +1,6 @@
 import {
-  POST_SUBSCRIBE_TO_EVENT,
-  POST_UNSUBSCRIBE_TO_EVENT,
+  POST_SUBSCRIBE_TO_NEWS,
+  POST_UNSUBSCRIBE_TO_NEWS,
 } from '../../actions';
 
 const getInitialState = {
@@ -16,12 +16,12 @@ const getInitialState = {
   },
 };
 
-export const subscribeToEventReducer = (
+export const subscribeToNewsReducer = (
   state = getInitialState,
   action = {},
 ) => {
   switch (action.type) {
-    case `${POST_SUBSCRIBE_TO_EVENT}_PENDING`:
+    case `${POST_SUBSCRIBE_TO_NEWS}_PENDING`:
       return {
         ...state,
         subscribe: {
@@ -31,7 +31,7 @@ export const subscribeToEventReducer = (
           loading: true,
         },
       };
-    case `${POST_SUBSCRIBE_TO_EVENT}_FAIL`:
+    case `${POST_SUBSCRIBE_TO_NEWS}_FAIL`:
       return {
         ...state,
         subscribe: {
@@ -41,7 +41,7 @@ export const subscribeToEventReducer = (
           loading: false,
         },
       };
-    case `${POST_SUBSCRIBE_TO_EVENT}_SUCCESS`:
+    case `${POST_SUBSCRIBE_TO_NEWS}_SUCCESS`:
       return {
         ...state,
         subscribe: {
@@ -52,7 +52,7 @@ export const subscribeToEventReducer = (
         },
       };
 
-    case `${POST_UNSUBSCRIBE_TO_EVENT}_PENDING`:
+    case `${POST_UNSUBSCRIBE_TO_NEWS}_PENDING`:
       return {
         ...state,
         unsubscribe: {
@@ -62,7 +62,7 @@ export const subscribeToEventReducer = (
           loading: true,
         },
       };
-    case `${POST_UNSUBSCRIBE_TO_EVENT}_FAIL`:
+    case `${POST_UNSUBSCRIBE_TO_NEWS}_FAIL`:
       return {
         ...state,
         unsubscribe: {
@@ -72,7 +72,7 @@ export const subscribeToEventReducer = (
           loading: false,
         },
       };
-    case `${POST_UNSUBSCRIBE_TO_EVENT}_SUCCESS`:
+    case `${POST_UNSUBSCRIBE_TO_NEWS}_SUCCESS`:
       return {
         ...state,
         unsubscribe: {

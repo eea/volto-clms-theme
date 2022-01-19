@@ -8,7 +8,8 @@ import {
   CLMSUserProfileView,
   CLMSNewsletterView,
   CLMSNewsletterSubscriberView,
-  CLMSEventsView,
+  CLMSSubscribeToEventsView,
+  CLMSSubscribeToNewsView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
 import React, { Component } from 'react';
 import { getUser, updateUser } from '@plone/volto/actions';
@@ -92,7 +93,10 @@ class CLMSProfileView extends Component {
                 {CLMSNewsletterSubscriberView(this.props.content)}
               </div>
               <div tabTitle="SUBSCRIBE TO OUR EVENTS">
-                <CLMSEventsView />
+                <CLMSSubscribeToEventsView />
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWS">
+                <CLMSSubscribeToNewsView />
               </div>
             </CclTabs>
           </>
@@ -109,7 +113,10 @@ class CLMSProfileView extends Component {
                 {CLMSNewsletterView(this.props.content)}
               </div>
               <div tabTitle="SUBSCRIBE TO OUR EVENTS">
-                <CLMSEventsView />
+                <CLMSSubscribeToEventsView />
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWS">
+                <CLMSSubscribeToNewsView />
               </div>
             </CclTabs>
           )) ||
