@@ -1,6 +1,6 @@
 /**
- * CLMSProfileView container.
- * @module components/CLMSProfileView/CLMSProfileView
+ * CLMSSubscribeToEvents container.
+ * @module components/CLMSSubscribeToEvents/CLMSSubscribeToEvents
  */
 
 import React, { Component } from 'react';
@@ -8,12 +8,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
-import jwtDecode from 'jwt-decode';
 import { Icon, Toast } from '@plone/volto/components';
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import { toast } from 'react-toastify';
-import { getUser, updateUser } from '@plone/volto/actions';
-import { getBaseUrl } from '@plone/volto/helpers';
 import { Container, Button, Form } from 'semantic-ui-react';
 import { subscribeToEvent, unsubscribeToEvent } from '../../actions';
 import { Loader } from 'semantic-ui-react';
@@ -50,23 +47,19 @@ const messages = defineMessages({
 });
 
 /**
- * CLMSProfileView class.
- * @class CLMSProfileView
+ * CLMSSubscribeToEvents class.
+ * @class CLMSSubscribeToEvents
  * @extends Component
  */
-class CLMSEventsView extends Component {
+class CLMSSubscribeToEventsView extends Component {
   /**
    * Property types.
    * @property {Object} propTypes Property types.
    * @static
    */
   static propTypes = {
-    userId: PropTypes.string,
     loaded: PropTypes.bool,
     loading: PropTypes.bool,
-    getUser: PropTypes.func.isRequired,
-    updateUser: PropTypes.func.isRequired,
-    getBaseUrl: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
@@ -76,12 +69,7 @@ class CLMSEventsView extends Component {
       value: '',
     };
   }
-  componentDidMount() {
-    this.props.getUser(this.props.userId);
-    this.setState({
-      value: undefined,
-    });
-  }
+
   handleChange(event) {
     this.setState({
       value: event.target.value,
@@ -160,73 +148,49 @@ class CLMSEventsView extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const loggedIn = !!this.props.userId;
-
     return (
-      <>
-        {loggedIn && (
-          <Container>
-            <h1 className="page-title">
-              {this.props.intl.formatMessage(messages.subscribeToTheEvents)}
-            </h1>
-            <Form
-              className="ccl-form user-form contact-form"
-              // onSubmit={this.onSubmit}
-              size={'large'}
-            >
-              <div className="ccl-fieldset">
-                <div className="ccl-form-group">
-                  <label
-                    className="ccl-form-label"
-                    htmlFor="contact_form_subject"
-                  >
-                    {this.props.intl.formatMessage(messages.emailTitle)}
-                  </label>
-                  <span className="label-required">*</span>
-                  <p>
-                    {this.props.intl.formatMessage(messages.emailDescription)}
-                  </p>
-                  <Form.Group inline widths="equal">
-                    <Form.Input
-                      placeholder="example@example.com"
-                      fluid
-                      name="email"
-                      id="email"
-                      required={true}
-                      value={this.state.value}
-                      onChange={this.handleChange}
-                    />
-                    <Button
-                      basic
-                      primary
-                      value="subscribe"
-                      onClick={this.onSubmit}
-                    >
-                      {!this.props.subscribe_loading ? (
-                        <Icon className="circled" name={aheadSVG} size="30px" />
-                      ) : (
-                        <Loader active inline indeterminate size="small" />
-                      )}
-                    </Button>
-                  </Form.Group>
-                  <Button
-                    size="mini"
-                    color="red"
-                    // className="right floated"
-                    compact
-                    onClick={this.submitUnsubscribeToEvent}
-                    // loading={this.props.unsubscribe_loading}
-                  >
-                    {!this.props.unsubscribe_loading
-                      ? 'Unsubscribe'
-                      : 'Sending...'}
-                  </Button>
-                </div>
-              </div>
-            </Form>
-          </Container>
-        )}
-      </>
+      <Container>
+        <h1 className="page-title">
+          {this.props.intl.formatMessage(messages.subscribeToTheEvents)}
+        </h1>
+        <Form className="ccl-form user-form contact-form" size={'large'}>
+          <div className="ccl-fieldset">
+            <div className="ccl-form-group">
+              <label className="ccl-form-label" htmlFor="contact_form_subject">
+                {this.props.intl.formatMessage(messages.emailTitle)}
+              </label>
+              <span className="label-required">*</span>
+              <p>{this.props.intl.formatMessage(messages.emailDescription)}</p>
+              <Form.Group inline widths="equal">
+                <Form.Input
+                  placeholder="example@example.com"
+                  fluid
+                  name="email"
+                  id="email"
+                  required={true}
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+                <Button basic primary value="subscribe" onClick={this.onSubmit}>
+                  {!this.props.subscribe_loading ? (
+                    <Icon className="circled" name={aheadSVG} size="30px" />
+                  ) : (
+                    <Loader active inline indeterminate size="small" />
+                  )}
+                </Button>
+              </Form.Group>
+              <Button
+                size="mini"
+                color="red"
+                compact
+                onClick={this.submitUnsubscribeToEvent}
+              >
+                {!this.props.unsubscribe_loading ? 'Unsubscribe' : 'Sending...'}
+              </Button>
+            </div>
+          </div>
+        </Form>
+      </Container>
     );
   }
 }
@@ -234,11 +198,7 @@ class CLMSEventsView extends Component {
 export default compose(
   injectIntl,
   connect(
-    (state, props) => ({
-      user: state.users.user,
-      userId: state.userSession.token
-        ? jwtDecode(state.userSession.token).sub
-        : '',
+    (state) => ({
       subscribe_loaded: state.subscribe_to_event.subscribe.loaded,
       subscribe_loading: state.subscribe_to_event.subscribe.loading,
       subscribe_error: state.subscribe_to_event.subscribe.error,
@@ -246,6 +206,6 @@ export default compose(
       unsubscribe_loading: state.subscribe_to_event.unsubscribe.loading,
       unsubscribe_error: state.subscribe_to_event.unsubscribe.error,
     }),
-    { getUser, updateUser, getBaseUrl, subscribeToEvent, unsubscribeToEvent },
+    { subscribeToEvent, unsubscribeToEvent },
   ),
-)(CLMSEventsView);
+)(CLMSSubscribeToEventsView);
