@@ -5,8 +5,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { defineMessages, injectIntl } from 'react-intl';
 import jwtDecode from 'jwt-decode';
 import { Icon, Toast } from '@plone/volto/components';
@@ -98,6 +98,12 @@ class CLMSNewsletterView extends Component {
       value: event.target.value,
     });
   }
+
+  emptyFieldErrorToast = () => {
+    toast.error(
+      <Toast error title={'Error'} content={'Write your email in the field'} />,
+    );
+  };
 
   /**
    * Submit handler
