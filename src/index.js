@@ -76,6 +76,7 @@ const applyConfig = (config) => {
       '/download-by-area',
       '/cart',
       '/newsletter-notification-subscription',
+      '/newsletter-notification-unsubscription',
     ],
     isMultilingual: true,
     supportedLanguages: [
@@ -121,11 +122,19 @@ const applyConfig = (config) => {
       component: ProfileView,
     },
     {
-      path: '/newsletter-notification-subscription',
+      path: '/newsletter-notification-subscription/:id',
       component: NewsletterSubscriptionConfirmView,
     },
     {
-      path: '/**/newsletter-notification-subscription',
+      path: '/**/newsletter-notification-subscription/:id',
+      component: NewsletterSubscriptionConfirmView,
+    },
+    {
+      path: '/newsletter-notification-unsubscription/:id',
+      component: NewsletterSubscriptionConfirmView,
+    },
+    {
+      path: '/**/newsletter-notification-unsubscription/:id',
       component: NewsletterSubscriptionConfirmView,
     },
     {

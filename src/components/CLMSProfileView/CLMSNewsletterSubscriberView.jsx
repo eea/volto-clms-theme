@@ -19,6 +19,14 @@ import { getBaseUrl } from '@plone/volto/helpers';
  * @extends Component
  */
 class CLMSNewsletterSubscriberView extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(e) {
+    e.preventDefault();
+    this.props.getSubscribers();
+  }
   /**
    * Render method.
    * @method render
@@ -35,11 +43,7 @@ class CLMSNewsletterSubscriberView extends Component {
             Click in the button bellow to download a list of all the newsletter
             subscribers.
           </p>
-          <CclButton
-            mode={'filled'}
-            download={true}
-            onClick={this.props.getSubscribers()}
-          >
+          <CclButton mode={'filled'} download={true} onClick={this.handleClick}>
             Download
           </CclButton>
         </div>

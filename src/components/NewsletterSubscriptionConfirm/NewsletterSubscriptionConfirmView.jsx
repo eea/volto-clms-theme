@@ -1,11 +1,24 @@
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import React, { Component } from 'react';
 import { confirmSubscribe } from '../../actions';
-import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getUser, updateUser } from '@plone/volto/actions';
+import { Toast } from '@plone/volto/components';
+import { defineMessages, injectIntl } from 'react-intl';
+import { toast } from 'react-toastify';
 import { getBaseUrl } from '@plone/volto/helpers';
+
+const messages = defineMessages({
+  saved: {
+    id: 'Changes saved',
+    defaultMessage: 'Your subscription have been confirmed',
+  },
+  success: {
+    id: 'Success',
+    defaultMessage: 'Success',
+  },
+});
 
 class NewsletterSubscriptionConfirmView extends Component {
   constructor(props) {
@@ -14,7 +27,15 @@ class NewsletterSubscriptionConfirmView extends Component {
   }
   handlePost(e) {
     e.preventDefault();
-    this.props.confirmSubscribe(this.props.userId);
+    this.props.confirmSubscribe(this.props.match.params.id).then(() => {
+      toast.success(
+        <Toast
+          success
+          title={this.props.intl.formatMessage(messages.success)}
+          content={this.props.intl.formatMessage(messages.saved)}
+        />,
+      );
+    });
   }
   render() {
     return (
