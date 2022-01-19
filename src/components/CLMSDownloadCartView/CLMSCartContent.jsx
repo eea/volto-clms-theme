@@ -29,12 +29,12 @@ import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 const CLMSCartContent = (props) => {
   const { localSessionCart } = props;
   const dispatch = useDispatch();
-  const { cart, removeCartItem } = useCartState();
+  const cart = useSelector((state) => state.cart_items.items);
+  const { removeCartItem, removeCartItems } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
-  const user_id = useSelector((state) => state.users.user.id);
   const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
   const formatConversionTable = useSelector(
     (state) => state.downloadtool.format_conversion_table_in_progress,
@@ -51,10 +51,20 @@ const CLMSCartContent = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (datasets?.length > 0) {
+    setCartItemInProgress(post_download_in_progress['unique_ids']);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post_download_in_progress]);
+
+  useEffect(() => {
+    const array_ids = cart?.map((item) => item.unique_id);
+    const newCart = cartItems.filter((item) =>
+      array_ids.includes(item.unique_id),
+    );
+    setCartItems(cleanDuplicatesEntries(newCart));
+    if (datasets?.length > 0 && cart.length > 0 && !newCart.length) {
       concatRequestedCartItem();
     }
-  }, [datasets]);
+  }, [cart, datasets]);
 
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
@@ -71,7 +81,9 @@ const CLMSCartContent = (props) => {
           );
           setCartItems(cleanDuplicatesEntries(cartItems));
         } else {
-          cartItems.push(getCartObjectFromMapviewer(localItem, requestedItem));
+          cartItems.push(
+            getCartObjectFromMapviewer(localItem, requestedItem, projections),
+          );
           setCartItems(cleanDuplicatesEntries(cartItems));
         }
       }
@@ -106,27 +118,12 @@ const CLMSCartContent = (props) => {
     let started_processing_items = cartItems.filter((r) =>
       in_progress_unique_ids.includes(r['unique_id']),
     );
-    started_processing_items.forEach((item) => {
-      if (item['unique_id']) {
-        removeCartItem(item['unique_id'], user_id);
-        dispatch(getFormatConversionTable());
-        dispatch(getDownloadtool());
-      }
-    });
-  };
-
-  useEffect(() => {
-    setCartItemInProgress(post_download_in_progress['unique_ids']);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post_download_in_progress]);
-
-  useEffect(() => {
-    const array_ids = cart?.map((item) => item.unique_id);
-    const newCart = cartItems.filter((item) =>
-      array_ids.includes(item.unique_id),
+    var items_to_remove = started_processing_items.map(
+      (item) => item.unique_id,
     );
-    setCartItems(newCart);
-  }, [cart]);
+    removeCartItems(items_to_remove);
+    dispatch(getDownloadtool());
+  };
 
   function startDownloading() {
     let selectedItems = getSelectedCartItems();
@@ -141,7 +138,7 @@ const CLMSCartContent = (props) => {
   };
   return (
     <>
-      {localSessionCart?.length !== 0 ? (
+      {cartItems?.length !== 0 ? (
         <div className="custom-table cart-table">
           <h2>My cart</h2>
           <table>
@@ -250,10 +247,7 @@ const CLMSCartContent = (props) => {
                       {!item.file_id ? (
                         <Select
                           placeholder="Select projection"
-                          value={
-                            item.projection ||
-                            setProjectionValue(item.unique_id, projections[0])
-                          }
+                          value={item.projection}
                           options={projections.map((item) => {
                             return {
                               key: item,

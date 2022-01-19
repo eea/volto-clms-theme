@@ -28,14 +28,18 @@ import jwtDecode from 'jwt-decode';
 // import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 
 const CartIconCounter = (props) => {
-  const { cart_items, users, intl } = useSelector((state) => state);
+  const cart = useSelector((state) => state.cart_items.items);
+  const intl = useSelector((state) => state.intl);
+  const user_id = useSelector((state) => state.users.user.id);
+  // const { cart_items, users, intl } = useSelector((state) => state);
 
-  const cart = cart_items.items || [];
-  const user_id = users.user.id;
+  // const cart = cart_items.items || [];
+  // const user_id = users.user.id;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));
-  }, [user_id, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user_id]);
   return (
     cart && (
       <>
