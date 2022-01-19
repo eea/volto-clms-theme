@@ -90,9 +90,34 @@ class CLMSEventsView extends Component {
 
   emptyFieldErrorToast = () => {
     toast.error(
-      <Toast error title={'Error'} content={'Write your email in the field'} />,
+      <Toast
+        error
+        title={this.props.intl.formatMessage(messages.error)}
+        content={'Write your email in the field'}
+      />,
     );
   };
+
+  requestErrorToast = () => {
+    toast.error(
+      <Toast
+        error
+        title={this.props.intl.formatMessage(messages.error)}
+        content={this.props.intl.formatMessage(messages.errorMessage)}
+      />,
+    );
+  };
+
+  requestSuccessToast = () => {
+    toast.success(
+      <Toast
+        success
+        title={this.props.intl.formatMessage(messages.success)}
+        content={this.props.intl.formatMessage(messages.saved)}
+      />,
+    );
+  };
+
   /**
    * Submit handler
    * @method onSubmit
@@ -105,24 +130,10 @@ class CLMSEventsView extends Component {
       this.props
         .subscribeToEvent(this.state.value)
         .then(() => {
-          this.props.subscribe_loaded &&
-            toast.success(
-              <Toast
-                success
-                title={this.props.intl.formatMessage(messages.success)}
-                content={this.props.intl.formatMessage(messages.saved)}
-              />,
-            );
+          this.props.subscribe_loaded && this.requestSuccessToast();
         })
         .catch(() => {
-          this.props.subscribe_error &&
-            toast.error(
-              <Toast
-                error
-                title={this.props.intl.formatMessage(messages.error)}
-                content={this.props.intl.formatMessage(messages.errorMessage)}
-              />,
-            );
+          this.props.subscribe_error && this.requestErrorToast();
         });
     } else {
       this.emptyFieldErrorToast();
@@ -134,24 +145,10 @@ class CLMSEventsView extends Component {
       this.props
         .unsubscribeToEvent(this.state.value)
         .then(() => {
-          this.props.unsubscribe_loaded &&
-            toast.success(
-              <Toast
-                success
-                title={this.props.intl.formatMessage(messages.success)}
-                content={this.props.intl.formatMessage(messages.saved)}
-              />,
-            );
+          this.props.unsubscribe_loaded && this.requestSuccessToast();
         })
         .catch(() => {
-          this.props.unsubscribe_error &&
-            toast.error(
-              <Toast
-                error
-                title={this.props.intl.formatMessage(messages.error)}
-                content={this.props.intl.formatMessage(messages.errorMessage)}
-              />,
-            );
+          this.props.unsubscribe_error && this.requestErrorToast();
         });
     } else {
       this.emptyFieldErrorToast();
