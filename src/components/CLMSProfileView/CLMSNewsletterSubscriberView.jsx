@@ -26,6 +26,7 @@ class CLMSNewsletterSubscriberView extends Component {
   handleClick(e) {
     e.preventDefault();
     this.props.getSubscribers();
+    // var data = this.props.getSubscribers()
   }
   /**
    * Render method.
