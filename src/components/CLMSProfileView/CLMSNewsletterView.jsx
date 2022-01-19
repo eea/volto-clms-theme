@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import { Container, Button, Form, Loader } from 'semantic-ui-react';
-import { subscribeNewsletter } from '../../actions';
+import { subscribeNewsletter, unsubscribeNewsletter } from '../../actions';
 
 const messages = defineMessages({
   Newsletter: {
@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
   saved: {
     id: 'Changes saved',
-    defaultMessage: 'Changes saved',
+    defaultMessage: 'Confirmation email sent',
   },
   success: {
     id: 'Success',
@@ -85,16 +85,17 @@ class CLMSNewsletterView extends Component {
       value: '',
     };
   }
-  handleChange(event) {
-    this.setState({
-      value: event.target.value,
-    });
-  }
 
   componentDidMount() {
     this.props.getUser(this.props.userId);
     this.setState({
       value: undefined,
+    });
+  }
+
+  handleChange(event) {
+    this.setState({
+      value: event.target.value,
     });
   }
 
@@ -106,17 +107,62 @@ class CLMSNewsletterView extends Component {
    */
   onSubmit(event) {
     event.preventDefault();
-    this.props.subscribeNewsletter(this.state.value);
-    this.props.loaded &&
-      toast.success(
-        <Toast
-          success
-          title={this.props.intl.formatMessage(messages.success)}
-          content={this.props.intl.formatMessage(messages.saved)}
-        />,
-      );
+    if (this.state.value) {
+      this.props
+        .subscribeNewsletter(this.state.value)
+        .then(() => {
+          this.props.subscribe_loaded &&
+            toast.success(
+              <Toast
+                success
+                title={this.props.intl.formatMessage(messages.success)}
+                content={this.props.intl.formatMessage(messages.saved)}
+              />,
+            );
+        })
+        .catch(() => {
+          this.props.subscribe_error &&
+            toast.error(
+              <Toast
+                error
+                title={this.props.intl.formatMessage(messages.error)}
+                content={this.props.intl.formatMessage(messages.errorMessage)}
+              />,
+            );
+        });
+    } else {
+      this.emptyFieldErrorToast();
+    }
   }
 
+  submitunSubscribeNewsletter = () => {
+    if (this.state.value) {
+      this.props
+        .unsubscribeNewsletter(this.state.value)
+        .then(() => {
+          this.props.unsubscribe_loaded &&
+            toast.success(
+              <Toast
+                success
+                title={this.props.intl.formatMessage(messages.success)}
+                content={this.props.intl.formatMessage(messages.saved)}
+              />,
+            );
+        })
+        .catch(() => {
+          this.props.unsubscribe_error &&
+            toast.error(
+              <Toast
+                error
+                title={this.props.intl.formatMessage(messages.error)}
+                content={this.props.intl.formatMessage(messages.errorMessage)}
+              />,
+            );
+        });
+    } else {
+      this.emptyFieldErrorToast();
+    }
+  };
   /**
    * Render method.
    * @method render
@@ -128,64 +174,64 @@ class CLMSNewsletterView extends Component {
       <>
         {loggedIn && (
           <Container>
-            <div>
-              <h1 className="page-title">
-                {this.props.intl.formatMessage(messages.Newsletter)}
-              </h1>
-              <div>
-                <Form
-                  loading={this.props.loading || false}
-                  className="ccl-form user-form contact-form"
-                  onSubmit={this.onSubmit}
-                >
-                  <div className="ccl-fieldset">
-                    <div className="ccl-form-group">
-                      <label
-                        className="ccl-form-label"
-                        htmlFor="contact_form_subject"
-                      >
-                        {this.props.intl.formatMessage(messages.emailTitle)}
-                      </label>
-                      <span className="label-required">*</span>
-                      <p>
-                        {this.props.intl.formatMessage(
-                          messages.emailDescription,
-                        )}
-                      </p>
-                      <input
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                        type="text"
-                        className="ccl-email-input"
-                        id="email"
-                        name="email"
-                        placeholder="example@example.com"
-                        aria-label="Subscription email"
-                        required="required"
-                      />
-                      {!this.props.loading ? (
-                        <Button
-                          basic
-                          primary
-                          floated="right"
-                          type="submit"
-                          aria-label={'submit'}
-                          title={'submit'}
-                        >
-                          <Icon
-                            className="circled"
-                            name={aheadSVG}
-                            size="30px"
-                          />
-                        </Button>
+            <h1 className="page-title">
+              {this.props.intl.formatMessage(messages.Newsletter)}
+            </h1>
+            <Form
+              className="ccl-form user-form contact-form"
+              // onSubmit={this.onSubmit}
+              size={'large'}
+            >
+              <div className="ccl-fieldset">
+                <div className="ccl-form-group">
+                  <label
+                    className="ccl-form-label"
+                    htmlFor="contact_form_subject"
+                  >
+                    {this.props.intl.formatMessage(messages.emailTitle)}
+                  </label>
+                  <span className="label-required">*</span>
+                  <p>
+                    {this.props.intl.formatMessage(messages.emailDescription)}
+                  </p>
+                  <Form.Group inline widths="equal">
+                    <Form.Input
+                      placeholder="example@example.com"
+                      fluid
+                      name="email"
+                      id="email"
+                      required={true}
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                    />
+                    <Button
+                      basic
+                      primary
+                      value="subscribe"
+                      onClick={this.onSubmit}
+                    >
+                      {!this.props.subscribe_loading ? (
+                        <Icon className="circled" name={aheadSVG} size="30px" />
                       ) : (
                         <Loader active inline indeterminate size="small" />
                       )}
-                    </div>
-                  </div>
-                </Form>
+                    </Button>
+                  </Form.Group>
+                  <Button
+                    size="mini"
+                    color="red"
+                    // className="right floated"
+                    compact
+                    onClick={this.submitunSubscribeNewsletter}
+                    // loading={this.props.unsubscribe_loading}
+                  >
+                    {!this.props.unsubscribe_loading
+                      ? 'Unsubscribe'
+                      : 'Sending...'}
+                  </Button>
+                </div>
               </div>
-            </div>
+            </Form>
           </Container>
         )}
       </>
@@ -201,10 +247,19 @@ export default compose(
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
-      loaded: state.subscribe_to_newsletter.loaded,
-      loading: state.subscribe_to_newsletter.loading,
-      userschema: state.userschema,
+      subscribe_loaded: state.subscribe_to_newsletter.subscribe.loaded,
+      subscribe_loading: state.subscribe_to_newsletter.subscribe.loading,
+      subscribe_error: state.subscribe_to_newsletter.subscribe.error,
+      unsubscribe_loaded: state.subscribe_to_newsletter.unsubscribe.loaded,
+      unsubscribe_loading: state.subscribe_to_newsletter.unsubscribe.loading,
+      unsubscribe_error: state.subscribe_to_newsletter.unsubscribe.error,
     }),
-    { getUser, updateUser, getBaseUrl, subscribeNewsletter },
+    {
+      getUser,
+      updateUser,
+      getBaseUrl,
+      subscribeNewsletter,
+      unsubscribeNewsletter,
+    },
   ),
 )(CLMSNewsletterView);

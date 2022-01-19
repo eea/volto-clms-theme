@@ -79,9 +79,3 @@ export {
   unsubscribeNewsletter,
   confirmUnsubscribe,
 } from './newsletter/post_subscribers';
-export {
-  DEL_SUBSCRIBERS,
-  deleteSubscription,
-  deleteSubscriptionRequest,
-  deleteUnsubscriptionRequest,
-} from './newsletter/del_subscribers';
