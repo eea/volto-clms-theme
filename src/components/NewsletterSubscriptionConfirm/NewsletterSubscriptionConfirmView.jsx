@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 import { confirmSubscribe } from '../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getUser, updateUser } from '@plone/volto/actions';
 import { Toast } from '@plone/volto/components';
 import { defineMessages, injectIntl } from 'react-intl';
 import { toast } from 'react-toastify';
-import { getBaseUrl } from '@plone/volto/helpers';
 
 const messages = defineMessages({
   saved: {
@@ -56,14 +54,7 @@ class NewsletterSubscriptionConfirmView extends Component {
 
 export default compose(
   injectIntl,
-  connect(
-    (state) => ({
-      user: state.users.user,
-      userId: state.userSession.token,
-      loaded: state.users.get.loaded,
-      loading: state.users.update.loading,
-      userschema: state.userschema,
-    }),
-    { getUser, updateUser, getBaseUrl, confirmSubscribe },
-  ),
+  connect(() => ({}), {
+    confirmSubscribe,
+  }),
 )(NewsletterSubscriptionConfirmView);

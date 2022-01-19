@@ -4,7 +4,7 @@
  */
 
 import {
-  GET_SUBSCRIBERS,
+  // GET_SUBSCRIBERS,
   POST_SUBSCRIBERS,
   POST_UNSUBSCRIBERS,
 } from '../../actions';
@@ -24,7 +24,7 @@ const getInitialState = {
 
 export const newsletterReducer = (state = getInitialState, action = {}) => {
   switch (action.type) {
-    case `${GET_SUBSCRIBERS}_PENDING`:
+    /* case `${GET_SUBSCRIBERS}_PENDING`:
       return {
         ...state,
         error: null,
@@ -44,7 +44,7 @@ export const newsletterReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-      };
+      }; */
     case `${POST_SUBSCRIBERS}_PENDING`:
       return {
         ...state,

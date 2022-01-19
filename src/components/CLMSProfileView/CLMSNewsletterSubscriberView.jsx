@@ -11,8 +11,7 @@ import { injectIntl } from 'react-intl';
 import { Container } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { getSubscribers } from '../../actions';
-import { getUser, updateUser } from '@plone/volto/actions';
-import { getBaseUrl } from '@plone/volto/helpers';
+import { CSVDownload } from 'react-csv';
 
 /**
  * CLMSProfileView class.
@@ -23,11 +22,18 @@ class CLMSNewsletterSubscriberView extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      download: false,
+      headers: [{ label: 'Newsletter Subscribers', key: 'email' }],
+    };
+  }
+  componentDidMount() {
+    this.props.getSubscribers();
   }
   handleClick(e) {
-    e.preventDefault();
-    this.props.getSubscribers();
-    // var data = this.props.getSubscribers()
+    this.setState({
+      download: true,
+    });
   }
   /**
    * Render method.
@@ -45,9 +51,15 @@ class CLMSNewsletterSubscriberView extends Component {
             Click in the button bellow to download a list of all the newsletter
             subscribers.
           </p>
-          <CclButton mode={'filled'} download={true} onClick={this.handleClick}>
+          <CclButton mode={'filled'} onClick={this.handleClick}>
             Download
           </CclButton>
+          {this.state.download && (
+            <CSVDownload
+              data={this.props.subscribers.items}
+              headers={this.state.headers}
+            />
+          )}
         </div>
       </Container>
     );
@@ -58,11 +70,8 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      user: state.users.user,
-      loaded: state.users.get.loaded,
-      loading: state.users.update.loading,
-      userschema: state.userschema,
+      subscribers: state.newsletter_subscribers,
     }),
-    { getUser, updateUser, getBaseUrl, getSubscribers },
+    { getSubscribers },
   ),
 )(CLMSNewsletterSubscriberView);
