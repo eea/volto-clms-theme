@@ -14,7 +14,7 @@ import aheadSVG from '@plone/volto/icons/ahead.svg';
 import { toast } from 'react-toastify';
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
-import { Container, Button } from 'semantic-ui-react';
+import { Container, Button, Form, Loader } from 'semantic-ui-react';
 import { subscribeNewsletter } from '../../actions';
 
 const messages = defineMessages({
@@ -70,7 +70,6 @@ class CLMSNewsletterView extends Component {
       username: PropTypes.string,
       return_url: PropTypes.string,
     }),
-    subscribeNewsletter: PropTypes.func,
     userId: PropTypes.string,
     loaded: PropTypes.bool,
     loading: PropTypes.bool,
@@ -81,24 +80,15 @@ class CLMSNewsletterView extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handlePost = this.handlePost.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      tokenTitle: '',
-      createNewToken: true,
-      modal: false,
-      createdToken: false,
-      textToCopy: '',
-      key_id: '',
+      value: '',
     };
   }
   handleChange(event) {
     this.setState({
       value: event.target.value,
     });
-  }
-  handlePost(e) {
-    e.preventDefault();
-    this.props.subscribeNewsletter(this.state.value);
   }
 
   componentDidMount() {
@@ -114,21 +104,17 @@ class CLMSNewsletterView extends Component {
    * @param {object} data Form data.
    * @returns {undefined}
    */
-  onSubmit(data) {
-    // We don't want the user to change his login name/username or the roles
-    // from this form
-    // Backend will complain anyways, but we clean the data here before it does
-    delete data.id;
-    delete data.username;
-    delete data.roles;
-    this.props.updateUser(this.props.userId, data);
-    toast.success(
-      <Toast
-        success
-        title={this.props.intl.formatMessage(messages.success)}
-        content={this.props.intl.formatMessage(messages.saved)}
-      />,
-    );
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.subscribeNewsletter(this.state.value);
+    this.props.loaded &&
+      toast.success(
+        <Toast
+          success
+          title={this.props.intl.formatMessage(messages.success)}
+          content={this.props.intl.formatMessage(messages.saved)}
+        />,
+      );
   }
 
   /**
@@ -147,7 +133,11 @@ class CLMSNewsletterView extends Component {
                 {this.props.intl.formatMessage(messages.Newsletter)}
               </h1>
               <div>
-                <form className="ccl-form user-form contact-form">
+                <Form
+                  loading={this.props.loading || false}
+                  className="ccl-form user-form contact-form"
+                  onSubmit={this.onSubmit}
+                >
                   <div className="ccl-fieldset">
                     <div className="ccl-form-group">
                       <label
@@ -170,22 +160,30 @@ class CLMSNewsletterView extends Component {
                         id="email"
                         name="email"
                         placeholder="example@example.com"
-                        aria-label="Name of the new token"
+                        aria-label="Subscription email"
+                        required="required"
                       />
-                      <Button
-                        basic
-                        primary
-                        floated="right"
-                        type="submit"
-                        aria-label={'submit'}
-                        title={'submit'}
-                        onClick={this.handlePost}
-                      >
-                        <Icon className="circled" name={aheadSVG} size="30px" />
-                      </Button>
+                      {!this.props.loading ? (
+                        <Button
+                          basic
+                          primary
+                          floated="right"
+                          type="submit"
+                          aria-label={'submit'}
+                          title={'submit'}
+                        >
+                          <Icon
+                            className="circled"
+                            name={aheadSVG}
+                            size="30px"
+                          />
+                        </Button>
+                      ) : (
+                        <Loader active inline indeterminate size="small" />
+                      )}
                     </div>
                   </div>
-                </form>
+                </Form>
               </div>
             </div>
           </Container>
@@ -198,13 +196,13 @@ class CLMSNewsletterView extends Component {
 export default compose(
   injectIntl,
   connect(
-    (state, props) => ({
+    (state) => ({
       user: state.users.user,
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
-      loaded: state.users.get.loaded,
-      loading: state.users.update.loading,
+      loaded: state.subscribe_to_newsletter.loaded,
+      loading: state.subscribe_to_newsletter.loading,
       userschema: state.userschema,
     }),
     { getUser, updateUser, getBaseUrl, subscribeNewsletter },

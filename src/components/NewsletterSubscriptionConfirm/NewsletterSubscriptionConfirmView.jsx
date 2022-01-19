@@ -26,7 +26,7 @@ class NewsletterSubscriptionConfirmView extends Component {
               <p>Click on the button bellow to confirm your subscription</p>
             </div>
           </div>
-          <CclButton onclick={this.handlePost}>Confirm</CclButton>
+          <CclButton onClick={this.handlePost}>Confirm</CclButton>
         </div>
       </>
     );
@@ -36,7 +36,7 @@ class NewsletterSubscriptionConfirmView extends Component {
 export default compose(
   injectIntl,
   connect(
-    (state, props) => ({
+    (state) => ({
       user: state.users.user,
       userId: state.userSession.token,
       loaded: state.users.get.loaded,

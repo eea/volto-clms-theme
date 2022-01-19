@@ -16,7 +16,7 @@ const getInitialState = {
   loading: false,
 };
 
-export const downloadtoolReducer = (state = getInitialState, action = {}) => {
+export const newsletterReducer = (state = getInitialState, action = {}) => {
   switch (action.type) {
     case `${GET_SUBSCRIBERS}_PENDING`:
       return {
@@ -38,7 +38,6 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        subscribers: [...action.result, 'test'],
       };
     case `${POST_SUBSCRIBERS}_PENDING`:
       return {

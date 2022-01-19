@@ -19,9 +19,6 @@ import { getBaseUrl } from '@plone/volto/helpers';
  * @extends Component
  */
 class CLMSNewsletterSubscriberView extends Component {
-  componentDidMount() {
-    this.props.getSubscribers();
-  }
   /**
    * Render method.
    * @method render
@@ -41,7 +38,7 @@ class CLMSNewsletterSubscriberView extends Component {
           <CclButton
             mode={'filled'}
             download={true}
-            onclick={this.props.getSubscribers()}
+            onClick={this.props.getSubscribers()}
           >
             Download
           </CclButton>
