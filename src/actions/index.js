@@ -97,3 +97,11 @@ export {
   unsubscribeToNews,
   confirmUnsubscribeToNews,
 } from './subscribe_to_news/post_subscribe_to_news';
+
+export {
+  POST_SUBSCRIBE_TO,
+  subscribeTo,
+  confirmSubscribeTo,
+  unsubscribeTo,
+  confirmUnsubscribeTo,
+} from './subscription/post_subscription';

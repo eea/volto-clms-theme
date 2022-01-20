@@ -11,6 +11,7 @@ import {
   CLMSSubscribeToEventsView,
   CLMSSubscribeToNewsView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
+import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 import React, { Component } from 'react';
 import { getUser, updateUser } from '@plone/volto/actions';
 
@@ -86,17 +87,17 @@ class CLMSProfileView extends Component {
               <div tabTitle="API TOKENS">
                 {CLMSApiTokensView(this.props.content)}
               </div>
-              <div tabTitle="SUBSCRIBE TO OUR NEWSLETTER">
-                {CLMSNewsletterView(this.props.content)}
-              </div>
               <div tabTitle="NEWSLETTER SUBSCRIBERS">
                 {CLMSNewsletterSubscriberView(this.props.content)}
               </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWSLETTER">
+                <SubscriptionView type="newsletter" />
+              </div>
               <div tabTitle="SUBSCRIBE TO OUR EVENTS">
-                <CLMSSubscribeToEventsView />
+                <SubscriptionView type="events" />
               </div>
               <div tabTitle="SUBSCRIBE TO OUR NEWS">
-                <CLMSSubscribeToNewsView />
+                <SubscriptionView type="news" />
               </div>
             </CclTabs>
           </>

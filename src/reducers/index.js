@@ -17,6 +17,7 @@ import { newsletterReducer } from './newsletter/newsletter_reducer';
 import { subscribeToEventReducer } from './subscribe_to_event/subscribe_to_event_reducer';
 import { subscribeToNewsReducer } from './subscribe_to_news/subscribe_to_news_reducer';
 import { newsletterSubscribersReducer } from './newsletter/subscriber_reducer';
+import { subscribeToReducer } from './subscription/subscription_reducer';
 
 /**
  * Root reducer.
@@ -41,6 +42,7 @@ const reducers = {
   subscribe_to_event: subscribeToEventReducer,
   subscribe_to_news: subscribeToNewsReducer,
   newsletter_subscribers: newsletterSubscribersReducer,
+  subscription: subscribeToReducer,
 };
 
 export default reducers;
