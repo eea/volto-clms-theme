@@ -80,13 +80,6 @@ export {
   confirmUnsubscribe,
 } from './newsletter/post_subscribers';
 export {
-  DEL_SUBSCRIBERS,
-  deleteSubscription,
-  deleteSubscriptionRequest,
-  deleteUnsubscriptionRequest,
-} from './newsletter/del_subscribers';
-
-export {
   POST_SUBSCRIBE_TO_EVENT,
   POST_UNSUBSCRIBE_TO_EVENT,
   subscribeToEvent,
@@ -94,7 +87,6 @@ export {
   unsubscribeToEvent,
   confirmUnsubscribeToEvent,
 } from './subscribe_to_event/post_subscribe_to_event';
-
 export {
   POST_SUBSCRIBE_TO_NEWS,
   POST_UNSUBSCRIBE_TO_NEWS,

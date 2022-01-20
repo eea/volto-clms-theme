@@ -4,21 +4,27 @@
  */
 
 import {
-  GET_SUBSCRIBERS,
+  // GET_SUBSCRIBERS,
   POST_SUBSCRIBERS,
   POST_UNSUBSCRIBERS,
-  DEL_SUBSCRIBERS,
 } from '../../actions';
 
 const getInitialState = {
-  error: null,
-  loaded: false,
-  loading: false,
+  subscribe: {
+    error: null,
+    loaded: false,
+    loading: false,
+  },
+  unsubscribe: {
+    error: null,
+    loaded: false,
+    loading: false,
+  },
 };
 
-export const downloadtoolReducer = (state = getInitialState, action = {}) => {
+export const newsletterReducer = (state = getInitialState, action = {}) => {
   switch (action.type) {
-    case `${GET_SUBSCRIBERS}_PENDING`:
+    /* case `${GET_SUBSCRIBERS}_PENDING`:
       return {
         ...state,
         error: null,
@@ -38,70 +44,66 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        subscribers: action.result,
-      };
+      }; */
     case `${POST_SUBSCRIBERS}_PENDING`:
       return {
         ...state,
-        error: null,
-        loaded: false,
-        loading: true,
+        subscribe: {
+          ...state.subscribe,
+          error: null,
+          loaded: false,
+          loading: true,
+        },
       };
     case `${POST_SUBSCRIBERS}_FAIL`:
       return {
         ...state,
-        error: true,
-        loaded: false,
-        loading: false,
+        subscribe: {
+          ...state.subscribe,
+          error: true,
+          loaded: false,
+          loading: true,
+        },
       };
     case `${POST_SUBSCRIBERS}_SUCCESS`:
       return {
         ...state,
-        error: null,
-        loaded: true,
-        loading: false,
+        subscribe: {
+          ...state.subscribe,
+          error: null,
+          loaded: true,
+          loading: false,
+        },
       };
     case `${POST_UNSUBSCRIBERS}_PENDING`:
       return {
         ...state,
-        error: null,
-        loaded: false,
-        loading: true,
+        unsubscribe: {
+          ...state.unsubscribe,
+          error: null,
+          loaded: false,
+          loading: true,
+        },
       };
     case `${POST_UNSUBSCRIBERS}_FAIL`:
       return {
         ...state,
-        error: true,
-        loaded: false,
-        loading: false,
+        unsubscribe: {
+          ...state.unsubscribe,
+          error: true,
+          loaded: false,
+          loading: false,
+        },
       };
     case `${POST_UNSUBSCRIBERS}_SUCCESS`:
       return {
         ...state,
-        error: null,
-        loaded: true,
-        loading: false,
-      };
-    case `${DEL_SUBSCRIBERS}_PENDING`:
-      return {
-        ...state,
-        error: null,
-        loaded: false,
-        loading: true,
-      };
-    case `${DEL_SUBSCRIBERS}_FAIL`:
-      return {
-        ...state,
-        error: true,
-        loaded: false,
-        loading: false,
-      };
-    case `${DEL_SUBSCRIBERS}_SUCCESS`:
-      return {
-        ...state,
-        error: null,
-        loaded: true,
-        loading: false,
+        unsubscribe: {
+          ...state.unsubscribe,
+          error: null,
+          loaded: true,
+          loading: false,
+        },
       };
     default:
       return state;
