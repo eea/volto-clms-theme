@@ -18,6 +18,14 @@ const messages = defineMessages({
     id: 'Success',
     defaultMessage: 'Success',
   },
+  error: {
+    id: 'Error',
+    defaultMessage: 'Error',
+  },
+  errorMessage: {
+    id: 'Error message',
+    defaultMessage: 'There was an error while confirming your unsubscription',
+  },
 });
 
 class NewsletterUnsubscriptionConfirmView extends Component {
@@ -27,15 +35,26 @@ class NewsletterUnsubscriptionConfirmView extends Component {
   }
   handlePost(e) {
     e.preventDefault();
-    this.props.confirmUnsubscribe(this.props.match.params.id).then(() => {
-      toast.success(
-        <Toast
-          success
-          title={this.props.intl.formatMessage(messages.success)}
-          content={this.props.intl.formatMessage(messages.saved)}
-        />,
-      );
-    });
+    this.props
+      .confirmUnsubscribe(this.props.match.params.id)
+      .then(() => {
+        toast.success(
+          <Toast
+            success
+            title={this.props.intl.formatMessage(messages.success)}
+            content={this.props.intl.formatMessage(messages.saved)}
+          />,
+        );
+      })
+      .catch(() => {
+        toast.error(
+          <Toast
+            error
+            title={this.props.intl.formatMessage(messages.error)}
+            content={this.props.intl.formatMessage(messages.errorMessage)}
+          />,
+        );
+      });
   }
   render() {
     return (
