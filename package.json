@@ -42,6 +42,7 @@
     "@fortawesome/react-fontawesome": "0.1.14",
     "react-slick": "0.28.1",
     "slick-carousel": "1.8.1",
+    "react-csv": "2.2.2",
     "react-svg": "14.0.4",
     "@eeacms/volto-arcgis-block": "*",
     "react-native-mime-types": "2.3.0",

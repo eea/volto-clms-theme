@@ -25,6 +25,9 @@ import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidge
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
+import NewsletterSubscriptionConfirmView from './components/NewsletterSubscriptionConfirm/NewsletterSubscriptionConfirmView';
+import NewsletterUnsubscriptionConfirmView from './components/NewsletterSubscriptionConfirm/NewsletterUnsubscriptionConfirmView';
+
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
@@ -75,6 +78,8 @@ const applyConfig = (config) => {
       '/profile',
       '/download-by-area',
       '/cart',
+      '/newsletter-notification-subscription',
+      '/newsletter-notification-unsubscription',
     ],
     isMultilingual: true,
     supportedLanguages: [
@@ -118,6 +123,22 @@ const applyConfig = (config) => {
     {
       path: '/**/profile',
       component: ProfileView,
+    },
+    {
+      path: '/newsletter-notification-subscription/:id',
+      component: NewsletterSubscriptionConfirmView,
+    },
+    {
+      path: '/**/newsletter-notification-subscription/:id',
+      component: NewsletterSubscriptionConfirmView,
+    },
+    {
+      path: '/newsletter-notification-unsubscription/:id',
+      component: NewsletterUnsubscriptionConfirmView,
+    },
+    {
+      path: '/**/newsletter-notification-unsubscription/:id',
+      component: NewsletterUnsubscriptionConfirmView,
     },
     {
       path: '/**/download-by-area',
