@@ -1,6 +1,6 @@
-import React from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclHomeImageEditor from './CclHomeImageEditor';
+import React from 'react';
 
 const CclGreenBgView = (props) => {
   const { data, isEditMode } = props;
@@ -10,7 +10,7 @@ const CclGreenBgView = (props) => {
       <div
         className="ccl-banner-top-main"
         style={{
-          backgroundImage: `url(${data?.image?.url}/@@images/image)`,
+          backgroundImage: `url(${data?.image?.url}/@@images/image/large)`,
         }}
       >
         {isEditMode && <CclHomeImageEditor {...props} />}

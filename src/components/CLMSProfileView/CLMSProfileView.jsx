@@ -6,7 +6,12 @@
 import {
   CLMSApiTokensView,
   CLMSUserProfileView,
+  CLMSNewsletterView,
+  CLMSNewsletterSubscriberView,
+  CLMSSubscribeToEventsView,
+  CLMSSubscribeToNewsView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
+import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 import React, { Component } from 'react';
 import { getUser, updateUser } from '@plone/volto/actions';
 
@@ -71,7 +76,9 @@ class CLMSProfileView extends Component {
     ]);
     return (
       <div className="ccl-container ">
-        {loggedIn && (
+        {loggedIn &&
+        (this.props.roles?.includes('Manager') ||
+          this.props.roles?.includes('Site Administrator')) ? (
           <>
             <CclTabs>
               <div tabTitle="USER PROFILE">
@@ -80,8 +87,41 @@ class CLMSProfileView extends Component {
               <div tabTitle="API TOKENS">
                 {CLMSApiTokensView(this.props.content)}
               </div>
+              <div tabTitle="NEWSLETTER SUBSCRIBERS">
+                {CLMSNewsletterSubscriberView(this.props.content)}
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWSLETTER">
+                <SubscriptionView type="newsletter" />
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR EVENTS">
+                <SubscriptionView type="events" />
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWS">
+                <SubscriptionView type="news" />
+              </div>
             </CclTabs>
           </>
+        ) : (
+          (loggedIn && (
+            <CclTabs>
+              <div tabTitle="USER PROFILE">
+                {CLMSUserProfileView(this.props.content)}
+              </div>
+              <div tabTitle="API TOKENS">
+                {CLMSApiTokensView(this.props.content)}
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWSLETTER">
+                {CLMSNewsletterView(this.props.content)}
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR EVENTS">
+                <CLMSSubscribeToEventsView />
+              </div>
+              <div tabTitle="SUBSCRIBE TO OUR NEWS">
+                <CLMSSubscribeToNewsView />
+              </div>
+            </CclTabs>
+          )) ||
+          ''
         )}
       </div>
     );
@@ -92,6 +132,7 @@ export default compose(
   connect(
     (state) => ({
       user: state.users.user,
+      roles: state.users.user.roles,
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',

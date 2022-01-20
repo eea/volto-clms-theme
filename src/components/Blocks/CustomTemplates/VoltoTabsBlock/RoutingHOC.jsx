@@ -6,10 +6,13 @@ const RoutingHOC = (TabView) =>
     const {
       data = {},
       tabsList = [],
+      tabs,
       activeTabIndex = 0,
       hashlink = {},
       setActiveTab = () => {},
     } = props;
+    const parentId = data.id || props.id;
+    const scrollToTarget = props.scrollToTarget;
     React.useEffect(() => {
       const urlHash = window.location.hash.substring(1) || '';
       if (
@@ -18,7 +21,6 @@ const RoutingHOC = (TabView) =>
       ) {
         const id = hashlink.hash || urlHash || '';
         const index = tabsList.indexOf(id);
-        const parentId = data.id || props.id;
         const parent = document.getElementById(parentId);
         const headerWrapper = document.querySelector('.header-wrapper');
         const offsetHeight = headerWrapper?.offsetHeight || 0;
@@ -26,9 +28,9 @@ const RoutingHOC = (TabView) =>
           if (activeTabIndex !== index) {
             setActiveTab(id);
           }
-          props.scrollToTarget(parent, offsetHeight);
+          scrollToTarget(parent, offsetHeight);
         } else if (id === parentId && parent) {
-          props.scrollToTarget(parent, offsetHeight);
+          scrollToTarget(parent, offsetHeight);
         }
       }
       if (!hashlinkOnMount) {
@@ -40,22 +42,23 @@ const RoutingHOC = (TabView) =>
         String(window.performance.getEntriesByType('navigation')[0].type) ===
           'reload'
       ) {
-        if (window.location.hash.length === 0) {
+        if (
+          window.location.hash.length === 0 &&
+          tabs[tabsList[1]]?.subTab?.subtab &&
+          !tabs[tabsList[0]]?.subTab?.subtab
+        ) {
+          setActiveTab(tabsList[1]);
+        } else if (
+          window.location.hash.length === 0 &&
+          !tabs[tabsList[1]]?.subTab?.subtab
+        ) {
           setActiveTab(tabsList[0]);
         } else {
           setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
         }
       }
-    }, [
-      activeTabIndex,
-      data.id,
-      hashlink.counter,
-      hashlink.hash,
-      hashlinkOnMount,
-      props,
-      setActiveTab,
-      tabsList,
-    ]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTabIndex]);
 
     return <TabView {...props} />;
   };

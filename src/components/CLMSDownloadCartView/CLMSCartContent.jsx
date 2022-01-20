@@ -88,7 +88,7 @@ const CLMSCartContent = (props) => {
             getCartObjectFromPrepackaged(file_data, requestedItem),
           );
           setCartItems(cleanDuplicatesEntries(cartItems));
-        } else if (localItem.area) {
+        } else {
           cartItems.push(getCartObjectFromMapviewer(localItem, requestedItem));
           setCartItems(cleanDuplicatesEntries(cartItems));
         }
@@ -239,7 +239,7 @@ const CLMSCartContent = (props) => {
                     </td>
                     <td>{item.name || '-'}</td>
                     <td>{item.source || '-'}</td>
-                    <td>{item.area.type || '-'}</td>
+                    <td>{item.area?.type || '-'}</td>
                     {/* <td>{item.year || '-'}</td>
                     <td>{item.resolution || '-'}</td> */}
                     <td>
