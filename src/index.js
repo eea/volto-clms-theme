@@ -165,6 +165,28 @@ const applyConfig = (config) => {
       },
     },
     {
+      path: '/**/subscribe/:type',
+      component: SubscriptionView,
+    },
+    {
+      path: '/**/confirm-subscription/:type/:id',
+      component: ConfirmSubscriptionView,
+    },
+    {
+      path: '/**/unsubscribe/:type',
+      component: SubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/**/confirm-unsubscription/:type/:id',
+      component: ConfirmSubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
       path: '/**/download-by-area',
       component: CLMSMapViewerView,
     },

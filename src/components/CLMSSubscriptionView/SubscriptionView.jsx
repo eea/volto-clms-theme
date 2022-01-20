@@ -33,7 +33,11 @@ const messages = defineMessages({
   },
   saved: {
     id: 'Changes saved',
-    defaultMessage: 'Changes saved',
+    defaultMessage: 'Changes saved!',
+  },
+  subscriptionSuccessMessage: {
+    id: 'You will receive an email confirmation to',
+    defaultMessage: 'You will receive an email confirmation to {email}',
   },
   success: {
     id: 'Success',
@@ -111,7 +115,17 @@ class SubscriptionView extends Component {
       <Toast
         success
         title={this.props.intl.formatMessage(messages.success)}
-        content={this.props.intl.formatMessage(messages.saved)}
+        content={
+          <>
+            <p>{this.props.intl.formatMessage(messages.saved)}</p>
+            <small>
+              {this.props.intl.formatMessage(
+                messages.subscriptionSuccessMessage,
+                { email: this.state.value },
+              )}
+            </small>
+          </>
+        }
       />,
     );
   };
@@ -127,12 +141,8 @@ class SubscriptionView extends Component {
     if (this.state.value) {
       this.props
         .subscribeTo(this.state.type_conf.back_url, this.state.value)
-        .then(() => {
-          this.props.loaded && this.requestSuccessToast();
-        })
-        .catch(() => {
-          this.props.error && this.requestErrorToast();
-        });
+        .then(() => this.props.loaded && this.requestSuccessToast())
+        .catch(() => this.props.error && this.requestErrorToast());
     } else {
       this.emptyFieldErrorToast();
     }
@@ -142,12 +152,8 @@ class SubscriptionView extends Component {
     if (this.state.value) {
       this.props
         .unsubscribeTo(this.state.type_conf.back_url, this.state.value)
-        .then(() => {
-          this.props.loaded && this.requestSuccessToast();
-        })
-        .catch(() => {
-          this.props.error && this.requestErrorToast();
-        });
+        .then(() => this.props.loaded && this.requestSuccessToast())
+        .catch(() => this.props.error && this.requestErrorToast());
     } else {
       this.emptyFieldErrorToast();
     }
@@ -218,7 +224,7 @@ class SubscriptionView extends Component {
               <>
                 <Link
                   to={{
-                    pathname: `/unsubscribe/${this.props.type}`,
+                    pathname: `/${this.props.intl.locale}/unsubscribe/${this.props.type}`,
                   }}
                 >
                   UNSUBSCRIBE

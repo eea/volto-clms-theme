@@ -6,10 +6,7 @@
 import {
   CLMSApiTokensView,
   CLMSUserProfileView,
-  CLMSNewsletterView,
   CLMSNewsletterSubscriberView,
-  CLMSSubscribeToEventsView,
-  CLMSSubscribeToNewsView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
 import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 import React, { Component } from 'react';
@@ -19,10 +16,9 @@ import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getBaseUrl } from '@plone/volto/helpers';
 import { getExtraBreadcrumbItems } from '../../actions';
 import jwtDecode from 'jwt-decode';
-
+import { AVAILABLE_SUBSCRIPTIONS } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 /**
  * CLMSProfileView class.
  * @class CLMSProfileView
@@ -60,7 +56,17 @@ class CLMSProfileView extends Component {
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
   };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      available_subscriptions: [],
+    };
+  }
+  componentDidMount() {
+    this.setState({
+      available_subscriptions: AVAILABLE_SUBSCRIPTIONS,
+    });
+  }
   /**
    * Render method.
    * @method render
@@ -74,60 +80,34 @@ class CLMSProfileView extends Component {
         pathname: this.props.location.pathname,
       },
     ]);
+
     return (
       <div className="ccl-container ">
-        {loggedIn &&
-        (this.props.roles?.includes('Manager') ||
-          this.props.roles?.includes('Site Administrator')) ? (
-          <>
-            <CclTabs>
-              <div tabTitle="USER PROFILE">
-                {CLMSUserProfileView(this.props.content)}
-              </div>
-              <div tabTitle="API TOKENS">
-                {CLMSApiTokensView(this.props.content)}
-              </div>
+        {loggedIn && (
+          <CclTabs>
+            <div tabTitle="USER PROFILE">
+              <CLMSUserProfileView />
+            </div>
+            <div tabTitle="API TOKENS">
+              {CLMSApiTokensView(this.props.content)}
+            </div>
+            {(this.props.roles?.includes('Manager') ||
+              this.props.roles?.includes('Site Administrator')) && (
               <div tabTitle="NEWSLETTER SUBSCRIBERS">
-                {CLMSNewsletterSubscriberView(this.props.content)}
+                <CLMSNewsletterSubscriberView />
               </div>
-              <div tabTitle="SUBSCRIBE TO OUR NEWSLETTER">
-                <SubscriptionView type="newsletter" />
+            )}
+            {AVAILABLE_SUBSCRIPTIONS.map((subscription) => (
+              <div tabTitle={subscription?.title} key={subscription?.title}>
+                <SubscriptionView type={subscription?.type} />
               </div>
-              <div tabTitle="SUBSCRIBE TO OUR EVENTS">
-                <SubscriptionView type="events" />
-              </div>
-              <div tabTitle="SUBSCRIBE TO OUR NEWS">
-                <SubscriptionView type="news" />
-              </div>
-            </CclTabs>
-          </>
-        ) : (
-          (loggedIn && (
-            <CclTabs>
-              <div tabTitle="USER PROFILE">
-                {CLMSUserProfileView(this.props.content)}
-              </div>
-              <div tabTitle="API TOKENS">
-                {CLMSApiTokensView(this.props.content)}
-              </div>
-              <div tabTitle="SUBSCRIBE TO OUR NEWSLETTER">
-                {CLMSNewsletterView(this.props.content)}
-              </div>
-              <div tabTitle="SUBSCRIBE TO OUR EVENTS">
-                <CLMSSubscribeToEventsView />
-              </div>
-              <div tabTitle="SUBSCRIBE TO OUR NEWS">
-                <CLMSSubscribeToNewsView />
-              </div>
-            </CclTabs>
-          )) ||
-          ''
+            ))}
+          </CclTabs>
         )}
       </div>
     );
   }
 }
-
 export default compose(
   connect(
     (state) => ({
@@ -137,6 +117,6 @@ export default compose(
         ? jwtDecode(state.userSession.token).sub
         : '',
     }),
-    { getUser, updateUser, getBaseUrl, getExtraBreadcrumbItems },
+    { getUser, updateUser, getExtraBreadcrumbItems },
   ),
 )(CLMSProfileView);
