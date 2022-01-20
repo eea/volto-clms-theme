@@ -224,7 +224,7 @@ class SubscriptionView extends Component {
               <>
                 <Link
                   to={{
-                    pathname: `/unsubscribe/${this.props.type}`,
+                    pathname: `/${this.props.intl.locale}/unsubscribe/${this.props.type}`,
                   }}
                 >
                   UNSUBSCRIBE
