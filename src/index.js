@@ -9,7 +9,6 @@ import BoundingWidget from './components/Widgets/BoundingWidget';
 // VIEWS IMPORTS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
-import ConfirmEventSubscriptionView from './components/CLMSConfirmSubscriptionView/ConfirmEventSubscriptionView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
@@ -27,8 +26,6 @@ import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidge
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
-import NewsletterSubscriptionConfirmView from './components/NewsletterSubscriptionConfirm/NewsletterSubscriptionConfirmView';
-import NewsletterUnsubscriptionConfirmView from './components/NewsletterSubscriptionConfirm/NewsletterUnsubscriptionConfirmView';
 
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
@@ -127,22 +124,6 @@ const applyConfig = (config) => {
       component: ProfileView,
     },
     {
-      path: '/newsletter-notification-subscription/:id',
-      component: NewsletterSubscriptionConfirmView,
-    },
-    {
-      path: '/**/newsletter-notification-subscription/:id',
-      component: NewsletterSubscriptionConfirmView,
-    },
-    {
-      path: '/newsletter-notification-unsubscription/:id',
-      component: NewsletterUnsubscriptionConfirmView,
-    },
-    {
-      path: '/**/newsletter-notification-unsubscription/:id',
-      component: NewsletterUnsubscriptionConfirmView,
-    },
-    {
       path: '/subscribe/:type',
       component: SubscriptionView,
     },
@@ -193,10 +174,6 @@ const applyConfig = (config) => {
     {
       path: '/**/cart',
       component: CLMSDownloadCartView,
-    },
-    {
-      path: '/**/confirm-event-subscription/:id',
-      component: ConfirmEventSubscriptionView,
     },
     {
       path: `/(${config.settings.supportedLanguages.join('|')})/sitemap`,

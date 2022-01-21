@@ -51,7 +51,7 @@ const CclTabs = (props) => {
         <nav className="left-menu">
           {children
             .flat()
-            .filter((item) => !!item.props?.tabTitle)
+            .filter((item) => !!item?.props?.tabTitle)
             .map((child, key) => {
               const { tabTitle } = child.props;
               return (
@@ -81,7 +81,7 @@ const CclTabs = (props) => {
         <div className="tab-content">
           {children
             .flat()
-            .filter((item) => !!item.props?.tabTitle)
+            .filter((item) => !!item?.props?.tabTitle)
             .map((child, index) => {
               return child.props?.tabTitle?.replace(' ', '') !== activeTab ? (
                 <div key={index} className="deactivate-content">

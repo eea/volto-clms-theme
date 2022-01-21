@@ -10,7 +10,7 @@ import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
 import { Container } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { getSubscribers } from '../../actions';
+import { getNewsletterSubscriber } from '../../actions';
 import { CSVDownload } from 'react-csv';
 
 /**
@@ -28,7 +28,7 @@ class CLMSNewsletterSubscriberView extends Component {
     };
   }
   componentDidMount() {
-    this.props.getSubscribers();
+    this.props.getNewsletterSubscriber();
   }
   handleClick(e) {
     this.setState({
@@ -72,6 +72,6 @@ export default compose(
     (state) => ({
       subscribers: state.newsletter_subscribers,
     }),
-    { getSubscribers },
+    { getNewsletterSubscriber },
   ),
 )(CLMSNewsletterSubscriberView);
