@@ -22,7 +22,7 @@ import { ReactSVG } from 'react-svg';
 import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
 import { Toast } from '@plone/volto/components';
 import { toast } from 'react-toastify';
-import { subscribeNewsletter } from '../../../../../actions';
+import { subscribeTo } from '../../../../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -444,12 +444,12 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      subscribe_loaded: state.subscribe_to_newsletter.subscribe.loaded,
-      subscribe_loading: state.subscribe_to_newsletter.subscribe.loading,
-      subscribe_error: state.subscribe_to_newsletter.subscribe.error,
+      subscribe_loaded: state.subscription.loaded,
+      subscribe_loading: state.subscription.loading,
+      subscribe_error: state.subscription.error,
     }),
     {
-      subscribeNewsletter,
+      subscribeTo,
     },
   ),
 )(Footer);

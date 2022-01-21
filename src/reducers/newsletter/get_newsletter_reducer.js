@@ -3,7 +3,7 @@
  * @module newsletter/newsletter_reducer
  */
 
-import { GET_SUBSCRIBERS } from '../../actions';
+import { GET_NEWSLETTER } from '../../actions';
 
 const getInitialState = {
   error: null,
@@ -17,7 +17,7 @@ export const newsletterSubscribersReducer = (
   action = {},
 ) => {
   switch (action.type) {
-    case `${GET_SUBSCRIBERS}_PENDING`:
+    case `${GET_NEWSLETTER}_PENDING`:
       return {
         ...state,
         error: null,
@@ -25,7 +25,7 @@ export const newsletterSubscribersReducer = (
         loading: true,
         items: [],
       };
-    case `${GET_SUBSCRIBERS}_FAIL`:
+    case `${GET_NEWSLETTER}_FAIL`:
       return {
         ...state,
         error: true,
@@ -33,7 +33,7 @@ export const newsletterSubscribersReducer = (
         loading: false,
         items: [],
       };
-    case `${GET_SUBSCRIBERS}_SUCCESS`:
+    case `${GET_NEWSLETTER}_SUCCESS`:
       return {
         ...state,
         error: null,
