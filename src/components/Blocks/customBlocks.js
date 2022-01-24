@@ -47,6 +47,7 @@ import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUs
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
 import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
+import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
 import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
 import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
@@ -519,6 +520,10 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
+  },
+  form: {
+    ...config.blocks.blocksConfig.form,
+    fieldSchema: customIdFieldSchema,
   },
 });
 
