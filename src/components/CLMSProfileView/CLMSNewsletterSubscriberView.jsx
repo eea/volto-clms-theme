@@ -4,13 +4,14 @@
  */
 
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
 import { Container } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { getSubscribers } from '../../actions';
+import { getNewsletterSubscriber } from '../../actions';
+import { CSVDownload } from 'react-csv';
 
 /**
  * CLMSProfileView class.
@@ -20,14 +21,18 @@ import { getSubscribers } from '../../actions';
 class CLMSNewsletterSubscriberView extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
-      subscribers: [],
+      download: false,
+      headers: [{ label: 'Newsletter Subscribers', key: 'email' }],
     };
   }
   componentDidMount() {
-    this.props.getSubscribers();
+    this.props.getNewsletterSubscriber();
+  }
+  handleClick(e) {
     this.setState({
-      subscribers: ['undefined', 'froga'],
+      download: true,
     });
   }
   /**
@@ -46,13 +51,15 @@ class CLMSNewsletterSubscriberView extends Component {
             Click in the button bellow to download a list of all the newsletter
             subscribers.
           </p>
-          <CclButton
-            mode={'filled'}
-            download={true}
-            onclick={this.props.getSubscribers()}
-          >
+          <CclButton mode={'filled'} onClick={this.handleClick}>
             Download
           </CclButton>
+          {this.state.download && (
+            <CSVDownload
+              data={this.props.subscribers.items}
+              headers={this.state.headers}
+            />
+          )}
         </div>
       </Container>
     );
@@ -63,8 +70,8 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
-      subscribers: state.subscribers,
+      subscribers: state.newsletter_subscribers,
     }),
-    { getSubscribers },
+    { getNewsletterSubscriber },
   ),
 )(CLMSNewsletterSubscriberView);

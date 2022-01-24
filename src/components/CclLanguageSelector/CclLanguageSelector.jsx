@@ -80,7 +80,6 @@ function CclLanguageSelector(props) {
             <div className="language-list">
               {config.settings.supportedLanguages.map((lang) => {
                 const translation = find(translations, { language: lang });
-                // console.log(langmap[lang]);
                 return (
                   <div
                     key={lang}
