@@ -47,7 +47,7 @@ const CartIconCounter = (props) => {
           <Link to={`/${intl.locale}/cart`} className="header-login-link">
             <FontAwesomeIcon
               icon={['fas', 'shopping-cart']}
-              style={{ marginRight: '0.25rem' }}
+              style={{ marginRight: '0.25rem', maxWidth: '1.5rem' }}
             />
             <strong>{cart?.length}</strong>
           </Link>
