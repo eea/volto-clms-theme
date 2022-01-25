@@ -51,7 +51,11 @@ export const getCartObjectFromPrepackaged = (file_data, dataset_data) => {
   return prePackagedItem;
 };
 
-export const getCartObjectFromMapviewer = (local_cart_data, dataset_data) => {
+export const getCartObjectFromMapviewer = (
+  local_cart_data,
+  dataset_data,
+  projections,
+) => {
   const mapViewer = {
     name: dataset_data.dataResourceTitle || '-',
     area: local_cart_data.area || '-',
@@ -69,7 +73,7 @@ export const getCartObjectFromMapviewer = (local_cart_data, dataset_data) => {
     unique_id: local_cart_data.unique_id,
     dataset_uid: dataset_data.UID,
     task_in_progress: false,
-    projection: dataset_data.projection,
+    projection: dataset_data.projection || projections[0],
   };
   return mapViewer;
 };

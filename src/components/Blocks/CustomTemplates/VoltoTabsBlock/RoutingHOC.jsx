@@ -11,6 +11,8 @@ const RoutingHOC = (TabView) =>
       hashlink = {},
       setActiveTab = () => {},
     } = props;
+    const parentId = data.id || props.id;
+    const scrollToTarget = props.scrollToTarget;
     React.useEffect(() => {
       const urlHash = window.location.hash.substring(1) || '';
       if (
@@ -19,7 +21,6 @@ const RoutingHOC = (TabView) =>
       ) {
         const id = hashlink.hash || urlHash || '';
         const index = tabsList.indexOf(id);
-        const parentId = data.id || props.id;
         const parent = document.getElementById(parentId);
         const headerWrapper = document.querySelector('.header-wrapper');
         const offsetHeight = headerWrapper?.offsetHeight || 0;
@@ -27,9 +28,9 @@ const RoutingHOC = (TabView) =>
           if (activeTabIndex !== index) {
             setActiveTab(id);
           }
-          props.scrollToTarget(parent, offsetHeight);
+          scrollToTarget(parent, offsetHeight);
         } else if (id === parentId && parent) {
-          props.scrollToTarget(parent, offsetHeight);
+          scrollToTarget(parent, offsetHeight);
         }
       }
       if (!hashlinkOnMount) {
@@ -56,17 +57,8 @@ const RoutingHOC = (TabView) =>
           setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
         }
       }
-    }, [
-      activeTabIndex,
-      data.id,
-      hashlink.counter,
-      hashlink.hash,
-      hashlinkOnMount,
-      props,
-      setActiveTab,
-      tabsList,
-      tabs,
-    ]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTabIndex]);
 
     return <TabView {...props} />;
   };

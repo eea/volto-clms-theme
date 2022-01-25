@@ -47,6 +47,7 @@ import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUs
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
 import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
+import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
 import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
 import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
@@ -100,7 +101,7 @@ const customBlocks = (config) => ({
   [TABS_BLOCK]: {
     ...config.blocks.blocksConfig[TABS_BLOCK],
     edit: FixTemplates(TabsEdit),
-    view: FixTemplates(TabsView),
+    view: TabsView,
     deprecated_templates: ['CCLTabs', 'CclRouteTabsView'],
     mostUsed: true, // A meta group `most used`, appearing at the top of the chooser
     templates: {
@@ -284,7 +285,8 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclRelatedListingView, // The view mode component
     edit: CclRelatedListingEdit, // The edit mode component
-    schema: RelatedListingSchema,
+    schema: BlockSettingsSchema,
+    blockSchema: RelatedListingSchema,
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
@@ -518,6 +520,10 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
+  },
+  form: {
+    ...config.blocks.blocksConfig.form,
+    fieldSchema: customIdFieldSchema,
   },
 });
 

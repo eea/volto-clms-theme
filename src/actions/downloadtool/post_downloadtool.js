@@ -10,7 +10,6 @@ export const POST_DOWNLOADTOOL = 'POST_DOWNLOADTOOL';
  * @returns {Object} Get extra items action.
  */
 export function postDownloadtool(item, unique_ids) {
-  // console.log("unique_ids: ", unique_ids);
   return {
     type: POST_DOWNLOADTOOL,
     request: {

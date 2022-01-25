@@ -67,3 +67,16 @@ export {
 } from './geonetwork/import_geonetwork';
 
 export { getUserSchema } from './userschema/userschema';
+
+export {
+  GET_NEWSLETTER,
+  getNewsletterSubscriber,
+} from './newsletter/get_newsletter_subscribers';
+
+export {
+  POST_SUBSCRIBE_TO,
+  subscribeTo,
+  confirmSubscribeTo,
+  unsubscribeTo,
+  confirmUnsubscribeTo,
+} from './subscription/post_subscription';

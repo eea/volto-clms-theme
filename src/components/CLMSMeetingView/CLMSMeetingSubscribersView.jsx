@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import {
   MeetingSubscribers,
   MeetingSubscribersManipulation,
@@ -12,7 +12,7 @@ export const CLMSMeetingSubscribersView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
   let location = useLocation();
-  const subscribers = useSelector((store) => store.subscribers);
+  const subscribers = useSelector((state) => state.subscribers.items);
   const messages = defineMessages({
     user_name: {
       id: 'user_name',
@@ -34,6 +34,10 @@ export const CLMSMeetingSubscribersView = (props) => {
       id: 'state',
       defaultMessage: 'State',
     },
+    no_results: {
+      id: 'no_results',
+      defaultMessage: 'There is no results',
+    },
   });
   const [subscriberSelection, setSubscriberSelection] = useState([]);
   const selectSubscriber = (id, checked) => {
@@ -46,7 +50,7 @@ export const CLMSMeetingSubscribersView = (props) => {
 
   const selectAllSubscribers = (checked) => {
     if (checked) {
-      setSubscriberSelection(subscribers?.items.map((item, key) => item.id));
+      setSubscriberSelection(subscribers?.map((item, key) => item.id));
     } else {
       setSubscriberSelection([]);
     }
@@ -82,8 +86,8 @@ export const CLMSMeetingSubscribersView = (props) => {
                         onChange={(e, data) =>
                           selectAllSubscribers(data.checked)
                         }
-                        checked={subscribers?.items
-                          .map((item, key) => item.id)
+                        checked={subscribers
+                          ?.map((item, key) => item.id)
                           .every(function (val) {
                             return subscriberSelection.indexOf(val) !== -1;
                           })}
@@ -96,26 +100,36 @@ export const CLMSMeetingSubscribersView = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {subscribers?.items?.map((subscriber, index) => (
-                    <tr key={index}>
-                      <td>
-                        <Checkbox
-                          onChange={(e, data) =>
-                            selectSubscriber(subscriber.id, data.checked)
-                          }
-                          checked={subscriberSelection.includes(subscriber.id)}
-                        />
+                  {subscribers.length > 0 ? (
+                    subscribers?.map((subscriber, index) => (
+                      <tr key={index}>
+                        <td>
+                          <Checkbox
+                            onChange={(e, data) =>
+                              selectSubscriber(subscriber.id, data.checked)
+                            }
+                            checked={subscriberSelection.includes(
+                              subscriber.id,
+                            )}
+                          />
+                        </td>
+                        <td>
+                          <Link href={`${subscriber['@id']}/edit`}>
+                            {subscriber.title || subscriber.id}
+                          </Link>
+                        </td>
+                        <td>{subscriber.title || subscriber.id}</td>
+                        <td>{subscriber.email}</td>
+                        <td>{subscriber.review_state}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4">
+                        <p>{intl.formatMessage(messages.no_results)}</p>
                       </td>
-                      <td>
-                        <a href={`${subscriber['@id']}/edit`}>
-                          {subscriber.title || subscriber.id}
-                        </a>
-                      </td>
-                      <td>{subscriber.title || subscriber.id}</td>
-                      <td>{subscriber.email}</td>
-                      <td>{subscriber.review_state}</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
 

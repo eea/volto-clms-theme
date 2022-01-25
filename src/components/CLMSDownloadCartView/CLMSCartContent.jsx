@@ -11,7 +11,6 @@ import {
   getDownloadToolPostBody,
 } from './cartUtils';
 import {
-  getDatasetsByUid,
   getDownloadtool,
   getFormatConversionTable,
   getProjections,
@@ -19,7 +18,6 @@ import {
 } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,13 +27,14 @@ import { getAvailableConversion } from './conversion';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSCartContent = (props) => {
+  const { localSessionCart } = props;
   const dispatch = useDispatch();
-  const { cart, removeCartItem } = useCartState();
+  const cart = useSelector((state) => state.cart_items.items);
+  const { removeCartItem, removeCartItems } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
-  const user_id = useSelector((state) => state.users.user.id);
   const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
   const formatConversionTable = useSelector(
     (state) => state.downloadtool.format_conversion_table_in_progress,
@@ -45,7 +44,6 @@ const CLMSCartContent = (props) => {
   );
 
   const [cartItems, setCartItems] = useState([]);
-  const [localSessionCart, setLocalSessionCart] = useState([]);
 
   useEffect(() => {
     dispatch(getProjections());
@@ -53,26 +51,20 @@ const CLMSCartContent = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
-    setLocalSessionCart(
-      JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || [],
+    setCartItemInProgress(post_download_in_progress['unique_ids']);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post_download_in_progress]);
+
+  useEffect(() => {
+    const array_ids = cart?.map((item) => item.unique_id);
+    const newCart = cartItems.filter((item) =>
+      array_ids.includes(item.unique_id),
     );
-  }, [user_id]);
-
-  useEffect(() => {
-    if (localSessionCart?.length !== 0) {
-      const uidsList = [
-        ...new Set(localSessionCart.map((item) => item.UID || item.id)),
-      ];
-      dispatch(getDatasetsByUid(uidsList));
-    }
-  }, [localSessionCart, dispatch]);
-
-  useEffect(() => {
-    if (datasets?.length > 0) {
+    setCartItems(cleanDuplicatesEntries(newCart));
+    if (datasets?.length > 0 && cart.length > 0 && !newCart.length) {
       concatRequestedCartItem();
     }
-  }, [datasets]);
+  }, [cart, datasets]);
 
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
@@ -88,8 +80,10 @@ const CLMSCartContent = (props) => {
             getCartObjectFromPrepackaged(file_data, requestedItem),
           );
           setCartItems(cleanDuplicatesEntries(cartItems));
-        } else if (localItem.area) {
-          cartItems.push(getCartObjectFromMapviewer(localItem, requestedItem));
+        } else {
+          cartItems.push(
+            getCartObjectFromMapviewer(localItem, requestedItem, projections),
+          );
           setCartItems(cleanDuplicatesEntries(cartItems));
         }
       }
@@ -124,27 +118,12 @@ const CLMSCartContent = (props) => {
     let started_processing_items = cartItems.filter((r) =>
       in_progress_unique_ids.includes(r['unique_id']),
     );
-    started_processing_items.forEach((item) => {
-      if (item['unique_id']) {
-        removeCartItem(item['unique_id'], user_id);
-        dispatch(getFormatConversionTable());
-        dispatch(getDownloadtool());
-      }
-    });
-  };
-
-  useEffect(() => {
-    setCartItemInProgress(post_download_in_progress['unique_ids']);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post_download_in_progress]);
-
-  useEffect(() => {
-    const array_ids = cart?.map((item) => item.unique_id);
-    const newCart = cartItems.filter((item) =>
-      array_ids.includes(item.unique_id),
+    var items_to_remove = started_processing_items.map(
+      (item) => item.unique_id,
     );
-    setCartItems(newCart);
-  }, [cart]);
+    removeCartItems(items_to_remove);
+    dispatch(getDownloadtool());
+  };
 
   function startDownloading() {
     let selectedItems = getSelectedCartItems();
@@ -159,7 +138,7 @@ const CLMSCartContent = (props) => {
   };
   return (
     <>
-      {localSessionCart?.length !== 0 ? (
+      {cartItems?.length !== 0 ? (
         <div className="custom-table cart-table">
           <h2>My cart</h2>
           <table>
@@ -190,8 +169,6 @@ const CLMSCartContent = (props) => {
                 <th>Name</th>
                 <th>Source</th>
                 <th>Area</th>
-                {/* <th>Year</th>
-                <th>Resolution</th> */}
                 <th>Type</th>
                 <th>Format</th>
                 <th>Projection</th>
@@ -239,9 +216,7 @@ const CLMSCartContent = (props) => {
                     </td>
                     <td>{item.name || '-'}</td>
                     <td>{item.source || '-'}</td>
-                    <td>{item.area.type || '-'}</td>
-                    {/* <td>{item.year || '-'}</td>
-                    <td>{item.resolution || '-'}</td> */}
+                    <td>{item.area?.type || '-'}</td>
                     <td>
                       <span className={'tag tag-' + item?.type?.toLowerCase()}>
                         {item.type || '-'}
@@ -272,10 +247,7 @@ const CLMSCartContent = (props) => {
                       {!item.file_id ? (
                         <Select
                           placeholder="Select projection"
-                          value={
-                            item.projection ||
-                            setProjectionValue(item.unique_id, projections[0])
-                          }
+                          value={item.projection}
                           options={projections.map((item) => {
                             return {
                               key: item,

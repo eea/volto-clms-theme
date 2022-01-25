@@ -18,10 +18,12 @@ const MetadataContent = (data) => {
             className="ccl-button ccl-button--default download-dataset-metadata"
             url={
               item.type === 'EEA'
-                ? 'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
-                  item.id
-                : 'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
-                  item.id
+                ? 'https://sdi.eea.europa.eu/catalogue/srv/api/records/' +
+                  item.id +
+                  '/formatters/xsl-view?output=pdf&language=eng&approved=true'
+                : 'https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/' +
+                  item.id +
+                  '/formatters/xsl-view?root=div&output=pdf'
             }
             download={true}
           >
@@ -60,11 +62,12 @@ const MetadataContent = (data) => {
             <StringToHTML string={data?.dataResourceAbstract?.data || ''} />
           }
         />
-        {data?.keywords && data?.keywords?.length > 0 && (
-          <CclInfoDescription
-            title="Keywords"
-            tooltip=""
-            description={
+        <CclInfoDescription
+          title="Keywords"
+          tooltip=""
+          description={
+            data?.keywords &&
+            data?.keywords?.length > 0 && (
               <Label.Group>
                 {data?.keywords.map((keyword, key) => {
                   return (
@@ -74,9 +77,9 @@ const MetadataContent = (data) => {
                   );
                 })}
               </Label.Group>
-            }
-          />
-        )}
+            )
+          }
+        />
         {data?.geographicCoverage?.geolocation && (
           <CclInfoDescription
             title="Geographic coverage"
@@ -217,13 +220,11 @@ const MetadataContent = (data) => {
             <StringToHTML string={data?.conformitySpecification?.data} />
           }
         />
-        {data?.conformityPass?.title && (
-          <CclInfoDescription
-            title="Pass"
-            tooltip=""
-            description={data?.conformityPass?.title}
-          />
-        )}
+        <CclInfoDescription
+          title="Pass"
+          tooltip=""
+          description={data?.conformityPass?.title}
+        />
         <CclInfoDescription
           title="Lineage"
           tooltip="General explanation of the data produce knowledge's about the lineage of a dataset"

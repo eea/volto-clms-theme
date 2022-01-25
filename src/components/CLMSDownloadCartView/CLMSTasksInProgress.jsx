@@ -19,12 +19,13 @@ import removeSVG from '@plone/volto/icons/delete.svg';
 const CLMSTasksInProgress = (props) => {
   const dispatch = useDispatch();
   const [taskInProgress, setTaskInProgress] = useState([]);
+  const [showDeleteTaskLoading, setShowDeleteTaskLoading] = useState(false);
   const download_in_progress = useSelector(
     (state) => state.downloadtool.download_in_progress,
   );
 
   const user_id = useSelector((state) => state.users.user.id);
-  const [showDeleteTaskLoading, setShowDeleteTaskLoading] = useState(false);
+  const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
 
   useEffect(() => {
     dispatch(getDownloadtool());
@@ -41,6 +42,29 @@ const CLMSTasksInProgress = (props) => {
     });
     setTaskInProgress(tasks_in_progress);
   }, [download_in_progress]);
+
+  useEffect(() => {
+    if (datasets?.length > 0) {
+      addDatasetName();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datasets]);
+
+  function addDatasetName() {
+    let tasks_in_progress = [...taskInProgress];
+    tasks_in_progress.forEach((task) => {
+      task.Datasets.forEach((dataset) => {
+        const requestedItem = datasets.find(
+          (requestedItem) => requestedItem.UID === dataset.DatasetID,
+        );
+        if (requestedItem) {
+          dataset.name = requestedItem.title;
+        }
+      });
+    });
+    setTaskInProgress(tasks_in_progress);
+  }
+
   const deleteTaskInProgress = (task_id) => {
     setShowDeleteTaskLoading(task_id);
     dispatch(deleteDownloadtool(task_id));
@@ -57,7 +81,8 @@ const CLMSTasksInProgress = (props) => {
           <table>
             <thead>
               <tr>
-                <th>DatasetID || unique_id</th>
+                <th>TaskID</th>
+                <th>List of datasets</th>
                 <th>OutputFormat</th>
                 <th>Status</th>
                 <th></th>
@@ -71,9 +96,31 @@ const CLMSTasksInProgress = (props) => {
                     key={key}
                     style={{ opacity: 0.5, backgroundColor: '#f5f5f5' }}
                   >
-                    <td>{item.DatasetID || item.Datasets[0]['DatasetID']}</td>
+                    <td>{item.TaskID}</td>
                     <td>
-                      {item.OutputFormat || item.Datasets[0]['OutputFormat']}
+                      {item.Datasets.length === 1 && item.Datasets[0].name}
+                      {item.Datasets.length > 1 && (
+                        <ul>
+                          {item.Datasets.map((dataset) => (
+                            <li>{dataset['name']}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </td>
+                    <td>
+                      {item.Datasets.length === 1 &&
+                        item.Datasets[0].OutputFormat}
+                      {item.Datasets.length > 1 && (
+                        <ul>
+                          {item.Datasets.map((dataset) => {
+                            return dataset['OutputFormat'] ? (
+                              <li>{dataset['OutputFormat']}</li>
+                            ) : (
+                              <li>Pre-packaged</li>
+                            );
+                          })}
+                        </ul>
+                      )}
                     </td>
 
                     <td>

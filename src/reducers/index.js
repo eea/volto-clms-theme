@@ -13,6 +13,9 @@ import { registryReducer } from './registry/registry';
 // import defaultReducers from '@plone/volto/reducers';
 import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
+// import { newsletterReducer } from './newsletter/newsletter_reducer';
+import { newsletterSubscribersReducer } from './newsletter/get_newsletter_reducer';
+import { subscribeToReducer } from './subscription/subscription_reducer';
 
 /**
  * Root reducer.
@@ -33,6 +36,9 @@ const reducers = {
   geonetwork_importation: importGeonetworkReducer,
   userschema: userschemaReducer,
   datasetsByUid: datasetsByUidReducer,
+  // subscribe_to_newsletter: newsletterReducer,
+  newsletter_subscribers: newsletterSubscribersReducer,
+  subscription: subscribeToReducer,
 };
 
 export default reducers;

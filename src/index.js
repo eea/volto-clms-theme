@@ -9,6 +9,8 @@ import BoundingWidget from './components/Widgets/BoundingWidget';
 // VIEWS IMPORTS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
+import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
 import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
@@ -24,6 +26,7 @@ import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidge
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
+
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
@@ -39,6 +42,7 @@ const applyConfig = (config) => {
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
       TechnicalLibrary: CLMSDownloadableFileView,
+      File: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
@@ -73,6 +77,8 @@ const applyConfig = (config) => {
       '/profile',
       '/download-by-area',
       '/cart',
+      '/newsletter-notification-subscription',
+      '/newsletter-notification-unsubscription',
     ],
     isMultilingual: true,
     supportedLanguages: [
@@ -116,6 +122,50 @@ const applyConfig = (config) => {
     {
       path: '/**/profile',
       component: ProfileView,
+    },
+    {
+      path: '/subscribe/:type',
+      component: SubscriptionView,
+    },
+    {
+      path: '/confirm-subscription/:type/:id',
+      component: ConfirmSubscriptionView,
+    },
+    {
+      path: '/unsubscribe/:type',
+      component: SubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/confirm-unsubscription/:type/:id',
+      component: ConfirmSubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/**/subscribe/:type',
+      component: SubscriptionView,
+    },
+    {
+      path: '/**/confirm-subscription/:type/:id',
+      component: ConfirmSubscriptionView,
+    },
+    {
+      path: '/**/unsubscribe/:type',
+      component: SubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/**/confirm-unsubscription/:type/:id',
+      component: ConfirmSubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
     },
     {
       path: '/**/download-by-area',
