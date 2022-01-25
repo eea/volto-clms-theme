@@ -8,6 +8,8 @@ import {
 } from '../../actions';
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { CSVLink } from 'react-csv';
+
 export const CLMSMeetingSubscribersView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -38,20 +40,63 @@ export const CLMSMeetingSubscribersView = (props) => {
       id: 'no_results',
       defaultMessage: 'There is no results',
     },
+    delete_selected: {
+      id: 'delete_selected',
+      defaultMessage: 'Delete selected',
+    },
+    approve_selected: {
+      id: 'approve_selected',
+      defaultMessage: 'Approve selected',
+    },
+    reject_selected: {
+      id: 'reject_selected',
+      defaultMessage: 'Reject selected',
+    },
+    download_selected: {
+      id: 'download_selected',
+      defaultMessage: 'Download selected as CSV',
+    },
   });
   const [subscriberSelection, setSubscriberSelection] = useState([]);
-  const selectSubscriber = (id, checked) => {
-    if (checked) setSubscriberSelection(subscriberSelection.concat(id));
-    else
+  const [downloadData, setDownloadData] = useState([]);
+
+  const selectRow = (subscriber, checked) => {
+    const subscirberData = {
+      'User Name': subscriber.title,
+      Name: subscriber.userid,
+      Email: subscriber.email,
+      State: subscriber.review_state,
+    };
+    if (checked) {
+      setDownloadData(downloadData.concat(subscirberData));
+      setSubscriberSelection(subscriberSelection.concat(subscriber.id));
+    } else {
       setSubscriberSelection(
-        subscriberSelection.filter((arr_id) => arr_id !== id),
+        subscriberSelection.filter((arr_id) => arr_id !== subscriber.id),
       );
+      setDownloadData(
+        downloadData.filter(
+          (arr_subscriber) => arr_subscriber.Email !== subscirberData.Email,
+        ),
+      );
+    }
   };
 
-  const selectAllSubscribers = (checked) => {
+  const selectAllRows = (checked) => {
     if (checked) {
+      setDownloadData(
+        subscribers?.map((item, key) => {
+          return {
+            'User Name': item.title,
+            Name: item.userid,
+            Email: item.email,
+            State: item.review_state,
+          };
+        }),
+      );
       setSubscriberSelection(subscribers?.map((item, key) => item.id));
     } else {
+      setDownloadData([]);
       setSubscriberSelection([]);
     }
   };
@@ -70,6 +115,7 @@ export const CLMSMeetingSubscribersView = (props) => {
     );
     setSubscriberSelection([]);
   }
+
   return (
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
@@ -83,9 +129,7 @@ export const CLMSMeetingSubscribersView = (props) => {
                   <tr>
                     <th>
                       <Checkbox
-                        onChange={(e, data) =>
-                          selectAllSubscribers(data.checked)
-                        }
+                        onChange={(e, data) => selectAllRows(data.checked)}
                         checked={subscribers
                           ?.map((item, key) => item.id)
                           .every(function (val) {
@@ -106,7 +150,7 @@ export const CLMSMeetingSubscribersView = (props) => {
                         <td>
                           <Checkbox
                             onChange={(e, data) =>
-                              selectSubscriber(subscriber.id, data.checked)
+                              selectRow(subscriber, data.checked)
                             }
                             checked={subscriberSelection.includes(
                               subscriber.id,
@@ -132,25 +176,33 @@ export const CLMSMeetingSubscribersView = (props) => {
                   )}
                 </tbody>
               </table>
-
               <CclButton
                 disabled={subscriberSelection.length === 0}
                 onClick={() => handleSubscribersManipulationClick('delete')}
               >
-                Delete selected
+                {intl.formatMessage(messages.delete_selected)}
               </CclButton>
               <CclButton
                 disabled={subscriberSelection.length === 0}
                 onClick={() => handleSubscribersManipulationClick('approve')}
               >
-                Approve selected
+                {intl.formatMessage(messages.approve_selected)}
               </CclButton>
               <CclButton
                 disabled={subscriberSelection.length === 0}
                 onClick={() => handleSubscribersManipulationClick('reject')}
               >
-                Reject selected
+                {intl.formatMessage(messages.reject_selected)}
               </CclButton>
+              <CSVLink
+                disabled={subscriberSelection.length === 0}
+                data={downloadData}
+                className="ccl-button ccl-button--default"
+                filename={content.id + '.csv'}
+                target="_blank"
+              >
+                {intl.formatMessage(messages.download_selected)}
+              </CSVLink>
             </div>
           </div>
         </div>
