@@ -38,17 +38,13 @@ const CartIconCounter = (props) => {
   }, [user_id, dispatch]);
   return (
     cart && (
-      <>
-        <span>
-          <Link to={`/${intl.locale}/cart`} className="header-login-link">
-            <FontAwesomeIcon
-              icon={['fas', 'shopping-cart']}
-              style={{ marginRight: '0.25rem' }}
-            />
-            <strong>{cart?.length}</strong>
-          </Link>
-        </span>
-      </>
+      <Link to={`/${intl.locale}/cart`} className="header-login-link">
+        <FontAwesomeIcon
+          icon={['fas', 'shopping-cart']}
+          style={{ marginRight: '0.25rem' }}
+        />
+        <strong>{cart?.length}</strong>
+      </Link>
     )
   );
 };
@@ -204,6 +200,9 @@ class Header extends Component {
                       <CclLoginModal />
                     </li>
                   )}
+                  <li className="header-vertical-line">
+                    <div>|</div>
+                  </li>
                 </ul>
                 <div
                   onMouseOut={(e) => {
@@ -243,7 +242,6 @@ class Header extends Component {
                   {(this.props.user.id && (
                     <>
                       <li>
-                        <CartIconCounter />
                         <Link
                           to={`/${this.props.locale}/profile`}
                           className="header-login-link"
@@ -260,6 +258,7 @@ class Header extends Component {
                             </>
                           )}
                         </Link>
+                        <CartIconCounter />
                       </li>
                       {this.props.user.id &&
                         this.props.user.roles &&
@@ -276,8 +275,6 @@ class Header extends Component {
                     </>
                   )) || (
                     <li>
-                      <CartIconCounter />
-
                       <Link
                         to={`/${this.props.locale}/login`}
                         className="header-login-link"
