@@ -27,8 +27,11 @@ export const CLMSEventView = (props) => {
         <div className="event-detail-when">
           <FontAwesomeIcon icon={['far', 'calendar-alt']} />
           <div className="event-detail-when-text">
-            {new Date(content?.start).toLocaleDateString()} -{' '}
-            {new Date(content?.end).toLocaleDateString()}
+            {content?.whole_day
+              ? new Date(content?.start).toLocaleDateString()
+              : new Date(content?.start).toLocaleDateString() +
+                ' - ' +
+                new Date(content?.end).toLocaleDateString()}
           </div>
         </div>
         {content?.location ? (
