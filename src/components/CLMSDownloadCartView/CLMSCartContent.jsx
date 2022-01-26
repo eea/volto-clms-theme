@@ -286,7 +286,7 @@ const CLMSCartContent = (props) => {
       ) : (
         <h2 style={{ textAlign: 'center' }}>Empty cart</h2>
       )}
-      {localSessionCart?.length !== 0 && (
+      {cartItems?.length !== 0 && (
         <CclButton
           onClick={() => startDownloading()}
           disabled={cartSelection.length === 0}
