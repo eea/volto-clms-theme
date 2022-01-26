@@ -59,7 +59,9 @@ function CclLanguageSelector(props) {
         trigger={
           <div className="header-lang-icon">
             <i className="ccl-icon-language"></i>
-            <span className="header-lang-code">{Capitalize(currentLang)}</span>
+            <span className="header-lang-code">
+              {currentLang.toUpperCase()}
+            </span>
           </div>
         }
         size="fullscreen"

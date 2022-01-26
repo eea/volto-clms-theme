@@ -1,5 +1,7 @@
 import React from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
+import { Header, Segment } from 'semantic-ui-react';
+import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 export const CLMSMeetingEmailView = (props) => {
   const { content, intl } = props;
@@ -29,6 +31,10 @@ export const CLMSMeetingEmailView = (props) => {
       id: 'type',
       defaultMessage: 'Type',
     },
+    body: {
+      id: 'body',
+      defaultMessage: 'Body',
+    },
     all: {
       id: 'all',
       defaultMessage: 'All',
@@ -40,32 +46,29 @@ export const CLMSMeetingEmailView = (props) => {
       <h1 className="page-title">{content.title}</h1>
 
       <div className="ccl-container">
-        <div className="event-detail">
-          <div className="custom-table dataset-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>{intl.formatMessage(messages.from)}</th>
-                  <th>{intl.formatMessage(messages.recipients)}</th>
-                  <th>{intl.formatMessage(messages.cc)}</th>
-                  <th>{intl.formatMessage(messages.subject)}</th>
-                  <th>{intl.formatMessage(messages.modified)}</th>
-                  <th>{intl.formatMessage(messages.type)}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{content.sender}</td>
-                  <td>{content.receiver}</td>
-                  <td>{content.cc}</td>
-                  <td>{content.subject}</td>
-                  <td>{content.modified}</td>
-                  <td>{content.email_type}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <Segment color={'olive'}>
+          <Header as="h2">{intl.formatMessage(messages.from)}</Header>
+          <p>{content.sender}</p>
+          <Header as="h2">{intl.formatMessage(messages.recipients)}</Header>
+          <p>
+            {content.receiver.map((receiver, index) => (
+              <span key={index}>
+                {index !== 0 && ', '}
+                {receiver.title}
+              </span>
+            ))}
+          </p>
+          <Header as="h2">{intl.formatMessage(messages.cc)}</Header>
+          <p>{content.cc}</p>
+          <Header as="h2">{intl.formatMessage(messages.subject)}</Header>
+          <p>{content.subject}</p>
+          <Header as="h2">{intl.formatMessage(messages.modified)}</Header>
+          <p>{new Date(content.modified).toLocaleDateString()}</p>
+          <Header as="h2">{intl.formatMessage(messages.type)}</Header>
+          <p>{content.email_type}</p>
+          <Header as="h2">{intl.formatMessage(messages.body)}</Header>
+          <StringToHTML string={content.body || ''} />
+        </Segment>
       </div>
     </div>
   );

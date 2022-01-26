@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchContent } from '@plone/volto/actions';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+
 import { Pagination } from '@plone/volto/components';
 export const CLMSMeetingEmailsView = (props) => {
   const { content, intl } = props;
@@ -41,6 +42,10 @@ export const CLMSMeetingEmailsView = (props) => {
     all: {
       id: 'all',
       defaultMessage: 'All',
+    },
+    no_results: {
+      id: 'no_results',
+      defaultMessage: 'There is no results',
     },
   });
   React.useEffect(() => {
@@ -120,18 +125,33 @@ export const CLMSMeetingEmailsView = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {emails?.map((email, index) => (
-                    <tr key={index}>
-                      <td>
-                        <a href={email['@id']}>{email.sender}</a>
+                  {emails.length > 0 ? (
+                    emails?.map((email, index) => (
+                      <tr key={index}>
+                        <td>
+                          <Link to={email['@id']}>{email.sender}</Link>
+                        </td>
+                        <td>
+                          {email.receiver.map((receiver, index) => (
+                            <span key={index}>
+                              {index !== 0 && ', '}
+                              {receiver.token}
+                            </span>
+                          ))}
+                        </td>
+                        <td>{email.cc}</td>
+                        <td>{email.subject}</td>
+                        <td>{new Date(email.modified).toLocaleDateString()}</td>
+                        <td>{email.email_type}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="6">
+                        <p>{intl.formatMessage(messages.no_results)}</p>
                       </td>
-                      <td>{email.receiver}</td>
-                      <td>{email.cc}</td>
-                      <td>{email.subject}</td>
-                      <td>{email.modified}</td>
-                      <td>{email.email_type}</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
               <div className="contents-pagination">

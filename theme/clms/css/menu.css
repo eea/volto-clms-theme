@@ -343,6 +343,15 @@
   align-items: center;
 }
 
+@media (max-width: 576px) {
+  .search-filters {
+    flex-direction: column;
+  }
+  .block.search .search-results-count-sort .search-details {
+    width: 100%;
+  }
+}
+
 .block.search .filter-listing {
   margin-bottom: 0 !important;
 }
