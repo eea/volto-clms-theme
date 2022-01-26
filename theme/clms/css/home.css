@@ -79,6 +79,10 @@
   .ccl-banner-top-bar {
     height: 5rem;
   }
+
+  .home-products-container {
+    padding-top: 2rem;
+  }
 }
 @media (max-width: 420px) {
   .ccl-banner-top-bar {

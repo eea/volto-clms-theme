@@ -164,7 +164,39 @@ class Header extends Component {
                   </li>
                   {(this.props.user.id && (
                     <>
-                      <li>
+                      <li className="header-dropdown">
+                        <>
+                          <span>
+                            <FontAwesomeIcon
+                              icon={['fas', 'user']}
+                              style={{ marginRight: '0.5rem' }}
+                            />
+                            {this.props.user.fullname ||
+                              this.props.user.id ||
+                              ''}
+                            <span className="ccl-icon-chevron-thin-down"></span>
+                          </span>
+                          <ul>
+                            <li>
+                              <Link
+                                to={`/${this.props.locale}/profile`}
+                                className="header-login-link"
+                              >
+                                {this.props.user.id && <>{'My settings'}</>}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/logout" className="header-login-link">
+                                <FormattedMessage
+                                  id="logout"
+                                  defaultMessage="Logout"
+                                />
+                              </Link>
+                            </li>
+                          </ul>
+                        </>
+                      </li>
+                      {/* <li>
                         <Link
                           to={`/${this.props.locale}/profile`}
                           className="header-login-link"
@@ -181,23 +213,10 @@ class Header extends Component {
                             </>
                           )}
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <CartIconCounter />
                       </li>
-                      {this.props.user.id && (
-                        <>
-                          <li>
-                            <span className="header-vertical-line"> - </span>
-                            <Link to="/logout" className="header-login-link">
-                              <FormattedMessage
-                                id="logout"
-                                defaultMessage="Logout"
-                              />
-                            </Link>
-                          </li>
-                        </>
-                      )}
                     </>
                   )) || (
                     <li>

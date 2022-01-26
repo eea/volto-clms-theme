@@ -96,12 +96,19 @@ export const CLMSMeetingView = (props) => {
                   <Header>{intl.formatMessage(messages.when)}</Header>
                 </div>
                 <div className="dataset-field-description">
-                  <When
-                    start={content.start}
-                    end={content.end}
-                    whole_day={content.whole_day}
-                    open_end={content.open_end}
-                  />
+                  {content.whole_day ? (
+                    <When
+                      start={content.start}
+                      end={content.start}
+                      whole_day={content.whole_day}
+                    />
+                  ) : (
+                    <When
+                      start={content.start}
+                      end={content.end}
+                      whole_day={content.whole_day}
+                    />
+                  )}
                   {content.recurrence && (
                     <>
                       <Header dividing sub>
