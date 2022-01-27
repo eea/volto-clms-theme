@@ -370,19 +370,6 @@ class Footer extends Component {
                           messages.agreePrivacyPolicyLinkText,
                         )}
                       </Link>
-
-                      {/* /* link: (
-                            <a
-                              href={`/${this.state.lang}/personal-data-protection`}
-                              target="_blank"
-                              rel="noreferrer"
-                              key="key-personal-data-protection"
-                            >
-                              {this.props.intl.formatMessage(
-                                messages.agreePrivacyPolicyLinkText,
-                              )}
-                            </a>
-                          ), */}
                     </label>
                   </div>
                 </div>
