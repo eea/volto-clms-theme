@@ -76,9 +76,9 @@ const messages = defineMessages({
     defineMessages:
       'If selected, this will be the address the receiver can use to reply.',
   },
-  custom_id: {
-    id: 'form_customId',
-    defineMessages: 'Custom ID',
+  field_custom_id: {
+    id: 'field_custom_id',
+    defineMessages: 'Field Custom Id',
   },
 });
 
@@ -128,7 +128,7 @@ export default (props) => {
           ...fieldTypeChoices,
           ...useAsReplyTo,
           'required',
-          'custom_id',
+          'field_custom_id',
         ],
       },
     ],
@@ -167,8 +167,8 @@ export default (props) => {
         type: 'boolean',
         default: false,
       },
-      custom_id: {
-        title: intl.formatMessage(messages.custom_id),
+      field_custom_id: {
+        title: intl.formatMessage(messages.field_custom_id),
         send_to_backend: true,
       },
     },
