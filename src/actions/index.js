@@ -68,20 +68,15 @@ export {
 
 export { getUserSchema } from './userschema/userschema';
 
-export { GET_SUBSCRIBERS, getSubscribers } from './newsletter/get_subscribers';
 export {
-  POST_SUBSCRIBERS,
-  subscribeNewsletter,
-  confirmSubscribe,
-} from './newsletter/post_subscribers';
+  GET_NEWSLETTER,
+  getNewsletterSubscriber,
+} from './newsletter/get_newsletter_subscribers';
+
 export {
-  POST_UNSUBSCRIBERS,
-  unsubscribeNewsletter,
-  confirmUnsubscribe,
-} from './newsletter/post_subscribers';
-export {
-  DEL_SUBSCRIBERS,
-  deleteSubscription,
-  deleteSubscriptionRequest,
-  deleteUnsubscriptionRequest,
-} from './newsletter/del_subscribers';
+  POST_SUBSCRIBE_TO,
+  subscribeTo,
+  confirmSubscribeTo,
+  unsubscribeTo,
+  confirmUnsubscribeTo,
+} from './subscription/post_subscription';

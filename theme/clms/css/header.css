@@ -738,6 +738,10 @@
   color: #a0b128;
 }
 
+.header-lang-icon i {
+  margin-right: 0.25rem;
+}
+
 .header-lang-text {
   display: none;
   color: white;

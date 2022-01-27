@@ -126,12 +126,19 @@ function CclCard(props) {
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                   <div className="card-event-when-text">
-                    <When
-                      start={card.start}
-                      end={card.end}
-                      whole_day={card.whole_day}
-                      open_end={card.open_end}
-                    />
+                    {card.whole_day ? (
+                      <When
+                        start={card.start}
+                        end={card.start}
+                        whole_day={card.whole_day}
+                      />
+                    ) : (
+                      <When
+                        start={card.start}
+                        end={card.end}
+                        whole_day={card.whole_day}
+                      />
+                    )}
                   </div>
                 </div>
                 {card?.location ? (

@@ -34,16 +34,19 @@ hr {
   background: #adb0b8;
 }
 
-hr + body:not(.contenttype-lrf:not(.section-cart):not(.section-profile)) main {
+hr
+  + body:not(.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-newsletter-notification-unsubscription))
+  main {
   margin-bottom: 2rem;
 }
 
-body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
+body:not(.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-newsletter-notification-unsubscription))
   main:not(.map-main) {
   min-height: 70vh;
 }
 
-.map-body:not(.contenttype-lrf:not(.section-cart):not(.section-profile)) main {
+.map-body:not(.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-newsletter-notification-unsubscription))
+  main {
   margin-bottom: 0;
 }
 
