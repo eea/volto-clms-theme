@@ -125,12 +125,14 @@ class Footer extends Component {
     this.state = {
       value: '',
       inputValue: false,
+      lang: 'en',
     };
   }
 
   componentDidMount() {
     this.setState({
       value: '',
+      lang: this.props.intl.locale,
     });
   }
 
@@ -364,7 +366,7 @@ class Footer extends Component {
                         {
                           link: (
                             <a
-                              href={`/personal-data-protection`}
+                              href={`/${this.state.lang}/personal-data-protection`}
                               target="_blank"
                               rel="noreferrer"
                               key="key-personal-data-protection"
