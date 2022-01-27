@@ -109,17 +109,6 @@ function CclCard(props) {
           )}
           {type === 'event' && (
             <>
-              {/* <div className="card-event-image">
-                // Image not needed, see: https://trello.com/c/Yh46linA/179-remove-thumbnail-for-events-in-the-events-list-view waiting to define style
-                <img
-                  src={
-                    card?.image?.scales?.mini?.download ||
-                    card?.image?.download ||
-                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                  }
-                  alt={card?.image?.alt || 'Placeholder'}
-                />
-              </div> */}
               <div className={'card-event-text'}>
                 <div className="card-event-title">
                   <Link to={url}>{card?.title || 'Event default title'}</Link>
