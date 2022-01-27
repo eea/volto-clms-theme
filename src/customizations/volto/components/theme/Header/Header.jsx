@@ -13,7 +13,8 @@ import React, { Component, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { BodyClass } from '@plone/volto/helpers';
-import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+// IMPORT isnt nedded until translations are created
+// import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -221,7 +222,8 @@ class Header extends Component {
                 >
                   <SearchWidget pathname={this.props.pathname} />
                 </div>
-                <CclLanguageSelector />
+                {/* Language selector wont be shown until translations are completed */}
+                {/* <CclLanguageSelector /> */}
               </div>
             </div>
           </div>
