@@ -19,6 +19,7 @@ import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/Cc
 import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
 import { defineMessages } from 'react-intl';
 import { ReactSVG } from 'react-svg';
+import { Link } from 'react-router-dom';
 import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
 import { Toast } from '@plone/volto/components';
 import { toast } from 'react-toastify';
@@ -61,7 +62,7 @@ const messages = defineMessages({
   },
   agreePrivacyPolicy: {
     id: 'agreePrivacyPolicy',
-    defaultMessage: 'I agree to the {link}',
+    defaultMessage: 'I agree to the ',
   },
   agreePrivacyPolicyLinkText: {
     id: 'agreePrivacyPolicyLinkText',
@@ -363,8 +364,14 @@ class Footer extends Component {
                     >
                       {this.props.intl.formatMessage(
                         messages.agreePrivacyPolicy,
-                        {
-                          link: (
+                      )}
+                      <Link to={`/${this.state.lang}/personal-data-protection`}>
+                        {this.props.intl.formatMessage(
+                          messages.agreePrivacyPolicyLinkText,
+                        )}
+                      </Link>
+
+                      {/* /* link: (
                             <a
                               href={`/${this.state.lang}/personal-data-protection`}
                               target="_blank"
@@ -375,9 +382,7 @@ class Footer extends Component {
                                 messages.agreePrivacyPolicyLinkText,
                               )}
                             </a>
-                          ),
-                        },
-                      )}
+                          ), */}
                     </label>
                   </div>
                 </div>
