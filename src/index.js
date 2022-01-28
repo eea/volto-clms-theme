@@ -9,6 +9,7 @@ import BoundingWidget from './components/Widgets/BoundingWidget';
 // VIEWS IMPORTS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+import CLMSDownloadsView from './components/CLMSDownloadsView/CLMSDownloadsView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
@@ -174,6 +175,10 @@ const applyConfig = (config) => {
     {
       path: '/**/cart',
       component: CLMSDownloadCartView,
+    },
+    {
+      path: '/**/cart-downloads',
+      component: CLMSDownloadsView,
     },
     {
       path: `/(${config.settings.supportedLanguages.join('|')})/sitemap`,

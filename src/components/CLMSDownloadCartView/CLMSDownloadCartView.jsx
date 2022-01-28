@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import CLMSCartContent from './CLMSCartContent';
-import CLMSTasksInProgress from './CLMSTasksInProgress';
+// import CLMSTasksInProgress from './CLMSTasksInProgress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from '@plone/volto/helpers';
@@ -21,9 +21,9 @@ const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
   const user_id = useSelector((state) => state.users.user.id);
   const [localSessionCart, setLocalSessionCart] = useState([]);
-  const download_in_progress = useSelector(
-    (state) => state.downloadtool.download_in_progress,
-  );
+  // const download_in_progress = useSelector(
+  //   (state) => state.downloadtool.download_in_progress,
+  // );
   const { isLoggedIn } = useCartState();
 
   const { formatMessage } = useIntl();
@@ -59,34 +59,36 @@ const CLMSDownloadCartView = (props) => {
 
   useEffect(() => {
     let localsessionUidsList = [];
-    let downloadInProgressUidsList = [];
+    // let downloadInProgressUidsList = [];
     if (localSessionCart?.length !== 0) {
       localsessionUidsList = [
         ...new Set(localSessionCart.map((item) => item.UID || item.id)),
       ];
     }
-    let progress_keys = Object.keys(download_in_progress);
-    if (progress_keys?.length !== 0) {
-      downloadInProgressUidsList = [
-        ...new Set(
-          progress_keys
-            .map((taskID) =>
-              download_in_progress[taskID].Datasets.map(
-                (dataset) => dataset.DatasetID,
-              ),
-            )
-            .reduce((elem1, elem2) => elem1.concat(elem2)),
-        ),
-      ];
-    }
+    // let progress_keys = Object.keys(download_in_progress);
+    // if (progress_keys?.length !== 0) {
+    //   downloadInProgressUidsList = [
+    //     ...new Set(
+    //       progress_keys
+    //         .map((taskID) =>
+    //           download_in_progress[taskID].Datasets.map(
+    //             (dataset) => dataset.DatasetID,
+    //           ),
+    //         )
+    //         .reduce((elem1, elem2) => elem1.concat(elem2)),
+    //     ),
+    //   ];
+    // }
     let uidsList = [
-      ...new Set(localsessionUidsList.concat(downloadInProgressUidsList)),
+      ...new Set(localsessionUidsList),
+      // ...new Set(localsessionUidsList.concat(downloadInProgressUidsList)),
     ];
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [download_in_progress, localSessionCart, dispatch]);
+  }, [localSessionCart, dispatch]);
+  // }, [download_in_progress, localSessionCart, dispatch]);
 
   return (
     <>
@@ -139,7 +141,7 @@ const CLMSDownloadCartView = (props) => {
                   </ul>
                 </div>
               </div>
-              <CLMSTasksInProgress />
+              {/* <CLMSTasksInProgress /> */}
               <CLMSCartContent localSessionCart={localSessionCart} />
             </div>
           </>
