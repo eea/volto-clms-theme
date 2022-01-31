@@ -40,12 +40,36 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
       };
 
     case `${GET_DOWNLOADTOOL}_SUCCESS`:
+      let tasks_keys = Object.keys(action.result);
+      let tasks_array = [];
+      tasks_keys.forEach((progress_key) => {
+        tasks_array.push({
+          ...action.result[progress_key],
+          TaskID: progress_key,
+        });
+      });
+      // var cancelled = tasks_array.filter((task) => task.Status === 'Cancelled');
+      var in_progress = tasks_array.filter(
+        (task) => task.Status === 'In_progress',
+      );
+      var finished_ok = tasks_array.filter(
+        (task) => task.Status === 'Finished_ok',
+      );
+      var finished_nok = tasks_array.filter(
+        (task) => task.Status === 'Finished_nok',
+      );
+      var rejected = tasks_array.filter((task) => task.Status === 'Rejected');
+
       return {
         ...state,
         error: null,
         loaded: true,
         loading: false,
-        download_in_progress: action.result,
+        // download_cancelled: cancelled,
+        download_in_progress: in_progress,
+        download_finished_ok: finished_ok,
+        download_finished_nok: finished_nok,
+        download_rejected: rejected,
       };
     case `${POST_DOWNLOADTOOL}_PENDING`:
       return {
