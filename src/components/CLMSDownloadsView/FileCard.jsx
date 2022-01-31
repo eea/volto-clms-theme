@@ -13,6 +13,8 @@ import packSVG from '@plone/volto/icons/pack.svg';
 import errorSVG from '@plone/volto/icons/error.svg';
 import alertSVG from '@plone/volto/icons/alert.svg';
 import { defineMessages, useIntl } from 'react-intl';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const prettyBytes = require('pretty-bytes');
 
@@ -112,12 +114,48 @@ const FileCard = (props) => {
           </Grid.Column>
           <Grid.Column width={item?.Status === 'In_progress' ? 7 : 9}>
             <Header>{`Task ID: ${item?.TaskID}`}</Header>
+            Start date:{' '}
+            {new Date(item?.RegistrationDateTime).toLocaleString('en-GB', {
+              timeZone: 'UTC',
+            })}{' '}
+            <span
+              className="info-icon"
+              tooltip="Dates and times are in UTC"
+              direction="up"
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+            </span>
+            {item?.FinalizationDateTime && (
+              <>
+                <br />
+                End date:{' '}
+                {new Date(item?.FinalizationDateTime).toLocaleString('en-GB', {
+                  timeZone: 'UTC',
+                })}
+                <span
+                  className="info-icon"
+                  tooltip="Dates and times are in UTC"
+                  direction="up"
+                >
+                  <FontAwesomeIcon icon={faInfoCircle} />
+                </span>
+              </>
+            )}
             {item?.Datasets.length === 1 && (
-              <p>{`${item?.Datasets[0].name} - ${
-                item.Datasets[0]['OutputFormat']
-                  ? item.Datasets[0]['OutputFormat']
-                  : formatMessage(messages.PrePackaged)
-              }`}</p>
+              <p>
+                <br />
+                {`${item?.Datasets[0].name} - ${
+                  item.Datasets[0]?.OutputFormat
+                    ? item.Datasets[0]?.OutputFormat
+                    : formatMessage(messages.PrePackaged)
+                }`}
+                <br />
+                {(item.Datasets[0]?.NUTSName &&
+                  `NUTS: ${item.Datasets[0]?.NUTSName}`) ||
+                  (item.Datasets[0]?.NUTSID &&
+                    `NUTS: ${item.Datasets[0]?.NUTSID}`) ||
+                  (item.Datasets[0]?.BoundingBox && 'Bounding Box')}{' '}
+              </p>
             )}
             {item?.Datasets.length > 1 && (
               <ul>
@@ -125,10 +163,14 @@ const FileCard = (props) => {
                   <li>
                     {`${dataset['name']} -
                       ${
-                        dataset['OutputFormat']
-                          ? dataset['OutputFormat']
+                        dataset?.OutputFormat
+                          ? dataset?.OutputFormat
                           : formatMessage(messages.PrePackaged)
                       }`}
+                    <br />
+                    {(dataset?.NUTSName && `NUTS: ${dataset?.NUTSName}`) ||
+                      (dataset?.NUTSID && `NUTS: ${dataset?.NUTSID}`) ||
+                      (dataset?.BoundingBox && 'Bounding Box')}{' '}
                   </li>
                 ))}
               </ul>
