@@ -14,7 +14,7 @@ export function getDownloadtool() {
     type: GET_DOWNLOADTOOL,
     request: {
       op: 'get',
-      path: `/@datarequest_search?status=In_progress`,
+      path: `/@datarequest_search`,
     },
   };
 }

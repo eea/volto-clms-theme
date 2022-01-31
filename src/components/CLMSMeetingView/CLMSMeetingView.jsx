@@ -131,7 +131,7 @@ export const CLMSMeetingView = (props) => {
     });
   };
   var formErrorMessagesList = [];
-  !content.anonymous_registration_form.published &&
+  !content.anonymous_registration_form?.published &&
     formErrorMessagesList.push(
       intl.formatMessage(messages.form_is_not_published),
     );
@@ -334,8 +334,8 @@ export const CLMSMeetingView = (props) => {
               {content.allow_anonymous_registration ? (
                 <>
                   {content.anonymous_registration_form?.published &&
-                    content.anonymous_registration_form.email &&
-                    content.anonymous_registration_form.fullname && (
+                    content.anonymous_registration_form?.email &&
+                    content.anonymous_registration_form?.fullname && (
                       <CclButton url={content.anonymous_registration_form?.url}>
                         <FormattedMessage
                           id="Register to this meeting"
