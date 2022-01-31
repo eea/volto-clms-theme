@@ -71,27 +71,32 @@ const CLMSTasksInProgress = (props) => {
   return (
     <Grid columns={1} stackable padded="vertically">
       <Grid.Column>
-        {taskInProgress?.length !== 0 && (
-          <>
-            <h2>
-              <FormattedMessage
-                id="Task In Progress"
-                defaultMessage="Task In Progress"
-              />
-            </h2>
-            <Grid columns={2}>
-              {taskInProgress?.length > 0 &&
-                taskInProgress.map((item, key) => (
-                  <Grid.Column key={key}>
-                    <FileCard
-                      item={item}
-                      showDeleteTaskLoading={showDeleteTaskLoading}
-                      deleteTaskInProgress={deleteTaskInProgress}
-                    />
-                  </Grid.Column>
-                ))}
-            </Grid>
-          </>
+        <h2>
+          <FormattedMessage
+            id="Task In Progress"
+            defaultMessage="Task In Progress"
+          />
+        </h2>
+        {taskInProgress?.length !== 0 ? (
+          <Grid columns={2}>
+            {taskInProgress?.length > 0 &&
+              taskInProgress.map((item, key) => (
+                <Grid.Column key={key}>
+                  <FileCard
+                    item={item}
+                    showDeleteTaskLoading={showDeleteTaskLoading}
+                    deleteTaskInProgress={deleteTaskInProgress}
+                  />
+                </Grid.Column>
+              ))}
+          </Grid>
+        ) : (
+          <p>
+            <FormattedMessage
+              id="There is no task in progress"
+              defaultMessage="There is no task in progress"
+            />
+          </p>
         )}
         {/* <h2>Cancelled Tasks</h2>
         {cancelledTasks?.length > 0 &&
@@ -105,75 +110,90 @@ const CLMSTasksInProgress = (props) => {
           ))} */}
       </Grid.Column>
       <Grid.Column>
-        {finishedOKTasks?.length !== 0 && (
-          <>
-            <h2>
-              <FormattedMessage
-                id="Finished Correctly"
-                defaultMessage="Finished Correctly"
-              />
-            </h2>
-            <Grid columns={2}>
-              {finishedOKTasks?.length > 0 &&
-                finishedOKTasks.map((item, key) => (
-                  <Grid.Column key={key}>
-                    <FileCard
-                      item={item}
-                      key={key}
-                      showDeleteTaskLoading={showDeleteTaskLoading}
-                      deleteTaskInProgress={deleteTaskInProgress}
-                    />
-                  </Grid.Column>
-                ))}
-            </Grid>
-          </>
+        <h2>
+          <FormattedMessage
+            id="Finished Correctly"
+            defaultMessage="Finished Correctly"
+          />
+        </h2>
+        {finishedOKTasks?.length !== 0 ? (
+          <Grid columns={2}>
+            {finishedOKTasks?.length > 0 &&
+              finishedOKTasks.map((item, key) => (
+                <Grid.Column key={key}>
+                  <FileCard
+                    item={item}
+                    key={key}
+                    showDeleteTaskLoading={showDeleteTaskLoading}
+                    deleteTaskInProgress={deleteTaskInProgress}
+                  />
+                </Grid.Column>
+              ))}
+          </Grid>
+        ) : (
+          <p>
+            <FormattedMessage
+              id="There is no correctly finished task"
+              defaultMessage="There is no correctly finished task"
+            />
+          </p>
         )}
       </Grid.Column>
       <Grid.Column>
-        {finishedNOKTasks?.length !== 0 && (
-          <>
-            <h2>
-              <FormattedMessage
-                id="Finished Not Correctly"
-                defaultMessage="Finished Not Correctly"
-              />
-            </h2>
-            <Grid columns={2}>
-              {finishedNOKTasks?.length > 0 &&
-                finishedNOKTasks.map((item, key) => (
-                  <Grid.Column key={key}>
-                    <FileCard
-                      item={item}
-                      key={key}
-                      showDeleteTaskLoading={showDeleteTaskLoading}
-                      deleteTaskInProgress={deleteTaskInProgress}
-                    />
-                  </Grid.Column>
-                ))}
-            </Grid>
-          </>
+        <h2>
+          <FormattedMessage
+            id="Finished Not Correctly"
+            defaultMessage="Finished Not Correctly"
+          />
+        </h2>
+        {finishedNOKTasks?.length !== 0 ? (
+          <Grid columns={2}>
+            {finishedNOKTasks?.length > 0 &&
+              finishedNOKTasks.map((item, key) => (
+                <Grid.Column key={key}>
+                  <FileCard
+                    item={item}
+                    key={key}
+                    showDeleteTaskLoading={showDeleteTaskLoading}
+                    deleteTaskInProgress={deleteTaskInProgress}
+                  />
+                </Grid.Column>
+              ))}
+          </Grid>
+        ) : (
+          <p>
+            <FormattedMessage
+              id="There is no incorrectly finished task"
+              defaultMessage="There is no incorrectly finished task"
+            />
+          </p>
         )}
       </Grid.Column>
       <Grid.Column>
-        {rejectedTasks?.length !== 0 && (
-          <>
-            <h2>
-              <FormattedMessage id="Rejected" defaultMessage="Rejected" />
-            </h2>
-            <Grid columns={2}>
-              {rejectedTasks?.length > 0 &&
-                rejectedTasks.map((item, key) => (
-                  <Grid.Column key={key}>
-                    <FileCard
-                      item={item}
-                      key={key}
-                      showDeleteTaskLoading={showDeleteTaskLoading}
-                      deleteTaskInProgress={deleteTaskInProgress}
-                    />
-                  </Grid.Column>
-                ))}
-            </Grid>
-          </>
+        <h2>
+          <FormattedMessage id="Rejected" defaultMessage="Rejected" />
+        </h2>
+        {rejectedTasks?.length !== 0 ? (
+          <Grid columns={2}>
+            {rejectedTasks?.length > 0 &&
+              rejectedTasks.map((item, key) => (
+                <Grid.Column key={key}>
+                  <FileCard
+                    item={item}
+                    key={key}
+                    showDeleteTaskLoading={showDeleteTaskLoading}
+                    deleteTaskInProgress={deleteTaskInProgress}
+                  />
+                </Grid.Column>
+              ))}
+          </Grid>
+        ) : (
+          <p>
+            <FormattedMessage
+              id="There is no rejected task"
+              defaultMessage="There is no rejected task"
+            />
+          </p>
         )}
       </Grid.Column>
     </Grid>
