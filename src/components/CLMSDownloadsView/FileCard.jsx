@@ -14,6 +14,8 @@ import errorSVG from '@plone/volto/icons/error.svg';
 import alertSVG from '@plone/volto/icons/alert.svg';
 import { defineMessages, useIntl } from 'react-intl';
 
+const prettyBytes = require('pretty-bytes');
+
 const FileCard = (props) => {
   const { item, showDeleteTaskLoading, deleteTaskInProgress } = props;
   const { formatMessage } = useIntl();
@@ -121,7 +123,7 @@ const FileCard = (props) => {
               <ul>
                 {item?.Datasets.map((dataset) => (
                   <li>
-                    {`${dataset['name']} - 
+                    {`${dataset['name']} -
                       ${
                         dataset['OutputFormat']
                           ? dataset['OutputFormat']
@@ -133,7 +135,7 @@ const FileCard = (props) => {
             )}
             {item?.Status === 'Finished_ok' && (
               <>
-                {item?.FileSize && <p>{`${item.FileSize} MB`}</p>}
+                {item?.FileSize && <p>{prettyBytes(item.FileSize)}</p>}
                 {item?.DownloadURL && (
                   <a href={item.DownloadURL} target="_blank" rel="noreferrer">
                     {formatMessage(messages.Download)}
