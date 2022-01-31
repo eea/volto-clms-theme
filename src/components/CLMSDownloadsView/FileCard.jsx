@@ -131,14 +131,18 @@ const FileCard = (props) => {
                 ))}
               </ul>
             )}
-            {item?.FileSize && <p>{`${item.FileSize} MB`}</p>}
-            {item?.DownloadURL && (
-              <a href={item.DownloadURL} target="_blank" rel="noreferrer">
-                {formatMessage(messages.Download)}
-              </a>
+            {item?.Status === 'Finished_ok' && (
+              <>
+                {item?.FileSize && <p>{`${item.FileSize} MB`}</p>}
+                {item?.DownloadURL && (
+                  <a href={item.DownloadURL} target="_blank" rel="noreferrer">
+                    {formatMessage(messages.Download)}
+                  </a>
+                )}
+                {item?.FinalizationDateTime &&
+                  ` | Expires in ${10 - daysDiff} days`}
+              </>
             )}
-            {item?.FinalizationDateTime &&
-              ` | Expires in ${10 - daysDiff} days`}
           </Grid.Column>
           {item?.Status === 'In_progress' && (
             <Grid.Column width={2} verticalAlign="middle" textAlign="center">
