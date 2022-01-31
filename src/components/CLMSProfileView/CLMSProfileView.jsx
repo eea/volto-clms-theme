@@ -3,19 +3,20 @@
  * @module components/CLMSProfileView/CLMSProfileView
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import jwtDecode from 'jwt-decode';
-import { getUser, updateUser } from '@plone/volto/actions';
-import { getBaseUrl } from '@plone/volto/helpers';
-import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
-  CLMSUserProfileView,
   CLMSApiTokensView,
+  CLMSUserProfileView,
+  CLMSNewsletterSubscriberView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
-
+import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
+import React, { Component } from 'react';
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { getExtraBreadcrumbItems } from '../../actions';
+import jwtDecode from 'jwt-decode';
+import { AVAILABLE_SUBSCRIPTIONS } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 /**
  * CLMSProfileView class.
  * @class CLMSProfileView
@@ -30,25 +31,8 @@ class CLMSProfileView extends Component {
   static propTypes = {
     content: PropTypes.object,
     children: PropTypes.instanceOf(Array),
-    user: PropTypes.shape({
-      '@id': PropTypes.string,
-      description: PropTypes.string,
-      email: PropTypes.string,
-      fullname: PropTypes.string,
-      id: PropTypes.string,
-      location: PropTypes.string,
-      nickname: PropTypes.string,
-      portrait: PropTypes.string,
-      roles: PropTypes.array,
-      username: PropTypes.string,
-      return_url: PropTypes.string,
-    }),
     userId: PropTypes.string,
-    getUser: PropTypes.func.isRequired,
-    updateUser: PropTypes.func.isRequired,
-    getBaseUrl: PropTypes.func.isRequired,
   };
-
   /**
    * Render method.
    * @method render
@@ -56,33 +40,48 @@ class CLMSProfileView extends Component {
    */
   render() {
     const loggedIn = !!this.props.userId;
+    this.props.getExtraBreadcrumbItems([
+      {
+        title: 'Profile',
+        pathname: this.props.location.pathname,
+      },
+    ]);
+
     return (
-      <>
+      <div className="ccl-container ">
         {loggedIn && (
-          <>
-            <CclTabs>
-              <div tabTitle="USER PROFILE">
-                {CLMSUserProfileView(this.props.content)}
+          <CclTabs>
+            <div tabTitle="USER PROFILE">
+              <CLMSUserProfileView />
+            </div>
+            <div tabTitle="API TOKENS">
+              <CLMSApiTokensView />
+            </div>
+            {(this.props.roles?.includes('Manager') ||
+              this.props.roles?.includes('Site Administrator')) && (
+              <div tabTitle="NEWSLETTER SUBSCRIBERS">
+                <CLMSNewsletterSubscriberView />
               </div>
-              <div tabTitle="API TOKENS">
-                {CLMSApiTokensView(this.props.content)}
+            )}
+            {AVAILABLE_SUBSCRIPTIONS.map((subscription) => (
+              <div tabTitle={subscription?.title} key={subscription?.title}>
+                <SubscriptionView type={subscription?.type} />
               </div>
-            </CclTabs>
-          </>
+            ))}
+          </CclTabs>
         )}
-      </>
+      </div>
     );
   }
 }
-
 export default compose(
   connect(
     (state) => ({
-      user: state.users.user,
+      roles: state.users.user.roles,
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
     }),
-    { getUser, updateUser, getBaseUrl },
+    { getExtraBreadcrumbItems },
   ),
 )(CLMSProfileView);

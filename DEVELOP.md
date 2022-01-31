@@ -6,13 +6,11 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Make sure you have installed `yo`, `@plone/generator-volto` and `mrs-developer`
 
-        $ npm install -g yo
-        $ npm install -g @plone/generator-volto
-        $ npm install -g mrs-developer
+        $ npm install -g yo @plone/generator-volto mrs-developer
 
 1.  Create new volto app
 
-        $ yo @plone/volto my-volto-project --addon @eeacms/volto-addon-template
+        $ yo @plone/volto my-volto-project --addon @eeacms/volto-clms-theme --skip-install
         $ cd my-volto-project
 
 1.  Add the following to `mrs.developer.json`:

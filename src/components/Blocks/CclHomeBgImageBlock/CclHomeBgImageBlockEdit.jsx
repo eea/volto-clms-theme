@@ -40,7 +40,11 @@ const CclHomeBgImageBlockEdit = (props) => {
       />
       <SidebarPortal selected={selected}>
         <BlockDataForm
-          schema={HomeBgImageSchema(config, data.hasButton)}
+          schema={HomeBgImageSchema(
+            config,
+            data.hasButton,
+            data.hasLocationInfo,
+          )}
           title="Carousel Div block"
           onChangeField={(id, value) => {
             onChangeBlock(block, {

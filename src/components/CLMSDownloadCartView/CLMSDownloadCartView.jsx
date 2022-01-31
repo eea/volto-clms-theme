@@ -3,34 +3,30 @@
  * @module components/CLMSDownloadCartView/CLMSDownloadCartView
  */
 
-import React, { useEffect, useState } from 'react';
-import { Helmet } from '@plone/volto/helpers';
-import { defineMessages, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
-import { getExtraBreadcrumbItems } from '../../actions';
-import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
-import { FormattedMessage } from 'react-intl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Forbidden, Unauthorized } from '@plone/volto/components';
-import { Checkbox } from 'semantic-ui-react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import React, { useEffect, useState } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
+import { getDatasetsByUid, getExtraBreadcrumbItems } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
+import CLMSCartContent from './CLMSCartContent';
+// import CLMSTasksInProgress from './CLMSTasksInProgress';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FormattedMessage } from 'react-intl';
+import { Helmet } from '@plone/volto/helpers';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
-  const { cart, removeCartItem, isLoggedIn } = useCartState();
-  const [cartSelection, setCartSelection] = useState([]);
-  const selectCart = (id, checked) => {
-    if (checked) setCartSelection(cartSelection.concat(id));
-    else setCartSelection(cartSelection.filter((arr_id) => arr_id !== id));
-  };
-
-  const selectAllCart = (checked) => {
-    if (checked) {
-      setCartSelection(cart.map((item, key) => item.unique_id));
-    } else {
-      setCartSelection([]);
-    }
-  };
+  const user_id = useSelector((state) => state.users.user.id);
+  const locale = useSelector((state) => state.intl?.locale);
+  const [localSessionCart, setLocalSessionCart] = useState([]);
+  // const download_in_progress = useSelector(
+  //   (state) => state.downloadtool.download_in_progress,
+  // );
+  const { isLoggedIn } = useCartState();
 
   const { formatMessage } = useIntl();
   const messages = defineMessages({
@@ -55,6 +51,46 @@ const CLMSDownloadCartView = (props) => {
       dispatch(getExtraBreadcrumbItems([]));
     };
   }, [dispatch, formatMessage, messages.Cart, props.location.pathname]);
+
+  useEffect(() => {
+    const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
+    setLocalSessionCart(
+      JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || [],
+    );
+  }, [user_id]);
+
+  useEffect(() => {
+    let localsessionUidsList = [];
+    // let downloadInProgressUidsList = [];
+    if (localSessionCart?.length !== 0) {
+      localsessionUidsList = [
+        ...new Set(localSessionCart.map((item) => item.UID || item.id)),
+      ];
+    }
+    // let progress_keys = Object.keys(download_in_progress);
+    // if (progress_keys?.length !== 0) {
+    //   downloadInProgressUidsList = [
+    //     ...new Set(
+    //       progress_keys
+    //         .map((taskID) =>
+    //           download_in_progress[taskID].Datasets.map(
+    //             (dataset) => dataset.DatasetID,
+    //           ),
+    //         )
+    //         .reduce((elem1, elem2) => elem1.concat(elem2)),
+    //     ),
+    //   ];
+    // }
+    let uidsList = [
+      ...new Set(localsessionUidsList),
+      // ...new Set(localsessionUidsList.concat(downloadInProgressUidsList)),
+    ];
+    if (uidsList.length > 0) {
+      dispatch(getDatasetsByUid(uidsList));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localSessionCart, dispatch]);
+  // }, [download_in_progress, localSessionCart, dispatch]);
 
   return (
     <>
@@ -91,8 +127,10 @@ const CLMSDownloadCartView = (props) => {
             <div className="ccl-container">
               <div className="message-block">
                 <div className="message-icon">
-                  <FontAwesomeIcon icon={['far', 'comment-alt']} />
-                  <i className="far fa-comment-alt"></i>
+                  <FontAwesomeIcon
+                    icon={['far', 'comment-alt']}
+                    style={{ maxWidth: '1.5rem' }}
+                  />
                 </div>
                 <div className="message-text">
                   <p>
@@ -100,147 +138,22 @@ const CLMSDownloadCartView = (props) => {
                     downloading the datasets
                   </p>
                   <ul>
-                    <li>May be can include a link to somewhere</li>
-                    <li>Or an informative text</li>
+                    <li>
+                      Select the files you want to download and click the button
+                      'Start downloading' to start with the download process.
+                    </li>
+                    <li>
+                      You can visit the{' '}
+                      <Link to={`/${locale}/cart-downloads`}>
+                        downloading process page
+                      </Link>
+                      .{' '}
+                    </li>
                   </ul>
                 </div>
               </div>
-
-              <div className="custom-table cart-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th className="table-th-warning"></th>
-                      <th className="table-th-checkbox">
-                        <div className="ccl-form">
-                          <div className="ccl-form-group">
-                            <Checkbox
-                              onChange={(e, data) =>
-                                selectAllCart(data.checked)
-                              }
-                              checked={cart
-                                .map((item, key) => item.unique_id)
-                                .every(function (val) {
-                                  return cartSelection.indexOf(val) !== -1;
-                                })}
-                            />
-                          </div>
-                        </div>
-                      </th>
-                      <th>Name</th>
-                      <th>Source</th>
-                      <th>Area</th>
-                      <th>Year</th>
-                      <th>Resolution</th>
-                      <th>Type</th>
-                      <th>Format</th>
-                      <th>Version</th>
-                      <th>Size</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cart &&
-                      cart.map((item, key) => (
-                        <tr key={key}>
-                          <td className="table-td-warning hidden-warning">
-                            {!!item.warning && (
-                              <span
-                                className="info-icon"
-                                tooltip={item.warning}
-                                direction="up"
-                              >
-                                <FontAwesomeIcon
-                                  icon={['fas', 'exclamation-triangle']}
-                                />
-                              </span>
-                            )}
-                          </td>
-                          <td className="table-td-checkbox">
-                            <div className="ccl-form">
-                              <div className="ccl-form-group">
-                                <Checkbox
-                                  onChange={(e, data) =>
-                                    selectCart(item.unique_id, data.checked)
-                                  }
-                                  checked={cartSelection.includes(
-                                    item.unique_id,
-                                  )}
-                                />
-                              </div>
-                            </div>
-                          </td>
-                          <td>{item.name}</td>
-                          <td>{item.source}</td>
-                          <td>{item.area}</td>
-                          <td>{item.year}</td>
-                          <td>{item.resolution}</td>
-                          <td>
-                            <span
-                              className={'tag tag-' + item.type.toLowerCase()}
-                            >
-                              {item.type}
-                            </span>
-                          </td>
-                          <td className="table-td-format">
-                            {item.format}
-                            {/* <div className="ccl-form">
-                      <div className="ccl-form-group">
-                        <select
-                          className="ccl-select"
-                          id="select-ID-1"
-                          name="select-name-1"
-                          defaultValue={item.format}
-                        >
-                          <option value="GeoTiff" >GeoTiff</option>
-                          <option value="ESRI Geodatabase" >ESRI Geodatabase</option>
-                          <option value="SQLite Geodatabase" >SQLite Geodatabase</option>
-                        </select>
-                      </div>
-                    </div> */}
-                          </td>
-                          <td>{item.version}</td>
-                          <td>{item.size}</td>
-                          <td>
-                            <FontAwesomeIcon
-                              icon={['fas', 'trash']}
-                              style={{ cursor: 'pointer' }}
-                              onClick={() => {
-                                removeCartItem(item.unique_id);
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    {cart.length === 0 && (
-                      <>
-                        <tr>
-                          <td
-                            colSpan={11}
-                            style={{ textAlign: 'center', fontSize: '1.5em' }}
-                          >
-                            Empty cart
-                          </td>
-                        </tr>
-                      </>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-              {cart.length !== 0 && (
-                <CclButton
-                  onClick={() => {
-                    // eslint-disable-next-line no-alert
-                    alert(
-                      'ToDo\nSelected content:\n' +
-                        JSON.stringify(cartSelection),
-                    );
-                  }}
-                  disabled={cartSelection.length === 0}
-                >
-                  Start downloading
-                </CclButton>
-              )}
+              {/* <CLMSTasksInProgress /> */}
+              <CLMSCartContent localSessionCart={localSessionCart} />
             </div>
           </>
         )}

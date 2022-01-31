@@ -474,8 +474,10 @@
 
 .ccl-header .ccl-header-nav .ccl-header-main-menu > li:hover > a,
 .ccl-header .ccl-header-nav .ccl-header-main-menu > li.active > a,
+.ccl-header .ccl-header-nav .ccl-header-main-menu > li > a.active,
 .ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li:hover > a,
-.ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li.active > a {
+.ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li.active > a,
+.ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li > a.active {
   border-bottom: 1px solid;
 }
 
@@ -615,7 +617,7 @@
 
 .ccl-header-tools-container .header-dropdown:hover ul {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   display: block;
   min-width: 100%;
@@ -734,6 +736,10 @@
 .ccl-header-lang:hover .header-lang-icon {
   background-color: white;
   color: #a0b128;
+}
+
+.header-lang-icon i {
+  margin-right: 0.25rem;
 }
 
 .header-lang-text {

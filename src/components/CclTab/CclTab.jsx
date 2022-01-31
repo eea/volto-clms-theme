@@ -1,28 +1,28 @@
-import React from 'react';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React from 'react';
+import cx from 'classnames';
 
 function CclTab(props) {
-  let { activeTab, tabTitle, onClick } = props;
+  let { activeTab, tabTitle, onClick, tabId, routing } = props;
 
   function onTabClick() {
-    onClick(tabTitle);
+    onClick(tabId);
   }
-
-  let className = 'card';
-
-  if (activeTab === tabTitle) {
-    className += ' active';
-  }
-
   return (
     <div
-      className={className}
-      onClick={() => onTabClick()}
-      onKeyDown={() => onTabClick()}
+      className={cx('card', activeTab === tabId && 'active')}
+      onClick={onTabClick}
+      onKeyDown={onTabClick}
       tabIndex="0"
       role="button"
+      id={tabId}
     >
-      <li className="collapsed">{tabTitle}</li>
+      {routing ? (
+        <NavLink to={'#' + tabId}>{tabTitle}</NavLink>
+      ) : (
+        <NavLink to={'#'}>{tabTitle}</NavLink>
+      )}
     </div>
   );
 }

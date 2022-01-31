@@ -4,11 +4,12 @@
  */
 
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Form, Input } from 'semantic-ui-react';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 
 const messages = defineMessages({
   search: {
@@ -48,6 +49,7 @@ class SearchWidget extends Component {
     this.onChangeSection = this.onChangeSection.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
+      lang: 'en',
       text: '',
       section: false,
     };
@@ -88,7 +90,7 @@ class SearchWidget extends Component {
   onSubmit(event) {
     const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/search?SearchableText=${this.state.text}${section}`,
+      `/${this.props.locale}/search?SearchableText=${this.state.text}${section}`,
     );
     event.preventDefault();
   }
@@ -125,4 +127,10 @@ class SearchWidget extends Component {
   }
 }
 
-export default compose(withRouter, injectIntl)(SearchWidget);
+export default compose(
+  withRouter,
+  injectIntl,
+  connect((state) => ({
+    locale: state.intl.locale,
+  })),
+)(SearchWidget);

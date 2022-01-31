@@ -5,26 +5,53 @@
  * @module components/theme/Header/Header
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
-import jwtDecode from 'jwt-decode';
-import { getUser } from '@plone/volto/actions';
-import { compose } from 'redux';
-
-import { BodyClass } from '@plone/volto/helpers';
-
-import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
-import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
-
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
-import { getCartItems } from '@eeacms/volto-clms-theme/actions';
 import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
 
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
+import React, { Component, useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+
+import { BodyClass } from '@plone/volto/helpers';
+import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
+import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+// import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
+import { getCartItems } from '@eeacms/volto-clms-utils/actions';
+import { getUser } from '@plone/volto/actions';
+import jwtDecode from 'jwt-decode';
+
+// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+
+const CartIconCounter = (props) => {
+  const cart = useSelector((state) => state.cart_items.items);
+  const intl = useSelector((state) => state.intl);
+  const user_id = useSelector((state) => state.users.user.id);
+  // const { cart_items, users, intl } = useSelector((state) => state);
+
+  // const cart = cart_items.items || [];
+  // const user_id = users.user.id;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItems(user_id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user_id]);
+  return (
+    cart && (
+      <Link to={`/${intl.locale}/cart`} className="header-login-link">
+        <FontAwesomeIcon
+          icon={['fas', 'shopping-cart']}
+          style={{ marginRight: '0.25rem', maxWidth: '1.5rem' }}
+        />
+        <strong>{cart?.length}</strong>
+      </Link>
+    )
+  );
+};
 /**
  * Header component class.
  * @class Header
@@ -52,11 +79,13 @@ class Header extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.token);
-    this.props.getCartItems(this.props.rawtoken);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.token !== this.props.token) {
       this.props.getUser(nextProps.token);
+    }
+    if (nextProps.user.id !== this.props.user.id) {
+      this.props.getCartItems(this.props?.user?.id);
     }
   }
 
@@ -133,67 +162,49 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  <li>
-                    {(this.props.user.id && (
-                      <>
-                        <a
-                          href={`/${this.props.locale}/profile`}
-                          className="header-login-link"
-                        >
-                          {this.props.user.id && (
-                            <>
-                              <FormattedMessage
-                                id="hello"
-                                defaultMessage="Hello "
-                              />
-                              {this.props.user.fullname ||
-                                this.props.user.id ||
-                                ''}
-                            </>
-                          )}
-                        </a>
-                        {this.props.cart?.length !== 0 && this.props.cart && (
-                          <>
-                            <span className="header-vertical-line"> - </span>
-                            <span>
-                              <a
-                                href={`/${this.props.locale}/cart`}
+                  {(this.props.user.id && (
+                    <>
+                      <li className="header-dropdown">
+                        <>
+                          <span>
+                            <FontAwesomeIcon
+                              icon={['fas', 'user']}
+                              style={{ marginRight: '0.5rem' }}
+                            />
+                            {this.props.user.fullname ||
+                              this.props.user.id ||
+                              ''}
+                            <span className="ccl-icon-chevron-thin-down"></span>
+                          </span>
+                          <ul>
+                            <li>
+                              <Link
+                                to={`/${this.props.locale}/profile`}
                                 className="header-login-link"
                               >
-                                <FontAwesomeIcon
-                                  icon={['fas', 'shopping-cart']}
-                                />
-                                <strong>{this.props.cart?.length}</strong>
-                              </a>
-                            </span>
-                          </>
-                        )}
-                        {this.props.user.id &&
-                          this.props.user.roles &&
-                          this.props.user.roles[0] === 'Member' && (
-                            <>
-                              <span className="header-vertical-line"> - </span>
-                              <a href="/logout" className="header-login-link">
+                                {this.props.user.id && <>{'My settings'}</>}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/logout" className="header-login-link">
                                 <FormattedMessage
                                   id="logout"
                                   defaultMessage="Logout"
                                 />
-                              </a>
-                            </>
-                          )}
-                      </>
-                    )) || (
-                      <a
-                        href={`/${this.props.locale}/login`}
-                        className="header-login-link"
-                      >
-                        <FormattedMessage
-                          id="loginRegister"
-                          defaultMessage="Register/Login"
-                        />
-                      </a>
-                    )}
-                  </li>
+                              </Link>
+                            </li>
+                          </ul>
+                        </>
+                      </li>
+                      <li>
+                        <CartIconCounter />
+                      </li>
+                    </>
+                  )) || (
+                    <li>
+                      <CclLoginModal />
+                    </li>
+                  )}
                 </ul>
                 <div
                   onMouseOut={(e) => {
@@ -232,49 +243,45 @@ class Header extends Component {
                   </li>
                   {(this.props.user.id && (
                     <>
-                      <li>
-                        <a
-                          href={`/${this.props.locale}/profile`}
-                          className="header-login-link"
-                        >
-                          {this.props.user.id && (
-                            <>
-                              <FormattedMessage
-                                id="hello"
-                                defaultMessage="Hello "
-                              />
-                              {this.props.user.fullname ||
-                                this.props.user.id ||
-                                ''}
-                            </>
-                          )}
-                        </a>
+                      <li className="header-dropdown">
+                        <>
+                          <span>
+                            <FontAwesomeIcon
+                              icon={['fas', 'user']}
+                              style={{ marginRight: '0.5rem' }}
+                            />
+                            {this.props.user.fullname ||
+                              this.props.user.id ||
+                              ''}
+                            <span className="ccl-icon-chevron-thin-down"></span>
+                          </span>
+                          <ul>
+                            <li>
+                              <Link
+                                to={`/${this.props.locale}/profile`}
+                                className="header-login-link"
+                              >
+                                {this.props.user.id && <>{'My settings'}</>}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/logout" className="header-login-link">
+                                <FormattedMessage
+                                  id="logout"
+                                  defaultMessage="Logout"
+                                />
+                              </Link>
+                            </li>
+                          </ul>
+                        </>
                       </li>
-
-                      {this.props.user.id &&
-                        this.props.user.roles &&
-                        this.props.user.roles[0] === 'Member' && (
-                          <li>
-                            <a href="/logout" className="header-login-link">
-                              <FormattedMessage
-                                id="logout"
-                                defaultMessage="Logout"
-                              />
-                            </a>
-                          </li>
-                        )}
+                      <li>
+                        <CartIconCounter />
+                      </li>
                     </>
                   )) || (
                     <li>
-                      <a
-                        href={`/${this.props.locale}/login`}
-                        className="header-login-link"
-                      >
-                        <FormattedMessage
-                          id="loginRegister"
-                          defaultMessage="Register/Login"
-                        />
-                      </a>
+                      <CclLoginModal />
                     </li>
                   )}
                 </ul>
