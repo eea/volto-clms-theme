@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { getDatasetsByUid, getExtraBreadcrumbItems } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import CLMSCartContent from './CLMSCartContent';
@@ -20,6 +21,7 @@ import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
   const user_id = useSelector((state) => state.users.user.id);
+  const locale = useSelector((state) => state.intl?.locale);
   const [localSessionCart, setLocalSessionCart] = useState([]);
   // const download_in_progress = useSelector(
   //   (state) => state.downloadtool.download_in_progress,
@@ -136,8 +138,17 @@ const CLMSDownloadCartView = (props) => {
                     downloading the datasets
                   </p>
                   <ul>
-                    <li>May be can include a link to somewhere</li>
-                    <li>Or an informative text</li>
+                    <li>
+                      Select the files you want to download and click the button
+                      'Start downloading' to start with the download process.
+                    </li>
+                    <li>
+                      You can visit the{' '}
+                      <Link to={`/${locale}/cart-downloads`}>
+                        downloading process page
+                      </Link>
+                      .{' '}
+                    </li>
                   </ul>
                 </div>
               </div>
