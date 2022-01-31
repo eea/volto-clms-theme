@@ -229,7 +229,13 @@ const CLMSCartContent = (props) => {
                       </td>
                       <td>{item.name || '-'}</td>
                       <td>{item.source || '-'}</td>
-                      <td>{item.area?.type || '-'}</td>
+                      <td>
+                        {item.area?.type === 'polygon'
+                          ? 'Bounding Box'
+                          : item.area?.type === 'nuts'
+                          ? 'NUTS ID: ' + item.area.value
+                          : '-'}
+                      </td>
                       <td>
                         <span
                           className={'tag tag-' + item?.type?.toLowerCase()}
