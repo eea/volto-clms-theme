@@ -127,10 +127,7 @@ const CLMSDownloadCartView = (props) => {
             <div className="ccl-container">
               <div className="message-block">
                 <div className="message-icon">
-                  <FontAwesomeIcon
-                    icon={['far', 'comment-alt']}
-                    style={{ maxWidth: '1.5rem' }}
-                  />
+                  <FontAwesomeIcon icon={['far', 'comment-alt']} fixedWidth />
                 </div>
                 <div className="message-text">
                   <p>
