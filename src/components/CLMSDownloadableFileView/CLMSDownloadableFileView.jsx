@@ -21,13 +21,15 @@ export const CLMSDownloadableFileView = (props) => {
         </div>
         {content?.subjects && content?.subjects?.length > 0 && (
           <Label.Group>
-            {content?.subjects.map((keyword, key) => {
-              return (
-                <Label key={key} color="olive">
-                  {keyword}
-                </Label>
-              );
-            })}
+            {content?.taxonomy_technical_library_categorization?.map(
+              (keyword, key) => {
+                return (
+                  <Label key={key} color="olive">
+                    {keyword.title}
+                  </Label>
+                );
+              },
+            )}
           </Label.Group>
         )}
         <CclButton download={true} url={content?.file?.download}>
