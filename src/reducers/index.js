@@ -9,13 +9,14 @@ import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrum
 import { importGeonetworkReducer } from './geonetwork/import_geonetwork_reducer';
 import { meetingRegisterReducer } from './meeting/meeting_register_reducer';
 import { meetingSubscribersReducer } from './meeting/meeting_subscribers_reducer';
+// import { newsletterReducer } from './newsletter/newsletter_reducer';
+import { newsletterSubscribersReducer } from './newsletter/get_newsletter_reducer';
+import { nutsnamesReducer } from './downloadtool/nutsnames_reducer';
 import { registryReducer } from './registry/registry';
+import { subscribeToReducer } from './subscription/subscription_reducer';
 // import defaultReducers from '@plone/volto/reducers';
 import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
-// import { newsletterReducer } from './newsletter/newsletter_reducer';
-import { newsletterSubscribersReducer } from './newsletter/get_newsletter_reducer';
-import { subscribeToReducer } from './subscription/subscription_reducer';
 
 /**
  * Root reducer.
@@ -32,6 +33,7 @@ const reducers = {
   meeting_register: meetingRegisterReducer,
   subscribers: meetingSubscribersReducer,
   downloadtool: downloadtoolReducer,
+  nutsnames: nutsnamesReducer,
   registry: registryReducer,
   geonetwork_importation: importGeonetworkReducer,
   userschema: userschemaReducer,
