@@ -1,17 +1,18 @@
 /**
- * CLMSInProgressTask container.
- * @module components/CLMSInProgressTask/CLMSInProgressTask
+ * CLMSDownloadTask container.
+ * @module components/CLMSDownloadTask/CLMSDownloadTask
  */
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Grid } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import { deleteDownloadtool, getDownloadtool } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 import FileCard from './FileCard';
 import { FormattedMessage } from 'react-intl';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Grid } from 'semantic-ui-react';
 
-const CLMSTasksInProgress = (props) => {
+const CLMSDownloadTask = (props) => {
   const dispatch = useDispatch();
   const [taskInProgress, setTaskInProgress] = useState([]);
   // const [cancelledTasks, setCancelledTasks] = useState([]);
@@ -23,6 +24,7 @@ const CLMSTasksInProgress = (props) => {
 
   const user_id = useSelector((state) => state.users.user.id);
   const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
+  const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
 
   useEffect(() => {
     dispatch(getDownloadtool());
@@ -46,6 +48,16 @@ const CLMSTasksInProgress = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [datasets]);
 
+  useEffect(() => {
+    if (Object.keys(nutsnames).length > 0) {
+      addNutsName(taskInProgress, setTaskInProgress);
+      addNutsName(finishedOKTasks, setFinishedOKTasks);
+      addNutsName(finishedNOKTasks, setFinishedNOKTasks);
+      addNutsName(rejectedTasks, setRejectedTasks);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nutsnames]);
+
   function addDatasetName(data, setter) {
     let intermediate = [...data];
     intermediate.forEach((task) => {
@@ -60,6 +72,20 @@ const CLMSTasksInProgress = (props) => {
     });
     setter(intermediate);
   }
+
+  function addNutsName(data, setter) {
+    let intermediate = [...data];
+    intermediate.forEach((task) => {
+      task.Datasets.forEach((dataset) => {
+        const requestedItem = Object.keys(nutsnames).includes(dataset.NUTSID);
+        if (requestedItem) {
+          dataset.NUTSName = nutsnames[dataset.NUTSID];
+        }
+      });
+    });
+    setter(intermediate);
+  }
+
   const deleteTaskInProgress = (task_id) => {
     setShowDeleteTaskLoading(task_id);
     dispatch(deleteDownloadtool(task_id));
@@ -78,7 +104,7 @@ const CLMSTasksInProgress = (props) => {
           />
         </h2>
         {taskInProgress?.length !== 0 ? (
-          <Grid columns={2}>
+          <Grid columns={1}>
             {taskInProgress?.length > 0 &&
               taskInProgress.map((item, key) => (
                 <Grid.Column key={key}>
@@ -117,7 +143,7 @@ const CLMSTasksInProgress = (props) => {
           />
         </h2>
         {finishedOKTasks?.length !== 0 ? (
-          <Grid columns={2}>
+          <Grid columns={1}>
             {finishedOKTasks?.length > 0 &&
               finishedOKTasks.map((item, key) => (
                 <Grid.Column key={key}>
@@ -147,7 +173,7 @@ const CLMSTasksInProgress = (props) => {
           />
         </h2>
         {finishedNOKTasks?.length !== 0 ? (
-          <Grid columns={2}>
+          <Grid columns={1}>
             {finishedNOKTasks?.length > 0 &&
               finishedNOKTasks.map((item, key) => (
                 <Grid.Column key={key}>
@@ -174,7 +200,7 @@ const CLMSTasksInProgress = (props) => {
           <FormattedMessage id="Rejected" defaultMessage="Rejected" />
         </h2>
         {rejectedTasks?.length !== 0 ? (
-          <Grid columns={2}>
+          <Grid columns={1}>
             {rejectedTasks?.length > 0 &&
               rejectedTasks.map((item, key) => (
                 <Grid.Column key={key}>
@@ -199,4 +225,4 @@ const CLMSTasksInProgress = (props) => {
     </Grid>
   );
 };
-export default CLMSTasksInProgress;
+export default CLMSDownloadTask;

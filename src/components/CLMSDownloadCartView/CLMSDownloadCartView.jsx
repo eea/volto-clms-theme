@@ -6,9 +6,12 @@
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import React, { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { getDatasetsByUid, getExtraBreadcrumbItems } from '../../actions';
+import {
+  getDatasetsByUid,
+  getExtraBreadcrumbItems,
+  getNutsNames,
+} from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import CLMSCartContent from './CLMSCartContent';
@@ -16,6 +19,7 @@ import CLMSCartContent from './CLMSCartContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from '@plone/volto/helpers';
+import { Link } from 'react-router-dom';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSDownloadCartView = (props) => {
@@ -67,6 +71,8 @@ const CLMSDownloadCartView = (props) => {
         ...new Set(localSessionCart.map((item) => item.UID || item.id)),
       ];
     }
+    let localsessionNutsIDList = [...new Set(getNutsIDList(localSessionCart))];
+
     // let progress_keys = Object.keys(download_in_progress);
     // if (progress_keys?.length !== 0) {
     //   downloadInProgressUidsList = [
@@ -88,9 +94,21 @@ const CLMSDownloadCartView = (props) => {
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
     }
+    if (localsessionNutsIDList.length > 0) {
+      dispatch(getNutsNames(localsessionNutsIDList));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localSessionCart, dispatch]);
   // }, [download_in_progress, localSessionCart, dispatch]);
+
+  function getNutsIDList(cart_data) {
+    const nuts_ids = [];
+    cart_data?.length > 0 &&
+      cart_data.forEach((cart_item) => {
+        cart_item.area?.type === 'nuts' && nuts_ids.push(cart_item.area.value);
+      });
+    return nuts_ids;
+  }
 
   return (
     <>
