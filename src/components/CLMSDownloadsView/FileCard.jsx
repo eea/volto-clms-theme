@@ -3,6 +3,8 @@
  * @module components/CLMSDownloadsView/FileCard
  */
 
+import './filecard.less';
+
 import { Grid, Header, Loader, Popup, Segment } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
 
@@ -65,14 +67,15 @@ const FileCard = (props) => {
         centered
         columns={item?.Status !== 'In_progress' ? 2 : 3}
         padded
+        className="filecard"
       >
         <Grid.Row>
-          <Grid.Column verticalAlign="middle" textAlign="center" width={3}>
+          <Grid.Column verticalAlign="middle" textAlign="center" width={2}>
             {item?.Status === 'In_progress' && (
               <Popup
                 content="In progress"
                 size="small"
-                trigger={<Loader active inline indeterminate size="big" />}
+                trigger={<Loader active inline indeterminate size="medium" />}
               />
             )}
             {/* {item?.Status === 'Cancelled' && (
@@ -96,7 +99,7 @@ const FileCard = (props) => {
                 trigger={
                   <Icon
                     name={packSVG}
-                    size={75}
+                    size={50}
                     color="#a0b128"
                     title={'Finished correctly'}
                   />
@@ -110,7 +113,7 @@ const FileCard = (props) => {
                 trigger={
                   <Icon
                     name={errorSVG}
-                    size={75}
+                    size={50}
                     color="#e40166"
                     title={'Finished with errors'}
                   />
@@ -124,7 +127,7 @@ const FileCard = (props) => {
                 trigger={
                   <Icon
                     name={alertSVG}
-                    size={75}
+                    size={50}
                     color="#e40166"
                     title={'Rejected download'}
                   />
@@ -132,9 +135,9 @@ const FileCard = (props) => {
               />
             )}
           </Grid.Column>
-          <Grid.Column width={item?.Status === 'In_progress' ? 7 : 9}>
-            <Header>{`Task ID: ${item?.TaskID}`}</Header>
-            <Segment basic>
+          <Grid.Column width={item?.Status === 'In_progress' ? 8 : 10}>
+            <Header as="h3">{`Task ID: ${item?.TaskID}`}</Header>
+            <Segment basic className="file-datetimes">
               Start date:{' '}
               {new Date(item?.RegistrationDateTime).toLocaleString('en-GB', {
                 timeZone: 'UTC',
@@ -166,12 +169,7 @@ const FileCard = (props) => {
                 </>
               )}
             </Segment>
-            {item?.Datasets.length === 1 && (
-              <p>
-                <DatasetNaming dataset={item?.Datasets[0]} />
-              </p>
-            )}
-            {item?.Datasets.length > 1 && (
+            {item?.Datasets.length > 0 && (
               <ul>
                 {item?.Datasets.map((dataset) => (
                   <li>
@@ -194,7 +192,12 @@ const FileCard = (props) => {
             )}
           </Grid.Column>
           {item?.Status === 'In_progress' && (
-            <Grid.Column width={2} verticalAlign="middle" textAlign="center">
+            <Grid.Column
+              width={2}
+              verticalAlign="middle"
+              textAlign="center"
+              className="trashcontainer"
+            >
               {showDeleteTaskLoading === item?.TaskID ? (
                 <Loader
                   active
@@ -224,7 +227,7 @@ const FileCard = (props) => {
                     >
                       <Icon
                         name={removeSVG}
-                        size={40}
+                        size={30}
                         color="#e40166"
                         title={'Remove in progress task'}
                       />
