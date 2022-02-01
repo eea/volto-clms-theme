@@ -3,16 +3,49 @@
  * @module components/CLMSDownloadsView/FileCard
  */
 
-import { Loader, Popup, Segment, Grid, Header } from 'semantic-ui-react';
-import React from 'react';
+import { Grid, Header, Loader, Popup, Segment } from 'semantic-ui-react';
+import { defineMessages, useIntl } from 'react-intl';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Icon } from '@plone/volto/components';
+import React from 'react';
+import alertSVG from '@plone/volto/icons/alert.svg';
+import errorSVG from '@plone/volto/icons/error.svg';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import packSVG from '@plone/volto/icons/pack.svg';
 // import cancelledSVG from '@plone/volto/icons/spam.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
-import packSVG from '@plone/volto/icons/pack.svg';
-import errorSVG from '@plone/volto/icons/error.svg';
-import alertSVG from '@plone/volto/icons/alert.svg';
-import { defineMessages, useIntl } from 'react-intl';
+
+const prettyBytes = require('pretty-bytes');
+
+const messages = defineMessages({
+  PrePackaged: {
+    id: 'Pre-packaged',
+    defaultMessage: 'Pre-packaged',
+  },
+  Download: {
+    id: 'Download file',
+    defaultMessage: 'Download file',
+  },
+});
+
+const DatasetNaming = (props) => {
+  const { formatMessage } = useIntl();
+  const { dataset } = props;
+  return (
+    <>
+      {`${dataset['name']} -
+    ${
+      dataset?.OutputFormat
+        ? dataset?.OutputFormat
+        : formatMessage(messages.PrePackaged)
+    }`}
+      {((dataset?.NUTSName || dataset?.NUTSID) &&
+        ` (NUTS: ${dataset?.NUTSName || dataset?.NUTSID})`) ||
+        (dataset?.BoundingBox && ' (Bounding Box)')}{' '}
+    </>
+  );
+};
 
 const FileCard = (props) => {
   const { item, showDeleteTaskLoading, deleteTaskInProgress } = props;
@@ -24,16 +57,7 @@ const FileCard = (props) => {
       (today.getTime() - FinalizationDate.getTime()) / (1000 * 3600 * 24),
     );
   }
-  const messages = defineMessages({
-    PrePackaged: {
-      id: 'Pre-packaged',
-      defaultMessage: 'Pre-packaged',
-    },
-    Download: {
-      id: 'Download file',
-      defaultMessage: 'Download file',
-    },
-  });
+
   return (
     <Segment color="olive">
       <Grid
@@ -110,38 +134,63 @@ const FileCard = (props) => {
           </Grid.Column>
           <Grid.Column width={item?.Status === 'In_progress' ? 7 : 9}>
             <Header>{`Task ID: ${item?.TaskID}`}</Header>
+            <Segment basic>
+              Start date:{' '}
+              {new Date(item?.RegistrationDateTime).toLocaleString('en-GB', {
+                timeZone: 'UTC',
+              })}{' '}
+              <span
+                className="info-icon"
+                tooltip="Dates and times are in UTC"
+                direction="up"
+              >
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </span>
+              <br />
+              {item?.FinalizationDateTime && (
+                <>
+                  End date:{' '}
+                  {new Date(item?.FinalizationDateTime).toLocaleString(
+                    'en-GB',
+                    {
+                      timeZone: 'UTC',
+                    },
+                  )}
+                  <span
+                    className="info-icon"
+                    tooltip="Dates and times are in UTC"
+                    direction="up"
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                  </span>
+                </>
+              )}
+            </Segment>
             {item?.Datasets.length === 1 && (
-              <p>{`${item?.Datasets[0].name} - ${
-                item.Datasets[0]['OutputFormat']
-                  ? item.Datasets[0]['OutputFormat']
-                  : formatMessage(messages.PrePackaged)
-              }`}</p>
+              <p>
+                <DatasetNaming dataset={item?.Datasets[0]} />
+              </p>
             )}
             {item?.Datasets.length > 1 && (
               <ul>
                 {item?.Datasets.map((dataset) => (
                   <li>
-                    {`${dataset['name']} - 
-                      ${
-                        dataset['OutputFormat']
-                          ? dataset['OutputFormat']
-                          : formatMessage(messages.PrePackaged)
-                      }`}
+                    <DatasetNaming dataset={dataset} />
                   </li>
                 ))}
               </ul>
             )}
-            {item?.Status === 'Finished_ok' && (
-              <>
-                {item?.FileSize && <p>{`${item.FileSize} MB`}</p>}
+            {item?.Status === 'Finished_ok' && 10 - daysDiff > -1 && (
+              <Segment basic>
                 {item?.DownloadURL && (
                   <a href={item.DownloadURL} target="_blank" rel="noreferrer">
                     {formatMessage(messages.Download)}
                   </a>
                 )}
+                {item?.FileSize && ` (${prettyBytes(item.FileSize)})`}
                 {item?.FinalizationDateTime &&
                   ` | Expires in ${10 - daysDiff} days`}
-              </>
+              </Segment>
             )}
           </Grid.Column>
           {item?.Status === 'In_progress' && (

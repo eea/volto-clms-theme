@@ -6,10 +6,14 @@
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import React, { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { getDatasetsByUid, getExtraBreadcrumbItems } from '../../actions';
+import {
+  getDatasetsByUid,
+  getExtraBreadcrumbItems,
+  getNutsNames,
+} from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CLMSTasksInProgress from './CLMSTasksInProgress';
+import CLMSDownloadTask from './CLMSDownloadTasks';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from '@plone/volto/helpers';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
@@ -66,6 +70,20 @@ const CLMSDownloadsView = (props) => {
     return uidList;
   }
 
+  function getNutsIDList(download_data) {
+    const nuts_ids = [];
+    download_data?.length > 0 &&
+      download_data.forEach((task) => {
+        task.Datasets?.length > 0 &&
+          task.Datasets.forEach((dataset) => {
+            if (dataset.NUTSID) {
+              nuts_ids.push(dataset.NUTSID);
+            }
+          });
+      });
+    return nuts_ids;
+  }
+
   useEffect(() => {
     if (
       downloadtool?.download_in_progress &&
@@ -76,12 +94,22 @@ const CLMSDownloadsView = (props) => {
       let downloadInProgressUidsList = getUIDList(
         downloadtool?.download_in_progress,
       );
+      let downloadInProgressNutsList = getNutsIDList(
+        downloadtool?.download_in_progress,
+      );
       // let downloadCancelledUidsList = getUIDList(
       //   downloadtool?.download_cancelled,
       // );
       let finishedOKUidsList = getUIDList(downloadtool?.download_finished_ok);
+      let finishedOKNutsList = getNutsIDList(
+        downloadtool?.download_finished_ok,
+      );
       let finishedNOKUidsList = getUIDList(downloadtool?.download_finished_nok);
+      let finishedNOKNutsList = getNutsIDList(
+        downloadtool?.download_finished_nok,
+      );
       let rejectedUidsList = getUIDList(downloadtool?.download_rejected);
+      let rejectedNutsList = getNutsIDList(downloadtool?.download_rejected);
       let uidsList = [
         ...new Set(
           rejectedUidsList.concat(
@@ -91,8 +119,20 @@ const CLMSDownloadsView = (props) => {
           ),
         ),
       ];
+      let nutsNamesList = [
+        ...new Set(
+          rejectedNutsList.concat(
+            finishedNOKNutsList.concat(
+              finishedOKNutsList.concat(downloadInProgressNutsList),
+            ),
+          ),
+        ),
+      ];
       if (uidsList.length > 0) {
         dispatch(getDatasetsByUid(uidsList));
+      }
+      if (nutsNamesList.length > 0) {
+        dispatch(getNutsNames(nutsNamesList));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,7 +166,7 @@ const CLMSDownloadsView = (props) => {
               />
             </h1>
             <div className="ccl-container">
-              <CLMSTasksInProgress />
+              <CLMSDownloadTask />
             </div>
             <hr />
           </>
