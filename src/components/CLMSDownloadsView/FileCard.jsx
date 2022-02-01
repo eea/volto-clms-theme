@@ -180,7 +180,7 @@ const FileCard = (props) => {
                 ))}
               </ul>
             )}
-            {item?.Status === 'Finished_ok' && (
+            {item?.Status === 'Finished_ok' && 10 - daysDiff > -1 && (
               <Segment basic>
                 {item?.DownloadURL && (
                   <a href={item.DownloadURL} target="_blank" rel="noreferrer">

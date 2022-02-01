@@ -71,16 +71,16 @@ const CLMSCartContent = (props) => {
   }, [cart, datasets]);
 
   useEffect(() => {
-    if (Object.keys(nutsnames).length > 0) {
+    if (Object.keys(nutsnames).length > 0 && cart.length > 0) {
       concatRequestedCartItem();
     }
   }, [nutsnames]);
 
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
-      const requestedItem = datasets.find(
-        (requestedItem) => requestedItem.UID === localItem.UID,
-      );
+      const requestedItem = datasets
+        ? datasets.find((requestedItem) => requestedItem.UID === localItem.UID)
+        : false;
       if (requestedItem) {
         const file_data = requestedItem?.downloadable_files?.items.find(
           (item) => item['@id'] === localItem.file_id,
@@ -142,6 +142,8 @@ const CLMSCartContent = (props) => {
 
   function startDownloading() {
     setLoadingTable(true);
+    window.scrollTo(0, 0);
+
     let selectedItems = getSelectedCartItems();
     const body = getDownloadToolPostBody(selectedItems);
     const unique_ids = selectedItems.map((item) => item.unique_id);
