@@ -98,13 +98,10 @@ const CLMSDownloadTask = (props) => {
     <Grid columns={1} stackable padded="vertically">
       <Grid.Column>
         <h2>
-          <FormattedMessage
-            id="Task In Progress"
-            defaultMessage="Task In Progress"
-          />
+          <FormattedMessage id="In progress" defaultMessage="In progress" />
         </h2>
         {taskInProgress?.length !== 0 ? (
-          <Grid columns={1}>
+          <Grid columns={2}>
             {taskInProgress?.length > 0 &&
               taskInProgress.map((item, key) => (
                 <Grid.Column key={key}>
@@ -119,8 +116,8 @@ const CLMSDownloadTask = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no task in progress"
-              defaultMessage="There is no task in progress"
+              id="There are no tasks in progress"
+              defaultMessage="There are no tasks in progress"
             />
           </p>
         )}
@@ -137,13 +134,10 @@ const CLMSDownloadTask = (props) => {
       </Grid.Column>
       <Grid.Column>
         <h2>
-          <FormattedMessage
-            id="Finished Correctly"
-            defaultMessage="Finished Correctly"
-          />
+          <FormattedMessage id="Completed" defaultMessage="Completed" />
         </h2>
         {finishedOKTasks?.length !== 0 ? (
-          <Grid columns={1}>
+          <Grid columns={2}>
             {finishedOKTasks?.length > 0 &&
               finishedOKTasks.map((item, key) => (
                 <Grid.Column key={key}>
@@ -159,8 +153,8 @@ const CLMSDownloadTask = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no correctly finished task"
-              defaultMessage="There is no correctly finished task"
+              id="There are no completed tasks"
+              defaultMessage="There are no completed tasks"
             />
           </p>
         )}
@@ -168,8 +162,8 @@ const CLMSDownloadTask = (props) => {
       <Grid.Column>
         <h2>
           <FormattedMessage
-            id="Finished Not Correctly"
-            defaultMessage="Finished Not Correctly"
+            id="Finished with errors"
+            defaultMessage="Finished with errors"
           />
         </h2>
         {finishedNOKTasks?.length !== 0 ? (
@@ -189,8 +183,8 @@ const CLMSDownloadTask = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no incorrectly finished task"
-              defaultMessage="There is no incorrectly finished task"
+              id="There are no tasks finished with errors"
+              defaultMessage="There are no tasks finished with errors"
             />
           </p>
         )}
@@ -216,8 +210,8 @@ const CLMSDownloadTask = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no rejected task"
-              defaultMessage="There is no rejected task"
+              id="There are no rejected tasks"
+              defaultMessage="There are no rejected tasks"
             />
           </p>
         )}
