@@ -14,7 +14,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import CLMSDownloadTask from './CLMSDownloadTasks';
-import { FormattedMessage } from 'react-intl';
 import { Helmet } from '@plone/volto/helpers';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
@@ -26,8 +25,8 @@ const CLMSDownloadsView = (props) => {
   const { formatMessage } = useIntl();
   const messages = defineMessages({
     CartDownloads: {
-      id: 'Cart Downloads',
-      defaultMessage: 'Cart Downloads',
+      id: 'Downloads',
+      defaultMessage: 'Downloads',
     },
   });
 
@@ -160,10 +159,7 @@ const CLMSDownloadsView = (props) => {
         {isLoggedIn && (
           <>
             <h1 className="page-title">
-              <FormattedMessage
-                id="Cart Downloads"
-                defaultMessage="Cart Downloads"
-              />
+              {formatMessage(messages.CartDownloads)}
             </h1>
             <div className="ccl-container">
               <CLMSDownloadTask />
