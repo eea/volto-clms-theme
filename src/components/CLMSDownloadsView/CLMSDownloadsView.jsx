@@ -9,7 +9,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
-  getNutsNames,
   getDownloadtool,
 } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,20 +69,6 @@ const CLMSDownloadsView = (props) => {
     return uidList;
   }
 
-  function getNutsIDList(download_data) {
-    const nuts_ids = [];
-    download_data?.length > 0 &&
-      download_data.forEach((task) => {
-        task.Datasets?.length > 0 &&
-          task.Datasets.forEach((dataset) => {
-            if (dataset.NUTSID) {
-              nuts_ids.push(dataset.NUTSID);
-            }
-          });
-      });
-    return nuts_ids;
-  }
-
   useEffect(() => {
     if (
       downloadtool?.download_in_progress &&
@@ -94,22 +79,12 @@ const CLMSDownloadsView = (props) => {
       let downloadInProgressUidsList = getUIDList(
         downloadtool?.download_in_progress,
       );
-      let downloadInProgressNutsList = getNutsIDList(
-        downloadtool?.download_in_progress,
-      );
       // let downloadCancelledUidsList = getUIDList(
       //   downloadtool?.download_cancelled,
       // );
       let finishedOKUidsList = getUIDList(downloadtool?.download_finished_ok);
-      let finishedOKNutsList = getNutsIDList(
-        downloadtool?.download_finished_ok,
-      );
       let finishedNOKUidsList = getUIDList(downloadtool?.download_finished_nok);
-      let finishedNOKNutsList = getNutsIDList(
-        downloadtool?.download_finished_nok,
-      );
       let rejectedUidsList = getUIDList(downloadtool?.download_rejected);
-      let rejectedNutsList = getNutsIDList(downloadtool?.download_rejected);
       let uidsList = [
         ...new Set(
           rejectedUidsList.concat(
@@ -119,20 +94,8 @@ const CLMSDownloadsView = (props) => {
           ),
         ),
       ];
-      let nutsNamesList = [
-        ...new Set(
-          rejectedNutsList.concat(
-            finishedNOKNutsList.concat(
-              finishedOKNutsList.concat(downloadInProgressNutsList),
-            ),
-          ),
-        ),
-      ];
       if (uidsList.length > 0) {
         dispatch(getDatasetsByUid(uidsList));
-      }
-      if (nutsNamesList.length > 0) {
-        dispatch(getNutsNames(nutsNamesList));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
