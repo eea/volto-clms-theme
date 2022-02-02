@@ -10,6 +10,7 @@ import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
   getNutsNames,
+  getDownloadtool,
 } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -137,6 +138,12 @@ const CLMSDownloadsView = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downloadtool, dispatch]);
 
+  useEffect(() => {
+    if (downloadtool.delete_download_in_progress) {
+      dispatch(getDownloadtool());
+    }
+  }, [dispatch, downloadtool.delete_download_in_progress]);
+
   return (
     <>
       <Helmet title={formatMessage(messages.CartDownloads)} />
@@ -164,7 +171,6 @@ const CLMSDownloadsView = (props) => {
             <div className="ccl-container">
               <CLMSDownloadTask />
             </div>
-            <hr />
           </>
         )}
       </div>
