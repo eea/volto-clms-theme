@@ -1,8 +1,18 @@
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+// import { getExtraBreadcrumbItems } from '../../actions';
+import { getBreadcrumbs } from '../../../../../../node_modules/@plone/volto/src/actions';
 
 export const CLMSDownloadableFileView = (props) => {
   const { content } = props;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // dispatch(getExtraBreadcrumbItems([]));
+    dispatch(getBreadcrumbs([]));
+  }, [dispatch]);
+
   return (
     <>
       <div id="page-document" className="ui container">
