@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  padding-right: 2.5rem;
   margin: 0;
   background: #a0b1280f !important;
 
@@ -20,4 +19,24 @@
 .ui.styled.accordion .active.title {
   background: #a0b1280f;
   color: #212529;
+}
+
+h2.accordion-title span {
+  font-size: 1.125rem;
+}
+
+.accordion-title .icon {
+  min-width: 2rem;
+  color: #a0b128;
+  font-weight: bold;
+}
+
+.accordion-title:hover {
+  color: #273b4b !important;
+}
+
+ .accordion.ui.fluid.styled > .content.active {
+  ul {
+    padding: 0.5em 1em 1.5em !important;
+  }
 }

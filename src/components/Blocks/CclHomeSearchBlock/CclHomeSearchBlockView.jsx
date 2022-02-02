@@ -23,9 +23,20 @@ function hasProtocol(url) {
 }
 
 const CclSearchBlockView = (props) => {
-  const { data } = props;
+  const { data, searchText } = props;
+  var SearchText = searchText || '';
   const intl = useIntl();
   let url = data?.link?.[0]?.['@id'];
+
+  function handleChange(event) {
+    SearchText = event.target.value;
+  }
+
+  function handlePost(event) {
+    event.preventDefault();
+    window.location.href = '/en/dataset-catalog/?SearchableText=' + SearchText;
+  }
+
   return (
     <div className="home-datasets-container">
       <div className="ccl-container">
@@ -33,6 +44,8 @@ const CclSearchBlockView = (props) => {
         <div className="home-datasets-search">
           <form className="ccl-form search-form">
             <input
+              value={searchText}
+              onChange={handleChange}
               type="text"
               className="ccl-text-input"
               id="home_search_datasets"
@@ -44,7 +57,12 @@ const CclSearchBlockView = (props) => {
                 messages.searchDatasetsPlaceholder,
               )}
             />
-            <button className="ccl-button" type="submit" aria-label="Search">
+            <button
+              className="ccl-button"
+              type="submit"
+              aria-label="Search"
+              onClick={handlePost}
+            >
               <span className="ccl-icon-zoom"></span>
             </button>
           </form>

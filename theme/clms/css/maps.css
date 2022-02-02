@@ -25,7 +25,6 @@
 }
 
 .land .esri-component.esri-zoom.esri-widget {
-	margin-bottom: 0;
 	background: none;
 	box-shadow: none;
 }
@@ -67,11 +66,11 @@
 }
 
 .land .esri-basemap-gallery__item:first-child {
-	margin: 0;
+	margin-top: 0;
 }
 
-.land .esri-view-height-small .esri-ui-corner .esri-widget--panel-height-only {
-	max-height: 260px;
+.land .esri-basemap-gallery__item {
+	margin: 0;
 }
 
 .land .esri-basemap-gallery__item--selected,
@@ -94,7 +93,6 @@
 
 .land .measurement-container .measurement-area.esri-measurement {
 	display: block;
-	width: 225px;
 	flex-direction: column;
 }
 
@@ -146,7 +144,6 @@
 
 .land .measurement-coords {
 	display: none;
-	max-width: 225px;
 	padding: 1rem;
 	background-color: white;
 }
@@ -158,7 +155,6 @@
 
 .land .esri-print {
 	display: none;
-	max-height: 260px;
 }
 
 .land .esri-print__layout-tab {
@@ -185,7 +181,6 @@
 
 .land .area-panel {
 	display: none;
-	width: 260px;
 	padding: 1rem;
 	background-color: white;
 	font-size: 1rem;
@@ -212,7 +207,9 @@
 }
 
 .land .map-menu.tab-container .tab {
-	display: inline-block;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 	width: 50%;
 	padding: 1rem;
 	border-bottom: solid 4px white;
@@ -222,6 +219,7 @@
 	cursor: pointer;
 	font-weight: bold;
 	text-align: center;
+	white-space: normal;
 }
 
 .land .map-menu.tab-container .tab-selected {
@@ -230,6 +228,9 @@
 }
 
 .land .map-menu.tab-container .tabs {
+	display: flex;
+    align-items: stretch;
+    justify-content: space-around;
 	border-bottom: solid 1px #dadada;
 	background-color: white;
 	white-space: nowrap;
@@ -455,7 +456,9 @@
 	font-size: 1rem;
 }
 
-.land .active-layer-options i:hover {
+.land .active-layer-options i:hover,
+.land .active-layer-options svg:hover,
+.land .map-menu-icons svg:hover {
 	color: #7c8921;
 }
 
@@ -512,6 +515,7 @@
 .land .map-download-buttons {
 	display: flex;
 	justify-content: space-between;
+	margin: 0 1rem;
 }
 
 .land .map-download-block .ccl-form-group:not(:first-of-type) {
@@ -563,4 +567,8 @@
 
 .land .esri-time-slider__slider .esri-slider {
 	background-color: transparent;
+}
+
+.land .esri-time-slider .esri-slider__segment--interactive {
+	background-color: #a0b128 ;
 }

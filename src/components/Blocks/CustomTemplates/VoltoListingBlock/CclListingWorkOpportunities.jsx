@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const messages = defineMessages({
   ProcurementNo: {
     id: 'ProcurementNo',
     defaultMessage: 'Procurement No:',
+  },
+  ReferenceNo: {
+    id: 'ReferenceNo',
+    defaultMessage: 'Reference No:',
   },
   SubmissionDeadline: {
     id: 'SubmissionDeadline',
@@ -14,14 +20,28 @@ const messages = defineMessages({
 });
 
 const CclWorkOpportunity = (props) => {
-  const { item, intl } = props;
+  const { item, intl, user } = props;
   return (
     <div className="card-work">
+      {user.roles && user.roles.includes('Manager') && (
+        <>
+          <Link to={item['@id'] + '/edit'}>Edit this item</Link>
+          <br />
+          <br />
+        </>
+      )}
       <div className="card-work-number">
         <span className="card-work-number-title">
-          {intl.formatMessage(messages.ProcurementNo)}
+          <h2>{item.title}</h2>
+          {item['@type'] === 'WorkOpportunity'
+            ? intl.formatMessage(messages.ReferenceNo)
+            : intl.formatMessage(messages.ProcurementNo)}
         </span>
-        <a href={item.url || ''}>{item.procurement_no}</a>
+        {item.url ? (
+          <a href={item.url || ''}>{item.procurement_no}</a>
+        ) : (
+          item.procurement_no
+        )}
       </div>
       <div className="card-work-title">
         <p>{item.description}</p>
@@ -30,37 +50,46 @@ const CclWorkOpportunity = (props) => {
         <span className="card-work-deadline-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
-        {item.submission_deadline}
+        {new Date(item.submission_deadline).toLocaleDateString()}
       </div>
     </div>
   );
 };
 
+var Today = new Date();
+
 const CclListingWorkOpportunities = (props) => {
   const { items, variation } = props;
   const intl = useIntl();
-
-  const regex = /CclWO/;
-  const status = variation?.replace(regex, '');
-
+  const user = useSelector((state) => state.users?.user);
   return (
     <>
       {items
-        .filter((item) => item.is_open && status === 'OpenTenders')
+        .filter(
+          (item) =>
+            new Date(item.submission_deadline) < Today &&
+            variation === 'CloseTenders',
+        )
         .map((item, index) => (
           <CclWorkOpportunity
             key={index}
             item={item}
             intl={intl}
+            user={user}
           ></CclWorkOpportunity>
         ))}
       {items
-        .filter((item) => !item.is_open && status === 'CloseTenders')
+        .filter(
+          (item) =>
+            new Date(item.submission_deadline) > Today &&
+            variation === 'OpenTenders',
+        )
         .map((item, index) => (
           <CclWorkOpportunity
             key={index}
             item={item}
             intl={intl}
+            user={user}
           ></CclWorkOpportunity>
         ))}
     </>

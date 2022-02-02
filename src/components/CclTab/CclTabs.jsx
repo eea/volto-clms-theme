@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import CclTab from './CclTab';
 import './CclTabs.less';
+
+import React, { useState } from 'react';
+
+import CclTab from './CclTab';
+import PropTypes from 'prop-types';
 
 /**
  * Tabs component documentation.
@@ -19,35 +21,56 @@ import './CclTabs.less';
  * 
  */
 const CclTabs = (props) => {
-  let { children } = props;
-  let [activeTab, setActiveTab] = useState(props.children[0].props.tabTitle);
+  let { children, routing = false } = props;
+  let [activeTab, setActiveTab] = useState(
+    props.children[0].props.tabId ||
+      props.children[0].props.tabTitle.replace(' ', ''),
+  );
 
   function onClickTabItem(tab) {
     setActiveTab(tab);
   }
+  React.useEffect(() => {
+    const hash = window.location.hash.substring(1) || '';
+    if (routing) {
+      if (hash) {
+        setActiveTab(hash);
+      } else {
+        setActiveTab(
+          children
+            .filter((item) => !!item.props?.tabTitle)[0]
+            .props?.tabTitle?.replace(' ', ''),
+        );
+      }
+    }
+  }, [children, routing]);
 
   return (
     <div className="ccl-container-flex">
       <div className="left-content cont-w-25">
-        <ul className="left-menu">
+        <nav className="left-menu">
           {children
-            .filter((item) => !!item.props.tabTitle)
-            .map((child) => {
+            .flat()
+            .filter((item) => !!item?.props?.tabTitle)
+            .map((child, key) => {
               const { tabTitle } = child.props;
               return (
                 <CclTab
                   activeTab={activeTab}
-                  key={tabTitle}
+                  key={key}
+                  routing={routing}
+                  tabId={tabTitle?.replace(' ', '')}
                   tabTitle={tabTitle}
                   onClick={onClickTabItem}
                 />
               );
             })}
-        </ul>
+        </nav>
 
         {/* Check if underPanel element exist and render */}
         {children
-          .filter((item) => !!item.props.underPanel)
+          .flat()
+          .filter((item) => !!item?.props?.underPanel)
           .map((child) => {
             const { children } = child.props;
             return children;
@@ -57,9 +80,10 @@ const CclTabs = (props) => {
       <div className="right-content cont-w-75">
         <div className="tab-content">
           {children
-            .filter((item) => !!item.props.tabTitle)
+            .flat()
+            .filter((item) => !!item?.props?.tabTitle)
             .map((child, index) => {
-              return child.props.tabTitle !== activeTab ? (
+              return child.props?.tabTitle?.replace(' ', '') !== activeTab ? (
                 <div key={index} className="deactivate-content">
                   {child.props.children}
                 </div>

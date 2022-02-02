@@ -1,28 +1,38 @@
-// VIEWS IMPORTS
-import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
-import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
-import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
-import ProfileView from './components/CLMSProfileView/CLMSProfileView';
-import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
-import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
-import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
-import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
-import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
-import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
-import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
-// WIDGET IMPORTS
-import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
-import BoundingWidget from './components/Widgets/BoundingWidget';
-import MapLayersWidget from './components/Widgets/MapLayersWidget';
-import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+// COMPONENTS FOR ROUTES
+import { ContactForm, Search, Sitemap } from '@plone/volto/components';
 // CUSTOMIZED BLOCKS IMPORTS
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
+
+import BoundingWidget from './components/Widgets/BoundingWidget';
+// VIEWS IMPORTS
+import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
+import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
+import CLMSDownloadsView from './components/CLMSDownloadsView/CLMSDownloadsView';
+import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
+import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
+import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
+import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
+import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
+import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
+import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
+import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscriberView';
+import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
+import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
+import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
+import ContactWidget from './components/Widgets/ContactWidget';
+import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
+import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
+import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import ProfileView from './components/CLMSProfileView/CLMSProfileView';
+
+// WIDGET IMPORTS
+import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
+import TextLinkWidget from './components/Widgets/TextLinkWidget';
 // CUSTOM REDUCERS IMPORT
 import reducers from './reducers';
-// COMPONENTS FOR ROUTES
-import { Sitemap, Search, ContactForm } from '@plone/volto/components';
 
 const applyConfig = (config) => {
   config.views = {
@@ -32,6 +42,8 @@ const applyConfig = (config) => {
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
       Event: CLMSEventView,
+      TechnicalLibrary: CLMSDownloadableFileView,
+      File: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
@@ -44,7 +56,7 @@ const applyConfig = (config) => {
     blocksConfig: { ...customBlocks(config) },
     groupBlocksOrder: [
       ...config.blocks.groupBlocksOrder,
-      customGroupBlocksOrder,
+      ...customGroupBlocksOrder,
     ],
   };
 
@@ -54,10 +66,11 @@ const applyConfig = (config) => {
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
     downloadable_files_widget: DownloadableFilesWidget,
+    contact_widget: ContactWidget,
+    distribution_info_widget: DistributionInfoWidget,
+    geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
+    text_link_widget: TextLinkWidget,
   };
-  config.widgets.widget.bounding_widget = BoundingWidget;
-  config.widgets.widget.layer_widget = MapLayersWidget;
-  config.widgets.widget.downloadable_files_widget = DownloadableFilesWidget;
   config.settings = {
     ...config.settings,
     nonContentRoutes: [
@@ -65,6 +78,9 @@ const applyConfig = (config) => {
       '/profile',
       '/download-by-area',
       '/cart',
+      '/cart-downloads',
+      '/newsletter-notification-subscription',
+      '/newsletter-notification-unsubscription',
     ],
     isMultilingual: true,
     supportedLanguages: [
@@ -93,7 +109,13 @@ const applyConfig = (config) => {
       'sv',
     ],
     defaultLanguage: 'en',
+    registry: {
+      ...config.settings.registry,
+      login_url: 'clms.addon.login_url_controlpanel.login_url',
+    },
+    showTags: false,
   };
+
   config.addonRoutes = [
     ...config.addonRoutes,
     {
@@ -105,12 +127,60 @@ const applyConfig = (config) => {
       component: ProfileView,
     },
     {
+      path: '/subscribe/:type',
+      component: SubscriptionView,
+    },
+    {
+      path: '/confirm-subscription/:type/:id',
+      component: ConfirmSubscriptionView,
+    },
+    {
+      path: '/unsubscribe/:type',
+      component: SubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/confirm-unsubscription/:type/:id',
+      component: ConfirmSubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/**/subscribe/:type',
+      component: SubscriptionView,
+    },
+    {
+      path: '/**/confirm-subscription/:type/:id',
+      component: ConfirmSubscriptionView,
+    },
+    {
+      path: '/**/unsubscribe/:type',
+      component: SubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
+      path: '/**/confirm-unsubscription/:type/:id',
+      component: ConfirmSubscriptionView,
+      extraParams: {
+        unsubscribe: true,
+      },
+    },
+    {
       path: '/**/download-by-area',
       component: CLMSMapViewerView,
     },
     {
       path: '/**/cart',
       component: CLMSDownloadCartView,
+    },
+    {
+      path: '/**/cart-downloads',
+      component: CLMSDownloadsView,
     },
     {
       path: `/(${config.settings.supportedLanguages.join('|')})/sitemap`,

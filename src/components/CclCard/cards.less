@@ -21,7 +21,6 @@
   width: 8rem;
   height: 6rem;
   object-fit: cover;
-  opacity: 0.5;
 }
 
 .card-text {
@@ -51,35 +50,43 @@
 .card-line-color {
   position: relative;
   display: flex;
+  width: 100%;
   padding: 0;
   margin-bottom: 1rem;
   background-color: #a0b1280f;
 }
 
-.card-line-color .card-text {
-  padding: 1.5rem;
+.card-line-color .card-image {
+  width: 12rem;
+  height: 12rem;
+  margin: 0;
 }
 
-.card-line-color .card-image {
-  margin: 0;
+.card-line-color img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-line-color .card-text {
+  width: auto;
+  padding: 1.5rem;
 }
 
 .card-line-color .card-button {
   margin-top: 1.5rem;
 }
 
-.card-line-color img {
-  width: 20vw;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.5;
-}
 @media (max-width: 480px) {
   .card-line-color {
     flex-wrap: wrap;
   }
 
-  .card-line-color img {
+  .card-line-color .card-image {
+    width: 100%;
+  }
+
+  .card-line-color .card-text {
     width: 100%;
   }
 }
@@ -92,11 +99,14 @@
   background-color: #a0b1280f;
 }
 
+.card-block .card-block-image {
+  height: 12rem;
+}
+
 .card-block img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.5;
 }
 
 .card-block .card-text {
@@ -112,6 +122,54 @@
   }
 
   .card-block:nth-child(odd) {
+    margin-right: 1rem;
+  }
+}
+
+/* three-column */
+.card-threeColumns {
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+  background-color: #a0b1280f;
+}
+
+.card-threeColumns .card-threeColumns-image {
+  height: 12rem;
+}
+
+.card-threeColumns img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-threeColumns .card-text {
+  padding: 1.5rem;
+}
+
+.card-threeColumns .card-description {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .card-threeColumns {
+    width: calc(50% - 0.5rem);
+  }
+
+  .card-threeColumns:nth-child(1) {
+    margin-right: 1rem;
+  }
+}
+
+@media (min-width: 1103px) {
+  .card-threeColumns {
+    width: calc(32.5% - 0.5rem);
+  }
+
+  .card-threeColumns:nth-child(3n + 1),
+  .card-threeColumns:nth-child(3n + 2) {
     margin-right: 1rem;
   }
 }
@@ -136,7 +194,6 @@
   width: 10rem;
   height: 10rem;
   object-fit: cover;
-  opacity: 0.5;
 }
 
 .card-news-text .card-news-title {
@@ -200,7 +257,11 @@
   width: 10rem;
   height: 10rem;
   object-fit: cover;
-  opacity: 0.5;
+}
+
+.card-event-text .card-event-date {
+  margin-bottom: 1rem;
+  color: #adb0b8;
 }
 
 .card-event-text .card-event-title {
@@ -256,6 +317,11 @@
   margin-bottom: 0.5em;
   color: #a0b128;
   font-weight: bold;
+}
+
+.card-event-when-text p {
+  margin-bottom: 0;
+  font-size: 1rem;
 }
 
 /* Documents */

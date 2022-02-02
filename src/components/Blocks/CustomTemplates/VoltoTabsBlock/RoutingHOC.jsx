@@ -1,0 +1,66 @@
+import React from 'react';
+
+const RoutingHOC = (TabView) =>
+  function Component(props) {
+    const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
+    const {
+      data = {},
+      tabsList = [],
+      tabs,
+      activeTabIndex = 0,
+      hashlink = {},
+      setActiveTab = () => {},
+    } = props;
+    const parentId = data.id || props.id;
+    const scrollToTarget = props.scrollToTarget;
+    React.useEffect(() => {
+      const urlHash = window.location.hash.substring(1) || '';
+      if (
+        hashlink.counter > 0 ||
+        (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
+      ) {
+        const id = hashlink.hash || urlHash || '';
+        const index = tabsList.indexOf(id);
+        const parent = document.getElementById(parentId);
+        const headerWrapper = document.querySelector('.header-wrapper');
+        const offsetHeight = headerWrapper?.offsetHeight || 0;
+        if (id !== parentId && index > -1 && parent) {
+          if (activeTabIndex !== index) {
+            setActiveTab(id);
+          }
+          scrollToTarget(parent, offsetHeight);
+        } else if (id === parentId && parent) {
+          scrollToTarget(parent, offsetHeight);
+        }
+      }
+      if (!hashlinkOnMount) {
+        setHashlinkOnMount(true);
+      }
+      if (
+        String(window.performance.getEntriesByType('navigation')[0].type) ===
+          'navigate' ||
+        String(window.performance.getEntriesByType('navigation')[0].type) ===
+          'reload'
+      ) {
+        if (
+          window.location.hash.length === 0 &&
+          tabs[tabsList[1]]?.subTab?.subtab &&
+          !tabs[tabsList[0]]?.subTab?.subtab
+        ) {
+          setActiveTab(tabsList[1]);
+        } else if (
+          window.location.hash.length === 0 &&
+          !tabs[tabsList[1]]?.subTab?.subtab
+        ) {
+          setActiveTab(tabsList[0]);
+        } else {
+          setActiveTab(tabsList[window.location.hash.substring(4) - 1]);
+        }
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTabIndex]);
+
+    return <TabView {...props} />;
+  };
+
+export default RoutingHOC;

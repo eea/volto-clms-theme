@@ -1,0 +1,83 @@
+.tabs-block.CCLVerticalFaqTabs > div.styled {
+  display: block !important;
+}
+
+div.tabs-block.CCLCarousel {
+  div & {
+    position: relative !important;
+    right: 50% !important;
+    left: 50% !important;
+    width: 100vw !important;
+    max-width: initial !important;
+    margin-right: -50vw !important;
+    margin-left: -50vw !important;
+  }
+}
+
+.slick-slider.text-carousel {
+  div & {
+    z-index: 1;
+    width: 60%;
+  }
+}
+
+.tabs-block .slick-slider {
+  z-index: 1;
+}
+
+.slick-arrows {
+  margin-top: -2rem !important;
+}
+
+.text-link-carousel-block {
+  height: 2rem;
+  padding: 0;
+}
+
+.text-link-carousel-block-content {
+  display: flex;
+  height: 2rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-link-carousel-block .text-link-carousel-block-content > a,
+.text-link-carousel-block .text-link-carousel-block-content > a:hover {
+  color: #fff;
+}
+
+p.styled-slate {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1200px) {
+  .text-link-carousel-block {
+    height: fit-content !important;
+    margin: 0.5rem;
+    margin-top: -2rem;
+  }
+
+  .text-carousel {
+    margin: 0.5rem;
+    margin-top: -2rem;
+  }
+
+  .text-link-carousel-block-content {
+    height: fit-content !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .text-link-carousel-block {
+    margin-top: -4rem;
+  }
+
+  .text-carousel {
+    margin-top: -4rem;
+  }
+}
+
+div.tabs-block.edit a.item.active p.menu-item-text {
+  border-style: none none solid none;
+  font-weight: bold;
+}

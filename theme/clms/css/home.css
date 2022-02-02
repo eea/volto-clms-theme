@@ -2,21 +2,29 @@
 
 /*
 */
-.contenttype-lrf:not(.section-cart) #page-document.ui.container {
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
+  #page-document.ui.container {
   width: calc(100vmax - (100vmax - 100%)) !important;
   margin: 0 0 !important;
 }
 
-.contenttype-lrf:not(.section-cart) .ui.basic.segment.content-area {
+.accordion.ui.fluid.styled {
+  margin-bottom: 0.5rem;
+}
+
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
+  .ui.basic.segment.content-area {
   padding-top: 0;
   margin-top: 0;
 }
 
-.contenttype-lrf:not(.section-cart) .block {
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
+  .block {
   margin-bottom: 0;
 }
 
-.contenttype-lrf:not(.section-cart) .ui.basic.segment.content-area {
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
+  .ui.basic.segment.content-area {
   padding-bottom: 0;
   margin-bottom: 0;
 }
@@ -67,11 +75,37 @@
   color: #fff;
 }
 
+@media (max-width: 1200px) {
+  .ccl-banner-top-bar {
+    height: 5rem;
+  }
+
+  .home-products-container {
+    padding-top: 0.5rem;
+  }
+}
+@media (max-width: 420px) {
+  .ccl-banner-top-bar {
+    height: 7rem;
+  }
+}
+
+.ccl-banner-top-bar .ccl-container .ccl-banner-top-bar-right {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
 .ccl-banner-top-bar .ccl-container {
   display: flex;
   height: 100%;
   align-items: center;
   justify-content: space-between;
+}
+
+.ccl-banner-top-bar-left .ccl-banner-top-bar-right {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ccl-banner-top-bar .ccl-banner-top-bar-left,
@@ -87,7 +121,7 @@
 
 .home-carousel .ccl-banner-top-main {
   padding: 4rem 2rem;
-  background-position: 50%;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -99,13 +133,12 @@
 
 .home-carousel .slick-dots {
   position: absolute;
-  bottom: 2.75rem;
+  bottom: 3.75rem;
 }
 
 .home-carousel .ccl-icon-map-dot {
   margin-right: 0.5rem;
 }
-
 
 /* Products band */
 .home-products-container {
@@ -118,7 +151,7 @@
   width: 33.3333%;
   height: 14vw;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   padding: 2rem;
   border: 1px solid #a0b128;
@@ -159,10 +192,11 @@
   font-weight: normal;
   text-align: center;
 }
-@media (max-width: 1200px) { 
+@media (max-width: 1200px) {
   .home-product-title {
     width: 100%;
   }
+
   .home-product-description {
     width: 100%;
   }
@@ -182,6 +216,10 @@
   .home-product {
     width: 100%;
     height: 30vw;
+  }
+
+  .home-products-container {
+    margin-top: -1.5rem;
   }
 }
 @media (max-width: 480px) {
@@ -280,13 +318,18 @@
 
 /* Map band */
 .home-map-container {
-  padding: 4rem 1rem;
+  padding: 4rem 2rem;
   background: url(../img/home-map-background.jpg) no-repeat center;
   background-size: cover;
 }
+@media (max-width: 480px) {
+  .home-map-container {
+    padding: 2rem 1rem;
+  }
+}
 
 .home-map-banner {
-  width: 100%;
+  max-width: 100%;
   padding: 1.5rem;
   background-color: #ffffffb3;
 }
@@ -294,17 +337,7 @@
 .home-map-banner h4 {
   margin-bottom: 1rem;
 }
-@media (min-width: 576px) {
-  .home-map-banner {
-    width: 80%;
-  }
-}
 @media (min-width: 768px) {
-  .home-map-banner {
-    width: 60%;
-  }
-}
-@media (min-width: 1200px) {
   .home-map-banner {
     width: 40%;
   }
@@ -313,13 +346,15 @@
 /* Meet band */
 .home-meet-container {
   padding: 3rem 3rem;
+  padding-bottom: 6rem;
+}
+
+.ccl-container > .ccl-button {
+  float: right;
 }
 
 /* News/events band */
 .home-news-events-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 3rem 1rem;
   background-color: #a0b1280f;
 }
@@ -337,7 +372,7 @@
   display: inline-block;
   padding: 1rem 2rem;
   margin: 0;
-  background: #273b4b;
+  background: #a0b12880;
   color: #fff;
   cursor: pointer;
 }
@@ -351,6 +386,10 @@
   width: 100%;
   padding: 2rem;
   background: #fffffff6;
+}
+
+.home-news-events-block .tab-container {
+  width: 100%;
 }
 
 .tab-container .panel {

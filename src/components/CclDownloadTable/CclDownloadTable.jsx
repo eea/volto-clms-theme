@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import PropTypes from 'prop-types';
 import './download-table.less';
-import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+
+import React, { useState } from 'react';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Checkbox } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+import { useSelector } from 'react-redux';
 function CclDownloadTable(props) {
+  const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
-  const { addCartItem, Toast, isLoggedIn, removeAllCart } = useCartState();
+  const { addCartItem, Toast, isLoggedIn } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
@@ -15,7 +20,7 @@ function CclDownloadTable(props) {
         ...element,
         name: dataset.title,
         UID: dataset.UID,
-        unique_id: element['@id'].concat(dataset.UID),
+        unique_id: `${dataset.UID}_${element['@id']}`,
       };
     },
   );
@@ -34,20 +39,23 @@ function CclDownloadTable(props) {
   };
 
   const addToCard = () => {
-    let selectedCartItems = prePackagedCollection.filter(
-      (item) => cartSelection.includes(item.unique_id) && item,
-    );
+    let selectedCartItems = prePackagedCollection
+      .filter((item) => cartSelection.includes(item.unique_id) && item)
+      // Get only UID and unique_id from selectedCartItems array of objects
+      .map((item) => ({
+        UID: item.UID,
+        file_id: item['@id'],
+        unique_id: item.unique_id,
+      }));
     addCartItem(selectedCartItems);
-  };
-
-  const removeAll = () => {
-    removeAllCart();
   };
 
   return (
     <div className="dataset-download-table">
       <Toast message="Added to cart" time={5000}></Toast>
-      <h2>{dataset?.title || 'Download table default title'}</h2>
+      <h2>
+        {/* dataset?.title ||  */ 'Download pre-packaged data collections'}
+      </h2>
       <p>
         Please note that you can only download the latest version of our
         datasets from this website. If you are looking for older versions please
@@ -123,25 +131,16 @@ function CclDownloadTable(props) {
       </div>
 
       <CclButton
+        isButton={true}
         onClick={() => addToCard()}
         disabled={!isLoggedIn || cartSelection.length === 0}
       >
         Add to cart
       </CclButton>
 
-      <CclButton url="/cart" disabled={!isLoggedIn}>
-        Show cart
-      </CclButton>
+      {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
 
       <br></br>
-
-      <CclButton
-        onClick={() => {
-          removeAll();
-        }}
-      >
-        Remove (For develop)
-      </CclButton>
     </div>
   );
 }

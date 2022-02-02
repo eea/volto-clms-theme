@@ -40,7 +40,11 @@
 }
 
 .ccl-button--default:active,
-.ccl-button--default:focus,
+.ccl-button--default:focus {
+  background-color: #fff;
+  color: #a0b128;
+}
+
 .ccl-button--default:hover {
   background-color: #a0b128;
   color: #fff;
@@ -74,7 +78,7 @@
   border-radius: 0.25rem;
   color: #495057;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.6;
   -webkit-transition: border-color 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;

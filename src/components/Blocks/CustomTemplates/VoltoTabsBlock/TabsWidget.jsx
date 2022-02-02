@@ -1,23 +1,28 @@
-import React from 'react';
-import { v4 as uuid } from 'uuid';
-import { omit, without } from 'lodash';
-import move from 'lodash-move';
-import { Icon, FormFieldWrapper } from '@plone/volto/components';
-import { DragDropList } from '@plone/volto/components';
-import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
-import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
-import dragSVG from '@plone/volto/icons/drag.svg';
-import themeSVG from '@plone/volto/icons/theme.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIcons, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import trashSVG from '@plone/volto/icons/delete.svg';
-import plusSVG from '@plone/volto/icons/circle-plus.svg';
-import { SidebarPopup } from '@plone/volto/components';
-import { fontAwesomeSchema } from './fontAwesomeSchema';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import clearSVG from '@plone/volto/icons/clear.svg';
 import './fontawesome';
-import { Header, Grid } from 'semantic-ui-react';
+
+import { FormFieldWrapper, Icon } from '@plone/volto/components';
+import { Grid, Header } from 'semantic-ui-react';
+import { faExternalLinkAlt, faIcons } from '@fortawesome/free-solid-svg-icons';
+import { omit, without } from 'lodash';
+
+import { DragDropList } from '@plone/volto/components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import React from 'react';
+import { SidebarPopup } from '@plone/volto/components';
+import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
+import clearSVG from '@plone/volto/icons/clear.svg';
+import dragSVG from '@plone/volto/icons/drag.svg';
+import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
+import { fontAwesomeSchema } from './fontAwesomeSchema';
+import leftMenuSVG from '@plone/volto/icons/nav.svg';
+import move from 'lodash-move';
+import plusSVG from '@plone/volto/icons/circle-plus.svg';
+import rightSVG from '@plone/volto/icons/right-key.svg';
+import { subTabSchema } from './subTabSchema';
+import themeSVG from '@plone/volto/icons/theme.svg';
+import trashSVG from '@plone/volto/icons/delete.svg';
+import { v4 as uuid } from 'uuid';
 
 export function moveColumn(formData, source, destination) {
   return {
@@ -36,6 +41,7 @@ const TabsWidget = (props) => {
   const [blockStyleVisible, setBlockStyleVisible] = React.useState(false);
   const [activeTabId, setActiveTabId] = React.useState(0);
   const [activeFontAwesomePopup, setActiveFontAwesomePopup] = React.useState(0);
+  const [activeSubTabPopup, setActiveSubTabPopup] = React.useState(0);
 
   const { value = {}, id, onChange } = props;
   const { blocks = {} } = value;
@@ -83,7 +89,18 @@ const TabsWidget = (props) => {
                     <Icon name={dragSVG} size="18px" />
                   </div>
                   <div className="tab-area">
-                    <div className="label">
+                    <div
+                      className="label"
+                      style={{
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        maxWidth: '65%',
+                      }}
+                    >
+                      {child.subTab?.subtab === true && (
+                        <Icon name={rightSVG} size="18px" />
+                      )}
                       {child.title || `Tab ${index + 1}`}
                     </div>
                     <button
@@ -181,6 +198,52 @@ const TabsWidget = (props) => {
                                 ...(activeTabData || {}),
                                 icon: {
                                   ...activeTabData?.icon,
+                                  [idTab]: formValue,
+                                },
+                              },
+                            },
+                          });
+                        }}
+                      />
+                    </SidebarPopup>
+
+                    <button
+                      onClick={() => {
+                        setActiveTabId(childId);
+                        setActiveSubTabPopup(true);
+                      }}
+                      title="Sub Tab"
+                    >
+                      <Icon size={'24px'} name={leftMenuSVG} />
+                    </button>
+                    <SidebarPopup open={activeSubTabPopup}>
+                      <InlineForm
+                        schema={subTabSchema()}
+                        title={
+                          <>
+                            {subTabSchema().title}
+                            <button
+                              onClick={() => {
+                                setActiveSubTabPopup(false);
+                              }}
+                              style={{ float: 'right' }}
+                            >
+                              <Icon name={clearSVG} size="24px" />
+                            </button>
+                          </>
+                        }
+                        formData={{
+                          ...activeTabData?.subTab,
+                        }}
+                        onChangeField={(idTab, formValue) => {
+                          onChange(id, {
+                            ...value,
+                            blocks: {
+                              ...value.blocks,
+                              [activeTabId]: {
+                                ...(activeTabData || {}),
+                                subTab: {
+                                  ...activeTabData?.subTab,
                                   [idTab]: formValue,
                                 },
                               },

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState } from 'react';
 
 import { SidebarPortal } from '@plone/volto/components'; // BlocksForm, Icon,
@@ -48,7 +49,7 @@ const CclProductLeftMenuEdit = (props) => {
         <div className="menu-detail-image">
           <img
             src={metadata?.image?.download}
-            alt={metadata?.image?.filename}
+            alt={metadata?.image?.filename || ''}
           />
         </div>
         {panels.map(([uid, panel], index) => (

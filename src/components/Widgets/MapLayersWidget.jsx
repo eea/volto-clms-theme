@@ -15,12 +15,17 @@ const ItemSchema = {
       description: 'Enter the title of the layer',
       type: 'string',
     },
+    default_active: {
+      title: 'Default active?',
+      description: 'Enter whether this layer should be active by default',
+      type: 'boolean',
+    },
   },
   fieldsets: [
     {
       id: 'default',
       title: 'Layer',
-      fields: ['id', 'title'],
+      fields: ['id', 'title', 'default_active'],
     },
   ],
   required: [],
