@@ -20,7 +20,9 @@ function CclLoginModal() {
 
   useEffect(() => {
     if (registryRecords && registry_key in registryRecords) {
-      setLoginUrl(registryRecords[registry_key]);
+      setLoginUrl(
+        registryRecords[registry_key] + '?came_from=' + window.location.href,
+      );
     }
   }, [registryRecords, registry_key]);
 
