@@ -134,14 +134,6 @@ const CLMSDownloadCartView = (props) => {
             <h1 className="page-title">
               <FormattedMessage id="Cart" defaultMessage="Cart" />
             </h1>
-            <div className="page-description">
-              <FormattedMessage
-                id="Lorem"
-                defaultMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus
-        mauris ante, a iaculis leo placerat quis."
-              />
-            </div>
-            <hr />
             <div className="ccl-container">
               <div className="message-block">
                 <div className="message-icon">
@@ -149,20 +141,19 @@ const CLMSDownloadCartView = (props) => {
                 </div>
                 <div className="message-text">
                   <p>
-                    This is a warning related to the funcionality of start
-                    downloading the datasets
+                    <FormattedMessage id="Note:" defaultMessage="Note:" />
                   </p>
                   <ul>
                     <li>
                       Select the files you want to download and click the button
-                      'Start downloading' to start with the download process.
+                      'Start downloading' to start the download process.
                     </li>
                     <li>
                       You can visit the{' '}
                       <Link to={`/${locale}/cart-downloads`}>
                         downloading process page
-                      </Link>
-                      .{' '}
+                      </Link>{' '}
+                      to check the status of your downloads.
                     </li>
                   </ul>
                 </div>
