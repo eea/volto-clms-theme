@@ -121,7 +121,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        delete_download_in_progress: action.result,
+        delete_download_in_progress: true,
       };
 
     case `${GET_FORMATCONVERSIONTABLE}_PENDING`:
