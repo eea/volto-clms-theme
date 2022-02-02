@@ -78,6 +78,7 @@ const applyConfig = (config) => {
       '/profile',
       '/download-by-area',
       '/cart',
+      '/cart-downloads',
       '/newsletter-notification-subscription',
       '/newsletter-notification-unsubscription',
     ],
