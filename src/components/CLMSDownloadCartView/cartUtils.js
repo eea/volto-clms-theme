@@ -10,10 +10,10 @@ export const getDownloadToolPostBody = (selectedItems) => {
       if (item.area.type === 'nuts') {
         body_extras['NUTS'] = item.area.value;
       }
-      if (item.timeExtend) {
+      if (item.timeExtent.length > 0) {
         body_extras['TemporalFilter'] = {
-          StartDate: item.timeExtend[0],
-          EndDate: item.timeExtend[1],
+          StartDate: item.timeExtent[0],
+          EndDate: item.timeExtent[1],
         };
       }
       if (item.format) {
@@ -55,10 +55,15 @@ export const getCartObjectFromMapviewer = (
   local_cart_data,
   dataset_data,
   projections,
+  nutsnames,
 ) => {
+  const area = local_cart_data.area;
+  if (area.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
+    area.valueName = nutsnames[area.value];
+  }
   const mapViewer = {
     name: dataset_data.dataResourceTitle || '-',
-    area: local_cart_data.area || '-',
+    area: area || '-',
     format:
       dataset_data.dataset_full_format?.token ||
       dataset_data.dataset_full_format ||
@@ -74,6 +79,7 @@ export const getCartObjectFromMapviewer = (
     dataset_uid: dataset_data.UID,
     task_in_progress: false,
     projection: dataset_data.projection || projections[0],
+    timeExtent: local_cart_data.timeExtent || [],
   };
   return mapViewer;
 };

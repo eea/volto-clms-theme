@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { getBreadcrumbs } from '../../../../../../node_modules/@plone/volto/src/actions';
 
 export const CLMSDownloadableFileView = (props) => {
-  const { content } = props;
   const dispatch = useDispatch();
+  const { content } = props;
 
   useEffect(() => {
     // dispatch(getExtraBreadcrumbItems([]));

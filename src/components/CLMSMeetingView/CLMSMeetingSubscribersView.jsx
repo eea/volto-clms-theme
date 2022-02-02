@@ -9,7 +9,8 @@ import {
 import { Checkbox } from 'semantic-ui-react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { CSVLink } from 'react-csv';
-
+import { Toast } from '@plone/volto/components';
+import { toast } from 'react-toastify';
 export const CLMSMeetingSubscribersView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -112,7 +113,11 @@ export const CLMSMeetingSubscribersView = (props) => {
         subscriberSelection,
         manipulation_type,
       ),
-    );
+    ).then((response) => {
+      toast.success(
+        <Toast success autoClose={5000} title={response.message} />,
+      );
+    });
     setSubscriberSelection([]);
   }
 
@@ -159,10 +164,10 @@ export const CLMSMeetingSubscribersView = (props) => {
                         </td>
                         <td>
                           <Link href={`${subscriber['@id']}/edit`}>
-                            {subscriber.title || subscriber.id}
+                            {subscriber.id}
                           </Link>
                         </td>
-                        <td>{subscriber.title || subscriber.id}</td>
+                        <td>{subscriber.title}</td>
                         <td>{subscriber.email}</td>
                         <td>{subscriber.review_state}</td>
                       </tr>
