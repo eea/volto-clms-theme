@@ -1,17 +1,18 @@
 /**
- * CLMSInProgressTask container.
- * @module components/CLMSInProgressTask/CLMSInProgressTask
+ * CLMSDownloadTask container.
+ * @module components/CLMSDownloadTask/CLMSDownloadTask
  */
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Grid } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import { deleteDownloadtool, getDownloadtool } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 import FileCard from './FileCard';
 import { FormattedMessage } from 'react-intl';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Grid } from 'semantic-ui-react';
 
-const CLMSTasksInProgress = (props) => {
+const CLMSDownloadTask = (props) => {
   const dispatch = useDispatch();
   const [taskInProgress, setTaskInProgress] = useState([]);
   // const [cancelledTasks, setCancelledTasks] = useState([]);
@@ -23,6 +24,7 @@ const CLMSTasksInProgress = (props) => {
 
   const user_id = useSelector((state) => state.users.user.id);
   const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
+  const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
 
   useEffect(() => {
     dispatch(getDownloadtool());
@@ -46,6 +48,16 @@ const CLMSTasksInProgress = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [datasets]);
 
+  useEffect(() => {
+    if (Object.keys(nutsnames).length > 0) {
+      addNutsName(taskInProgress, setTaskInProgress);
+      addNutsName(finishedOKTasks, setFinishedOKTasks);
+      addNutsName(finishedNOKTasks, setFinishedNOKTasks);
+      addNutsName(rejectedTasks, setRejectedTasks);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nutsnames]);
+
   function addDatasetName(data, setter) {
     let intermediate = [...data];
     intermediate.forEach((task) => {
@@ -60,6 +72,20 @@ const CLMSTasksInProgress = (props) => {
     });
     setter(intermediate);
   }
+
+  function addNutsName(data, setter) {
+    let intermediate = [...data];
+    intermediate.forEach((task) => {
+      task.Datasets.forEach((dataset) => {
+        const requestedItem = Object.keys(nutsnames).includes(dataset.NUTSID);
+        if (requestedItem) {
+          dataset.NUTSName = nutsnames[dataset.NUTSID];
+        }
+      });
+    });
+    setter(intermediate);
+  }
+
   const deleteTaskInProgress = (task_id) => {
     setShowDeleteTaskLoading(task_id);
     dispatch(deleteDownloadtool(task_id));
@@ -72,10 +98,7 @@ const CLMSTasksInProgress = (props) => {
     <Grid columns={1} stackable padded="vertically">
       <Grid.Column>
         <h2>
-          <FormattedMessage
-            id="Task In Progress"
-            defaultMessage="Task In Progress"
-          />
+          <FormattedMessage id="In progress" defaultMessage="In progress" />
         </h2>
         {taskInProgress?.length !== 0 ? (
           <Grid columns={2}>
@@ -93,8 +116,8 @@ const CLMSTasksInProgress = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no task in progress"
-              defaultMessage="There is no task in progress"
+              id="There are no tasks in progress"
+              defaultMessage="There are no tasks in progress"
             />
           </p>
         )}
@@ -111,10 +134,7 @@ const CLMSTasksInProgress = (props) => {
       </Grid.Column>
       <Grid.Column>
         <h2>
-          <FormattedMessage
-            id="Finished Correctly"
-            defaultMessage="Finished Correctly"
-          />
+          <FormattedMessage id="Completed" defaultMessage="Completed" />
         </h2>
         {finishedOKTasks?.length !== 0 ? (
           <Grid columns={2}>
@@ -133,8 +153,8 @@ const CLMSTasksInProgress = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no correctly finished task"
-              defaultMessage="There is no correctly finished task"
+              id="There are no completed tasks"
+              defaultMessage="There are no completed tasks"
             />
           </p>
         )}
@@ -142,12 +162,12 @@ const CLMSTasksInProgress = (props) => {
       <Grid.Column>
         <h2>
           <FormattedMessage
-            id="Finished Not Correctly"
-            defaultMessage="Finished Not Correctly"
+            id="Finished with errors"
+            defaultMessage="Finished with errors"
           />
         </h2>
         {finishedNOKTasks?.length !== 0 ? (
-          <Grid columns={2}>
+          <Grid columns={1}>
             {finishedNOKTasks?.length > 0 &&
               finishedNOKTasks.map((item, key) => (
                 <Grid.Column key={key}>
@@ -163,8 +183,8 @@ const CLMSTasksInProgress = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no incorrectly finished task"
-              defaultMessage="There is no incorrectly finished task"
+              id="There are no tasks finished with errors"
+              defaultMessage="There are no tasks finished with errors"
             />
           </p>
         )}
@@ -174,7 +194,7 @@ const CLMSTasksInProgress = (props) => {
           <FormattedMessage id="Rejected" defaultMessage="Rejected" />
         </h2>
         {rejectedTasks?.length !== 0 ? (
-          <Grid columns={2}>
+          <Grid columns={1}>
             {rejectedTasks?.length > 0 &&
               rejectedTasks.map((item, key) => (
                 <Grid.Column key={key}>
@@ -190,8 +210,8 @@ const CLMSTasksInProgress = (props) => {
         ) : (
           <p>
             <FormattedMessage
-              id="There is no rejected task"
-              defaultMessage="There is no rejected task"
+              id="There are no rejected tasks"
+              defaultMessage="There are no rejected tasks"
             />
           </p>
         )}
@@ -199,4 +219,4 @@ const CLMSTasksInProgress = (props) => {
     </Grid>
   );
 };
-export default CLMSTasksInProgress;
+export default CLMSDownloadTask;

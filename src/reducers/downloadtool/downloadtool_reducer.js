@@ -16,6 +16,9 @@ const getInitialState = {
   loaded: false,
   loading: false,
   download_in_progress: {},
+  download_finished_ok: {},
+  download_finished_nok: {},
+  download_rejected: {},
   delete_download_in_progress: {},
   post_download_in_progress: {},
   format_conversion_table_in_progress: {},
@@ -118,7 +121,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
-        delete_download_in_progress: action.result,
+        delete_download_in_progress: true,
       };
 
     case `${GET_FORMATCONVERSIONTABLE}_PENDING`:

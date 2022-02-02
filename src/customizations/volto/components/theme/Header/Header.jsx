@@ -162,7 +162,7 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  {(this.props.user.id && (
+                  {(this.props.user?.id && (
                     <>
                       <li className="header-dropdown">
                         <>
@@ -171,8 +171,8 @@ class Header extends Component {
                               icon={['fas', 'user']}
                               style={{ marginRight: '0.5rem' }}
                             />
-                            {this.props.user.fullname ||
-                              this.props.user.id ||
+                            {this.props.user?.fullname ||
+                              this.props.user?.id ||
                               ''}
                             <span className="ccl-icon-chevron-thin-down"></span>
                           </span>
@@ -182,7 +182,15 @@ class Header extends Component {
                                 to={`/${this.props.locale}/profile`}
                                 className="header-login-link"
                               >
-                                {this.props.user.id && <>{'My settings'}</>}
+                                My settings
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to={`/${this.props.locale}/cart-downloads`}
+                                className="header-login-link"
+                              >
+                                Downloads
                               </Link>
                             </li>
                             <li>
