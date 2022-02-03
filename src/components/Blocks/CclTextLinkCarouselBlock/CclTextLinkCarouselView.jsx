@@ -6,7 +6,6 @@ const TextLinkCarouselView = (props) => {
   const { data } = props;
   const slider = React.useRef(null);
 
-  const { tabsList = [], setActiveTab = () => {} } = props;
   const settings = {
     dots: false,
     infinite: true,
@@ -16,9 +15,6 @@ const TextLinkCarouselView = (props) => {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 2000,
-    beforeChange: (oldIndex, index) => {
-      setActiveTab(tabsList[index]);
-    },
   };
 
   return (
