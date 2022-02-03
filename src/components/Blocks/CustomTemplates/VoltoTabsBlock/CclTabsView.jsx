@@ -9,7 +9,7 @@ import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CclTabsView = (props) => {
-  const { metadata = {}, tabsList = [], setActiveTab = () => {} } = props;
+  const { metadata = {}, tabsList = [], setActiveTab } = props;
 
   const PanelsComponent = () => {
     return (

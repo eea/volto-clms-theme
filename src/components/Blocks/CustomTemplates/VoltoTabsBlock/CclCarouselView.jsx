@@ -20,7 +20,7 @@ const View = (props) => {
     metadata = {},
     tabsList = [],
     tabs = {},
-    setActiveTab = () => {},
+    setActiveTab,
   } = props;
 
   const settings = {
