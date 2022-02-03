@@ -15,17 +15,13 @@ const Slider = loadable(() => import('react-slick'));
 
 const View = (props) => {
   const slider = React.useRef(null);
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
   const {
     activeTab = null,
-    data = {},
-    hashlink = {},
     metadata = {},
     tabsList = [],
     tabs = {},
     setActiveTab = () => {},
   } = props;
-  const activeTabIndex = tabsList.indexOf(activeTab);
 
   const settings = {
     dots: false,
@@ -90,36 +86,6 @@ const View = (props) => {
       </div>
     );
   };
-
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      // TODO: Find the best way to add offset relative to header
-      //       The header can be static on mobile and relative on > mobile
-      // const headerWrapper = document.querySelector('.header-wrapper');
-      // const offsetHeight = headerWrapper?.offsetHeight || 0;
-      const offsetHeight = 0;
-      if (id !== parentId && index > -1 && parent) {
-        if (activeTabIndex !== index) {
-          slider.current.slickGoTo(index);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
-      }
-    }
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-    /* eslint-disable-next-line */
-  }, [hashlink.counter]);
 
   const [showInfo, setShowInfo] = React.useState(false);
   const panes = tabsList.map((tab, index) => {
