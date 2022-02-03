@@ -116,6 +116,69 @@ function handleEdit(
   }
 }
 
+const UploadingDimmer = ({ uid, selectedCardBlock, uploading, intl }) => {
+  return uid === selectedCardBlock && uploading ? (
+    <Dimmer active>
+      <Loader indeterminate>
+        {intl.formatMessage(messages.uploadingFile)}
+      </Loader>
+    </Dimmer>
+  ) : (
+    <></>
+  );
+};
+
+const ImageEditor = ({
+  editable,
+  pathname,
+  setUploading,
+  dispatch,
+  onChangeBlock,
+  block,
+  data,
+  selectedCardBlock,
+  openObjectBrowser,
+}) => {
+  return (
+    editable && (
+      <p>
+        <label className="file">
+          <Icon className="ui button" name={uploadSVG} size={35} />
+          <input
+            type="file"
+            onChange={(e) => onUploadImage(pathname, e, setUploading, dispatch)}
+            style={{ display: 'none' }}
+          />
+        </label>
+        <label className="file">
+          <Icon className="ui button" name={navSVG} size={35} />
+          <input
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              openObjectBrowser({
+                onSelectItem: (url, element) =>
+                  onChangeCardBlockImage(
+                    onChangeBlock,
+                    block,
+                    data,
+                    selectedCardBlock,
+                    {
+                      url: element['@id'],
+                      alt: element.title,
+                    },
+                  ),
+              });
+            }}
+            style={{ display: 'none' }}
+          />
+        </label>
+      </p>
+    )
+  );
+};
+
 const CclHomeUsersBlockEdit = ({
   block,
   data,
@@ -167,8 +230,6 @@ const CclHomeUsersBlockEdit = ({
         url: flattenToAppURL(content['@id']),
         alt: content?.image?.filename,
       });
-    } else if (!request.loading) {
-      setUploading(false);
     }
     /* eslint-disable-next-line */
   }, [request]);
@@ -271,68 +332,25 @@ const CclHomeUsersBlockEdit = ({
                   ) : (
                     <div className="image-add">
                       <Message className="image-message">
-                        {uid === selectedCardBlock && uploading && (
-                          <Dimmer active>
-                            <Loader indeterminate>
-                              {intl.formatMessage(messages.uploadingFile)}
-                            </Loader>
-                          </Dimmer>
-                        )}
+                        <UploadingDimmer
+                          uid={uid}
+                          selectedCardBlock={selectedCardBlock}
+                          uploading={uploading}
+                          intl={intl}
+                        />
                         <center>
                           <h4>{intl.formatMessage(messages.uploadImage)}</h4>
-                          {editable && (
-                            <>
-                              <p>
-                                <label className="file">
-                                  <Icon
-                                    className="ui button"
-                                    name={uploadSVG}
-                                    size={35}
-                                  />
-                                  <input
-                                    type="file"
-                                    onChange={(e) =>
-                                      onUploadImage(
-                                        pathname,
-                                        e,
-                                        setUploading,
-                                        dispatch,
-                                      )
-                                    }
-                                    style={{ display: 'none' }}
-                                  />
-                                </label>
-                                <label className="file">
-                                  <Icon
-                                    className="ui button"
-                                    name={navSVG}
-                                    size={35}
-                                  />
-                                  <input
-                                    type="button"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      e.preventDefault();
-                                      openObjectBrowser({
-                                        onSelectItem: (url, element) =>
-                                          onChangeCardBlockImage(
-                                            onChangeBlock,
-                                            block,
-                                            data,
-                                            selectedCardBlock,
-                                            {
-                                              url: element['@id'],
-                                              alt: element.title,
-                                            },
-                                          ),
-                                      });
-                                    }}
-                                    style={{ display: 'none' }}
-                                  />
-                                </label>
-                              </p>
-                            </>
-                          )}
+                          <ImageEditor
+                            editable={editable}
+                            pathname={pathname}
+                            setUploading={setUploading}
+                            dispatch={dispatch}
+                            onChangeBlock={onChangeBlock}
+                            block={block}
+                            data={data}
+                            selectedCardBlock={selectedCardBlock}
+                            openObjectBrowser={openObjectBrowser}
+                          />
                         </center>
                       </Message>
                     </div>
