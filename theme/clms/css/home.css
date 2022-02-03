@@ -2,7 +2,7 @@
 
 /*
 */
-.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe)
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
   #page-document.ui.container {
   width: calc(100vmax - (100vmax - 100%)) !important;
   margin: 0 0 !important;
@@ -12,18 +12,18 @@
   margin-bottom: 0.5rem;
 }
 
-.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe)
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
   .ui.basic.segment.content-area {
   padding-top: 0;
   margin-top: 0;
 }
 
-.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe)
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
   .block {
   margin-bottom: 0;
 }
 
-.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe)
+.contenttype-lrf:not(.section-cart):not(.section-profile):not(.section-newsletter-notification-subscription):not(.section-unsubscribe):not(.section-logout)
   .ui.basic.segment.content-area {
   padding-bottom: 0;
   margin-bottom: 0;

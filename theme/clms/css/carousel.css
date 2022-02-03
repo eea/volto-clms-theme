@@ -124,7 +124,7 @@
 /* Arrows */
 .slick-slider .slick-prev,
 .slick-slider .slick-next {
-  display: none !important;
+  display: block !important;
 }
 
 .slick-arrows .slick-prev,
