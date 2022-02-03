@@ -85,6 +85,14 @@ function isSelected(selected, uid, selectedCardBlock) {
   return selected && uid === selectedCardBlock;
 }
 
+function isBlockEdit(selected, selectedCardBlock) {
+  return selected && selectedCardBlock === -1;
+}
+
+function isCardEdit(selected, blocks, selectedCardBlock) {
+  return selected && blocks && selectedCardBlock !== -1;
+}
+
 function handleEdit(
   selected,
   uid,
@@ -175,7 +183,7 @@ const CclHomeUsersBlockEdit = ({
         }}
         aria-hidden="true"
       >
-        {data.title || 'Home Users band'}
+        {data.title}
       </div>
       <div>
         <div className={'line'}>
@@ -339,7 +347,7 @@ const CclHomeUsersBlockEdit = ({
           ))}
         </div>
       </div>
-      <SidebarPortal selected={selected && selectedCardBlock === -1}>
+      <SidebarPortal selected={isBlockEdit(selected, selectedCardBlock)}>
         <InlineForm
           schema={HomeUsersSchema()}
           title="Home users block"
@@ -353,9 +361,11 @@ const CclHomeUsersBlockEdit = ({
         />
       </SidebarPortal>
       <SidebarPortal
-        selected={
-          selected && data.customCards?.blocks && selectedCardBlock !== -1
-        }
+        selected={isCardEdit(
+          selected,
+          data.customCards?.blocks,
+          selectedCardBlock,
+        )}
       >
         <InlineForm
           schema={CardBlockSchema()}
