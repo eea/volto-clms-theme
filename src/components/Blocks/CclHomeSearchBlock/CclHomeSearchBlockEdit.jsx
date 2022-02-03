@@ -57,12 +57,10 @@ const CclSearchBlockEdit = (props) => {
             <span>
               {intl.formatMessage(messages.countText, { count: 999 })}
             </span>
-            {hasProtocol(url) ? (
-              <a href={url && url}>{data.linkText || 'Dataset catalogue'}</a>
+            {url && hasProtocol(url) ? (
+              <a href={url}>{data.linkText || 'Dataset catalogue'}</a>
             ) : (
-              <Link to={url && url}>
-                {data.linkText || 'Dataset catalogue'}
-              </Link>
+              <Link to={url}>{data.linkText || 'Dataset catalogue'}</Link>
             )}
           </div>
         </div>

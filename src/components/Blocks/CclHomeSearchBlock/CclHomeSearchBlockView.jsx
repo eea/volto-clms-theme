@@ -69,10 +69,10 @@ const CclSearchBlockView = (props) => {
         </div>
         <div className="home-datasets-text">
           <span>{intl.formatMessage(messages.countText, { count: 999 })}</span>
-          {hasProtocol(url) ? (
-            <a href={url && url}>{data.linkText}</a>
+          {url && hasProtocol(url) ? (
+            <a href={url}>{data.linkText}</a>
           ) : (
-            <Link to={url && url}>{data.linkText}</Link>
+            <Link to={url}>{data.linkText}</Link>
           )}
         </div>
       </div>
