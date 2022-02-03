@@ -40,20 +40,20 @@ const View = (props) => {
     },
   };
 
-  const Dots = (props) => {
-    const { activeTab = null, tabsList = [], slider = {} } = props;
-    return tabsList.length > 1 ? (
-      <ul className={cx('slick-dots', props.uiContainer)} role={'tablist'}>
-        {tabsList.map((tab, index) => (
+  const Dots = (dotProps) => {
+    const { dotActiveTab = null, dotTabsList = [], dotSlider = {} } = dotProps;
+    return dotTabsList.length > 1 ? (
+      <ul className={cx('slick-dots', dotProps.uiContainer)} role={'tablist'}>
+        {dotTabsList.map((tab, index) => (
           <li
             key={`dot-${tab}`}
-            className={cx({ 'slick-active': activeTab === tab })}
+            className={cx({ 'slick-active': dotActiveTab === tab })}
             role={'presentation'}
           >
             <button
               onClick={() => {
-                if (slider.current) {
-                  slider.current.slickGoTo(index);
+                if (dotSlider.current) {
+                  dotSlider.current.slickGoTo(index);
                 }
               }}
             />
@@ -65,11 +65,7 @@ const View = (props) => {
     );
   };
 
-  const ArrowsGroup = (props) => {
-    // const { activeTab = null, tabsList = [], slider = {} } = props;
-    // const currentSlide = tabsList.indexOf(activeTab);
-    // const slideCount = tabsList.length;
-
+  const ArrowsGroup = (arrowProps) => {
     return (
       <div className={'slick-arrows'}>
         <button
@@ -94,6 +90,7 @@ const View = (props) => {
       </div>
     );
   };
+
   React.useEffect(() => {
     const urlHash = props.location.hash.substring(1) || '';
     if (
@@ -149,7 +146,11 @@ const View = (props) => {
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
       <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} />
-      <Dots activeTab={activeTab} tabsList={tabsList} slider={slider} />
+      <Dots
+        dotActiveTab={activeTab}
+        dotTabsList={tabsList}
+        dotSlider={slider}
+      />
     </>
   );
 };

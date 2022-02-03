@@ -19,16 +19,16 @@ const AccordionCheckboxFacet = (props) => {
         <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
       <div className="ccl-form">
-        {choices.map(({ label, value }, i) => (
-          <div className="ccl-form-group" key={value}>
+        {choices.map(({ label, choiceValue }, i) => (
+          <div className="ccl-form-group" key={choiceValue}>
             <Checkbox
               disabled={isEditMode}
               label={label}
               radio={!isMulti}
               checked={
                 isMulti
-                  ? !!facetValue?.find((f) => f.value === value)
-                  : facetValue && facetValue.value === value
+                  ? !!facetValue?.find((f) => f.value === choiceValue)
+                  : facetValue && facetValue.value === choiceValue
               }
               onChange={(e, { checked }) =>
                 onChange(
@@ -36,12 +36,12 @@ const AccordionCheckboxFacet = (props) => {
                   isMulti
                     ? [
                         ...facetValue
-                          .filter((f) => f.value !== value)
+                          .filter((f) => f.value !== choiceValue)
                           .map((f) => f.value),
-                        ...(checked ? [value] : []),
+                        ...(checked ? [choiceValue] : []),
                       ]
                     : checked
-                    ? value
+                    ? choiceValue
                     : null,
                 )
               }

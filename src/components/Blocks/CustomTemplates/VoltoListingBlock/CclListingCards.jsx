@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConditionalLink } from '@plone/volto/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
-// import config from '@plone/volto/registry';
 
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 
@@ -28,8 +27,6 @@ const CclListingCards = (props) => {
     containerClass = 'ccl-container';
   } else if (!['line', 'doc'].includes(variation)) {
     containerClass = 'card-container';
-  } else {
-    containerClass = '';
   }
   return (
     <>

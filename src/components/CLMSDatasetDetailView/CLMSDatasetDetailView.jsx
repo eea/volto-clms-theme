@@ -24,14 +24,6 @@ import jwtDecode from 'jwt-decode';
 import { postImportGeonetwork } from '../../actions';
 import { useLocation } from 'react-router-dom';
 
-// import {
-//   mockDatabaseInfo,
-//   mockMetadata,
-//   mockDownloadDataset,
-// } from './mockDatasetInfo';
-// import CclCitation from '../CclCitation/CclCitation';
-// import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
-
 /**
  * Full view component class.
  * @function CLMSDatasetDetailView
@@ -45,8 +37,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const geonetwork_importation = useSelector(
     (state) => state.geonetwork_importation,
   );
-  // const userSession = useSelector((state) => state.userSession);
-  // const user_token = userSession.token ? jwtDecode(userSession.token).sub : '';
   const user = useSelector((state) => state.users?.user);
   React.useEffect(() => {
     dispatch(getUser(token));

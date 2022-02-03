@@ -1,13 +1,8 @@
-import React /* , { useState } */ from 'react';
+import React from 'react';
 
-// import { TextLinkCarouselView } from './TextLinkCarouselView';
 import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { TextLinkCarouselSchema } from './TextLinkCarouselSchema';
-
-// import { compose } from 'redux';
-// import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
-// import { injectIntl } from 'react-intl';
 
 const TextLinkCarouselEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;
@@ -35,4 +30,4 @@ const TextLinkCarouselEdit = (props) => {
     </>
   );
 };
-export default /*  compose(withObjectBrowser, injectIntl) */ TextLinkCarouselEdit;
+export default TextLinkCarouselEdit;

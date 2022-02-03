@@ -3,7 +3,6 @@ import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
-// import { getBaseUrl } from '@plone/volto/helpers';
 
 const CclReatedListingEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;
@@ -11,7 +10,6 @@ const CclReatedListingEdit = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   const types = useSelector((state) => state.types.types);
   const types_schema = types.map((type) => [type.title, type.title]);
-  // const path = getBaseUrl(metadata ? metadata['@id'] : properties['@id']);
   let libraries = searchSubrequests?.[props.id]?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;

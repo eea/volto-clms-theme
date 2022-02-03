@@ -1,5 +1,4 @@
 import React from 'react';
-// import CclTable from '@eeacms/volto-clms-theme/components/CclTable/CclTable';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { compose } from 'redux';

@@ -78,15 +78,18 @@ const CclTabsView = (props) => {
       </div>
     );
   };
+
+  function handleAction(activeTab, tab) {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+    }
+  }
+
   const TabsComponent = () => {
     return (
       <div className="tabs" role="tablist">
         {tabsList.map((tab, index) => {
-          const {
-            activeTab = null,
-            tabs = {},
-            setActiveTab = () => {},
-          } = props;
+          const { activeTab = null, tabs = {} } = props;
           const title = tabs[tab].title;
           const tabIndex = index + 1;
           const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
@@ -102,14 +105,10 @@ const CclTabsView = (props) => {
               /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatuz nahikoa da */
               className={cx('tab', tab === activeTab && 'tab-selected')}
               onClick={() => {
-                if (activeTab !== tab) {
-                  setActiveTab(tab);
-                }
+                handleAction(activeTab, tab);
               }}
               onKeyDown={() => {
-                if (activeTab !== tab) {
-                  setActiveTab(tab);
-                }
+                handleAction(activeTab, tab);
               }}
               tabIndex="0"
             >
