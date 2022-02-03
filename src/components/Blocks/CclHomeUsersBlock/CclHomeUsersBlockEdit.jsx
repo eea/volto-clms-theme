@@ -13,7 +13,6 @@ import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
 import { createContent } from '@plone/volto/actions';
 import { compose } from 'redux';
 import { connect, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import uploadSVG from '@plone/volto/icons/upload.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
@@ -82,6 +81,33 @@ function onChangeCardBlockImage(
   });
 }
 
+function isSelected(selected, uid, selectedCardBlock) {
+  return selected && uid === selectedCardBlock;
+}
+
+function handleEdit(
+  selected,
+  uid,
+  selectedCardBlock,
+  setSelectedCardBlock,
+  openObjectBrowser,
+  onChangeBlock,
+  block,
+  data,
+) {
+  if (isSelected(selected, uid, selectedCardBlock)) {
+    openObjectBrowser({
+      onSelectItem: (url, element) =>
+        onChangeCardBlockImage(onChangeBlock, block, data, selectedCardBlock, {
+          url: element['@id'],
+          alt: element.title,
+        }),
+    });
+  } else {
+    setSelectedCardBlock(uid);
+  }
+}
+
 const CclHomeUsersBlockEdit = ({
   block,
   data,
@@ -127,15 +153,14 @@ const CclHomeUsersBlockEdit = ({
   }, [selected]);
 
   React.useEffect(() => {
-    !request.loading && setUploading(false);
-  }, [request]);
-
-  React.useEffect(() => {
     if (request.loaded && !request.loading) {
+      setUploading(false);
       onChangeCardBlockImage(onChangeBlock, block, data, selectedCardBlock, {
         url: flattenToAppURL(content['@id']),
         alt: content?.image?.filename,
       });
+    } else if (!request.loading) {
+      setUploading(false);
     }
     /* eslint-disable-next-line */
   }, [request]);
@@ -171,26 +196,24 @@ const CclHomeUsersBlockEdit = ({
                 <div className="card-image">
                   {panel.image?.url ? (
                     <>
-                      {selected &&
-                        uid === selectedCardBlock &&
-                        !!panel.image?.url && (
-                          <Label
-                            as="a"
-                            color="red"
-                            pointing="below"
-                            onClick={() =>
-                              onChangeCardBlockImage(
-                                onChangeBlock,
-                                block,
-                                data,
-                                selectedCardBlock,
-                                {},
-                              )
-                            }
-                          >
-                            {intl.formatMessage(messages.removeImage)}
-                          </Label>
-                        )}
+                      {isSelected(selected, uid, selectedCardBlock) && (
+                        <Label
+                          as="a"
+                          color="red"
+                          pointing="below"
+                          onClick={() =>
+                            onChangeCardBlockImage(
+                              onChangeBlock,
+                              block,
+                              data,
+                              selectedCardBlock,
+                              {},
+                            )
+                          }
+                        >
+                          {intl.formatMessage(messages.removeImage)}
+                        </Label>
+                      )}
 
                       <div
                         role="button"
@@ -199,51 +222,37 @@ const CclHomeUsersBlockEdit = ({
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          if (selected && uid === selectedCardBlock) {
-                            openObjectBrowser({
-                              onSelectItem: (url, element) =>
-                                onChangeCardBlockImage(
-                                  onChangeBlock,
-                                  block,
-                                  data,
-                                  selectedCardBlock,
-                                  {
-                                    url: element['@id'],
-                                    alt: element.title,
-                                  },
-                                ),
-                            });
-                          } else {
-                            setSelectedCardBlock(uid);
-                          }
+                          handleEdit(
+                            selected,
+                            uid,
+                            selectedCardBlock,
+                            setSelectedCardBlock,
+                            openObjectBrowser,
+                            onChangeBlock,
+                            block,
+                            data,
+                          );
                         }}
                         onKeyDown={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          if (selected && uid === selectedCardBlock) {
-                            openObjectBrowser({
-                              onSelectItem: (url, element) =>
-                                onChangeCardBlockImage(
-                                  onChangeBlock,
-                                  block,
-                                  data,
-                                  selectedCardBlock,
-                                  {
-                                    url: element['@id'],
-                                    alt: element.title,
-                                  },
-                                ),
-                            });
-                          } else {
-                            setSelectedCardBlock(uid);
-                          }
+                          handleEdit(
+                            selected,
+                            uid,
+                            selectedCardBlock,
+                            setSelectedCardBlock,
+                            openObjectBrowser,
+                            onChangeBlock,
+                            block,
+                            data,
+                          );
                         }}
                       >
                         <Image
                           size="small"
                           src={`${panel.image.url}/@@images/image`}
                         />
-                        {selected && uid === selectedCardBlock && (
+                        {isSelected(selected, uid, selectedCardBlock) && (
                           <div className="edit-image">
                             <Icon className="ui" name={editingSVG} size={35} />
                             {intl.formatMessage(messages.editImage)}
@@ -322,14 +331,8 @@ const CclHomeUsersBlockEdit = ({
                   )}
                 </div>
                 <div className={'card-text'}>
-                  <div className="card-title">
-                    <Link to={panel ? panel['@id'] || panel.url || '/' : '/'}>
-                      {panel?.title || 'Card default title'}
-                    </Link>
-                  </div>
-                  <div className="card-description">
-                    {panel?.description || 'Card default description text'}
-                  </div>
+                  <div className="card-title">{panel?.title}</div>
+                  <div className="card-description">{panel?.description}</div>
                 </div>
               </div>
             </div>
