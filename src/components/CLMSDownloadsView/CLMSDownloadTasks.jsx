@@ -55,8 +55,8 @@ const CLMSDownloadTask = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nutsnames]);
 
-  const MapTasks = (props) => {
-    const { tasks, showDel, delTask } = props;
+  const MapTasks = (mapProps) => {
+    const { tasks, showDel, delTask } = mapProps;
     return (
       <Grid columns={2}>
         {tasks?.length > 0 &&

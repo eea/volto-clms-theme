@@ -1,7 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
 import config from '@plone/volto/registry';
+import { searchContent } from '@plone/volto/actions';
 
 const CclReatedListingView = (props) => {
   const { data, id, properties, metadata } = props;
@@ -14,7 +15,7 @@ const CclReatedListingView = (props) => {
   let TemplateView = '';
   let template_id = '';
   var defaultVariation = variationsConfig.filter(
-    (variation) => variation.isDefault,
+    (configVar) => configVar.isDefault,
   )[0];
 
   if (!data?.variation) {
@@ -23,7 +24,7 @@ const CclReatedListingView = (props) => {
     data.variation = template_id;
   } else {
     var variation = variationsConfig.filter(
-      (variation) => variation.id === data.variation,
+      (configVar1) => configVar1.id === data.variation,
     )[0];
     TemplateView = variation.template;
     template_id = variation.id;

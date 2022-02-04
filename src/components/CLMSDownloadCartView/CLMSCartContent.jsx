@@ -169,19 +169,19 @@ const CLMSCartContent = (props) => {
     setCartItems([...cartItems]);
   };
 
-  function isChecked(cartSelection, cartItems) {
-    return cartItems
-      ? cartItems
+  function isChecked(cartSelectionCh, cartItemsCh) {
+    return cartItemsCh
+      ? cartItemsCh
           .filter((item) => item.task_in_progress === false)
           .map((item, key) => item.unique_id)
           .every(function (val) {
-            return cartSelection.indexOf(val) !== -1;
+            return cartSelectionCh.indexOf(val) !== -1;
           })
       : false;
   }
 
-  const AreaNaming = (props) => {
-    const { item } = props;
+  const AreaNaming = (areaProps) => {
+    const { item } = areaProps;
     return (
       <>
         {item.area?.type === 'polygon'

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { UseCaseListSchema } from './UseCaseListSchema';
-import { SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
-import getProductGroups from './utils';
 import { defineMessages, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+
+import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import { SidebarPortal } from '@plone/volto/components';
+import { UseCaseListSchema } from './UseCaseListSchema';
+import getProductGroups from './utils';
+import { searchContent } from '@plone/volto/actions';
 
 const messages = defineMessages({
   xUseCases: {
@@ -111,10 +112,10 @@ const CclUseCaseListEdit = (props) => {
         <InlineForm
           schema={UseCaseListSchema()}
           title="UseCase List block"
-          onChangeField={(id, value) => {
+          onChangeField={(idCase, value) => {
             onChangeBlock(block, {
               ...data,
-              [id]: value,
+              [idCase]: value,
             });
           }}
           formData={data}

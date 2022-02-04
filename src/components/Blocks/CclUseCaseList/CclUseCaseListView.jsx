@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import getProductGroups from './utils';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
 import { defineMessages, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+
+import getProductGroups from './utils';
+import { searchContent } from '@plone/volto/actions';
 
 const messages = defineMessages({
   xUseCases: {
@@ -77,8 +78,8 @@ const CclUseCaseListView = (props) => {
                 </div>
                 <div className="use-cases-element-container">
                   {productGroups[productToken].useCases.map(
-                    (useCase, index) => (
-                      <div key={index} className="use-cases-element">
+                    (useCase, indexCase) => (
+                      <div key={indexCase} className="use-cases-element">
                         <div className="use-case-element-title">
                           {useCase.title}
                         </div>
