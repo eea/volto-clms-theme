@@ -20,6 +20,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getSubscriptionConfig } from './subscription_utils';
 import { toast } from 'react-toastify';
+
 const messages = defineMessages({
   subscribeToThe: {
     id: '{subscribe_or_unsubscribe} to the {type}',
@@ -139,27 +140,28 @@ class SubscriptionView extends Component {
    * @returns {undefined}
    */
   onSubmit(event) {
-    event.preventDefault();
-    if (this.state.value) {
-      this.props
-        .subscribeTo(this.state.type_conf.back_url, this.state.value)
-        .then(() => this.props.loaded && this.requestSuccessToast())
-        .catch(() => this.props.error && this.requestErrorToast());
+    if (this.props.isUnsubscribe) {
+      if (this.state.value) {
+        this.props
+          .unsubscribeTo(this.state.type_conf.back_url, this.state.value)
+          .then(() => this.props.loaded && this.requestSuccessToast())
+          .catch(() => this.props.error && this.requestErrorToast());
+      } else {
+        this.emptyFieldErrorToast();
+      }
     } else {
-      this.emptyFieldErrorToast();
+      event.preventDefault();
+      if (this.state.value) {
+        this.props
+          .subscribeTo(this.state.type_conf.back_url, this.state.value)
+          .then(() => this.props.loaded && this.requestSuccessToast())
+          .catch(() => this.props.error && this.requestErrorToast());
+      } else {
+        this.emptyFieldErrorToast();
+      }
     }
   }
 
-  submitUnsubscribeTo = () => {
-    if (this.state.value) {
-      this.props
-        .unsubscribeTo(this.state.type_conf.back_url, this.state.value)
-        .then(() => this.props.loaded && this.requestSuccessToast())
-        .catch(() => this.props.error && this.requestErrorToast());
-    } else {
-      this.emptyFieldErrorToast();
-    }
-  };
   /**
    * Render method.
    * @method render
@@ -181,11 +183,7 @@ class SubscriptionView extends Component {
             <Form
               className="ccl-form user-form contact-form"
               size={'large'}
-              onSubmit={
-                this.props.isUnsubscribe
-                  ? this.submitUnsubscribeTo
-                  : this.onSubmit
-              }
+              onSubmit={this.onSubmit}
             >
               <div className="ccl-fieldset">
                 <div className="ccl-form-group">

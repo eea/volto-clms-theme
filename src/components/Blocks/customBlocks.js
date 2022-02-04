@@ -73,6 +73,72 @@ export const customGroupBlocksOrder = [
   },
 ];
 
+const availableVariations = [
+  {
+    id: 'CclCardsdoc',
+    isDefault: true,
+    title: 'Line list',
+    template: VariationHOC(CclListingCards, 'doc'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclCardsline',
+    isDefault: false,
+    title: 'Line list with Image',
+    template: VariationHOC(CclListingCards, 'line'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclCardsline-color',
+    isDefault: false,
+    title: 'Colored Line list with Image',
+    template: VariationHOC(CclListingCards, 'line-color'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclCardsblock',
+    isDefault: false,
+    title: '2 Column Cards list',
+    template: VariationHOC(CclListingCards, 'block'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclCardsthreeColumns',
+    isDefault: false,
+    title: '3 Column Cards list',
+    template: VariationHOC(CclListingCards, 'threeColumns'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclCardsnews',
+    isDefault: false,
+    title: 'News Line list',
+    template: VariationHOC(CclListingCards, 'news'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclCardsevent',
+    isDefault: false,
+    title: 'Events Line list',
+    template: VariationHOC(CclListingCards, 'event'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclWOOpenTenders',
+    isDefault: false,
+    title: 'Open Work Opportunities',
+    template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
+    fullobjects: true,
+  },
+  {
+    id: 'CclWOCloseTenders',
+    isDefault: false,
+    title: 'Closed Work Opportunities',
+    template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
+    fullobjects: true,
+  },
+];
+
 const customBlocks = (config) => ({
   ...config.blocks.blocksConfig,
   video: {
@@ -139,71 +205,7 @@ const customBlocks = (config) => ({
   listing: {
     ...config.blocks.blocksConfig.listing,
     showLinkMore: true,
-    variations: [
-      {
-        id: 'CclCardsdoc',
-        isDefault: true,
-        title: 'Line list',
-        template: VariationHOC(CclListingCards, 'doc'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline',
-        isDefault: false,
-        title: 'Line list with Image',
-        template: VariationHOC(CclListingCards, 'line'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline-color',
-        isDefault: false,
-        title: 'Colored Line list with Image',
-        template: VariationHOC(CclListingCards, 'line-color'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsblock',
-        isDefault: false,
-        title: '2 Column Cards list',
-        template: VariationHOC(CclListingCards, 'block'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsthreeColumns',
-        isDefault: false,
-        title: '3 Column Cards list',
-        template: VariationHOC(CclListingCards, 'threeColumns'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsnews',
-        isDefault: false,
-        title: 'News Line list',
-        template: VariationHOC(CclListingCards, 'news'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsevent',
-        isDefault: false,
-        title: 'Events Line list',
-        template: VariationHOC(CclListingCards, 'event'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOOpenTenders',
-        isDefault: false,
-        title: 'Open Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOCloseTenders',
-        isDefault: false,
-        title: 'Closed Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
-        fullobjects: true,
-      },
-    ],
+    variations: availableVariations,
   },
   accordion: {
     ...config.blocks.blocksConfig.accordion,
@@ -294,71 +296,7 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
-    variations: [
-      {
-        id: 'CclCardsdoc',
-        isDefault: true,
-        title: 'Line list',
-        template: VariationHOC(CclListingCards, 'doc'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline',
-        isDefault: false,
-        title: 'Line list with Image',
-        template: VariationHOC(CclListingCards, 'line'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline-color',
-        isDefault: false,
-        title: 'Colored Line list with Image',
-        template: VariationHOC(CclListingCards, 'line-color'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsblock',
-        isDefault: false,
-        title: '2 Column Cards list',
-        template: VariationHOC(CclListingCards, 'block'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsthreeColumns',
-        isDefault: false,
-        title: '3 Column Cards list',
-        template: VariationHOC(CclListingCards, 'threeColumns'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsnews',
-        isDefault: false,
-        title: 'News Line list',
-        template: VariationHOC(CclListingCards, 'news'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsevent',
-        isDefault: false,
-        title: 'Events Line list',
-        template: VariationHOC(CclListingCards, 'event'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOOpenTenders',
-        isDefault: false,
-        title: 'Open Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOCloseTenders',
-        isDefault: false,
-        title: 'Closed Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
-        fullobjects: true,
-      },
-    ],
+    variations: availableVariations,
   },
   cardContainer: {
     id: 'cardContainer', // The name (id) of the block

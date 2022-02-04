@@ -27,6 +27,15 @@ const FacetWrapper = ({ children }) => (
   </Segment>
 );
 
+function setFacetsHandler(setFacets, onTriggerSearch, searchedText) {
+  return (f) => {
+    flushSync(() => {
+      setFacets(f);
+      onTriggerSearch(searchedText || '', f);
+    });
+  };
+}
+
 const RightModalFacets = (props) => {
   const {
     children,
@@ -87,12 +96,11 @@ const RightModalFacets = (props) => {
             <FilterList
               {...props}
               isEditMode={isEditMode}
-              setFacets={(f) => {
-                flushSync(() => {
-                  setFacets(f);
-                  onTriggerSearch(searchedText || '', f);
-                });
-              }}
+              setFacets={setFacetsHandler(
+                setFacets,
+                onTriggerSearch,
+                searchedText,
+              )}
             />
           </div>
 
@@ -138,12 +146,11 @@ const RightModalFacets = (props) => {
                     </div>
                   }
                   data={data}
-                  setFacets={(f) => {
-                    flushSync(() => {
-                      setFacets(f);
-                      onTriggerSearch(searchedText || '', f);
-                    });
-                  }}
+                  setFacets={setFacetsHandler(
+                    setFacets,
+                    onTriggerSearch,
+                    searchedText,
+                  )}
                 >
                   <div id="right-modal-facets" className="facets">
                     <Facets
@@ -151,12 +158,11 @@ const RightModalFacets = (props) => {
                       data={data}
                       facets={facets}
                       isEditMode={isEditMode}
-                      setFacets={(f) => {
-                        flushSync(() => {
-                          setFacets(f);
-                          onTriggerSearch(searchedText || '', f);
-                        });
-                      }}
+                      setFacets={setFacetsHandler(
+                        setFacets,
+                        onTriggerSearch,
+                        searchedText,
+                      )}
                       facetWrapper={FacetWrapper}
                     />
                   </div>

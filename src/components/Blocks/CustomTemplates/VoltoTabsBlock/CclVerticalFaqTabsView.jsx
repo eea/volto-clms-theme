@@ -1,13 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router';
-import { RenderBlocks } from '@plone/volto/components';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import './fontawesome';
-import cx from 'classnames';
 import './custom.less';
-import { Route, NavLink } from 'react-router-dom';
+
+import { NavLink, Route } from 'react-router-dom';
+
+import React from 'react';
+import { RenderBlocks } from '@plone/volto/components';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import cx from 'classnames';
+import { withRouter } from 'react-router';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 const CclVerticalFaqTabsView = (props) => {
   const { metadata = {}, tabsList = [] } = props;
@@ -37,6 +39,12 @@ const CclVerticalFaqTabsView = (props) => {
       </div>
     );
   };
+
+  function handleActive(activeTab, tab, setActiveTab) {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+    }
+  }
   const TabsComponent = () => {
     return (
       <div className="left-content cont-w-25">
@@ -56,14 +64,10 @@ const CclVerticalFaqTabsView = (props) => {
                   to={'#tab' + tabIndex}
                   className="collapsed"
                   onClick={(e) => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
+                    handleActive(activeTab, tab, setActiveTab);
                   }}
                   onKeyDown={() => {
-                    if (activeTab !== tab) {
-                      setActiveTab(tab);
-                    }
+                    handleActive(activeTab, tab, setActiveTab);
                   }}
                 >
                   {title || defaultTitle}
