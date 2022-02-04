@@ -207,6 +207,9 @@ class Header extends Component {
                       <CclLoginModal />
                     </li>
                   )}
+                  <li className="header-vertical-line">
+                    <div>|</div>
+                  </li>
                 </ul>
                 <div
                   onMouseOut={(e) => {
@@ -268,6 +271,14 @@ class Header extends Component {
                               </Link>
                             </li>
                             <li>
+                              <Link
+                                to={`/${this.props.locale}/cart-downloads`}
+                                className="header-login-link"
+                              >
+                                Downloads
+                              </Link>
+                            </li>
+                            <li>
                               <Link to="/logout" className="header-login-link">
                                 <FormattedMessage
                                   id="logout"
@@ -287,6 +298,9 @@ class Header extends Component {
                       <CclLoginModal />
                     </li>
                   )}
+                  <li className="header-vertical-line">
+                    <div>|</div>
+                  </li>
                 </ul>
               </nav>
             </div>
