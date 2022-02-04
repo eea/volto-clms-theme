@@ -1,15 +1,18 @@
 import './fontawesome';
 
-import { FormFieldWrapper, Icon } from '@plone/volto/components';
+import {
+  DragDropList,
+  FormFieldWrapper,
+  Icon,
+  SidebarPopup,
+} from '@plone/volto/components';
 import { Grid, Header } from 'semantic-ui-react';
 import { faExternalLinkAlt, faIcons } from '@fortawesome/free-solid-svg-icons';
 import { omit, without } from 'lodash';
 
-import { DragDropList } from '@plone/volto/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import React from 'react';
-import { SidebarPopup } from '@plone/volto/components';
 import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import dragSVG from '@plone/volto/icons/drag.svg';

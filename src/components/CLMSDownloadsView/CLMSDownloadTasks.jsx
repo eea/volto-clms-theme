@@ -11,7 +11,7 @@ import FileCard from './FileCard';
 import { FormattedMessage } from 'react-intl';
 import { Grid } from 'semantic-ui-react';
 
-const CLMSDownloadTask = (props) => {
+const CLMSDownloadTasks = (props) => {
   const dispatch = useDispatch();
   const [taskInProgress, setTaskInProgress] = useState([]);
   const [finishedOKTasks, setFinishedOKTasks] = useState([]);
@@ -193,4 +193,4 @@ const CLMSDownloadTask = (props) => {
     </Grid>
   );
 };
-export default CLMSDownloadTask;
+export default CLMSDownloadTasks;

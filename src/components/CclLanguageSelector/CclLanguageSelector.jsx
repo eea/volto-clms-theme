@@ -3,20 +3,19 @@
  * @module components/LanguageSelector/LanguageSelector
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Helmet, flattenToAppURL, langmap } from '@plone/volto/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
+import config from '@plone/volto/registry';
 import cookie from 'react-cookie';
-import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
 import { find } from 'lodash';
 import { updateIntl } from 'react-intl-redux';
-import config from '@plone/volto/registry';
-import { flattenToAppURL } from '@plone/volto/helpers';
-import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import { FormattedMessage } from 'react-intl';
-
-import { Helmet, langmap } from '@plone/volto/helpers'; // volto 13.0.1 upgrade
 
 let locales = {};
 

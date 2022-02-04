@@ -4,8 +4,8 @@
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
+import { Checkbox, Segment, Select } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
-import { Segment, Select } from 'semantic-ui-react';
 import {
   getCartObjectFromMapviewer,
   getCartObjectFromPrepackaged,
@@ -20,7 +20,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Toast } from '@plone/volto/components';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';

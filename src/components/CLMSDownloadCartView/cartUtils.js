@@ -25,14 +25,13 @@ export const getDownloadToolPostBody = (selectedItems) => {
     }
     return { DatasetID: item.dataset_uid, ...body_extras };
   });
-  const body = {
+  return {
     Datasets: datasetList,
   };
-  return body;
 };
 
 export const getCartObjectFromPrepackaged = (file_data, dataset_data) => {
-  const prePackagedItem = {
+  return {
     name: dataset_data.title,
     area: file_data.area,
     format: file_data.format?.token || file_data.format,
@@ -48,7 +47,6 @@ export const getCartObjectFromPrepackaged = (file_data, dataset_data) => {
     task_in_progress: false,
     projection: file_data.projection,
   };
-  return prePackagedItem;
 };
 
 export const getCartObjectFromMapviewer = (
@@ -61,7 +59,7 @@ export const getCartObjectFromMapviewer = (
   if (area.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
     area.valueName = nutsnames[area.value];
   }
-  const mapViewer = {
+  return {
     name: dataset_data.dataResourceTitle || '-',
     area: area || '-',
     format:
@@ -81,5 +79,4 @@ export const getCartObjectFromMapviewer = (
     projection: dataset_data.projection || projections[0],
     timeExtent: local_cart_data.timeExtent || [],
   };
-  return mapViewer;
 };

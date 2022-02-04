@@ -3,29 +3,29 @@
  * @module components/theme/Footer/Footer
  */
 
-import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
 
-import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
+import React, { Component } from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
+
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
-import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
-import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
-import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
+import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
+import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
 import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
-import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
+import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
-import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
-import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
-import { defineMessages } from 'react-intl';
-import { ReactSVG } from 'react-svg';
+import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
+import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
 import { Link } from 'react-router-dom';
-import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
+import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
+import { ReactSVG } from 'react-svg';
+import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
 import { Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
-import { subscribeTo } from '../../../../../actions';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { subscribeTo } from '../../../../../actions';
+import { toast } from 'react-toastify';
 
 const messages = defineMessages({
   copernicusServices: {
