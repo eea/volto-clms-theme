@@ -1021,7 +1021,7 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
 }
 
 .custom-table tr:not(:last-of-type) td {
-  border-bottom: solid 1px #a0b128;
+  border-bottom: solid 0.5px #a0b12833;
 }
 
 .tag {
@@ -1041,6 +1041,19 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
 
 .tag-dataset {
   background-color: #adb0b8;
+}
+
+.custom-table .ui.active.selection.dropdown {
+  border-bottom: solid 1px #a0b128;
+}
+
+.custom-table .ui.selection.active.dropdown .menu:last-child {
+  border: none;
+}
+
+.custom-table .ui.dropdown.selected,
+.custom-table .ui.dropdown .menu .selected.item {
+  color: #a0b128;
 }
 
 /* Pagination */
