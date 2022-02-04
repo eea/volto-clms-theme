@@ -1,14 +1,15 @@
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import React, { Component } from 'react';
 import { confirmSubscribeTo, confirmUnsubscribeTo } from '../../actions';
-import { injectIntl, defineMessages } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { defineMessages, injectIntl } from 'react-intl';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Loader } from 'semantic-ui-react';
-import { Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
-import { getSubscriptionConfig } from './subscription_utils';
 import { NotFound } from '@plone/volto/components';
+import { Toast } from '@plone/volto/components';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { getSubscriptionConfig } from './subscription_utils';
+import { toast } from 'react-toastify';
 
 const messages = defineMessages({
   suscriptionConfirm: {
@@ -91,7 +92,17 @@ class ConfirmSubscriptionView extends Component {
         .catch(() => this.props.error && this.requestErrorToast());
     }
   }
+
+  ButtonText = (loading) => {
+    return loading ? (
+      'Confirm'
+    ) : (
+      <Loader active inline indeterminate size="small" />
+    );
+  };
+
   render() {
+    const ButtonText = this.ButtonText;
     return (
       <>
         {this.state.type_conf ? (
@@ -117,11 +128,7 @@ class ConfirmSubscriptionView extends Component {
               </div>
             </div>
             <CclButton onClick={this.handlePost}>
-              {!this.props.loading ? (
-                'Confirm'
-              ) : (
-                <Loader active inline indeterminate size="small" />
-              )}
+              <ButtonText loading={this.props.loading} />
             </CclButton>
           </div>
         ) : (

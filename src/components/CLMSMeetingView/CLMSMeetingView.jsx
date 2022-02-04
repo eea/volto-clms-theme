@@ -1,21 +1,24 @@
-import React from 'react';
 import './meetingstyles.less';
-import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
-import {
-  When,
-  Recurrence,
-} from '@plone/volto/components/theme/View/EventDatesInfo';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { Header, Segment, Message, Image } from 'semantic-ui-react';
+
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Icon, Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
-import checkSVG from '@plone/volto/icons/check.svg';
-import { postMeetingRegister } from '../../actions';
+import {
+  Recurrence,
+  When,
+} from '@plone/volto/components/theme/View/EventDatesInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import jwtDecode from 'jwt-decode';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { useHistory, useLocation } from 'react-router-dom';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import React from 'react';
+import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import checkSVG from '@plone/volto/icons/check.svg';
 import { createContent } from '@plone/volto/actions';
+import jwtDecode from 'jwt-decode';
+import { postMeetingRegister } from '../../actions';
+import { toast } from 'react-toastify';
+
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -108,6 +111,33 @@ export const CLMSMeetingView = (props) => {
     );
     history.push(props.location.pathname + '/form');
   }
+  const RegistrationButton = ({ rContent, rMeeting_register, rIsLoggedIn }) => {
+    return (
+      <>
+        {rContent.is_registered ||
+        (rMeeting_register.logged_user_registration &&
+          !rMeeting_register.error) ? (
+          <Message color="olive" size="large">
+            <Icon size={20} name={checkSVG} />{' '}
+            <FormattedMessage
+              id="You are already registered"
+              defaultMessage="You are already registered"
+            />
+          </Message>
+        ) : (
+          rIsLoggedIn && (
+            <CclButton onClick={() => handleRegister()}>
+              <FormattedMessage
+                id="Register to this meeting"
+                defaultMessage="Register to this meeting"
+              />
+            </CclButton>
+          )
+        )}
+      </>
+    );
+  };
+
   const handleRegister = () => {
     dispatch(postMeetingRegister(location.pathname)).then((response) => {
       var responseJSON = JSON.parse(response.replace(/'/g, '"'));
@@ -345,28 +375,11 @@ export const CLMSMeetingView = (props) => {
                     )}
                 </>
               ) : (
-                <>
-                  {content.is_registered ||
-                  (meeting_register.logged_user_registration &&
-                    !meeting_register.error) ? (
-                    <Message color="olive" size="large">
-                      <Icon size={20} name={checkSVG} />{' '}
-                      <FormattedMessage
-                        id="You are already registered"
-                        defaultMessage="You are already registered"
-                      />
-                    </Message>
-                  ) : (
-                    isLoggedIn && (
-                      <CclButton onClick={() => handleRegister()}>
-                        <FormattedMessage
-                          id="Register to this meeting"
-                          defaultMessage="Register to this meeting"
-                        />
-                      </CclButton>
-                    )
-                  )}
-                </>
+                <RegistrationButton
+                  rContent={content}
+                  rMeeting_register={meeting_register}
+                  rIsLoggedIn={isLoggedIn}
+                />
               )}
             </div>
           </div>

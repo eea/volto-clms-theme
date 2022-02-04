@@ -182,14 +182,13 @@ const CLMSCartContent = (props) => {
 
   const AreaNaming = (areaProps) => {
     const { item } = areaProps;
+    function nutsName(nItem) {
+      return nItem.area?.type === 'nuts'
+        ? 'NUTS: ' + (nItem.area.valueName || nItem.area.value)
+        : '-';
+    }
     return (
-      <>
-        {item.area?.type === 'polygon'
-          ? 'Bounding Box'
-          : item.area?.type === 'nuts'
-          ? 'NUTS ID: ' + (item.area.valueName || item.area.value)
-          : '-'}
-      </>
+      <>{item.area?.type === 'polygon' ? 'Bounding Box' : nutsName(item)}</>
     );
   };
 

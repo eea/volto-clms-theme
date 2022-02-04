@@ -1,10 +1,13 @@
-import React from 'react';
 import { Checkbox } from 'semantic-ui-react';
+import React from 'react';
 
 const AccordionCheckboxFacet = (props) => {
   const { facet, choices, isMulti, onChange, value, isEditMode } = props;
   const facetValue = value;
   var [open, setOpen] = React.useState(false);
+  function isChoiceValue(isChecked, isChoiceValue) {
+    return isChecked ? isChoiceValue : null;
+  }
 
   return (
     <fieldset className="ccl-fieldset">
@@ -40,9 +43,7 @@ const AccordionCheckboxFacet = (props) => {
                           .map((f) => f.value),
                         ...(checked ? [choiceValue] : []),
                       ]
-                    : checked
-                    ? choiceValue
-                    : null,
+                    : isChoiceValue(checked, choiceValue),
                 )
               }
             />
