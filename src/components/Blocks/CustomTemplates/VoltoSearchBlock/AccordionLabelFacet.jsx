@@ -1,10 +1,13 @@
-import React from 'react';
 import { Checkbox } from 'semantic-ui-react';
+import React from 'react';
 
 const AccordionLabelFacet = (props) => {
   const { facet, choices, isMulti, onChange, value, isEditMode } = props;
   const facetValue = value;
   var [open, setOpen] = React.useState(false);
+  function isChoiceValue(isChecked, isChoiceValue) {
+    return isChecked ? isChoiceValue : null;
+  }
 
   return (
     <fieldset className="ccl-fieldset">
@@ -20,16 +23,16 @@ const AccordionLabelFacet = (props) => {
       </div>
       <div>
         <div className="filters-tag-container">
-          {choices.map(({ label, value }, i) => (
-            <div className="filters-tag" key={value}>
+          {choices.map(({ label, choiceValue }, i) => (
+            <div className="filters-tag" key={choiceValue}>
               <Checkbox
                 disabled={isEditMode}
                 label={label}
                 radio={!isMulti}
                 checked={
                   isMulti
-                    ? !!facetValue?.find((f) => f.value === value)
-                    : facetValue && facetValue.value === value
+                    ? !!facetValue?.find((f) => f.value === choiceValue)
+                    : facetValue && facetValue.value === choiceValue
                 }
                 onChange={(e, { checked }) =>
                   onChange(
@@ -37,13 +40,11 @@ const AccordionLabelFacet = (props) => {
                     isMulti
                       ? [
                           ...facetValue
-                            .filter((f) => f.value !== value)
+                            .filter((f) => f.value !== choiceValue)
                             .map((f) => f.value),
-                          ...(checked ? [value] : []),
+                          ...(checked ? [choiceValue] : []),
                         ]
-                      : checked
-                      ? value
-                      : null,
+                      : isChoiceValue(checked, choiceValue),
                   )
                 }
               />

@@ -3,9 +3,6 @@
  * @module actions/event
  */
 export const POST_SUBSCRIBE_TO = 'POST_SUBSCRIBE_TO';
-// export const POST_CONFIRM_SUBSCRIBE_TO = 'POST_CONFIRM_SUBSCRIBE_TO';
-// export const POST_UNSUBSCRIBE_TO = 'POST_UNSUBSCRIBE_TO';
-// export const POST_CONFIRM_UNSUBSCRIBE_TO = 'POST_CONFIRM_UNSUBSCRIBE_TO';
 
 /**
  * Subscribe to event.

@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.61",
+  "version": "1.0.65",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -47,7 +47,7 @@
     "@eeacms/volto-arcgis-block": "*",
     "react-native-mime-types": "2.3.0",
     "@eeacms/volto-clms-utils": "0.1.5",
-    "volto-form-block": "2.2.1",
+    "volto-form-block": "2.2.2",
     "@eeacms/volto-taxonomy": "^1.0.0"
   },
   "devDependencies": {
@@ -113,7 +113,6 @@
     "prettier:fix": "../../../node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css,less,md}'",
     "lint": "../../../node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
     "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'",
-    "i18n": "NODE_ENV=production node src/i18n.js",
     "cypress:run": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress open",
     "precommit": "yarn stylelint && yarn prettier && yarn lint",

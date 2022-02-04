@@ -42,11 +42,7 @@ const CclVerticalFaqTabsView = (props) => {
       <div className="left-content cont-w-25">
         <nav className="left-menu">
           {tabsList.map((tab, index) => {
-            const {
-              activeTab = null,
-              tabs = {},
-              setActiveTab = () => {},
-            } = props;
+            const { activeTab = null, tabs = {}, setActiveTab } = props;
             const title = tabs[tab].title;
             const tabIndex = index + 1;
             const defaultTitle = `Tab ${tabIndex}`;

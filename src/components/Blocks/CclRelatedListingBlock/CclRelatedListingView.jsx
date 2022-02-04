@@ -1,43 +1,46 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
-import config from '@plone/volto/registry';
-// import { getBaseUrl } from '@plone/volto/helpers';
+import { useDispatch, useSelector } from 'react-redux';
 
-const CclReatedListingView = (props) => {
+import React from 'react';
+import config from '@plone/volto/registry';
+import { searchContent } from '@plone/volto/actions';
+
+const CclRelatedListingView = (props) => {
   const { data, id, properties, metadata } = props;
   const dispatch = useDispatch();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
-  // const path = getBaseUrl(metadata ? metadata['@id'] : properties['@id']);
   const uid = metadata ? metadata['UID'] : properties['UID'];
   let libraries = searchSubrequests?.[props.id]?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
   let TemplateView = '';
   let template_id = '';
-  for (let variation in variationsConfig) {
-    if (!data?.variation && variationsConfig[variation].isDefault) {
-      TemplateView = variationsConfig[variation].template;
-      template_id = variationsConfig[variation].id;
-      data.variation = template_id;
-    }
-    if (variationsConfig[variation].id === data?.variation) {
-      TemplateView = variationsConfig[variation].template;
-      template_id = variationsConfig[variation].id;
-    }
+  var defaultVariation = variationsConfig.filter(
+    (configVar) => configVar.isDefault,
+  )[0];
+
+  if (!data?.variation) {
+    TemplateView = defaultVariation.template;
+    template_id = defaultVariation.id;
+    data.variation = template_id;
+  } else {
+    var variation = variationsConfig.filter(
+      (configVar1) => configVar1.id === data.variation,
+    )[0];
+    TemplateView = variation.template;
+    template_id = variation.id;
+    data.variation = template_id;
   }
+
   if (template_id === '') {
-    for (let variation in variationsConfig) {
-      if (variationsConfig[variation].isDefault) {
-        TemplateView = variationsConfig[variation].template;
-        template_id = variationsConfig[variation].id;
-        data.variation = template_id;
-      }
-    }
+    TemplateView = defaultVariation.template;
+    template_id = defaultVariation.id;
+    data.variation = template_id;
   }
+
   if (!data.content_type) {
     data.content_type = 'News Item';
   }
+
   React.useEffect(() => {
     uid &&
       dispatch(
@@ -65,4 +68,4 @@ const CclReatedListingView = (props) => {
   );
 };
 
-export default CclReatedListingView;
+export default CclRelatedListingView;

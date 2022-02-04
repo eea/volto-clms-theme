@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Checkbox } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { useSelector } from 'react-redux';
+
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;

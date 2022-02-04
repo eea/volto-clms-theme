@@ -1,21 +1,24 @@
-import React from 'react';
 import './meetingstyles.less';
-import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Icon, Toast } from '@plone/volto/components';
 import {
-  When,
   Recurrence,
+  When,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { Header, Segment, Message } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
-import checkSVG from '@plone/volto/icons/check.svg';
-import { postMeetingRegister } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import jwtDecode from 'jwt-decode';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { toast } from 'react-toastify';
 import { useHistory, useLocation } from 'react-router-dom';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import React from 'react';
+import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import checkSVG from '@plone/volto/icons/check.svg';
 import { createContent } from '@plone/volto/actions';
+import jwtDecode from 'jwt-decode';
+import { postMeetingRegister } from '../../actions';
+import { toast } from 'react-toastify';
+
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -24,7 +27,6 @@ export const CLMSMeetingView = (props) => {
   const user = useSelector((state) => state.users?.user);
   let history = useHistory();
 
-  let meeting_register_message = meeting_register?.registered_message || '';
   const isLoggedIn = useSelector((state) =>
     state.userSession.token ? jwtDecode(state.userSession.token).sub : '',
   )
@@ -79,6 +81,24 @@ export const CLMSMeetingView = (props) => {
       id: 'hosting_organisation',
       defaultMessage: 'Hosting organisation',
     },
+    form_is_not_published: {
+      id: 'Form is not published',
+      defaultMessage: 'Form is not published',
+    },
+    no_email_customfield: {
+      id: 'Email field field_custom_id parameter is not "email"',
+      defaultMessage: 'Email field field_custom_id parameter is not "email"',
+    },
+    no_fullname_customfield: {
+      id: 'Full name field field_custom_id parameter is not "fullname"',
+      defaultMessage:
+        'Full name field field_custom_id parameter is not "fullname"',
+    },
+    form_not_ready: {
+      id: 'Some anonymous registration form parameters are not ready to go',
+      defaultMessage:
+        'Some anonymous registration form parameters are not ready to go',
+    },
   });
 
   function createForm() {
@@ -91,55 +111,128 @@ export const CLMSMeetingView = (props) => {
     );
     history.push(props.location.pathname + '/form');
   }
-  const handleRegister = () => {
-    dispatch(postMeetingRegister(location.pathname));
-    notify();
+  const RegistrationButton = ({ rContent, rMeeting_register, rIsLoggedIn }) => {
+    return (
+      <>
+        {rContent.is_registered ||
+        (rMeeting_register.logged_user_registration &&
+          !rMeeting_register.error) ? (
+          <Message color="olive" size="large">
+            <Icon size={20} name={checkSVG} />{' '}
+            <FormattedMessage
+              id="You are already registered"
+              defaultMessage="You are already registered"
+            />
+          </Message>
+        ) : (
+          rIsLoggedIn && (
+            <CclButton onClick={() => handleRegister()}>
+              <FormattedMessage
+                id="Register to this meeting"
+                defaultMessage="Register to this meeting"
+              />
+            </CclButton>
+          )
+        )}
+      </>
+    );
   };
 
-  function notify() {
-    meeting_register_message && toast(meeting_register_message);
-  }
-
-  // React.useEffect(() => {
-  //   notify();
-  //   /* eslint-disable-next-line */
-  // }, [meeting_register_message]);
+  const handleRegister = () => {
+    dispatch(postMeetingRegister(location.pathname)).then((response) => {
+      var responseJSON = JSON.parse(response.replace(/'/g, '"'));
+      responseJSON.email
+        ? toast.success(
+            <Toast
+              success
+              autoClose={5000}
+              title={'Registration for ' + responseJSON.email}
+              content={responseJSON.message}
+            />,
+          )
+        : toast.error(
+            <Toast
+              error
+              autoClose={5000}
+              title={'Registration'}
+              content={responseJSON.message}
+            />,
+          );
+    });
+  };
+  var formErrorMessagesList = [];
+  !content.anonymous_registration_form?.published &&
+    formErrorMessagesList.push(
+      intl.formatMessage(messages.form_is_not_published),
+    );
+  !content.anonymous_registration_form?.email &&
+    formErrorMessagesList.push(
+      intl.formatMessage(messages.no_email_customfield),
+    );
+  !content.anonymous_registration_form?.fullname &&
+    formErrorMessagesList.push(
+      intl.formatMessage(messages.no_fullname_customfield),
+    );
 
   return (
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
       {user.roles && user.roles.includes('Manager') && (
         <Segment.Group compact horizontal>
-          <Segment padded={'very'} color={'olive'} circular>
-            <strong>
-              <FormattedMessage
-                id="Web manager section"
-                defaultMessage="Web manager section"
-              />
-            </strong>
-            <br />
-            <br />
-            {content.anonymous_registration_form ? (
-              <CclButton
-                url={content.anonymous_registration_form.url + '/edit'}
-              >
+          {content.allow_anonymous_registration && (
+            <Segment padded={'very'} color={'olive'} circular>
+              <strong>
                 <FormattedMessage
-                  id="Edit registration form"
-                  defaultMessage="Edit registration form"
+                  id="Anonymous registration form"
+                  defaultMessage="Anonymous registration form"
                 />
-              </CclButton>
-            ) : (
-              content.allow_anonymous_registration && (
-                <CclButton onClick={createForm} isButton={true}>
-                  <FormattedMessage
-                    id="Create registration form"
-                    defaultMessage="Create registration form"
-                  />
+              </strong>
+              <br />
+              <br />
+              {content.anonymous_registration_form ? (
+                <CclButton
+                  url={content.anonymous_registration_form?.url + '/edit'}
+                >
+                  <FormattedMessage id="Edit form" defaultMessage="Edit form" />
                 </CclButton>
-              )
-            )}
+              ) : (
+                content.allow_anonymous_registration && (
+                  <CclButton onClick={createForm} isButton={true}>
+                    <FormattedMessage
+                      id="Create form"
+                      defaultMessage="Create form"
+                    />
+                  </CclButton>
+                )
+              )}
+              {content.anonymous_registration_form &&
+                (!content.anonymous_registration_form?.email ||
+                  !content.anonymous_registration_form?.fullname ||
+                  !content.anonymous_registration_form?.published) && (
+                  <p>
+                    <br />
+                    <Message
+                      negative
+                      compact
+                      size="large"
+                      header={intl.formatMessage(messages.form_not_ready)}
+                      list={formErrorMessagesList}
+                    ></Message>
+                  </p>
+                )}
+            </Segment>
+          )}
+          <Segment padded={'very'} color={'olive'} circular>
             {content.allow_register && content.subscribers_link && (
               <>
+                <strong>
+                  <FormattedMessage
+                    id="Meeting register information"
+                    defaultMessage="Meeting register information"
+                  />
+                </strong>
+                <br />
+                <br />
                 <CclButton url={location.pathname + '/subscribers'}>
                   <FormattedMessage
                     id="Participants"
@@ -164,12 +257,19 @@ export const CLMSMeetingView = (props) => {
             <Header>{intl.formatMessage(messages.when)}</Header>
           </div>
           <div className="dataset-field-description">
-            <When
-              start={content.start}
-              end={content.end}
-              whole_day={content.whole_day}
-              open_end={content.open_end}
-            />
+            {content.whole_day ? (
+              <When
+                start={content.start}
+                end={content.start}
+                whole_day={content.whole_day}
+              />
+            ) : (
+              <When
+                start={content.start}
+                end={content.end}
+                whole_day={content.whole_day}
+              />
+            )}
             {content.recurrence && (
               <>
                 <Header dividing sub>
@@ -263,43 +363,38 @@ export const CLMSMeetingView = (props) => {
             <div className="card-button">
               {content.allow_anonymous_registration ? (
                 <>
-                  {content.anonymous_registration_form?.published && (
-                    <CclButton to={content.anonymous_registration_form.url}>
-                      <FormattedMessage
-                        id="Register to this meeting"
-                        defaultMessage="Register to this meeting"
-                      />
-                    </CclButton>
-                  )}
-                </>
-              ) : (
-                <>
-                  {content.is_registered ||
-                  meeting_register.logged_user_registration ? (
-                    <Message color="olive" size="large">
-                      <Icon size={20} name={checkSVG} />{' '}
-                      <FormattedMessage
-                        id="You are already registered"
-                        defaultMessage="You are already registered"
-                      />
-                    </Message>
-                  ) : (
-                    isLoggedIn && (
-                      <CclButton onClick={() => handleRegister()}>
+                  {content.anonymous_registration_form?.published &&
+                    content.anonymous_registration_form?.email &&
+                    content.anonymous_registration_form?.fullname && (
+                      <CclButton url={content.anonymous_registration_form?.url}>
                         <FormattedMessage
                           id="Register to this meeting"
                           defaultMessage="Register to this meeting"
                         />
                       </CclButton>
-                    )
-                  )}
+                    )}
                 </>
+              ) : (
+                <RegistrationButton
+                  rContent={content}
+                  rMeeting_register={meeting_register}
+                  rIsLoggedIn={isLoggedIn}
+                />
               )}
             </div>
           </div>
         )}
       </Segment>
       <Segment basic>
+        {content?.image && (
+          <figure>
+            <Image
+              src={content?.image?.scales?.preview?.download}
+              alt={content?.image ? content?.image?.filename : 'Placeholder'}
+            />
+            <figcaption>{content?.image_caption}</figcaption>
+          </figure>
+        )}
         <StringToHTML string={content.text?.data || ''} />
       </Segment>
     </div>

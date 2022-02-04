@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Dimmer, Loader, Message } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
-import { defineMessages, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
-import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
-import { readAsDataURL } from 'promise-file-reader';
-import { createContent } from '@plone/volto/actions';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-
-import uploadSVG from '@plone/volto/icons/upload.svg';
-import navSVG from '@plone/volto/icons/nav.svg';
-import editingSVG from '@plone/volto/icons/editing.svg';
-import deleteSVG from '@plone/volto/icons/delete.svg';
 import './styles.less';
+
+import { Dimmer, Loader, Message } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { defineMessages, useIntl } from 'react-intl';
+import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
+
+import { Icon } from '@plone/volto/components';
+import { compose } from 'redux';
+import { createContent } from '@plone/volto/actions';
+import deleteSVG from '@plone/volto/icons/delete.svg';
+import editingSVG from '@plone/volto/icons/editing.svg';
+import navSVG from '@plone/volto/icons/nav.svg';
+import { readAsDataURL } from 'promise-file-reader';
+import uploadSVG from '@plone/volto/icons/upload.svg';
+
 const messages = defineMessages({
   uploadImage: {
     id: 'Upload image',

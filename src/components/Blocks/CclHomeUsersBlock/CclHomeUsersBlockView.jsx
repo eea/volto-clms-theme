@@ -4,6 +4,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './styles.less';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 const CclHomeUsersBlockView = (props) => {
   const settings = {
@@ -65,7 +66,13 @@ const CclHomeUsersBlockView = (props) => {
                     />
                   )}
                 </div>
-                <h4>{card.title}</h4>
+                <a
+                  href={flattenToAppURL(card.url)}
+                  target={'_blank'}
+                  rel="noreferrer"
+                >
+                  <h4>{card.title}</h4>
+                </a>
                 <p>{card.description}</p>
               </div>
             </div>

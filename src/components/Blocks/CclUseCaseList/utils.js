@@ -1,4 +1,4 @@
-export default function getProductGroups(useCases) {
+export function getProductGroups(useCases) {
   let products = {};
   let exists = false;
   useCases.forEach((useCase) => {

@@ -109,16 +109,6 @@ function CclCard(props) {
           )}
           {type === 'event' && (
             <>
-              <div className="card-event-image">
-                <img
-                  src={
-                    card?.image?.scales?.mini?.download ||
-                    card?.image?.download ||
-                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                  }
-                  alt={card?.image?.alt || 'Placeholder'}
-                />
-              </div>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
                   <Link to={url}>{card?.title || 'Event default title'}</Link>
@@ -126,12 +116,19 @@ function CclCard(props) {
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                   <div className="card-event-when-text">
-                    <When
-                      start={card.start}
-                      end={card.end}
-                      whole_day={card.whole_day}
-                      open_end={card.open_end}
-                    />
+                    {card.whole_day ? (
+                      <When
+                        start={card.start}
+                        end={card.start}
+                        whole_day={card.whole_day}
+                      />
+                    ) : (
+                      <When
+                        start={card.start}
+                        end={card.end}
+                        whole_day={card.whole_day}
+                      />
+                    )}
                   </div>
                 </div>
                 {card?.location ? (

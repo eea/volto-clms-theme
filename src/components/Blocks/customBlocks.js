@@ -20,6 +20,8 @@ import {
 } from '@eeacms/volto-tabs-block/components';
 
 import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
+import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
+import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
 import CclButtonBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockEdit';
 import CclButtonBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockView';
@@ -46,19 +48,16 @@ import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
-import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
-import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
-import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
-import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
+import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
 import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
 import cardSVG from '@plone/volto/icons/indent.svg';
 import containerSVG from '@plone/volto/icons/apps.svg';
+import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import homeBand from '@plone/volto/icons/image-wide.svg';
-import leftMenuSVG from '@plone/volto/icons/nav.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
@@ -249,7 +248,7 @@ const customBlocks = (config) => ({
   productLeftMenu: {
     id: 'productLeftMenu', // The name (id) of the block
     title: 'Product Left Menu', // The display name of the block
-    icon: leftMenuSVG, // The icon used in the block chooser
+    icon: navSVG, // The icon used in the block chooser
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclProductLeftMenuView, // The view mode component
     edit: CclProductLeftMenuEdit, // The edit mode component

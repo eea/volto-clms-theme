@@ -45,9 +45,9 @@ const TabsWidget = (props) => {
 
   const { value = {}, id, onChange } = props;
   const { blocks = {} } = value;
-  const tabsList = (value.blocks_layout?.items || []).map((id) => [
-    id,
-    blocks[id],
+  const tabsList = (value.blocks_layout?.items || []).map((tabId) => [
+    tabId,
+    blocks[tabId],
   ]);
   const activeTabData = blocks[activeTabId] || {};
   return (
@@ -306,9 +306,9 @@ const TabsWidget = (props) => {
         {...props}
         selected={activeTabId}
         isVisible={blockStyleVisible}
-        setIsVisible={(value) => {
+        setIsVisible={(visibleValue) => {
           setActiveTabId(null);
-          setBlockStyleVisible(value);
+          setBlockStyleVisible(visibleValue);
         }}
         data={{
           ...activeTabData?.styles,

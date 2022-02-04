@@ -74,9 +74,9 @@
   clear: both;
 }
 
-.slick-loading .slick-track {
+/* .slick-loading .slick-track {
   visibility: hidden;
-}
+} */
 
 .slick-slide {
   display: none;
@@ -124,7 +124,7 @@
 /* Arrows */
 .slick-slider .slick-prev,
 .slick-slider .slick-next {
-  display: none !important;
+  display: block !important;
 }
 
 .slick-arrows .slick-prev,
@@ -351,7 +351,8 @@
   .slick-next {
     right: 20px !important;
   }
-  .slick-dots{
+
+  .slick-dots {
     display: none;
   }
 }
@@ -527,4 +528,3 @@
 .tabs-block .slick-slider {
   display: block !important;
 }
-

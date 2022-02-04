@@ -1,10 +1,11 @@
+import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
-import { useLocation, Link } from 'react-router-dom';
 
 import { Pagination } from '@plone/volto/components';
+import { searchContent } from '@plone/volto/actions';
+
 export const CLMSMeetingEmailsView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -132,9 +133,9 @@ export const CLMSMeetingEmailsView = (props) => {
                           <Link to={email['@id']}>{email.sender}</Link>
                         </td>
                         <td>
-                          {email.receiver.map((receiver, index) => (
-                            <span key={index}>
-                              {index !== 0 && ', '}
+                          {email.receiver.map((receiver, emailIndex) => (
+                            <span key={emailIndex}>
+                              {emailIndex !== 0 && ', '}
                               {receiver.token}
                             </span>
                           ))}

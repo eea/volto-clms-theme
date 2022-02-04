@@ -1,18 +1,18 @@
-import React from 'react';
+import { Button, Grid, Segment } from 'semantic-ui-react';
 import {
-  SearchInput,
-  SearchDetails,
   Facets,
   FilterList,
+  SearchDetails,
+  SearchInput,
   SortOn,
 } from '@plone/volto/components/manage/Blocks/Search/components';
-import { Grid, Segment } from 'semantic-ui-react';
-import { Button } from 'semantic-ui-react';
-import { flushSync } from 'react-dom';
 import { defineMessages, useIntl } from 'react-intl';
+
 import CclFiltersModal from '@eeacms/volto-clms-theme/components/CclFiltersModal/CclFiltersModal';
-import filterSVG from '@plone/volto/icons/filter.svg';
 import { Icon } from '@plone/volto/components';
+import React from 'react';
+import filterSVG from '@plone/volto/icons/filter.svg';
+import { flushSync } from 'react-dom';
 
 const messages = defineMessages({
   searchButtonText: {
@@ -106,20 +106,20 @@ const RightModalFacets = (props) => {
                   isEditMode={isEditMode}
                   sortOrder={sortOrder}
                   sortOn={sortOn}
-                  setSortOn={(sortOn) => {
+                  setSortOn={(sortOnParam) => {
                     flushSync(() => {
-                      setSortOn(sortOn);
-                      onTriggerSearch(searchedText || '', facets, sortOn);
+                      setSortOn(sortOnParam);
+                      onTriggerSearch(searchedText || '', facets, sortOnParam);
                     });
                   }}
-                  setSortOrder={(sortOrder) => {
+                  setSortOrder={(sortOrderParam) => {
                     flushSync(() => {
-                      setSortOrder(sortOrder);
+                      setSortOrder(sortOrderParam);
                       onTriggerSearch(
                         searchedText || '',
                         facets,
                         sortOn,
-                        sortOrder,
+                        sortOrderParam,
                       );
                     });
                   }}
