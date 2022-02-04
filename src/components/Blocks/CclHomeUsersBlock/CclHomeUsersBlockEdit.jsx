@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { HomeUsersSchema, CardBlockSchema } from './HomeUsersSchema';
-import { SidebarPortal, Icon, InlineForm } from '@plone/volto/components';
-import { isEmpty } from 'lodash';
-import { emptyCard, getPanels } from './utils';
-import { defineMessages, useIntl } from 'react-intl';
 import './styles.less';
 
+import { CardBlockSchema, HomeUsersSchema } from './HomeUsersSchema';
 /** upload image */
-import { Dimmer, Loader, Message, Image, Label } from 'semantic-ui-react';
-import { readAsDataURL } from 'promise-file-reader';
-import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
-import { createContent } from '@plone/volto/actions';
-import { compose } from 'redux';
+import { Dimmer, Image, Label, Loader, Message } from 'semantic-ui-react';
+import { Icon, InlineForm, SidebarPortal } from '@plone/volto/components';
+import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { defineMessages, useIntl } from 'react-intl';
+import { emptyCard, getPanels } from './utils';
+import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
 
-import uploadSVG from '@plone/volto/icons/upload.svg';
-import navSVG from '@plone/volto/icons/nav.svg';
+import { compose } from 'redux';
+import { createContent } from '@plone/volto/actions';
 import editingSVG from '@plone/volto/icons/editing.svg';
+import { isEmpty } from 'lodash';
+import navSVG from '@plone/volto/icons/nav.svg';
+import { readAsDataURL } from 'promise-file-reader';
+import uploadSVG from '@plone/volto/icons/upload.svg';
 
 const messages = defineMessages({
   uploadImage: {
@@ -93,16 +93,17 @@ function isCardEdit(selected, blocks, selectedCardBlock) {
   return selected && blocks && selectedCardBlock !== -1;
 }
 
-function handleEdit(
-  selected,
-  uid,
-  selectedCardBlock,
-  setSelectedCardBlock,
-  openObjectBrowser,
-  onChangeBlock,
-  block,
-  data,
-) {
+function handleEdit(handleEditProps) {
+  const {
+    selected,
+    uid,
+    selectedCardBlock,
+    setSelectedCardBlock,
+    openObjectBrowser,
+    onChangeBlock,
+    block,
+    data,
+  } = handleEditProps;
   if (isSelected(selected, uid, selectedCardBlock)) {
     openObjectBrowser({
       onSelectItem: (url, element) =>
@@ -291,30 +292,32 @@ const CclHomeUsersBlockEdit = ({
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          handleEdit(
-                            selected,
-                            uid,
-                            selectedCardBlock,
-                            setSelectedCardBlock,
-                            openObjectBrowser,
-                            onChangeBlock,
-                            block,
-                            data,
-                          );
+                          const handleEditPC = {
+                            selected: selected,
+                            uid: uid,
+                            selectedCardBlock: selectedCardBlock,
+                            setSelectedCardBlock: setSelectedCardBlock,
+                            openObjectBrowser: openObjectBrowser,
+                            onChangeBlock: onChangeBlock,
+                            block: block,
+                            data: data,
+                          };
+                          handleEdit(handleEditPC);
                         }}
                         onKeyDown={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          handleEdit(
-                            selected,
-                            uid,
-                            selectedCardBlock,
-                            setSelectedCardBlock,
-                            openObjectBrowser,
-                            onChangeBlock,
-                            block,
-                            data,
-                          );
+                          const handleEditPK = {
+                            selected: selected,
+                            uid: uid,
+                            selectedCardBlock: selectedCardBlock,
+                            setSelectedCardBlock: setSelectedCardBlock,
+                            openObjectBrowser: openObjectBrowser,
+                            onChangeBlock: onChangeBlock,
+                            block: block,
+                            data: data,
+                          };
+                          handleEdit(handleEditPK);
                         }}
                       >
                         <Image

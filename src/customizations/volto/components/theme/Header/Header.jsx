@@ -21,21 +21,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-// import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
-
-// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 
 const CartIconCounter = (props) => {
   const cart = useSelector((state) => state.cart_items.items);
   const intl = useSelector((state) => state.intl);
   const user_id = useSelector((state) => state.users.user.id);
-  // const { cart_items, users, intl } = useSelector((state) => state);
-
-  // const cart = cart_items.items || [];
-  // const user_id = users.user.id;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));

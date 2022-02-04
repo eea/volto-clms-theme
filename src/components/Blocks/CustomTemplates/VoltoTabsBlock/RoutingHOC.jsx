@@ -3,20 +3,20 @@ import React from 'react';
 const RoutingHOC = (TabView) =>
   function Component(props) {
     const { tabsList = [], tabs, activeTabIndex = 0, setActiveTab } = props;
-    function reloadTab(window, tabs, tabsList) {
+    function reloadTab(window, rTabs, rTabsList) {
       if (
         window.location.hash.length === 0 &&
-        tabs[tabsList[1]]?.subTab?.subtab &&
-        !tabs[tabsList[0]]?.subTab?.subtab
+        rTabs[rTabsList[1]]?.subTab?.subtab &&
+        !rTabs[rTabsList[0]]?.subTab?.subtab
       ) {
-        return tabsList[1];
+        return rTabsList[1];
       } else if (
         window.location.hash.length === 0 &&
-        !tabs[tabsList[1]]?.subTab?.subtab
+        !rTabs[rTabsList[1]]?.subTab?.subtab
       ) {
-        return tabsList[0];
+        return rTabsList[0];
       }
-      return tabsList[window.location.hash.substring(4) - 1];
+      return rTabsList[window.location.hash.substring(4) - 1];
     }
     React.useEffect(() => {
       const isReload =

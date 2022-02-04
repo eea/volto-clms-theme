@@ -17,7 +17,7 @@ const getInitialState = {
   },
 };
 
-export const userschemaReducer = (state = getInitialState, action) => {
+export const userschemaReducer = (state = getInitialState, action = {}) => {
   switch (action?.type) {
     case `${GET_USERSCHEMA}_PENDING`:
       return {
