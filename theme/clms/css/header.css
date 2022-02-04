@@ -702,6 +702,10 @@
   border-bottom: solid 1px white;
 }
 
+.ccl-collapsible-toolmenu .header-login-link {
+  padding: 0.5rem;
+}
+
 .ccl-header-search .ccl-icon-zoom {
   display: flex;
   padding: 0 0.5rem;
