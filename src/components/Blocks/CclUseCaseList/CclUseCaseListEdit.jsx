@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { SidebarPortal } from '@plone/volto/components';
 import { UseCaseListSchema } from './UseCaseListSchema';
-import getProductGroups from './utils';
+import { getProductGroups } from './utils';
 import { searchContent } from '@plone/volto/actions';
 
 const messages = defineMessages({

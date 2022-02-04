@@ -1,10 +1,9 @@
-import React from 'react';
-
-import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import React from 'react';
+import { SidebarPortal } from '@plone/volto/components';
 import { TextLinkCarouselSchema } from './TextLinkCarouselSchema';
 
-const TextLinkCarouselEdit = (props) => {
+const CclTextLinkCarouselEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;
 
   return (
@@ -30,4 +29,4 @@ const TextLinkCarouselEdit = (props) => {
     </>
   );
 };
-export default TextLinkCarouselEdit;
+export default CclTextLinkCarouselEdit;

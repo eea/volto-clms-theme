@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
+
+import { Link } from 'react-router-dom';
+import React from 'react';
 
 const messages = defineMessages({
   countText: {
@@ -22,7 +23,7 @@ function hasProtocol(url) {
   return false;
 }
 
-const CclSearchBlockView = (props) => {
+const CclHomeSearchBlockView = (props) => {
   const { data, searchText } = props;
   var SearchText = searchText || '';
   const intl = useIntl();
@@ -79,4 +80,4 @@ const CclSearchBlockView = (props) => {
     </div>
   );
 };
-export default CclSearchBlockView;
+export default CclHomeSearchBlockView;

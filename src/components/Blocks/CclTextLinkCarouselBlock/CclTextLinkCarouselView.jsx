@@ -2,7 +2,7 @@ import React from 'react';
 import loadable from '@loadable/component';
 const Slider = loadable(() => import('react-slick'));
 
-const TextLinkCarouselView = (props) => {
+const CclTextLinkCarouselView = (props) => {
   const { data } = props;
   const slider = React.useRef(null);
 
@@ -34,4 +34,4 @@ const TextLinkCarouselView = (props) => {
   );
 };
 
-export default TextLinkCarouselView;
+export default CclTextLinkCarouselView;

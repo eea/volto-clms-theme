@@ -4,7 +4,7 @@ import React from 'react';
 import config from '@plone/volto/registry';
 import { searchContent } from '@plone/volto/actions';
 
-const CclReatedListingView = (props) => {
+const CclRelatedListingView = (props) => {
   const { data, id, properties, metadata } = props;
   const dispatch = useDispatch();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
@@ -68,4 +68,4 @@ const CclReatedListingView = (props) => {
   );
 };
 
-export default CclReatedListingView;
+export default CclRelatedListingView;

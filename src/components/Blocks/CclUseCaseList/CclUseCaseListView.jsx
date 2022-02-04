@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
-import getProductGroups from './utils';
+import { getProductGroups } from './utils';
 import { searchContent } from '@plone/volto/actions';
 
 const messages = defineMessages({

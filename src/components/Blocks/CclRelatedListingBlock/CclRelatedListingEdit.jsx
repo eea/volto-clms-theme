@@ -1,10 +1,10 @@
+import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import React from 'react';
 import { SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
+import { useSelector } from 'react-redux';
 
-const CclReatedListingEdit = (props) => {
+const CclRelatedListingEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;
   const schema = config.blocks.blocksConfig['relatedListing'].blockSchema;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
@@ -65,4 +65,4 @@ const CclReatedListingEdit = (props) => {
   );
 };
 
-export default CclReatedListingEdit;
+export default CclRelatedListingEdit;

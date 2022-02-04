@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MenuContainer() {
+function CclMapMenu() {
   return (
     <div className="map-menu tab-container" style={{ display: 'block' }}>
       <div className="tabs" role="tablist">
@@ -43,4 +43,4 @@ function MenuContainer() {
   );
 }
 
-export default MenuContainer;
+export default CclMapMenu;
