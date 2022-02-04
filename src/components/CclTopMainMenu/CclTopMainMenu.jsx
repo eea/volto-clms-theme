@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { SetLanguagePath } from './multilingualPath';
 import { getItemsByPath } from 'volto-dropdownmenu/utils';
-import { setLanguagePath } from './multilingualPath';
 import { useSelector } from 'react-redux';
 
 const CclTopMainMenu = () => {
-  const pathname = setLanguagePath('header');
+  const pathname = SetLanguagePath('header');
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );

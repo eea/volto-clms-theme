@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { SetLanguagePath } from './multilingualPath';
 import { getItemsByPath } from 'volto-dropdownmenu/utils';
-import { setLanguagePath } from './multilingualPath';
 import { useSelector } from 'react-redux';
 
 const CclFooterMenu = () => {
-  const pathname = setLanguagePath('footer');
+  const pathname = SetLanguagePath('footer');
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );

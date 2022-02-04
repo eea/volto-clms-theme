@@ -5,8 +5,8 @@ const AccordionLabelFacet = (props) => {
   const { facet, choices, isMulti, onChange, value, isEditMode } = props;
   const facetValue = value;
   var [open, setOpen] = React.useState(false);
-  function isChoiceValue(isChecked, isChoiceValue) {
-    return isChecked ? isChoiceValue : null;
+  function isChoiceValue(isChecked, choiceValue) {
+    return isChecked ? choiceValue : null;
   }
 
   return (
@@ -23,16 +23,16 @@ const AccordionLabelFacet = (props) => {
       </div>
       <div>
         <div className="filters-tag-container">
-          {choices.map(({ label, choiceValue }, i) => (
-            <div className="filters-tag" key={choiceValue}>
+          {choices.map((choice, i) => (
+            <div className="filters-tag" key={choice.value}>
               <Checkbox
                 disabled={isEditMode}
-                label={label}
+                label={choice.label}
                 radio={!isMulti}
                 checked={
                   isMulti
-                    ? !!facetValue?.find((f) => f.value === choiceValue)
-                    : facetValue && facetValue.value === choiceValue
+                    ? !!facetValue?.find((f) => f.value === choice.value)
+                    : facetValue && facetValue.value === choice.value
                 }
                 onChange={(e, { checked }) =>
                   onChange(
@@ -40,11 +40,11 @@ const AccordionLabelFacet = (props) => {
                     isMulti
                       ? [
                           ...facetValue
-                            .filter((f) => f.value !== choiceValue)
+                            .filter((f) => f.value !== choice.value)
                             .map((f) => f.value),
-                          ...(checked ? [choiceValue] : []),
+                          ...(checked ? [choice.value] : []),
                         ]
-                      : isChoiceValue(checked, choiceValue),
+                      : isChoiceValue(checked, choice.value),
                   )
                 }
               />

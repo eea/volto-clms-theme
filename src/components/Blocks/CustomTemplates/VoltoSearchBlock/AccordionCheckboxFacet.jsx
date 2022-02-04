@@ -5,8 +5,8 @@ const AccordionCheckboxFacet = (props) => {
   const { facet, choices, isMulti, onChange, value, isEditMode } = props;
   const facetValue = value;
   var [open, setOpen] = React.useState(false);
-  function isChoiceValue(isChecked, isChoiceValue) {
-    return isChecked ? isChoiceValue : null;
+  function isChoiceValue(isChecked, choiceValue) {
+    return isChecked ? choiceValue : null;
   }
 
   return (
@@ -22,16 +22,16 @@ const AccordionCheckboxFacet = (props) => {
         <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
       <div className="ccl-form">
-        {choices.map(({ label, choiceValue }, i) => (
-          <div className="ccl-form-group" key={choiceValue}>
+        {choices.map((choice, i) => (
+          <div className="ccl-form-group" key={choice.value}>
             <Checkbox
               disabled={isEditMode}
-              label={label}
+              label={choice.label}
               radio={!isMulti}
               checked={
                 isMulti
-                  ? !!facetValue?.find((f) => f.value === choiceValue)
-                  : facetValue && facetValue.value === choiceValue
+                  ? !!facetValue?.find((f) => f.value === choice.value)
+                  : facetValue && facetValue.value === choice.value
               }
               onChange={(e, { checked }) =>
                 onChange(
@@ -39,11 +39,11 @@ const AccordionCheckboxFacet = (props) => {
                   isMulti
                     ? [
                         ...facetValue
-                          .filter((f) => f.value !== choiceValue)
+                          .filter((f) => f.value !== choice.value)
                           .map((f) => f.value),
-                        ...(checked ? [choiceValue] : []),
+                        ...(checked ? [choice.value] : []),
                       ]
-                    : isChoiceValue(checked, choiceValue),
+                    : isChoiceValue(checked, choice.value),
                 )
               }
             />
