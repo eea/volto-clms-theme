@@ -59,11 +59,7 @@ const CclVerticalTabsView = (props) => {
         {<ExtraComponent />}
         <nav className="left-menu">
           {tabsList.map((tab, index) => {
-            const {
-              activeTab = null,
-              tabs = {},
-              setActiveTab = () => {},
-            } = props;
+            const { activeTab = null, tabs = {}, setActiveTab } = props;
             const title = tabs[tab].title;
             const subTab = tabs[tab]?.subTab?.subtab || false;
             const tabIndex = index + 1;
