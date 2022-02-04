@@ -7,7 +7,7 @@ import { Icon, InlineForm, SidebarPortal } from '@plone/volto/components';
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
-import { emptyCard, getPanels } from './utils';
+import { emptyCard, getPanels } from '../utils';
 import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
 
 import { compose } from 'redux';
