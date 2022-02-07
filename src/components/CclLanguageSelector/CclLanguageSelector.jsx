@@ -31,6 +31,66 @@ function Capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+const ModalContent = ({
+  translations,
+  currentLang,
+  onClickAction,
+  changeLanguage,
+}) => {
+  return (
+    <div className="ccl-container">
+      <div className="modal-language-header">
+        <div className="modal-language-title">
+          <i className="ccl-icon-language"></i>
+          <h3 className="modal-title">
+            <FormattedMessage
+              id="Select your language"
+              defaultMessage="Select your language"
+            />
+          </h3>
+        </div>
+      </div>
+      <div className="modal-language-body">
+        <div className="language-list">
+          {config.settings.supportedLanguages.map((lang) => {
+            const translation = find(translations, { language: lang });
+            return (
+              <div
+                key={lang}
+                className={cx(lang, 'language-item', {
+                  'language-item-selected': lang === currentLang,
+                })}
+              >
+                <span className="language-link" lang-code={lang}>
+                  {lang !== currentLang ? (
+                    <Link
+                      to={
+                        translation
+                          ? flattenToAppURL(translation['@id'])
+                          : `/${lang}`
+                      }
+                      title={langmap[lang].nativeName}
+                      onClick={() => {
+                        onClickAction();
+                        changeLanguage(lang);
+                      }}
+                      key={`language-selector-${lang}`}
+                    >
+                      {Capitalize(langmap[lang].nativeName)}
+                    </Link>
+                  ) : (
+                    Capitalize(langmap[lang].nativeName)
+                  )}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function CclLanguageSelector(props) {
   const dispatch = useDispatch();
   const currentLang = useSelector((state) => state.intl.locale);
@@ -65,56 +125,12 @@ function CclLanguageSelector(props) {
         }
         size="fullscreen"
       >
-        <div className="ccl-container">
-          <div className="modal-language-header">
-            <div className="modal-language-title">
-              <i className="ccl-icon-language"></i>
-              <h3 className="modal-title">
-                <FormattedMessage
-                  id="Select your language"
-                  defaultMessage="Select your language"
-                />
-              </h3>
-            </div>
-          </div>
-          <div className="modal-language-body">
-            <div className="language-list">
-              {config.settings.supportedLanguages.map((lang) => {
-                const translation = find(translations, { language: lang });
-                return (
-                  <div
-                    key={lang}
-                    className={cx(lang, 'language-item', {
-                      'language-item-selected': lang === currentLang,
-                    })}
-                  >
-                    <span className="language-link" lang-code={lang}>
-                      {lang !== currentLang ? (
-                        <Link
-                          to={
-                            translation
-                              ? flattenToAppURL(translation['@id'])
-                              : `/${lang}`
-                          }
-                          title={langmap[lang].nativeName}
-                          onClick={() => {
-                            props.onClickAction();
-                            changeLanguage(lang);
-                          }}
-                          key={`language-selector-${lang}`}
-                        >
-                          {Capitalize(langmap[lang].nativeName)}
-                        </Link>
-                      ) : (
-                        Capitalize(langmap[lang].nativeName)
-                      )}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        <ModalContent
+          translations={translations}
+          currentLang={currentLang}
+          onClickAction={props.onClickAction}
+          changeLanguage={changeLanguage}
+        />
       </CclModal>
 
       <div className="header-lang-text">
@@ -122,56 +138,12 @@ function CclLanguageSelector(props) {
           trigger={<span>{Capitalize(langmap[currentLang].nativeName)}</span>}
           size="fullscreen"
         >
-          <div className="ccl-container">
-            <div className="modal-language-header">
-              <div className="modal-language-title">
-                <i className="ccl-icon-language"></i>
-                <h3 className="modal-title">
-                  <FormattedMessage
-                    id="Select your language"
-                    defaultMessage="Select your language"
-                  />
-                </h3>
-              </div>
-            </div>
-            <div className="modal-language-body">
-              <div className="language-list">
-                {config.settings.supportedLanguages.map((lang) => {
-                  const translation = find(translations, { language: lang });
-                  return (
-                    <div
-                      key={lang}
-                      className={cx(lang, 'language-item', {
-                        'language-item-selected': lang === currentLang,
-                      })}
-                    >
-                      <span className="language-link" lang-code={lang}>
-                        {lang !== currentLang ? (
-                          <Link
-                            to={
-                              translation
-                                ? flattenToAppURL(translation['@id'])
-                                : `/${lang}`
-                            }
-                            title={langmap[lang].nativeName}
-                            onClick={() => {
-                              props.onClickAction();
-                              changeLanguage(lang);
-                            }}
-                            key={`language-selector-${lang}`}
-                          >
-                            {Capitalize(langmap[lang].nativeName)}
-                          </Link>
-                        ) : (
-                          Capitalize(langmap[lang].nativeName)
-                        )}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+          <ModalContent
+            translations={translations}
+            currentLang={currentLang}
+            onClickAction={props.onClickAction}
+            changeLanguage={changeLanguage}
+          />
         </CclModal>
       </div>
     </div>
