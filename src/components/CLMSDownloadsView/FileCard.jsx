@@ -164,7 +164,7 @@ const FileCard = (props) => {
               </ul>
             )}
             {item?.Status === 'Finished_ok' && 10 - daysDiff > -1 && (
-              <Segment basic>
+              <Segment basic className="file-download">
                 {item?.DownloadURL && (
                   <a href={item.DownloadURL} target="_blank" rel="noreferrer">
                     {formatMessage(messages.Download)}
