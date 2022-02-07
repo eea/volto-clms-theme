@@ -73,70 +73,51 @@ export const customGroupBlocksOrder = [
   },
 ];
 
+function listingVariation(id, isDefault, title, template, isWO = false) {
+  return {
+    id: id,
+    isDefault: isDefault,
+    title: title,
+    template: VariationHOC(
+      isWO ? CclListingWorkOpportunities : CclListingCards,
+      template,
+    ),
+    fullobjects: true,
+  };
+}
+
 const availableVariations = [
-  {
-    id: 'CclCardsdoc',
-    isDefault: true,
-    title: 'Line list',
-    template: VariationHOC(CclListingCards, 'doc'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclCardsline',
-    isDefault: false,
-    title: 'Line list with Image',
-    template: VariationHOC(CclListingCards, 'line'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclCardsline-color',
-    isDefault: false,
-    title: 'Colored Line list with Image',
-    template: VariationHOC(CclListingCards, 'line-color'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclCardsblock',
-    isDefault: false,
-    title: '2 Column Cards list',
-    template: VariationHOC(CclListingCards, 'block'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclCardsthreeColumns',
-    isDefault: false,
-    title: '3 Column Cards list',
-    template: VariationHOC(CclListingCards, 'threeColumns'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclCardsnews',
-    isDefault: false,
-    title: 'News Line list',
-    template: VariationHOC(CclListingCards, 'news'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclCardsevent',
-    isDefault: false,
-    title: 'Events Line list',
-    template: VariationHOC(CclListingCards, 'event'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclWOOpenTenders',
-    isDefault: false,
-    title: 'Open Work Opportunities',
-    template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
-    fullobjects: true,
-  },
-  {
-    id: 'CclWOCloseTenders',
-    isDefault: false,
-    title: 'Closed Work Opportunities',
-    template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
-    fullobjects: true,
-  },
+  listingVariation('CclCardsdoc', true, 'Line list', 'doc'),
+  listingVariation('CclCardsline', false, 'Line list with Image', 'line'),
+  listingVariation(
+    'CclCardsline-color',
+    false,
+    'Colored Line list with Image',
+    'line-color',
+  ),
+  listingVariation('CclCardsblock', false, '2 Column Cards list', 'block'),
+  listingVariation(
+    'CclCardsthreeColumns',
+    false,
+    '3 Column Cards list',
+    'threeColumns',
+  ),
+  listingVariation('CclCardsnews', false, 'News Line list', 'news'),
+  listingVariation('CclCardsevent', false, 'Events Line list', 'event'),
+  listingVariation(
+    'CclWOOpenTenders',
+    false,
+    'Open Work Opportunities',
+    'OpenTenders',
+    true,
+  ),
+  listingVariation(
+    'CclWOCloseTenders',
+    false,
+    'Closed Work Opportunities',
+    'CloseTenders',
+    true,
+  ),
 ];
 
 const customBlocks = (config) => ({
