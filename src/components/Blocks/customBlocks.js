@@ -41,8 +41,6 @@ import CclHomeSearchBlockView from '@eeacms/volto-clms-theme/components/Blocks/C
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoArcgisBlock/CclMapMenu';
-import CclProductLeftMenuEdit from '@eeacms/volto-clms-theme/components/Blocks/CclProductLeftMenu/CclProductLeftMenuEdit';
-import CclProductLeftMenuView from '@eeacms/volto-clms-theme/components/Blocks/CclProductLeftMenu/CclProductLeftMenuView';
 import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingEdit';
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
@@ -238,22 +236,6 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclButtonBlockView, // The view mode component
     edit: CclButtonBlockEdit, // The edit mode component
-    restricted: false, // If the block is restricted, it won't show in the chooser
-    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
-    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
-    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
-    security: {
-      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
-      view: [], // Future proof (not implemented yet) view user role(s)
-    },
-  },
-  productLeftMenu: {
-    id: 'productLeftMenu', // The name (id) of the block
-    title: 'Product Left Menu', // The display name of the block
-    icon: navSVG, // The icon used in the block chooser
-    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
-    view: CclProductLeftMenuView, // The view mode component
-    edit: CclProductLeftMenuEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
