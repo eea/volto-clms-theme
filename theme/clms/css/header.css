@@ -634,12 +634,19 @@
   margin: 0;
   font-size: 1rem;
   line-height: 2.2rem;
+  white-space: nowrap;
 }
 
 .ccl-header .ccl-header-tools .ccl-header-menu-tools li > span {
   color: white;
   cursor: pointer;
 }
+@media (min-width: 820px) and (max-width: 992px) {
+  .ccl-header .ccl-header-tools .ccl-header-menu-tools li {
+    font-size: 0.875rem;
+  }
+}
+
 @media (max-width: 820px) {
   .ccl-header .ccl-header-nav .ccl-collapsible-toolmenu > li > span {
     display: block;
