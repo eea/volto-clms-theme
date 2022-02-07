@@ -1,12 +1,12 @@
 import './cards.less';
 
 import * as mime from 'react-native-mime-types';
-import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 
 function bytesToSize(bytes) {
   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -42,30 +42,9 @@ function CclCard(props) {
               </div>
             </>
           )}
-          {type === 'block' && (
+          {(type === 'block' || type === 'threeColumns') && (
             <>
-              <div className="card-block-image">
-                <img
-                  src={
-                    card?.image?.scales?.preview?.download ||
-                    card?.image?.download ||
-                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                  }
-                  alt={card?.image?.alt || 'Placeholder'}
-                />
-              </div>
-              <div className="card-text">
-                <div className="card-title">
-                  <Link to={url}>{card?.title || 'Card default title'}</Link>
-                </div>
-                <div className="card-description">{card?.description}</div>
-                {children}
-              </div>
-            </>
-          )}
-          {type === 'threeColumns' && (
-            <>
-              <div className="card-threeColumns-image">
+              <div className={`card-${type}-image`}>
                 <img
                   src={
                     card?.image?.scales?.preview?.download ||
