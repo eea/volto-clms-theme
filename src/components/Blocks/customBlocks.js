@@ -1,4 +1,9 @@
 import {
+  AccordionFacet,
+  RightModalFacets,
+  WithType,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
+import {
   CclCarouselView,
   CclProductTabsView,
   CclTabsView,
@@ -20,8 +25,6 @@ import {
 } from '@eeacms/volto-tabs-block/components';
 
 import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
-import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
-import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
 import CclButtonBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockEdit';
 import CclButtonBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockView';
@@ -47,7 +50,6 @@ import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUs
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
-import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
 import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
@@ -331,13 +333,13 @@ const customBlocks = (config) => ({
           {
             id: 'accordionCheckboxFacet',
             title: 'Accordion Checkbox',
-            view: AccordionCheckboxFacet,
+            view: WithType(AccordionFacet, 'checkbox'),
             isDefault: true,
           },
           {
             id: 'accordionLabelFacet',
             title: 'Accordion Label',
-            view: AccordionLabelFacet,
+            view: WithType(AccordionFacet, 'label'),
             isDefault: false,
           },
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
