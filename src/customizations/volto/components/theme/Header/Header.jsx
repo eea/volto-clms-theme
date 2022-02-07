@@ -46,6 +46,43 @@ const CartIconCounter = (props) => {
     )
   );
 };
+
+const HeaderDropdown = ({ user }) => {
+  const intl = useSelector((state) => state.intl);
+  return (
+    <>
+      <span>
+        <FontAwesomeIcon
+          icon={['fas', 'user']}
+          style={{ marginRight: '0.5rem' }}
+        />
+        {user?.fullname || user?.id || ''}
+        <span className="ccl-icon-chevron-thin-down"></span>
+      </span>
+      <ul>
+        <li>
+          <Link to={`/${intl.locale}/profile`} className="header-login-link">
+            My settings
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={`/${intl.locale}/cart-downloads`}
+            className="header-login-link"
+          >
+            Downloads
+          </Link>
+        </li>
+        <li>
+          <Link to="/logout" className="header-login-link">
+            <FormattedMessage id="logout" defaultMessage="Logout" />
+          </Link>
+        </li>
+      </ul>
+    </>
+  );
+};
+
 /**
  * Header component class.
  * @class Header
@@ -159,44 +196,7 @@ class Header extends Component {
                   {(this.props.user?.id && (
                     <>
                       <li className="header-dropdown">
-                        <>
-                          <span>
-                            <FontAwesomeIcon
-                              icon={['fas', 'user']}
-                              style={{ marginRight: '0.5rem' }}
-                            />
-                            {this.props.user?.fullname ||
-                              this.props.user?.id ||
-                              ''}
-                            <span className="ccl-icon-chevron-thin-down"></span>
-                          </span>
-                          <ul>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/profile`}
-                                className="header-login-link"
-                              >
-                                My settings
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/cart-downloads`}
-                                className="header-login-link"
-                              >
-                                Downloads
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="/logout" className="header-login-link">
-                                <FormattedMessage
-                                  id="logout"
-                                  defaultMessage="Logout"
-                                />
-                              </Link>
-                            </li>
-                          </ul>
-                        </>
+                        <HeaderDropdown user={this.props.user} />
                       </li>
                       <li>
                         <CartIconCounter />
@@ -250,44 +250,7 @@ class Header extends Component {
                   {(this.props.user.id && (
                     <>
                       <li className="header-dropdown">
-                        <>
-                          <span>
-                            <FontAwesomeIcon
-                              icon={['fas', 'user']}
-                              style={{ marginRight: '0.5rem' }}
-                            />
-                            {this.props.user.fullname ||
-                              this.props.user.id ||
-                              ''}
-                            <span className="ccl-icon-chevron-thin-down"></span>
-                          </span>
-                          <ul>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/profile`}
-                                className="header-login-link"
-                              >
-                                {this.props.user.id && <>{'My settings'}</>}
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/cart-downloads`}
-                                className="header-login-link"
-                              >
-                                Downloads
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="/logout" className="header-login-link">
-                                <FormattedMessage
-                                  id="logout"
-                                  defaultMessage="Logout"
-                                />
-                              </Link>
-                            </li>
-                          </ul>
-                        </>
+                        <HeaderDropdown user={this.props.user} />
                       </li>
                       <li>
                         <CartIconCounter />
