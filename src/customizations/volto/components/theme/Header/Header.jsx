@@ -167,7 +167,13 @@ class Header extends Component {
                 tabIndex="0"
                 role="button"
               >
-                <span className="ccl-icon-menu"></span>
+                <span
+                  className={
+                    this.state.mobileMenuOpen
+                      ? 'ccl-icon-close'
+                      : 'ccl-icon-menu'
+                  }
+                ></span>
               </div>
               <div
                 className="ccl-search-collapse-button"
