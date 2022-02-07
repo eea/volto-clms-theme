@@ -18,7 +18,6 @@ describe('CclModal', () => {
               <span className="header-lang-code">EN</span>
             </div>
           }
-          size="fullscreen"
         >
           <p>Hello test!</p>
         </CclModal>,

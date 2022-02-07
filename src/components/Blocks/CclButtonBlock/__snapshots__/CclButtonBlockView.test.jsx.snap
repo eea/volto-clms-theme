@@ -22,3 +22,35 @@ exports[`renders a CclButtonBlockView component 2`] = `
   Text example...
 </a>
 `;
+
+exports[`renders a CclButtonBlockView component 3`] = `
+<div
+  className="left-menu-detail"
+>
+  <a
+    className="ccl-button"
+    disabled={false}
+    download={true}
+    href="https://www.google.com/@@download/file"
+    target="_blank"
+  >
+    Text example...
+  </a>
+</div>
+`;
+
+exports[`renders a CclButtonBlockView component 4`] = `
+<div
+  className="left-menu-detail"
+>
+  <a
+    className="ccl-button"
+    disabled={false}
+    download={true}
+    href="https://www.google.com"
+    target={false}
+  >
+    Text example...
+  </a>
+</div>
+`;

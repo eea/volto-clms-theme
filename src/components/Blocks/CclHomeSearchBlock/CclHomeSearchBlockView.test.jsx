@@ -39,4 +39,21 @@ describe('CclSearchBlock', () => {
       .toJSON();
     expect(SearchBlockEdit).toMatchSnapshot();
   });
+  it('Check search block edit without title', () => {
+    const mockSearchBlockPros2 = {
+      link: [{ '@id': '#' }],
+    };
+    const SearchBlockEdit = renderer
+      .create(
+        <MemoryRouter>
+          <IntlProvider locale="en">
+            <CclSearchBlockEdit data={mockSearchBlockPros2}>
+              <p>Search block edit test</p>
+            </CclSearchBlockEdit>
+          </IntlProvider>
+        </MemoryRouter>,
+      )
+      .toJSON();
+    expect(SearchBlockEdit).toMatchSnapshot();
+  });
 });
