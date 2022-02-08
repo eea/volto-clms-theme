@@ -56,6 +56,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "0.6.6",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "3.1.3",
