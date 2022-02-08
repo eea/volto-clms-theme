@@ -8,7 +8,7 @@ import {
   DownloadDataSetContent,
   // MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Modal, Segment } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 
