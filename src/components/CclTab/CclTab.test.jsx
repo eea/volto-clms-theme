@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 
 import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { mount } from 'enzyme';
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -14,33 +14,22 @@ describe('CclTab', () => {
     const wrapper = mount(
       <MemoryRouter>
         <CclTab
-          onTabClick={onTabClick}
-          tabName="tab1"
+          onClick={onTabClick}
           tabTitle="tab title"
           tabContent="tab content"
-          role="button"
         />
       </MemoryRouter>,
     );
-    wrapper.find('button').simulate('click');
+    wrapper.find('a').simulate('click');
     expect(onTabClick).toHaveBeenCalled();
   });
   it('Check if tab title is rendered with routing = true', () => {
-    const className = 'card';
     const tabTitle = 'Dataset Info';
     const routing = true;
     const tabView = renderer
       .create(
         <MemoryRouter>
-          <CclTab
-            className={className}
-            tabTitle={tabTitle}
-            onClick={() => {}}
-            onKeyDown={() => {}}
-            tabIndex="0"
-            role="button"
-            routing={routing}
-          >
+          <CclTab tabTitle={tabTitle} onClick={() => {}} routing={routing}>
             <p>Hello test!</p>
           </CclTab>
         </MemoryRouter>,
@@ -49,21 +38,12 @@ describe('CclTab', () => {
     expect(tabView).toBeDefined();
   });
   it('Check if tab title is rendered with routing = false', () => {
-    const className = 'card';
     const tabTitle = 'Dataset Info';
     const routing = false;
     const tabView = renderer
       .create(
         <MemoryRouter>
-          <CclTab
-            className={className}
-            tabTitle={tabTitle}
-            onClick={() => {}}
-            onKeyDown={() => {}}
-            tabIndex="0"
-            role="button"
-            routing={routing}
-          >
+          <CclTab tabTitle={tabTitle} onClick={() => {}} routing={routing}>
             <p>Hello test!</p>
           </CclTab>
         </MemoryRouter>,

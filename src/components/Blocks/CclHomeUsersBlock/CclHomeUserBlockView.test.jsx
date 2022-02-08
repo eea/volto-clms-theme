@@ -3,12 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
 import CclHomeUsersBlockView from './CclHomeUsersBlockView';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-// import { shallow } from 'enzyme';
-import { mount } from 'enzyme';
-
-Enzyme.configure({ adapter: new Adapter() });
+import renderer from 'react-test-renderer';
 
 global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 
@@ -54,7 +49,7 @@ test('renders a CclHomeUsersBlockView component', () => {
     },
   };
 
-  const component = mount(
+  const component = renderer.create(
     <Provider store={store}>
       <MemoryRouter>
         <CclHomeUsersBlockView data={data} />

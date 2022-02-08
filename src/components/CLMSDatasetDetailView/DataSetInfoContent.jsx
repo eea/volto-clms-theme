@@ -44,7 +44,7 @@ const DataSetInfoContent = (props) => {
 
     setActiveIndex(newIndex);
   };
-  const { titleIcons } = config.blocks.blocksConfig.accordion;
+  const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
   const isExclusive = (index) => {
     return activeIndex.includes(index);

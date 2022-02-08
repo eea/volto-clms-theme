@@ -273,10 +273,9 @@ CLMSDatasetDetailView.propTypes = {
 };
 
 export default compose(
-  injectIntl,
   connect((state) => ({
     token: state.userSession.token
-      ? jwtDecode(state.userSession.token).sub
+      ? jwtDecode(state.userSession.token)?.sub
       : '',
   })),
 )(CLMSDatasetDetailView);

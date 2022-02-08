@@ -2,23 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import DownloadDataSetContent from './DownloadDataSetContent';
 import { MemoryRouter } from 'react-router-dom';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 
 describe('DownloadDataSetContent', () => {
   it('Check dataset download view', () => {
-    const mockStore = configureStore();
-
-    const store = mockStore({
-      userSession: {
-        token: null,
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
-
     const data = {
       title: 'title example',
       description: 'description example',
@@ -47,24 +33,22 @@ describe('DownloadDataSetContent', () => {
     };
     const type = 'raster';
     const url = '/register';
-    const datasetDownload = renderer;
     const location = {
       pathname: '/register',
-    }
+    };
+    const datasetDownload = renderer
       .create(
-        <Provider store={store}>
-          <MemoryRouter>
-            <DownloadDataSetContent
-              data={data}
-              url={url}
-              type={type}
-              // eslint-disable-next-line no-use-before-define
-              location={location.pathname}
-            >
-              <p>Dataset download view test</p>
-            </DownloadDataSetContent>
-          </MemoryRouter>
-        </Provider>,
+        <MemoryRouter>
+          <DownloadDataSetContent
+            data={data}
+            url={url}
+            type={type}
+            // eslint-disable-next-line no-use-before-define
+            location={location.pathname}
+          >
+            <p>Dataset download view test</p>
+          </DownloadDataSetContent>
+        </MemoryRouter>,
       )
       .toJSON();
     expect(datasetDownload).toBeDefined();

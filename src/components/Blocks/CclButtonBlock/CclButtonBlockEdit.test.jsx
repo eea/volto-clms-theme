@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import CclButtonBlockEdit from './CclButtonBlockEdit';
 
 import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 // import { shallow } from 'enzyme';
 import { mount } from 'enzyme';
 

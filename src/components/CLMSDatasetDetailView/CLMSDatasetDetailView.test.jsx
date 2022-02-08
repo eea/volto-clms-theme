@@ -6,9 +6,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
+const mockStore = configureStore();
+
 describe('CLMSDatasetDetailView', () => {
   it('Check metadata view', () => {
-    const mockStore = configureStore();
     const content = {
       title: 'Test title!',
       url: './example',
@@ -34,26 +35,22 @@ describe('CLMSDatasetDetailView', () => {
     const store = mockStore({
       content: {
         ...content,
-        // dataset: {
-        //   downloadable_files: {
-        //     items: {
-        //       name: 'dsad',
-        //       UID: '123',
-        //       unique_id: 123,
-        //       '@id': 123,
-        //     },
-        //   },
-        // },
-
-        // create: {},
-        // data: {},
-      },
-      userSession: {
-        token: '',
       },
       intl: {
         locale: 'en',
         messages: {},
+      },
+      search: {
+        subrequest: {
+          '123': { items: [] },
+        },
+      },
+      users: {
+        user: { roles: ['Manager'] },
+      },
+      userSession: {
+        token:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0NDM4MzA0NCwiZnVsbG5hbWUiOm51bGx9.cB_q3Q0Jhu8h2m_SDmmknodpDxDLfb4o-qY6Y2plE04',
       },
     });
 
