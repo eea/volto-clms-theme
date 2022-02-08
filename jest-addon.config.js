@@ -8,6 +8,8 @@ module.exports = {
     '@plone/volto/cypress': '<rootDir>/node_modules/@plone/volto/cypress',
     '@plone/volto/babel': '<rootDir>/node_modules/@plone/volto/babel',
     '@plone/volto/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
+    '@eeacms/volto-clms-utils/(.*)$':
+      '<rootDir>/node_modules/@eeacms/volto-clms-utils/src/$1',
     '@package/(.*)$': '<rootDir>/src/$1',
     '@plone/volto-quanta/(.*)$': '<rootDir>/src/addons/volto-quanta/src/$1',
     '@eeacms/(.*?)/(.*)$': '<rootDir>/src/addons/$1/src/$2',
