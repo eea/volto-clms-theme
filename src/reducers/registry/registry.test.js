@@ -24,71 +24,50 @@ describe('registryReducer', () => {
       error: null,
       loaded: false,
       loading: true,
-      records: {},
     });
   });
   //jest test for registryReducer -fail
   it('should handle GET_REGISTRY_FAIL', () => {
-    expect(
-      registryReducer(
-        {},
-        {
-          type: `${GET_REGISTRY}_FAIL`,
-        },
-      ),
-    ).toEqual({
-      error: true,
+    const action = {
+      type: `${GET_REGISTRY}_FAIL`,
+      error: 'error',
+    };
+    expect(registryReducer({}, action)).toEqual({
+      error: action.error,
       loaded: false,
       loading: false,
-      records: {},
     });
   });
   //jest test for registryReducer -success
   it('should handle GET_REGISTRY_SUCCESS', () => {
-    expect(
-      registryReducer(
-        {},
-        {
-          type: `${GET_REGISTRY}_SUCCESS`,
-          result: {
-            records: {
-              'registry-1': {
-                id: 'registry-1',
-                name: 'Registry 1',
-                description: 'Registry 1 description',
-                owner: 'registry-owner-1',
-                owner_email: '',
-              },
-              'registry-2': {
-                id: 'registry-2',
-                name: 'Registry 2',
-                description: 'Registry 2 description',
-                owner: 'registry-owner-2',
-                owner_email: '',
-              },
-            },
+    const action = {
+      type: `${GET_REGISTRY}_SUCCESS`,
+      registry_key: 'registry_key',
+      result: {
+        records: {
+          'registry-1': {
+            id: 'registry-1',
+            name: 'Registry 1',
+            description: 'Registry 1 description',
+            owner: 'registry-owner-1',
+            owner_email: '',
+          },
+          'registry-2': {
+            id: 'registry-2',
+            name: 'Registry 2',
+            description: 'Registry 2 description',
+            owner: 'registry-owner-2',
+            owner_email: '',
           },
         },
-      ),
-    ).toEqual({
+      },
+    };
+    expect(registryReducer({}, action)).toEqual({
       error: null,
       loaded: true,
       loading: false,
       records: {
-        'registry-1': {
-          id: 'registry-1',
-          name: 'Registry 1',
-          description: 'Registry 1 description',
-          owner: 'registry-owner-1',
-          owner_email: '',
-        },
-        'registry-2': {
-          id: 'registry-2',
-          name: 'Registry 2',
-          description: 'Registry 2 description',
-          owner: 'registry-owner-2',
-          owner_email: '',
-        },
+        [action.registry_key]: action.result,
       },
     });
   });

@@ -41,7 +41,6 @@ describe('tokens reducer', () => {
     ).toEqual({
       get: {
         error: null,
-        items: [],
         loaded: false,
         loading: true,
       },
@@ -49,17 +48,14 @@ describe('tokens reducer', () => {
   });
   //jest test for tokens -fail
   it('should handle GET_TOKENS_FAIL', () => {
-    expect(
-      tokens(
-        {},
-        {
-          type: `${GET_TOKENS}_FAIL`,
-        },
-      ),
-    ).toEqual({
+    const action = {
+      type: `${GET_TOKENS}_FAIL`,
+      error: 'error',
+    };
+    expect(tokens({}, action)).toEqual({
       get: {
-        error: true,
-        items: [],
+        error: action.error,
+        tokens: [],
         loaded: false,
         loading: false,
       },
@@ -67,36 +63,38 @@ describe('tokens reducer', () => {
   });
   //jest test for tokens -success
   it('should handle GET_TOKENS_SUCCESS', () => {
-    expect(
-      tokens(
-        {},
-        {
-          type: `${GET_TOKENS}_SUCCESS`,
-          result: {
-            tokens: [
-              {
-                id: 'token-1',
-                name: '',
-                description: '',
-                token: '',
-              },
-            ],
+    const action = {
+      type: `${GET_TOKENS}_SUCCESS`,
+      result: {
+        items: [
+          {
+            client_id: 'client_id',
+            ip_range: 'ip_range',
+            issued: 'issued',
+            key_id: 'key_id',
+            public_key: 'public_key',
+            title: 'title',
+            token_uri: 'token_uri',
+            user_id: 'user_id',
           },
-        },
-      ),
-    ).toEqual({
+        ],
+      },
+    };
+    expect(tokens({}, action)).toEqual({
       get: {
         error: null,
         loaded: true,
         loading: false,
-      },
-      data: {
-        tokens: [
+        items: [
           {
-            id: 'token-1',
-            name: '',
-            description: '',
-            token: '',
+            client_id: 'client_id',
+            ip_range: 'ip_range',
+            issued: 'issued',
+            key_id: 'key_id',
+            public_key: 'public_key',
+            title: 'title',
+            token_uri: 'token_uri',
+            user_id: 'user_id',
           },
         ],
       },
@@ -114,7 +112,6 @@ describe('tokens reducer', () => {
     ).toEqual({
       create: {
         error: null,
-        items: [],
         loaded: false,
         loading: true,
       },
@@ -122,17 +119,14 @@ describe('tokens reducer', () => {
   });
   //jest test for tokens -fail
   it('should handle CREATE_TOKENS_FAIL', () => {
-    expect(
-      tokens(
-        {},
-        {
-          type: `${CREATE_TOKENS}_FAIL`,
-        },
-      ),
-    ).toEqual({
+    const action = {
+      type: `${CREATE_TOKENS}_FAIL`,
+      error: 'error',
+    };
+    expect(tokens({}, action)).toEqual({
       create: {
-        error: true,
-        items: [],
+        error: action.error,
+        tokens: [],
         loaded: false,
         loading: false,
       },
@@ -145,14 +139,18 @@ describe('tokens reducer', () => {
         {},
         {
           type: `${CREATE_TOKENS}_SUCCESS`,
-          result: {
-            token: {
-              id: 'token-1',
-              name: '',
-              description: '',
-              token: '',
+          result: [
+            {
+              client_id: 'client_id',
+              ip_range: 'ip_range',
+              issued: 'issued',
+              key_id: 'key_id',
+              private_key: 'private_key',
+              title: 'title',
+              token_uri: 'token_uri',
+              user_id: 'user_id',
             },
-          },
+          ],
         },
       ),
     ).toEqual({
@@ -160,10 +158,14 @@ describe('tokens reducer', () => {
         error: null,
         items: [
           {
-            id: 'token-1',
-            name: '',
-            description: '',
-            token: '',
+            client_id: 'client_id',
+            ip_range: 'ip_range',
+            issued: 'issued',
+            key_id: 'key_id',
+            private_key: 'private_key',
+            title: 'title',
+            token_uri: 'token_uri',
+            user_id: 'user_id',
           },
         ],
         loaded: true,
@@ -183,7 +185,6 @@ describe('tokens reducer', () => {
     ).toEqual({
       delete: {
         error: null,
-        items: [],
         loaded: false,
         loading: true,
       },
@@ -198,14 +199,7 @@ describe('tokens reducer', () => {
           type: `${DELETE_TOKENS}_FAIL`,
         },
       ),
-    ).toEqual({
-      delete: {
-        error: true,
-        items: [],
-        loaded: false,
-        loading: false,
-      },
-    });
+    ).toEqual({});
   });
   //jest test for tokens -success
   it('should handle DELETE_TOKENS_SUCCESS', () => {
@@ -214,27 +208,11 @@ describe('tokens reducer', () => {
         {},
         {
           type: `${DELETE_TOKENS}_SUCCESS`,
-          result: {
-            token: {
-              id: 'token-1',
-              name: '',
-              description: '',
-              token: '',
-            },
-          },
         },
       ),
     ).toEqual({
       delete: {
         error: null,
-        items: [
-          {
-            id: 'token-1',
-            name: '',
-            description: '',
-            token: '',
-          },
-        ],
         loaded: true,
         loading: false,
       },

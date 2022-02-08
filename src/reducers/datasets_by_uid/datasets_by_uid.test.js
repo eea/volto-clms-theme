@@ -24,48 +24,31 @@ describe('datasetsByUidReducer', () => {
       error: null,
       loaded: false,
       loading: true,
-      datasets: [],
     });
   });
   //jest test for datasetsByUidReducer -fail
   it('should handle DATASETS_BY_UID_FAIL', () => {
-    expect(
-      datasetsByUidReducer(
-        {},
-        {
-          type: `${DATASETS_BY_UID}_FAIL`,
-        },
-      ),
-    ).toEqual({
-      error: true,
+    const action = {
+      type: `${DATASETS_BY_UID}_FAIL`,
+      error: 'error',
+    };
+    expect(datasetsByUidReducer({}, action)).toEqual({
+      error: action.error,
       loaded: false,
       loading: false,
-      datasets: [],
     });
   });
   //jest test for datasetsByUidReducer -success
   it('should handle DATASETS_BY_UID_SUCCESS', () => {
-    expect(
-      datasetsByUidReducer(
-        {},
-        {
-          type: `${DATASETS_BY_UID}_SUCCESS`,
-          datasets: [
-            {
-              id: '1',
-            },
-          ],
-        },
-      ),
-    ).toEqual({
+    const action = {
+      type: `${DATASETS_BY_UID}_SUCCESS`,
+      result: [{}],
+    };
+    expect(datasetsByUidReducer({}, action)).toEqual({
       error: null,
       loaded: true,
       loading: false,
-      datasets: [
-        {
-          id: '1',
-        },
-      ],
+      datasets: action.result,
     });
   });
 });

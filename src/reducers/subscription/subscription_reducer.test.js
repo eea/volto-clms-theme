@@ -17,33 +17,29 @@ describe('subscribeToReducer', () => {
         {},
         {
           type: `${POST_SUBSCRIBE_TO}_SUCCESS`,
-          result: '{"id": "1"}',
         },
       ),
     ).toEqual({
       error: null,
       loaded: true,
       loading: false,
-      subscribed_to: {
-        id: '1',
-      },
     });
   });
   //jest test for subscribeToReducer -fail
   it('should handle POST_SUBSCRIBE_TO_FAIL', () => {
-    expect(
-      subscribeToReducer(
-        {},
-        {
-          type: `${POST_SUBSCRIBE_TO}_FAIL`,
-          error: 'error',
+    const action = {
+      type: `${POST_SUBSCRIBE_TO}_FAIL`,
+      error: {
+        response: {
+          body: { error: 'error' },
         },
-      ),
-    ).toEqual({
-      error: 'error',
+      },
+    };
+    expect(subscribeToReducer({}, action)).toEqual({
+      error: true,
       loaded: false,
       loading: false,
-      subscribed_to: {},
+      error_message: action.error?.response?.body?.error,
     });
   });
   //jest test for subscribeToReducer -pending
@@ -59,7 +55,6 @@ describe('subscribeToReducer', () => {
       error: null,
       loaded: false,
       loading: true,
-      subscribed_to: {},
     });
   });
 });

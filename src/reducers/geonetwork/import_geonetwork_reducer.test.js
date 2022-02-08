@@ -13,21 +13,15 @@ describe('importGeonetworkReducer', () => {
   });
   //jest test for importGeonetworkReducer -success
   it('should handle POST_IMPORT_GEONETWORK_SUCCESS', () => {
-    expect(
-      importGeonetworkReducer(
-        {},
-        {
-          type: `${POST_IMPORT_GEONETWORK}_SUCCESS`,
-          result: '{"imported_data": {"id": "1"}}',
-        },
-      ),
-    ).toEqual({
+    const action = {
+      type: `${POST_IMPORT_GEONETWORK}_SUCCESS`,
+      result: '{"imported_data": {"id": "1"}}',
+    };
+    expect(importGeonetworkReducer({}, action)).toEqual({
       error: null,
       loaded: true,
       loading: false,
-      imported_data: {
-        id: '1',
-      },
+      imported_data: JSON.parse(action.result),
     });
   });
   //jest test for importGeonetworkReducer -fail
