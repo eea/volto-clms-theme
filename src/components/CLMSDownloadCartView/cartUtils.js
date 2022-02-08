@@ -55,10 +55,15 @@ export const getCartObjectFromMapviewer = (
   local_cart_data,
   dataset_data,
   projections,
+  nutsnames,
 ) => {
+  const area = local_cart_data.area;
+  if (area.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
+    area.valueName = nutsnames[area.value];
+  }
   const mapViewer = {
     name: dataset_data.dataResourceTitle || '-',
-    area: local_cart_data.area || '-',
+    area: area || '-',
     format:
       dataset_data.dataset_full_format?.token ||
       dataset_data.dataset_full_format ||

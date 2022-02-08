@@ -78,6 +78,7 @@ const applyConfig = (config) => {
       '/profile',
       '/download-by-area',
       '/cart',
+      '/cart-downloads',
       '/newsletter-notification-subscription',
       '/newsletter-notification-unsubscription',
     ],
@@ -112,6 +113,7 @@ const applyConfig = (config) => {
       ...config.settings.registry,
       login_url: 'clms.addon.login_url_controlpanel.login_url',
     },
+    showTags: false,
   };
 
   config.addonRoutes = [

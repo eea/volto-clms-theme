@@ -5,6 +5,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { Segment, Select } from 'semantic-ui-react';
 import {
   getCartObjectFromMapviewer,
   getCartObjectFromPrepackaged,
@@ -17,14 +18,14 @@ import {
   postDownloadtool,
 } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
+
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Select, Segment } from 'semantic-ui-react';
+import { Toast } from '@plone/volto/components';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { getAvailableConversion } from './conversion';
+import { toast } from 'react-toastify';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSCartContent = (props) => {
@@ -44,6 +45,7 @@ const CLMSCartContent = (props) => {
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
   );
+  const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -68,11 +70,17 @@ const CLMSCartContent = (props) => {
     }
   }, [cart, datasets]);
 
+  useEffect(() => {
+    if (Object.keys(nutsnames).length > 0 && cart.length > 0) {
+      concatRequestedCartItem();
+    }
+  }, [nutsnames]);
+
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
-      const requestedItem = datasets.find(
-        (requestedItem) => requestedItem.UID === localItem.UID,
-      );
+      const requestedItem = datasets
+        ? datasets.find((requestedItem) => requestedItem.UID === localItem.UID)
+        : false;
       if (requestedItem) {
         const file_data = requestedItem?.downloadable_files?.items.find(
           (item) => item['@id'] === localItem.file_id,
@@ -84,7 +92,12 @@ const CLMSCartContent = (props) => {
           setCartItems(cleanDuplicatesEntries(cartItems));
         } else {
           cartItems.push(
-            getCartObjectFromMapviewer(localItem, requestedItem, projections),
+            getCartObjectFromMapviewer(
+              localItem,
+              requestedItem,
+              projections,
+              nutsnames,
+            ),
           );
           setCartItems(cleanDuplicatesEntries(cartItems));
         }
@@ -129,19 +142,26 @@ const CLMSCartContent = (props) => {
 
   function startDownloading() {
     setLoadingTable(true);
+    window.scrollTo(0, 0);
+
     let selectedItems = getSelectedCartItems();
     const body = getDownloadToolPostBody(selectedItems);
     const unique_ids = selectedItems.map((item) => item.unique_id);
-    dispatch(postDownloadtool(body, unique_ids)).then(() => {
-      setLoadingTable(false);
-      toast.success(
-        <Toast
-          success
-          autoClose={5000}
-          title={'Selected file(s) added to the downloading process.'}
-        />,
-      );
-    });
+    dispatch(postDownloadtool(body, unique_ids))
+      .then((response) => {
+        setLoadingTable(false);
+        toast.success(
+          <Toast
+            success
+            autoClose={5000}
+            title={'Selected file(s) added to the downloading process.'}
+          />,
+        );
+      })
+      .catch(function (error) {
+        setLoadingTable(false);
+        toast.error(<Toast autoClose={5000} title={'Something went wrong.'} />);
+      });
   }
   const setProjectionValue = (unique_id, value) => {
     const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
@@ -229,7 +249,14 @@ const CLMSCartContent = (props) => {
                       </td>
                       <td>{item.name || '-'}</td>
                       <td>{item.source || '-'}</td>
-                      <td>{item.area?.type || '-'}</td>
+                      <td>
+                        {item.area?.type === 'polygon'
+                          ? 'Bounding Box'
+                          : item.area?.type === 'nuts'
+                          ? 'NUTS ID: ' +
+                            (item.area.valueName || item.area.value)
+                          : '-'}
+                      </td>
                       <td>
                         <span
                           className={'tag tag-' + item?.type?.toLowerCase()}

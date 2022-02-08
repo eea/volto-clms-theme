@@ -6,11 +6,14 @@
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import React, { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { getDatasetsByUid, getExtraBreadcrumbItems } from '../../actions';
+import {
+  getDatasetsByUid,
+  getExtraBreadcrumbItems,
+  getDownloadtool,
+} from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CLMSTasksInProgress from './CLMSTasksInProgress';
-import { FormattedMessage } from 'react-intl';
+import CLMSDownloadTask from './CLMSDownloadTasks';
 import { Helmet } from '@plone/volto/helpers';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
@@ -22,8 +25,8 @@ const CLMSDownloadsView = (props) => {
   const { formatMessage } = useIntl();
   const messages = defineMessages({
     CartDownloads: {
-      id: 'Cart Downloads',
-      defaultMessage: 'Cart Downloads',
+      id: 'Downloads',
+      defaultMessage: 'Downloads',
     },
   });
 
@@ -98,6 +101,12 @@ const CLMSDownloadsView = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downloadtool, dispatch]);
 
+  useEffect(() => {
+    if (downloadtool.delete_download_in_progress) {
+      dispatch(getDownloadtool());
+    }
+  }, [dispatch, downloadtool.delete_download_in_progress]);
+
   return (
     <>
       <Helmet title={formatMessage(messages.CartDownloads)} />
@@ -120,15 +129,11 @@ const CLMSDownloadsView = (props) => {
         {isLoggedIn && (
           <>
             <h1 className="page-title">
-              <FormattedMessage
-                id="Cart Downloads"
-                defaultMessage="Cart Downloads"
-              />
+              {formatMessage(messages.CartDownloads)}
             </h1>
             <div className="ccl-container">
-              <CLMSTasksInProgress />
+              <CLMSDownloadTask />
             </div>
-            <hr />
           </>
         )}
       </div>

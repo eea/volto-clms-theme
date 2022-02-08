@@ -40,6 +40,8 @@ export {
 export {
   GET_DOWNLOADTOOL,
   getDownloadtool,
+  GET_NUTSNAME,
+  getNutsNames,
 } from './downloadtool/get_downloadtool';
 
 export {

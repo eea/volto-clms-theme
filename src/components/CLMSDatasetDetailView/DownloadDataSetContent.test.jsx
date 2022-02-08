@@ -46,12 +46,21 @@ describe('DownloadDataSetContent', () => {
       },
     };
     const type = 'raster';
-    const url = '.register';
-    const datasetDownload = renderer
+    const url = '/register';
+    const datasetDownload = renderer;
+    const location = {
+      pathname: '/register',
+    }
       .create(
         <Provider store={store}>
           <MemoryRouter>
-            <DownloadDataSetContent data={data} url={url} type={type}>
+            <DownloadDataSetContent
+              data={data}
+              url={url}
+              type={type}
+              // eslint-disable-next-line no-use-before-define
+              location={location.pathname}
+            >
               <p>Dataset download view test</p>
             </DownloadDataSetContent>
           </MemoryRouter>

@@ -52,7 +52,7 @@ exports[`CclSearchBlock Check search block edit 1`] = `
 </div>
 `;
 
-exports[`CclSearchBlock Check search block view 1`] = `
+exports[`CclSearchBlock Check search block edit with http/https url 1`] = `
 <div
   className="home-datasets-container"
 >
@@ -60,7 +60,109 @@ exports[`CclSearchBlock Check search block view 1`] = `
     className="ccl-container"
   >
     <h3>
-      Test title!
+      Find and download data
+    </h3>
+    <div
+      className="home-datasets-search"
+    >
+      <form
+        className="ccl-form search-form"
+      >
+        <input
+          aria-label="Search datasets"
+          className="ccl-text-input"
+          id="home_search_datasets"
+          name="homeSearchDatasets"
+          placeholder="Search datasets"
+          type="text"
+        />
+        <button
+          aria-label="Search"
+          className="ccl-button"
+          type="submit"
+        >
+          <span
+            className="ccl-icon-zoom"
+          />
+        </button>
+      </form>
+    </div>
+    <div
+      className="home-datasets-text"
+    >
+      <span>
+        More than 999 datasets in our 
+      </span>
+      <a
+        href="https://google.com"
+      >
+        Google
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CclSearchBlock Check search block edit with http/https url without link text 1`] = `
+<div
+  className="home-datasets-container"
+>
+  <div
+    className="ccl-container"
+  >
+    <h3>
+      Find and download data
+    </h3>
+    <div
+      className="home-datasets-search"
+    >
+      <form
+        className="ccl-form search-form"
+      >
+        <input
+          aria-label="Search datasets"
+          className="ccl-text-input"
+          id="home_search_datasets"
+          name="homeSearchDatasets"
+          placeholder="Search datasets"
+          type="text"
+        />
+        <button
+          aria-label="Search"
+          className="ccl-button"
+          type="submit"
+        >
+          <span
+            className="ccl-icon-zoom"
+          />
+        </button>
+      </form>
+    </div>
+    <div
+      className="home-datasets-text"
+    >
+      <span>
+        More than 999 datasets in our 
+      </span>
+      <a
+        href="https://google.com"
+      >
+        Dataset catalogue
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CclSearchBlock Check search block edit without title 1`] = `
+<div
+  className="home-datasets-container"
+>
+  <div
+    className="ccl-container"
+  >
+    <h3>
+      Find and download data
     </h3>
     <div
       className="home-datasets-search"
@@ -96,7 +198,112 @@ exports[`CclSearchBlock Check search block view 1`] = `
       <a
         href="/"
         onClick={[Function]}
+      >
+        Dataset catalogue
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CclSearchBlock Check search block view 1`] = `
+<div
+  className="home-datasets-container"
+>
+  <div
+    className="ccl-container"
+  >
+    <h3>
+      Test title!
+    </h3>
+    <div
+      className="home-datasets-search"
+    >
+      <form
+        className="ccl-form search-form"
+      >
+        <input
+          aria-label="Search datasets"
+          className="ccl-text-input"
+          id="home_search_datasets"
+          name="homeSearchDatasets"
+          onChange={[Function]}
+          placeholder="Search datasets"
+          type="text"
+        />
+        <button
+          aria-label="Search"
+          className="ccl-button"
+          onClick={[Function]}
+          type="submit"
+        >
+          <span
+            className="ccl-icon-zoom"
+          />
+        </button>
+      </form>
+    </div>
+    <div
+      className="home-datasets-text"
+    >
+      <span>
+        More than 999 datasets in our 
+      </span>
+      <a
+        href="/"
+        onClick={[Function]}
       />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CclSearchBlock Check search block view with http/https url 1`] = `
+<div
+  className="home-datasets-container"
+>
+  <div
+    className="ccl-container"
+  >
+    <h3 />
+    <div
+      className="home-datasets-search"
+    >
+      <form
+        className="ccl-form search-form"
+      >
+        <input
+          aria-label="Search datasets"
+          className="ccl-text-input"
+          id="home_search_datasets"
+          name="homeSearchDatasets"
+          onChange={[Function]}
+          placeholder="Search datasets"
+          type="text"
+        />
+        <button
+          aria-label="Search"
+          className="ccl-button"
+          onClick={[Function]}
+          type="submit"
+        >
+          <span
+            className="ccl-icon-zoom"
+          />
+        </button>
+      </form>
+    </div>
+    <div
+      className="home-datasets-text"
+    >
+      <span>
+        More than 999 datasets in our 
+      </span>
+      <a
+        href="https://google.com"
+      >
+        Google
+      </a>
     </div>
   </div>
 </div>

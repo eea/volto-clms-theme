@@ -22,7 +22,6 @@ describe('CclButton', () => {
       .toJSON();
     expect(button).toBeDefined();
   });
-
   it('Check internal link', () => {
     const button = renderer
       .create(
@@ -35,6 +34,27 @@ describe('CclButton', () => {
             style={{
               backgroundColor: 'red',
             }}
+          >
+            <p>Hello!</p>
+          </CclButton>
+        </MemoryRouter>,
+      )
+      .toJSON();
+    expect(button).toBeDefined();
+  });
+  it('Check with prop isButton = true', () => {
+    const button = renderer
+      .create(
+        <MemoryRouter>
+          <CclButton
+            url="/example"
+            download={false}
+            disabled={false}
+            mode="mode"
+            style={{
+              backgroundColor: 'red',
+            }}
+            isButton={true}
           >
             <p>Hello!</p>
           </CclButton>

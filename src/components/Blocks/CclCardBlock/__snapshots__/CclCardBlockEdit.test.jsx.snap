@@ -17,6 +17,7 @@ Array [
       className="card-image"
     >
       <img
+        alt="Placeholder"
         src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
       />
     </div>
@@ -27,7 +28,7 @@ Array [
         className="card-title"
       >
         <a
-          href="/https://www.google.com"
+          href="/"
           onClick={[Function]}
         >
           Card default title

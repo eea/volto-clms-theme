@@ -10,9 +10,6 @@ describe('CclCard', () => {
         'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
       end:
         'Wed May 26 2024 12:49:04 GMT+0200 (hora de verano de Europa central)',
-      file: {
-        size: 92383,
-      },
       title: 'Test 001',
     };
     let start = new Date(card?.start);
@@ -56,6 +53,11 @@ describe('CclCard', () => {
               scales: 'mini',
               download: 'false',
             }}
+            file={{
+              src:
+                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+              download: 'true',
+            }}
           >
             <p>Doc card test</p>
           </CclCard>
@@ -82,6 +84,54 @@ describe('CclCard', () => {
             effective="Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)"
           >
             <p>News card test</p>
+          </CclCard>
+        </MemoryRouter>,
+      )
+      .toJSON();
+    expect(cardtest).toBeDefined();
+  });
+  it('Check three collumns card', () => {
+    const cardtest = renderer
+      .create(
+        <MemoryRouter>
+          <CclCard
+            type="threeColumns"
+            title="title example"
+            description="description example"
+            docInfo="DOC"
+            image={{
+              src:
+                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+              scales: 'mini',
+              download: 'false',
+            }}
+            effective="Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)"
+          >
+            <p>threeColumns card test</p>
+          </CclCard>
+        </MemoryRouter>,
+      )
+      .toJSON();
+    expect(cardtest).toBeDefined();
+  });
+  it('Check block card', () => {
+    const cardtest = renderer
+      .create(
+        <MemoryRouter>
+          <CclCard
+            type="block"
+            title="title example"
+            description="description example"
+            docInfo="DOC"
+            image={{
+              src:
+                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+              scales: 'mini',
+              download: 'false',
+            }}
+            effective="Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)"
+          >
+            <p>Block card test</p>
           </CclCard>
         </MemoryRouter>,
       )
