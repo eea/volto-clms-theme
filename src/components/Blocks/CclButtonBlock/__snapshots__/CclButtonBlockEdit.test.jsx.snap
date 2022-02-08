@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CclButtonBlockEdit renders an CclButtonBlockEdit block component 1`] = `
+Array [
+  <div
+    className="ccl-block-editor-header"
+  >
+    <legend
+      aria-hidden="true"
+      onClick={[Function]}
+    >
+      Default
+       button 
+      disabled
+    </legend>
+  </div>,
+  <a
+    className="ccl-button ccl-button--default"
+    disabled={true}
+    download={false}
+    href="/"
+    onClick={[Function]}
+  >
+    Text example...
+  </a>,
+]
+`;

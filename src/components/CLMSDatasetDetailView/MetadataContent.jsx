@@ -1,4 +1,4 @@
-import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
+/* import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 
 import BoundingBoxComponent from './BoundingBoxComponent';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
@@ -253,3 +253,4 @@ const MetadataContent = (data) => {
 };
 
 export default MetadataContent;
+ */

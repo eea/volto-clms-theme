@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.65",
+  "version": "1.0.64",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -30,40 +30,43 @@
     "@eeacms/volto-taxonomy"
   ],
   "dependencies": {
-    "@eeacms/volto-tabs-block": "1.2.7",
     "@eeacms/volto-accordion-block": "3.4.7",
+    "@eeacms/volto-arcgis-block": "*",
+    "@eeacms/volto-clms-utils": "0.1.5",
     "@eeacms/volto-columns-block": "4.4.3",
     "@eeacms/volto-metadata-block": "^2.1.0",
     "@eeacms/volto-resize-helper": "0.2.1",
-    "volto-dropdownmenu": "2.2.7",
+    "@eeacms/volto-tabs-block": "1.2.7",
+    "@eeacms/volto-taxonomy": "^1.0.0",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
-    "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
+    "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
-    "react-slick": "0.28.1",
-    "slick-carousel": "1.8.1",
+    "husky": "7.0.4",
     "react-csv": "2.2.2",
-    "react-svg": "14.0.4",
-    "@eeacms/volto-arcgis-block": "*",
     "react-native-mime-types": "2.3.0",
-    "@eeacms/volto-clms-utils": "0.1.5",
-    "volto-form-block": "2.2.2",
-    "@eeacms/volto-taxonomy": "^1.0.0"
+    "react-slick": "0.28.1",
+    "react-svg": "14.0.4",
+    "slick-carousel": "1.8.1",
+    "volto-dropdownmenu": "2.2.7",
+    "volto-form-block": "2.2.2"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.6",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "3.1.3",
     "eslint-plugin-react-app": "^6.2.2",
-    "husky": "6.0.0",
+    "husky": "7.0.4",
     "jsconfig": "^0.2.0",
     "prettier": "2.0.5",
     "prettier-eslint": "^12.0.0",
     "stylelint": "^13.12.0",
     "stylelint-config-idiomatic-order": "8.1.0",
-    "stylelint-prettier": "1.1.2",
-    "@cypress/code-coverage": "^3.9.5",
-    "babel-plugin-transform-class-properties": "^6.24.1"
+    "stylelint-prettier": "1.1.2"
   },
   "prettier": {
     "trailingComma": "all",
@@ -116,6 +119,6 @@
     "cypress:run": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress open",
     "precommit": "yarn stylelint && yarn prettier && yarn lint",
-    "prepare": "husky install"
+    "test": "docker run -it --rm -v $(pwd):/opt/frontend/my-volto-project/src/addons/volto-clms-theme -e GIT_NAME=volto-clms-theme -e NAMESPACE=@eeacms plone/volto-addon-ci"
   }
 }

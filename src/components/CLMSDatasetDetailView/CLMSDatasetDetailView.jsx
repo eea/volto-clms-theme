@@ -6,7 +6,7 @@
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
-  MetadataContent,
+  // MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Modal, Segment } from 'semantic-ui-react';
@@ -181,7 +181,9 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         )}
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
-        <div tabTitle="Metadata">{MetadataContent(content)}</div>
+        {/* borratzeko */}
+        {/* <div tabTitle="Metadata">{MetadataContent(content)}</div> */}
+        {/*  */}
 
         {content?.downloadable_dataset ? (
           <div tabTitle="Download">{DownloadDataSetContent(content)}</div>

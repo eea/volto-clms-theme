@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CclSearchBlock Check context navigation edit 1`] = `
+<div>
+  <strong>
+    Navigation menu preview:
+  </strong>
+  <br />
+  <br />
+  
+</div>
+`;

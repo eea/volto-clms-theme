@@ -189,6 +189,8 @@ CclCard.propTypes = {
         }),
       }),
     }),
+    start: PropTypes.string,
+    end: PropTypes.string,
   }),
   children: PropTypes.node,
 };
