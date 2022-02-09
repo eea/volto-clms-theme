@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
+
+import { Link } from 'react-router-dom';
+import React from 'react';
 
 const messages = defineMessages({
   countText: {
@@ -22,10 +23,21 @@ function hasProtocol(url) {
   return false;
 }
 
-const CclSearchBlockView = (props) => {
-  const { data } = props;
+const CclHomeSearchBlockView = (props) => {
+  const { data, searchText } = props;
+  var SearchText = searchText || '';
   const intl = useIntl();
   let url = data?.link?.[0]?.['@id'];
+
+  function handleChange(event) {
+    SearchText = event.target.value;
+  }
+
+  function handlePost(event) {
+    event.preventDefault();
+    window.location.href = '/en/dataset-catalog/?SearchableText=' + SearchText;
+  }
+
   return (
     <div className="home-datasets-container">
       <div className="ccl-container">
@@ -33,6 +45,8 @@ const CclSearchBlockView = (props) => {
         <div className="home-datasets-search">
           <form className="ccl-form search-form">
             <input
+              value={searchText}
+              onChange={handleChange}
               type="text"
               className="ccl-text-input"
               id="home_search_datasets"
@@ -44,21 +58,26 @@ const CclSearchBlockView = (props) => {
                 messages.searchDatasetsPlaceholder,
               )}
             />
-            <button className="ccl-button" type="submit" aria-label="Search">
+            <button
+              className="ccl-button"
+              type="submit"
+              aria-label="Search"
+              onClick={handlePost}
+            >
               <span className="ccl-icon-zoom"></span>
             </button>
           </form>
         </div>
         <div className="home-datasets-text">
           <span>{intl.formatMessage(messages.countText, { count: 999 })}</span>
-          {hasProtocol(url) ? (
-            <a href={url && url}>{data.linkText}</a>
+          {url && hasProtocol(url) ? (
+            <a href={url}>{data.linkText}</a>
           ) : (
-            <Link to={url && url}>{data.linkText}</Link>
+            <Link to={url}>{data.linkText}</Link>
           )}
         </div>
       </div>
     </div>
   );
 };
-export default CclSearchBlockView;
+export default CclHomeSearchBlockView;

@@ -9,50 +9,7 @@ import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CclTabsView = (props) => {
-  const [hashlinkOnMount, setHashlinkOnMount] = React.useState(false);
-  const {
-    metadata = {},
-    data = {},
-    tabsList = [],
-    activeTabIndex = 0,
-    hashlink = {},
-    setActiveTab = () => {},
-  } = props;
-
-  React.useEffect(() => {
-    const urlHash = props.location.hash.substring(1) || '';
-    if (
-      hashlink.counter > 0 ||
-      (hashlink.counter === 0 && urlHash && !hashlinkOnMount)
-    ) {
-      const id = hashlink.hash || urlHash || '';
-      const index = tabsList.indexOf(id);
-      const parentId = data.id || props.id;
-      const parent = document.getElementById(parentId);
-      const headerWrapper = document.querySelector('.header-wrapper');
-      const offsetHeight = headerWrapper?.offsetHeight || 0;
-      if (id !== parentId && index > -1 && parent) {
-        if (activeTabIndex !== index) {
-          setActiveTab(id);
-        }
-        props.scrollToTarget(parent, offsetHeight);
-      } else if (id === parentId && parent) {
-        props.scrollToTarget(parent, offsetHeight);
-      }
-    }
-    if (!hashlinkOnMount) {
-      setHashlinkOnMount(true);
-    }
-  }, [
-    activeTabIndex,
-    data.id,
-    hashlink.counter,
-    hashlink.hash,
-    hashlinkOnMount,
-    props,
-    setActiveTab,
-    tabsList,
-  ]);
+  const { metadata = {}, tabsList = [], setActiveTab } = props;
 
   const PanelsComponent = () => {
     return (
@@ -78,15 +35,18 @@ const CclTabsView = (props) => {
       </div>
     );
   };
+
+  function handleAction(activeTab, tab) {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+    }
+  }
+
   const TabsComponent = () => {
     return (
       <div className="tabs" role="tablist">
         {tabsList.map((tab, index) => {
-          const {
-            activeTab = null,
-            tabs = {},
-            setActiveTab = () => {},
-          } = props;
+          const { activeTab = null, tabs = {} } = props;
           const title = tabs[tab].title;
           const tabIndex = index + 1;
           const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
@@ -102,14 +62,10 @@ const CclTabsView = (props) => {
               /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatuz nahikoa da */
               className={cx('tab', tab === activeTab && 'tab-selected')}
               onClick={() => {
-                if (activeTab !== tab) {
-                  setActiveTab(tab);
-                }
+                handleAction(activeTab, tab);
               }}
               onKeyDown={() => {
-                if (activeTab !== tab) {
-                  setActiveTab(tab);
-                }
+                handleAction(activeTab, tab);
               }}
               tabIndex="0"
             >

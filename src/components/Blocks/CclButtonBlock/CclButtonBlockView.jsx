@@ -1,19 +1,20 @@
-import React from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import React from 'react';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 const CclButtonBlockView = (props) => {
   const { data } = props;
   const flattern_url = flattenToAppURL(data?.href?.[0]?.['@id']);
+  function buttonURL(bData, bFlattern_url) {
+    return bData.download && bData?.href?.[0]?.['@type'] === 'File'
+      ? bFlattern_url + '/@@download/file'
+      : bFlattern_url;
+  }
   return {
     ...(data.style === 'left menu' ? (
       <div className="left-menu-detail">
         <CclButton
-          url={
-            data.download && data?.href?.[0]?.['@type'] === 'File'
-              ? flattern_url + '/@@download/file'
-              : flattern_url
-          }
+          url={buttonURL(data, flattern_url)}
           disabled={data?.disabled}
           download={data?.download || data?.href?.[0]?.['@type'] === 'File'}
           target={
@@ -27,11 +28,7 @@ const CclButtonBlockView = (props) => {
       </div>
     ) : (
       <CclButton
-        url={
-          data.download && data?.href?.[0]?.['@type'] === 'File'
-            ? flattern_url + '/@@download/file'
-            : flattern_url
-        }
+        url={buttonURL(data, flattern_url)}
         disabled={data?.disabled}
         download={data?.download || data?.href?.[0]?.['@type'] === 'File'}
         target={

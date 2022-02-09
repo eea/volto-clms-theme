@@ -1,15 +1,17 @@
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import React, { useEffect } from 'react';
-import { Label } from 'semantic-ui-react';
+
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { getBreadcrumbs } from '../../../../../../node_modules/@plone/volto/src/actions';
 import { useDispatch } from 'react-redux';
-import { getBreadcrumbs } from '@plone/volto/actions';
 
 export const CLMSDownloadableFileView = (props) => {
   const dispatch = useDispatch();
   const { content } = props;
+
   useEffect(() => {
-    dispatch(getBreadcrumbs('/'));
+    dispatch(getBreadcrumbs([]));
   }, [dispatch]);
+
   return (
     <>
       <div id="page-document" className="ui container">
@@ -19,20 +21,6 @@ export const CLMSDownloadableFileView = (props) => {
             <p>{content.description}</p>
           </div>
         </div>
-        {content?.taxonomy_technical_library_categorization &&
-          content?.taxonomy_technical_library_categorization?.length > 0 && (
-            <Label.Group>
-              {content?.taxonomy_technical_library_categorization?.map(
-                (keyword, key) => {
-                  return (
-                    <Label key={key} color="olive">
-                      {keyword.title}
-                    </Label>
-                  );
-                },
-              )}
-            </Label.Group>
-          )}
         <CclButton download={true} url={content?.file?.download}>
           Download file
         </CclButton>

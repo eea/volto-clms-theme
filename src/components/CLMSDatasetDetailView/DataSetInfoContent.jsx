@@ -1,14 +1,15 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
-import { CclInfoDescription, CclInfoContainer } from '../CclInfoDescription';
-import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
+import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Accordion } from 'semantic-ui-react';
 import AnimateHeight from 'react-animate-height';
-import { Icon } from '@plone/volto/components';
-import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
+import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
+import { Icon } from '@plone/volto/components';
+import React from 'react';
+import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import config from '@plone/volto/registry';
+import { searchContent } from '@plone/volto/actions';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
@@ -43,11 +44,17 @@ const DataSetInfoContent = (props) => {
 
     setActiveIndex(newIndex);
   };
-  const { titleIcons } = config.blocks.blocksConfig.accordion;
+  const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
   const isExclusive = (index) => {
     return activeIndex.includes(index);
   };
+
+  function iconName(iProps, iTitleIcons) {
+    return iProps?.data?.right_arrows
+      ? iTitleIcons.rightPosition
+      : iTitleIcons.leftPosition;
+  }
 
   return (
     <div>
@@ -99,20 +106,12 @@ const DataSetInfoContent = (props) => {
                 >
                   {isExclusive() ? (
                     <Icon
-                      name={
-                        props?.data?.right_arrows
-                          ? titleIcons.opened.rightPosition
-                          : titleIcons.opened.leftPosition
-                      }
+                      name={iconName(props, titleIcons.opened)}
                       size="24px"
                     />
                   ) : (
                     <Icon
-                      name={
-                        props?.data?.right_arrows
-                          ? titleIcons.closed.rightPosition
-                          : titleIcons.closed.leftPosition
-                      }
+                      name={iconName(props, titleIcons.closed)}
                       size="24px"
                     />
                   )}

@@ -11,7 +11,24 @@ import { withRouter } from 'react-router';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 const CclVerticalTabsView = (props) => {
-  const { metadata = {}, tabsList = [], ExtraComponent = null } = props;
+  const {
+    metadata = {},
+    tabsList = [],
+    ExtraComponent = () => {
+      return '';
+    },
+  } = props;
+
+  const handleClick = (e, tab, activeTab, setActiveTab) => {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+    }
+  };
+
+  function isSpan(subTab, nextSubTab) {
+    return subTab === false && nextSubTab !== false;
+  }
+
   const PanelsComponent = () => {
     const { activeTab = null, tabs = {} } = props;
     return (
@@ -39,14 +56,10 @@ const CclVerticalTabsView = (props) => {
   const TabsComponent = () => {
     return (
       <div className="left-content cont-w-25">
-        {ExtraComponent ? <ExtraComponent /> : ''}
+        {<ExtraComponent />}
         <nav className="left-menu">
           {tabsList.map((tab, index) => {
-            const {
-              activeTab = null,
-              tabs = {},
-              setActiveTab = () => {},
-            } = props;
+            const { activeTab = null, tabs = {}, setActiveTab } = props;
             const title = tabs[tab].title;
             const subTab = tabs[tab]?.subTab?.subtab || false;
             const tabIndex = index + 1;
@@ -63,21 +76,17 @@ const CclVerticalTabsView = (props) => {
                   subTab && 'subcard',
                 )}
               >
-                {subTab === false && nextSubTab !== false ? (
+                {isSpan(subTab, nextSubTab) ? (
                   <span>{title || defaultTitle}</span>
                 ) : (
                   <NavLink
                     to={'#tab' + tabIndex}
                     className="collapsed"
                     onClick={(e) => {
-                      if (activeTab !== tab) {
-                        setActiveTab(tab);
-                      }
+                      handleClick(e, tab, activeTab, setActiveTab);
                     }}
-                    onKeyDown={() => {
-                      if (activeTab !== tab) {
-                        setActiveTab(tab);
-                      }
+                    onKeyDown={(e) => {
+                      handleClick(e, tab, activeTab, setActiveTab);
                     }}
                   >
                     {title || defaultTitle}

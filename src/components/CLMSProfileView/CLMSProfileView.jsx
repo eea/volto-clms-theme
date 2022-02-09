@@ -4,19 +4,22 @@
  */
 
 import {
+  AVAILABLE_SUBSCRIPTIONS,
+  SubscriptionView,
+} from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
+import {
   CLMSApiTokensView,
-  CLMSUserProfileView,
   CLMSNewsletterSubscriberView,
+  CLMSUserProfileView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
-import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 import React, { Component } from 'react';
+
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
 import jwtDecode from 'jwt-decode';
-import { AVAILABLE_SUBSCRIPTIONS } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 /**
  * CLMSProfileView class.
  * @class CLMSProfileView

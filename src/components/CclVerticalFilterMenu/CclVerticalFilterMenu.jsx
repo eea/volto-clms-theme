@@ -6,8 +6,8 @@ const CclVerticalFilterMenu = (props) => {
   return (
     <nav className="dropdown dropdown-filters">
       {filters &&
-        filters.map((filter) => (
-          <CclExpandableFilter key={filter['@id']} title={filter.title}>
+        filters.map((filter, key) => (
+          <CclExpandableFilter key={key} title={filter.title}>
             {filter.children}
           </CclExpandableFilter>
         ))}

@@ -22,12 +22,13 @@ function CclButton(props) {
 
   const flattern_url = flattenToAppURL(url);
 
-  function hasProtocol(url) {
-    return url.startsWith('https://') || url.startsWith('http://')
+  function hasProtocol(protocolUrl) {
+    return protocolUrl.startsWith('https://') ||
+      protocolUrl.startsWith('http://')
       ? true
       : false;
   }
-  let RenderElement = Link;
+  let RenderElement;
   if (isButton) {
     RenderElement = 'button';
   } else {

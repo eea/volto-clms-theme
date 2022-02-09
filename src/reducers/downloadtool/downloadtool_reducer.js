@@ -28,6 +28,10 @@ const getInitialState = {
 export const downloadtoolReducer = (state = getInitialState, action = {}) => {
   switch (action?.type) {
     case `${GET_DOWNLOADTOOL}_PENDING`:
+    case `${POST_DOWNLOADTOOL}_PENDING`:
+    case `${DELETE_DOWNLOADTOOL}_PENDING`:
+    case `${GET_FORMATCONVERSIONTABLE}_PENDING`:
+    case `${GET_PROJECTIONS}_PENDING`:
       return {
         ...state,
         error: null,
@@ -35,6 +39,10 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         loading: true,
       };
     case `${GET_DOWNLOADTOOL}_FAIL`:
+    case `${POST_DOWNLOADTOOL}_FAIL`:
+    case `${DELETE_DOWNLOADTOOL}_FAIL`:
+    case `${GET_FORMATCONVERSIONTABLE}_FAIL`:
+    case `${GET_PROJECTIONS}_FAIL`:
       return {
         ...state,
         error: action.error,
@@ -51,7 +59,6 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
           TaskID: progress_key,
         });
       });
-      // var cancelled = tasks_array.filter((task) => task.Status === 'Cancelled');
       var in_progress = tasks_array.filter(
         (task) => task.Status === 'In_progress',
       );
@@ -62,33 +69,16 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         (task) => task.Status === 'Finished_nok',
       );
       var rejected = tasks_array.filter((task) => task.Status === 'Rejected');
-
       return {
         ...state,
         error: null,
         loaded: true,
         loading: false,
-        // download_cancelled: cancelled,
         download_in_progress: in_progress,
         download_finished_ok: finished_ok,
         download_finished_nok: finished_nok,
         download_rejected: rejected,
       };
-    case `${POST_DOWNLOADTOOL}_PENDING`:
-      return {
-        ...state,
-        error: null,
-        loaded: false,
-        loading: true,
-      };
-    case `${POST_DOWNLOADTOOL}_FAIL`:
-      return {
-        ...state,
-        error: action.error,
-        loaded: false,
-        loading: false,
-      };
-
     case `${POST_DOWNLOADTOOL}_SUCCESS`:
       return {
         ...state,
@@ -100,21 +90,6 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
           task_id: action.result['TaskID'],
         },
       };
-    case `${DELETE_DOWNLOADTOOL}_PENDING`:
-      return {
-        ...state,
-        error: null,
-        loaded: false,
-        loading: true,
-      };
-    case `${DELETE_DOWNLOADTOOL}_FAIL`:
-      return {
-        ...state,
-        error: action.error,
-        loaded: false,
-        loading: false,
-      };
-
     case `${DELETE_DOWNLOADTOOL}_SUCCESS`:
       return {
         ...state,
@@ -123,23 +98,6 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         loading: false,
         delete_download_in_progress: true,
       };
-
-    case `${GET_FORMATCONVERSIONTABLE}_PENDING`:
-      return {
-        ...state,
-        error: null,
-        loaded: false,
-        loading: true,
-      };
-
-    case `${GET_FORMATCONVERSIONTABLE}_FAIL`:
-      return {
-        ...state,
-        error: action.error,
-        loaded: false,
-        loading: false,
-      };
-
     case `${GET_FORMATCONVERSIONTABLE}_SUCCESS`:
       return {
         ...state,
@@ -148,23 +106,6 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         loading: false,
         format_conversion_table_in_progress: action.result,
       };
-
-    case `${GET_PROJECTIONS}_PENDING`:
-      return {
-        ...state,
-        error: null,
-        loaded: false,
-        loading: true,
-      };
-
-    case `${GET_PROJECTIONS}_FAIL`:
-      return {
-        ...state,
-        error: action.error,
-        loaded: false,
-        loading: false,
-      };
-
     case `${GET_PROJECTIONS}_SUCCESS`:
       return {
         ...state,

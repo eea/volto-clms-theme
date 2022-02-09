@@ -1,5 +1,5 @@
+import AccordionFacet from './AccordionFacet';
 import RightModalFacets from './RightModalFacets';
-import AccordionCheckboxFacet from './AccordionCheckboxFacet';
-import AccordionLabelFacet from './AccordionLabelFacet';
+import WithType from './WithType';
 
-export { RightModalFacets, AccordionCheckboxFacet, AccordionLabelFacet };
+export { RightModalFacets, AccordionFacet, WithType };

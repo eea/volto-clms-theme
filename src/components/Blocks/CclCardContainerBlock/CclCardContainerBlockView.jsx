@@ -1,7 +1,7 @@
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { searchContent } from '@plone/volto/actions';
 
 const CclCardContainerBlockView = (props) => {
@@ -16,7 +16,7 @@ const CclCardContainerBlockView = (props) => {
     path = metadata ? metadata['@id'] : properties['@id'];
   } else if (data.cardOrigin === 'selection') {
     path = data.containerSelection ? data.containerSelection[0]['@id'] : '';
-  } else if ((data.cardOrigin = 'custom')) {
+  } else if (data.cardOrigin === 'custom') {
     cards = data?.customCards?.blocks_layout?.items.map(
       (uid) => data.customCards.blocks[uid],
     );

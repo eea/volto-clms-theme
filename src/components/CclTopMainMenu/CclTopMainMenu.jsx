@@ -1,12 +1,12 @@
+import { Link } from 'react-router-dom';
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { SetLanguagePath } from './multilingualPath';
 import { getItemsByPath } from 'volto-dropdownmenu/utils';
-import { Link } from 'react-router-dom';
-import setLanguagePath from './multilingualPath';
+import { useSelector } from 'react-redux';
 
 const CclTopMainMenu = () => {
-  const pathname = setLanguagePath('header');
+  const pathname = SetLanguagePath('header');
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
@@ -34,8 +34,8 @@ const CclTopMainMenu = () => {
                       <span className="ccl-icon-chevron-thin-down"></span>
                     </span>
                     <ul>
-                      {item.navigationRoot?.map((element, index) => (
-                        <li key={index}>
+                      {item.navigationRoot?.map((element, navIndex) => (
+                        <li key={navIndex}>
                           <Link to={{ pathname: element?.['@id'] }}>
                             {element.title}
                           </Link>

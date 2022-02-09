@@ -1,6 +1,6 @@
+import { defineMessages, useIntl } from 'react-intl';
+
 import config from '@plone/volto/registry';
-import { defineMessages } from 'react-intl';
-import { useIntl } from 'react-intl';
 
 const messages = defineMessages({
   field_label: {

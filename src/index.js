@@ -9,11 +9,8 @@ import BoundingWidget from './components/Widgets/BoundingWidget';
 // VIEWS IMPORTS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
-import CLMSDownloadsView from './components/CLMSDownloadsView/CLMSDownloadsView';
-import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
-import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
-import CLMSEventView from '@eeacms/volto-clms-theme/components/CLMSEventView/CLMSEventView';
+import CLMSDownloadsView from './components/CLMSDownloadsView/CLMSDownloadsView';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
 import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
@@ -21,13 +18,14 @@ import CLMSMeetingSubscriberView from '@eeacms/volto-clms-theme/components/CLMSM
 import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingSubscribersView';
 import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
 import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
+import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import ContactWidget from './components/Widgets/ContactWidget';
 import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
-
+import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
@@ -41,7 +39,6 @@ const applyConfig = (config) => {
       ...config.contentTypesViews,
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
-      Event: CLMSEventView,
       TechnicalLibrary: CLMSDownloadableFileView,
       File: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,

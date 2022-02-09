@@ -72,8 +72,8 @@ const CclTabs = (props) => {
           .flat()
           .filter((item) => !!item?.props?.underPanel)
           .map((child) => {
-            const { children } = child.props;
-            return children;
+            const { childProps } = child.props;
+            return childProps;
           })}
       </div>
 

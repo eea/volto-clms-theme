@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Checkbox } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { useSelector } from 'react-redux';
+
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
@@ -70,11 +70,15 @@ function CclDownloadTable(props) {
                 <th>
                   <Checkbox
                     onChange={(e, data) => selectAllCart(data.checked)}
-                    checked={prePackagedCollection
-                      .map((item, key) => item.unique_id)
-                      .every(function (val) {
-                        return cartSelection.indexOf(val) !== -1;
-                      })}
+                    checked={
+                      prePackagedCollection
+                        ? prePackagedCollection
+                            .map((item, key) => item.unique_id)
+                            .every(function (val) {
+                              return cartSelection.indexOf(val) !== -1;
+                            })
+                        : false
+                    }
                   />
                 </th>
               )}
@@ -87,37 +91,41 @@ function CclDownloadTable(props) {
             </tr>
           </thead>
           <tbody>
-            {prePackagedCollection.map((dataset_file, key) => {
-              return (
-                <tr key={key}>
-                  {isLoggedIn && (
-                    <td>
-                      <Checkbox
-                        onChange={(e, data) =>
-                          selectCart(dataset_file.unique_id, data.checked)
-                        }
-                        checked={cartSelection.includes(dataset_file.unique_id)}
-                      />
-                    </td>
-                  )}
-                  <td>{dataset_file?.year || 'YYYY'}</td>
-                  <td>{dataset_file?.resolution || '000m'}</td>
-                  <td>
-                    <span
-                      className={
-                        'tag tag-' +
-                        (dataset_file?.type.toLowerCase() || 'raster')
-                      }
-                    >
-                      {dataset_file?.type || 'Raster'}
-                    </span>
-                  </td>
-                  <td>{dataset_file?.format || 'Format'}</td>
-                  <td>{dataset_file?.version || 'v0.0'}</td>
-                  <td>{dataset_file?.size || '000.0MB'}</td>
-                </tr>
-              );
-            })}
+            {prePackagedCollection
+              ? prePackagedCollection.map((dataset_file, key) => {
+                  return (
+                    <tr key={key}>
+                      {isLoggedIn && (
+                        <td>
+                          <Checkbox
+                            onChange={(e, data) =>
+                              selectCart(dataset_file.unique_id, data.checked)
+                            }
+                            checked={cartSelection.includes(
+                              dataset_file.unique_id,
+                            )}
+                          />
+                        </td>
+                      )}
+                      <td>{dataset_file?.year || 'YYYY'}</td>
+                      <td>{dataset_file?.resolution || '000m'}</td>
+                      <td>
+                        <span
+                          className={
+                            'tag tag-' +
+                            (dataset_file?.type.toLowerCase() || 'raster')
+                          }
+                        >
+                          {dataset_file?.type || 'Raster'}
+                        </span>
+                      </td>
+                      <td>{dataset_file?.format || 'Format'}</td>
+                      <td>{dataset_file?.version || 'v0.0'}</td>
+                      <td>{dataset_file?.size || '000.0MB'}</td>
+                    </tr>
+                  );
+                })
+              : false}
           </tbody>
         </table>
       </div>

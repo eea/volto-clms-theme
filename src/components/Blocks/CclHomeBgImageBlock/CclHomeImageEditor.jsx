@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Dimmer, Loader, Message } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
-import { defineMessages, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
-import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
-import { readAsDataURL } from 'promise-file-reader';
-import { createContent } from '@plone/volto/actions';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-
-import uploadSVG from '@plone/volto/icons/upload.svg';
-import navSVG from '@plone/volto/icons/nav.svg';
-import editingSVG from '@plone/volto/icons/editing.svg';
-import deleteSVG from '@plone/volto/icons/delete.svg';
 import './styles.less';
+
+import { Dimmer, Loader, Message } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { defineMessages, useIntl } from 'react-intl';
+import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
+
+import { Icon } from '@plone/volto/components';
+import { compose } from 'redux';
+import { createContent } from '@plone/volto/actions';
+import deleteSVG from '@plone/volto/icons/delete.svg';
+import editingSVG from '@plone/volto/icons/editing.svg';
+import navSVG from '@plone/volto/icons/nav.svg';
+import { readAsDataURL } from 'promise-file-reader';
+import uploadSVG from '@plone/volto/icons/upload.svg';
+
 const messages = defineMessages({
   uploadImage: {
     id: 'Upload image',
@@ -56,6 +57,19 @@ function onUploadImage(pathname, e, setUploading, dispatch) {
       }),
     );
     setUploading(true);
+  });
+}
+
+function handleEditing(openObjectBrowserF, onChangeBlockF, blockF, dataF) {
+  openObjectBrowserF({
+    onSelectItem: (_url, element) =>
+      onChangeBlockF(blockF, {
+        ...dataF,
+        image: {
+          url: element['@id'],
+          alt: element.title,
+        },
+      }),
   });
 }
 
@@ -132,16 +146,12 @@ const CclHomeImageEditor = (props) => {
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
-                        openObjectBrowser({
-                          onSelectItem: (_url, element) =>
-                            onChangeBlock(block, {
-                              ...data,
-                              image: {
-                                url: element['@id'],
-                                alt: element.title,
-                              },
-                            }),
-                        });
+                        handleEditing(
+                          openObjectBrowser,
+                          onChangeBlock,
+                          block,
+                          data,
+                        );
                       }}
                       style={{ display: 'none' }}
                     />
@@ -165,30 +175,22 @@ const CclHomeImageEditor = (props) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    openObjectBrowser({
-                      onSelectItem: (url, element) =>
-                        onChangeBlock(block, {
-                          ...data,
-                          image: {
-                            url: element['@id'],
-                            alt: element.title,
-                          },
-                        }),
-                    });
+                    handleEditing(
+                      openObjectBrowser,
+                      onChangeBlock,
+                      block,
+                      data,
+                    );
                   }}
                   onKeyDown={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    openObjectBrowser({
-                      onSelectItem: (url, element) =>
-                        onChangeBlock(block, {
-                          ...data,
-                          image: {
-                            url: element['@id'],
-                            alt: element.title,
-                          },
-                        }),
-                    });
+                    handleEditing(
+                      openObjectBrowser,
+                      onChangeBlock,
+                      block,
+                      data,
+                    );
                   }}
                 >
                   <div className="image-editor-icon">

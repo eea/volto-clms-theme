@@ -3,7 +3,7 @@ export const getAvailableConversion = (conversionTable, defaultValue) => {
     defaultValue = Object.keys(conversionTable)[0];
   }
   const keys = Object.keys(conversionTable[defaultValue]);
-  const filtered_values = keys
+  return keys
     .filter((key) => {
       return conversionTable[defaultValue][key];
     })
@@ -14,7 +14,6 @@ export const getAvailableConversion = (conversionTable, defaultValue) => {
         text: item,
       };
     });
-  return filtered_values;
 };
 
 export const initializeIfNotCompatibleConversion = (

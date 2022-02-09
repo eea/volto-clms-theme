@@ -2,11 +2,10 @@ import React from 'react';
 import loadable from '@loadable/component';
 const Slider = loadable(() => import('react-slick'));
 
-const TextLinkCarouselView = (props) => {
+const CclTextLinkCarouselView = (props) => {
   const { data } = props;
   const slider = React.useRef(null);
 
-  const { tabsList = [], setActiveTab = () => {} } = props;
   const settings = {
     dots: false,
     infinite: true,
@@ -16,9 +15,6 @@ const TextLinkCarouselView = (props) => {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 2000,
-    beforeChange: (oldIndex, index) => {
-      setActiveTab(tabsList[index]);
-    },
   };
 
   return (
@@ -38,4 +34,4 @@ const TextLinkCarouselView = (props) => {
   );
 };
 
-export default TextLinkCarouselView;
+export default CclTextLinkCarouselView;

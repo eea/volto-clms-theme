@@ -79,9 +79,6 @@ const CLMSDownloadsView = (props) => {
       let downloadInProgressUidsList = getUIDList(
         downloadtool?.download_in_progress,
       );
-      // let downloadCancelledUidsList = getUIDList(
-      //   downloadtool?.download_cancelled,
-      // );
       let finishedOKUidsList = getUIDList(downloadtool?.download_finished_ok);
       let finishedNOKUidsList = getUIDList(downloadtool?.download_finished_nok);
       let rejectedUidsList = getUIDList(downloadtool?.download_rejected);

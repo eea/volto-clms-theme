@@ -6,31 +6,22 @@
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
-  MetadataContent,
+  // MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
+import { FormattedMessage } from 'react-intl';
 import { Modal, Segment } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
-import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getUser } from '@plone/volto/actions';
-import { injectIntl } from 'react-intl';
 import jwtDecode from 'jwt-decode';
 import { postImportGeonetwork } from '../../actions';
 import { useLocation } from 'react-router-dom';
-
-// import {
-//   mockDatabaseInfo,
-//   mockMetadata,
-//   mockDownloadDataset,
-// } from './mockDatasetInfo';
-// import CclCitation from '../CclCitation/CclCitation';
-// import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 
 /**
  * Full view component class.
@@ -45,8 +36,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const geonetwork_importation = useSelector(
     (state) => state.geonetwork_importation,
   );
-  // const userSession = useSelector((state) => state.userSession);
-  // const user_token = userSession.token ? jwtDecode(userSession.token).sub : '';
   const user = useSelector((state) => state.users?.user);
   React.useEffect(() => {
     dispatch(getUser(token));
@@ -192,7 +181,9 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         )}
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
-        <div tabTitle="Metadata">{MetadataContent(content)}</div>
+        {/* borratzeko */}
+        {/* <div tabTitle="Metadata">{MetadataContent(content)}</div> */}
+        {/*  */}
 
         {content?.downloadable_dataset ? (
           <div tabTitle="Download">{DownloadDataSetContent(content)}</div>
@@ -282,10 +273,9 @@ CLMSDatasetDetailView.propTypes = {
 };
 
 export default compose(
-  injectIntl,
   connect((state) => ({
     token: state.userSession.token
-      ? jwtDecode(state.userSession.token).sub
+      ? jwtDecode(state.userSession.token)?.sub
       : '',
   })),
 )(CLMSDatasetDetailView);

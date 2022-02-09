@@ -4,8 +4,8 @@
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
+import { Checkbox, Segment, Select } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
-import { Segment, Select } from 'semantic-ui-react';
 import {
   getCartObjectFromMapviewer,
   getCartObjectFromPrepackaged,
@@ -20,7 +20,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { Checkbox } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Toast } from '@plone/volto/components';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
@@ -79,7 +78,7 @@ const CLMSCartContent = (props) => {
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
       const requestedItem = datasets
-        ? datasets.find((requestedItem) => requestedItem.UID === localItem.UID)
+        ? datasets.find((req) => req.UID === localItem.UID)
         : false;
       if (requestedItem) {
         const file_data = requestedItem?.downloadable_files?.items.find(
@@ -168,6 +167,30 @@ const CLMSCartContent = (props) => {
     cartItems[objIndex].projection = value;
     setCartItems([...cartItems]);
   };
+
+  function isChecked(cartSelectionCh, cartItemsCh) {
+    return cartItemsCh
+      ? cartItemsCh
+          .filter((item) => item.task_in_progress === false)
+          .map((item, key) => item.unique_id)
+          .every(function (val) {
+            return cartSelectionCh.indexOf(val) !== -1;
+          })
+      : false;
+  }
+
+  const AreaNaming = (areaProps) => {
+    const { item } = areaProps;
+    function nutsName(nItem) {
+      return nItem.area?.type === 'nuts'
+        ? 'NUTS: ' + (nItem.area.valueName || nItem.area.value)
+        : '-';
+    }
+    return (
+      <>{item.area?.type === 'polygon' ? 'Bounding Box' : nutsName(item)}</>
+    );
+  };
+
   return (
     <>
       {cartItems?.length !== 0 ? (
@@ -183,18 +206,7 @@ const CLMSCartContent = (props) => {
                       <div className="ccl-form-group">
                         <Checkbox
                           onChange={(e, data) => selectAllCart(data.checked)}
-                          checked={
-                            cartItems
-                              ? cartItems
-                                  .filter(
-                                    (item) => item.task_in_progress === false,
-                                  )
-                                  .map((item, key) => item.unique_id)
-                                  .every(function (val) {
-                                    return cartSelection.indexOf(val) !== -1;
-                                  })
-                              : false
-                          }
+                          checked={isChecked(cartSelection, cartItems)}
                         />
                       </div>
                     </div>
@@ -250,12 +262,7 @@ const CLMSCartContent = (props) => {
                       <td>{item.name || '-'}</td>
                       <td>{item.source || '-'}</td>
                       <td>
-                        {item.area?.type === 'polygon'
-                          ? 'Bounding Box'
-                          : item.area?.type === 'nuts'
-                          ? 'NUTS ID: ' +
-                            (item.area.valueName || item.area.value)
-                          : '-'}
+                        <AreaNaming item={item} />
                       </td>
                       <td>
                         <span
@@ -290,11 +297,11 @@ const CLMSCartContent = (props) => {
                           <Select
                             placeholder="Select projection"
                             value={item.projection}
-                            options={projections.map((item) => {
+                            options={projections.map((projection) => {
                               return {
-                                key: item,
-                                value: item,
-                                text: item,
+                                key: projection,
+                                value: projection,
+                                text: projection,
                               };
                             })}
                             onChange={(e, data) => {

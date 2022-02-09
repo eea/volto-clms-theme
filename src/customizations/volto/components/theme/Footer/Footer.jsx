@@ -3,28 +3,29 @@
  * @module components/theme/Footer/Footer
  */
 
-import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
 
-import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
+import React, { Component } from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
+
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
-import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
-import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
-import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
+import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
+import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
 import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
-import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
+import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
-import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
-import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
-import { defineMessages } from 'react-intl';
+import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
+import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
+import { Link } from 'react-router-dom';
+import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
 import { ReactSVG } from 'react-svg';
-import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
+import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
 import { Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
-import { subscribeTo } from '../../../../../actions';
-import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { subscribeTo } from '../../../../../actions';
+import { toast } from 'react-toastify';
 
 const messages = defineMessages({
   copernicusServices: {
@@ -61,7 +62,7 @@ const messages = defineMessages({
   },
   agreePrivacyPolicy: {
     id: 'agreePrivacyPolicy',
-    defaultMessage: 'I agree to the {link}',
+    defaultMessage: 'I agree to the ',
   },
   agreePrivacyPolicyLinkText: {
     id: 'agreePrivacyPolicyLinkText',
@@ -91,6 +92,18 @@ const messages = defineMessages({
     id: 'Success',
     defaultMessage: 'Success',
   },
+  agreePrivacyPolicyCheck: {
+    id: 'agreePrivacyPolicyCheck',
+    defaultMessage: 'You have to agree to the privacy policy',
+  },
+  errorMessage: {
+    id: 'An error has occured. Please try again',
+    defaultMessage: 'An error has occured. Please try again',
+  },
+  error: {
+    id: 'Error',
+    defaultMessage: 'Error',
+  },
 });
 
 /**
@@ -108,15 +121,26 @@ class Footer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       value: '',
+      inputValue: false,
+      lang: 'en',
     };
   }
 
   componentDidMount() {
     this.setState({
-      value: undefined,
+      value: '',
+      inputValue: false,
+      lang: this.props.intl.locale,
+    });
+  }
+
+  handleInputChange() {
+    this.setState({
+      inputValue: !this.state.inputValue,
     });
   }
 
@@ -140,9 +164,9 @@ class Footer extends Component {
    */
   onSubmit(event) {
     event.preventDefault();
-    if (this.state.value) {
+    if (this.state.inputValue === true && this.state.value) {
       this.props
-        .subscribeNewsletter(this.state.value)
+        .subscribeTo('newsletter', this.state.value)
         .then(() => {
           this.props.subscribe_loaded &&
             toast.success(
@@ -163,14 +187,22 @@ class Footer extends Component {
               />,
             );
         });
+    } else if (this.state.inputValue === false && this.state.value) {
+      toast.error(
+        <Toast
+          error
+          title={this.props.intl.formatMessage(messages.error)}
+          content={this.props.intl.formatMessage(
+            messages.agreePrivacyPolicyCheck,
+          )}
+        />,
+      );
     } else {
       this.emptyFieldErrorToast();
     }
   }
 
   render() {
-    // const intl = injectIntl();
-    // const lang = useSelector((state) => state.intl.locale);
     return (
       <footer className="ccl-footer">
         <div className="ccl-footer-main">
@@ -322,7 +354,8 @@ class Footer extends Component {
                       type="checkbox"
                       id="footer_privacy"
                       name="footerPrivacy"
-                      value=""
+                      value={this.state.inputValue}
+                      onClick={this.handleInputChange}
                       className="ccl-checkbox ccl-form-check-input"
                       required={true}
                     />
@@ -332,21 +365,12 @@ class Footer extends Component {
                     >
                       {this.props.intl.formatMessage(
                         messages.agreePrivacyPolicy,
-                        {
-                          link: (
-                            <a
-                              href={`/personal-data-protection`}
-                              target="_blank"
-                              rel="noreferrer"
-                              key="key-personal-data-protection"
-                            >
-                              {this.props.intl.formatMessage(
-                                messages.agreePrivacyPolicyLinkText,
-                              )}
-                            </a>
-                          ),
-                        },
                       )}
+                      <Link to={`/${this.state.lang}/personal-data-protection`}>
+                        {this.props.intl.formatMessage(
+                          messages.agreePrivacyPolicyLinkText,
+                        )}
+                      </Link>
                     </label>
                   </div>
                 </div>

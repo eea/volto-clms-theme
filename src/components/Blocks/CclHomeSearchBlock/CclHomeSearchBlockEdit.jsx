@@ -1,9 +1,10 @@
-import React from 'react';
-import { HomeSearchSchema } from './HomeSearchSchema';
-import { Link } from 'react-router-dom';
-import { SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { defineMessages, useIntl } from 'react-intl';
+
+import { HomeSearchSchema } from './HomeSearchSchema';
+import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import { Link } from 'react-router-dom';
+import React from 'react';
+import { SidebarPortal } from '@plone/volto/components';
 
 const messages = defineMessages({
   countText: {
@@ -25,7 +26,7 @@ function hasProtocol(url) {
   return false;
 }
 
-const CclSearchBlockEdit = (props) => {
+const CclHomeSearchBlockEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;
   const intl = useIntl();
   let url = data?.link?.[0]?.['@id'];
@@ -57,12 +58,10 @@ const CclSearchBlockEdit = (props) => {
             <span>
               {intl.formatMessage(messages.countText, { count: 999 })}
             </span>
-            {hasProtocol(url) ? (
-              <a href={url && url}>{data.linkText || 'Dataset catalogue'}</a>
+            {url && hasProtocol(url) ? (
+              <a href={url}>{data.linkText || 'Dataset catalogue'}</a>
             ) : (
-              <Link to={url && url}>
-                {data.linkText || 'Dataset catalogue'}
-              </Link>
+              <Link to={url}>{data.linkText || 'Dataset catalogue'}</Link>
             )}
           </div>
         </div>
@@ -83,4 +82,4 @@ const CclSearchBlockEdit = (props) => {
     </>
   );
 };
-export default CclSearchBlockEdit;
+export default CclHomeSearchBlockEdit;

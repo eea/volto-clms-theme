@@ -13,28 +13,22 @@ import React, { Component, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { BodyClass } from '@plone/volto/helpers';
-import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
+// IMPORT isnt nedded until translations are created
+// import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-// import { CART_SESSION_KEY } from '@eeacms/volto-clms-theme/utils/useCartState';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
-
-// import useCartState from '@eeacms/volto-clms-theme/utils/useCartState';
 
 const CartIconCounter = (props) => {
   const cart = useSelector((state) => state.cart_items.items);
   const intl = useSelector((state) => state.intl);
   const user_id = useSelector((state) => state.users.user.id);
-  // const { cart_items, users, intl } = useSelector((state) => state);
-
-  // const cart = cart_items.items || [];
-  // const user_id = users.user.id;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));
@@ -52,6 +46,43 @@ const CartIconCounter = (props) => {
     )
   );
 };
+
+const HeaderDropdown = ({ user }) => {
+  const intl = useSelector((state) => state.intl);
+  return (
+    <>
+      <span>
+        <FontAwesomeIcon
+          icon={['fas', 'user']}
+          style={{ marginRight: '0.5rem' }}
+        />
+        {user?.fullname || user?.id || ''}
+        <span className="ccl-icon-chevron-thin-down"></span>
+      </span>
+      <ul>
+        <li>
+          <Link to={`/${intl.locale}/profile`} className="header-login-link">
+            My settings
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={`/${intl.locale}/cart-downloads`}
+            className="header-login-link"
+          >
+            Downloads
+          </Link>
+        </li>
+        <li>
+          <Link to="/logout" className="header-login-link">
+            <FormattedMessage id="logout" defaultMessage="Logout" />
+          </Link>
+        </li>
+      </ul>
+    </>
+  );
+};
+
 /**
  * Header component class.
  * @class Header
@@ -136,7 +167,13 @@ class Header extends Component {
                 tabIndex="0"
                 role="button"
               >
-                <span className="ccl-icon-menu"></span>
+                <span
+                  className={
+                    this.state.mobileMenuOpen
+                      ? 'ccl-icon-close'
+                      : 'ccl-icon-menu'
+                  }
+                ></span>
               </div>
               <div
                 className="ccl-search-collapse-button"
@@ -165,44 +202,7 @@ class Header extends Component {
                   {(this.props.user?.id && (
                     <>
                       <li className="header-dropdown">
-                        <>
-                          <span>
-                            <FontAwesomeIcon
-                              icon={['fas', 'user']}
-                              style={{ marginRight: '0.5rem' }}
-                            />
-                            {this.props.user?.fullname ||
-                              this.props.user?.id ||
-                              ''}
-                            <span className="ccl-icon-chevron-thin-down"></span>
-                          </span>
-                          <ul>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/profile`}
-                                className="header-login-link"
-                              >
-                                My settings
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/cart-downloads`}
-                                className="header-login-link"
-                              >
-                                Downloads
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="/logout" className="header-login-link">
-                                <FormattedMessage
-                                  id="logout"
-                                  defaultMessage="Logout"
-                                />
-                              </Link>
-                            </li>
-                          </ul>
-                        </>
+                        <HeaderDropdown user={this.props.user} />
                       </li>
                       <li>
                         <CartIconCounter />
@@ -213,6 +213,9 @@ class Header extends Component {
                       <CclLoginModal />
                     </li>
                   )}
+                  <li className="header-vertical-line">
+                    <div>|</div>
+                  </li>
                 </ul>
                 <div
                   onMouseOut={(e) => {
@@ -229,7 +232,8 @@ class Header extends Component {
                 >
                   <SearchWidget pathname={this.props.pathname} />
                 </div>
-                <CclLanguageSelector />
+                {/* Language selector wont be shown until translations are completed */}
+                {/* <CclLanguageSelector /> */}
               </div>
             </div>
           </div>
@@ -252,36 +256,7 @@ class Header extends Component {
                   {(this.props.user.id && (
                     <>
                       <li className="header-dropdown">
-                        <>
-                          <span>
-                            <FontAwesomeIcon
-                              icon={['fas', 'user']}
-                              style={{ marginRight: '0.5rem' }}
-                            />
-                            {this.props.user.fullname ||
-                              this.props.user.id ||
-                              ''}
-                            <span className="ccl-icon-chevron-thin-down"></span>
-                          </span>
-                          <ul>
-                            <li>
-                              <Link
-                                to={`/${this.props.locale}/profile`}
-                                className="header-login-link"
-                              >
-                                {this.props.user.id && <>{'My settings'}</>}
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="/logout" className="header-login-link">
-                                <FormattedMessage
-                                  id="logout"
-                                  defaultMessage="Logout"
-                                />
-                              </Link>
-                            </li>
-                          </ul>
-                        </>
+                        <HeaderDropdown user={this.props.user} />
                       </li>
                       <li>
                         <CartIconCounter />
@@ -292,6 +267,9 @@ class Header extends Component {
                       <CclLoginModal />
                     </li>
                   )}
+                  <li className="header-vertical-line">
+                    <div>|</div>
+                  </li>
                 </ul>
               </nav>
             </div>

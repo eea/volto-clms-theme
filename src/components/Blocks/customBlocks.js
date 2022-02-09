@@ -1,4 +1,9 @@
 import {
+  AccordionFacet,
+  RightModalFacets,
+  WithType,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
+import {
   CclCarouselView,
   CclProductTabsView,
   CclTabsView,
@@ -39,26 +44,20 @@ import CclHomeSearchBlockView from '@eeacms/volto-clms-theme/components/Blocks/C
 import CclHomeUsersBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit';
 import CclHomeUsersBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockView';
 import CclMapMenu from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoArcgisBlock/CclMapMenu';
-import CclProductLeftMenuEdit from '@eeacms/volto-clms-theme/components/Blocks/CclProductLeftMenu/CclProductLeftMenuEdit';
-import CclProductLeftMenuView from '@eeacms/volto-clms-theme/components/Blocks/CclProductLeftMenu/CclProductLeftMenuView';
 import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingEdit';
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
-import RightModalFacets from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets';
-import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
-import AccordionCheckboxFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionCheckboxFacet';
-import AccordionLabelFacet from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/AccordionLabelFacet';
 import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/schema';
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
 import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
 import cardSVG from '@plone/volto/icons/indent.svg';
 import containerSVG from '@plone/volto/icons/apps.svg';
+import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import homeBand from '@plone/volto/icons/image-wide.svg';
-import leftMenuSVG from '@plone/volto/icons/nav.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
@@ -72,6 +71,53 @@ export const customGroupBlocksOrder = [
     id: 'ccl_home_specific',
     title: 'Home Specific',
   },
+];
+
+function listingVariation(id, isDefault, title, template, isWO = false) {
+  return {
+    id: id,
+    isDefault: isDefault,
+    title: title,
+    template: VariationHOC(
+      isWO ? CclListingWorkOpportunities : CclListingCards,
+      template,
+    ),
+    fullobjects: true,
+  };
+}
+
+const availableVariations = [
+  listingVariation('CclCardsdoc', true, 'Line list', 'doc'),
+  listingVariation('CclCardsline', false, 'Line list with Image', 'line'),
+  listingVariation(
+    'CclCardsline-color',
+    false,
+    'Colored Line list with Image',
+    'line-color',
+  ),
+  listingVariation('CclCardsblock', false, '2 Column Cards list', 'block'),
+  listingVariation(
+    'CclCardsthreeColumns',
+    false,
+    '3 Column Cards list',
+    'threeColumns',
+  ),
+  listingVariation('CclCardsnews', false, 'News Line list', 'news'),
+  listingVariation('CclCardsevent', false, 'Events Line list', 'event'),
+  listingVariation(
+    'CclWOOpenTenders',
+    false,
+    'Open Work Opportunities',
+    'OpenTenders',
+    true,
+  ),
+  listingVariation(
+    'CclWOCloseTenders',
+    false,
+    'Closed Work Opportunities',
+    'CloseTenders',
+    true,
+  ),
 ];
 
 const customBlocks = (config) => ({
@@ -140,71 +186,7 @@ const customBlocks = (config) => ({
   listing: {
     ...config.blocks.blocksConfig.listing,
     showLinkMore: true,
-    variations: [
-      {
-        id: 'CclCardsdoc',
-        isDefault: true,
-        title: 'Line list',
-        template: VariationHOC(CclListingCards, 'doc'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline',
-        isDefault: false,
-        title: 'Line list with Image',
-        template: VariationHOC(CclListingCards, 'line'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline-color',
-        isDefault: false,
-        title: 'Colored Line list with Image',
-        template: VariationHOC(CclListingCards, 'line-color'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsblock',
-        isDefault: false,
-        title: '2 Column Cards list',
-        template: VariationHOC(CclListingCards, 'block'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsthreeColumns',
-        isDefault: false,
-        title: '3 Column Cards list',
-        template: VariationHOC(CclListingCards, 'threeColumns'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsnews',
-        isDefault: false,
-        title: 'News Line list',
-        template: VariationHOC(CclListingCards, 'news'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsevent',
-        isDefault: false,
-        title: 'Events Line list',
-        template: VariationHOC(CclListingCards, 'event'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOOpenTenders',
-        isDefault: false,
-        title: 'Open Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOCloseTenders',
-        isDefault: false,
-        title: 'Closed Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
-        fullobjects: true,
-      },
-    ],
+    variations: availableVariations,
   },
   accordion: {
     ...config.blocks.blocksConfig.accordion,
@@ -237,22 +219,6 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclButtonBlockView, // The view mode component
     edit: CclButtonBlockEdit, // The edit mode component
-    restricted: false, // If the block is restricted, it won't show in the chooser
-    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
-    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
-    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
-    security: {
-      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
-      view: [], // Future proof (not implemented yet) view user role(s)
-    },
-  },
-  productLeftMenu: {
-    id: 'productLeftMenu', // The name (id) of the block
-    title: 'Product Left Menu', // The display name of the block
-    icon: leftMenuSVG, // The icon used in the block chooser
-    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
-    view: CclProductLeftMenuView, // The view mode component
-    edit: CclProductLeftMenuEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
@@ -295,71 +261,7 @@ const customBlocks = (config) => ({
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
     },
-    variations: [
-      {
-        id: 'CclCardsdoc',
-        isDefault: true,
-        title: 'Line list',
-        template: VariationHOC(CclListingCards, 'doc'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline',
-        isDefault: false,
-        title: 'Line list with Image',
-        template: VariationHOC(CclListingCards, 'line'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsline-color',
-        isDefault: false,
-        title: 'Colored Line list with Image',
-        template: VariationHOC(CclListingCards, 'line-color'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsblock',
-        isDefault: false,
-        title: '2 Column Cards list',
-        template: VariationHOC(CclListingCards, 'block'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsthreeColumns',
-        isDefault: false,
-        title: '3 Column Cards list',
-        template: VariationHOC(CclListingCards, 'threeColumns'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsnews',
-        isDefault: false,
-        title: 'News Line list',
-        template: VariationHOC(CclListingCards, 'news'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclCardsevent',
-        isDefault: false,
-        title: 'Events Line list',
-        template: VariationHOC(CclListingCards, 'event'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOOpenTenders',
-        isDefault: false,
-        title: 'Open Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'OpenTenders'),
-        fullobjects: true,
-      },
-      {
-        id: 'CclWOCloseTenders',
-        isDefault: false,
-        title: 'Closed Work Opportunities',
-        template: VariationHOC(CclListingWorkOpportunities, 'CloseTenders'),
-        fullobjects: true,
-      },
-    ],
+    variations: availableVariations,
   },
   cardContainer: {
     id: 'cardContainer', // The name (id) of the block
@@ -412,13 +314,13 @@ const customBlocks = (config) => ({
           {
             id: 'accordionCheckboxFacet',
             title: 'Accordion Checkbox',
-            view: AccordionCheckboxFacet,
+            view: WithType(AccordionFacet, 'checkbox'),
             isDefault: true,
           },
           {
             id: 'accordionLabelFacet',
             title: 'Accordion Label',
-            view: AccordionLabelFacet,
+            view: WithType(AccordionFacet, 'label'),
             isDefault: false,
           },
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,

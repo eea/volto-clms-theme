@@ -9,13 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import FileCard from './FileCard';
 import { FormattedMessage } from 'react-intl';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Grid } from 'semantic-ui-react';
 
-const CLMSDownloadTask = (props) => {
+const CLMSDownloadTasks = (props) => {
   const dispatch = useDispatch();
   const [taskInProgress, setTaskInProgress] = useState([]);
-  // const [cancelledTasks, setCancelledTasks] = useState([]);
   const [finishedOKTasks, setFinishedOKTasks] = useState([]);
   const [finishedNOKTasks, setFinishedNOKTasks] = useState([]);
   const [rejectedTasks, setRejectedTasks] = useState([]);
@@ -32,7 +30,6 @@ const CLMSDownloadTask = (props) => {
 
   useEffect(() => {
     setTaskInProgress(downloadtool.download_in_progress);
-    // setCancelledTasks(downloadtool.download_cancelled);
     setFinishedOKTasks(downloadtool.download_finished_ok);
     setFinishedNOKTasks(downloadtool.download_finished_nok);
     setRejectedTasks(downloadtool.download_rejected);
@@ -58,12 +55,30 @@ const CLMSDownloadTask = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nutsnames]);
 
+  const MapTasks = (mapProps) => {
+    const { tasks, showDel, delTask } = mapProps;
+    return (
+      <Grid columns={2}>
+        {tasks?.length > 0 &&
+          tasks.map((item, key) => (
+            <Grid.Column key={key}>
+              <FileCard
+                item={item}
+                showDeleteTaskLoading={showDel}
+                deleteTaskInProgress={delTask}
+              />
+            </Grid.Column>
+          ))}
+      </Grid>
+    );
+  };
+
   function addDatasetName(data, setter) {
     let intermediate = [...data];
     intermediate.forEach((task) => {
       task.Datasets.forEach((dataset) => {
         const requestedItem = datasets.find(
-          (requestedItem) => requestedItem.UID === dataset.DatasetID,
+          (req) => req.UID === dataset.DatasetID,
         );
         if (requestedItem) {
           dataset.name = requestedItem.title;
@@ -101,18 +116,11 @@ const CLMSDownloadTask = (props) => {
           <FormattedMessage id="In progress" defaultMessage="In progress" />
         </h2>
         {taskInProgress?.length !== 0 ? (
-          <Grid columns={2}>
-            {taskInProgress?.length > 0 &&
-              taskInProgress.map((item, key) => (
-                <Grid.Column key={key}>
-                  <FileCard
-                    item={item}
-                    showDeleteTaskLoading={showDeleteTaskLoading}
-                    deleteTaskInProgress={deleteTaskInProgress}
-                  />
-                </Grid.Column>
-              ))}
-          </Grid>
+          <MapTasks
+            tasks={taskInProgress}
+            showDel={showDeleteTaskLoading}
+            delTask={deleteTaskInProgress}
+          />
         ) : (
           <p>
             <FormattedMessage
@@ -121,35 +129,17 @@ const CLMSDownloadTask = (props) => {
             />
           </p>
         )}
-        {/* <h2>Cancelled Tasks</h2>
-        {cancelledTasks?.length > 0 &&
-          cancelledTasks.map((item, key) => (
-            <FileCard
-              item={item}
-              key={key}
-              showDeleteTaskLoading={showDeleteTaskLoading}
-              deleteTaskInProgress={deleteTaskInProgress}
-            />
-          ))} */}
       </Grid.Column>
       <Grid.Column>
         <h2>
           <FormattedMessage id="Completed" defaultMessage="Completed" />
         </h2>
         {finishedOKTasks?.length !== 0 ? (
-          <Grid columns={2}>
-            {finishedOKTasks?.length > 0 &&
-              finishedOKTasks.map((item, key) => (
-                <Grid.Column key={key}>
-                  <FileCard
-                    item={item}
-                    key={key}
-                    showDeleteTaskLoading={showDeleteTaskLoading}
-                    deleteTaskInProgress={deleteTaskInProgress}
-                  />
-                </Grid.Column>
-              ))}
-          </Grid>
+          <MapTasks
+            tasks={finishedOKTasks}
+            showDel={showDeleteTaskLoading}
+            delTask={deleteTaskInProgress}
+          />
         ) : (
           <p>
             <FormattedMessage
@@ -167,19 +157,11 @@ const CLMSDownloadTask = (props) => {
           />
         </h2>
         {finishedNOKTasks?.length !== 0 ? (
-          <Grid columns={1}>
-            {finishedNOKTasks?.length > 0 &&
-              finishedNOKTasks.map((item, key) => (
-                <Grid.Column key={key}>
-                  <FileCard
-                    item={item}
-                    key={key}
-                    showDeleteTaskLoading={showDeleteTaskLoading}
-                    deleteTaskInProgress={deleteTaskInProgress}
-                  />
-                </Grid.Column>
-              ))}
-          </Grid>
+          <MapTasks
+            tasks={finishedNOKTasks}
+            showDel={showDeleteTaskLoading}
+            delTask={deleteTaskInProgress}
+          />
         ) : (
           <p>
             <FormattedMessage
@@ -194,19 +176,11 @@ const CLMSDownloadTask = (props) => {
           <FormattedMessage id="Rejected" defaultMessage="Rejected" />
         </h2>
         {rejectedTasks?.length !== 0 ? (
-          <Grid columns={1}>
-            {rejectedTasks?.length > 0 &&
-              rejectedTasks.map((item, key) => (
-                <Grid.Column key={key}>
-                  <FileCard
-                    item={item}
-                    key={key}
-                    showDeleteTaskLoading={showDeleteTaskLoading}
-                    deleteTaskInProgress={deleteTaskInProgress}
-                  />
-                </Grid.Column>
-              ))}
-          </Grid>
+          <MapTasks
+            tasks={rejectedTasks}
+            showDel={showDeleteTaskLoading}
+            delTask={deleteTaskInProgress}
+          />
         ) : (
           <p>
             <FormattedMessage
@@ -219,4 +193,4 @@ const CLMSDownloadTask = (props) => {
     </Grid>
   );
 };
-export default CLMSDownloadTask;
+export default CLMSDownloadTasks;

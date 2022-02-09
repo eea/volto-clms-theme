@@ -15,7 +15,6 @@ import alertSVG from '@plone/volto/icons/alert.svg';
 import errorSVG from '@plone/volto/icons/error.svg';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import packSVG from '@plone/volto/icons/pack.svg';
-// import cancelledSVG from '@plone/volto/icons/spam.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
 
 const prettyBytes = require('pretty-bytes');
@@ -78,20 +77,6 @@ const FileCard = (props) => {
                 trigger={<Loader active inline indeterminate size="medium" />}
               />
             )}
-            {/* {item?.Status === 'Cancelled' && (
-              <Popup
-                content="Cancelled"
-                size="small"
-                trigger={
-                  <Icon
-                    name={cancelledSVG}
-                    size={45}
-                    color="#e40166"
-                    title={'Cancelled'}
-                  />
-                }
-              />
-            )} */}
             {item?.Status === 'Finished_ok' && (
               <Popup
                 content="Finished correctly"
@@ -179,7 +164,7 @@ const FileCard = (props) => {
               </ul>
             )}
             {item?.Status === 'Finished_ok' && 10 - daysDiff > -1 && (
-              <Segment basic>
+              <Segment basic className="file-download">
                 {item?.DownloadURL && (
                   <a href={item.DownloadURL} target="_blank" rel="noreferrer">
                     {formatMessage(messages.Download)}

@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
-
-import { SidebarPortal } from '@plone/volto/components'; // BlocksForm, Icon,
-import { CardContainerSchema, CardBlockSchema } from './CardContainerSchema';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-
-import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-
 import './styles.less';
 
+import { CardBlockSchema, CardContainerSchema } from './CardContainerSchema';
+import React, { useState } from 'react';
+import { emptyCard, getPanels } from '../utils';
+
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
+import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import { SidebarPortal } from '@plone/volto/components'; // BlocksForm, Icon,
 import { compose } from 'redux';
-import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
 import { injectIntl } from 'react-intl';
-
-import { useSelector } from 'react-redux';
-
 import { isEmpty } from 'lodash';
-import { emptyCard, getPanels } from './utils';
+import { useSelector } from 'react-redux';
+import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
 
 const CclCardContainerBlockEdit = (props) => {
   const { block, data, onChangeBlock, selected } = props;

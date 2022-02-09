@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { UseCaseListSchema } from './UseCaseListSchema';
-import { SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
-import getProductGroups from './utils';
 import { defineMessages, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+
+import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
+import { SidebarPortal } from '@plone/volto/components';
+import { UseCaseListSchema } from './UseCaseListSchema';
+import { getProductGroups } from './utils';
+import { searchContent } from '@plone/volto/actions';
 
 const messages = defineMessages({
   xUseCases: {
@@ -44,6 +45,12 @@ const CclUseCaseListEdit = (props) => {
   }, [path, data, id, dispatch]);
   let productGroups = getProductGroups(useCases);
   const [expanded, setExpanded] = useState('product-token-here');
+
+  function handleTitle(expandedT, productTokenT, setExpandedT) {
+    expandedT === productTokenT
+      ? setExpandedT('')
+      : setExpandedT(productTokenT);
+  }
   return (
     <>
       <div className="ccl-container">
@@ -64,14 +71,10 @@ const CclUseCaseListEdit = (props) => {
                   className="ccl-expandable__button"
                   aria-expanded={expanded === productToken}
                   onClick={() => {
-                    expanded === productToken
-                      ? setExpanded('')
-                      : setExpanded(productToken);
+                    handleTitle(expanded, productToken, setExpanded);
                   }}
                   onKeyDown={() => {
-                    expanded === productToken
-                      ? setExpanded('')
-                      : setExpanded(productToken);
+                    handleTitle(expanded, productToken, setExpanded);
                   }}
                   role="button"
                   tabIndex="0"
@@ -111,10 +114,10 @@ const CclUseCaseListEdit = (props) => {
         <InlineForm
           schema={UseCaseListSchema()}
           title="UseCase List block"
-          onChangeField={(id, value) => {
+          onChangeField={(idCase, value) => {
             onChangeBlock(block, {
               ...data,
-              [id]: value,
+              [idCase]: value,
             });
           }}
           formData={data}

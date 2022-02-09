@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CclLanguageSelector Renders Multilingual 1`] = `
+Array [
+  <div
+    className="ccl-header-lang"
+  >
+    <div
+      className="header-lang-icon"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <i
+        className="ccl-icon-language"
+      />
+      <span
+        className="header-lang-code"
+      >
+        EN
+      </span>
+    </div>
+    <div
+      className="header-lang-text"
+    >
+      <span
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        English
+      </span>
+    </div>
+  </div>,
+  ",",
+]
+`;
+
+exports[`CclLanguageSelector Renders no multilingual 1`] = `","`;

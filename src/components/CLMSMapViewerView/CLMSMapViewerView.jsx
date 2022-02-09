@@ -3,14 +3,14 @@
  * @module components/CLMSMapViewView/CLMSMapViewView
  */
 
+import { Helmet, getBaseUrl } from '@plone/volto/helpers';
 import React, { useEffect } from 'react';
-import { Helmet } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
+
 import { MapViewer } from '@eeacms/volto-arcgis-block/components';
 import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
-import { useDispatch } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
-import { getBaseUrl } from '@plone/volto/helpers';
+import { useDispatch } from 'react-redux';
 const CLMSMapViewerView = (props) => {
   const dispatch = useDispatch();
 
