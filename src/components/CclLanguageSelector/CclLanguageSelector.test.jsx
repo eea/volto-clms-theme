@@ -1,16 +1,15 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-intl-redux';
-import { MemoryRouter } from 'react-router-dom';
-import config from '@plone/volto/registry';
+import Enzyme, { mount } from 'enzyme';
 
-import CclLanguageSelector from './CclLanguageSelector';
-
-import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import CclLanguageSelector from './CclLanguageSelector';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-intl-redux';
+import React from 'react';
+import config from '@plone/volto/registry';
+import configureStore from 'redux-mock-store';
+import renderer from 'react-test-renderer';
+
 // import { shallow } from 'enzyme';
-import { mount } from 'enzyme';
 
 Enzyme.configure({ adapter: new Adapter() });
 

@@ -1,11 +1,11 @@
+import Enzyme, { mount } from 'enzyme';
+
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import CclTab from './CclTab';
+import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
 
-import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { mount } from 'enzyme';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('CclTab', () => {

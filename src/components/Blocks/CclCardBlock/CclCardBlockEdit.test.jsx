@@ -1,15 +1,14 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-intl-redux';
-import { MemoryRouter } from 'react-router-dom';
+import Enzyme, { mount } from 'enzyme';
 
-import CclCardBlockEdit from './CclCardBlockEdit';
-
-import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import CclCardBlockEdit from './CclCardBlockEdit';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-intl-redux';
+import React from 'react';
+import configureStore from 'redux-mock-store';
+import renderer from 'react-test-renderer';
+
 // import { shallow } from 'enzyme';
-import { mount } from 'enzyme';
 
 Enzyme.configure({ adapter: new Adapter() });
 

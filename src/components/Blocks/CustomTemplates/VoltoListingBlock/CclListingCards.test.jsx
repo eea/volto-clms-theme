@@ -1,12 +1,12 @@
-import CclListingCards from './CclListingCards';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import Enzyme, { mount } from 'enzyme';
 
-import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import configureStore from 'redux-mock-store';
+import CclListingCards from './CclListingCards';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-intl-redux';
-import { mount } from 'enzyme';
+import React from 'react';
+import configureStore from 'redux-mock-store';
+
 Enzyme.configure({ adapter: new Adapter() });
 
 const mockStore = configureStore();
