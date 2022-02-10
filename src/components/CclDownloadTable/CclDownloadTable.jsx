@@ -117,16 +117,22 @@ function CclDownloadTable(props) {
         contact us.
       </p>
       <p>{dataset?.description || 'Download table default description'}</p>
-      <div className="search-input">
-        <Input
-          id={`${props.id}-searchtext`}
-          placeholder={'Filter by Resolution'}
-          fluid
-          onChange={(event, { value }) => {
-            setFilterText(value);
-          }}
-        />
-      </div>
+      {prePackagedCollection.length > 10 && (
+        <div className="block search">
+          <div className="search-wrapper">
+            <div className="search-input">
+              <Input
+                id={`${props.id}-searchtext`}
+                placeholder={'Filter by Resolution'}
+                fluid
+                onChange={(event, { value }) => {
+                  setFilterText(value);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="custom-table dataset-table">
         <table>
           <thead>
@@ -193,29 +199,31 @@ function CclDownloadTable(props) {
               : false}
           </tbody>
         </table>
-        <div className="pagination-wrapper">
-          <Pagination
-            activePage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(e, { activePage }) => {
-              onPaginationChange(e, { activePage });
-            }}
-            firstItem={null}
-            lastItem={null}
-            prevItem={{
-              content: <Icon name={paginationLeftSVG} size="18px" />,
-              icon: true,
-              'aria-disabled': currentPage === 1,
-              className: currentPage === 1 ? 'disabled' : null,
-            }}
-            nextItem={{
-              content: <Icon name={paginationRightSVG} size="18px" />,
-              icon: true,
-              'aria-disabled': currentPage === totalPages,
-              className: currentPage === totalPages ? 'disabled' : null,
-            }}
-          ></Pagination>
-        </div>
+        {totalPages > 1 && (
+          <div className="pagination-wrapper">
+            <Pagination
+              activePage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(e, { activePage }) => {
+                onPaginationChange(e, { activePage });
+              }}
+              firstItem={null}
+              lastItem={null}
+              prevItem={{
+                content: <Icon name={paginationLeftSVG} size="18px" />,
+                icon: true,
+                'aria-disabled': currentPage === 1,
+                className: currentPage === 1 ? 'disabled' : null,
+              }}
+              nextItem={{
+                content: <Icon name={paginationRightSVG} size="18px" />,
+                icon: true,
+                'aria-disabled': currentPage === totalPages,
+                className: currentPage === totalPages ? 'disabled' : null,
+              }}
+            ></Pagination>
+          </div>
+        )}
       </div>
 
       <CclButton
