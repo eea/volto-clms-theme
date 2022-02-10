@@ -53,7 +53,8 @@ function CclDownloadTable(props) {
       setFilteredItems(prePackagedCollection);
       setTotalPages(Math.ceil(prePackagedCollection.length / 10));
     }
-  }, [filterText, prePackagedCollection]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterText]);
 
   const onPaginationChange = (e, { activePage }) => {
     setCurrentPage(activePage);
