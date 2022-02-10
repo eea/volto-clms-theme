@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
  * Tabs component documentation.
  * @function CclTabs
  * @param {Node} children Content object.
- * @example <CclTabs>
+ * @example <CclTabs routing={true}>
         <div tabTitle="Dataset Info">Tab content 1</div>
         <div tabTitle="Metadata">Tab content 2</div>
-        <div tabTitle="Download dataset">Tab content 3</div>
+        <div tabTitle="Download dataset" redirect="some-href-link">Tab content 3</div>
 
         <div underPanel={true}>
           // Any content under tabs
@@ -32,15 +32,12 @@ const CclTabs = (props) => {
   }
   React.useEffect(() => {
     const hash = window.location.hash.substring(1) || '';
+    const firstTab = children.filter((item) => !!item.props?.tabTitle)[0];
     if (routing) {
       if (hash) {
         setActiveTab(hash);
       } else {
-        setActiveTab(
-          children
-            .filter((item) => !!item.props?.tabTitle)[0]
-            .props?.tabTitle?.replace(' ', ''),
-        );
+        setActiveTab(firstTab.props?.tabTitle?.replace(' ', ''));
       }
     }
   }, [children, routing]);
@@ -53,15 +50,17 @@ const CclTabs = (props) => {
             .flat()
             .filter((item) => !!item?.props?.tabTitle)
             .map((child, key) => {
-              const { tabTitle } = child.props;
+              const { tabTitle, redirect } = child.props;
+              const tabId = tabTitle?.replace(' ', '');
               return (
                 <CclTab
                   activeTab={activeTab}
                   key={key}
                   routing={routing}
-                  tabId={tabTitle?.replace(' ', '')}
+                  tabId={tabId}
                   tabTitle={tabTitle}
                   onClick={onClickTabItem}
+                  redirect={redirect}
                 />
               );
             })}

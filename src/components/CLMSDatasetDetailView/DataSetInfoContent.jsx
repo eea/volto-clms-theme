@@ -13,30 +13,35 @@ import { searchContent } from '@plone/volto/actions';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
-  const { UID, id } = props;
-  const path = props['@id'];
+  const {
+    UID,
+    id,
+    validation,
+    dataResourceAbstract,
+    data,
+    geonetwork_identifiers,
+  } = props;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
-
   React.useEffect(() => {
-    dispatch(
-      searchContent(
-        path,
-        {
-          fullobjects: 1,
-          portal_type: 'TechnicalLibrary',
-          path: '/',
-          associated_datasets: UID,
-        },
-        id,
-      ),
-    );
-  }, [path, id, UID, dispatch]);
+    UID &&
+      dispatch(
+        searchContent(
+          '',
+          {
+            fullobjects: 1,
+            portal_type: 'TechnicalLibrary',
+            path: '/',
+            associated_datasets: UID,
+          },
+          id,
+        ),
+      );
+  }, [id, UID, dispatch]);
 
-  const [activeIndex, setActiveIndex] = React.useState([0]);
+  const [activeIndex, setActiveIndex] = React.useState([99]);
 
-  const handleClick = (e, itemProps) => {
-    const { index } = itemProps;
+  const handleClick = ({ index }) => {
     const newIndex =
       activeIndex.indexOf(index) === -1
         ? [...activeIndex, index]
@@ -46,89 +51,136 @@ const DataSetInfoContent = (props) => {
   };
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
-  const isExclusive = (index) => {
-    return activeIndex.includes(index);
+  const renderAccordion = (gn, lib) => {
+    return gn?.length > 0 || lib?.length > 0;
   };
 
-  function iconName(iProps, iTitleIcons) {
-    return iProps?.data?.right_arrows
+  function iconName(iconData, iTitleIcons) {
+    return iconData?.right_arrows
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
   }
 
   return (
     <div>
-      {props?.validation?.data && (
+      {validation?.data && validation?.data !== '<p><br/></p>' && (
         <CclCitation
           title="Validation status"
           marginBottom={true}
-          children={<StringToHTML string={props.validation.data} />}
+          children={<StringToHTML string={validation.data} />}
         ></CclCitation>
       )}
       <CclInfoContainer>
-        <h2>General Info</h2>
-
-        {props?.dataResourceAbstract?.data && (
-          <CclInfoDescription
-            title="Data resource title"
-            description={props.dataResourceTitle}
-            tooltip="Name by which the cited resource is known"
-          ></CclInfoDescription>
-        )}
-
-        {props?.dataResourceAbstract?.data && (
+        {dataResourceAbstract?.data && (
           <CclInfoDescription
             title="Data resource abstract"
-            description={
-              <StringToHTML string={props.dataResourceAbstract.data} />
-            }
+            description={<StringToHTML string={dataResourceAbstract.data} />}
             tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
           ></CclInfoDescription>
         )}
-
-        {props?.dataSources?.data && (
-          <CclInfoDescription
-            title="Resource type"
-            description={<StringToHTML string={props.dataSources.data} />}
-            tooltip="Scope to which metadata applies."
-          ></CclInfoDescription>
-        )}
       </CclInfoContainer>
-      {libraries?.length > 0 && (
-        <div className="dataset-info-documents dropdown">
-          <div className="accordion-block">
-            <Accordion fluid styled>
-              <React.Fragment>
-                <Accordion.Title
-                  as={'h2'}
-                  onClick={handleClick}
-                  className={'accordion-title align-arrow-right'}
-                >
-                  {isExclusive() ? (
-                    <Icon
-                      name={iconName(props, titleIcons.opened)}
-                      size="24px"
-                    />
-                  ) : (
-                    <Icon
-                      name={iconName(props, titleIcons.closed)}
-                      size="24px"
-                    />
-                  )}
-                  <span>Technical documents</span>
-                </Accordion.Title>
-                <Accordion.Content active={isExclusive()}>
-                  <AnimateHeight animateOpacity duration={500} height={'auto'}>
-                    {libraries.map((item, index) => (
-                      <CclCard key={index} type="doc" card={item} />
-                    ))}
-                  </AnimateHeight>
-                </Accordion.Content>
-              </React.Fragment>
-            </Accordion>
-          </div>
+      <div className="dataset-info-documents dropdown">
+        <div className="accordion-block">
+          {renderAccordion(geonetwork_identifiers?.items, libraries) && (
+            <>
+              {geonetwork_identifiers?.items?.length > 0 && (
+                <Accordion fluid styled>
+                  <Accordion.Title
+                    as={'h2'}
+                    onClick={() => handleClick({ index: 0 })}
+                    className={'accordion-title align-arrow-right'}
+                  >
+                    {activeIndex.includes(0) ? (
+                      <Icon
+                        name={iconName(data, titleIcons.opened)}
+                        size="24px"
+                      />
+                    ) : (
+                      <Icon
+                        name={iconName(data, titleIcons.closed)}
+                        size="24px"
+                      />
+                    )}
+                    <span>Metadata</span>
+                  </Accordion.Title>
+                  <Accordion.Content active={activeIndex.includes(0)}>
+                    <AnimateHeight
+                      animateOpacity
+                      duration={500}
+                      height={'auto'}
+                    >
+                      <ul>
+                        {geonetwork_identifiers.items.map((geonetwork, key) => (
+                          <li key={key}>
+                            <strong>{geonetwork.title}</strong> -{' '}
+                            <a
+                              href={
+                                geonetwork.type === 'EEA'
+                                  ? `https://sdi.eea.europa.eu/catalogue/srv/api/records/${geonetwork.id}/formatters/xsl-view?output=pdf&language=eng&approved=true`
+                                  : `https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xsl-view?root=div&output=pdf`
+                              }
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              PDF
+                            </a>{' '}
+                            -{' '}
+                            <a
+                              href={
+                                geonetwork.type === 'EEA'
+                                  ? `https://sdi.eea.europa.eu/catalogue/srv/api/records/${geonetwork.id}/formatters/xml?approved=true`
+                                  : `https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xml?attachment=true`
+                              }
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              XML
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </AnimateHeight>
+                  </Accordion.Content>
+                </Accordion>
+              )}
+
+              {libraries?.length > 0 && (
+                <Accordion fluid styled>
+                  <Accordion.Title
+                    as={'h2'}
+                    onClick={() => handleClick({ index: 1 })}
+                    className={'accordion-title align-arrow-right'}
+                  >
+                    {activeIndex.includes(1) ? (
+                      <Icon
+                        name={iconName(data, titleIcons.opened)}
+                        size="24px"
+                      />
+                    ) : (
+                      <Icon
+                        name={iconName(data, titleIcons.closed)}
+                        size="24px"
+                      />
+                    )}
+                    <span>Technical documents</span>
+                  </Accordion.Title>
+                  <Accordion.Content active={activeIndex.includes(1)}>
+                    <AnimateHeight
+                      animateOpacity
+                      duration={500}
+                      height={'auto'}
+                    >
+                      {libraries.map((item, index) => (
+                        <CclCard key={index} type="doc" card={item} />
+                      ))}
+                    </AnimateHeight>
+                  </Accordion.Content>
+                </Accordion>
+              )}
+            </>
+          )}
         </div>
-      )}
+      </div>
 
       <CclCitation title="Dataset citation" marginBottom={true}>
         <p>
