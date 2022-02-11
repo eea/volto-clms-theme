@@ -191,6 +191,14 @@ const CLMSCartContent = (props) => {
     );
   };
 
+  const contentOrDash = (content) => {
+    return content || '-';
+  };
+
+  const formatNaming = (item) => {
+    return item?.format?.token || item?.format;
+  };
+
   return (
     <>
       {cartItems?.length !== 0 ? (
@@ -259,8 +267,8 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      <td>{item.name || '-'}</td>
-                      <td>{item.source || '-'}</td>
+                      <td>{contentOrDash(item.name)}</td>
+                      <td>{contentOrDash(item.source)}</td>
                       <td>
                         <AreaNaming item={item} />
                       </td>
@@ -268,17 +276,17 @@ const CLMSCartContent = (props) => {
                         <span
                           className={'tag tag-' + item?.type?.toLowerCase()}
                         >
-                          {item.type || '-'}
+                          {contentOrDash(item.type)}
                         </span>
                       </td>
                       <td className="table-td-format">
                         {!item.file_id ? (
                           <Select
                             placeholder="Select format"
-                            value={item.format?.token || item.format}
+                            value={formatNaming(item)}
                             options={getAvailableConversion(
                               formatConversionTable,
-                              item.format?.token || item.format,
+                              formatNaming(item),
                             )}
                             onChange={(e, data) => {
                               const objIndex = cartItems.findIndex(
@@ -289,7 +297,7 @@ const CLMSCartContent = (props) => {
                             }}
                           />
                         ) : (
-                          item.format?.token || item.format
+                          formatNaming(item)
                         )}
                       </td>
                       <td className="table-td-projections">
