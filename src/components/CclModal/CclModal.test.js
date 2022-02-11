@@ -1,10 +1,10 @@
-import CclModal from './CclModal';
-import renderer from 'react-test-renderer';
-import React from 'react';
+import Enzyme, { mount } from 'enzyme';
 
-import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { mount } from 'enzyme';
+import CclModal from './CclModal';
+import React from 'react';
+import renderer from 'react-test-renderer';
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('CclModal', () => {

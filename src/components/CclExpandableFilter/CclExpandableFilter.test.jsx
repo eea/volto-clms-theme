@@ -1,11 +1,10 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import Enzyme, { mount } from 'enzyme';
+
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import CclExpandableFilter from './CclExpandableFilter';
 import { MemoryRouter } from 'react-router-dom';
-
-import Enzyme from 'enzyme';
-import { mount } from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import React from 'react';
+import renderer from 'react-test-renderer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
