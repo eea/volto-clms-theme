@@ -32,7 +32,7 @@ const CclTabs = (props) => {
   }
   React.useEffect(() => {
     const hash = window.location.hash.substring(1) || '';
-    const firstTab = children.filter((item) => !!item.props?.tabTitle)[0];
+    const firstTab = children.filter((item) => !!item?.props?.tabTitle)[0];
     if (routing) {
       if (hash) {
         setActiveTab(hash);

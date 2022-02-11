@@ -175,6 +175,7 @@ function CclDownloadTable(props) {
                             checked={cartSelection.includes(
                               dataset_file.unique_id,
                             )}
+                            className="ccl-checkbox ccl-form-check-input"
                           />
                         </td>
                       )}
