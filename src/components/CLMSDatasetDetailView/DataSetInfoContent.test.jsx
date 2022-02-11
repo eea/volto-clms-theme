@@ -40,16 +40,18 @@ describe('DataSetInfoContent', () => {
       },
       dataResourceLocator: 'Resource locator',
       dataResourceTitle: 'example dataResourceTitle',
-    };
-    const props = {
-      '@id': '123',
-      data: data,
+      validation: {
+        title: 'example title',
+        description: 'example description',
+        tooltip: 'example tooltip',
+        data: 'Validation',
+      },
     };
     const datasetInfo = renderer
       .create(
         <Provider store={store}>
           <MemoryRouter>
-            <DataSetInfoContent props={props}>
+            <DataSetInfoContent props={data}>
               <p>Dataset info view test</p>
             </DataSetInfoContent>
           </MemoryRouter>

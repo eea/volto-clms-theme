@@ -4,7 +4,7 @@ import { GET_NEWSLETTER } from '../../actions';
 //jest test for newsletterSubscribersReducer
 describe('newsletterSubscribersReducer', () => {
   it('should return the initial state', () => {
-    expect(newsletterSubscribersReducer(undefined, {})).toEqual({
+    expect(newsletterSubscribersReducer(undefined)).toEqual({
       error: null,
       loaded: false,
       loading: false,

@@ -87,4 +87,38 @@ describe('CclButtonBlockEdit', () => {
     const json = component.toJSON();
     expect(json).toMatchSnapshot();
   });
+  //jest test for CclButtonBlockEdit onChangeBlock statement
+  it('CclButtonBlockEdit onChangeBlock', () => {
+    const store = mockStore({
+      content: {
+        create: {},
+        data: {},
+      },
+      intl: {
+        locale: 'en',
+        messages: {},
+      },
+    });
+    const data = {
+      href: ['https://www.google.com', 'https://www.google.com'],
+      disabled: true,
+    };
+    const component = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CclButtonBlockEdit
+            data={data}
+            selected={false}
+            block="1234"
+            onChangeBlock={() => {}}
+            onSelectBlock={() => {}}
+            onChangeField={() => {}}
+            setSidebarTab={() => {}}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+    const legend = component.find('.ccl-block-editor-header');
+    legend.simulate('click');
+  });
 });

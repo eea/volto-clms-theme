@@ -4,15 +4,11 @@ import { GET_EXTRA_BREADCRUMB_ITEMS } from '../../actions/extra_breadcrumbs/extr
 //jest test for extraBreadcrumbItemsReducer
 describe('extraBreadcrumbItemsReducer', () => {
   it('should return the initial state', () => {
-    const action = {
-      type: `${GET_EXTRA_BREADCRUMB_ITEMS}_SUCCESS`,
-      items: ['breadcrumb-item-1'],
-    };
-    expect(extraBreadcrumbItemsReducer(undefined, action)).toEqual({
-      loading: false,
-      loaded: true,
+    expect(extraBreadcrumbItemsReducer(undefined)).toEqual({
       error: null,
-      items: action.items,
+      items: [],
+      loaded: false,
+      loading: false,
     });
   });
   //jest test for extraBreadcrumbItemsReducer -success

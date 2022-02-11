@@ -8,7 +8,7 @@ import tokens from './tokens';
 //jest test for tokens
 describe('tokens reducer', () => {
   it('should return the initial state', () => {
-    expect(tokens(undefined, {})).toEqual({
+    expect(tokens(undefined)).toEqual({
       get: {
         error: null,
         items: [],
