@@ -4,7 +4,7 @@ import { registryReducer } from './registry';
 //jest test for registryReducer
 describe('registryReducer', () => {
   it('should return the initial state', () => {
-    expect(registryReducer(undefined, {})).toEqual({
+    expect(registryReducer(undefined)).toEqual({
       error: null,
       loaded: false,
       loading: false,

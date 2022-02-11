@@ -6,14 +6,13 @@
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
-  // MetadataContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-import { FormattedMessage } from 'react-intl';
 import { Modal, Segment } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'redux';
@@ -181,15 +180,19 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         )}
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
-        {/* borratzeko */}
-        {/* <div tabTitle="Metadata">{MetadataContent(content)}</div> */}
-        {/*  */}
-
-        {content?.downloadable_dataset ? (
-          <div tabTitle="Download">{DownloadDataSetContent(content)}</div>
-        ) : (
-          <div tabTitle=""></div>
-        )}
+        {content?.downloadable_dataset &&
+          content?.downloadable_files?.items?.length > 0 && (
+            <div tabTitle="Download">{DownloadDataSetContent(content)}</div>
+          )}
+        {content?.downloadable_dataset &&
+          content?.downloadable_files?.items?.length === 0 && (
+            <div
+              tabTitle="Download"
+              redirect={`${location.pathname}/download-by-area`}
+            >
+              {''}
+            </div>
+          )}
 
         <div underPanel={true}>
           <nav className="left-menu-detail">

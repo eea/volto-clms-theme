@@ -1,15 +1,14 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-intl-redux';
-import { MemoryRouter } from 'react-router-dom';
+import Enzyme, { mount } from 'enzyme';
 
-import CclButtonBlockEdit from './CclButtonBlockEdit';
-
-import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import CclButtonBlockEdit from './CclButtonBlockEdit';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-intl-redux';
+import React from 'react';
+import configureStore from 'redux-mock-store';
+import renderer from 'react-test-renderer';
+
 // import { shallow } from 'enzyme';
-import { mount } from 'enzyme';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -86,5 +85,39 @@ describe('CclButtonBlockEdit', () => {
 
     const json = component.toJSON();
     expect(json).toMatchSnapshot();
+  });
+  //jest test for CclButtonBlockEdit onChangeBlock statement
+  it('CclButtonBlockEdit onChangeBlock', () => {
+    const store = mockStore({
+      content: {
+        create: {},
+        data: {},
+      },
+      intl: {
+        locale: 'en',
+        messages: {},
+      },
+    });
+    const data = {
+      href: ['https://www.google.com', 'https://www.google.com'],
+      disabled: true,
+    };
+    const component = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CclButtonBlockEdit
+            data={data}
+            selected={false}
+            block="1234"
+            onChangeBlock={() => {}}
+            onSelectBlock={() => {}}
+            onChangeField={() => {}}
+            setSidebarTab={() => {}}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+    const legend = component.find('.ccl-block-editor-header');
+    legend.simulate('click');
   });
 });

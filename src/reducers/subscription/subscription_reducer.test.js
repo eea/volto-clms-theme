@@ -4,7 +4,7 @@ import { subscribeToReducer } from './subscription_reducer';
 //jest test for subscribeToReducer
 describe('subscribeToReducer', () => {
   it('should return the initial state', () => {
-    expect(subscribeToReducer(undefined, {})).toEqual({
+    expect(subscribeToReducer(undefined)).toEqual({
       error: null,
       loaded: false,
       loading: false,
@@ -39,7 +39,18 @@ describe('subscribeToReducer', () => {
       error: true,
       loaded: false,
       loading: false,
-      error_message: action.error?.response?.body?.error,
+      error_message: action.error?.response?.body?.error || '',
+    });
+  });
+  it('should handle POST_SUBSCRIBE_TO_FAIL without error message', () => {
+    const action = {
+      type: `${POST_SUBSCRIBE_TO}_FAIL`,
+    };
+    expect(subscribeToReducer({}, action)).toEqual({
+      error: true,
+      loaded: false,
+      loading: false,
+      error_message: action.error?.response?.body?.error || '',
     });
   });
   //jest test for subscribeToReducer -pending

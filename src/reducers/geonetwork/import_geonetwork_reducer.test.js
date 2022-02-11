@@ -4,7 +4,7 @@ import { POST_IMPORT_GEONETWORK } from '../../actions';
 //jest test for importGeonetworkReducer
 describe('importGeonetworkReducer', () => {
   it('should return the initial state', () => {
-    expect(importGeonetworkReducer(undefined, {})).toEqual({
+    expect(importGeonetworkReducer(undefined)).toEqual({
       error: null,
       loaded: false,
       loading: false,

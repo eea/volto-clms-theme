@@ -4,7 +4,7 @@ import { DATASETS_BY_UID } from '../../actions';
 //jest test for datasetsByUidReducer
 describe('datasetsByUidReducer', () => {
   it('should return the initial state', () => {
-    expect(datasetsByUidReducer(undefined, {})).toEqual({
+    expect(datasetsByUidReducer(undefined)).toEqual({
       error: null,
       loaded: false,
       loading: false,
@@ -13,14 +13,13 @@ describe('datasetsByUidReducer', () => {
   });
   //jest test for datasetsByUidReducer -pending
   it('should handle DATASETS_BY_UID_PENDING', () => {
-    expect(
-      datasetsByUidReducer(
-        {},
-        {
-          type: `${DATASETS_BY_UID}_PENDING`,
-        },
-      ),
-    ).toEqual({
+    const action = {
+      type: `${DATASETS_BY_UID}_PENDING`,
+      error: null,
+      loaded: false,
+      loading: true,
+    };
+    expect(datasetsByUidReducer({}, action)).toEqual({
       error: null,
       loaded: false,
       loading: true,
