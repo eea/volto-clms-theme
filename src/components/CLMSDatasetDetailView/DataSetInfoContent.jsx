@@ -1,7 +1,7 @@
+import { Accordion, Loader, Segment } from 'semantic-ui-react';
 import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Accordion } from 'semantic-ui-react';
 import AnimateHeight from 'react-animate-height';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
@@ -20,9 +20,11 @@ const DataSetInfoContent = (props) => {
     dataResourceAbstract,
     data,
     geonetwork_identifiers,
+    citation,
   } = props;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
+  let librariesPending = searchSubrequests?.[id]?.loading;
   React.useEffect(() => {
     UID &&
       dispatch(
@@ -82,7 +84,7 @@ const DataSetInfoContent = (props) => {
       <div className="dataset-info-documents dropdown">
         <div className="accordion-block">
           {renderAccordion(geonetwork_identifiers?.items, libraries) && (
-            <>
+            <Segment basic>
               {geonetwork_identifiers?.items?.length > 0 && (
                 <Accordion fluid styled>
                   <Accordion.Title
@@ -143,7 +145,7 @@ const DataSetInfoContent = (props) => {
                   </Accordion.Content>
                 </Accordion>
               )}
-
+              {librariesPending && <Loader active inline="centered" />}
               {libraries?.length > 0 && (
                 <Accordion fluid styled>
                   <Accordion.Title
@@ -177,17 +179,18 @@ const DataSetInfoContent = (props) => {
                   </Accordion.Content>
                 </Accordion>
               )}
-            </>
+            </Segment>
           )}
         </div>
       </div>
 
-      <CclCitation title="Dataset citation" marginBottom={true}>
-        <p>
-          © European Union, Copernicus Land Monitoring Service , European
-          Environment Agency (EEA)
-        </p>
-      </CclCitation>
+      {citation?.data && citation?.data !== '<p><br/></p>' && (
+        <CclCitation
+          title="Citation status"
+          marginBottom={true}
+          children={<StringToHTML string={citation?.data} />}
+        ></CclCitation>
+      )}
     </div>
   );
 };
