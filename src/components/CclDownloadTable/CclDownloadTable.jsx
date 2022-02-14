@@ -1,11 +1,18 @@
 import './download-table.less';
 
-import { Checkbox, Input, Pagination } from 'semantic-ui-react';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Pagination,
+  Segment,
+} from 'semantic-ui-react';
 import React, { useState } from 'react';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Icon } from '@plone/volto/components';
 import PropTypes from 'prop-types';
+import clearSVG from '@plone/volto/icons/clear.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
 import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
@@ -18,6 +25,7 @@ function CclDownloadTable(props) {
   const [cartSelection, setCartSelection] = useState([]);
   const [currentPageItems, setCurrentPageItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCheckboxStatus, setpageCheckboxStatus] = useState(0);
   const [filterText, setFilterText] = useState('');
   const [filteredItems, setFilteredItems] = useState('');
   const [totalPages, setTotalPages] = useState(
@@ -41,6 +49,11 @@ function CclDownloadTable(props) {
   }, []);
 
   React.useEffect(() => {
+    calcHeaderCheckboxStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartSelection, currentPage]);
+
+  React.useEffect(() => {
     let fItems = prePackagedCollection.filter((item) =>
       item.resolution.toLowerCase().includes(filterText.toLocaleLowerCase()),
     );
@@ -53,8 +66,23 @@ function CclDownloadTable(props) {
       setFilteredItems(prePackagedCollection);
       setTotalPages(Math.ceil(prePackagedCollection.length / 10));
     }
+    calcHeaderCheckboxStatus();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterText]);
+
+  const calcHeaderCheckboxStatus = () => {
+    const currentPageSelection = currentPageItems.filter((item) =>
+      cartSelection.includes(item.unique_id),
+    );
+    if (currentPageSelection.length === 10) {
+      setpageCheckboxStatus(2);
+    } else if (cartSelection.length > 0) {
+      setpageCheckboxStatus(1);
+    } else {
+      setpageCheckboxStatus(0);
+    }
+  };
 
   const onPaginationChange = (e, { activePage }) => {
     setCurrentPage(activePage);
@@ -105,6 +133,24 @@ function CclDownloadTable(props) {
     addCartItem(selectedCartItems);
   };
 
+  const clearSelection = () => {
+    setCartSelection([]);
+  };
+
+  const HeaderCheckbox = () => {
+    return pageCheckboxStatus === 1 ? (
+      <Checkbox
+        onChange={(e, data) => selectAllCart(data.checked)}
+        defaultIndeterminate
+      />
+    ) : (
+      <Checkbox
+        onChange={(e, data) => selectAllCart(data.checked)}
+        checked={pageCheckboxStatus === 2}
+      />
+    );
+  };
+
   return (
     <div className="dataset-download-table">
       <Toast message="Added to cart" time={5000}></Toast>
@@ -117,40 +163,40 @@ function CclDownloadTable(props) {
         contact us.
       </p>
       <p>{dataset?.description || 'Download table default description'}</p>
-      {prePackagedCollection.length > 10 && (
-        <div className="block search">
-          <div className="search-wrapper">
-            <div className="search-input">
-              <Input
-                id={`${props.id}-searchtext`}
-                placeholder={'Filter by Resolution'}
-                fluid
-                onChange={(event, { value }) => {
-                  setFilterText(value);
-                }}
-              />
+      <Segment basic>
+        {prePackagedCollection.length > 10 && (
+          <div className="block search">
+            <div className="search-wrapper">
+              <div className="search-input">
+                <Input
+                  id={`${props.id}-searchtext`}
+                  placeholder={'Filter by Resolution'}
+                  fluid
+                  onChange={(event, { value }) => {
+                    setFilterText(value);
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        <strong>{` ${cartSelection.length} selected file(s)`}</strong>
+        {cartSelection.length > 0 && (
+          <>
+            {' - '}
+            <Button basic color="olive" onClick={clearSelection}>
+              Clear selection <Icon name={clearSVG} size={20}></Icon>
+            </Button>
+          </>
+        )}
+      </Segment>
       <div className="custom-table dataset-table">
         <table>
           <thead>
             <tr>
               {isLoggedIn && (
                 <th>
-                  <Checkbox
-                    onChange={(e, data) => selectAllCart(data.checked)}
-                    checked={
-                      currentPageItems
-                        ? currentPageItems
-                            .map((item, key) => item.unique_id)
-                            .every(function (val) {
-                              return cartSelection.indexOf(val) !== -1;
-                            })
-                        : false
-                    }
-                  />
+                  <HeaderCheckbox />{' '}
                 </th>
               )}
               <th>Year</th>
