@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
 import { postImportGeonetwork } from '../../actions';
+import { postImportWMSLayers } from '../../actions';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -35,6 +36,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const geonetwork_importation = useSelector(
     (state) => state.geonetwork_importation,
   );
+  const wms_layers_importation = useSelector((state) => state.importWMSLayers);
   const user = useSelector((state) => state.users?.user);
   React.useEffect(() => {
     dispatch(getUser(token));
@@ -43,6 +45,11 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   function handleImport(id, type) {
     dispatch(postImportGeonetwork(location.pathname, id, type));
   }
+
+  function handleWMSImport() {
+    dispatch(postImportWMSLayers(location.pathname));
+  }
+
   const [open, setOpen] = React.useState({});
   const locale = useSelector((state) => state.intl.locale);
 
@@ -178,6 +185,102 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             })}
           </Segment.Group>
         )}
+
+      {user.roles && user.roles.includes('Manager') && (
+        <Segment.Group compact horizontal>
+          <Segment
+            padded={'very'}
+            color={'olive'}
+            key={'wms-layers-import'}
+            loading={wms_layers_importation.loading}
+            circular
+          >
+            <Modal
+              onClose={() => {
+                setOpen({ ...open, 'wms-layers-import': false });
+              }}
+              onOpen={() => {
+                setOpen({ ...open, 'wms-layers-import': true });
+              }}
+              open={open['wms-layers-import']}
+              trigger={
+                <CclButton>
+                  <FormattedMessage
+                    id="Import WMS Layers"
+                    defaultMessage="Import WMS Layers"
+                  />
+                </CclButton>
+              }
+              className={'modal-clms'}
+            >
+              <div className={'modal-clms-background'}>
+                <div className={'modal-clms-container'}>
+                  <div className={'modal-close modal-clms-close'}>
+                    <span
+                      className="ccl-icon-close"
+                      aria-label="Close"
+                      onClick={() => {
+                        setOpen({ ...open, 'wms-layers-import': false });
+                      }}
+                      onKeyDown={() => {
+                        setOpen({ ...open, 'wms-layers-import': false });
+                      }}
+                      tabIndex="0"
+                      role="button"
+                    ></span>
+                  </div>
+                  <div className="modal-login-text">
+                    <h1>
+                      <FormattedMessage
+                        id="Import WMS Layers"
+                        defaultMessage="Import WMS Layers"
+                      />
+                    </h1>
+                    This action will import the WMS Layers from the view service
+                    defined in the dataset or from GeoNetwork if the view
+                    service is not defined and a linked geonetwork record has a
+                    valid WMS service link
+                    <br />
+                    <br />
+                  </div>
+                  <CclButton
+                    onClick={() => {
+                      handleWMSImport();
+                      setOpen({ ...open, 'wms-layers-import': false });
+                    }}
+                    mode="filled"
+                  >
+                    <FormattedMessage
+                      id="Import data"
+                      defaultMessage="Import data"
+                    />
+                  </CclButton>
+                </div>
+              </div>
+            </Modal>
+            {wms_layers_importation.imported_wms_layers?.status && (
+              <p>
+                {wms_layers_importation.loaded &&
+                  wms_layers_importation.error === null && (
+                    <strong>
+                      {' '}
+                      {wms_layers_importation.imported_wms_layers?.message}
+                    </strong>
+                  )}
+              </p>
+            )}
+            {wms_layers_importation.imported_wms_layers?.status === 'error' && (
+              <p>
+                <strong>
+                  {' '}
+                  {wms_layers_importation.imported_wms_layers?.message}
+                </strong>
+              </p>
+            )}
+          </Segment>
+        </Segment.Group>
+      )}
+
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
         {content?.downloadable_dataset &&
