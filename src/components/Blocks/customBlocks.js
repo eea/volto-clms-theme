@@ -2,6 +2,7 @@ import {
   AccordionFacet,
   RightModalFacets,
   WithType,
+  DoubleRangeFacet,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
 import {
   CclCarouselView,
@@ -321,6 +322,12 @@ const customBlocks = (config) => ({
             id: 'accordionLabelFacet',
             title: 'Accordion Label',
             view: WithType(AccordionFacet, 'label'),
+            isDefault: false,
+          },
+          {
+            id: 'doubleRangeFacet',
+            title: 'Double Range',
+            view: DoubleRangeFacet,
             isDefault: false,
           },
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
