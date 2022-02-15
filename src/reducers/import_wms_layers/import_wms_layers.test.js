@@ -21,7 +21,7 @@ describe('importWMSLayersReducer', () => {
       error: null,
       loaded: true,
       loading: false,
-      imported_wms_layers: JSON.parse(action.result),
+      imported_wms_layers: action.result,
     });
   });
   //jest test for importWMSLayersReducer -fail
