@@ -404,7 +404,7 @@
   .map-menu-dataset > div:first-of-type {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .map-menu-layers-container {
@@ -548,6 +548,15 @@
     box-shadow: none !important;
   }
 
+  /* Info widget */
+  .info-table tr:nth-child(even) {
+    background-color: #a0b1280f;
+  }
+  
+  .info-table tr:nth-child(odd) {
+    background-color: #a0b12833;
+  }
+
   /* Login */
   .map-login-block {
     display: none;
@@ -562,6 +571,7 @@
     margin: 1rem;
   }
 
+  /* Time slider */
   .esri-time-slider__time-extent-group > * {
     color: #273b4b;
   }
