@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
+import { Label } from 'semantic-ui-react';
+import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 
 function bytesToSize(bytes) {
   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -16,17 +18,33 @@ function bytesToSize(bytes) {
 }
 function CclCard(props) {
   const { type, children, card } = props;
-  let url = card ? card['@id'] || card.hrerf || '/' : '/';
+  let url = '/';
+  let content_type = '';
+  if (card) {
+    url = card['@id'] || card.hrerf || '/';
+    content_type = portal_types_labels[card['@type']] || card['@type'];
+  }
+  const conditional_types = [
+    'doc',
+    'news',
+    'event',
+    'block',
+    'threeColumns',
+    'globalSearch',
+  ];
   return (
-    <div className={'card-' + (type || 'line')}>
-      {type === 'doc' ||
-      type === 'news' ||
-      type === 'event' ||
-      type === 'block' ||
-      type === 'threeColumns' ? (
+    <div
+      className={'card-' + (type === 'globalSearch' ? 'doc' : type || 'line')}
+    >
+      {conditional_types.includes(type) ? (
         <>
-          {type === 'doc' && (
+          {(type === 'doc' || type === 'globalSearch') && (
             <>
+              {type === 'globalSearch' && (
+                <Label ribbon="right" color="olive">
+                  {content_type}
+                </Label>
+              )}
               <div className="card-doc-title">
                 <Link to={url}>{card?.title || 'Card default title'}</Link>
               </div>

@@ -3,6 +3,7 @@ import {
   RightModalFacets,
   WithType,
   DoubleRangeFacet,
+  rewriteOptions,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
 import {
   CclCarouselView,
@@ -119,6 +120,7 @@ const availableVariations = [
     'CloseTenders',
     true,
   ),
+  listingVariation('CclGlobalSearch', false, 'Global search', 'globalSearch'),
 ];
 
 const customBlocks = (config) => ({
@@ -311,6 +313,9 @@ const customBlocks = (config) => ({
       ...config.blocks.blocksConfig.search.extensions,
       facetWidgets: {
         ...config.blocks.blocksConfig.search.extensions.facetWidgets,
+        rewriteOptions: (name, choices) => {
+          return rewriteOptions(name, choices);
+        },
         types: [
           {
             id: 'accordionCheckboxFacet',
