@@ -57,7 +57,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
       {content.geonetwork_identifiers?.items?.length > 0 &&
-        user.roles &&
+        user?.roles &&
         user.roles.includes('Manager') && (
           <Segment.Group compact horizontal>
             {content.geonetwork_identifiers?.items.map((item) => {
@@ -186,13 +186,13 @@ const CLMSDatasetDetailView = ({ content, token }) => {
           </Segment.Group>
         )}
 
-      {user.roles && user.roles.includes('Manager') && (
+      {user?.roles && user.roles.includes('Manager') && (
         <Segment.Group compact horizontal>
           <Segment
             padded={'very'}
             color={'olive'}
             key={'wms-layers-import'}
-            loading={wms_layers_importation.loading}
+            loading={wms_layers_importation?.loading}
             circular
           >
             <Modal
@@ -258,22 +258,22 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 </div>
               </div>
             </Modal>
-            {wms_layers_importation.imported_wms_layers?.status && (
+            {wms_layers_importation?.imported_wms_layers?.status && (
               <p>
-                {wms_layers_importation.loaded &&
-                  wms_layers_importation.error === null && (
+                {wms_layers_importation?.loaded &&
+                  wms_layers_importation?.error === null && (
                     <strong>
                       {' '}
-                      {wms_layers_importation.imported_wms_layers?.message}
+                      {wms_layers_importation?.imported_wms_layers?.message}
                     </strong>
                   )}
               </p>
             )}
-            {wms_layers_importation.imported_wms_layers?.status === 'error' && (
+            {wms_layers_importation?.imported_wms_layers?.status === 'error' && (
               <p>
                 <strong>
                   {' '}
-                  {wms_layers_importation.imported_wms_layers?.message}
+                  {wms_layers_importation?.imported_wms_layers?.message}
                 </strong>
               </p>
             )}
