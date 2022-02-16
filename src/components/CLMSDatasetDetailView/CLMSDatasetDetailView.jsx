@@ -269,7 +269,8 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                   )}
               </p>
             )}
-            {wms_layers_importation?.imported_wms_layers?.status === 'error' && (
+            {wms_layers_importation?.imported_wms_layers?.status ===
+              'error' && (
               <p>
                 <strong>
                   {' '}
