@@ -15,13 +15,13 @@ describe('importWMSLayersReducer', () => {
   it('should handle POST_IMPORT_WMS_LAYERS_SUCCESS', () => {
     const action = {
       type: `${POST_IMPORT_WMS_LAYERS}_SUCCESS`,
-      result: '{"imported_wms_layers": {"id": "1"}}',
+      result: { imported_wms_layers: { id: '1' } },
     };
     expect(importWMSLayersReducer({}, action)).toEqual({
       error: null,
       loaded: true,
       loading: false,
-      imported_wms_layers: JSON.parse(action.result),
+      imported_wms_layers: action.result,
     });
   });
   //jest test for importWMSLayersReducer -fail

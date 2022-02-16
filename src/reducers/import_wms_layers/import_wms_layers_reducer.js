@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   loaded: false,
   loading: false,
-  imported_data: {},
+  imported_wms_layers: {},
 };
 
 export const importWMSLayersReducer = (state = initialState, action = {}) => {
