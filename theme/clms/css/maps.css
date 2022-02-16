@@ -389,7 +389,7 @@
 .land .map-menu-dataset>div:first-of-type {
 	display: flex;
 	width: 100%;
-	justify-content: space-between;
+	justify-content: flex-start;
 }
 
 .land .map-menu-layers-container {
@@ -529,6 +529,14 @@
 .land .legend-container {
 	display: flex;
 	box-shadow: none !important;
+}
+
+.info-table tr:nth-child(even) {
+	background-color: #a0b1280f;
+}
+
+.info-table tr:nth-child(odd) {
+	background-color: #a0b12833;
 }
 
 .land .map-login-block {
