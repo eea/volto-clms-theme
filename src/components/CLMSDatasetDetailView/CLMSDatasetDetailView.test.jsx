@@ -7,6 +7,33 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore();
+let store = mockStore({
+  intl: {
+    locale: 'en',
+    messages: {},
+  },
+  search: {
+    subrequest: {
+      '123': { items: [] },
+    },
+  },
+  users: {
+    user: { roles: ['Manager'] },
+  },
+  importWMSLayers: {
+    imported_wms_layers: {
+      status: 'success',
+      message: 'message',
+    },
+    error: false,
+    loaded: true,
+    loading: false,
+  },
+  userSession: {
+    token:
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0NDM4MzA0NCwiZnVsbG5hbWUiOm51bGx9.cB_q3Q0Jhu8h2m_SDmmknodpDxDLfb4o-qY6Y2plE04',
+  },
+});
 
 describe('CLMSDatasetDetailView', () => {
   it('Check metadata view', () => {
@@ -47,27 +74,7 @@ describe('CLMSDatasetDetailView', () => {
         },
       ],
     };
-    const store = mockStore({
-      content: {
-        ...content,
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-      search: {
-        subrequest: {
-          '123': { items: [] },
-        },
-      },
-      users: {
-        user: { roles: ['Manager'] },
-      },
-      userSession: {
-        token:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0NDM4MzA0NCwiZnVsbG5hbWUiOm51bGx9.cB_q3Q0Jhu8h2m_SDmmknodpDxDLfb4o-qY6Y2plE04',
-      },
-    });
+    store.content = content;
 
     const DatasetDetailView = renderer
       .create(
@@ -107,27 +114,7 @@ describe('CLMSDatasetDetailView', () => {
       downloadable_dataset: true,
       downloadable_files: [],
     };
-    const store = mockStore({
-      content: {
-        ...content,
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-      search: {
-        subrequest: {
-          '123': { items: [] },
-        },
-      },
-      users: {
-        user: { roles: ['Manager'] },
-      },
-      userSession: {
-        token:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0NDM4MzA0NCwiZnVsbG5hbWUiOm51bGx9.cB_q3Q0Jhu8h2m_SDmmknodpDxDLfb4o-qY6Y2plE04',
-      },
-    });
+    store.content = content;
 
     const DatasetDetailView = renderer
       .create(
@@ -159,25 +146,7 @@ describe('CLMSDatasetDetailView', () => {
         },
       ],
     };
-    const store = mockStore({
-      content: {
-        ...content,
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-      search: {
-        subrequest: {
-          '123': { items: [] },
-        },
-      },
-      user: { roles: ['Manager'] },
-      userSession: {
-        token:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0NDM4MzA0NCwiZnVsbG5hbWUiOm51bGx9.cB_q3Q0Jhu8h2m_SDmmknodpDxDLfb4o-qY6Y2plE04',
-      },
-    });
+    store.content = content;
     const DatasetDetailView = renderer
       .create(
         <Provider store={store}>
