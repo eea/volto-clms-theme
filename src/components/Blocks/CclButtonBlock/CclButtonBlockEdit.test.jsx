@@ -5,16 +5,25 @@ import CclButtonBlockEdit from './CclButtonBlockEdit';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-intl-redux';
 import React from 'react';
+import { changeBlock } from '@plone/volto/helpers';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
-
-// import { shallow } from 'enzyme';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 
 const mockStore = configureStore();
+
+const onChangeBlock = (data, id, value) => {
+  const newFormData = changeBlock(data, id, value);
+  this.setState({
+    formData: {
+      ...data,
+      ...newFormData,
+    },
+  });
+};
 
 describe('CclButtonBlockEdit', () => {
   it('CclButtonBlockEdit block clicks', () => {
@@ -34,6 +43,7 @@ describe('CclButtonBlockEdit', () => {
       style: 'default',
       download: false,
     };
+
     // const component = shallow(
     const component = mount(
       <Provider store={store}>
@@ -42,7 +52,7 @@ describe('CclButtonBlockEdit', () => {
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={(block, { id: value, ...blockData }) => {}}
+            onChangeBlock={onChangeBlock(data, 'title', 'test')}
             setSidebarTab={(tabId) => {}}
           />
         </MemoryRouter>
