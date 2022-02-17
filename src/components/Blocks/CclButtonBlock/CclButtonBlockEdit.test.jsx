@@ -42,7 +42,7 @@ describe('CclButtonBlockEdit', () => {
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={(block, { id: value, ...data }) => {}}
+            onChangeBlock={(block, { id: value, ...blockData }) => {}}
             setSidebarTab={(tabId) => {}}
           />
         </MemoryRouter>
