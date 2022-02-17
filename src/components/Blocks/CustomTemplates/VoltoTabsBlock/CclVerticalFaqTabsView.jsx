@@ -61,7 +61,7 @@ const CclVerticalFaqTabsView = (props) => {
                 className={cx('card', tab === activeTab && 'active')}
               >
                 <NavLink
-                  to={'#tab' + tabIndex}
+                  to={'#tab=' + tabIndex}
                   className="collapsed"
                   onClick={(e) => {
                     handleActive(activeTab, tab, setActiveTab);
