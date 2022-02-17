@@ -8,7 +8,6 @@ import React from 'react';
 import { changeBlock } from '@plone/volto/helpers';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
-import { setSidebarTab } from '@plone/volto/actions';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -48,7 +47,9 @@ describe('CclButtonBlockEdit', () => {
             selected={false}
             block="1234"
             onChangeBlock={onChangeBlock(data, 'title', 'test')}
-            setSidebarTab={setSidebarTab(1)}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,
@@ -86,7 +87,9 @@ describe('CclButtonBlockEdit', () => {
             onChangeField={() => {
               return 'test';
             }}
-            setSidebarTab={setSidebarTab(1)}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,
@@ -125,7 +128,9 @@ describe('CclButtonBlockEdit', () => {
             onChangeField={() => {
               return 'test';
             }}
-            setSidebarTab={setSidebarTab(1)}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,
