@@ -8,8 +8,6 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 
-// import { shallow } from 'enzyme';
-
 Enzyme.configure({ adapter: new Adapter() });
 
 global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
@@ -34,6 +32,7 @@ describe('CclButtonBlockEdit', () => {
       style: 'default',
       download: false,
     };
+
     // const component = shallow(
     const component = mount(
       <Provider store={store}>
@@ -42,8 +41,12 @@ describe('CclButtonBlockEdit', () => {
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={() => {}}
-            setSidebarTab={() => {}}
+            onChangeBlock={() => {
+              return 'test';
+            }}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,
@@ -74,10 +77,18 @@ describe('CclButtonBlockEdit', () => {
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={() => {}}
-            onSelectBlock={() => {}}
-            onChangeField={() => {}}
-            setSidebarTab={() => {}}
+            onChangeBlock={() => {
+              return 'test';
+            }}
+            onSelectBlock={() => {
+              return 'test';
+            }}
+            onChangeField={() => {
+              return 'test';
+            }}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,
@@ -109,10 +120,18 @@ describe('CclButtonBlockEdit', () => {
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={() => {}}
-            onSelectBlock={() => {}}
-            onChangeField={() => {}}
-            setSidebarTab={() => {}}
+            onChangeBlock={() => {
+              return 'test';
+            }}
+            onSelectBlock={() => {
+              return 'test';
+            }}
+            onChangeField={() => {
+              return 'test';
+            }}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,

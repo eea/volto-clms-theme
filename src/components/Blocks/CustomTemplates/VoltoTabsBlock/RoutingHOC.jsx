@@ -16,7 +16,7 @@ const RoutingHOC = (TabView) =>
       ) {
         return rTabsList[0];
       }
-      return rTabsList[window.location.hash.substring(4) - 1];
+      return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
     }
     React.useEffect(() => {
       const isReload =
