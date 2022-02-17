@@ -28,7 +28,7 @@ module.exports = {
     '^.+\\.(svg)$': './node_modules/@plone/volto/jest-svgsystem-transform.js',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(@eeacms/volto-clms-utils/|@plone/volto/|slick-carousel))',
+    'node_modules/(?!(@eeacms/volto-clms-utils/|@plone/volto/|slick-carousel|react-input-range))',
   ],
   coverageThreshold: {
     global: {
