@@ -76,8 +76,12 @@ describe('CclCardBlockEdit', () => {
           <CclCardBlockEdit
             data={data}
             block="1234"
-            onChangeBlock={() => {}}
-            setSidebarTab={() => {}}
+            onChangeBlock={() => {
+              return 'test';
+            }}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,
@@ -144,10 +148,18 @@ describe('CclCardBlockEdit', () => {
           <CclCardBlockEdit
             data={data}
             block="1234"
-            onChangeBlock={() => {}}
-            onSelectBlock={() => {}}
-            onChangeField={() => {}}
-            setSidebarTab={() => {}}
+            onChangeBlock={() => {
+              return 'test';
+            }}
+            onSelectBlock={() => {
+              return 'test';
+            }}
+            onChangeField={() => {
+              return 'test';
+            }}
+            setSidebarTab={() => {
+              return 'test';
+            }}
           />
         </MemoryRouter>
       </Provider>,

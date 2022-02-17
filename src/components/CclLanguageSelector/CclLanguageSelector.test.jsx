@@ -40,7 +40,12 @@ describe('CclLanguageSelector', () => {
     const component = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
-          <CclLanguageSelector onClickAction={() => {}}></CclLanguageSelector>,
+          <CclLanguageSelector
+            onClickAction={() => {
+              return 'test';
+            }}
+          ></CclLanguageSelector>
+          ,
         </MemoryRouter>
       </Provider>,
     );
@@ -67,7 +72,12 @@ describe('CclLanguageSelector', () => {
     const component = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
-          <CclLanguageSelector onClickAction={() => {}}></CclLanguageSelector>,
+          <CclLanguageSelector
+            onClickAction={() => {
+              return 'test';
+            }}
+          ></CclLanguageSelector>
+          ,
         </MemoryRouter>
       </Provider>,
     );
