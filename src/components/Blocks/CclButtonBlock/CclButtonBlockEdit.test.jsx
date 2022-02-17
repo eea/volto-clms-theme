@@ -16,13 +16,7 @@ global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 const mockStore = configureStore();
 
 const onChangeBlock = (data, id, value) => {
-  const newFormData = changeBlock(data, id, value);
-  this.setState({
-    formData: {
-      ...data,
-      ...newFormData,
-    },
-  });
+  changeBlock(data, id, value);
 };
 
 describe('CclButtonBlockEdit', () => {
