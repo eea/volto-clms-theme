@@ -82,3 +82,8 @@ export {
   unsubscribeTo,
   confirmUnsubscribeTo,
 } from './subscription/post_subscription';
+
+export {
+  POST_IMPORT_WMS_LAYERS,
+  postImportWMSLayers,
+} from './import_wms_layers/import_wms_layers';

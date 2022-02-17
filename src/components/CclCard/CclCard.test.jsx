@@ -11,6 +11,7 @@ describe('CclCard', () => {
   const card = {
     title: 'title example',
     description: 'description example',
+    '@type': 'News Item',
     start:
       'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
     end: 'Wed May 26 2024 12:49:04 GMT+0200 (hora de verano de Europa central)',

@@ -1,13 +1,13 @@
 import { Button, Grid, Segment } from 'semantic-ui-react';
 import {
   Facets,
-  FilterList,
   SearchDetails,
   SearchInput,
   SortOn,
 } from '@plone/volto/components/manage/Blocks/Search/components';
 import { defineMessages, useIntl } from 'react-intl';
 
+import FilterList from './FilterList';
 import CclFiltersModal from '@eeacms/volto-clms-theme/components/CclFiltersModal/CclFiltersModal';
 import { Icon } from '@plone/volto/components';
 import React from 'react';
@@ -59,7 +59,6 @@ const RightModalFacets = (props) => {
   const { showSearchButton } = data;
   const isLive = !showSearchButton;
   const intl = useIntl();
-
   return (
     <Grid className="searchBlock-facets right-column-facets" stackable>
       {data?.headline && (
