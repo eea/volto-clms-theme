@@ -1,9 +1,9 @@
-import { postMeetingRegister } from './meeting_register';
-import { POST_MEETING_REGISTER } from './meeting_register';
-import { MeetingSubscribersManipulation } from './meeting_subscribers_manipulation';
-import { MEETING_SUBSCRIBERS_MANIPULATION } from './meeting_subscribers_manipulation';
-import { MeetingSubscribers } from './meeting_subscribers';
-import { MEETING_SUBSCRIBERS } from './meeting_subscribers';
+import { MEETING_SUBSCRIBERS, MeetingSubscribers } from './meeting_subscribers';
+import {
+  MEETING_SUBSCRIBERS_MANIPULATION,
+  MeetingSubscribersManipulation,
+} from './meeting_subscribers_manipulation';
+import { POST_MEETING_REGISTER, postMeetingRegister } from './meeting_register';
 
 describe('Meeting actions', () => {
   describe('postMeetingRegister', () => {

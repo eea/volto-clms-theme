@@ -8,7 +8,8 @@ import {
   DownloadDataSetContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
 import { Modal, Segment } from 'semantic-ui-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { postImportGeonetwork, postImportWMSLayers } from '../../actions';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
@@ -16,11 +17,8 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
-import { postImportGeonetwork } from '../../actions';
-import { postImportWMSLayers } from '../../actions';
 import { useLocation } from 'react-router-dom';
 
 /**
