@@ -119,7 +119,10 @@ class TaxonomyWidget extends Component {
   render() {
     const { id, value, onChange } = this.props;
     // const normalizedValue = normalizeValue(choices, value, intl);
-
+    let currentValue = value;
+    if (!value) {
+      currentValue = [];
+    }
     let options = [];
     if (this.props.vocabBaseUrl && this.props.choices?.length > 0) {
       this.props.choices.forEach((option) => {
@@ -130,6 +133,7 @@ class TaxonomyWidget extends Component {
             splitted_option.length > 1
               ? splitted_option.slice(-1).pop()
               : option.label,
+          original: option.label,
           childrens: [],
         };
         splitted_option.length === 1 && options.push(modified_option);
@@ -161,7 +165,7 @@ class TaxonomyWidget extends Component {
                 option={option}
                 key={option.value}
                 onChange={onChange}
-                value={value}
+                value={currentValue}
                 id={id}
               />
             ))}
@@ -187,7 +191,7 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                   checked
                     ? onChange(id, [
                         ...value,
-                        { title: option.label, token: option.value },
+                        { title: option.original, token: option.value },
                       ])
                     : onChange(
                         id,
@@ -199,7 +203,10 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                     {option.label}
                   </label>
                 }
-                checked={value.some((item) => item.token === option.value)}
+                checked={
+                  value?.filter((item) => item.token === option.value).length >
+                  0
+                }
                 value={option.value}
               />
             </Grid.Column>
@@ -228,7 +235,7 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                           checked
                             ? onChange(id, [
                                 ...value,
-                                { title: child.label, token: child.value },
+                                { title: child.original, token: child.value },
                               ])
                             : onChange(
                                 id,
@@ -242,9 +249,10 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                             {child.label}
                           </label>
                         }
-                        checked={value.some(
-                          (item) => item.token === child.value,
-                        )}
+                        checked={
+                          value?.filter((item) => item.token === child.value)
+                            .length > 0
+                        }
                         value={child.value}
                       />
                     </List.Header>
