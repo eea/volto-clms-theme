@@ -3,6 +3,7 @@ import {
   RightModalFacets,
   WithType,
   DoubleRangeFacet,
+  CheckboxTreeFacet,
   rewriteOptions,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
 import {
@@ -335,6 +336,13 @@ const customBlocks = (config) => ({
             view: DoubleRangeFacet,
             isDefault: false,
           },
+          {
+            id: 'checkboxTreeFacet',
+            title: 'Checkbox Tree',
+            view: CheckboxTreeFacet,
+            isDefault: false,
+          },
+
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
         ],
       },
