@@ -28,6 +28,7 @@ import {
 } from '@plone/volto/components/manage/Widgets/SelectStyling';
 import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 import { Checkbox } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 const messages = defineMessages({
   default: {
     id: 'Default',
@@ -176,13 +177,13 @@ class TaxonomyWidget extends Component {
     // Make sure that both disabled and isDisabled (from the DX layout feat work)
     const disabled = this.props.disabled || this.props.isDisabled;
     const Select = this.props.reactSelect.default;
-    console.log(this.props);
     let options = this.props.vocabBaseUrl
       ? map(this.props.choices, (option) => ({
           value: option.value,
-          label: option.label.split(' » ')[
-            option.label.split(' » ').length - 1
-          ],
+          label:
+            option.label.split(' » ').length > 1
+              ? option.label.split(' » ')[option.label.split(' » ').length - 1]
+              : option.label,
           position: option.label.split(' » ').length,
         }))
       : [
@@ -211,20 +212,32 @@ class TaxonomyWidget extends Component {
     return (
       <FormFieldWrapper {...this.props}>
         <div className="wrapper">
-          {map(options, (option) => (
-            <Checkbox
-              name={`field-${option.value}`}
-              checked={value || false}
-              disabled={false}
-              onChange={(event, { checked }) => {
-                onChange(id, checked);
-              }}
-              label={
-                <label htmlFor={`field-${option.value}`}>{option.label}</label>
-              }
-              value={option.value}
-            />
-          ))}
+          <Grid>
+            {map(options, (option) => (
+              <>
+                <Grid.Row>
+                  <Grid.Column width={option.position}>&nbsp;</Grid.Column>
+                  <Grid.Column width="9">
+                    <Checkbox
+                      key={option.value}
+                      name={`field-${option.value}`}
+                      checked={value || false}
+                      disabled={false}
+                      onChange={(event, { checked }) => {
+                        onChange(option.value, checked);
+                      }}
+                      label={
+                        <label htmlFor={`field-${option.value}`}>
+                          {option.label}
+                        </label>
+                      }
+                      value={option.value}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </>
+            ))}
+          </Grid>
         </div>
       </FormFieldWrapper>
     );
