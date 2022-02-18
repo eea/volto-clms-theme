@@ -3,78 +3,23 @@
  * @module components/manage/Widgets/TaxonomyWidget
  */
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { map } from 'lodash';
-import { defineMessages, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import {
   getVocabFromHint,
   getVocabFromField,
   getVocabFromItems,
 } from '@plone/volto/helpers';
-import { FormFieldWrapper } from '@plone/volto/components';
+import { FormFieldWrapper, Icon } from '@plone/volto/components';
 import { getVocabulary, getVocabularyTokenTitle } from '@plone/volto/actions';
-import { normalizeValue } from '@plone/volto/components/manage/Widgets/SelectUtils';
+import downSVG from '@plone/volto/icons/down-key.svg';
 
-import {
-  customSelectStyles,
-  DropdownIndicator,
-  ClearIndicator,
-  Option,
-  selectTheme,
-  MenuList,
-} from '@plone/volto/components/manage/Widgets/SelectStyling';
 import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
-import { Checkbox } from 'semantic-ui-react';
-import { Grid } from 'semantic-ui-react';
-const messages = defineMessages({
-  default: {
-    id: 'Default',
-    defaultMessage: 'Default',
-  },
-  idTitle: {
-    id: 'Short Name',
-    defaultMessage: 'Short Name',
-  },
-  idDescription: {
-    id: 'Used for programmatic access to the fieldset.',
-    defaultMessage: 'Used for programmatic access to the fieldset.',
-  },
-  title: {
-    id: 'Title',
-    defaultMessage: 'Title',
-  },
-  description: {
-    id: 'Description',
-    defaultMessage: 'Description',
-  },
-  close: {
-    id: 'Close',
-    defaultMessage: 'Close',
-  },
-  choices: {
-    id: 'Choices',
-    defaultMessage: 'Choices',
-  },
-  required: {
-    id: 'Required',
-    defaultMessage: 'Required',
-  },
-  select: {
-    id: 'Select…',
-    defaultMessage: 'Select…',
-  },
-  no_value: {
-    id: 'No value',
-    defaultMessage: 'No value',
-  },
-  no_options: {
-    id: 'No options',
-    defaultMessage: 'No options',
-  },
-});
+import { Checkbox, Grid, List } from 'semantic-ui-react';
 
 /**
  * TaxonomyWidget component class.
@@ -172,77 +117,147 @@ class TaxonomyWidget extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { id, choices, value, intl, onChange } = this.props;
-    const normalizedValue = normalizeValue(choices, value, intl);
-    // Make sure that both disabled and isDisabled (from the DX layout feat work)
-    const disabled = this.props.disabled || this.props.isDisabled;
-    const Select = this.props.reactSelect.default;
-    let options = this.props.vocabBaseUrl
-      ? map(this.props.choices, (option) => ({
+    const { id, value, onChange } = this.props;
+    // const normalizedValue = normalizeValue(choices, value, intl);
+
+    let options = [];
+    if (this.props.vocabBaseUrl && this.props.choices?.length > 0) {
+      this.props.choices.forEach((option) => {
+        var splitted_option = option.label.split(' » ');
+        var modified_option = {
           value: option.value,
           label:
-            option.label.split(' » ').length > 1
-              ? option.label.split(' » ')[option.label.split(' » ').length - 1]
+            splitted_option.length > 1
+              ? splitted_option.slice(-1).pop()
               : option.label,
-          position: option.label.split(' » ').length,
-        }))
-      : [
-          ...map(choices, (option) => ({
-            value: option[0],
-            label:
-              // Fix "None" on the serializer, to remove when fixed in p.restapi
-              option[1] !== 'None' && option[1] ? option[1] : option[0],
-          })),
-          // Only set "no-value" option if there's no default in the field
-          // TODO: also if this.props.defaultValue?
-          ...(this.props.noValueOption && !this.props.default
-            ? [
-                {
-                  label: this.props.intl.formatMessage(messages.no_value),
-                  value: 'no-value',
-                },
-              ]
-            : []),
-        ];
-
-    const isMulti = this.props.isMulti
-      ? this.props.isMulti
-      : id === 'roles' || id === 'groups';
+          childrens: [],
+        };
+        splitted_option.length === 1 && options.push(modified_option);
+        if (splitted_option.length > 1) {
+          var parent_option = splitted_option.slice(0, -1).pop();
+          options.map((ionOption) => {
+            if (ionOption.label === parent_option) {
+              ionOption.childrens.push(modified_option);
+            }
+            return '';
+          });
+        }
+      });
+    }
 
     return (
       <FormFieldWrapper {...this.props}>
-        <div className="wrapper">
-          <Grid>
+        <div
+          className="wrapper"
+          style={{
+            paddingLeft: '40px',
+            paddingTop: '25px',
+            paddingBottom: '25px',
+          }}
+        >
+          <List>
             {map(options, (option) => (
-              <>
-                <Grid.Row>
-                  <Grid.Column width={option.position}>&nbsp;</Grid.Column>
-                  <Grid.Column width="9">
-                    <Checkbox
-                      key={option.value}
-                      name={`field-${option.value}`}
-                      checked={value || false}
-                      disabled={false}
-                      onChange={(event, { checked }) => {
-                        onChange(option.value, checked);
-                      }}
-                      label={
-                        <label htmlFor={`field-${option.value}`}>
-                          {option.label}
-                        </label>
-                      }
-                      value={option.value}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </>
+              <CheckboxListParent
+                option={option}
+                key={option.value}
+                onChange={onChange}
+                value={value}
+                id={id}
+              />
             ))}
-          </Grid>
+          </List>
         </div>
       </FormFieldWrapper>
     );
   }
 }
+
+const CheckboxListParent = ({ option, key, onChange, value, id }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <List.Item key={key} style={{ paddingTop: '15px' }}>
+      <List.Content>
+        <List.Header>
+          <Grid>
+            <Grid.Column width={10}>
+              <Checkbox
+                key={option.value}
+                name={`field-${option.value}`}
+                onChange={(event, { checked }) => {
+                  checked
+                    ? onChange(id, [
+                        ...value,
+                        { title: option.label, token: option.value },
+                      ])
+                    : onChange(
+                        id,
+                        value.filter((item) => item.token !== option.value),
+                      );
+                }}
+                label={
+                  <label htmlFor={`field-${option.value}`}>
+                    {option.label}
+                  </label>
+                }
+                checked={value.some((item) => item.token === option.value)}
+                value={option.value}
+              />
+            </Grid.Column>
+            <Grid.Column
+              onClick={() => setOpen(!open)}
+              width={2}
+              style={{ cursor: 'pointer' }}
+              textAlign="center"
+            >
+              <Icon className="" name={downSVG} size={25} />
+            </Grid.Column>
+          </Grid>
+        </List.Header>
+        {option.childrens.length > 0 && (
+          <List.Item style={{ display: !open && 'none' }}>
+            <List.List style={{ paddingLeft: '25px' }}>
+              {map(option.childrens, (child) => (
+                <List.Item>
+                  <List.Content>
+                    <List.Header>
+                      <Checkbox
+                        key={child.value}
+                        name={`field-${child.value}`}
+                        disabled={false}
+                        onChange={(event, { checked }) => {
+                          checked
+                            ? onChange(id, [
+                                ...value,
+                                { title: child.label, token: child.value },
+                              ])
+                            : onChange(
+                                id,
+                                value.filter(
+                                  (item) => item.token !== child.value,
+                                ),
+                              );
+                        }}
+                        label={
+                          <label htmlFor={`field-${child.value}`}>
+                            {child.label}
+                          </label>
+                        }
+                        checked={value.some(
+                          (item) => item.token === child.value,
+                        )}
+                        value={child.value}
+                      />
+                    </List.Header>
+                  </List.Content>
+                </List.Item>
+              ))}
+            </List.List>
+          </List.Item>
+        )}
+      </List.Content>
+    </List.Item>
+  );
+};
 
 export const TaxonomyWidgetComponent = injectIntl(TaxonomyWidget);
 
