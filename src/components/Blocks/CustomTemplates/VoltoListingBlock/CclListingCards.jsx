@@ -4,6 +4,7 @@ import { ConditionalLink } from '@plone/volto/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
 
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
+import { useSelector } from 'react-redux';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
@@ -11,7 +12,7 @@ const CclListingCards = (props) => {
   const { items, linkHref, linkTitle, isEditMode, variation = 'doc' } = props;
   let link = null;
   let href = linkHref?.[0]?.['@id'] || '';
-
+  const user = useSelector((state) => state.users.user);
   if (isInternalURL(href)) {
     link = (
       <ConditionalLink to={flattenToAppURL(href)} condition={!isEditMode}>
@@ -21,7 +22,6 @@ const CclListingCards = (props) => {
   } else if (href) {
     link = <a href={href}>{linkTitle || href}</a>;
   }
-
   let containerClass = '';
   if (['news', 'event'].includes(variation)) {
     containerClass = 'ccl-container';
@@ -33,7 +33,12 @@ const CclListingCards = (props) => {
       <div className={containerClass}>
         {items && items.length > 0
           ? items.map((item, index) => (
-              <CclCard key={index} type={variation} card={item} />
+              <CclCard
+                key={index}
+                type={variation}
+                card={item}
+                showEditor={user?.roles?.includes('Manager')}
+              />
             ))
           : 'There are no items to display'}
       </div>
