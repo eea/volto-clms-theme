@@ -46,7 +46,11 @@ function CclCard(props) {
                 </Label>
               )}
               <div className="card-doc-title">
-                <Link to={url}>{card?.title || 'Card default title'}</Link>
+                {card?.file?.download ? (
+                  <a href={card.file.download}>{card?.title}</a>
+                ) : (
+                  card?.title
+                )}
               </div>
               <div className="card-doc-text">
                 <div className="doc-description">{card?.description}</div>
