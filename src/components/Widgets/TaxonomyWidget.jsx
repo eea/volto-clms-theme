@@ -20,6 +20,7 @@ import downSVG from '@plone/volto/icons/down-key.svg';
 
 import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 import { Checkbox, Grid, List } from 'semantic-ui-react';
+import { structure_taxonomy_terms } from '@eeacms/volto-clms-theme/components';
 
 /**
  * TaxonomyWidget component class.
@@ -125,28 +126,7 @@ class TaxonomyWidget extends Component {
     }
     let options = [];
     if (this.props.vocabBaseUrl && this.props.choices?.length > 0) {
-      this.props.choices.forEach((option) => {
-        var splitted_option = option.label.split(' » ');
-        var modified_option = {
-          value: option.value,
-          label:
-            splitted_option.length > 1
-              ? splitted_option.slice(-1).pop()
-              : option.label,
-          original: option.label,
-          childrens: [],
-        };
-        splitted_option.length === 1 && options.push(modified_option);
-        if (splitted_option.length > 1) {
-          var parent_option = splitted_option.slice(0, -1).pop();
-          options.map((ionOption) => {
-            if (ionOption.label === parent_option) {
-              ionOption.childrens.push(modified_option);
-            }
-            return '';
-          });
-        }
-      });
+      options = structure_taxonomy_terms(this.props.choices);
     }
 
     return (

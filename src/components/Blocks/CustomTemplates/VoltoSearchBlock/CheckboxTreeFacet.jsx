@@ -3,6 +3,7 @@ import './range.css';
 
 import React, { useState } from 'react';
 import { Checkbox, List } from 'semantic-ui-react';
+import { structure_taxonomy_terms } from '@eeacms/volto-clms-theme/components';
 
 const CheckboxTreeFacet = (props) => {
   const { facet, choices, onChange, value } = props;
@@ -10,28 +11,7 @@ const CheckboxTreeFacet = (props) => {
   var [open, setOpen] = useState(false);
   let options = [];
   if (choices?.length > 0) {
-    choices.forEach((choice) => {
-      var splitted_option = choice.label.split(' » ');
-      var modified_option = {
-        value: choice.value,
-        label:
-          splitted_option.length > 1
-            ? splitted_option.slice(-1).pop()
-            : choice.label,
-        original: choice.label,
-        childrens: [],
-      };
-      splitted_option.length === 1 && options.push(modified_option);
-      if (splitted_option.length > 1) {
-        var parent_option = splitted_option.slice(0, -1).pop();
-        options.map((option) => {
-          if (option.label === parent_option) {
-            option.childrens.push(modified_option);
-          }
-          return '';
-        });
-      }
-    });
+    options = structure_taxonomy_terms(choices);
   }
   return (
     <fieldset className="ccl-fieldset">
