@@ -19,16 +19,17 @@ import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMS
 import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
 import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
 import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
-import ContactWidget from './components/Widgets/ContactWidget';
-import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
-import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
-import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
-import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 // WIDGET IMPORTS
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
+import ContactWidget from './components/Widgets/ContactWidget';
+import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
+import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
+import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 // CUSTOM REDUCERS IMPORT
 import reducers from './reducers';
 
@@ -67,6 +68,10 @@ const applyConfig = (config) => {
     distribution_info_widget: DistributionInfoWidget,
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
     text_link_widget: TextLinkWidget,
+  };
+  config.widgets.id = {
+    ...config.widgets.id,
+    taxonomy_technical_library_categorization: TaxonomyWidget,
   };
   config.settings = {
     ...config.settings,

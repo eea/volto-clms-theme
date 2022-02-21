@@ -1,10 +1,10 @@
-import DistributionInfoComponent from './DistributionInfoComponent';
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import Enzyme, { mount } from 'enzyme';
 
-import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { mount } from 'enzyme';
+import DistributionInfoComponent from './DistributionInfoComponent';
+import { MemoryRouter } from 'react-router-dom';
+import React from 'react';
+
 Enzyme.configure({ adapter: new Adapter() });
 //jest test for   DistributionInfoComponent
 describe('DistributionInfoComponent', () => {

@@ -1,5 +1,7 @@
-import { postImportWMSLayers } from './import_wms_layers';
-import { POST_IMPORT_WMS_LAYERS } from './import_wms_layers';
+import {
+  POST_IMPORT_WMS_LAYERS,
+  postImportWMSLayers,
+} from './import_wms_layers';
 
 describe('Import geonetwork action', () => {
   describe('postImportWMSLayers', () => {

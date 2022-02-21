@@ -30,7 +30,13 @@ describe('CclTab', () => {
     const tabView = renderer
       .create(
         <MemoryRouter>
-          <CclTab tabTitle={tabTitle} onClick={() => {}} routing={routing}>
+          <CclTab
+            tabTitle={tabTitle}
+            onClick={() => {
+              return 'test';
+            }}
+            routing={routing}
+          >
             <p>Hello test!</p>
           </CclTab>
         </MemoryRouter>,
@@ -44,7 +50,13 @@ describe('CclTab', () => {
     const tabView = renderer
       .create(
         <MemoryRouter>
-          <CclTab tabTitle={tabTitle} onClick={() => {}} routing={routing}>
+          <CclTab
+            tabTitle={tabTitle}
+            onClick={() => {
+              return 'test';
+            }}
+            routing={routing}
+          >
             <p>Hello test!</p>
           </CclTab>
         </MemoryRouter>,

@@ -1,5 +1,7 @@
-import { getNewsletterSubscriber } from './get_newsletter_subscribers';
-import { GET_NEWSLETTER } from './get_newsletter_subscribers';
+import {
+  GET_NEWSLETTER,
+  getNewsletterSubscriber,
+} from './get_newsletter_subscribers';
 
 describe('Newsletter action', () => {
   describe('getNewsletterSubscriber', () => {

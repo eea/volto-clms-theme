@@ -1,5 +1,7 @@
-import { postImportGeonetwork } from './import_geonetwork';
-import { POST_IMPORT_GEONETWORK } from './import_geonetwork';
+import {
+  POST_IMPORT_GEONETWORK,
+  postImportGeonetwork,
+} from './import_geonetwork';
 
 describe('Import geonetwork action', () => {
   describe('postImportGeonetwork', () => {
