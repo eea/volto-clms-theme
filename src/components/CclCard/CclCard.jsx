@@ -49,7 +49,7 @@ function CclCard(props) {
                 {card?.file?.download ? (
                   <a href={card.file.download}>{card?.title}</a>
                 ) : (
-                  card?.title
+                  <Link to={url}>{card?.title}</Link>
                 )}
               </div>
               <div className="card-doc-text">
