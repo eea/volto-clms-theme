@@ -28,10 +28,8 @@ export const CLMSDownloadableFileView = (props) => {
     <>
       <div id="page-document" className="ui container">
         <h1 className="page-title">{content.title}</h1>
-        <div className="event-detail">
-          <div className="event-detail-content">
-            <p>{content.description}</p>
-          </div>
+        <div>
+          <p>{content.description}</p>
         </div>
         {options?.length > 0 && (
           <Label.Group>
