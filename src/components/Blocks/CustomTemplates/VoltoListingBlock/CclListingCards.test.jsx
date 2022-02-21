@@ -10,19 +10,26 @@ import configureStore from 'redux-mock-store';
 Enzyme.configure({ adapter: new Adapter() });
 
 const mockStore = configureStore();
+const store = mockStore({
+  content: {
+    create: {},
+    data: {},
+  },
+  intl: {
+    locale: 'en',
+    messages: {},
+  },
+  users: {
+    user: {
+      roles: ['Manager'],
+    },
+  },
+});
+const internalLink = [{ '@id': '/news' }];
+const externalLink = [{ '@id': 'https://wwww.google.com' }];
 
 describe('CclListingCards', () => {
   it('News listing card internal link', () => {
-    const store = mockStore({
-      content: {
-        create: {},
-        data: {},
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
     const items = [
       {
         title: 'Card Title',
@@ -33,7 +40,6 @@ describe('CclListingCards', () => {
         },
       },
     ];
-    const linkHref = [{ '@id': '/news' }];
     const linkTitle = 'More news';
     const isEditMode = true;
     const variation = 'CclCardsnews';
@@ -42,7 +48,7 @@ describe('CclListingCards', () => {
         <MemoryRouter>
           <CclListingCards
             items={items}
-            linkHref={linkHref}
+            linkHref={internalLink}
             linkTitle={linkTitle}
             isEditMode={isEditMode}
             variation={variation}
@@ -53,16 +59,6 @@ describe('CclListingCards', () => {
     expect(component).toBeDefined();
   });
   it('Line-color listing card external link', () => {
-    const store = mockStore({
-      content: {
-        create: {},
-        data: {},
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
     const items = [
       {
         title: 'Card Title',
@@ -73,7 +69,6 @@ describe('CclListingCards', () => {
         },
       },
     ];
-    const linkHref = [{ '@id': 'https://wwww.google.com' }];
     const linkTitle = 'More line-color';
     const isEditMode = true;
     const variation = 'CclCardsline-color';
@@ -82,7 +77,7 @@ describe('CclListingCards', () => {
         <MemoryRouter>
           <CclListingCards
             items={items}
-            linkHref={linkHref}
+            linkHref={externalLink}
             linkTitle={linkTitle}
             isEditMode={isEditMode}
             variation={variation}
@@ -93,16 +88,6 @@ describe('CclListingCards', () => {
     expect(component).toBeDefined();
   });
   it('line listing card external link', () => {
-    const store = mockStore({
-      content: {
-        create: {},
-        data: {},
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
     const items = [
       {
         title: 'Card Title',
@@ -113,7 +98,6 @@ describe('CclListingCards', () => {
         },
       },
     ];
-    const linkHref = [{ '@id': 'https://wwww.google.com' }];
     const linkTitle = 'More line';
     const isEditMode = true;
     const variation = 'CclCardsline';
@@ -122,7 +106,7 @@ describe('CclListingCards', () => {
         <MemoryRouter>
           <CclListingCards
             items={items}
-            linkHref={linkHref}
+            linkHref={externalLink}
             linkTitle={linkTitle}
             isEditMode={isEditMode}
             variation={variation}
@@ -133,16 +117,6 @@ describe('CclListingCards', () => {
     expect(component).toBeDefined();
   });
   it('without linkHref', () => {
-    const store = mockStore({
-      content: {
-        create: {},
-        data: {},
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
     const items = [
       {
         title: 'Card Title',
@@ -169,16 +143,6 @@ describe('CclListingCards', () => {
     expect(component).toBeDefined();
   });
   it('internal link without linkTitle', () => {
-    const store = mockStore({
-      content: {
-        create: {},
-        data: {},
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
     const items = [
       {
         title: 'Card Title',
@@ -189,7 +153,6 @@ describe('CclListingCards', () => {
         },
       },
     ];
-    const linkHref = [{ '@id': '/news' }];
     const isEditMode = true;
     const variation = 'CclCardsnews';
     const component = mount(
@@ -197,7 +160,7 @@ describe('CclListingCards', () => {
         <MemoryRouter>
           <CclListingCards
             items={items}
-            linkHref={linkHref}
+            linkHref={internalLink}
             isEditMode={isEditMode}
             variation={variation}
           ></CclListingCards>
@@ -207,16 +170,6 @@ describe('CclListingCards', () => {
     expect(component).toBeDefined();
   });
   it('External link without linkTitle', () => {
-    const store = mockStore({
-      content: {
-        create: {},
-        data: {},
-      },
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
     const items = [
       {
         title: 'Card Title',
@@ -227,7 +180,6 @@ describe('CclListingCards', () => {
         },
       },
     ];
-    const linkHref = [{ '@id': 'https://www.google.com' }];
     const isEditMode = true;
     const variation = 'CclCardsnews';
     const component = mount(
@@ -235,7 +187,7 @@ describe('CclListingCards', () => {
         <MemoryRouter>
           <CclListingCards
             items={items}
-            linkHref={linkHref}
+            linkHref={externalLink}
             isEditMode={isEditMode}
             variation={variation}
           ></CclListingCards>

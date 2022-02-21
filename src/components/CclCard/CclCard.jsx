@@ -9,6 +9,8 @@ import React from 'react';
 import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { Label } from 'semantic-ui-react';
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
+import penSVG from '@plone/volto/icons/pen.svg';
+import { Icon } from '@plone/volto/components';
 
 function bytesToSize(bytes) {
   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -17,7 +19,7 @@ function bytesToSize(bytes) {
   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 function CclCard(props) {
-  const { type, children, card } = props;
+  const { type, children, card, showEditor = false } = props;
   let url = '/';
   let content_type = '';
   if (card) {
@@ -49,7 +51,17 @@ function CclCard(props) {
                 {card?.file?.download ? (
                   <a href={card.file.download}>{card?.title}</a>
                 ) : (
-                  card?.title
+                  <Link to={url}>{card?.title}</Link>
+                )}
+                {card?.file?.download && showEditor && (
+                  <Link to={`${url}/edit`}>
+                    <Icon
+                      name={penSVG}
+                      size="15px"
+                      className="circled"
+                      title={'Edit'}
+                    />
+                  </Link>
                 )}
               </div>
               <div className="card-doc-text">
