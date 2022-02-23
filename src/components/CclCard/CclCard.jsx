@@ -40,13 +40,30 @@ function CclCard(props) {
     >
       {conditional_types.includes(type) ? (
         <>
-          {(type === 'doc' || type === 'globalSearch') && (
+          {type === 'doc' && (
             <>
-              {type === 'globalSearch' && (
-                <Label ribbon="right" color="olive">
-                  {content_type}
-                </Label>
-              )}
+              <div className="card-doc-title">
+                <a href={card?.file?.download || url}>
+                  {card?.title || 'Card default title'}
+                </a>
+              </div>
+              <div className="card-doc-text">
+                <div className="doc-description">{card?.description}</div>
+                {card?.file && (
+                  <div className="card-doc-size">
+                    {mime.extension(card?.file?.['content-type']).toUpperCase()}{' '}
+                    {bytesToSize(card?.file?.size) || ''}
+                  </div>
+                )}
+                {children}
+              </div>
+            </>
+          )}
+          {type === 'globalSearch' && (
+            <>
+              <Label ribbon="right" color="olive">
+                {content_type}
+              </Label>
               <div className="card-doc-title">
                 {card?.file?.download ? (
                   <a href={card.file.download}>{card?.title}</a>

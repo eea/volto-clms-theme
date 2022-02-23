@@ -7,15 +7,15 @@ import { Link } from 'react-router-dom';
 const messages = defineMessages({
   ProcurementNo: {
     id: 'ProcurementNo',
-    defaultMessage: 'Procurement No:',
+    defaultMessage: 'Procurement No: ',
   },
   ReferenceNo: {
     id: 'ReferenceNo',
-    defaultMessage: 'Reference No:',
+    defaultMessage: 'Reference No: ',
   },
   SubmissionDeadline: {
     id: 'SubmissionDeadline',
-    defaultMessage: 'Submission deadline:',
+    defaultMessage: 'Submission deadline: ',
   },
 });
 
@@ -50,7 +50,7 @@ const CclWorkOpportunity = (props) => {
         <span className="card-work-deadline-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
-        {new Date(item.submission_deadline).toLocaleDateString()}
+        {new Date(item.submission_deadline).toLocaleString()}
       </div>
     </div>
   );
