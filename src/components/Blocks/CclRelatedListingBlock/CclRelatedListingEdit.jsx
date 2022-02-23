@@ -9,7 +9,10 @@ const CclRelatedListingEdit = (props) => {
   const schema = config.blocks.blocksConfig['relatedListing'].blockSchema;
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   const types = useSelector((state) => state.types.types);
-  const types_schema = types.map((type) => [type.title, type.title]);
+  const types_schema = types.map((type) => [
+    type['@id'].split('/').pop(),
+    type.title,
+  ]);
   let libraries = searchSubrequests?.[props.id]?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
