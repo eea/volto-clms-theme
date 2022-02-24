@@ -131,7 +131,7 @@ function CclCard(props) {
                   <Link to={url}>{card?.title || 'Card default title'}</Link>
                 </div>
                 <div className="card-news-date">
-                  {new Date(card?.effective).toLocaleDateString()}
+                  {new Date(card?.effective).toLocaleString()}
                 </div>
                 <p className="card-news-description">{card?.description}</p>
               </div>
