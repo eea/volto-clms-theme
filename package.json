@@ -121,6 +121,7 @@
     "cypress:run": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress open",
     "precommit": "yarn stylelint && yarn prettier && yarn lint",
+    "husky": "husky install",
     "test": "docker run -it --rm -v $(pwd):/opt/frontend/my-volto-project/src/addons/volto-clms-theme -e GIT_NAME=volto-clms-theme -e NAMESPACE=@eeacms plone/volto-addon-ci"
   }
 }
