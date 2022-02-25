@@ -87,7 +87,6 @@ function listingVariation(id, isDefault, title, template, isWO = false) {
       isWO ? CclListingWorkOpportunities : CclListingCards,
       template,
     ),
-    fullobjects: true,
   };
 }
 
