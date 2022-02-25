@@ -1,7 +1,5 @@
 import './cards.less';
 
-import * as mime from 'react-native-mime-types';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -12,12 +10,52 @@ import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock'
 import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon } from '@plone/volto/components';
 
-function bytesToSize(bytes) {
-  var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  if (bytes === 0) return '0 Byte';
-  var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-  return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-}
+const CardImage = ({ card, size = 'preview' }) => {
+  return card?.image_field ? (
+    <img
+      src={`${card.getURL}/@@images/${card?.image_field}/${size}`}
+      alt={card?.image?.alt || 'Placeholder'}
+    />
+  ) : (
+    <img
+      src={
+        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+      }
+      alt={card?.image?.alt || 'Placeholder'}
+    />
+  );
+};
+
+const DocCard = ({ card, url, showEditor, children }) => {
+  return (
+    <>
+      <div className="card-doc-title">
+        {card?.Type === 'TechnicalLibrary' ? (
+          <a href={`${card['@id']}/@@download/file`}>{card?.title}</a>
+        ) : (
+          <Link to={url}>{card?.title}</Link>
+        )}
+        {card?.Type === 'TechnicalLibrary' && showEditor && (
+          <Link to={`${url}/edit`}>
+            <Icon
+              name={penSVG}
+              size="15px"
+              className="circled"
+              title={'Edit'}
+            />
+          </Link>
+        )}
+      </div>
+      <div className="card-doc-text">
+        <div className="doc-description">{card?.description}</div>
+        {card?.Type === 'TechnicalLibrary' && (
+          <div className="card-doc-size">{card.getObjSize || ''}</div>
+        )}
+        {children}
+      </div>
+    </>
+  );
+};
 function CclCard(props) {
   const { type, children, card, showEditor = false } = props;
   let url = '/';
@@ -40,53 +78,27 @@ function CclCard(props) {
     >
       {conditional_types.includes(type) ? (
         <>
-          {(type === 'doc' || type === 'globalSearch') && (
+          {type === 'doc' && (
             <>
-              {type === 'globalSearch' && (
-                <Label ribbon="right" color="olive">
-                  {content_type}
-                </Label>
-              )}
-              <div className="card-doc-title">
-                {card?.file?.download ? (
-                  <a href={card.file.download}>{card?.title}</a>
-                ) : (
-                  <Link to={url}>{card?.title}</Link>
-                )}
-                {card?.file?.download && showEditor && (
-                  <Link to={`${url}/edit`}>
-                    <Icon
-                      name={penSVG}
-                      size="15px"
-                      className="circled"
-                      title={'Edit'}
-                    />
-                  </Link>
-                )}
-              </div>
-              <div className="card-doc-text">
-                <div className="doc-description">{card?.description}</div>
-                {card?.file && (
-                  <div className="card-doc-size">
-                    {mime.extension(card?.file?.['content-type']).toUpperCase()}{' '}
-                    {bytesToSize(card?.file?.size) || ''}
-                  </div>
-                )}
+              <DocCard card={card} url={url} showEditor={showEditor}>
                 {children}
-              </div>
+              </DocCard>
+            </>
+          )}
+          {type === 'globalSearch' && (
+            <>
+              <Label ribbon="right" color="olive">
+                {content_type}
+              </Label>
+              <DocCard card={card} url={url} showEditor={showEditor}>
+                {children}
+              </DocCard>
             </>
           )}
           {(type === 'block' || type === 'threeColumns') && (
             <>
               <div className={`card-${type}-image`}>
-                <img
-                  src={
-                    card?.image?.scales?.preview?.download ||
-                    card?.image?.download ||
-                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                  }
-                  alt={card?.image?.alt || 'Placeholder'}
-                />
+                <CardImage card={card} size={'preview'} />
               </div>
               <div className="card-text">
                 <div className="card-title">
@@ -100,21 +112,14 @@ function CclCard(props) {
           {type === 'news' && (
             <>
               <div className="card-news-image">
-                <img
-                  src={
-                    card?.image?.scales?.mini?.download ||
-                    card?.image?.download ||
-                    'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                  }
-                  alt={card?.image?.alt || 'Placeholder'}
-                />
+                <CardImage card={card} size={'mini'} />
               </div>
               <div className="card-news-text">
                 <div className="card-news-title">
                   <Link to={url}>{card?.title || 'Card default title'}</Link>
                 </div>
                 <div className="card-news-date">
-                  {new Date(card?.effective).toLocaleDateString()}
+                  {new Date(card?.effective).toLocaleString()}
                 </div>
                 <p className="card-news-description">{card?.description}</p>
               </div>
@@ -129,19 +134,11 @@ function CclCard(props) {
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
                   <div className="card-event-when-text">
-                    {card.whole_day ? (
-                      <When
-                        start={card.start}
-                        end={card.start}
-                        whole_day={card.whole_day}
-                      />
-                    ) : (
-                      <When
-                        start={card.start}
-                        end={card.end}
-                        whole_day={card.whole_day}
-                      />
-                    )}
+                    <When
+                      start={card.start}
+                      end={card.whole_day ? card.start : card.end}
+                      whole_day={card.whole_day}
+                    />
                   </div>
                 </div>
                 {card?.location ? (
@@ -164,14 +161,7 @@ function CclCard(props) {
       ) : (
         <>
           <div className="card-image">
-            <img
-              src={
-                card?.image?.scales?.mini?.download ||
-                card?.image?.download ||
-                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-              }
-              alt={card?.image?.alt || 'Placeholder'}
-            />
+            <CardImage card={card} size={'mini'} />
           </div>
           <div className={'card-text'}>
             <div className="card-title">

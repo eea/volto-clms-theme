@@ -40,7 +40,6 @@ const applyConfig = (config) => {
       ...config.contentTypesViews,
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
-      TechnicalLibrary: CLMSDownloadableFileView,
       File: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,

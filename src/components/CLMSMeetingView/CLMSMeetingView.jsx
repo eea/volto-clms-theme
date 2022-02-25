@@ -73,10 +73,6 @@ export const CLMSMeetingView = (props) => {
       id: 'meetingtype',
       defaultMessage: 'Type',
     },
-    meetinglevel: {
-      id: 'meetinglevel',
-      defaultMessage: 'Level',
-    },
     hosting_organisation: {
       id: 'hosting_organisation',
       defaultMessage: 'Hosting organisation',
@@ -325,19 +321,6 @@ export const CLMSMeetingView = (props) => {
               </div>
               <div className="dataset-field-description">
                 {content.meeting_type.title}
-              </div>
-            </div>
-          </>
-        )}
-
-        {content.meeting_level && (
-          <>
-            <div className="dataset-info-field">
-              <div className="dataset-field-title">
-                <Header>{intl.formatMessage(messages.meetinglevel)}</Header>
-              </div>
-              <div className="dataset-field-description">
-                {content.meeting_level.title}
               </div>
             </div>
           </>

@@ -56,6 +56,8 @@ import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/Ccl
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
 import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
+import SubscriptionBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionView';
+import SubscriptionBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionEdit';
 import cardSVG from '@plone/volto/icons/indent.svg';
 import containerSVG from '@plone/volto/icons/apps.svg';
 import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
@@ -85,7 +87,6 @@ function listingVariation(id, isDefault, title, template, isWO = false) {
       isWO ? CclListingWorkOpportunities : CclListingCards,
       template,
     ),
-    fullobjects: true,
   };
 }
 
@@ -434,6 +435,22 @@ const customBlocks = (config) => ({
     group: 'ccl_home_specific', // The group (blocks can be grouped, displayed in the chooser)
     view: CclHomeUsersBlockView, // The view mode component
     edit: CclHomeUsersBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  subscriptionBlock: {
+    id: 'subscriptionBlock', // The name (id) of the block
+    title: 'Subscription Block', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: SubscriptionBlockView, // The view mode component
+    edit: SubscriptionBlockEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
