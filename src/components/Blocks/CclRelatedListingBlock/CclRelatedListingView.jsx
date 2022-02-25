@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import config from '@plone/volto/registry';
 import { searchContent } from '@plone/volto/actions';
+import { Segment } from 'semantic-ui-react';
 
 const CclRelatedListingView = (props) => {
   const { data, id, properties, metadata } = props;
   const dispatch = useDispatch();
-  const searchSubrequests = useSelector((state) => state.search.subrequests);
+  const searchSubrequests = useSelector(
+    (state) => state.search.subrequests?.[props.id],
+  );
   const uid = metadata ? metadata['UID'] : properties['UID'];
-  let libraries = searchSubrequests?.[props.id]?.items || [];
+  let libraries = searchSubrequests?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
   let TemplateView = '';
@@ -43,27 +46,30 @@ const CclRelatedListingView = (props) => {
 
   React.useEffect(() => {
     uid &&
+      !searchSubrequests?.loading &&
+      !searchSubrequests?.loaded &&
+      !searchSubrequests?.error &&
       dispatch(
         searchContent(
-          '',
+          '/',
           {
-            fullobjects: 1,
             portal_type: data.content_type || 'News Item',
-            path: '/',
             associated_products: uid,
+            metadata_fields: '_all',
           },
           id,
         ),
       );
-  }, [data, id, uid, dispatch]);
+  }, [data, id, uid, dispatch, searchSubrequests]);
 
   return (
     <>
-      {libraries.length > 0 ? (
+      {searchSubrequests?.loaded && libraries.length > 0 ? (
         <TemplateView items={libraries} variation={template_id} />
       ) : (
         <p>There are no related {data.content_type} items.</p>
       )}
+      {searchSubrequests?.loading && <Segment loading></Segment>}
     </>
   );
 };
