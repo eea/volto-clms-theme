@@ -10,6 +10,8 @@ import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock'
 import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon } from '@plone/volto/components';
 
+import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
+
 const CardImage = ({ card, size = 'preview' }) => {
   return card?.image_field ? (
     <img
@@ -17,12 +19,7 @@ const CardImage = ({ card, size = 'preview' }) => {
       alt={card?.image?.alt || 'Placeholder'}
     />
   ) : (
-    <img
-      src={
-        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-      }
-      alt={card?.image?.alt || 'Placeholder'}
-    />
+    <img src={PlaceHolder} alt={card?.image?.alt || 'Placeholder'} />
   );
 };
 
