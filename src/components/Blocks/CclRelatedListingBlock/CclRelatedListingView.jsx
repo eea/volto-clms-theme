@@ -68,7 +68,7 @@ const CclRelatedListingView = (props) => {
       {searchSubrequests?.loaded && libraries.length > 0 ? (
         <TemplateView items={libraries} variation={template_id} />
       ) : (
-        <p>There are no related {data.content_type} items.</p>
+        <p>There are no related items.</p>
       )}
       {searchSubrequests?.loading && <Segment loading></Segment>}
     </>
