@@ -27,9 +27,11 @@
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-clms-utils",
     "volto-form-block",
-    "@eeacms/volto-taxonomy"
+    "@eeacms/volto-taxonomy",
+    "volto-cookie-banner"
   ],
   "dependencies": {
+    "volto-cookie-banner": "2.1.0",
     "@eeacms/volto-accordion-block": "3.4.7",
     "@eeacms/volto-arcgis-block": "*",
     "@eeacms/volto-clms-utils": "0.1.6",

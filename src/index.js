@@ -32,6 +32,7 @@ import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 // CUSTOM REDUCERS IMPORT
 import reducers from './reducers';
+import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 
 const applyConfig = (config) => {
   config.views = {
@@ -74,6 +75,13 @@ const applyConfig = (config) => {
   };
   config.settings = {
     ...config.settings,
+    appExtras: [
+      ...config.settings.appExtras,
+      {
+        match: '*',
+        component: CookieBanner,
+      },
+    ],
     nonContentRoutes: [
       ...config.settings.nonContentRoutes,
       '/profile',
