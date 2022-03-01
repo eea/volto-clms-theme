@@ -55,7 +55,7 @@ function CclDownloadTable(props) {
 
   React.useEffect(() => {
     let fItems = prePackagedCollection.filter((item) =>
-      item.resolution.toLowerCase().includes(filterText.toLocaleLowerCase()),
+      item?.resolution?.toLowerCase().includes(filterText.toLocaleLowerCase()),
     );
     if (filterText) {
       setCurrentPageItems(fItems.slice(0, 10));
@@ -231,7 +231,7 @@ function CclDownloadTable(props) {
                         <span
                           className={
                             'tag tag-' +
-                            (dataset_file?.type.toLowerCase() || 'raster')
+                            (dataset_file?.type?.toLowerCase() || 'raster')
                           }
                         >
                           {dataset_file?.type || 'Raster'}
