@@ -83,10 +83,9 @@ function listingVariation(id, isDefault, title, template, isWO = false) {
     id: id,
     isDefault: isDefault,
     title: title,
-    template: VariationHOC(
-      isWO ? CclListingWorkOpportunities : CclListingCards,
-      template,
-    ),
+    template: isWO
+      ? CclListingWorkOpportunities
+      : VariationHOC(CclListingCards, template),
   };
 }
 

@@ -39,9 +39,19 @@ const CclRelatedListingView = (props) => {
     template_id = defaultVariation.id;
     data.variation = template_id;
   }
-
   if (!data.content_type) {
     data.content_type = 'News Item';
+  }
+
+  // Configure sorting for the related items
+  let sort_on = 'effective';
+  let sort_order = 'descending';
+  if (data.content_type === 'eea.meeting') {
+    sort_on = 'start';
+    sort_order = 'descending';
+  } else if (data.content_type === 'TechnicalLibrary') {
+    sort_on = 'documentation_sorting';
+    sort_order = 'ascending';
   }
 
   React.useEffect(() => {
@@ -56,6 +66,8 @@ const CclRelatedListingView = (props) => {
             portal_type: data.content_type || 'News Item',
             associated_products: uid,
             metadata_fields: '_all',
+            sort_on: sort_on,
+            sort_order: sort_order,
           },
           id,
         ),
@@ -68,7 +80,7 @@ const CclRelatedListingView = (props) => {
       {searchSubrequests?.loaded && libraries.length > 0 ? (
         <TemplateView items={libraries} variation={template_id} />
       ) : (
-        <p>There are no related {data.content_type} items.</p>
+        <p>There are no related items.</p>
       )}
       {searchSubrequests?.loading && <Segment loading></Segment>}
     </>
