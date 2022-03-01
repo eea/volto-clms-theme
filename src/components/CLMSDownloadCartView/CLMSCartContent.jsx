@@ -4,7 +4,7 @@
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
-import { Checkbox, Segment, Select } from 'semantic-ui-react';
+import { Checkbox, Grid, Modal, Segment, Select } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import {
   getCartObjectFromMapviewer,
@@ -30,10 +30,16 @@ import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 const CLMSCartContent = (props) => {
   const { localSessionCart } = props;
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart_items.items);
   const { removeCartItem, removeCartItems } = useCartState();
+
+  // component states
+  const [openedModal, setOpenedModal] = useState(false);
   const [cartSelection, setCartSelection] = useState([]);
   const [loadingTable, setLoadingTable] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
+  // state connections
+  const cart = useSelector((state) => state.cart_items.items);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
@@ -45,8 +51,6 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.projections_in_progress,
   );
   const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
-
-  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     dispatch(getProjections());
@@ -139,7 +143,7 @@ const CLMSCartContent = (props) => {
     dispatch(getDownloadtool());
   };
 
-  function startDownloading() {
+  const startDownloading = () => {
     setLoadingTable(true);
     window.scrollTo(0, 0);
 
@@ -161,7 +165,21 @@ const CLMSCartContent = (props) => {
         setLoadingTable(false);
         toast.error(<Toast autoClose={5000} title={'Something went wrong.'} />);
       });
-  }
+  };
+
+  const downloadModal = () => {
+    let selectedItems = getSelectedCartItems();
+    const hasPrepackaged =
+      selectedItems.filter((item) => item.file_id).length > 0;
+    const hasMapSelection =
+      selectedItems.filter((item) => item.area).length > 0;
+    if (!(hasMapSelection && hasPrepackaged)) {
+      startDownloading();
+    } else {
+      setOpenedModal(true);
+    }
+  };
+
   const setProjectionValue = (unique_id, value) => {
     const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
     cartItems[objIndex].projection = value;
@@ -346,12 +364,70 @@ const CLMSCartContent = (props) => {
       )}
       {cartItems?.length !== 0 && (
         <CclButton
-          onClick={() => startDownloading()}
+          onClick={() => downloadModal()}
           disabled={cartSelection.length === 0}
         >
           Start downloading
         </CclButton>
       )}
+      <Modal
+        // onClose={() => closeModal()}
+        // onOpen={() => openModal()}
+        open={openedModal}
+        // trigger={trigger}
+        className={'modal-clms'}
+        size={'fullscreen'}
+      >
+        <Modal.Header>Download processing</Modal.Header>
+        <Modal.Content>
+          <div className={'modal-clms-background'}>
+            <div className={'modal-clms-container'}>
+              {'The download is going to be processed in two different files.'}
+              <br />
+              <br />
+              <strong>Prepackaged files:</strong>
+              <ul>
+                {getSelectedCartItems()
+                  .filter((item) => item.file_id)
+                  .map((item, key) => (
+                    <li key={key}>{item.name}</li>
+                  ))}
+              </ul>
+              <br />
+              <strong>Map viewer selection:</strong>
+              <ul>
+                {getSelectedCartItems()
+                  .filter((item) => item.area)
+                  .map((item, key) => (
+                    <li key={key}>{item.name}</li>
+                  ))}
+              </ul>
+            </div>
+          </div>
+        </Modal.Content>
+        <Modal.Actions>
+          <Grid columns={2} stackable textAlign="center">
+            <Grid.Row verticalAlign="middle">
+              <Grid.Column>
+                <CclButton onClick={() => setOpenedModal(false)}>
+                  Cancel
+                </CclButton>
+              </Grid.Column>
+              <Grid.Column>
+                <CclButton
+                  mode={'filled'}
+                  onClick={() => {
+                    setOpenedModal(false);
+                    startDownloading();
+                  }}
+                >
+                  Accept
+                </CclButton>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Actions>
+      </Modal>
     </>
   );
 };
