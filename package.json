@@ -30,7 +30,7 @@
     "@eeacms/volto-taxonomy"
   ],
   "dependencies": {
-    "@eeacms/volto-accordion-block": "3.4.7",
+    "@eeacms/volto-accordion-block": "3.4.13",
     "@eeacms/volto-arcgis-block": "*",
     "@eeacms/volto-clms-utils": "0.1.6",
     "@eeacms/volto-columns-block": "4.4.3",
