@@ -31,8 +31,6 @@ import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
 import CclButtonBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockEdit';
 import CclButtonBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockView';
-import CclCardBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclCardBlock/CclCardBlockEdit';
-import CclCardBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclCardBlock/CclCardBlockView';
 import CclCardContainerBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockEdit';
 import CclCardContainerBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockView';
 import CclContextNavigationBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockEdit';
@@ -58,7 +56,6 @@ import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/Ccl
 import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
 import SubscriptionBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionView';
 import SubscriptionBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionEdit';
-import cardSVG from '@plone/volto/icons/indent.svg';
 import containerSVG from '@plone/volto/icons/apps.svg';
 import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
 import downSVG from '@plone/volto/icons/down-key.svg';
@@ -83,6 +80,7 @@ function listingVariation(id, isDefault, title, template, isWO = false) {
     id: id,
     isDefault: isDefault,
     title: title,
+    templateID: template,
     template: isWO
       ? CclListingWorkOpportunities
       : VariationHOC(CclListingCards, template),
@@ -274,22 +272,6 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclCardContainerBlockView, // The view mode component
     edit: CclCardContainerBlockEdit, // The edit mode component
-    restricted: false, // If the block is restricted, it won't show in the chooser
-    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
-    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
-    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
-    security: {
-      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
-      view: [], // Future proof (not implemented yet) view user role(s)
-    },
-  },
-  cardBlock: {
-    id: 'cardBlock', // The name (id) of the block
-    title: 'Card Block', // The display name of the block
-    icon: cardSVG, // The icon used in the block chooser
-    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
-    view: CclCardBlockView, // The view mode component
-    edit: CclCardBlockEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
