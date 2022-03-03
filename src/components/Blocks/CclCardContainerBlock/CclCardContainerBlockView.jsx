@@ -1,54 +1,31 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 import React from 'react';
-import { searchContent } from '@plone/volto/actions';
+import getListingBodyVariation from './utils.js';
 
 const CclCardContainerBlockView = (props) => {
-  const { data, metadata, properties, id } = props;
+  const { data } = props;
+  let cards = data?.customCards?.blocks_layout?.items.map(
+    (uid) => data.customCards.blocks[uid],
+  );
 
-  const searchSubrequests = useSelector((state) => state.search.subrequests);
-  const dispatch = useDispatch();
-  let cards = searchSubrequests?.[props.id]?.items;
+  const variation = getListingBodyVariation(data);
 
-  let path = '';
-  if (data.cardOrigin === 'current') {
-    path = metadata ? metadata['@id'] : properties['@id'];
-  } else if (data.cardOrigin === 'selection') {
-    path = data.containerSelection ? data.containerSelection[0]['@id'] : '';
-  } else if (data.cardOrigin === 'custom') {
-    cards = data?.customCards?.blocks_layout?.items.map(
-      (uid) => data.customCards.blocks[uid],
-    );
+  let containerClass = '';
+  if (['news', 'event'].includes(variation.templateID)) {
+    containerClass = 'ccl-container';
+  } else if (!['line', 'doc', 'globalSearch'].includes(variation.templateID)) {
+    containerClass = 'card-container';
   }
-
-  React.useEffect(() => {
-    let portal_type =
-      data.contentTypes?.length > 0 ? { portal_type: data.contentTypes } : {};
-    dispatch(
-      searchContent(
-        path,
-        {
-          sort_on: 'effective',
-          sort_order: 'reverse',
-          fullobjects: 1,
-          ...portal_type,
-        },
-        id,
-      ),
-    );
-  }, [path, data, id, dispatch]);
-
-  var cardStyle = data.cardStyle || 'line';
   return (
-    <div
-      className={
-        cardStyle === 'line' || cardStyle === 'doc' ? '' : 'card-container'
-      }
-    >
+    <div className={containerClass}>
       {cards &&
         cards.map((card, index) => (
-          <CclCard key={index} type={cardStyle} card={card} />
+          <CclCard
+            key={index}
+            type={variation.templateID}
+            card={card}
+            isCustomCard={true}
+          />
         ))}
     </div>
   );

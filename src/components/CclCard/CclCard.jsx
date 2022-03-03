@@ -12,14 +12,30 @@ import { Icon } from '@plone/volto/components';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 
-const CardImage = ({ card, size = 'preview' }) => {
+const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
     <img
       src={`${card.getURL}/@@images/${card?.image_field}/${size}`}
       alt={card?.image?.alt || 'Placeholder'}
     />
+  ) : isCustomCard && card?.image?.url ? (
+    <img src={`${card.image.url}/@@images/image`} alt={card.image.alt} />
   ) : (
     <img src={PlaceHolder} alt={card?.image?.alt || 'Placeholder'} />
+  );
+};
+
+const CardLink = ({ url, title }) => {
+  function hasProtocol(protocolUrl) {
+    return (
+      protocolUrl.startsWith('https://') || protocolUrl.startsWith('http://')
+    );
+  }
+  const RenderElement = hasProtocol(url) ? 'a' : Link;
+  return hasProtocol(url) ? (
+    <RenderElement href={url}>{title || 'Card default title'}</RenderElement>
+  ) : (
+    <RenderElement to={url}>{title || 'Card default title'}</RenderElement>
   );
 };
 
@@ -54,12 +70,26 @@ const DocCard = ({ card, url, showEditor, children }) => {
   );
 };
 function CclCard(props) {
-  const { type, children, card, showEditor = false } = props;
+  const {
+    type,
+    children,
+    card,
+    showEditor = false,
+    CclImageEditor = null,
+    onClickImage = () => {
+      return '';
+    },
+    isCustomCard = false,
+  } = props;
   let url = '/';
   let content_type = '';
-  if (card) {
-    url = card['@id'] || card.hrerf || '/';
+  if (card && !isCustomCard) {
+    url = card['@id'] || '/';
     content_type = portal_types_labels[card['@type']] || card['@type'];
+  } else {
+    if (card?.url?.length > 0) {
+      url = card.url[0]['@id'] || '/';
+    }
   }
   const conditional_types = [
     'doc',
@@ -71,6 +101,10 @@ function CclCard(props) {
   ];
   return (
     <div
+      tabIndex="0"
+      role="button"
+      onClick={() => onClickImage()}
+      onKeyDown={() => onClickImage()}
       className={'card-' + (type === 'globalSearch' ? 'doc' : type || 'line')}
     >
       {conditional_types.includes(type) ? (
@@ -95,11 +129,19 @@ function CclCard(props) {
           {(type === 'block' || type === 'threeColumns') && (
             <>
               <div className={`card-${type}-image`}>
-                <CardImage card={card} size={'preview'} />
+                {isCustomCard && CclImageEditor ? (
+                  CclImageEditor
+                ) : (
+                  <CardImage
+                    isCustomCard={isCustomCard}
+                    card={card}
+                    size={'preview'}
+                  />
+                )}
               </div>
               <div className="card-text">
                 <div className="card-title">
-                  <Link to={url}>{card?.title || 'Card default title'}</Link>
+                  <CardLink url={url} title={card?.title} />
                 </div>
                 <div className="card-description">{card?.description}</div>
                 {children}
@@ -109,11 +151,19 @@ function CclCard(props) {
           {type === 'news' && (
             <>
               <div className="card-news-image">
-                <CardImage card={card} size={'mini'} />
+                {isCustomCard && CclImageEditor ? (
+                  CclImageEditor
+                ) : (
+                  <CardImage
+                    isCustomCard={isCustomCard}
+                    card={card}
+                    size={'mini'}
+                  />
+                )}
               </div>
               <div className="card-news-text">
                 <div className="card-news-title">
-                  <Link to={url}>{card?.title || 'Card default title'}</Link>
+                  <CardLink url={url} title={card?.title} />
                 </div>
                 <div className="card-news-date">
                   {new Date(card?.effective).toLocaleString()}
@@ -126,7 +176,7 @@ function CclCard(props) {
             <>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
-                  <Link to={url}>{card?.title || 'Event default title'}</Link>
+                  <CardLink url={url} title={card?.title} />
                 </div>
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
@@ -158,11 +208,20 @@ function CclCard(props) {
       ) : (
         <>
           <div className="card-image">
-            <CardImage card={card} size={'mini'} />
+            {isCustomCard && CclImageEditor ? (
+              CclImageEditor
+            ) : (
+              <CardImage
+                isCustomCard={isCustomCard}
+                card={card}
+                size={'mini'}
+              />
+            )}
           </div>
           <div className={'card-text'}>
             <div className="card-title">
-              <Link to={url}>{card?.title || 'Card default title'}</Link>
+              <CardLink url={url} title={card?.title} />
+              {/* <Link to={url}>{card?.title || 'Card default title'}</Link> */}
             </div>
             <div className="card-description">{card?.description}</div>
             {children}
