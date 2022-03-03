@@ -1,67 +1,39 @@
-import './styles.less';
-
 import { CardBlockSchema, CardContainerSchema } from './CardContainerSchema';
 import React, { useState } from 'react';
 import { emptyCard, getPanels } from '../utils';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { SidebarPortal } from '@plone/volto/components'; // BlocksForm, Icon,
+import { SidebarPortal, BlockDataForm } from '@plone/volto/components'; // BlocksForm, Icon,
+import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
 import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
 import { isEmpty } from 'lodash';
-import { useSelector } from 'react-redux';
 import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
+import CclImageEditor from '@eeacms/volto-clms-theme/components/CclImageEditor/CclImageEditor';
+import { defineMessages } from 'react-intl';
+import config from '@plone/volto/registry';
+import getListingBodyVariation from './utils.js';
 
-const CclCardContainerBlockEdit = (props) => {
-  const { block, data, onChangeBlock, selected } = props;
+const messages = defineMessages({
+  template: {
+    id: 'Variation',
+    defaultMessage: 'Variation',
+  },
+});
 
-  const regex = /[a-zA-Z]+(?!.*[a-zA-Z]+)/;
-  const types = useSelector((state) => state.types.types);
-  const type_options = types.map((type) => [
-    type['@id'].match(regex)[0],
-    type.title,
-  ]);
-
-  const card = {
-    '@id': '/en/product-portfolio/how-our-products-are-created',
-    title: 'Dataset preview title',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus mauris ante, a iaculis leo placerat quis. Nullam vitae vulputate leo, et ultricies dolor.',
-    image: {
-      scales: {
-        icon: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        large: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        listing: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        mini: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        preview: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        thumb: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        tile: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-      },
-    },
-    url: '/en/product-portfolio/how-our-products-are-created',
-  };
+const CclCardContainerBlockEdit = ({
+  block,
+  data,
+  onChangeBlock,
+  selected,
+  editable,
+  request,
+  content,
+  setSidebarTab,
+  openObjectBrowser,
+  pathname,
+  intl,
+}) => {
   const properties = isEmpty(data?.customCards?.blocks)
     ? emptyCard(2)
     : data.customCards;
@@ -80,21 +52,24 @@ const CclCardContainerBlockEdit = (props) => {
     /* eslint-disable-next-line */
   }, []);
 
-  const [selectedBlock, setSelectedBlock] = useState(-1);
-  React.useEffect(() => {
-    if (!selected) {
-      setSelectedBlock(-1);
-    }
-  }, [selected]);
+  const [selectedCardBlock, setSelectedCardBlock] = useState(-1);
 
-  let extras = [];
-  if (data.cardOrigin === 'selection') {
-    extras.push('containerSelection');
-    extras.push('contentTypes');
-  } else if (data.cardOrigin === 'current') {
-    extras.push('contentTypes');
-  } else if (data.cardOrigin === 'custom') {
-    extras.push('customCards');
+  let schema = CardContainerSchema();
+
+  schema = addExtensionFieldToSchema({
+    schema,
+    name: 'variation',
+    items: config.blocks.blocksConfig.listing.variations,
+    intl,
+    title: { id: intl.formatMessage(messages.template) },
+  });
+
+  const variation = getListingBodyVariation(data);
+  let containerClass = '';
+  if (['news', 'event'].includes(variation.templateID)) {
+    containerClass = 'ccl-container';
+  } else if (!['line', 'doc', 'globalSearch'].includes(variation.templateID)) {
+    containerClass = 'card-container';
   }
 
   return (
@@ -102,46 +77,46 @@ const CclCardContainerBlockEdit = (props) => {
       <div
         className="cardContainer-header"
         onClick={() => {
-          props.setSidebarTab(1);
-          setSelectedBlock(-1);
+          setSidebarTab(1);
+          setSelectedCardBlock(-1);
         }}
         aria-hidden="true"
       >
         {data.title || 'Card container'}
       </div>
-      <div>
-        {data.cardOrigin === 'custom' ? (
-          <>
-            {panels.map(([uid, panel], index) => (
-              <div
-                key={index}
-                className={uid === selectedBlock && 'block selected'}
-                onClick={() => {
-                  setSelectedBlock(uid);
-                }}
-                onKeyDown={() => {
-                  setSelectedBlock(uid);
-                }}
-                role="button"
-                tabIndex="0"
-              >
-                <CclCard
-                  type={data.cardStyle || 'line'}
-                  card={data.customCards.blocks[uid]}
-                />
-              </div>
-            ))}
-          </>
-        ) : (
-          <div className="card-container">
-            <CclCard type={data.cardStyle} card={card} />
-            <CclCard type={data.cardStyle} card={card} />
-          </div>
-        )}
+      <div className={containerClass}>
+        {panels.map(([uid, panel], index) => (
+          <CclCard
+            key={index}
+            type={variation?.templateID || 'doc'}
+            card={panel}
+            onClickImage={() => {
+              setSelectedCardBlock(uid);
+            }}
+            isCustomCard={true}
+            CclImageEditor={
+              <CclImageEditor
+                block={block}
+                content={content}
+                data={data}
+                editable={editable}
+                imageUrl={panel?.image?.url}
+                onChangeBlock={onChangeBlock}
+                openObjectBrowser={openObjectBrowser}
+                pathname={pathname}
+                request={request}
+                selected={selected}
+                selectedCardBlock={selectedCardBlock}
+                setSelectedCardBlock={setSelectedCardBlock}
+                uid={uid}
+              />
+            }
+          />
+        ))}
       </div>
-      <SidebarPortal selected={selected && selectedBlock === -1}>
-        <InlineForm
-          schema={CardContainerSchema(type_options, extras)}
+      <SidebarPortal selected={selected && selectedCardBlock === -1}>
+        <BlockDataForm
+          schema={schema}
           title="Card container block"
           onChangeField={(id, value) => {
             onChangeBlock(block, {
@@ -153,9 +128,11 @@ const CclCardContainerBlockEdit = (props) => {
         />
       </SidebarPortal>
       <SidebarPortal
-        selected={selected && selectedBlock !== -1 && data.customCards?.blocks}
+        selected={
+          selected && selectedCardBlock !== -1 && data.customCards?.blocks
+        }
       >
-        <InlineForm
+        <BlockDataForm
           schema={CardBlockSchema()}
           title="Card block"
           onChangeField={(id, value) => {
@@ -165,15 +142,15 @@ const CclCardContainerBlockEdit = (props) => {
                 ...data.customCards,
                 blocks: {
                   ...data.customCards.blocks,
-                  [selectedBlock]: {
-                    ...data.customCards.blocks[selectedBlock],
+                  [selectedCardBlock]: {
+                    ...data.customCards.blocks[selectedCardBlock],
                     [id]: value,
                   },
                 },
               },
             });
           }}
-          formData={data.customCards?.blocks[selectedBlock]}
+          formData={data.customCards?.blocks[selectedCardBlock]}
         />
       </SidebarPortal>
     </>
