@@ -4,11 +4,8 @@ import { CardBlockSchema, HomeUsersSchema } from './HomeUsersSchema';
 /** upload image */
 import { InlineForm, SidebarPortal } from '@plone/volto/components';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { emptyCard, getPanels } from '../utils';
 
-import { compose } from 'redux';
-import { createContent } from '@plone/volto/actions';
 import { isEmpty } from 'lodash';
 import CclImageEditor from '@eeacms/volto-clms-theme/components/CclImageEditor/CclImageEditor';
 
@@ -26,8 +23,6 @@ const CclHomeUsersBlockEdit = ({
   onChangeBlock,
   selected,
   editable,
-  request,
-  content,
   setSidebarTab,
   openObjectBrowser,
   pathname,
@@ -83,14 +78,12 @@ const CclHomeUsersBlockEdit = ({
                 <div className="card-image">
                   <CclImageEditor
                     block={block}
-                    content={content}
                     data={data}
                     editable={editable}
                     imageUrl={panel?.image?.url}
                     onChangeBlock={onChangeBlock}
                     openObjectBrowser={openObjectBrowser}
                     pathname={pathname}
-                    request={request}
                     selected={selected}
                     selectedCardBlock={selectedCardBlock}
                     setSelectedCardBlock={setSelectedCardBlock}
@@ -150,12 +143,4 @@ const CclHomeUsersBlockEdit = ({
     </>
   );
 };
-export default compose(
-  connect(
-    (state) => ({
-      request: state.content.create,
-      content: state.content.data,
-    }),
-    { createContent },
-  ),
-)(CclHomeUsersBlockEdit);
+export default CclHomeUsersBlockEdit;

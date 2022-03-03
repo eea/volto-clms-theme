@@ -27,8 +27,6 @@ const CclCardContainerBlockEdit = ({
   onChangeBlock,
   selected,
   editable,
-  request,
-  content,
   setSidebarTab,
   openObjectBrowser,
   pathname,
@@ -97,14 +95,12 @@ const CclCardContainerBlockEdit = ({
             CclImageEditor={
               <CclImageEditor
                 block={block}
-                content={content}
                 data={data}
                 editable={editable}
                 imageUrl={panel?.image?.url}
                 onChangeBlock={onChangeBlock}
                 openObjectBrowser={openObjectBrowser}
                 pathname={pathname}
-                request={request}
                 selected={selected}
                 selectedCardBlock={selectedCardBlock}
                 setSelectedCardBlock={setSelectedCardBlock}

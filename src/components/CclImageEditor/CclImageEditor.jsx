@@ -5,11 +5,11 @@ import './styles.less';
 import { Dimmer, Image, Label, Loader, Message } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
 
-import { createContent } from '@plone/volto/actions';
+import { createContent, getContent } from '@plone/volto/actions';
 import editingSVG from '@plone/volto/icons/editing.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import { readAsDataURL } from 'promise-file-reader';
@@ -74,7 +74,9 @@ const onUploadImage = (pathname, e, setUploading, dispatch) => {
           filename: file.name,
         },
       }),
-    );
+    ).then((response) => {
+      dispatch(getContent(getBaseUrl(pathname)));
+    });
   });
 };
 
@@ -82,6 +84,7 @@ const ImageEditor = ({
   editable,
   pathname,
   setUploading,
+  uploading,
   dispatch,
   onChangeBlock,
   block,
@@ -103,7 +106,7 @@ const ImageEditor = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
   React.useEffect(() => {
-    if (request?.loaded && !request?.loading) {
+    if (request?.loaded && !request?.loading && uploading) {
       setUploading(false);
       onChangeCardBlockImage(onChangeBlock, block, data, selectedCardBlock, {
         url: flattenToAppURL(content['@id']),
@@ -194,14 +197,12 @@ const handleEdit = (handleEditProps) => {
 
 const CclImageEditor = ({
   block,
-  content,
   data,
   editable,
   imageUrl,
   onChangeBlock,
   openObjectBrowser,
   pathname,
-  request,
   selected,
   selectedCardBlock,
   setSelectedCardBlock,
@@ -211,6 +212,8 @@ const CclImageEditor = ({
 
   const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
+  const request = useSelector((state) => state.content.create);
+  const content = useSelector((state) => state.content.data);
 
   return imageUrl ? (
     <>
@@ -292,6 +295,7 @@ const CclImageEditor = ({
             editable={editable}
             pathname={pathname}
             setUploading={setUploading}
+            uploading={uploading}
             dispatch={dispatch}
             onChangeBlock={onChangeBlock}
             block={block}

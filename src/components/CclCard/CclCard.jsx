@@ -18,7 +18,7 @@ const CardImage = ({ card, size = 'preview', isCustomCard }) => {
       src={`${card.getURL}/@@images/${card?.image_field}/${size}`}
       alt={card?.image?.alt || 'Placeholder'}
     />
-  ) : isCustomCard && card?.image ? (
+  ) : isCustomCard && card?.image?.url ? (
     <img src={`${card.image.url}/@@images/image`} alt={card.image.alt} />
   ) : (
     <img src={PlaceHolder} alt={card?.image?.alt || 'Placeholder'} />
@@ -142,7 +142,6 @@ function CclCard(props) {
               <div className="card-text">
                 <div className="card-title">
                   <CardLink url={url} title={card?.title} />
-                  {/* <Link to={url}>{card?.title || 'Card default title'}</Link> */}
                 </div>
                 <div className="card-description">{card?.description}</div>
                 {children}
@@ -165,7 +164,6 @@ function CclCard(props) {
               <div className="card-news-text">
                 <div className="card-news-title">
                   <CardLink url={url} title={card?.title} />
-                  {/* <Link to={url}>{card?.title || 'Card default title'}</Link> */}
                 </div>
                 <div className="card-news-date">
                   {new Date(card?.effective).toLocaleString()}
@@ -179,7 +177,6 @@ function CclCard(props) {
               <div className={'card-event-text'}>
                 <div className="card-event-title">
                   <CardLink url={url} title={card?.title} />
-                  {/* <Link to={url}>{card?.title || 'Event default title'}</Link> */}
                 </div>
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
