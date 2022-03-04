@@ -25,17 +25,23 @@ const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   );
 };
 
-const CardLink = ({ url, title }) => {
+const CardLink = ({ url, children, className, condition = true }) => {
   function hasProtocol(protocolUrl) {
     return (
       protocolUrl.startsWith('https://') || protocolUrl.startsWith('http://')
     );
   }
   const RenderElement = hasProtocol(url) ? 'a' : Link;
-  return hasProtocol(url) ? (
-    <RenderElement href={url}>{title || 'Card default title'}</RenderElement>
+  return !condition ? (
+    children
+  ) : hasProtocol(url) ? (
+    <RenderElement className={className} href={url}>
+      {children}
+    </RenderElement>
   ) : (
-    <RenderElement to={url}>{title || 'Card default title'}</RenderElement>
+    <RenderElement className={className} to={url}>
+      {children}
+    </RenderElement>
   );
 };
 
@@ -99,136 +105,146 @@ function CclCard(props) {
     'threeColumns',
     'globalSearch',
   ];
+  const wrapperClass =
+    'card-' + (type === 'globalSearch' ? 'doc' : type || 'line');
   return (
-    <div
-      tabIndex="0"
-      role="button"
-      onClick={() => onClickImage()}
-      onKeyDown={() => onClickImage()}
-      className={'card-' + (type === 'globalSearch' ? 'doc' : type || 'line')}
+    <CardLink
+      url={url}
+      className={wrapperClass}
+      condition={type === 'block' || type === 'threeColumns'}
     >
-      {conditional_types.includes(type) ? (
-        <>
-          {type === 'doc' && (
-            <>
-              <DocCard card={card} url={url} showEditor={showEditor}>
-                {children}
-              </DocCard>
-            </>
-          )}
-          {type === 'globalSearch' && (
-            <>
-              <Label ribbon="right" color="olive">
-                {content_type}
-              </Label>
-              <DocCard card={card} url={url} showEditor={showEditor}>
-                {children}
-              </DocCard>
-            </>
-          )}
-          {(type === 'block' || type === 'threeColumns') && (
-            <>
-              <div className={`card-${type}-image`}>
-                {isCustomCard && CclImageEditor ? (
-                  CclImageEditor
-                ) : (
-                  <CardImage
-                    isCustomCard={isCustomCard}
-                    card={card}
-                    size={'preview'}
-                  />
-                )}
-              </div>
-              <div className="card-text">
-                <div className="card-title">
-                  <CardLink url={url} title={card?.title} />
-                </div>
-                <div className="card-description">{card?.description}</div>
-                {children}
-              </div>
-            </>
-          )}
-          {type === 'news' && (
-            <>
-              <div className="card-news-image">
-                {isCustomCard && CclImageEditor ? (
-                  CclImageEditor
-                ) : (
-                  <CardImage
-                    isCustomCard={isCustomCard}
-                    card={card}
-                    size={'mini'}
-                  />
-                )}
-              </div>
-              <div className="card-news-text">
-                <div className="card-news-title">
-                  <CardLink url={url} title={card?.title} />
-                </div>
-                <div className="card-news-date">
-                  {new Date(card?.effective).toLocaleString()}
-                </div>
-                <p className="card-news-description">{card?.description}</p>
-              </div>
-            </>
-          )}
-          {type === 'event' && (
-            <>
-              <div className={'card-event-text'}>
-                <div className="card-event-title">
-                  <CardLink url={url} title={card?.title} />
-                </div>
-                <div className="card-event-when">
-                  <FontAwesomeIcon icon={['far', 'calendar-alt']} />
-                  <div className="card-event-when-text">
-                    <When
-                      start={card.start}
-                      end={card.whole_day ? card.start : card.end}
-                      whole_day={card.whole_day}
-                    />
-                  </div>
-                </div>
-                {card?.location ? (
-                  <div className="card-event-where">
-                    <>
-                      <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
-                      <div className="card-event-where-text">
-                        {card?.location}
-                      </div>
-                    </>
-                  </div>
-                ) : (
-                  ''
-                )}
-                <p className="card-event-description">{card?.description}</p>
-              </div>
-            </>
-          )}
-        </>
-      ) : (
-        <>
-          <div className="card-image">
-            {isCustomCard && CclImageEditor ? (
-              CclImageEditor
-            ) : (
-              <CardImage
-                isCustomCard={isCustomCard}
-                card={card}
-                size={'mini'}
-              />
+      <div
+        tabIndex="0"
+        role="button"
+        onClick={() => onClickImage()}
+        onKeyDown={() => onClickImage()}
+        className={
+          !(type === 'block' || type === 'threeColumns') && wrapperClass
+        }
+      >
+        {conditional_types.includes(type) ? (
+          <>
+            {type === 'doc' && (
+              <>
+                <DocCard card={card} url={url} showEditor={showEditor}>
+                  {children}
+                </DocCard>
+              </>
             )}
-          </div>
-          <div className={'card-text'}>
-            <div className="card-title">
-              <CardLink url={url} title={card?.title} />
-              {/* <Link to={url}>{card?.title || 'Card default title'}</Link> */}
+            {type === 'globalSearch' && (
+              <>
+                <Label ribbon="right" color="olive">
+                  {content_type}
+                </Label>
+                <DocCard card={card} url={url} showEditor={showEditor}>
+                  {children}
+                </DocCard>
+              </>
+            )}
+            {(type === 'block' || type === 'threeColumns') && (
+              <>
+                <div className={`card-${type}-image`}>
+                  {isCustomCard && CclImageEditor ? (
+                    CclImageEditor
+                  ) : (
+                    <CardImage
+                      isCustomCard={isCustomCard}
+                      card={card}
+                      size={'preview'}
+                    />
+                  )}
+                </div>
+                <div className="card-text">
+                  <div className="card-title">{card?.title}</div>
+                  <div className="card-description">{card?.description}</div>
+                  {children}
+                </div>
+              </>
+            )}
+            {type === 'news' && (
+              <>
+                <div className="card-news-image">
+                  {isCustomCard && CclImageEditor ? (
+                    CclImageEditor
+                  ) : (
+                    <CardImage
+                      isCustomCard={isCustomCard}
+                      card={card}
+                      size={'mini'}
+                    />
+                  )}
+                </div>
+                <div className="card-news-text">
+                  <div className="card-news-title">
+                    <CardLink url={url}>{card?.title}</CardLink>
+                    {/* <CardLink url={url} title={card?.title} /> */}
+                  </div>
+                  <div className="card-news-date">
+                    {new Date(card?.effective).toLocaleString()}
+                  </div>
+                  <p className="card-news-description">{card?.description}</p>
+                </div>
+              </>
+            )}
+            {type === 'event' && (
+              <>
+                <div className={'card-event-text'}>
+                  <div className="card-event-title">
+                    <CardLink url={url}>{card?.title}</CardLink>
+                    {/* <CardLink url={url} title={card?.title} /> */}
+                  </div>
+                  <div className="card-event-when">
+                    <FontAwesomeIcon icon={['far', 'calendar-alt']} />
+                    <div className="card-event-when-text">
+                      <When
+                        start={card.start}
+                        end={card.whole_day ? card.start : card.end}
+                        whole_day={card.whole_day}
+                      />
+                    </div>
+                  </div>
+                  {card?.location ? (
+                    <div className="card-event-where">
+                      <>
+                        <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
+                        <div className="card-event-where-text">
+                          {card?.location}
+                        </div>
+                      </>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  <p className="card-event-description">{card?.description}</p>
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="card-image">
+              {isCustomCard && CclImageEditor ? (
+                CclImageEditor
+              ) : (
+                <CardImage
+                  isCustomCard={isCustomCard}
+                  card={card}
+                  size={'mini'}
+                />
+              )}
             </div>
-            <div className="card-description">{card?.description}</div>
-            {children}
-          </div>
-        </>
-      )}
-    </div>
+            <div className={'card-text'}>
+              <div className="card-title">
+                <CardLink url={url}>{card?.title}</CardLink>
+                {/* <CardLink url={url} title={card?.title} /> */}
+              </div>
+              <div className="card-description">{card?.description}</div>
+              {children}
+            </div>
+          </>
+        )}
+      </div>
+    </CardLink>
   );
 }
 
