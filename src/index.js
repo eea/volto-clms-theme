@@ -26,6 +26,7 @@ import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsW
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
 import ContactWidget from './components/Widgets/ContactWidget';
 import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
+import DownloadableFilesDataTableWidget from './components/Widgets/DownloadableFilesDataTableWidget';
 import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
@@ -62,7 +63,8 @@ const applyConfig = (config) => {
     ...config.widgets.widget,
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
-    downloadable_files_widget: DownloadableFilesWidget,
+    // downloadable_files_widget: DownloadableFilesWidget,
+    downloadable_files_widget: DownloadableFilesDataTableWidget,
     contact_widget: ContactWidget,
     distribution_info_widget: DistributionInfoWidget,
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
