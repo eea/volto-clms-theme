@@ -25,7 +25,7 @@ const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   );
 };
 
-const CardLink = ({ url, title }) => {
+const CardLink = ({ url, children }) => {
   function hasProtocol(protocolUrl) {
     return (
       protocolUrl.startsWith('https://') || protocolUrl.startsWith('http://')
@@ -33,9 +33,9 @@ const CardLink = ({ url, title }) => {
   }
   const RenderElement = hasProtocol(url) ? 'a' : Link;
   return hasProtocol(url) ? (
-    <RenderElement href={url}>{title || 'Card default title'}</RenderElement>
+    <RenderElement href={url}>{children}</RenderElement>
   ) : (
-    <RenderElement to={url}>{title || 'Card default title'}</RenderElement>
+    <RenderElement to={url}>{children}</RenderElement>
   );
 };
 
@@ -128,24 +128,24 @@ function CclCard(props) {
           )}
           {(type === 'block' || type === 'threeColumns') && (
             <>
-              <div className={`card-${type}-image`}>
-                {isCustomCard && CclImageEditor ? (
-                  CclImageEditor
-                ) : (
-                  <CardImage
-                    isCustomCard={isCustomCard}
-                    card={card}
-                    size={'preview'}
-                  />
-                )}
-              </div>
-              <div className="card-text">
-                <div className="card-title">
-                  <CardLink url={url} title={card?.title} />
+              <CardLink url={url}>
+                <div className={`card-${type}-image`}>
+                  {isCustomCard && CclImageEditor ? (
+                    CclImageEditor
+                  ) : (
+                    <CardImage
+                      isCustomCard={isCustomCard}
+                      card={card}
+                      size={'preview'}
+                    />
+                  )}
                 </div>
-                <div className="card-description">{card?.description}</div>
-                {children}
-              </div>
+                <div className="card-text">
+                  <div className="card-title">{card?.title}</div>
+                  <div className="card-description">{card?.description}</div>
+                  {children}
+                </div>
+              </CardLink>
             </>
           )}
           {type === 'news' && (
@@ -163,7 +163,8 @@ function CclCard(props) {
               </div>
               <div className="card-news-text">
                 <div className="card-news-title">
-                  <CardLink url={url} title={card?.title} />
+                  <CardLink url={url}>{card?.title}</CardLink>
+                  {/* <CardLink url={url} title={card?.title} /> */}
                 </div>
                 <div className="card-news-date">
                   {new Date(card?.effective).toLocaleString()}
@@ -176,7 +177,8 @@ function CclCard(props) {
             <>
               <div className={'card-event-text'}>
                 <div className="card-event-title">
-                  <CardLink url={url} title={card?.title} />
+                  <CardLink url={url}>{card?.title}</CardLink>
+                  {/* <CardLink url={url} title={card?.title} /> */}
                 </div>
                 <div className="card-event-when">
                   <FontAwesomeIcon icon={['far', 'calendar-alt']} />
@@ -220,8 +222,8 @@ function CclCard(props) {
           </div>
           <div className={'card-text'}>
             <div className="card-title">
-              <CardLink url={url} title={card?.title} />
-              {/* <Link to={url}>{card?.title || 'Card default title'}</Link> */}
+              <CardLink url={url}>{card?.title}</CardLink>
+              {/* <CardLink url={url} title={card?.title} /> */}
             </div>
             <div className="card-description">{card?.description}</div>
             {children}
