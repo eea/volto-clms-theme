@@ -1,11 +1,9 @@
 import { getFormatConversionTable, getProjections } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 
 import React from 'react';
-import styled from 'styled-components';
 import { useTable, usePagination } from 'react-table';
-
+import { CSVLink } from 'react-csv';
 const ItemSchema = (format_choices, projection_choices) => ({
   title: 'Downloadable File',
   properties: {
@@ -348,9 +346,20 @@ const DownloadableFilesDataTableWidget = (props) => {
   // illustrate that flow...
   const resetData = () => setData(originalData);
 
+  const csvdata = React.useMemo(() => {
+    return data.map((d) => Object.values(d));
+  }, []);
+
   return (
     <>
       <button onClick={resetData}>Reset Data</button>
+      <CSVLink
+        data={csvdata}
+        headers={columns}
+        filename={'prepacked-files.csv'}
+      >
+        Export data as CSV
+      </CSVLink>
       <Table
         columns={columns}
         data={data}
