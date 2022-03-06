@@ -324,6 +324,17 @@ const DownloadableFilesDataTableWidget = (props) => {
         return row;
       }),
     );
+
+    // My data modification code
+    props.value.items = props.value.items.map((row, index) => {
+      if (index === rowIndex) {
+        return {
+          ...props.value.items[rowIndex],
+          [columnId]: value,
+        };
+      }
+      return row;
+    });
   };
 
   // After data chagnes, we turn the flag back off
