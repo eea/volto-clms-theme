@@ -252,50 +252,6 @@ const DownloadableFilesDataTableWidget = (props) => {
     projection_choices = projections_in_progress.map((key) => [key, key]);
   }
 
-  let datasource = props.value.items.map((item) => {
-    return { _id: item['@id'], ...item };
-  });
-
-  const Styles = styled.div`
-    padding: 1rem;
-
-    table {
-      border-spacing: 0;
-      border: 1px solid black;
-
-      tr {
-        :last-child {
-          td {
-            border-bottom: 0;
-          }
-        }
-      }
-
-      th,
-      td {
-        margin: 0;
-        padding: 0.5rem;
-        border-bottom: 1px solid black;
-        border-right: 1px solid black;
-
-        :last-child {
-          border-right: 0;
-        }
-
-        input {
-          font-size: 1rem;
-          padding: 0;
-          margin: 0;
-          border: 0;
-        }
-      }
-    }
-
-    .pagination {
-      padding: 0.5rem;
-    }
-  `;
-
   // Set our editable cell renderer as the default Cell renderer
   const columns = React.useMemo(
     () => [
@@ -382,7 +338,7 @@ const DownloadableFilesDataTableWidget = (props) => {
   const resetData = () => setData(originalData);
 
   return (
-    <Styles>
+    <>
       <button onClick={resetData}>Reset Data</button>
       <Table
         columns={columns}
@@ -390,7 +346,7 @@ const DownloadableFilesDataTableWidget = (props) => {
         updateMyData={updateMyData}
         skipPageReset={skipPageReset}
       />
-    </Styles>
+    </>
   );
 };
 
