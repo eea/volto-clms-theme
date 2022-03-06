@@ -2,11 +2,18 @@ import { getFormatConversionTable, getProjections } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import React from 'react';
-import { useTable, usePagination } from 'react-table';
+import {
+  useTable,
+  usePagination,
+  useFilters,
+  useGlobalFilter,
+  useAsyncDebounce,
+} from 'react-table';
 import { useCSVReader, useCSVDownloader } from 'react-papaparse';
 import { Toast } from '@plone/volto/components';
 import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
+import { matchSorter } from 'match-sorter';
 
 const ItemSchema = (format_choices, projection_choices) => ({
   title: 'Downloadable File',
@@ -116,12 +123,95 @@ const EditableCell = ({
   return <input value={value} onChange={onChange} onBlur={onBlur} />;
 };
 
-const defaultColumn = {
-  Cell: EditableCell,
-};
+// const defaultColumn = {
+//   Cell: EditableCell,
+// };
+
+function GlobalFilter({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) {
+  const count = preGlobalFilteredRows.length;
+  const [value, setValue] = React.useState(globalFilter);
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined);
+  }, 200);
+
+  return (
+    <span>
+      Search:{' '}
+      <input
+        value={value || ''}
+        onChange={(e) => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }}
+        placeholder={`${count} records...`}
+        style={{
+          fontSize: '1.1rem',
+          border: '0',
+        }}
+      />
+    </span>
+  );
+}
+
+// Define a default UI for filtering
+function DefaultColumnFilter({
+  column: { filterValue, preFilteredRows, setFilter },
+}) {
+  const count = preFilteredRows.length;
+
+  return (
+    <input
+      value={filterValue || ''}
+      onChange={(e) => {
+        setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
+      }}
+      placeholder={`Search ${count} records...`}
+    />
+  );
+}
+
+function fuzzyTextFilterFn(rows, id, filterValue) {
+  return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
+}
+
+// Let the table remove the filter if the string is empty
+fuzzyTextFilterFn.autoRemove = (val) => !val;
 
 // Be sure to pass our updateMyData and the skipPageReset option
 function Table({ columns, data, updateMyData, skipPageReset }) {
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      fuzzyText: fuzzyTextFilterFn,
+      // Or, override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter((row) => {
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
+      },
+    }),
+    [],
+  );
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+      Cell: EditableCell,
+    }),
+    [],
+  );
+
   // For this example, we're using pagination to illustrate how to stop
   // the current page from resetting when our data changes
   // Otherwise, nothing is different here.
@@ -139,7 +229,10 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, globalFilter },
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter,
   } = useTable(
     {
       columns,
@@ -153,7 +246,10 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
       // That way we can call this function from our
       // cell renderer!
       updateMyData,
+      filterTypes,
     },
+    useFilters,
+    useGlobalFilter,
     usePagination,
   );
 
@@ -165,10 +261,27 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th {...column.getHeaderProps()}>
+                  {column.render('Header')}
+                  <div>{column.canFilter ? column.render('Filter') : null}</div>
+                </th>
               ))}
             </tr>
           ))}
+          <tr>
+            <th
+              colSpan={visibleColumns.length}
+              style={{
+                textAlign: 'left',
+              }}
+            >
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </th>
+          </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
