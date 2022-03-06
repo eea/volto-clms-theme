@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import React from 'react';
 import { useTable, usePagination } from 'react-table';
-import { CSVLink } from 'react-csv';
+import { useCSVReader, useCSVDownloader } from 'react-papaparse';
+import { Toast } from '@plone/volto/components';
+import { toast } from 'react-toastify';
+import { v4 as uuid } from 'uuid';
+
 const ItemSchema = (format_choices, projection_choices) => ({
   title: 'Downloadable File',
   properties: {
@@ -346,20 +350,84 @@ const DownloadableFilesDataTableWidget = (props) => {
   // illustrate that flow...
   const resetData = () => setData(originalData);
 
-  const csvdata = React.useMemo(() => {
-    return data.map((d) => Object.values(d));
-  }, []);
+  const csvcolumns = columns[0].columns.map((d) => {
+    return {
+      label: d.accessor,
+      key: d.accessor,
+    };
+  });
 
+  csvcolumns.push({
+    label: '@id',
+    key: '@id',
+  });
+
+  const { CSVReader } = useCSVReader();
+  const { CSVDownloader, Type } = useCSVDownloader();
   return (
     <>
       <button onClick={resetData}>Reset Data</button>
-      <CSVLink
-        data={csvdata}
-        headers={columns}
-        filename={'prepacked-files.csv'}
+      <CSVDownloader
+        type={Type.Button}
+        filename={'prepackaged-files.csv'}
+        config={{
+          delimiter: ';',
+          quoteChar: '"',
+        }}
+        data={data}
       >
-        Export data as CSV
-      </CSVLink>
+        Download as CSV file
+      </CSVDownloader>
+
+      <CSVReader
+        onUploadAccepted={(results) => {
+          let newdatacount = 0;
+
+          let newdata = results.data.map((item) => {
+            if (!item['@id']) {
+              newdatacount += 1;
+              return {
+                ...item,
+                '@id': uuid(),
+              };
+            }
+            return item;
+          });
+
+          let modified = newdata.length - newdatacount;
+
+          setData(newdata);
+          props.value.items = newdata;
+          toast.success(
+            <Toast
+              success
+              autoClose={5000}
+              content={
+                'CSV file imported correctly. ' +
+                newdatacount +
+                ' new items added. ' +
+                modified +
+                ' items edited.'
+              }
+            />,
+          );
+        }}
+        config={{ header: true }}
+      >
+        {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }) => (
+          <>
+            <div>
+              <button type="button" {...getRootProps()}>
+                Browse file
+              </button>
+              <div>{acceptedFile && acceptedFile.name}</div>
+              <button {...getRemoveFileProps()}>Remove</button>
+            </div>
+            <ProgressBar />
+          </>
+        )}
+      </CSVReader>
+
       <Table
         columns={columns}
         data={data}
