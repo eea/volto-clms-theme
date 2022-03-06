@@ -123,10 +123,6 @@ const EditableCell = ({
   return <input value={value} onChange={onChange} onBlur={onBlur} />;
 };
 
-// const defaultColumn = {
-//   Cell: EditableCell,
-// };
-
 function GlobalFilter({
   preGlobalFilteredRows,
   globalFilter,
@@ -331,7 +327,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
         </span>{' '}
         <select
           value={pageSize}
-          onChange={(e) => {
+          onBlur={(e) => {
             setPageSize(Number(e.target.value));
           }}
         >
