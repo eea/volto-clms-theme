@@ -363,51 +363,20 @@ const DownloadableFilesDataTableWidget = (props) => {
     projection_choices = projections_in_progress.map((key) => [key, key]);
   }
 
+  const schema = ItemSchema(format_choices, projection_choices);
+  const header_columns = schema.fieldsets[0].fields.map((field) => {
+    return { Header: schema.properties[field].title, accessor: field };
+  });
+
   // Set our editable cell renderer as the default Cell renderer
   const columns = React.useMemo(
     () => [
       {
         Header: 'Downloadable files',
-        columns: [
-          {
-            Header: 'Area',
-            accessor: 'area',
-          },
-          {
-            Header: 'Year',
-            accessor: 'year',
-          },
-          {
-            Header: 'Resolution',
-            accessor: 'resolution',
-          },
-          {
-            Header: 'Type',
-            accessor: 'type',
-          },
-          {
-            Header: 'Format',
-            accessor: 'format',
-          },
-          {
-            Header: 'Projection',
-            accessor: 'projection',
-          },
-          {
-            Header: 'Version',
-            accessor: 'version',
-          },
-          {
-            Header: 'Size',
-            accessor: 'size',
-          },
-          {
-            Header: 'Path',
-            accessor: 'path',
-          },
-        ],
+        columns: header_columns,
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
