@@ -180,13 +180,17 @@ function CclDownloadTable(props) {
             </div>
           </div>
         )}
-        <strong>{` ${cartSelection.length} selected file(s)`}</strong>
-        {cartSelection.length > 0 && (
+        {isLoggedIn && (
           <>
-            {' - '}
-            <Button basic color="olive" onClick={clearSelection}>
-              Clear selection <Icon name={clearSVG} size={20}></Icon>
-            </Button>
+            <strong>{` ${cartSelection.length} selected file(s)`}</strong>
+            {cartSelection.length > 0 && (
+              <>
+                {' - '}
+                <Button basic color="olive" onClick={clearSelection}>
+                  Clear selection <Icon name={clearSVG} size={20}></Icon>
+                </Button>
+              </>
+            )}
           </>
         )}
       </Segment>
