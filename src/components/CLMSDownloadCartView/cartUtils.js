@@ -4,13 +4,13 @@ export const getDownloadToolPostBody = (selectedItems) => {
     if (item.file_id) {
       body_extras['FileID'] = item.file_id;
     } else {
-      if (item.area.type === 'polygon') {
+      if (item.area?.type === 'polygon') {
         body_extras['BoundingBox'] = item.area.value;
       }
-      if (item.area.type === 'nuts') {
+      if (item.area?.type === 'nuts') {
         body_extras['NUTS'] = item.area.value;
       }
-      if (item.timeExtent.length > 0) {
+      if (item.timeExtent?.length > 0) {
         body_extras['TemporalFilter'] = {
           StartDate: item.timeExtent[0],
           EndDate: item.timeExtent[1],
@@ -56,7 +56,7 @@ export const getCartObjectFromMapviewer = (
   nutsnames,
 ) => {
   const area = local_cart_data.area;
-  if (area.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
+  if (area?.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
     area.valueName = nutsnames[area.value];
   }
   return {

@@ -376,12 +376,22 @@ const CLMSCartContent = (props) => {
         open={openedModal}
         // trigger={trigger}
         className={'modal-clms'}
-        size={'fullscreen'}
+        size={'tiny'}
       >
-        <Modal.Header>Download processing</Modal.Header>
         <Modal.Content>
           <div className={'modal-clms-background'}>
-            <div className={'modal-clms-container'}>
+            <div>
+              <div className={'modal-close modal-clms-close'}>
+                <span
+                  className="ccl-icon-close"
+                  aria-label="Close"
+                  onClick={() => setOpenedModal(false)}
+                  onKeyDown={() => setOpenedModal(false)}
+                  tabIndex="0"
+                  role="button"
+                ></span>
+              </div>
+              <p>Download processing</p>
               {'The download is going to be processed in two different files.'}
               <br />
               <br />
@@ -409,11 +419,6 @@ const CLMSCartContent = (props) => {
           <Grid columns={2} stackable textAlign="center">
             <Grid.Row verticalAlign="middle">
               <Grid.Column>
-                <CclButton onClick={() => setOpenedModal(false)}>
-                  Cancel
-                </CclButton>
-              </Grid.Column>
-              <Grid.Column>
                 <CclButton
                   mode={'filled'}
                   onClick={() => {
@@ -422,6 +427,11 @@ const CLMSCartContent = (props) => {
                   }}
                 >
                   Accept
+                </CclButton>
+              </Grid.Column>
+              <Grid.Column>
+                <CclButton onClick={() => setOpenedModal(false)}>
+                  Cancel
                 </CclButton>
               </Grid.Column>
             </Grid.Row>
