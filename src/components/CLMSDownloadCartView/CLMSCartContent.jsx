@@ -199,14 +199,16 @@ const CLMSCartContent = (props) => {
 
   const AreaNaming = (areaProps) => {
     const { item } = areaProps;
-    function nutsName(nItem) {
-      return nItem.area?.type === 'nuts'
-        ? 'NUTS: ' + (nItem.area.valueName || nItem.area.value)
-        : '-';
+    switch (item.area?.type) {
+      case 'polygon':
+        return 'Bounding Box';
+      case 'nuts':
+        return 'NUTS: ' + (item.area.valueName || item.area.value);
+      case undefined:
+        return item.area || '-';
+      default:
+        return '-';
     }
-    return (
-      <>{item.area?.type === 'polygon' ? 'Bounding Box' : nutsName(item)}</>
-    );
   };
 
   const contentOrDash = (content) => {
@@ -243,8 +245,6 @@ const CLMSCartContent = (props) => {
                   <th>Type</th>
                   <th>Format</th>
                   <th>Projection</th>
-                  <th>Version</th>
-                  <th>Size</th>
                   <th></th>
                 </tr>
               </thead>
@@ -285,7 +285,13 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      <td>{contentOrDash(item.name)}</td>
+                      {item.title ? (
+                        <td>
+                          {item.title} ({contentOrDash(item.name)})
+                        </td>
+                      ) : (
+                        <td>{contentOrDash(item.name)}</td>
+                      )}
                       <td>{contentOrDash(item.source)}</td>
                       <td>
                         <AreaNaming item={item} />
@@ -335,11 +341,9 @@ const CLMSCartContent = (props) => {
                             }}
                           />
                         ) : (
-                          item.projection
+                          '-'
                         )}
                       </td>
-                      <td>{item.version}</td>
-                      <td>{item.size}</td>
                       <td>
                         {item.task_in_progress ? (
                           <FontAwesomeIcon icon="spinner" spin />
