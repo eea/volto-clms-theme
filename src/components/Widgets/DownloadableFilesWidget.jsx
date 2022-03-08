@@ -7,8 +7,13 @@ import React from 'react';
 const ItemSchema = (format_choices, projection_choices) => ({
   title: 'Downloadable File',
   properties: {
+    title: {
+      title: 'Title',
+      description: 'Enter the title of this file.',
+      type: 'string',
+    },
     area: {
-      title: 'Area',
+      title: 'Area of interest',
       description: 'Enter the area of this file.',
       type: 'string',
     },
@@ -16,6 +21,11 @@ const ItemSchema = (format_choices, projection_choices) => ({
       title: 'Year',
       description: 'Enter the year of this file.',
       type: 'number',
+    },
+    version: {
+      title: 'Version',
+      description: 'Enter the version of this file.',
+      type: 'string',
     },
     resolution: {
       title: 'Resolution',
@@ -42,11 +52,6 @@ const ItemSchema = (format_choices, projection_choices) => ({
       description: 'Enter the projection of this file.',
       choices: projection_choices,
     },
-    version: {
-      title: 'Version',
-      description: 'Enter the version of this file.',
-      type: 'string',
-    },
     size: {
       title: 'Size',
       description: 'Enter the size of this file. Ex.: 3.5 GB',
@@ -69,13 +74,14 @@ const ItemSchema = (format_choices, projection_choices) => ({
       id: 'default',
       title: 'File',
       fields: [
+        'title',
         'area',
         'year',
+        'version',
         'resolution',
         'type',
         'format',
         'projection',
-        'version',
         'size',
         'source',
         'path',
