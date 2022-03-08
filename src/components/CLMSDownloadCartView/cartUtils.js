@@ -33,6 +33,7 @@ export const getDownloadToolPostBody = (selectedItems) => {
 export const getCartObjectFromPrepackaged = (file_data, dataset_data) => {
   return {
     name: dataset_data.title,
+    title: file_data.title,
     area: file_data.area,
     format: file_data.format?.token || file_data.format,
     resolution: file_data.resolution,
