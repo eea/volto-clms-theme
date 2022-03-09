@@ -211,6 +211,36 @@ const CLMSCartContent = (props) => {
     }
   };
 
+  const TypeNaming = (typeProps) => {
+    const { item } = typeProps;
+    if (item.file_id) {
+      return (
+        <span className={'tag tag-' + item?.type?.toLowerCase()}>
+          {contentOrDash(item.type)}
+        </span>
+      );
+    } else if (!item.type) {
+      return '-';
+    }
+
+    return (
+      <Select
+        placeholder="Select type"
+        value={item.type_options.length > 0 && item.type_options[0].id}
+        options={item.type_options.map((option) => {
+          return { key: option.id, value: option.id, text: option.name };
+        })}
+        onChange={(e, data) => {
+          const objIndex = cartItems.findIndex(
+            (obj) => obj.unique_id === item.unique_id,
+          );
+          cartItems[objIndex].type = data.value;
+          setCartItems([...cartItems]);
+        }}
+      />
+    );
+  };
+
   const contentOrDash = (content) => {
     return content || '-';
   };
@@ -297,11 +327,7 @@ const CLMSCartContent = (props) => {
                         <AreaNaming item={item} />
                       </td>
                       <td>
-                        <span
-                          className={'tag tag-' + item?.type?.toLowerCase()}
-                        >
-                          {contentOrDash(item.type)}
-                        </span>
+                        <TypeNaming item={item} />
                       </td>
                       <td className="table-td-format">
                         {!item.file_id ? (

@@ -30,6 +30,7 @@ import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidge
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
+import DatasetDownloadInformationWidget from './components/Widgets/DatasetDownloadInformationWidget';
 // CUSTOM REDUCERS IMPORT
 import reducers from './reducers';
 
@@ -67,6 +68,7 @@ const applyConfig = (config) => {
     distribution_info_widget: DistributionInfoWidget,
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
     text_link_widget: TextLinkWidget,
+    dataset_download_information_widget: DatasetDownloadInformationWidget,
   };
   config.widgets.id = {
     ...config.widgets.id,

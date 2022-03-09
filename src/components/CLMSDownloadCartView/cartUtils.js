@@ -19,8 +19,11 @@ export const getDownloadToolPostBody = (selectedItems) => {
       if (item.format) {
         body_extras['OutputFormat'] = item.format;
       }
-      if (item.format) {
+      if (item.projection) {
         body_extras['OutputGCS'] = item.projection;
+      }
+      if (item.type) {
+        body_extras['DatasetDownloadInformationID'] = item.type;
       }
     }
     return { DatasetID: item.dataset_uid, ...body_extras };
@@ -60,6 +63,12 @@ export const getCartObjectFromMapviewer = (
   if (area?.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
     area.valueName = nutsnames[area.value];
   }
+  const type_options = [];
+  if (dataset_data.dataset_download_information?.items.length > 0) {
+    dataset_data.dataset_download_information.items.forEach((item) => {
+      type_options.push({ id: item['@id'], name: item.name });
+    });
+  }
   return {
     name: dataset_data.dataResourceTitle || '-',
     area: area || '-',
@@ -70,7 +79,8 @@ export const getCartObjectFromMapviewer = (
     resolution: dataset_data.resolution || '-',
     size: dataset_data.size || '-',
     source: 'Map viewer',
-    type: dataset_data.dataResourceType || '-',
+    type: type_options.length > 0 ? type_options[0].id : null,
+    type_options: type_options,
     version: dataset_data.version || '-',
     year: dataset_data.year || '-',
     id: local_cart_data.id,
