@@ -49,6 +49,7 @@ describe('downloadtoolReducer', () => {
           },
           download_finished_nok: {},
           download_rejected: {},
+          download_cancelled: {},
           delete_download_in_progress: {},
           post_download_in_progress: {},
           format_conversion_table_in_progress: {},
