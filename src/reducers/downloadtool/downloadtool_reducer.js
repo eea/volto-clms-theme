@@ -15,10 +15,12 @@ const getInitialState = {
   error: null,
   loaded: false,
   loading: false,
+  download_queued: {},
   download_in_progress: {},
   download_finished_ok: {},
   download_finished_nok: {},
   download_rejected: {},
+  download_cancelled: {},
   delete_download_in_progress: {},
   post_download_in_progress: {},
   format_conversion_table_in_progress: {},
@@ -59,6 +61,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
           TaskID: progress_key,
         });
       });
+      var queued = tasks_array.filter((task) => task.Status === 'Queued');
       var in_progress = tasks_array.filter(
         (task) => task.Status === 'In_progress',
       );
@@ -69,15 +72,18 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         (task) => task.Status === 'Finished_nok',
       );
       var rejected = tasks_array.filter((task) => task.Status === 'Rejected');
+      var cancelled = tasks_array.filter((task) => task.Status === 'Cancelled');
       return {
         ...state,
         error: null,
         loaded: true,
         loading: false,
+        download_queued: queued,
         download_in_progress: in_progress,
         download_finished_ok: finished_ok,
         download_finished_nok: finished_nok,
         download_rejected: rejected,
+        download_cancelled: cancelled,
       };
     case `${POST_DOWNLOADTOOL}_SUCCESS`:
       return {

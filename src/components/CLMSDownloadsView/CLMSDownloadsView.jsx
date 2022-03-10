@@ -71,22 +71,30 @@ const CLMSDownloadsView = (props) => {
 
   useEffect(() => {
     if (
+      downloadtool?.download_queued &&
       downloadtool?.download_in_progress &&
       downloadtool?.download_finished_ok &&
       downloadtool?.download_finished_nok &&
-      downloadtool?.download_rejected
+      downloadtool?.download_rejected &&
+      downloadtool?.download_cancelled
     ) {
+      let queuedUidsList = getUIDList(downloadtool.download_queued);
       let downloadInProgressUidsList = getUIDList(
         downloadtool?.download_in_progress,
       );
       let finishedOKUidsList = getUIDList(downloadtool?.download_finished_ok);
       let finishedNOKUidsList = getUIDList(downloadtool?.download_finished_nok);
       let rejectedUidsList = getUIDList(downloadtool?.download_rejected);
+      let cancelledUidsList = getUIDList(downloadtool?.download_cancelled);
       let uidsList = [
         ...new Set(
           rejectedUidsList.concat(
             finishedNOKUidsList.concat(
-              finishedOKUidsList.concat(downloadInProgressUidsList),
+              finishedOKUidsList.concat(
+                downloadInProgressUidsList.concat(
+                  queuedUidsList.concat(cancelledUidsList),
+                ),
+              ),
             ),
           ),
         ),
