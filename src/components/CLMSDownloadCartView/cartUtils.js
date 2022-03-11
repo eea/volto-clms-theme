@@ -70,7 +70,7 @@ export const getCartObjectFromMapviewer = (
     });
   }
   return {
-    name: dataset_data.dataResourceTitle || '-',
+    name: dataset_data.title || '-',
     area: area || '-',
     format:
       dataset_data.dataset_full_format?.token ||
