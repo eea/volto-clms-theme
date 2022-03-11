@@ -54,6 +54,14 @@ const ItemSchema = () => ({
       description: 'Enter the absolute path of this file in the storage',
       type: 'string',
     },
+    source: {
+      title: 'Source',
+      description: 'Enter the source of this file (this is an internal).',
+      choices: [
+        ['EEA', 'EEA'],
+        ['HOTSPOTS', 'HOTSPOTS'],
+      ],
+    },
   },
   fieldsets: [
     {
@@ -69,6 +77,7 @@ const ItemSchema = () => ({
         'format',
         'size',
         'path',
+        'source',
       ],
     },
   ],
