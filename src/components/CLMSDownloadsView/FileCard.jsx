@@ -64,15 +64,15 @@ const FileCard = (props) => {
       <Grid
         divided
         centered
-        columns={item?.Status !== 'In_progress' ? 2 : 3}
+        columns={['In_progress', 'Queued'].includes(item?.Status) ? 2 : 3}
         padded
         className="filecard"
       >
         <Grid.Row>
           <Grid.Column verticalAlign="middle" textAlign="center" width={2}>
-            {item?.Status === 'In_progress' && (
+            {['In_progress', 'Queued'].includes(item?.Status) && (
               <Popup
-                content="In progress"
+                content="Preparing download files"
                 size="small"
                 trigger={<Loader active inline indeterminate size="medium" />}
               />
@@ -120,7 +120,9 @@ const FileCard = (props) => {
               />
             )}
           </Grid.Column>
-          <Grid.Column width={item?.Status === 'In_progress' ? 8 : 10}>
+          <Grid.Column
+            width={['In_progress', 'Queued'].includes(item?.Status) ? 8 : 10}
+          >
             <Header as="h3">{`Task ID: ${item?.TaskID}`}</Header>
             <Segment basic className="file-datetimes">
               Start date:{' '}
@@ -176,7 +178,7 @@ const FileCard = (props) => {
               </Segment>
             )}
           </Grid.Column>
-          {item?.Status === 'In_progress' && (
+          {['In_progress', 'Queued'].includes(item?.Status) && (
             <Grid.Column
               width={2}
               verticalAlign="middle"
@@ -193,7 +195,7 @@ const FileCard = (props) => {
                 />
               ) : (
                 <Popup
-                  content="Remove in progress task"
+                  content="Remove task"
                   size="small"
                   trigger={
                     <button
@@ -214,7 +216,7 @@ const FileCard = (props) => {
                         name={removeSVG}
                         size={30}
                         color="#e40166"
-                        title={'Remove in progress task'}
+                        title={'Remove task'}
                       />
                     </button>
                   }

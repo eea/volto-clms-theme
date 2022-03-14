@@ -199,13 +199,45 @@ const CLMSCartContent = (props) => {
 
   const AreaNaming = (areaProps) => {
     const { item } = areaProps;
-    function nutsName(nItem) {
-      return nItem.area?.type === 'nuts'
-        ? 'NUTS: ' + (nItem.area.valueName || nItem.area.value)
-        : '-';
+    switch (item.area?.type) {
+      case 'polygon':
+        return 'Bounding Box';
+      case 'nuts':
+        return 'NUTS: ' + (item.area.valueName || item.area.value);
+      case undefined:
+        return item.area || '-';
+      default:
+        return '-';
     }
+  };
+
+  const TypeNaming = (typeProps) => {
+    const { item } = typeProps;
+    if (item.file_id) {
+      return (
+        <span className={'tag tag-' + item?.type?.toLowerCase()}>
+          {contentOrDash(item.type)}
+        </span>
+      );
+    } else if (!item.type) {
+      return '-';
+    }
+
     return (
-      <>{item.area?.type === 'polygon' ? 'Bounding Box' : nutsName(item)}</>
+      <Select
+        placeholder="Select type"
+        value={item.type_options.length > 0 && item.type_options[0].id}
+        options={item.type_options.map((option) => {
+          return { key: option.id, value: option.id, text: option.name };
+        })}
+        onChange={(e, data) => {
+          const objIndex = cartItems.findIndex(
+            (obj) => obj.unique_id === item.unique_id,
+          );
+          cartItems[objIndex].type = data.value;
+          setCartItems([...cartItems]);
+        }}
+      />
     );
   };
 
@@ -243,8 +275,6 @@ const CLMSCartContent = (props) => {
                   <th>Type</th>
                   <th>Format</th>
                   <th>Projection</th>
-                  <th>Version</th>
-                  <th>Size</th>
                   <th></th>
                 </tr>
               </thead>
@@ -285,17 +315,19 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      <td>{contentOrDash(item.name)}</td>
+                      {item.title ? (
+                        <td>
+                          {item.title} ({contentOrDash(item.name)})
+                        </td>
+                      ) : (
+                        <td>{contentOrDash(item.name)}</td>
+                      )}
                       <td>{contentOrDash(item.source)}</td>
                       <td>
                         <AreaNaming item={item} />
                       </td>
                       <td>
-                        <span
-                          className={'tag tag-' + item?.type?.toLowerCase()}
-                        >
-                          {contentOrDash(item.type)}
-                        </span>
+                        <TypeNaming item={item} />
                       </td>
                       <td className="table-td-format">
                         {!item.file_id ? (
@@ -335,11 +367,9 @@ const CLMSCartContent = (props) => {
                             }}
                           />
                         ) : (
-                          item.projection
+                          '-'
                         )}
                       </td>
-                      <td>{item.version}</td>
-                      <td>{item.size}</td>
                       <td>
                         {item.task_in_progress ? (
                           <FontAwesomeIcon icon="spinner" spin />
@@ -376,12 +406,22 @@ const CLMSCartContent = (props) => {
         open={openedModal}
         // trigger={trigger}
         className={'modal-clms'}
-        size={'fullscreen'}
+        size={'tiny'}
       >
-        <Modal.Header>Download processing</Modal.Header>
         <Modal.Content>
           <div className={'modal-clms-background'}>
-            <div className={'modal-clms-container'}>
+            <div>
+              <div className={'modal-close modal-clms-close'}>
+                <span
+                  className="ccl-icon-close"
+                  aria-label="Close"
+                  onClick={() => setOpenedModal(false)}
+                  onKeyDown={() => setOpenedModal(false)}
+                  tabIndex="0"
+                  role="button"
+                ></span>
+              </div>
+              <p>Download processing</p>
               {'The download is going to be processed in two different files.'}
               <br />
               <br />
@@ -409,11 +449,6 @@ const CLMSCartContent = (props) => {
           <Grid columns={2} stackable textAlign="center">
             <Grid.Row verticalAlign="middle">
               <Grid.Column>
-                <CclButton onClick={() => setOpenedModal(false)}>
-                  Cancel
-                </CclButton>
-              </Grid.Column>
-              <Grid.Column>
                 <CclButton
                   mode={'filled'}
                   onClick={() => {
@@ -422,6 +457,11 @@ const CLMSCartContent = (props) => {
                   }}
                 >
                   Accept
+                </CclButton>
+              </Grid.Column>
+              <Grid.Column>
+                <CclButton onClick={() => setOpenedModal(false)}>
+                  Cancel
                 </CclButton>
               </Grid.Column>
             </Grid.Row>

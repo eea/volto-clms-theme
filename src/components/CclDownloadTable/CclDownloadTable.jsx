@@ -128,6 +128,7 @@ function CclDownloadTable(props) {
       .map((item) => ({
         UID: item.UID,
         file_id: item['@id'],
+        area: item.area,
         unique_id: item.unique_id,
       }));
     addCartItem(selectedCartItems);
@@ -150,6 +151,27 @@ function CclDownloadTable(props) {
       />
     );
   };
+
+  const contentOrDash = (content) => {
+    return content || '-';
+  };
+
+  const hasSome = (field) => {
+    return prePackagedCollection.filter((ppItem) => ppItem[field]).length > 0
+      ? field
+      : '';
+  };
+
+  const columns = [
+    hasSome('title'),
+    hasSome('area'),
+    hasSome('year'),
+    hasSome('version'),
+    hasSome('resolution'),
+    hasSome('type'),
+    hasSome('format'),
+    hasSome('size'),
+  ];
 
   return (
     <div className="dataset-download-table">
@@ -180,13 +202,17 @@ function CclDownloadTable(props) {
             </div>
           </div>
         )}
-        <strong>{` ${cartSelection.length} selected file(s)`}</strong>
-        {cartSelection.length > 0 && (
+        {isLoggedIn && (
           <>
-            {' - '}
-            <Button basic color="olive" onClick={clearSelection}>
-              Clear selection <Icon name={clearSVG} size={20}></Icon>
-            </Button>
+            <strong>{` ${cartSelection.length} selected file(s)`}</strong>
+            {cartSelection.length > 0 && (
+              <>
+                {' - '}
+                <Button basic color="olive" onClick={clearSelection}>
+                  Clear selection <Icon name={clearSVG} size={20}></Icon>
+                </Button>
+              </>
+            )}
           </>
         )}
       </Segment>
@@ -199,12 +225,14 @@ function CclDownloadTable(props) {
                   <HeaderCheckbox />{' '}
                 </th>
               )}
-              <th>Year</th>
-              <th>Resolution</th>
-              <th>Type</th>
-              <th>Format</th>
-              <th>Version</th>
-              <th>Size</th>
+              {columns.includes('title') && <th>Title</th>}
+              {columns.includes('area') && <th>Area of interest</th>}
+              {columns.includes('year') && <th>Year</th>}
+              {columns.includes('version') && <th>Version</th>}
+              {columns.includes('resolution') && <th>Resolution</th>}
+              {columns.includes('type') && <th>Type</th>}
+              {columns.includes('format') && <th>Format</th>}
+              {columns.includes('size') && <th>Size</th>}
             </tr>
           </thead>
           <tbody>
@@ -225,21 +253,39 @@ function CclDownloadTable(props) {
                           />
                         </td>
                       )}
-                      <td>{dataset_file?.year || 'YYYY'}</td>
-                      <td>{dataset_file?.resolution || '000m'}</td>
-                      <td>
-                        <span
-                          className={
-                            'tag tag-' +
-                            (dataset_file?.type?.toLowerCase() || 'raster')
-                          }
-                        >
-                          {dataset_file?.type || 'Raster'}
-                        </span>
-                      </td>
-                      <td>{dataset_file?.format || 'Format'}</td>
-                      <td>{dataset_file?.version || 'v0.0'}</td>
-                      <td>{dataset_file?.size || '000.0MB'}</td>
+                      {columns.includes('title') && (
+                        <td>{contentOrDash(dataset_file?.title)}</td>
+                      )}
+                      {columns.includes('area') && (
+                        <td>{contentOrDash(dataset_file?.area)}</td>
+                      )}
+                      {columns.includes('year') && (
+                        <td>{contentOrDash(dataset_file?.year)}</td>
+                      )}
+                      {columns.includes('version') && (
+                        <td>{contentOrDash(dataset_file?.version)}</td>
+                      )}
+                      {columns.includes('resolution') && (
+                        <td>{contentOrDash(dataset_file?.resolution)}</td>
+                      )}
+                      {columns.includes('type') && (
+                        <td>
+                          <span
+                            className={
+                              'tag tag-' +
+                              (dataset_file?.type?.toLowerCase() || 'raster')
+                            }
+                          >
+                            {contentOrDash(dataset_file?.type)}
+                          </span>
+                        </td>
+                      )}
+                      {columns.includes('format') && (
+                        <td>{contentOrDash(dataset_file?.format)}</td>
+                      )}
+                      {columns.includes('size') && (
+                        <td>{contentOrDash(dataset_file?.size)}</td>
+                      )}
                     </tr>
                   );
                 })
