@@ -4,7 +4,7 @@
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
-import { Checkbox, Grid, Modal, Segment, Select } from 'semantic-ui-react';
+import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import {
   getCartObjectFromMapviewer,
