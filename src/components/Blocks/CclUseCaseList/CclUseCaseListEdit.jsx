@@ -45,6 +45,12 @@ const CclUseCaseListEdit = (props) => {
   }, [path, data, id, dispatch]);
   let productGroups = getProductGroups(useCases);
   const [expanded, setExpanded] = useState('product-token-here');
+
+  function handleTitle(expandedT, productTokenT, setExpandedT) {
+    expandedT === productTokenT
+      ? setExpandedT('')
+      : setExpandedT(productTokenT);
+  }
   return (
     <>
       <div className="ccl-container">
@@ -65,14 +71,10 @@ const CclUseCaseListEdit = (props) => {
                   className="ccl-expandable__button"
                   aria-expanded={expanded === productToken}
                   onClick={() => {
-                    expanded === productToken
-                      ? setExpanded('')
-                      : setExpanded(productToken);
+                    handleTitle(expanded, productToken, setExpanded);
                   }}
                   onKeyDown={() => {
-                    expanded === productToken
-                      ? setExpanded('')
-                      : setExpanded(productToken);
+                    handleTitle(expanded, productToken, setExpanded);
                   }}
                   role="button"
                   tabIndex="0"

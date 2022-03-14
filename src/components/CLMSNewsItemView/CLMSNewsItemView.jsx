@@ -8,7 +8,7 @@ const CLMSNewsItemView = (props) => {
       <h1 className="page-title">{content.title}</h1>
       <div className="news-detail">
         <div className="news-detail-date">
-          {new Date(content?.effective).toLocaleDateString()}
+          {new Date(content?.effective).toLocaleString()}
         </div>
         {content?.image && (
           <figure className="news-detail-image">

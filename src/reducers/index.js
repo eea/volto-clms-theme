@@ -15,6 +15,7 @@ import { registryReducer } from './registry/registry';
 import { subscribeToReducer } from './subscription/subscription_reducer';
 import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
+import { importWMSLayersReducer } from './import_wms_layers/import_wms_layers_reducer';
 
 /**
  * Root reducer.
@@ -39,6 +40,7 @@ const reducers = {
   // subscribe_to_newsletter: newsletterReducer,
   newsletter_subscribers: newsletterSubscribersReducer,
   subscription: subscribeToReducer,
+  importWMSLayers: importWMSLayersReducer,
 };
 
 export default reducers;

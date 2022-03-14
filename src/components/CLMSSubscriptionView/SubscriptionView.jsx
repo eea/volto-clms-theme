@@ -3,21 +3,24 @@
  * @module components/CLMSSubscriptionView/SubscriptionView
  */
 
+import { Button, Container, Form, Loader } from 'semantic-ui-react';
+import { Icon, NotFound, Toast } from '@plone/volto/components';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
-import { Icon, Toast } from '@plone/volto/components';
-import aheadSVG from '@plone/volto/icons/ahead.svg';
-import { toast } from 'react-toastify';
-import { Container, Button, Form } from 'semantic-ui-react';
-import { subscribeTo, unsubscribeTo } from '../../actions';
-import { Loader } from 'semantic-ui-react';
-import { getSubscriptionConfig } from './subscription_utils';
+import {
+  getExtraBreadcrumbItems,
+  subscribeTo,
+  unsubscribeTo,
+} from '../../actions';
+
 import { Link } from 'react-router-dom';
-import { getExtraBreadcrumbItems } from '../../actions';
-import { NotFound } from '@plone/volto/components';
+import PropTypes from 'prop-types';
+import aheadSVG from '@plone/volto/icons/ahead.svg';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { getSubscriptionConfig } from './subscription_utils';
+import { toast } from 'react-toastify';
+
 const messages = defineMessages({
   subscribeToThe: {
     id: '{subscribe_or_unsubscribe} to the {type}',
@@ -137,27 +140,28 @@ class SubscriptionView extends Component {
    * @returns {undefined}
    */
   onSubmit(event) {
-    event.preventDefault();
-    if (this.state.value) {
-      this.props
-        .subscribeTo(this.state.type_conf.back_url, this.state.value)
-        .then(() => this.props.loaded && this.requestSuccessToast())
-        .catch(() => this.props.error && this.requestErrorToast());
+    if (this.props.isUnsubscribe) {
+      if (this.state.value) {
+        this.props
+          .unsubscribeTo(this.state.type_conf.back_url, this.state.value)
+          .then(() => this.props.loaded && this.requestSuccessToast())
+          .catch(() => this.props.error && this.requestErrorToast());
+      } else {
+        this.emptyFieldErrorToast();
+      }
     } else {
-      this.emptyFieldErrorToast();
+      event.preventDefault();
+      if (this.state.value) {
+        this.props
+          .subscribeTo(this.state.type_conf.back_url, this.state.value)
+          .then(() => this.props.loaded && this.requestSuccessToast())
+          .catch(() => this.props.error && this.requestErrorToast());
+      } else {
+        this.emptyFieldErrorToast();
+      }
     }
   }
 
-  submitUnsubscribeTo = () => {
-    if (this.state.value) {
-      this.props
-        .unsubscribeTo(this.state.type_conf.back_url, this.state.value)
-        .then(() => this.props.loaded && this.requestSuccessToast())
-        .catch(() => this.props.error && this.requestErrorToast());
-    } else {
-      this.emptyFieldErrorToast();
-    }
-  };
   /**
    * Render method.
    * @method render
@@ -179,11 +183,7 @@ class SubscriptionView extends Component {
             <Form
               className="ccl-form user-form contact-form"
               size={'large'}
-              onSubmit={
-                this.props.isUnsubscribe
-                  ? this.submitUnsubscribeTo
-                  : this.onSubmit
-              }
+              onSubmit={this.onSubmit}
             >
               <div className="ccl-fieldset">
                 <div className="ccl-form-group">

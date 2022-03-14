@@ -11,6 +11,7 @@ import cx from 'classnames';
 import loadable from '@loadable/component';
 import { withRouter } from 'react-router';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+
 const Slider = loadable(() => import('react-slick'));
 
 const View = (props) => {
@@ -31,6 +32,7 @@ const View = (props) => {
     cssEase: 'linear',
     autoplay: true,
     autoplaySpeed: 5000,
+    arrows: false,
     beforeChange: (oldIndex, index) => {
       setActiveTab(tabsList[index]);
     },

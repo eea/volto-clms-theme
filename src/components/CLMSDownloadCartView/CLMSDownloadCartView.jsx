@@ -4,22 +4,22 @@
  */
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
+import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import React, { useEffect, useState } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
 import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
   getNutsNames,
 } from '../../actions';
+import useCartState, {
+  CART_SESSION_KEY,
+} from '@eeacms/volto-clms-utils/cart/useCartState';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CART_SESSION_KEY } from '@eeacms/volto-clms-utils/cart/useCartState';
 import CLMSCartContent from './CLMSCartContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormattedMessage } from 'react-intl';
 import { Helmet } from '@plone/volto/helpers';
 import { Link } from 'react-router-dom';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();

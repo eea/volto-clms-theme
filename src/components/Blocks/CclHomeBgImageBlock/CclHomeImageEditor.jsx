@@ -60,6 +60,19 @@ function onUploadImage(pathname, e, setUploading, dispatch) {
   });
 }
 
+function handleEditing(openObjectBrowserF, onChangeBlockF, blockF, dataF) {
+  openObjectBrowserF({
+    onSelectItem: (_url, element) =>
+      onChangeBlockF(blockF, {
+        ...dataF,
+        image: {
+          url: element['@id'],
+          alt: element.title,
+        },
+      }),
+  });
+}
+
 const CclHomeImageEditor = (props) => {
   const {
     data,
@@ -133,16 +146,12 @@ const CclHomeImageEditor = (props) => {
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
-                        openObjectBrowser({
-                          onSelectItem: (_url, element) =>
-                            onChangeBlock(block, {
-                              ...data,
-                              image: {
-                                url: element['@id'],
-                                alt: element.title,
-                              },
-                            }),
-                        });
+                        handleEditing(
+                          openObjectBrowser,
+                          onChangeBlock,
+                          block,
+                          data,
+                        );
                       }}
                       style={{ display: 'none' }}
                     />
@@ -166,30 +175,22 @@ const CclHomeImageEditor = (props) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    openObjectBrowser({
-                      onSelectItem: (url, element) =>
-                        onChangeBlock(block, {
-                          ...data,
-                          image: {
-                            url: element['@id'],
-                            alt: element.title,
-                          },
-                        }),
-                    });
+                    handleEditing(
+                      openObjectBrowser,
+                      onChangeBlock,
+                      block,
+                      data,
+                    );
                   }}
                   onKeyDown={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    openObjectBrowser({
-                      onSelectItem: (url, element) =>
-                        onChangeBlock(block, {
-                          ...data,
-                          image: {
-                            url: element['@id'],
-                            alt: element.title,
-                          },
-                        }),
-                    });
+                    handleEditing(
+                      openObjectBrowser,
+                      onChangeBlock,
+                      block,
+                      data,
+                    );
                   }}
                 >
                   <div className="image-editor-icon">

@@ -1,11 +1,10 @@
+import { NotFound, Toast } from '@plone/volto/components';
 import React, { Component } from 'react';
 import { confirmSubscribeTo, confirmUnsubscribeTo } from '../../actions';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Loader } from 'semantic-ui-react';
-import { NotFound } from '@plone/volto/components';
-import { Toast } from '@plone/volto/components';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getSubscriptionConfig } from './subscription_utils';

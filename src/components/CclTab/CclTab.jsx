@@ -4,7 +4,7 @@ import React from 'react';
 import cx from 'classnames';
 
 function CclTab(props) {
-  let { activeTab, tabTitle, onClick, tabId, routing } = props;
+  let { activeTab, tabTitle, onClick, tabId, routing, redirect } = props;
 
   function onTabClick() {
     onClick(tabId);
@@ -18,10 +18,15 @@ function CclTab(props) {
       role="button"
       id={tabId}
     >
-      {routing ? (
+      {routing && !redirect ? (
         <NavLink to={'#' + tabId}>{tabTitle}</NavLink>
       ) : (
-        <NavLink to={'#'}>{tabTitle}</NavLink>
+        !redirect && <NavLink to={'#'}>{tabTitle}</NavLink>
+      )}
+      {redirect && (
+        <a href={redirect} target="_blank" rel="noreferrer">
+          {tabTitle}
+        </a>
       )}
     </div>
   );

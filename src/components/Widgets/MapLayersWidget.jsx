@@ -20,12 +20,19 @@ const ItemSchema = {
       description: 'Enter whether this layer should be active by default',
       type: 'boolean',
     },
+    hide: {
+      title: 'Hide layer?',
+      description:
+        'Enter whether this layer should be hidden in the map viewer',
+      type: 'boolean',
+      default: false,
+    },
   },
   fieldsets: [
     {
       id: 'default',
       title: 'Layer',
-      fields: ['id', 'title', 'default_active'],
+      fields: ['id', 'title', 'default_active', 'hide'],
     },
   ],
   required: [],

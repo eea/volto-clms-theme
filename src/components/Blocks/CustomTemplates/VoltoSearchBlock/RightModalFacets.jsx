@@ -1,13 +1,13 @@
 import { Button, Grid, Segment } from 'semantic-ui-react';
 import {
   Facets,
-  FilterList,
   SearchDetails,
   SearchInput,
   SortOn,
 } from '@plone/volto/components/manage/Blocks/Search/components';
 import { defineMessages, useIntl } from 'react-intl';
 
+import FilterList from './FilterList';
 import CclFiltersModal from '@eeacms/volto-clms-theme/components/CclFiltersModal/CclFiltersModal';
 import { Icon } from '@plone/volto/components';
 import React from 'react';
@@ -26,6 +26,15 @@ const FacetWrapper = ({ children }) => (
     {children}
   </Segment>
 );
+
+function setFacetsHandler(setFacets, onTriggerSearch, searchedText) {
+  return (f) => {
+    flushSync(() => {
+      setFacets(f);
+      onTriggerSearch(searchedText || '', f);
+    });
+  };
+}
 
 const RightModalFacets = (props) => {
   const {
@@ -50,7 +59,6 @@ const RightModalFacets = (props) => {
   const { showSearchButton } = data;
   const isLive = !showSearchButton;
   const intl = useIntl();
-
   return (
     <Grid className="searchBlock-facets right-column-facets" stackable>
       {data?.headline && (
@@ -87,12 +95,11 @@ const RightModalFacets = (props) => {
             <FilterList
               {...props}
               isEditMode={isEditMode}
-              setFacets={(f) => {
-                flushSync(() => {
-                  setFacets(f);
-                  onTriggerSearch(searchedText || '', f);
-                });
-              }}
+              setFacets={setFacetsHandler(
+                setFacets,
+                onTriggerSearch,
+                searchedText,
+              )}
             />
           </div>
 
@@ -138,12 +145,11 @@ const RightModalFacets = (props) => {
                     </div>
                   }
                   data={data}
-                  setFacets={(f) => {
-                    flushSync(() => {
-                      setFacets(f);
-                      onTriggerSearch(searchedText || '', f);
-                    });
-                  }}
+                  setFacets={setFacetsHandler(
+                    setFacets,
+                    onTriggerSearch,
+                    searchedText,
+                  )}
                 >
                   <div id="right-modal-facets" className="facets">
                     <Facets
@@ -151,12 +157,11 @@ const RightModalFacets = (props) => {
                       data={data}
                       facets={facets}
                       isEditMode={isEditMode}
-                      setFacets={(f) => {
-                        flushSync(() => {
-                          setFacets(f);
-                          onTriggerSearch(searchedText || '', f);
-                        });
-                      }}
+                      setFacets={setFacetsHandler(
+                        setFacets,
+                        onTriggerSearch,
+                        searchedText,
+                      )}
                       facetWrapper={FacetWrapper}
                     />
                   </div>

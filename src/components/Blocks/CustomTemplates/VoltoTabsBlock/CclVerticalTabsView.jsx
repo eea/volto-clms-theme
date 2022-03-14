@@ -80,7 +80,7 @@ const CclVerticalTabsView = (props) => {
                   <span>{title || defaultTitle}</span>
                 ) : (
                   <NavLink
-                    to={'#tab' + tabIndex}
+                    to={'#tab=' + tabIndex}
                     className="collapsed"
                     onClick={(e) => {
                       handleClick(e, tab, activeTab, setActiveTab);

@@ -1,10 +1,6 @@
 import React from 'react';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import jwtDecode from 'jwt-decode';
-import { injectIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 
 const DownloadDataSetContent = (data) => {
@@ -52,11 +48,4 @@ const DownloadDataSetContent = (data) => {
   );
 };
 
-export default compose(
-  injectIntl,
-  connect((state) => ({
-    token: state.userSession.token
-      ? jwtDecode(state.userSession.token).sub
-      : '',
-  })),
-)(DownloadDataSetContent);
+export default DownloadDataSetContent;

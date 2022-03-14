@@ -90,7 +90,7 @@ class SearchWidget extends Component {
   onSubmit(event) {
     const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/${this.props.locale}/search?SearchableText=${this.state.text}${section}`,
+      `/${this.props.locale}/global-search?SearchableText=${this.state.text}${section}`,
     );
     event.preventDefault();
   }
@@ -104,7 +104,7 @@ class SearchWidget extends Component {
     return (
       <Form
         className="ccl-header-search"
-        action="/search"
+        action="/global-search"
         onSubmit={this.onSubmit}
       >
         <Input

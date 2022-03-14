@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders 1`] = `
+<div
+  className="validation-citation-container citation-container"
+>
+  <div
+    className="citation-title"
+  >
+    test
+  </div>
+  children text
+</div>
+`;

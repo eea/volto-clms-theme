@@ -34,6 +34,15 @@ const CclUseCaseListView = (props) => {
   }, [path, data, id, dispatch]);
   let productGroups = getProductGroups(useCases);
   const [expanded, setExpanded] = useState([]);
+  function handleTitle(expandedT, productTokenT, setExpandedT) {
+    if (expandedT.includes(productTokenT)) {
+      let newExpanded = expandedT.slice();
+      newExpanded.splice(newExpanded.indexOf(productTokenT), 1);
+      setExpandedT(newExpanded);
+    } else {
+      setExpandedT([...expandedT, productTokenT]);
+    }
+  }
   return (
     <>
       <div className="ccl-container">
@@ -54,22 +63,10 @@ const CclUseCaseListView = (props) => {
                   className="ccl-expandable__button"
                   aria-expanded={expanded.includes(productToken)}
                   onClick={() => {
-                    if (expanded.includes(productToken)) {
-                      let newExpanded = expanded.slice();
-                      newExpanded.splice(newExpanded.indexOf(productToken), 1);
-                      setExpanded(newExpanded);
-                    } else {
-                      setExpanded([...expanded, productToken]);
-                    }
+                    handleTitle(expanded, productToken, setExpanded);
                   }}
                   onKeyDown={() => {
-                    if (expanded.includes(productToken)) {
-                      let newExpanded = expanded.slice();
-                      newExpanded.splice(newExpanded.indexOf(productToken), 1);
-                      setExpanded(newExpanded);
-                    } else {
-                      setExpanded([...expanded, productToken]);
-                    }
+                    handleTitle(expanded, productToken, setExpanded);
                   }}
                   role="button"
                   tabIndex="0"
