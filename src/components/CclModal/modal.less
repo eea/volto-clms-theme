@@ -99,11 +99,6 @@
   text-align: right;
 }
 
-.modal-clms .ccl-button {
-  width: 60%;
-  margin: 2rem auto 0;
-}
-
 .modal-clms hr {
   height: 1px;
   padding: 0;
@@ -114,6 +109,27 @@
 
 .modal-login-text {
   line-height: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+}
+
+.modal-buttons .ccl-button {
+  width: auto;
+  margin: 0;
+}
+
+.modal-buttons .ccl-button:only-child {
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .modal-clms.ui.modal>.content, .modal-clms.ui.modal>.actions {
+    padding: 1.5rem!important;
+  }
 }
 
 /* Language modal */

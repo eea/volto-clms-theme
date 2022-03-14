@@ -446,26 +446,18 @@ const CLMSCartContent = (props) => {
           </div>
         </Modal.Content>
         <Modal.Actions>
-          <Grid columns={2} stackable textAlign="center">
-            <Grid.Row verticalAlign="middle">
-              <Grid.Column>
-                <CclButton
-                  mode={'filled'}
-                  onClick={() => {
-                    setOpenedModal(false);
-                    startDownloading();
-                  }}
-                >
-                  Accept
-                </CclButton>
-              </Grid.Column>
-              <Grid.Column>
-                <CclButton onClick={() => setOpenedModal(false)}>
-                  Cancel
-                </CclButton>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <div className="modal-buttons">
+            <CclButton onClick={() => setOpenedModal(false)}>Cancel</CclButton>
+            <CclButton
+              mode={'filled'}
+              onClick={() => {
+                setOpenedModal(false);
+                startDownloading();
+              }}
+            >
+              Accept
+            </CclButton>
+          </div>
         </Modal.Actions>
       </Modal>
     </>
