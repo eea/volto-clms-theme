@@ -226,7 +226,11 @@ const CLMSCartContent = (props) => {
     return (
       <Select
         placeholder="Select type"
-        value={item.type_options.length > 0 && item.type_options[0].id}
+        value={
+          item.type
+            ? item.type
+            : item.type_options.length > 0 && item.type_options[0].id
+        }
         options={item.type_options.map((option) => {
           return { key: option.id, value: option.id, text: option.name };
         })}
