@@ -45,33 +45,39 @@ function CclLoginModal() {
       size="tiny"
       modalStatus={modalStatus}
     >
-      <div className="modal-login-title">Registration / Login</div>
-      <div className="modal-login-text">
-        <p>
-          This site uses EU Login to handle user registration and login. You can
-          read more about this service in the{' '}
-          <a href="https://ecas.ec.europa.eu/cas/about.html">
-            EU Login site help
-          </a>
-          .
-        </p>
-        <p>
-          {' '}
-          When you clik on the following link, you will be sent to EU Login and
-          after a successful login there you will be redirected back to this
-          site.
-        </p>
-        <p>
-          If you have any issues or questions, please contact us using the
-          <a href="/en/contact-service-helpdesk"> helpdesk</a>.
-        </p>
+      <div className="content">
+        <div className="modal-login-title">Registration / Login</div>
+        <div className="modal-login-text">
+          <p>
+            This site uses EU Login to handle user registration and login. You
+            can read more about this service in the{' '}
+            <a href="https://ecas.ec.europa.eu/cas/about.html">
+              EU Login site help
+            </a>
+            .
+          </p>
+          <p>
+            {' '}
+            When you clik on the following link, you will be sent to EU Login
+            and after a successful login there you will be redirected back to
+            this site.
+          </p>
+          <p>
+            If you have any issues or questions, please contact us using the
+            <a href="/en/contact-service-helpdesk"> helpdesk</a>.
+          </p>
+        </div>
       </div>
-      <a
-        href={toPublicURL(loginUrl) || '#'}
-        className="ccl-button ccl-button-green"
-      >
-        Login using EU Login
-      </a>
+      <div className="actions">
+        <div className="modal-buttons">
+          <a
+            href={toPublicURL(loginUrl) || '#'}
+            className="ccl-button ccl-button-green"
+          >
+            Login using EU Login
+          </a>
+        </div>
+      </div>
     </CclModal>
   );
 }
