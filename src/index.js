@@ -1,12 +1,11 @@
-// COMPONENTS FOR ROUTES
-import { ContactForm, Search, Sitemap } from '@plone/volto/components';
-// CUSTOMIZED BLOCKS IMPORTS
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 
-import BoundingWidget from './components/Widgets/BoundingWidget';
-// VIEWS IMPORTS
+// ROUTE VIEWS
+import { ContactForm, Search, Sitemap } from '@plone/volto/components';
+
+// VIEWS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
 import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
@@ -21,17 +20,19 @@ import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemVi
 import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
-// WIDGET IMPORTS
-import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
-import TextLinkWidget from './components/Widgets/TextLinkWidget';
+
+// WIDGET
+import BoundingWidget from './components/Widgets/BoundingWidget';
 import ContactWidget from './components/Widgets/ContactWidget';
+import DatasetDownloadInformationWidget from './components/Widgets/DatasetDownloadInformationWidget';
 import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
-import DownloadableFilesWidget from './components/Widgets/DownloadableFilesWidget';
+import DownloadableFilesTableWidget from './components/Widgets/DownloadableFilesTableWidget';
 import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
-import DatasetDownloadInformationWidget from './components/Widgets/DatasetDownloadInformationWidget';
-// CUSTOM REDUCERS IMPORT
+import TextLinkWidget from './components/Widgets/TextLinkWidget';
+
 import reducers from './reducers';
 
 const applyConfig = (config) => {
@@ -63,7 +64,7 @@ const applyConfig = (config) => {
     ...config.widgets.widget,
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
-    downloadable_files_widget: DownloadableFilesWidget,
+    downloadable_files_widget: DownloadableFilesTableWidget,
     contact_widget: ContactWidget,
     distribution_info_widget: DistributionInfoWidget,
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
