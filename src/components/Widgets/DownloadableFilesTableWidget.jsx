@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactTableWidget } from '@codesyntax/volto-react-table-widget';
+import { ReactTableWidget } from '@eeacms/volto-react-table-widget';
 
 const ItemSchema = () => ({
   title: 'Downloadable File',
