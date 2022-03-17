@@ -31,7 +31,6 @@ import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifi
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
-import DatasetDownloadInformationWidget from './components/Widgets/DatasetDownloadInformationWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
 // CUSTOM REDUCERS IMPORT
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
