@@ -26,6 +26,7 @@
     "@eeacms/volto-resize-helper",
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-clms-utils",
+    "@eeacms/volto-react-table-widget",
     "volto-form-block",
     "@eeacms/volto-taxonomy"
   ],
