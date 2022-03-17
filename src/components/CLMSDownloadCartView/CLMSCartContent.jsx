@@ -4,7 +4,7 @@
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
-import { Checkbox, Grid, Modal, Segment, Select } from 'semantic-ui-react';
+import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import {
   getCartObjectFromMapviewer,
@@ -226,7 +226,11 @@ const CLMSCartContent = (props) => {
     return (
       <Select
         placeholder="Select type"
-        value={item.type_options.length > 0 && item.type_options[0].id}
+        value={
+          item.type
+            ? item.type
+            : item.type_options.length > 0 && item.type_options[0].id
+        }
         options={item.type_options.map((option) => {
           return { key: option.id, value: option.id, text: option.name };
         })}
@@ -436,36 +440,32 @@ const CLMSCartContent = (props) => {
               <br />
               <strong>Map viewer selection:</strong>
               <ul>
-                {getSelectedCartItems()
-                  .filter((item) => item.area)
-                  .map((item, key) => (
-                    <li key={key}>{item.name}</li>
-                  ))}
+                {[
+                  ...new Set(
+                    getSelectedCartItems()
+                      .filter((item) => !item.file_id)
+                      .map((item) => item.name),
+                  ),
+                ].map((item, key) => (
+                  <li key={key}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </Modal.Content>
         <Modal.Actions>
-          <Grid columns={2} stackable textAlign="center">
-            <Grid.Row verticalAlign="middle">
-              <Grid.Column>
-                <CclButton
-                  mode={'filled'}
-                  onClick={() => {
-                    setOpenedModal(false);
-                    startDownloading();
-                  }}
-                >
-                  Accept
-                </CclButton>
-              </Grid.Column>
-              <Grid.Column>
-                <CclButton onClick={() => setOpenedModal(false)}>
-                  Cancel
-                </CclButton>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <div className="modal-buttons">
+            <CclButton
+              mode={'filled'}
+              onClick={() => {
+                setOpenedModal(false);
+                startDownloading();
+              }}
+            >
+              Accept
+            </CclButton>
+            <CclButton onClick={() => setOpenedModal(false)}>Cancel</CclButton>
+          </div>
         </Modal.Actions>
       </Modal>
     </>

@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.82",
+  "version": "1.0.83",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -26,6 +26,7 @@
     "@eeacms/volto-resize-helper",
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-clms-utils",
+    "@eeacms/volto-react-table-widget",
     "volto-form-block",
     "@eeacms/volto-taxonomy"
   ],
@@ -35,6 +36,7 @@
     "@eeacms/volto-clms-utils": "0.1.6",
     "@eeacms/volto-columns-block": "4.4.3",
     "@eeacms/volto-metadata-block": "^2.1.0",
+    "@eeacms/volto-react-table-widget": "0.1.1",
     "@eeacms/volto-resize-helper": "0.2.1",
     "@eeacms/volto-tabs-block": "1.2.7",
     "@eeacms/volto-taxonomy": "^1.0.0",
