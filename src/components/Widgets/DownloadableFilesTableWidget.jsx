@@ -1,5 +1,5 @@
 import React from 'react';
-import ObjectListWidget from '@plone/volto/components/manage/Widgets/ObjectListWidget';
+import { ReactTableWidget } from '@eeacms/volto-react-table-widget';
 
 const ItemSchema = () => ({
   title: 'Downloadable File',
@@ -18,6 +18,7 @@ const ItemSchema = () => ({
       title: 'Year',
       description: 'Enter the year of this file.',
       type: 'number',
+      minimum: 1900,
     },
     version: {
       title: 'Version',
@@ -36,8 +37,6 @@ const ItemSchema = () => ({
         ['Raster', 'Raster'],
         ['Vector', 'Vector'],
       ],
-      // type: 'string',
-      // controlled vocabulary: 'raster' or 'vector'
     },
     format: {
       title: 'Format',
@@ -84,15 +83,17 @@ const ItemSchema = () => ({
   required: [],
 });
 
-const DownloadableFilesWidget = (props) => {
+const DownloadableFilesTableWidget = (props) => {
   return (
-    <ObjectListWidget
+    <ReactTableWidget
       schema={ItemSchema()}
       {...props}
+      csvexport={true}
+      csvimport={true}
       value={props.value?.items || props.default?.items || []}
       onChange={(id, value) => props.onChange(id, { items: value })}
     />
   );
 };
 
-export default DownloadableFilesWidget;
+export default DownloadableFilesTableWidget;
