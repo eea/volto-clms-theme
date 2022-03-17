@@ -31,6 +31,8 @@ import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifi
 import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
+import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
+// CUSTOM REDUCERS IMPORT
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
 
 import reducers from './reducers';
@@ -74,6 +76,7 @@ const applyConfig = (config) => {
   config.widgets.id = {
     ...config.widgets.id,
     taxonomy_technical_library_categorization: TaxonomyWidget,
+    product_components: ProductComponentsWidget,
   };
   config.settings = {
     ...config.settings,
