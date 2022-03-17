@@ -1,0 +1,51 @@
+@type: 'extra';
+@element: 'custom';
+@import (multiple) '../../theme.config';
+@import '../../../../../../node_modules/lightgallery/css/lightgallery.css';
+@import '../../../../../../node_modules/lightgallery/css/lg-zoom.css';
+
+h1,
+p {
+  font-family: Lato;
+}
+
+body {
+  margin: 0;
+}
+
+.gallery-item {
+  display: inline-block;
+  margin: 5px;
+}
+
+.img-responsive {
+  display: flex;
+  width: 8rem !important;
+  height: 8rem !important;
+  object-fit: cover;
+}
+
+.image-message {
+  opacity: 0.8;
+}
+
+.image-editor-icon {
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.ui.image:hover {
+  background-color: #e0e1e2;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.lightgallery .lg-react-element {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (ma-width: 770px) {
+  .lightgallery .lg-react-element {
+    justify-content: center;
+  }
+}
