@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LightGallery from 'lightgallery/react';
 import lgZoom from 'lightgallery/plugins/zoom';
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
 import { Image } from 'semantic-ui-react';
 import './styles.less';
 import { flattenToAppURL } from '@plone/volto/helpers';
@@ -56,6 +58,6 @@ export const LightGalleryListing = () => {
   );
 };
 LightGalleryListing.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.any).isRequired,
+  items: PropTypes.arrayOf(PropTypes.any),
 };
 export default LightGalleryListing;
