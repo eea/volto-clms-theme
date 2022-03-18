@@ -4,7 +4,7 @@ pipeline {
   environment {
         GIT_NAME = "volto-clms-theme"
         NAMESPACE = "@eeacms"
-        SONARQUBE_TAGS = "clms.land.copernicus.eu,volto.eea.europa.eu"
+        SONARQUBE_TAGS = "clms.land.copernicus.eu,volto.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu"
         DEPENDENCIES = ""
         VOLTO = "14.10.0"
     }
