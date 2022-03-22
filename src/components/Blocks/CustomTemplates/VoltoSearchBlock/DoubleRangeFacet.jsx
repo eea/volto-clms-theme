@@ -5,6 +5,11 @@ import React, { useState } from 'react';
 
 import InputRange from 'react-input-range';
 import { Segment } from 'semantic-ui-react';
+import {
+  selectFacetSchemaEnhancer,
+  selectFacetStateToValue,
+  selectFacetValueToQuery,
+} from '@plone/volto/components/manage/Blocks/Search/components/base';
 
 const DoubleRangeFacet = (props) => {
   const { facet, choices, onChange, value } = props;
@@ -73,4 +78,7 @@ const DoubleRangeFacet = (props) => {
   );
 };
 
+DoubleRangeFacet.schemaEnhancer = selectFacetSchemaEnhancer;
+DoubleRangeFacet.stateToValue = selectFacetStateToValue;
+DoubleRangeFacet.valueToQuery = selectFacetValueToQuery;
 export default DoubleRangeFacet;
