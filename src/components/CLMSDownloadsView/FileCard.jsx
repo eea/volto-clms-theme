@@ -125,18 +125,25 @@ const FileCard = (props) => {
           >
             <Header as="h3">{`Task ID: ${item?.TaskID}`}</Header>
             <Segment basic className="file-datetimes">
-              Start date:{' '}
-              {new Date(item?.RegistrationDateTime).toLocaleString('en-GB', {
-                timeZone: 'UTC',
-              })}{' '}
-              <span
-                className="info-icon"
-                tooltip="Dates and times are in UTC"
-                direction="up"
-              >
-                <FontAwesomeIcon icon={faInfoCircle} />
-              </span>
-              <br />
+              {item?.RegistrationDateTime && (
+                <>
+                  Start date:
+                  {new Date(item?.RegistrationDateTime).toLocaleString(
+                    'en-GB',
+                    {
+                      timeZone: 'UTC',
+                    },
+                  )}
+                  <span
+                    className="info-icon"
+                    tooltip="Dates and times are in UTC"
+                    direction="up"
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                  </span>
+                  <br />
+                </>
+              )}
               {item?.FinalizationDateTime && (
                 <>
                   End date:{' '}
