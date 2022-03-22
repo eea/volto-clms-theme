@@ -5,6 +5,12 @@ import React, { useState } from 'react';
 import { Checkbox, List } from 'semantic-ui-react';
 import { structure_taxonomy_terms } from '@eeacms/volto-clms-theme/components';
 
+import {
+  selectFacetSchemaEnhancer,
+  selectFacetStateToValue,
+  selectFacetValueToQuery,
+} from '@plone/volto/components/manage/Blocks/Search/components/base';
+
 const CheckboxTreeFacet = (props) => {
   const { facet, choices, onChange, value } = props;
   const facetValue = value;
@@ -120,4 +126,7 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
   );
 };
 
+CheckboxTreeFacet.schemaEnhancer = selectFacetSchemaEnhancer;
+CheckboxTreeFacet.stateToValue = selectFacetStateToValue;
+CheckboxTreeFacet.valueToQuery = selectFacetValueToQuery;
 export default CheckboxTreeFacet;

@@ -6,6 +6,7 @@ import {
   CheckboxTreeFacet,
   rewriteOptions,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
+import { SelectFacetFilterListEntry } from '@plone/volto/components/manage/Blocks/Search/components';
 import {
   CclCarouselView,
   CclProductTabsView,
@@ -305,24 +306,40 @@ const customBlocks = (config) => ({
             title: 'Accordion Checkbox',
             view: WithType(AccordionFacet, 'checkbox'),
             isDefault: true,
+            schemaEnhancer: AccordionFacet.schemaEnhancer,
+            stateToValue: AccordionFacet.stateToValue,
+            valueToQuery: AccordionFacet.valueToQuery,
+            filterListComponent: SelectFacetFilterListEntry,
           },
           {
             id: 'accordionLabelFacet',
             title: 'Accordion Label',
             view: WithType(AccordionFacet, 'label'),
             isDefault: false,
+            schemaEnhancer: AccordionFacet.schemaEnhancer,
+            stateToValue: AccordionFacet.stateToValue,
+            valueToQuery: AccordionFacet.valueToQuery,
+            filterListComponent: SelectFacetFilterListEntry,
           },
           {
             id: 'doubleRangeFacet',
             title: 'Double Range',
             view: DoubleRangeFacet,
             isDefault: false,
+            schemaEnhancer: DoubleRangeFacet.schemaEnhancer,
+            stateToValue: DoubleRangeFacet.stateToValue,
+            valueToQuery: DoubleRangeFacet.valueToQuery,
+            filterListComponent: SelectFacetFilterListEntry,
           },
           {
             id: 'checkboxTreeFacet',
             title: 'Checkbox Tree',
             view: CheckboxTreeFacet,
             isDefault: false,
+            schemaEnhancer: CheckboxTreeFacet.schemaEnhancer,
+            stateToValue: CheckboxTreeFacet.stateToValue,
+            valueToQuery: CheckboxTreeFacet.valueToQuery,
+            filterListComponent: SelectFacetFilterListEntry,
           },
 
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
