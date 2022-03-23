@@ -4,13 +4,13 @@ export const getDownloadToolPostBody = (selectedItems) => {
     if (item.file_id) {
       body_extras['FileID'] = item.file_id;
     } else {
-      if (item.area.type === 'polygon') {
+      if (item.area?.type === 'polygon') {
         body_extras['BoundingBox'] = item.area.value;
       }
-      if (item.area.type === 'nuts') {
+      if (item.area?.type === 'nuts') {
         body_extras['NUTS'] = item.area.value;
       }
-      if (item.timeExtent.length > 0) {
+      if (item.timeExtent?.length > 0) {
         body_extras['TemporalFilter'] = {
           StartDate: item.timeExtent[0],
           EndDate: item.timeExtent[1],
@@ -19,8 +19,11 @@ export const getDownloadToolPostBody = (selectedItems) => {
       if (item.format) {
         body_extras['OutputFormat'] = item.format;
       }
-      if (item.format) {
+      if (item.projection) {
         body_extras['OutputGCS'] = item.projection;
+      }
+      if (item.type) {
+        body_extras['DatasetDownloadInformationID'] = item.type;
       }
     }
     return { DatasetID: item.dataset_uid, ...body_extras };
@@ -33,6 +36,7 @@ export const getDownloadToolPostBody = (selectedItems) => {
 export const getCartObjectFromPrepackaged = (file_data, dataset_data) => {
   return {
     name: dataset_data.title,
+    title: file_data.title,
     area: file_data.area,
     format: file_data.format?.token || file_data.format,
     resolution: file_data.resolution,
@@ -56,11 +60,17 @@ export const getCartObjectFromMapviewer = (
   nutsnames,
 ) => {
   const area = local_cart_data.area;
-  if (area.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
+  if (area?.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
     area.valueName = nutsnames[area.value];
   }
+  const type_options = [];
+  if (dataset_data.dataset_download_information?.items.length > 0) {
+    dataset_data.dataset_download_information.items.forEach((item) => {
+      type_options.push({ id: item['@id'], name: item.name });
+    });
+  }
   return {
-    name: dataset_data.dataResourceTitle || '-',
+    name: dataset_data.title || '-',
     area: area || '-',
     format:
       dataset_data.dataset_full_format?.token ||
@@ -69,7 +79,8 @@ export const getCartObjectFromMapviewer = (
     resolution: dataset_data.resolution || '-',
     size: dataset_data.size || '-',
     source: 'Map viewer',
-    type: dataset_data.dataResourceType || '-',
+    type: type_options.length > 0 ? type_options[0].id : null,
+    type_options: type_options,
     version: dataset_data.version || '-',
     year: dataset_data.year || '-',
     id: local_cart_data.id,

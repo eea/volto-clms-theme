@@ -18,6 +18,7 @@ import { createContent } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
 import { postMeetingRegister } from '../../actions';
 import { toast } from 'react-toastify';
+import { LightGalleryListing } from './CclLightGallery';
 
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
@@ -72,10 +73,6 @@ export const CLMSMeetingView = (props) => {
     meetingtype: {
       id: 'meetingtype',
       defaultMessage: 'Type',
-    },
-    meetinglevel: {
-      id: 'meetinglevel',
-      defaultMessage: 'Level',
     },
     hosting_organisation: {
       id: 'hosting_organisation',
@@ -160,6 +157,7 @@ export const CLMSMeetingView = (props) => {
           );
     });
   };
+
   var formErrorMessagesList = [];
   !content.anonymous_registration_form?.published &&
     formErrorMessagesList.push(
@@ -330,19 +328,6 @@ export const CLMSMeetingView = (props) => {
           </>
         )}
 
-        {content.meeting_level && (
-          <>
-            <div className="dataset-info-field">
-              <div className="dataset-field-title">
-                <Header>{intl.formatMessage(messages.meetinglevel)}</Header>
-              </div>
-              <div className="dataset-field-description">
-                {content.meeting_level.title}
-              </div>
-            </div>
-          </>
-        )}
-
         {content.hosting_organisation && (
           <>
             <div className="dataset-info-field">
@@ -396,6 +381,7 @@ export const CLMSMeetingView = (props) => {
           </figure>
         )}
         <StringToHTML string={content.text?.data || ''} />
+        <LightGalleryListing />
       </Segment>
     </div>
   );

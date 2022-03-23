@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { getBreadcrumbs } from '../../../../../../node_modules/@plone/volto/src/actions';
+import { getBreadcrumbs } from '@plone/volto/actions';
 import { useDispatch } from 'react-redux';
 import { Label } from 'semantic-ui-react';
 

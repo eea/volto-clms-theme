@@ -1,5 +1,5 @@
 module.exports = {
-  testMatch: ['**/src/addons/**/?(*.)+(spec|test).[jt]s?(x)'],
+  testMatch: ['**/src/addons/**/?(*.)+(spec|test).[jt]s(x)?'],
   collectCoverageFrom: [
     'src/addons/**/src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
@@ -15,6 +15,7 @@ module.exports = {
     '@eeacms/(.*?)/(.*)$': '<rootDir>/src/addons/$1/src/$2',
     'volto-clms-theme/(.*)$': '<rootDir>/src/addons/volto-clms-theme/src/$1',
     '~/(.*)$': '<rootDir>/src/$1',
+    '@root/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
     'load-volto-addons':
       '<rootDir>/node_modules/@plone/volto/jest-addons-loader.js',
   },
@@ -38,4 +39,7 @@ module.exports = {
       statements: 5,
     },
   },
+  roots: ['<rootDir>'],
+  modulePaths: ['<rootDir>'],
+  moduleDirectories: ['node_modules'],
 };

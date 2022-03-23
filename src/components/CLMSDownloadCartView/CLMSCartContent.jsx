@@ -4,7 +4,7 @@
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
-import { Checkbox, Segment, Select } from 'semantic-ui-react';
+import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import {
   getCartObjectFromMapviewer,
@@ -30,10 +30,16 @@ import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 const CLMSCartContent = (props) => {
   const { localSessionCart } = props;
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart_items.items);
   const { removeCartItem, removeCartItems } = useCartState();
+
+  // component states
+  const [openedModal, setOpenedModal] = useState(false);
   const [cartSelection, setCartSelection] = useState([]);
   const [loadingTable, setLoadingTable] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
+  // state connections
+  const cart = useSelector((state) => state.cart_items.items);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
@@ -45,8 +51,6 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.projections_in_progress,
   );
   const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
-
-  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     dispatch(getProjections());
@@ -139,7 +143,7 @@ const CLMSCartContent = (props) => {
     dispatch(getDownloadtool());
   };
 
-  function startDownloading() {
+  const startDownloading = () => {
     setLoadingTable(true);
     window.scrollTo(0, 0);
 
@@ -161,7 +165,21 @@ const CLMSCartContent = (props) => {
         setLoadingTable(false);
         toast.error(<Toast autoClose={5000} title={'Something went wrong.'} />);
       });
-  }
+  };
+
+  const downloadModal = () => {
+    let selectedItems = getSelectedCartItems();
+    const hasPrepackaged =
+      selectedItems.filter((item) => item.file_id).length > 0;
+    const hasMapSelection =
+      selectedItems.filter((item) => item.area).length > 0;
+    if (!(hasMapSelection && hasPrepackaged)) {
+      startDownloading();
+    } else {
+      setOpenedModal(true);
+    }
+  };
+
   const setProjectionValue = (unique_id, value) => {
     const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
     cartItems[objIndex].projection = value;
@@ -181,13 +199,49 @@ const CLMSCartContent = (props) => {
 
   const AreaNaming = (areaProps) => {
     const { item } = areaProps;
-    function nutsName(nItem) {
-      return nItem.area?.type === 'nuts'
-        ? 'NUTS: ' + (nItem.area.valueName || nItem.area.value)
-        : '-';
+    switch (item.area?.type) {
+      case 'polygon':
+        return 'Bounding Box';
+      case 'nuts':
+        return 'NUTS: ' + (item.area.valueName || item.area.value);
+      case undefined:
+        return item.area || '-';
+      default:
+        return '-';
     }
+  };
+
+  const TypeNaming = (typeProps) => {
+    const { item } = typeProps;
+    if (item.file_id) {
+      return (
+        <span className={'tag tag-' + item?.type?.toLowerCase()}>
+          {contentOrDash(item.type)}
+        </span>
+      );
+    } else if (!item.type) {
+      return '-';
+    }
+
     return (
-      <>{item.area?.type === 'polygon' ? 'Bounding Box' : nutsName(item)}</>
+      <Select
+        placeholder="Select type"
+        value={
+          item.type
+            ? item.type
+            : item.type_options.length > 0 && item.type_options[0].id
+        }
+        options={item.type_options.map((option) => {
+          return { key: option.id, value: option.id, text: option.name };
+        })}
+        onChange={(e, data) => {
+          const objIndex = cartItems.findIndex(
+            (obj) => obj.unique_id === item.unique_id,
+          );
+          cartItems[objIndex].type = data.value;
+          setCartItems([...cartItems]);
+        }}
+      />
     );
   };
 
@@ -225,8 +279,6 @@ const CLMSCartContent = (props) => {
                   <th>Type</th>
                   <th>Format</th>
                   <th>Projection</th>
-                  <th>Version</th>
-                  <th>Size</th>
                   <th></th>
                 </tr>
               </thead>
@@ -267,17 +319,19 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      <td>{contentOrDash(item.name)}</td>
+                      {item.title ? (
+                        <td>
+                          {item.title} ({contentOrDash(item.name)})
+                        </td>
+                      ) : (
+                        <td>{contentOrDash(item.name)}</td>
+                      )}
                       <td>{contentOrDash(item.source)}</td>
                       <td>
                         <AreaNaming item={item} />
                       </td>
                       <td>
-                        <span
-                          className={'tag tag-' + item?.type?.toLowerCase()}
-                        >
-                          {contentOrDash(item.type)}
-                        </span>
+                        <TypeNaming item={item} />
                       </td>
                       <td className="table-td-format">
                         {!item.file_id ? (
@@ -317,11 +371,9 @@ const CLMSCartContent = (props) => {
                             }}
                           />
                         ) : (
-                          item.projection
+                          '-'
                         )}
                       </td>
-                      <td>{item.version}</td>
-                      <td>{item.size}</td>
                       <td>
                         {item.task_in_progress ? (
                           <FontAwesomeIcon icon="spinner" spin />
@@ -346,12 +398,76 @@ const CLMSCartContent = (props) => {
       )}
       {cartItems?.length !== 0 && (
         <CclButton
-          onClick={() => startDownloading()}
+          onClick={() => downloadModal()}
           disabled={cartSelection.length === 0}
         >
           Start downloading
         </CclButton>
       )}
+      <Modal
+        // onClose={() => closeModal()}
+        // onOpen={() => openModal()}
+        open={openedModal}
+        // trigger={trigger}
+        className={'modal-clms'}
+        size={'tiny'}
+      >
+        <Modal.Content>
+          <div className={'modal-clms-background'}>
+            <div>
+              <div className={'modal-close modal-clms-close'}>
+                <span
+                  className="ccl-icon-close"
+                  aria-label="Close"
+                  onClick={() => setOpenedModal(false)}
+                  onKeyDown={() => setOpenedModal(false)}
+                  tabIndex="0"
+                  role="button"
+                ></span>
+              </div>
+              <p>Download processing</p>
+              {'The download is going to be processed in two different files.'}
+              <br />
+              <br />
+              <strong>Prepackaged files:</strong>
+              <ul>
+                {getSelectedCartItems()
+                  .filter((item) => item.file_id)
+                  .map((item, key) => (
+                    <li key={key}>{item.name}</li>
+                  ))}
+              </ul>
+              <br />
+              <strong>Map viewer selection:</strong>
+              <ul>
+                {[
+                  ...new Set(
+                    getSelectedCartItems()
+                      .filter((item) => !item.file_id)
+                      .map((item) => item.name),
+                  ),
+                ].map((item, key) => (
+                  <li key={key}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Modal.Content>
+        <Modal.Actions>
+          <div className="modal-buttons">
+            <CclButton
+              mode={'filled'}
+              onClick={() => {
+                setOpenedModal(false);
+                startDownloading();
+              }}
+            >
+              Accept
+            </CclButton>
+            <CclButton onClick={() => setOpenedModal(false)}>Cancel</CclButton>
+          </div>
+        </Modal.Actions>
+      </Modal>
     </>
   );
 };

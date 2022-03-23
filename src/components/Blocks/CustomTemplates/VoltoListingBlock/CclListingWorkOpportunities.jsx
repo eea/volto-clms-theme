@@ -7,15 +7,15 @@ import { Link } from 'react-router-dom';
 const messages = defineMessages({
   ProcurementNo: {
     id: 'ProcurementNo',
-    defaultMessage: 'Procurement No:',
+    defaultMessage: 'Procurement No: ',
   },
   ReferenceNo: {
     id: 'ReferenceNo',
-    defaultMessage: 'Reference No:',
+    defaultMessage: 'Reference No: ',
   },
   SubmissionDeadline: {
     id: 'SubmissionDeadline',
-    defaultMessage: 'Submission deadline:',
+    defaultMessage: 'Submission deadline: ',
   },
 });
 
@@ -50,48 +50,26 @@ const CclWorkOpportunity = (props) => {
         <span className="card-work-deadline-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
-        {new Date(item.submission_deadline).toLocaleDateString()}
+        {new Date(item.submission_deadline).toLocaleString()}
       </div>
     </div>
   );
 };
 
-var Today = new Date();
-
 const CclListingWorkOpportunities = (props) => {
-  const { items, variation } = props;
+  const { items } = props;
   const intl = useIntl();
   const user = useSelector((state) => state.users?.user);
   return (
     <>
-      {items
-        .filter(
-          (item) =>
-            new Date(item.submission_deadline) < Today &&
-            variation === 'CloseTenders',
-        )
-        .map((item, index) => (
-          <CclWorkOpportunity
-            key={index}
-            item={item}
-            intl={intl}
-            user={user}
-          ></CclWorkOpportunity>
-        ))}
-      {items
-        .filter(
-          (item) =>
-            new Date(item.submission_deadline) > Today &&
-            variation === 'OpenTenders',
-        )
-        .map((item, index) => (
-          <CclWorkOpportunity
-            key={index}
-            item={item}
-            intl={intl}
-            user={user}
-          ></CclWorkOpportunity>
-        ))}
+      {items.map((item, index) => (
+        <CclWorkOpportunity
+          key={index}
+          item={item}
+          intl={intl}
+          user={user}
+        ></CclWorkOpportunity>
+      ))}
     </>
   );
 };
