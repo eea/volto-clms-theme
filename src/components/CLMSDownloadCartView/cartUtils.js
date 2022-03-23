@@ -66,16 +66,17 @@ export const getCartObjectFromMapviewer = (
   const type_options = [];
   if (dataset_data.dataset_download_information?.items.length > 0) {
     dataset_data.dataset_download_information.items.forEach((item) => {
-      type_options.push({ id: item['@id'], name: item.name });
+      type_options.push({
+        id: item['@id'],
+        name: item.name,
+        full_format: item.full_format,
+      });
     });
   }
   return {
     name: dataset_data.title || '-',
     area: area || '-',
-    format:
-      dataset_data.dataset_full_format?.token ||
-      dataset_data.dataset_full_format ||
-      '-',
+    format: type_options.length > 0 ? type_options[0].full_format : null,
     resolution: dataset_data.resolution || '-',
     size: dataset_data.size || '-',
     source: 'Map viewer',
