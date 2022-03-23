@@ -4,8 +4,9 @@ import LightGallery from 'lightgallery/react';
 import lgZoom from 'lightgallery/plugins/zoom';
 import 'lightgallery/css/lightgallery.css';
 import 'lightgallery/css/lg-zoom.css';
-import { Image } from 'semantic-ui-react';
 import './styles.less';
+
+import { Image } from 'semantic-ui-react';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchContent } from '@plone/volto/actions';
@@ -23,7 +24,6 @@ export const LightGalleryListing = () => {
         {
           'path.depth': 1,
           portal_type: 'Image',
-          fullobjects: true,
         },
         'images',
       ),
@@ -32,27 +32,32 @@ export const LightGalleryListing = () => {
       dispatch(searchContent([]));
     };
   }, [dispatch]);
-
   return (
     <>
       <div>
-        <LightGallery plugins={[lgZoom]} mode="lg-fade">
-          {images?.map((item, index) => (
-            <a
-              key={index}
-              className="gallery-item"
-              href={flattenToAppURL(item?.image?.download)}
-              data-sub-html={item.description}
-              data-src={flattenToAppURL(item?.image?.scales?.huge?.download)}
-            >
-              <Image
-                src={flattenToAppURL(item?.image?.scales?.large?.download)}
-                className="img-responsive"
-                alt={item.description}
-              />
-            </a>
-          ))}
-        </LightGallery>
+        {images?.length > 0 && (
+          <LightGallery plugins={[lgZoom]} mode="lg-fade">
+            {images?.map((item, index) => (
+              <a
+                key={index}
+                className="gallery-item"
+                href={flattenToAppURL(
+                  `${item['@id']}/@@images/${item?.image_field}/huge`,
+                )}
+                data-sub-html={item?.description}
+                data-src={flattenToAppURL(
+                  `${item['@id']}/@@images/${item?.image_field}/huge`,
+                )}
+              >
+                <Image
+                  src={`${item['@id']}/@@images/${item?.image_field}/large`}
+                  className="img-responsive"
+                  alt={item?.description}
+                />
+              </a>
+            ))}
+          </LightGallery>
+        )}
       </div>
     </>
   );
