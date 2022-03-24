@@ -79,6 +79,19 @@ const CLMSCartContent = (props) => {
     }
   }, [nutsnames]);
 
+  // useEffect(() => {
+  //   const type_options = [];
+  //   if (requestedItem.dataset_download_information?.items.length > 0) {
+  //     requestedItem.dataset_download_information.items.forEach((item) => {
+  //       type_options.push({
+  //         id: item['@id'],
+  //         name: item.name,
+  //         full_format: item.full_format,
+  //       });
+  //     });
+  //   }
+  // }, [requestedItem]);
+
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
       const requestedItem = datasets
@@ -239,6 +252,13 @@ const CLMSCartContent = (props) => {
             (obj) => obj.unique_id === item.unique_id,
           );
           cartItems[objIndex].type = data.value;
+          const dataset = datasets
+            ? datasets.find((req) => req.UID === item.dataset_uid)
+            : false;
+          const format_item = dataset.dataset_download_information.items.find(
+            (item) => item['@id'] === data.value,
+          );
+          cartItems[objIndex].format = format_item.full_format;
           setCartItems([...cartItems]);
         }}
       />
