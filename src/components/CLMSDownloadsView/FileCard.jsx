@@ -16,6 +16,7 @@ import errorSVG from '@plone/volto/icons/error.svg';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import packSVG from '@plone/volto/icons/pack.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const prettyBytes = require('pretty-bytes');
 
@@ -127,13 +128,7 @@ const FileCard = (props) => {
             <Segment basic className="file-datetimes">
               {item?.RegistrationDateTime && (
                 <>
-                  Start date:
-                  {new Date(item?.RegistrationDateTime).toLocaleString(
-                    'en-GB',
-                    {
-                      timeZone: 'UTC',
-                    },
-                  )}
+                  Start date: {cclDateTimeFormat(item?.RegistrationDateTime)}
                   <span
                     className="info-icon"
                     tooltip="Dates and times are in UTC"
@@ -146,13 +141,7 @@ const FileCard = (props) => {
               )}
               {item?.FinalizationDateTime && (
                 <>
-                  End date:{' '}
-                  {new Date(item?.FinalizationDateTime).toLocaleString(
-                    'en-GB',
-                    {
-                      timeZone: 'UTC',
-                    },
-                  )}
+                  End date: {cclDateTimeFormat(item?.FinalizationDateTime)}
                   <span
                     className="info-icon"
                     tooltip="Dates and times are in UTC"
