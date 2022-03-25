@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
@@ -19,18 +18,10 @@ const CclHomeProductsBlockView = (props) => {
           }
           tabIndex={0}
           onClick={() => {
-            props.history.push(
-              product?.linkSelector.length > 0
-                ? product?.linkSelector[0]['@id']
-                : props.path,
-            );
+            window.location.href = product?.linkSelector || props.path;
           }}
           onKeyDown={() => {
-            props.history.push(
-              product?.linkSelector.length > 0
-                ? product?.linkSelector[0]['@id']
-                : props.path,
-            );
+            window.location.href = product?.linkSelector || props.path;
           }}
           id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
@@ -50,4 +41,4 @@ const CclHomeProductsBlockView = (props) => {
   );
 };
 
-export default withRouter(CclHomeProductsBlockView);
+export default CclHomeProductsBlockView;
