@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Pagination } from '@plone/volto/components';
 import { searchContent } from '@plone/volto/actions';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 export const CLMSMeetingEmailsView = (props) => {
   const { content, intl } = props;
@@ -142,7 +143,7 @@ export const CLMSMeetingEmailsView = (props) => {
                         </td>
                         <td>{email.cc}</td>
                         <td>{email.subject}</td>
-                        <td>{new Date(email.modified).toLocaleDateString()}</td>
+                        <td>{cclDateTimeFormat(email.modified)}</td>
                         <td>{email.email_type}</td>
                       </tr>
                     ))

@@ -19,7 +19,7 @@ import { getUserSchema } from '../../actions';
 const messages = defineMessages({
   UserProfile: {
     id: 'UserProfile',
-    defaultMessage: 'User Profile',
+    defaultMessage: 'User profile',
   },
   default: {
     id: 'Default',
@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
   fullnameTitle: {
     id: 'Full Name',
-    defaultMessage: 'Full Name',
+    defaultMessage: 'Full name',
   },
   fullnameDescription: {
     id: 'Enter full name, e.g. John Smith.',

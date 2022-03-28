@@ -2,7 +2,7 @@ import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import { hasBlocksData } from '@plone/volto/helpers';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
-
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 const CLMSNewsItemView = (props) => {
   const { content } = props;
   return (
@@ -14,7 +14,7 @@ const CLMSNewsItemView = (props) => {
           <h1 className="page-title">{content.title}</h1>
           <div className="news-detail">
             <div className="news-detail-date">
-              {new Date(content?.effective).toLocaleDateString()}
+              {cclDateTimeFormat(content?.effective)}
             </div>
             {content?.image && (
               <figure className="news-detail-image">

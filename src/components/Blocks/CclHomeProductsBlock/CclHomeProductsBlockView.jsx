@@ -10,11 +10,19 @@ const CclHomeProductsBlockView = (props) => {
       {products?.map((product, index) => (
         <div
           key={index}
+          role="button"
           className={
             product.productIcon === 'iconless'
               ? 'home-product home-product-main'
               : 'home-product'
           }
+          tabIndex={0}
+          onClick={() => {
+            window.location.href = product?.linkSelector || props.path;
+          }}
+          onKeyDown={() => {
+            window.location.href = product?.linkSelector || props.path;
+          }}
           id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
           {product.productIcon === 'iconless' ? (

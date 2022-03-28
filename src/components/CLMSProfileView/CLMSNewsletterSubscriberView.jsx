@@ -24,7 +24,7 @@ class CLMSNewsletterSubscriberView extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       download: false,
-      headers: [{ label: 'Newsletter Subscribers', key: 'email' }],
+      headers: [{ label: 'Newsletter subscribers', key: 'email' }],
     };
   }
   componentDidMount() {

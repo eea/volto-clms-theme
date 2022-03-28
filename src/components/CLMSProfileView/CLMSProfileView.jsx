@@ -54,15 +54,15 @@ class CLMSProfileView extends Component {
       <div className="ccl-container ">
         {loggedIn && (
           <CclTabs>
-            <div tabTitle="USER PROFILE">
+            <div tabTitle="User profile">
               <CLMSUserProfileView />
             </div>
-            <div tabTitle="API TOKENS">
+            <div tabTitle="API tokens">
               <CLMSApiTokensView />
             </div>
             {(this.props.roles?.includes('Manager') ||
               this.props.roles?.includes('Site Administrator')) && (
-              <div tabTitle="NEWSLETTER SUBSCRIBERS">
+              <div tabTitle="Newsletter subscribers">
                 <CLMSNewsletterSubscriberView />
               </div>
             )}
