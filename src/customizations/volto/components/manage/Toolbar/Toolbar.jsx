@@ -175,7 +175,7 @@ class Toolbar extends Component {
   };
 
   state = {
-    expanded: cookie.load('toolbar_expanded') !== 'false',
+    expanded: cookie?.load('toolbar_expanded') !== 'false',
     showMenu: false,
     menuStyle: {},
     menuComponents: [],
