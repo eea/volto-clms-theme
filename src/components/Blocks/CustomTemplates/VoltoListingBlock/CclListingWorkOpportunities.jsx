@@ -56,42 +56,20 @@ const CclWorkOpportunity = (props) => {
   );
 };
 
-var Today = new Date();
-
 const CclListingWorkOpportunities = (props) => {
-  const { items, variation } = props;
+  const { items } = props;
   const intl = useIntl();
   const user = useSelector((state) => state.users?.user);
   return (
     <>
-      {items
-        .filter(
-          (item) =>
-            new Date(item.submission_deadline) < Today &&
-            variation === 'CloseTenders',
-        )
-        .map((item, index) => (
-          <CclWorkOpportunity
-            key={index}
-            item={item}
-            intl={intl}
-            user={user}
-          ></CclWorkOpportunity>
-        ))}
-      {items
-        .filter(
-          (item) =>
-            new Date(item.submission_deadline) > Today &&
-            variation === 'OpenTenders',
-        )
-        .map((item, index) => (
-          <CclWorkOpportunity
-            key={index}
-            item={item}
-            intl={intl}
-            user={user}
-          ></CclWorkOpportunity>
-        ))}
+      {items.map((item, index) => (
+        <CclWorkOpportunity
+          key={index}
+          item={item}
+          intl={intl}
+          user={user}
+        ></CclWorkOpportunity>
+      ))}
     </>
   );
 };

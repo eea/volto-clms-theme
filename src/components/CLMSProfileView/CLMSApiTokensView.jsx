@@ -24,11 +24,11 @@ import {
 const messages = defineMessages({
   ApiTokens: {
     id: 'ApiTokens',
-    defaultMessage: 'API Tokens',
+    defaultMessage: 'API tokens',
   },
   title: {
     id: 'title',
-    defaultMessage: 'API Token management',
+    defaultMessage: 'API token management',
   },
   tokenTitleLabel: {
     id: 'tokenTitleLabel',

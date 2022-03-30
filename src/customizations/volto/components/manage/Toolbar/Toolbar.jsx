@@ -3,41 +3,44 @@
  * @module components/manage/Toolbar/Toolbar
  */
 
-import { BodyClass, getBaseUrl } from '@plone/volto/helpers';
 import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
+import { withCookies } from 'react-cookie';
 import { filter, find } from 'lodash';
+import cx from 'classnames';
+import config from '@plone/volto/registry';
+
+import More from '@plone/volto/components/manage/Toolbar/More';
+import PersonalTools from '@plone/volto/components/manage/Toolbar/PersonalTools';
+import Types from '@plone/volto/components/manage/Toolbar/Types';
+import PersonalInformation from '@plone/volto/components/manage/Preferences/PersonalInformation';
+import PersonalPreferences from '@plone/volto/components/manage/Preferences/PersonalPreferences';
+import StandardWrapper from '@plone/volto/components/manage/Toolbar/StandardWrapper';
 import {
   getTypes,
   listActions,
   setExpandedToolbar,
   unlockContent,
 } from '@plone/volto/actions';
-
 import { Icon } from '@plone/volto/components';
-import { Link } from 'react-router-dom';
-import More from '@plone/volto/components/manage/Toolbar/More';
-import PersonalInformation from '@plone/volto/components/manage/Preferences/PersonalInformation';
-import PersonalPreferences from '@plone/volto/components/manage/Preferences/PersonalPreferences';
-import PersonalTools from '@plone/volto/components/manage/Toolbar/PersonalTools';
+import { BodyClass, getBaseUrl } from '@plone/volto/helpers';
 import { Pluggable } from '@plone/volto/components/manage/Pluggable';
-import PropTypes from 'prop-types';
-import StandardWrapper from '@plone/volto/components/manage/Toolbar/StandardWrapper';
-import Types from '@plone/volto/components/manage/Toolbar/Types';
-import addSVG from '@plone/volto/icons/add-document.svg';
-import clearSVG from '@plone/volto/icons/clear.svg';
-import { compose } from 'redux';
-import config from '@plone/volto/registry';
-import { connect } from 'react-redux';
-import cookie from 'react-cookie';
-import cx from 'classnames';
-import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
-import folderSVG from '@plone/volto/icons/folder.svg';
-import jwtDecode from 'jwt-decode';
-import moreSVG from '@plone/volto/icons/more.svg';
+
 import penSVG from '@plone/volto/icons/pen.svg';
 import unlockSVG from '@plone/volto/icons/unlock.svg';
+import folderSVG from '@plone/volto/icons/folder.svg';
+import addSVG from '@plone/volto/icons/add-document.svg';
+import moreSVG from '@plone/volto/icons/more.svg';
 import userSVG from '@plone/volto/icons/user.svg';
+import clearSVG from '@plone/volto/icons/clear.svg';
+
+// import cookie from 'react-cookie';
 
 const messages = defineMessages({
   edit: {
@@ -174,16 +177,20 @@ class Toolbar extends Component {
     types: [],
   };
 
-  state = {
-    expanded: cookie?.load('toolbar_expanded') !== 'false',
-    showMenu: false,
-    menuStyle: {},
-    menuComponents: [],
-    loadedComponents: [],
-    hideToolbarBody: false,
-  };
-
   toolbarWindow = React.createRef();
+
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
+    this.state = {
+      expanded: cookies.get('toolbar_expanded') !== 'false',
+      showMenu: false,
+      menuStyle: {},
+      menuComponents: [],
+      loadedComponents: [],
+      hideToolbarBody: false,
+    };
+  }
 
   /**
    * Component will mount
@@ -225,8 +232,11 @@ class Toolbar extends Component {
   }
 
   handleShrink = () => {
-    cookie.save('toolbar_expanded', !this.state.expanded, {
-      expires: new Date((2 ** 31 - 1) * 1000),
+    const { cookies } = this.props;
+    cookies.set('toolbar_expanded', !this.state.expanded, {
+      expires: new Date(
+        new Date().getTime() + config.settings.cookieExpires * 1000,
+      ),
       path: '/',
     });
     this.setState(
@@ -303,6 +313,7 @@ class Toolbar extends Component {
       id: 'folderContents',
     });
     const { expanded } = this.state;
+
     if (this.props.roles && this.props.roles?.includes('Manager')) {
       return (
         this.props.token && (
@@ -583,6 +594,7 @@ class Toolbar extends Component {
 
 export default compose(
   injectIntl,
+  withCookies,
   connect(
     (state, props) => ({
       actions: state.actions.actions,

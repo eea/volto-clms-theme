@@ -30,21 +30,17 @@ function CclModal(props) {
       className={'modal-clms'}
       size={size}
     >
-      <div className={'modal-clms-background'}>
-        <div className={'modal-clms-container'}>
-          <div className={'modal-close modal-clms-close'}>
-            <span
-              className="ccl-icon-close"
-              aria-label="Close"
-              onClick={() => closeModal()}
-              onKeyDown={() => closeModal()}
-              tabIndex="0"
-              role="button"
-            ></span>
-          </div>
-          {children}
-        </div>
+      <div className={'modal-close modal-clms-close'}>
+        <span
+          className="ccl-icon-close"
+          aria-label="Close"
+          onClick={() => closeModal()}
+          onKeyDown={() => closeModal()}
+          tabIndex="0"
+          role="button"
+        ></span>
       </div>
+      {children}
     </Modal>
   );
 }

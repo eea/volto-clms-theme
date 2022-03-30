@@ -4,20 +4,25 @@
  */
 
 import { Helmet, flattenToAppURL, langmap } from '@plone/volto/helpers';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import { FormattedMessage } from 'react-intl';
+import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import config from '@plone/volto/registry';
-import cookie from 'react-cookie';
 import cx from 'classnames';
 import { find } from 'lodash';
-import { updateIntl } from 'react-intl-redux';
 
 let locales = {};
+
+const messages = defineMessages({
+  switchLanguageTo: {
+    id: 'Switch to',
+    defaultMessage: 'Switch to',
+  },
+});
 
 if (config.settings) {
   config.settings.supportedLanguages.forEach((lang) => {
@@ -31,12 +36,9 @@ function Capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const ModalContent = ({
-  translations,
-  currentLang,
-  onClickAction,
-  changeLanguage,
-}) => {
+const ModalContent = (props) => {
+  const intl = useIntl();
+  const { translations, currentLang, onClickAction } = props;
   return (
     <div className="ccl-container">
       <div className="modal-language-header">
@@ -64,6 +66,9 @@ const ModalContent = ({
                 <span className="language-link" lang-code={lang}>
                   {lang !== currentLang ? (
                     <Link
+                      aria-label={`${intl.formatMessage(
+                        messages.switchLanguageTo,
+                      )} ${langmap[lang].nativeName.toLowerCase()}`}
                       to={
                         translation
                           ? flattenToAppURL(translation['@id'])
@@ -72,7 +77,6 @@ const ModalContent = ({
                       title={langmap[lang].nativeName}
                       onClick={() => {
                         onClickAction();
-                        changeLanguage(lang);
                       }}
                       key={`language-selector-${lang}`}
                     >
@@ -92,25 +96,10 @@ const ModalContent = ({
 };
 
 function CclLanguageSelector(props) {
-  const dispatch = useDispatch();
   const currentLang = useSelector((state) => state.intl.locale);
   const translations = useSelector(
     (state) => state.content.data?.['@components']?.translations?.items,
   );
-
-  function changeLanguage(language) {
-    cookie.save('I18N_LANGUAGE', language, {
-      expires: new Date((2 ** 31 - 1) * 1000),
-      path: '/',
-    });
-
-    dispatch(
-      updateIntl({
-        locale: language,
-        messages: locales[language],
-      }),
-    );
-  }
 
   return config.settings.isMultilingual ? (
     <div className="ccl-header-lang">
@@ -129,7 +118,6 @@ function CclLanguageSelector(props) {
           translations={translations}
           currentLang={currentLang}
           onClickAction={props.onClickAction}
-          changeLanguage={changeLanguage}
         />
       </CclModal>
 
@@ -142,7 +130,6 @@ function CclLanguageSelector(props) {
             translations={translations}
             currentLang={currentLang}
             onClickAction={props.onClickAction}
-            changeLanguage={changeLanguage}
           />
         </CclModal>
       </div>

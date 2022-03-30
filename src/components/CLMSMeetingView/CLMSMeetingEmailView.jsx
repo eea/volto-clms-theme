@@ -2,6 +2,7 @@ import React from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Header, Segment } from 'semantic-ui-react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 export const CLMSMeetingEmailView = (props) => {
   const { content, intl } = props;
@@ -63,7 +64,7 @@ export const CLMSMeetingEmailView = (props) => {
           <Header as="h2">{intl.formatMessage(messages.subject)}</Header>
           <p>{content.subject}</p>
           <Header as="h2">{intl.formatMessage(messages.modified)}</Header>
-          <p>{new Date(content.modified).toLocaleDateString()}</p>
+          <p>{cclDateTimeFormat(content.modified)}</p>
           <Header as="h2">{intl.formatMessage(messages.type)}</Header>
           <p>{content.email_type}</p>
           <Header as="h2">{intl.formatMessage(messages.body)}</Header>

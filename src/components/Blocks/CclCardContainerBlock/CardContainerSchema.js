@@ -1,10 +1,10 @@
-export const CardContainerSchema = (types, extras) => ({
+export const CardContainerSchema = () => ({
   title: 'Card container',
   fieldsets: [
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'cardStyle', 'cardOrigin', ...extras],
+      fields: ['title', 'variation', 'customCards'],
     },
   ],
   properties: {
@@ -13,43 +13,13 @@ export const CardContainerSchema = (types, extras) => ({
       description: 'Card container block friendly name',
       type: 'string',
     },
-    cardStyle: {
-      title: 'Card style',
-      choices: [
-        ['line', 'Line Image card'],
-        ['line-color', 'Colored Line card'],
-        ['doc', 'Line card'],
-        ['block', 'Block card'],
-        ['event', 'Event card'],
-      ],
-      default: 'line',
-    },
-    contentTypes: {
-      title: 'Content Types',
-      choices: types,
-      isMulti: true,
-    },
-    cardOrigin: {
-      title: 'Cards origin',
-      choices: [
-        ['current', 'Current folder children'],
-        ['selection', 'Selected folder children'],
-        ['custom', 'Customized cards'],
-      ],
-      default: 'current',
-    },
-    containerSelection: {
-      title: 'Card container selector',
-      widget: 'object_browser',
-      mode: 'link',
-    },
     customCards: {
       title: 'Custom cards',
       type: 'panels',
       schema: CardBlockSchema,
     },
   },
-  required: ['cardStyle', 'cardOrigin'],
+  required: ['variation', 'cardOrigin'],
 });
 
 export const CardBlockSchema = () => ({
@@ -58,7 +28,7 @@ export const CardBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'image', 'description', 'url'],
+      fields: ['title', 'description', 'url'],
     },
   ],
   properties: {
@@ -77,7 +47,9 @@ export const CardBlockSchema = () => ({
     },
     url: {
       title: 'url',
-      type: 'string',
+      widget: 'object_browser',
+      mode: 'link',
+      allowExternals: true,
     },
   },
   required: [],
