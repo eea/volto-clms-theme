@@ -27,6 +27,7 @@ import {
   TabsView,
   defaultSchema,
 } from '@eeacms/volto-tabs-block/components';
+import { QuestionAnswerWidget } from '@eeacms/volto-clms-theme/components/Widgets';
 
 import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
@@ -461,6 +462,14 @@ const customBlocks = (config) => ({
   form: {
     ...config.blocks.blocksConfig.form,
     fieldSchema: customIdFieldSchema,
+    additionalFields: [
+      {
+        id: 'captcha',
+        label: 'Captcha',
+        component: QuestionAnswerWidget,
+        isValid: (formData, name) => true,
+      },
+    ],
   },
 });
 

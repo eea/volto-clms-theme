@@ -76,9 +76,22 @@ const messages = defineMessages({
     defineMessages:
       'If selected, this will be the address the receiver can use to reply.',
   },
+  useAsBCC: {
+    id: 'form_useAsBCC',
+    defaultMessage: 'Send an email copy to this address',
+  },
+  useAsBCC_description: {
+    id: 'form_useAsBCC_description',
+    defaultMessage:
+      'If selected, a copy of email will alse be sent to this address.',
+  },
   field_custom_id: {
     id: 'field_custom_id',
     defineMessages: 'Field Custom Id',
+  },
+  captcha_questions: {
+    id: 'captcha_questions',
+    defineMessages: 'Captcha questions',
   },
 });
 
@@ -115,6 +128,9 @@ export default (props) => {
     ? ['input_values']
     : [];
   var useAsReplyTo = props?.field_type === 'from' ? ['use_as_reply_to'] : [];
+  var useAsBCC = props?.field_type === 'from' ? ['use_as_bcc'] : [];
+  var captcha_questions_fieldset =
+    props?.field_type === 'captcha' ? ['captcha_questions'] : [];
   return {
     title: props?.label || '',
     fieldsets: [
@@ -127,8 +143,10 @@ export default (props) => {
           'field_type',
           ...fieldTypeChoices,
           ...useAsReplyTo,
+          ...useAsBCC,
           'required',
           'field_custom_id',
+          ...captcha_questions_fieldset,
         ],
       },
     ],
@@ -162,6 +180,12 @@ export default (props) => {
         type: 'boolean',
         default: false,
       },
+      use_as_bcc: {
+        title: intl.formatMessage(messages.useAsBCC),
+        description: intl.formatMessage(messages.useAsBCC_description),
+        type: 'boolean',
+        default: false,
+      },
       required: {
         title: intl.formatMessage(messages.field_required),
         type: 'boolean',
@@ -169,6 +193,11 @@ export default (props) => {
       },
       field_custom_id: {
         title: intl.formatMessage(messages.field_custom_id),
+        send_to_backend: true,
+      },
+      captcha_questions: {
+        title: intl.formatMessage(messages.captcha_questions),
+        widget: 'question_answers_widget',
         send_to_backend: true,
       },
     },

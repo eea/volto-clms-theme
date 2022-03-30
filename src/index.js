@@ -22,18 +22,22 @@ import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 
 // WIDGET
-import BoundingWidget from './components/Widgets/BoundingWidget';
-import ContactWidget from './components/Widgets/ContactWidget';
-import DatasetDownloadInformationWidget from './components/Widgets/DatasetDownloadInformationWidget';
-import DistributionInfoWidget from './components/Widgets/DistributionInfoWidget';
-import DownloadableFilesTableWidget from './components/Widgets/DownloadableFilesTableWidget';
-import GeonetworkIdentifiersWidget from './components/Widgets/GeonetworkIdentifiersWidget';
-import MapLayersWidget from './components/Widgets/MapLayersWidget';
+import {
+  BoundingWidget,
+  ContactWidget,
+  DatasetDownloadInformationWidget,
+  DistributionInfoWidget,
+  DownloadableFilesTableWidget,
+  GeonetworkIdentifiersWidget,
+  MapLayersWidget,
+  TextLinkWidget,
+  TaxonomyWidget,
+  QuestionAnswersWidget,
+  QuestionAnswerWidget,
+  ProductComponentsWidget,
+} from './components/Widgets';
+
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
-import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
-import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
-// CUSTOM REDUCERS IMPORT
-import TextLinkWidget from './components/Widgets/TextLinkWidget';
 
 import reducers from './reducers';
 
@@ -72,6 +76,8 @@ const applyConfig = (config) => {
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
     text_link_widget: TextLinkWidget,
     dataset_download_information_widget: DatasetDownloadInformationWidget,
+    question_answers_widget: QuestionAnswersWidget,
+    question_answer_widget: QuestionAnswerWidget,
   };
   config.widgets.id = {
     ...config.widgets.id,
