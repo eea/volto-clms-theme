@@ -120,14 +120,14 @@
 }
 
 .home-carousel .ccl-banner-top-main {
-  padding: 4rem 2rem;
+  padding: 4rem 4rem;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 @media (max-width: 480px) {
   .home-carousel .ccl-banner-top-main {
-    padding: 2rem 1rem;
+    padding: 2rem 2rem;
   }
 }
 
@@ -318,13 +318,22 @@
 
 /* Map band */
 .home-map-container {
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   background: url(../img/home-map-background.jpg) no-repeat center;
   background-size: cover;
 }
+
+.home-map-container > .ccl-container {
+  padding: 0 2rem;
+}
+
 @media (max-width: 480px) {
   .home-map-container {
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
+  }
+
+  .home-map-container > .ccl-container {
+    padding: 0;
   }
 }
 
@@ -345,8 +354,12 @@
 
 /* Meet band */
 .home-meet-container {
-  padding: 3rem 3rem;
+  padding: 3rem 1rem;
   padding-bottom: 6rem;
+}
+
+.home-meet-container > .ccl-container {
+  padding: 0 2rem;
 }
 
 .ccl-container > .ccl-button {
