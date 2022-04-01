@@ -220,6 +220,14 @@
   content: '\e913';
 }
 
+.tabs-block .slick-arrows .slick-arrow.slick-prev {
+  transform: translate(1rem,-50%);
+}
+
+.tabs-block .slick-arrows .slick-arrow.slick-next {
+  transform: translate(-1rem,-50%);
+}
+
 /* Dots */
 .slick-dotted.slick-slider {
   margin-bottom: 0;
