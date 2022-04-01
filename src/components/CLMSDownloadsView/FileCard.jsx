@@ -16,6 +16,8 @@ import errorSVG from '@plone/volto/icons/error.svg';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import packSVG from '@plone/volto/icons/pack.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
+import blockSVG from '@plone/volto/icons/block.svg';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const prettyBytes = require('pretty-bytes');
 
@@ -55,7 +57,8 @@ const FileCard = (props) => {
     var FinalizationDate = new Date(Date.parse(item?.FinalizationDateTime));
     var today = new Date();
     var daysDiff = Math.floor(
-      (today.getTime() - FinalizationDate.getTime()) / (1000 * 3600 * 24),
+      (today.getTime() - (FinalizationDate.getTime() || 0)) /
+        (1000 * 3600 * 24),
     );
   }
 
@@ -68,6 +71,7 @@ const FileCard = (props) => {
         padded
         className="filecard"
       >
+        {/* {10 - daysDiff > -1 && ( */}
         <Grid.Row>
           <Grid.Column verticalAlign="middle" textAlign="center" width={2}>
             {['In_progress', 'Queued'].includes(item?.Status) && (
@@ -87,6 +91,20 @@ const FileCard = (props) => {
                     size={50}
                     color="#a0b128"
                     title={'Finished correctly'}
+                  />
+                }
+              />
+            )}
+            {item?.Status === 'Cancelled' && (
+              <Popup
+                content="Cancelled"
+                size="small"
+                trigger={
+                  <Icon
+                    name={blockSVG}
+                    size={50}
+                    color="#90956e"
+                    title={'Cancelled'}
                   />
                 }
               />
@@ -125,27 +143,22 @@ const FileCard = (props) => {
           >
             <Header as="h3">{`Task ID: ${item?.TaskID}`}</Header>
             <Segment basic className="file-datetimes">
-              Start date:{' '}
-              {new Date(item?.RegistrationDateTime).toLocaleString('en-GB', {
-                timeZone: 'UTC',
-              })}{' '}
-              <span
-                className="info-icon"
-                tooltip="Dates and times are in UTC"
-                direction="up"
-              >
-                <FontAwesomeIcon icon={faInfoCircle} />
-              </span>
-              <br />
+              {item?.RegistrationDateTime && (
+                <>
+                  Start date: {cclDateTimeFormat(item?.RegistrationDateTime)}
+                  <span
+                    className="info-icon"
+                    tooltip="Dates and times are in UTC"
+                    direction="up"
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                  </span>
+                  <br />
+                </>
+              )}
               {item?.FinalizationDateTime && (
                 <>
-                  End date:{' '}
-                  {new Date(item?.FinalizationDateTime).toLocaleString(
-                    'en-GB',
-                    {
-                      timeZone: 'UTC',
-                    },
-                  )}
+                  End date: {cclDateTimeFormat(item?.FinalizationDateTime)}
                   <span
                     className="info-icon"
                     tooltip="Dates and times are in UTC"
@@ -225,6 +238,7 @@ const FileCard = (props) => {
             </Grid.Column>
           )}
         </Grid.Row>
+        {/* )} */}
       </Grid>
     </Segment>
   );

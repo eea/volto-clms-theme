@@ -1,5 +1,10 @@
 import { Checkbox } from 'semantic-ui-react';
 import React from 'react';
+import {
+  selectFacetSchemaEnhancer,
+  selectFacetStateToValue,
+  selectFacetValueToQuery,
+} from '@plone/volto/components/manage/Blocks/Search/components/base';
 
 const AccordionFacet = (props) => {
   const {
@@ -79,4 +84,7 @@ const AccordionFacet = (props) => {
   );
 };
 
+AccordionFacet.schemaEnhancer = selectFacetSchemaEnhancer;
+AccordionFacet.stateToValue = selectFacetStateToValue;
+AccordionFacet.valueToQuery = selectFacetValueToQuery;
 export default AccordionFacet;

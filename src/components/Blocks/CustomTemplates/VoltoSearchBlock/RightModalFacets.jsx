@@ -137,7 +137,7 @@ const RightModalFacets = (props) => {
                   trigger={
                     <div className="filters-element">
                       <div className="filters-title">
-                        <Icon className="ui" name={filterSVG} size={20} />
+                        <Icon className="ui" name={filterSVG} size={'20'} />
                         <span className="filters-title-bold">
                           {data.facetsTitle}
                         </span>

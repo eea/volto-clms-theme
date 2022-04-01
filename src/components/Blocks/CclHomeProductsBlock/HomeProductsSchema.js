@@ -53,8 +53,7 @@ export const ProductSchema = () => ({
     },
     linkSelector: {
       title: 'Product link selector',
-      widget: 'object_browser',
-      mode: 'link',
+      type: 'string',
     },
   },
   required: [],

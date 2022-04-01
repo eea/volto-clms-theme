@@ -67,15 +67,34 @@ const CLMSDownloadTasks = (props) => {
     return (
       <Grid columns={2}>
         {tasks?.length > 0 &&
-          tasks.map((item, key) => (
-            <Grid.Column key={key}>
-              <FileCard
-                item={item}
-                showDeleteTaskLoading={showDel}
-                deleteTaskInProgress={delTask}
-              />
-            </Grid.Column>
-          ))}
+          tasks
+            .map((item) => {
+              if (!item.RegistrationDateTime) {
+                item.RegistrationDateTime = '1970-01-01T00:00:00.000Z';
+              }
+              return item;
+            })
+            .sort(dynamicSort('-RegistrationDateTime'))
+            .filter((item) => {
+              var FinalizationDate = new Date(
+                Date.parse(item?.FinalizationDateTime),
+              );
+              var today = new Date();
+              var daysDiff = Math.floor(
+                (today.getTime() - (FinalizationDate.getTime() || 0)) /
+                  (1000 * 3600 * 24),
+              );
+              return daysDiff - 10 > -1;
+            })
+            .map((item, key) => (
+              <Grid.Column key={key}>
+                <FileCard
+                  item={item}
+                  showDeleteTaskLoading={showDel}
+                  deleteTaskInProgress={delTask}
+                />
+              </Grid.Column>
+            ))}
       </Grid>
     );
   };
@@ -107,6 +126,22 @@ const CLMSDownloadTasks = (props) => {
     });
     setter(intermediate);
   }
+
+  const dynamicSort = (property) => {
+    var sortOrder = 1;
+    if (property[0] === '-') {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      /* next line works with strings and numbers,
+       * and you may want to customize it to your needs
+       */
+      var result =
+        a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+      return result * sortOrder;
+    };
+  };
 
   const deleteTaskInProgress = (task_id) => {
     setShowDeleteTaskLoading(task_id);
@@ -220,7 +255,7 @@ const CLMSDownloadTasks = (props) => {
         <h2>
           <FormattedMessage id="Cancelled" defaultMessage="Cancelled" />
         </h2>
-        {cancelled?.length !== 0 ? (
+        {cancelled?.length > 0 ? (
           <MapTasks tasks={cancelled} showDel={showDeleteTaskLoading} />
         ) : (
           <p>

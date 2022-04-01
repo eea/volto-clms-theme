@@ -7,6 +7,7 @@ import { SidebarPortal } from '@plone/volto/components';
 import { UseCaseListSchema } from './UseCaseListSchema';
 import { getProductGroups } from './utils';
 import { searchContent } from '@plone/volto/actions';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const messages = defineMessages({
   xUseCases: {
@@ -91,9 +92,7 @@ const CclUseCaseListEdit = (props) => {
                         <span>
                           {useCase.topics.map((topic) => topic.title)}
                         </span>
-                        <span>
-                          {new Date(useCase?.effective).toLocaleDateString()}
-                        </span>
+                        <span>{cclDateTimeFormat(useCase?.effective)}</span>
                         <span>{useCase.responsibleOrganization}</span>
                       </div>
                     </div>

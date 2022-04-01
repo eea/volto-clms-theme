@@ -79,6 +79,19 @@ const CLMSCartContent = (props) => {
     }
   }, [nutsnames]);
 
+  // useEffect(() => {
+  //   const type_options = [];
+  //   if (requestedItem.dataset_download_information?.items.length > 0) {
+  //     requestedItem.dataset_download_information.items.forEach((item) => {
+  //       type_options.push({
+  //         id: item['@id'],
+  //         name: item.name,
+  //         full_format: item.full_format,
+  //       });
+  //     });
+  //   }
+  // }, [requestedItem]);
+
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
       const requestedItem = datasets
@@ -226,7 +239,11 @@ const CLMSCartContent = (props) => {
     return (
       <Select
         placeholder="Select type"
-        value={item.type_options.length > 0 && item.type_options[0].id}
+        value={
+          item.type
+            ? item.type
+            : item.type_options.length > 0 && item.type_options[0].id
+        }
         options={item.type_options.map((option) => {
           return { key: option.id, value: option.id, text: option.name };
         })}
@@ -235,6 +252,13 @@ const CLMSCartContent = (props) => {
             (obj) => obj.unique_id === item.unique_id,
           );
           cartItems[objIndex].type = data.value;
+          const dataset = datasets
+            ? datasets.find((req) => req.UID === item.dataset_uid)
+            : false;
+          const format_item = dataset.dataset_download_information.items.find(
+            (item) => item['@id'] === data.value,
+          );
+          cartItems[objIndex].format = format_item.full_format;
           setCartItems([...cartItems]);
         }}
       />
@@ -436,18 +460,21 @@ const CLMSCartContent = (props) => {
               <br />
               <strong>Map viewer selection:</strong>
               <ul>
-                {getSelectedCartItems()
-                  .filter((item) => item.area)
-                  .map((item, key) => (
-                    <li key={key}>{item.name}</li>
-                  ))}
+                {[
+                  ...new Set(
+                    getSelectedCartItems()
+                      .filter((item) => !item.file_id)
+                      .map((item) => item.name),
+                  ),
+                ].map((item, key) => (
+                  <li key={key}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
         </Modal.Content>
         <Modal.Actions>
           <div className="modal-buttons">
-            <CclButton onClick={() => setOpenedModal(false)}>Cancel</CclButton>
             <CclButton
               mode={'filled'}
               onClick={() => {
@@ -457,6 +484,7 @@ const CLMSCartContent = (props) => {
             >
               Accept
             </CclButton>
+            <CclButton onClick={() => setOpenedModal(false)}>Cancel</CclButton>
           </div>
         </Modal.Actions>
       </Modal>

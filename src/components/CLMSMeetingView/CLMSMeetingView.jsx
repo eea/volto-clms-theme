@@ -18,6 +18,7 @@ import { createContent } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
 import { postMeetingRegister } from '../../actions';
 import { toast } from 'react-toastify';
+import { LightGalleryListing } from './CclLightGallery';
 
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
@@ -156,6 +157,7 @@ export const CLMSMeetingView = (props) => {
           );
     });
   };
+
   var formErrorMessagesList = [];
   !content.anonymous_registration_form?.published &&
     formErrorMessagesList.push(
@@ -379,6 +381,7 @@ export const CLMSMeetingView = (props) => {
           </figure>
         )}
         <StringToHTML string={content.text?.data || ''} />
+        <LightGalleryListing />
       </Segment>
     </div>
   );
