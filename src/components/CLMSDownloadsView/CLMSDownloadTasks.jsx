@@ -75,6 +75,17 @@ const CLMSDownloadTasks = (props) => {
               return item;
             })
             .sort(dynamicSort('-RegistrationDateTime'))
+            .filter((item) => {
+              var FinalizationDate = new Date(
+                Date.parse(item?.FinalizationDateTime),
+              );
+              var today = new Date();
+              var daysDiff = Math.floor(
+                (today.getTime() - (FinalizationDate.getTime() || 0)) /
+                  (1000 * 3600 * 24),
+              );
+              return daysDiff - 10 > -1;
+            })
             .map((item, key) => (
               <Grid.Column key={key}>
                 <FileCard
