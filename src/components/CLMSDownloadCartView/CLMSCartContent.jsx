@@ -379,7 +379,7 @@ const CLMSCartContent = (props) => {
                           <Select
                             placeholder="Select projection"
                             value={item.projection}
-                            options={projections.map((projection) => {
+                            options={projections?.map((projection) => {
                               return {
                                 key: projection,
                                 value: projection,
