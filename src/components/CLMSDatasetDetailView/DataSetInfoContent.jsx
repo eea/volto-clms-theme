@@ -25,6 +25,7 @@ const DataSetInfoContent = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
+  const user = useSelector((state) => state.users.user);
   React.useEffect(() => {
     UID &&
       dispatch(
@@ -173,7 +174,12 @@ const DataSetInfoContent = (props) => {
                       height={'auto'}
                     >
                       {libraries.map((item, index) => (
-                        <CclCard key={index} type="doc" card={item} />
+                        <CclCard
+                          key={index}
+                          type="doc"
+                          card={{ Type: item['@type'], ...item }}
+                          showEditor={user?.roles?.includes('Manager')}
+                        />
                       ))}
                     </AnimateHeight>
                   </Accordion.Content>
