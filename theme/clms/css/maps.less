@@ -57,15 +57,14 @@
     cursor: auto;
   }
 
+  .esri-widget--button.active-widget {
+    background: #212529;
+  }
+
   /* Basemap */
   .basemap-container {
     display: flex;
     box-shadow: none !important;
-  }
-
-  .esri-basemap-gallery {
-    display: none;
-    margin: 0 !important;
   }
 
   .esri-basemap-gallery__item:first-child {
@@ -105,10 +104,6 @@
   .measurement-container .measurement-area.esri-measurement {
     display: block;
     flex-direction: column;
-  }
-
-  .measurement-panel {
-    display: none;
   }
 
   .measurement-buttons {
@@ -165,10 +160,6 @@
     box-shadow: none !important;
   }
 
-  .esri-print {
-    display: none;
-  }
-
   .esri-print__layout-tab {
     font-size: 1rem;
   }
@@ -190,13 +181,6 @@
   .area-container {
     display: flex;
     box-shadow: none !important;
-  }
-
-  .area-panel {
-    display: none;
-    padding: 1rem;
-    background-color: white;
-    font-size: 1rem;
   }
 
   .area-panel .ccl-form-group:not(:first-of-type) {
@@ -286,10 +270,12 @@
     height: 440px;
     padding: 0;
     background: #ffffff;
+    overflow-x: hidden;
     overflow-y: auto;
   }
 
   .map-menu .panel {
+    position: relative;
     display: none;
     animation: fadein 0.8s;
   }
@@ -404,7 +390,7 @@
   .map-menu-dataset > div:first-of-type {
     display: flex;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 
   .map-menu-layers-container {
@@ -419,7 +405,7 @@
   }
 
   .map-menu-icon {
-    margin-left: 0.5rem;
+    margin-left: 1rem;
     color: #a0b128;
     cursor: pointer;
     font-size: 1rem;
@@ -539,10 +525,6 @@
   }
 
   /* Legend*/
-  .legend-panel {
-    display: none;
-  }
-
   .legend-container {
     display: flex;
     box-shadow: none !important;
