@@ -11,8 +11,9 @@ import { defineMessages, useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Icon } from '@plone/volto/components';
 import React from 'react';
-import alertSVG from '@plone/volto/icons/alert.svg';
+import pauseSVG from '@plone/volto/icons/pause.svg';
 import errorSVG from '@plone/volto/icons/error.svg';
+import warningSVG from '@plone/volto/icons/warning.svg';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import packSVG from '@plone/volto/icons/pack.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
@@ -74,7 +75,21 @@ const FileCard = (props) => {
         {/* {10 - daysDiff > -1 && ( */}
         <Grid.Row>
           <Grid.Column verticalAlign="middle" textAlign="center" width={2}>
-            {['In_progress', 'Queued'].includes(item?.Status) && (
+          {item?.Status === 'Queued' && (
+              <Popup
+                content="Queued"
+                size="small"
+                trigger={
+                  <Icon
+                    name={pauseSVG}
+                    size={50}
+                    color="#a0b128"
+                    title={'Queued'}
+                  />
+                }
+              />
+            )}
+            {item?.Status === 'In_progress' && (
               <Popup
                 content="Preparing download files"
                 size="small"
@@ -103,7 +118,7 @@ const FileCard = (props) => {
                   <Icon
                     name={blockSVG}
                     size={50}
-                    color="#90956e"
+                    color="#a0b128"
                     title={'Cancelled'}
                   />
                 }
@@ -115,9 +130,9 @@ const FileCard = (props) => {
                 size="small"
                 trigger={
                   <Icon
-                    name={errorSVG}
+                    name={warningSVG}
                     size={50}
-                    color="#e40166"
+                    color="#faa73e"
                     title={'Finished with errors'}
                   />
                 }
@@ -129,7 +144,7 @@ const FileCard = (props) => {
                 size="small"
                 trigger={
                   <Icon
-                    name={alertSVG}
+                    name={errorSVG}
                     size={50}
                     color="#e40166"
                     title={'Rejected download'}
