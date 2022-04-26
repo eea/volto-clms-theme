@@ -410,7 +410,6 @@
   display: flex;
   justify-content: flex-end;
   overflow: auto;
-  background-color: rgba(33,37,41,.5019607843137255);
 }
 
 .modal-filters-container {

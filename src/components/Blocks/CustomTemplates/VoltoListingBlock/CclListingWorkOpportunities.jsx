@@ -30,9 +30,11 @@ const CclWorkOpportunity = (props) => {
           <br />
         </>
       )}
-      <div className="card-work-number">
-        <span className="card-work-number-title">
-          <h2>{item.title}</h2>
+      <div class="card-work-line">
+        <h2>{item.title}</h2>
+      </div>
+      <div className="card-work-line">
+        <span className="card-work-title">
           {item['@type'] === 'WorkOpportunity'
             ? intl.formatMessage(messages.ReferenceNo)
             : intl.formatMessage(messages.ProcurementNo)}
@@ -43,11 +45,11 @@ const CclWorkOpportunity = (props) => {
           item.procurement_no
         )}
       </div>
-      <div className="card-work-title">
+      <div className="card-work-line">
         <p>{item.description}</p>
       </div>
-      <div className="work-opportunities-deadline">
-        <span className="card-work-deadline-title">
+      <div className="card-work-line">
+        <span className="card-work-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
         {new Date(item.submission_deadline).toLocaleString()}

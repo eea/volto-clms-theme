@@ -35,12 +35,12 @@ function CclLoginModal() {
   return (
     <CclModal
       trigger={
-        <div className="header-login-link">
+        <span className="header-login-link">
           <FormattedMessage
             id="loginRegister"
             defaultMessage="Register/Login"
           />
-        </div>
+        </span>
       }
       size="tiny"
       modalStatus={modalStatus}
