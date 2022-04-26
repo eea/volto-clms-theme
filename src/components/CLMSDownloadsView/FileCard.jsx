@@ -75,7 +75,7 @@ const FileCard = (props) => {
         {/* {10 - daysDiff > -1 && ( */}
         <Grid.Row>
           <Grid.Column verticalAlign="middle" textAlign="center" width={2}>
-          {item?.Status === 'Queued' && (
+            {item?.Status === 'Queued' && (
               <Popup
                 content="Queued"
                 size="small"
