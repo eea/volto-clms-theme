@@ -336,6 +336,11 @@
   font-size: 1rem;
 }
 
+.card-event svg {
+  width: 1rem;
+  margin-right: 0.5rem;
+}
+
 /* Documents */
 .card-doc {
   padding: 1rem;
@@ -381,37 +386,15 @@
   margin-bottom: 1rem;
 }
 
-.card-work-number {
+.card-work-line:not(:last-of-type) {
   margin-bottom: 1rem;
 }
 
-.card-work-number-title,
-.card-work-deadline-title {
+.card-work-title {
   margin-right: 0.25rem;
   font-weight: bold;
 }
 
-/* Work opportunities */
-.card-work {
-  padding: 2rem;
-  background: #a0b1280f;
-}
-
-.card-work:not(:last-of-type) {
-  margin-bottom: 1rem;
-}
-
-.card-work-number {
-  margin-bottom: 1rem;
-}
-
-.card-work-number-title,
-.card-work-deadline-title {
-  margin-right: 0.25rem;
-  font-weight: bold;
-}
-
-.card-event svg {
-  width: 1rem;
-  margin-right: 0.5rem;
+.card-work-line h2 {
+  margin-top: 0 !important;
 }

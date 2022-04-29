@@ -32,10 +32,19 @@
 }
 
 .ccl-button[disabled] {
-  border-color: #adb0b8;
-  color: #adb0b8;
+  border-color: #a0b128;
+  color: #a0b128;
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.ccl-button.ccl-button-green[disabled] {
+  border-color: #a0b128;
+  background-color: #a0b128;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.3;
   pointer-events: none;
 }
 
