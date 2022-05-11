@@ -631,9 +631,8 @@
 
 .ccl-header .ccl-header-tools .ccl-header-menu-tools li {
   padding: 0 0.5rem;
-  margin: 0;
+  margin: auto 0;
   font-size: 1rem;
-  line-height: 2.2rem;
   white-space: nowrap;
 }
 
