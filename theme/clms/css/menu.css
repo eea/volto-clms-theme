@@ -297,6 +297,10 @@
   display: flex;
 }
 
+.filters-title svg {
+  height: 20px;
+}
+
 .filters-element select:focus-visible, .filters-element select:focus {
   outline: none;
 }

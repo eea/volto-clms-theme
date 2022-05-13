@@ -52,7 +52,7 @@ class CclLogout extends Component {
   render() {
     return (
       <div id="page-document" className="ui container">
-        <h1 className="page-title">{'LOG OUT'}</h1>
+        <h1 className="page-title">{'Log out'}</h1>
         <div className="event-detail">
           <div className="event-detail-content">
             <p>{'You have logged out correctly'}</p>
