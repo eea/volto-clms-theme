@@ -173,7 +173,7 @@ function CclDownloadTable(props) {
     hasSome('size'),
   ];
 
-  return (
+  return prePackagedCollection.length > 0 && (
     <div className="dataset-download-table">
       <Toast message="Added to cart" time={5000}></Toast>
       <h2>
@@ -330,7 +330,7 @@ function CclDownloadTable(props) {
       {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
 
       <br></br>
-    </div>
+    </div>,
   );
 }
 
