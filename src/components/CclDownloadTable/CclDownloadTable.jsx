@@ -184,7 +184,9 @@ function CclDownloadTable(props) {
         datasets from this website. If you are looking for older versions please
         contact us.
       </p>
-      <p>{dataset?.description || 'Download table default description'}</p>
+      {dataset?.description && (
+        <p>{dataset?.description}</p>
+      )}
       <Segment basic>
         {prePackagedCollection.length > 10 && (
           <div className="block search">
