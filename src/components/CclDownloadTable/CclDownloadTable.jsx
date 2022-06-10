@@ -172,167 +172,168 @@ function CclDownloadTable(props) {
     hasSome('format'),
     hasSome('size'),
   ];
-
-  return prePackagedCollection.length > 0 && (
-    <div className="dataset-download-table">
-      <Toast message="Added to cart" time={5000}></Toast>
-      <h2>
-        {/* dataset?.title ||  */ 'Download pre-packaged data collections'}
-      </h2>
-      <p>
-        Please note that you can only download the latest version of our
-        datasets from this website. If you are looking for older versions please
-        contact us.
-      </p>
-      {dataset?.description && (
-        <p>{dataset?.description}</p>
-      )}
-      <Segment basic>
-        {prePackagedCollection.length > 10 && (
-          <div className="block search">
-            <div className="search-wrapper">
-              <div className="search-input">
-                <Input
-                  id={`${props.id}-searchtext`}
-                  placeholder={'Filter by Resolution'}
-                  fluid
-                  onChange={(event, { value }) => {
-                    setFilterText(value);
-                  }}
-                />
+  const validcolums = columns.some((column) => !!column);
+  return (
+    prePackagedCollection.length > 0 &&
+    validcolums &&
+    columns && (
+      <div className="dataset-download-table">
+        <Toast message="Added to cart" time={5000}></Toast>
+        <h2>Download pre-packaged data collections</h2>
+        <p>
+          Please note that you can only download the latest version of our
+          datasets from this website. If you are looking for older versions
+          please contact us.
+        </p>
+        {dataset?.description && <p>{dataset?.description}</p>}
+        <Segment basic>
+          {prePackagedCollection.length > 10 && (
+            <div className="block search">
+              <div className="search-wrapper">
+                <div className="search-input">
+                  <Input
+                    id={`${props.id}-searchtext`}
+                    placeholder={'Filter by Resolution'}
+                    fluid
+                    onChange={(event, { value }) => {
+                      setFilterText(value);
+                    }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        {isLoggedIn && (
-          <>
-            <strong>{` ${cartSelection.length} selected file(s)`}</strong>
-            {cartSelection.length > 0 && (
-              <>
-                {' - '}
-                <Button basic color="olive" onClick={clearSelection}>
-                  Clear selection <Icon name={clearSVG} size={20}></Icon>
-                </Button>
-              </>
-            )}
-          </>
-        )}
-      </Segment>
-      <div className="custom-table dataset-table">
-        <table>
-          <thead>
-            <tr>
-              {isLoggedIn && (
-                <th>
-                  <HeaderCheckbox />{' '}
-                </th>
+          )}
+          {isLoggedIn && (
+            <>
+              <strong>{` ${cartSelection.length} selected file(s)`}</strong>
+              {cartSelection.length > 0 && (
+                <>
+                  {' - '}
+                  <Button basic color="olive" onClick={clearSelection}>
+                    Clear selection <Icon name={clearSVG} size={20}></Icon>
+                  </Button>
+                </>
               )}
-              {columns.includes('title') && <th>Title</th>}
-              {columns.includes('area') && <th>Area of interest</th>}
-              {columns.includes('year') && <th>Year</th>}
-              {columns.includes('version') && <th>Version</th>}
-              {columns.includes('resolution') && <th>Resolution</th>}
-              {columns.includes('type') && <th>Type</th>}
-              {columns.includes('format') && <th>Format</th>}
-              {columns.includes('size') && <th>Size</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {currentPageItems
-              ? currentPageItems.map((dataset_file, key) => {
-                  return (
-                    <tr key={key}>
-                      {isLoggedIn && (
-                        <td>
-                          <Checkbox
-                            onChange={(e, data) =>
-                              selectCart(dataset_file.unique_id, data.checked)
-                            }
-                            checked={cartSelection.includes(
-                              dataset_file.unique_id,
-                            )}
-                            className="ccl-checkbox ccl-form-check-input"
-                          />
-                        </td>
-                      )}
-                      {columns.includes('title') && (
-                        <td>{contentOrDash(dataset_file?.title)}</td>
-                      )}
-                      {columns.includes('area') && (
-                        <td>{contentOrDash(dataset_file?.area)}</td>
-                      )}
-                      {columns.includes('year') && (
-                        <td>{contentOrDash(dataset_file?.year)}</td>
-                      )}
-                      {columns.includes('version') && (
-                        <td>{contentOrDash(dataset_file?.version)}</td>
-                      )}
-                      {columns.includes('resolution') && (
-                        <td>{contentOrDash(dataset_file?.resolution)}</td>
-                      )}
-                      {columns.includes('type') && (
-                        <td>
-                          <span
-                            className={
-                              'tag tag-' +
-                              (dataset_file?.type?.toLowerCase() || 'raster')
-                            }
-                          >
-                            {contentOrDash(dataset_file?.type)}
-                          </span>
-                        </td>
-                      )}
-                      {columns.includes('format') && (
-                        <td>{contentOrDash(dataset_file?.format)}</td>
-                      )}
-                      {columns.includes('size') && (
-                        <td>{contentOrDash(dataset_file?.size)}</td>
-                      )}
-                    </tr>
-                  );
-                })
-              : false}
-          </tbody>
-        </table>
-        {totalPages > 1 && (
-          <div className="pagination-wrapper">
-            <Pagination
-              activePage={currentPage}
-              totalPages={totalPages}
-              onPageChange={(e, { activePage }) => {
-                onPaginationChange(e, { activePage });
-              }}
-              firstItem={null}
-              lastItem={null}
-              prevItem={{
-                content: <Icon name={paginationLeftSVG} size="18px" />,
-                icon: true,
-                'aria-disabled': currentPage === 1,
-                className: currentPage === 1 ? 'disabled' : null,
-              }}
-              nextItem={{
-                content: <Icon name={paginationRightSVG} size="18px" />,
-                icon: true,
-                'aria-disabled': currentPage === totalPages,
-                className: currentPage === totalPages ? 'disabled' : null,
-              }}
-            ></Pagination>
-          </div>
-        )}
+            </>
+          )}
+        </Segment>
+        <div className="custom-table dataset-table">
+          <table>
+            <thead>
+              <tr>
+                {isLoggedIn && (
+                  <th>
+                    <HeaderCheckbox />{' '}
+                  </th>
+                )}
+                {columns.includes('title') && <th>Title</th>}
+                {columns.includes('area') && <th>Area of interest</th>}
+                {columns.includes('year') && <th>Year</th>}
+                {columns.includes('version') && <th>Version</th>}
+                {columns.includes('resolution') && <th>Resolution</th>}
+                {columns.includes('type') && <th>Type</th>}
+                {columns.includes('format') && <th>Format</th>}
+                {columns.includes('size') && <th>Size</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {currentPageItems
+                ? currentPageItems.map((dataset_file, key) => {
+                    return (
+                      <tr key={key}>
+                        {isLoggedIn && (
+                          <td>
+                            <Checkbox
+                              onChange={(e, data) =>
+                                selectCart(dataset_file.unique_id, data.checked)
+                              }
+                              checked={cartSelection.includes(
+                                dataset_file.unique_id,
+                              )}
+                              className="ccl-checkbox ccl-form-check-input"
+                            />
+                          </td>
+                        )}
+                        {columns.includes('title') && (
+                          <td>{contentOrDash(dataset_file?.title)}</td>
+                        )}
+                        {columns.includes('area') && (
+                          <td>{contentOrDash(dataset_file?.area)}</td>
+                        )}
+                        {columns.includes('year') && (
+                          <td>{contentOrDash(dataset_file?.year)}</td>
+                        )}
+                        {columns.includes('version') && (
+                          <td>{contentOrDash(dataset_file?.version)}</td>
+                        )}
+                        {columns.includes('resolution') && (
+                          <td>{contentOrDash(dataset_file?.resolution)}</td>
+                        )}
+                        {columns.includes('type') && (
+                          <td>
+                            <span
+                              className={
+                                'tag tag-' +
+                                (dataset_file?.type?.toLowerCase() || 'raster')
+                              }
+                            >
+                              {contentOrDash(dataset_file?.type)}
+                            </span>
+                          </td>
+                        )}
+                        {columns.includes('format') && (
+                          <td>{contentOrDash(dataset_file?.format)}</td>
+                        )}
+                        {columns.includes('size') && (
+                          <td>{contentOrDash(dataset_file?.size)}</td>
+                        )}
+                      </tr>
+                    );
+                  })
+                : false}
+            </tbody>
+          </table>
+          {totalPages > 1 && (
+            <div className="pagination-wrapper">
+              <Pagination
+                activePage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(e, { activePage }) => {
+                  onPaginationChange(e, { activePage });
+                }}
+                firstItem={null}
+                lastItem={null}
+                prevItem={{
+                  content: <Icon name={paginationLeftSVG} size="18px" />,
+                  icon: true,
+                  'aria-disabled': currentPage === 1,
+                  className: currentPage === 1 ? 'disabled' : null,
+                }}
+                nextItem={{
+                  content: <Icon name={paginationRightSVG} size="18px" />,
+                  icon: true,
+                  'aria-disabled': currentPage === totalPages,
+                  className: currentPage === totalPages ? 'disabled' : null,
+                }}
+              ></Pagination>
+            </div>
+          )}
+        </div>
+
+        <CclButton
+          isButton={true}
+          onClick={() => addToCard()}
+          disabled={!isLoggedIn || cartSelection.length === 0}
+        >
+          Add to cart
+        </CclButton>
+
+        {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
+
+        <br></br>
       </div>
-
-      <CclButton
-        isButton={true}
-        onClick={() => addToCard()}
-        disabled={!isLoggedIn || cartSelection.length === 0}
-      >
-        Add to cart
-      </CclButton>
-
-      {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
-
-      <br></br>
-    </div>);
+    )
+  );
 }
 
 /**
