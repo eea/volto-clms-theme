@@ -28,11 +28,12 @@ const ItemSchema = {
       default: false,
     },
     static_legend_url: {
-      title: "URL to static image legend",
-      description: 'If it is filled, the legend shown on the map will be the image behind the URL',
+      title: 'URL to static image legend',
+      description:
+        'If it is filled, the legend shown on the map will be the image behind the URL',
       type: 'string',
-      default: ''
-    }
+      default: '',
+    },
   },
   fieldsets: [
     {
