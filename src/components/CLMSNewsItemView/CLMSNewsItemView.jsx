@@ -7,7 +7,7 @@ const CLMSNewsItemView = (props) => {
   const { content } = props;
   return (
     <div className="ccl-container">
-      {hasBlocksData(content) && content.blocks_layout?.items?.length > 1 ? (
+      {hasBlocksData(content) && content.blocks_layout?.items?.length > 4 ? (
         <RenderBlocks {...props} />
       ) : (
         <>
