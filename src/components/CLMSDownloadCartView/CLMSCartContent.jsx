@@ -10,6 +10,7 @@ import {
   getCartObjectFromMapviewer,
   getCartObjectFromPrepackaged,
   getDownloadToolPostBody,
+  formatNaming,
 } from './cartUtils';
 import {
   getDownloadtool,
@@ -78,19 +79,6 @@ const CLMSCartContent = (props) => {
       concatRequestedCartItem();
     }
   }, [nutsnames]);
-
-  // useEffect(() => {
-  //   const type_options = [];
-  //   if (requestedItem.dataset_download_information?.items.length > 0) {
-  //     requestedItem.dataset_download_information.items.forEach((item) => {
-  //       type_options.push({
-  //         id: item['@id'],
-  //         name: item.name,
-  //         full_format: item.full_format,
-  //       });
-  //     });
-  //   }
-  // }, [requestedItem]);
 
   function concatRequestedCartItem() {
     localSessionCart.forEach((localItem) => {
@@ -267,10 +255,6 @@ const CLMSCartContent = (props) => {
 
   const contentOrDash = (content) => {
     return content || '-';
-  };
-
-  const formatNaming = (item) => {
-    return item?.format?.token || item?.format;
   };
 
   return (

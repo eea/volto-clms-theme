@@ -1,3 +1,7 @@
+export const formatNaming = (item) => {
+  return item?.format?.token || item?.format;
+};
+
 export const getDownloadToolPostBody = (selectedItems) => {
   const datasetList = selectedItems.map((item) => {
     let body_extras = {};
@@ -17,7 +21,7 @@ export const getDownloadToolPostBody = (selectedItems) => {
         };
       }
       if (item.format) {
-        body_extras['OutputFormat'] = item.format;
+        body_extras['OutputFormat'] = formatNaming(item);
       }
       if (item.projection) {
         body_extras['OutputGCS'] = item.projection;
