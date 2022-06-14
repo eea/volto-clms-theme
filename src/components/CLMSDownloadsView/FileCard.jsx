@@ -62,7 +62,6 @@ const FileCard = (props) => {
         (1000 * 3600 * 24),
     );
   }
-
   return (
     <Segment color="olive">
       <Grid
@@ -192,6 +191,12 @@ const FileCard = (props) => {
                   </li>
                 ))}
               </ul>
+            )}
+            {item?.Status === 'Rejected' && item?.Message && (
+              <Segment basic>
+                <strong>Message:</strong>
+                {item.Message}
+              </Segment>
             )}
             {item?.Status === 'Finished_ok' && 10 - daysDiff > -1 && (
               <Segment basic className="file-download">
