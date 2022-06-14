@@ -348,7 +348,6 @@ const CLMSCartContent = (props) => {
                               originalFormatNaming(item),
                             )}
                             onChange={(e, data) => {
-                              console.log('item', item);
                               const objIndex = cartItems.findIndex(
                                 (obj) => obj.unique_id === item.unique_id,
                               );
