@@ -84,7 +84,7 @@ const CLMSDownloadTasks = (props) => {
                 (today.getTime() - (FinalizationDate.getTime() || 0)) /
                   (1000 * 3600 * 24),
               );
-              return daysDiff - 10 > -1;
+              return daysDiff - 10 < -1;
             })
             .map((item, key) => (
               <Grid.Column key={key}>
