@@ -11,6 +11,7 @@ import {
   getCartObjectFromPrepackaged,
   getDownloadToolPostBody,
   formatNaming,
+  originalFormatNaming,
 } from './cartUtils';
 import {
   getDownloadtool,
@@ -344,9 +345,10 @@ const CLMSCartContent = (props) => {
                             value={formatNaming(item)}
                             options={getAvailableConversion(
                               formatConversionTable,
-                              formatNaming(item),
+                              originalFormatNaming(item),
                             )}
                             onChange={(e, data) => {
+                              console.log('item', item);
                               const objIndex = cartItems.findIndex(
                                 (obj) => obj.unique_id === item.unique_id,
                               );

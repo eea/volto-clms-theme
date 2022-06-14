@@ -2,6 +2,10 @@ export const formatNaming = (item) => {
   return item?.format?.token || item?.format;
 };
 
+export const originalFormatNaming = (item) => {
+  return item?.original_format?.token || item?.original_format;
+};
+
 export const getDownloadToolPostBody = (selectedItems) => {
   const datasetList = selectedItems.map((item) => {
     let body_extras = {};
@@ -81,6 +85,8 @@ export const getCartObjectFromMapviewer = (
     name: dataset_data.title || '-',
     area: area || '-',
     format: type_options.length > 0 ? type_options[0].full_format : null,
+    original_format:
+      type_options.length > 0 ? type_options[0].full_format : null,
     resolution: dataset_data.resolution || '-',
     size: dataset_data.size || '-',
     source: 'Map viewer',
