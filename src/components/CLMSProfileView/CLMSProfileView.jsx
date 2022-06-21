@@ -20,6 +20,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
 import jwtDecode from 'jwt-decode';
+import { Unauthorized } from '@plone/volto/components';
 /**
  * CLMSProfileView class.
  * @class CLMSProfileView
@@ -52,7 +53,7 @@ class CLMSProfileView extends Component {
 
     return (
       <div className="ccl-container ">
-        {loggedIn && (
+        {loggedIn ? (
           <CclTabs>
             <div tabTitle="User profile">
               <CLMSUserProfileView />
@@ -72,6 +73,8 @@ class CLMSProfileView extends Component {
               </div>
             ))}
           </CclTabs>
+        ) : (
+          <Unauthorized />
         )}
       </div>
     );

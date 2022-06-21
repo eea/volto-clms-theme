@@ -53,7 +53,11 @@ export const ProductSchema = () => ({
     },
     linkSelector: {
       title: 'Product link selector',
-      type: 'string',
+      description: 'Select site content or paste external url',
+      widget: 'object_browser',
+      mode: 'link',
+      selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
+      allowExternals: true,
     },
   },
   required: [],
