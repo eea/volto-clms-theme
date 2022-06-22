@@ -50,6 +50,7 @@ const CclRelatedListingView = (props) => {
     sort_on = 'start';
     sort_order = 'descending';
   } else if (data.content_type === 'TechnicalLibrary') {
+    //if documentation_sorting is null the TechnicalLibrary is not stored in libraries [BACKEND]
     sort_on = 'documentation_sorting';
     sort_order = 'ascending';
   }

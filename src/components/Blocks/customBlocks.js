@@ -90,6 +90,7 @@ function listingVariation(id, isDefault, title, template, isWO = false) {
 
 const availableVariations = [
   listingVariation('CclCardsdoc', true, 'Line list', 'doc'),
+  listingVariation('CclFiles', false, 'Files list', 'file'),
   listingVariation('CclCardsline', false, 'Line list with Image', 'line'),
   listingVariation(
     'CclCardsline-color',

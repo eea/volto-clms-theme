@@ -19,6 +19,7 @@ import jwtDecode from 'jwt-decode';
 import { postMeetingRegister } from '../../actions';
 import { toast } from 'react-toastify';
 import { LightGalleryListing } from './CclLightGallery';
+import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
 
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
@@ -107,6 +108,13 @@ export const CLMSMeetingView = (props) => {
       }),
     );
     history.push(props.location.pathname + '/form');
+  }
+  const files = content.items.map((item) =>
+    item['@type'] === 'File' ? item : null,
+  );
+  const index = files.indexOf(null);
+  if (index > -1) {
+    files.splice(index, 1);
   }
   const RegistrationButton = ({ rContent, rMeeting_register, rIsLoggedIn }) => {
     return (
@@ -382,6 +390,11 @@ export const CLMSMeetingView = (props) => {
         )}
         <StringToHTML string={content.text?.data || ''} />
         <LightGalleryListing />
+        <CclListingCards
+          variation="file"
+          items={files}
+          linkHref={`${files['@id']}/@@download/file`}
+        />
       </Segment>
     </div>
   );
