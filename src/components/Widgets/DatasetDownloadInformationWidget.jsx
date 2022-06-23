@@ -9,6 +9,11 @@ const ItemSchema = () => ({
       description: '',
       type: 'string',
     },
+    collection: {
+      title: 'Collection',
+      description: '',
+      type: 'string',
+    },
     full_path: {
       title: 'Enter the path to the full dataset download file',
       description:
@@ -51,6 +56,7 @@ const ItemSchema = () => ({
       title: 'File',
       fields: [
         'name',
+        'collection',
         'full_path',
         'full_format',
         'full_source',
