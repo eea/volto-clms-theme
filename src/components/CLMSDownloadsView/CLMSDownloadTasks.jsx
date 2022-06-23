@@ -62,40 +62,58 @@ const CLMSDownloadTasks = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nutsnames]);
 
+  const filterItemByDate = (item) => {
+    let FinalizationDate =
+      item?.FinalizationDateTime !== undefined
+        ? new Date(Date.parse(item?.FinalizationDateTime))
+        : ['In_progress', 'Queued'].includes(item.Status)
+        ? new Date(Date.parse('3999-12-31T23:59:59.999Z'))
+        : new Date(Date.parse('1970-01-01T00:00:00.000Z'));
+    let today = new Date();
+    let daysDiff = Math.floor(
+      (today.getTime() - (FinalizationDate.getTime() || 0)) /
+        (1000 * 3600 * 24),
+    );
+    return daysDiff - 10 < -1;
+  };
+
   const MapTasks = (mapProps) => {
     const { tasks, showDel, delTask } = mapProps;
-    return (
+    // Sometimes we are receiving an empty object {}
+    // here instead of an array, weird...
+    const filtered_tasks = Array.isArray(tasks)
+      ? tasks
+          .map((item) => {
+            if (!item.RegistrationDateTime) {
+              item.RegistrationDateTime = '1970-01-01T00:00:00.000Z';
+            }
+            return item;
+          })
+          .sort(dynamicSort('-RegistrationDateTime'))
+          .filter((item) => {
+            return filterItemByDate(item);
+          })
+      : [];
+
+    return filtered_tasks.length > 0 ? (
       <Grid columns={2}>
-        {tasks?.length > 0 &&
-          tasks
-            .map((item) => {
-              if (!item.RegistrationDateTime) {
-                item.RegistrationDateTime = '1970-01-01T00:00:00.000Z';
-              }
-              return item;
-            })
-            .sort(dynamicSort('-RegistrationDateTime'))
-            .filter((item) => {
-              var FinalizationDate = new Date(
-                Date.parse(item?.FinalizationDateTime),
-              );
-              var today = new Date();
-              var daysDiff = Math.floor(
-                (today.getTime() - (FinalizationDate.getTime() || 0)) /
-                  (1000 * 3600 * 24),
-              );
-              return daysDiff - 10 < -1;
-            })
-            .map((item, key) => (
-              <Grid.Column key={key}>
-                <FileCard
-                  item={item}
-                  showDeleteTaskLoading={showDel}
-                  deleteTaskInProgress={delTask}
-                />
-              </Grid.Column>
-            ))}
+        {filtered_tasks.map((item, key) => (
+          <Grid.Column key={key}>
+            <FileCard
+              item={item}
+              showDeleteTaskLoading={showDel}
+              deleteTaskInProgress={delTask}
+            />
+          </Grid.Column>
+        ))}
       </Grid>
+    ) : (
+      <p>
+        <FormattedMessage
+          id="There are no tasks"
+          defaultMessage="There are no tasks"
+        />
+      </p>
     );
   };
 
@@ -151,120 +169,57 @@ const CLMSDownloadTasks = (props) => {
       setShowDeleteTaskLoading(false);
     }, 1000); // We need delete response to check if remove_task request is completed successfully
   };
+
   return (
     <Grid columns={1} stackable padded="vertically">
       <Grid.Column>
         <h2>
           <FormattedMessage id="queued" defaultMessage="Queued" />
         </h2>
-        {queued?.length !== 0 ? (
-          <MapTasks
-            tasks={queued}
-            showDel={showDeleteTaskLoading}
-            delTask={deleteTaskInProgress}
-          />
-        ) : (
-          <p>
-            <FormattedMessage
-              id="There are no tasks queued"
-              defaultMessage="There are no tasks queued"
-            />
-          </p>
-        )}
+
+        <MapTasks
+          tasks={queued}
+          showDel={showDeleteTaskLoading}
+          delTask={deleteTaskInProgress}
+        />
       </Grid.Column>
       <Grid.Column>
         <h2>
           <FormattedMessage id="In progress" defaultMessage="In progress" />
         </h2>
-        {taskInProgress?.length !== 0 ? (
-          <MapTasks
-            tasks={taskInProgress}
-            showDel={showDeleteTaskLoading}
-            delTask={deleteTaskInProgress}
-          />
-        ) : (
-          <p>
-            <FormattedMessage
-              id="There are no tasks in progress"
-              defaultMessage="There are no tasks in progress"
-            />
-          </p>
-        )}
+        <MapTasks
+          tasks={taskInProgress}
+          showDel={showDeleteTaskLoading}
+          delTask={deleteTaskInProgress}
+        />
       </Grid.Column>
       <Grid.Column>
         <h2>
           <FormattedMessage id="Completed" defaultMessage="Completed" />
         </h2>
-        {finishedOKTasks?.length !== 0 ? (
-          <MapTasks
-            tasks={finishedOKTasks}
-            showDel={showDeleteTaskLoading}
-            delTask={deleteTaskInProgress}
-          />
-        ) : (
-          <p>
-            <FormattedMessage
-              id="There are no completed tasks"
-              defaultMessage="There are no completed tasks"
-            />
-          </p>
-        )}
-      </Grid.Column>
-      <Grid.Column>
-        <h2>
-          <FormattedMessage
-            id="Finished with errors"
-            defaultMessage="Finished with errors"
-          />
-        </h2>
-        {finishedNOKTasks?.length !== 0 ? (
-          <MapTasks
-            tasks={finishedNOKTasks}
-            showDel={showDeleteTaskLoading}
-            delTask={deleteTaskInProgress}
-          />
-        ) : (
-          <p>
-            <FormattedMessage
-              id="There are no tasks finished with errors"
-              defaultMessage="There are no tasks finished with errors"
-            />
-          </p>
-        )}
+
+        <MapTasks
+          tasks={finishedOKTasks}
+          showDel={showDeleteTaskLoading}
+          delTask={deleteTaskInProgress}
+        />
       </Grid.Column>
       <Grid.Column>
         <h2>
           <FormattedMessage id="Rejected" defaultMessage="Rejected" />
         </h2>
-        {rejectedTasks?.length !== 0 ? (
-          <MapTasks
-            tasks={rejectedTasks}
-            showDel={showDeleteTaskLoading}
-            delTask={deleteTaskInProgress}
-          />
-        ) : (
-          <p>
-            <FormattedMessage
-              id="There are no rejected tasks"
-              defaultMessage="There are no rejected tasks"
-            />
-          </p>
-        )}
+
+        <MapTasks
+          tasks={rejectedTasks}
+          showDel={showDeleteTaskLoading}
+          delTask={deleteTaskInProgress}
+        />
       </Grid.Column>
       <Grid.Column>
         <h2>
           <FormattedMessage id="Cancelled" defaultMessage="Cancelled" />
         </h2>
-        {cancelled?.length > 0 ? (
-          <MapTasks tasks={cancelled} showDel={showDeleteTaskLoading} />
-        ) : (
-          <p>
-            <FormattedMessage
-              id="There are no cancelled tasks"
-              defaultMessage="There are no cancelled tasks"
-            />
-          </p>
-        )}
+        <MapTasks tasks={cancelled} showDel={showDeleteTaskLoading} />
       </Grid.Column>
     </Grid>
   );

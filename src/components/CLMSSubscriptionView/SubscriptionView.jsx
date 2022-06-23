@@ -24,8 +24,8 @@ import validator from 'validator';
 
 const messages = defineMessages({
   subscribeToThe: {
-    id: '{subscribe_or_unsubscribe} to the {type}',
-    defaultMessage: '{subscribe_or_unsubscribe} to the {type}',
+    id: '{subscribe_or_unsubscribe} to receive the {type}',
+    defaultMessage: '{subscribe_or_unsubscribe} to receive the {type}',
   },
   emailTitle: {
     id: 'E-mail',
@@ -40,12 +40,16 @@ const messages = defineMessages({
     defaultMessage: 'Changes saved!',
   },
   subscriptionSuccessMessage: {
-    id: 'You will receive a subscription confirmation email to',
-    defaultMessage: 'You will receive a subscription confirmation email to',
+    id:
+      'You will receive a confirmation email in {email} to confirm your subscription to receive these messages.',
+    defaultMessage:
+      'You will receive a confirmation email in {email} to confirm your subscription to receive these messages.',
   },
   unsubscriptionSuccessMessage: {
-    id: 'You will receive an unsubscription confirmation email to',
-    defaultMessage: 'You will receive an unsubscription confirmation email to',
+    id:
+      'You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages',
+    defaultMessage:
+      'You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages',
   },
   success: {
     id: 'Success',
@@ -58,6 +62,22 @@ const messages = defineMessages({
   error: {
     id: 'Error',
     defaultMessage: 'Error',
+  },
+  invalid_email: {
+    id: 'The entered email address is not valid',
+    defaultMessage: 'The entered email address is not valid',
+  },
+  subscribe: {
+    id: 'Subscribe',
+    defaultMessage: 'Subscribe',
+  },
+  unsubscribe: {
+    id: 'Unsubscribe',
+    defaultMessage: 'Unsubscribe',
+  },
+  write_email_here: {
+    id: 'Write your email in the field',
+    defaultMessage: 'Write your email in the field',
   },
 });
 
@@ -103,13 +123,19 @@ class SubscriptionView extends Component {
       <Toast
         error
         title={this.props.intl.formatMessage(messages.error)}
-        content={'Write your email in the field'}
+        content={this.props.intl.formatMessage(messages.write_email_here)}
       />,
     );
   };
 
   invalidEmailErrorToast = () => {
-    toast.error(<Toast error title={'Error'} content={'Invalid email'} />);
+    toast.error(
+      <Toast
+        error
+        title={'Error'}
+        content={this.props.intl.formatMessage(messages.invalid_email)}
+      />,
+    );
   };
 
   requestErrorToast = () => {
@@ -190,8 +216,8 @@ class SubscriptionView extends Component {
               {this.props.intl.formatMessage(messages.subscribeToThe, {
                 type: this.props.type,
                 subscribe_or_unsubscribe: this.props.isUnsubscribe
-                  ? 'Unsubscribe'
-                  : 'Subscribe',
+                  ? this.props.intl.formatMessage(messages.unsubscribe)
+                  : this.props.intl.formatMessage(messages.subscribe),
               })}
             </h1>
             <Form

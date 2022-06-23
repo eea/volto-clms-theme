@@ -109,9 +109,11 @@ export const CLMSMeetingView = (props) => {
     );
     history.push(props.location.pathname + '/form');
   }
-  const files = content.items.map((item) =>
-    item['@type'] === 'File' ? item : null,
-  );
+
+  const files =
+    content.items !== undefined
+      ? content.items.map((item) => (item['@type'] === 'File' ? item : null))
+      : [];
   const index = files.indexOf(null);
   if (index > -1) {
     files.splice(index, 1);
@@ -390,11 +392,13 @@ export const CLMSMeetingView = (props) => {
         )}
         <StringToHTML string={content.text?.data || ''} />
         <LightGalleryListing />
-        <CclListingCards
-          variation="file"
-          items={files}
-          linkHref={`${files['@id']}/@@download/file`}
-        />
+        {files.length > 0 && (
+          <CclListingCards
+            variation="file"
+            items={files}
+            linkHref={`${files['@id']}/@@download/file`}
+          />
+        )}
       </Segment>
     </div>
   );

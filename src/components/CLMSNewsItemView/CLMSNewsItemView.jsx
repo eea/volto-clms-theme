@@ -7,9 +7,10 @@ import { LightGalleryListing } from '@eeacms/volto-clms-theme/components/CLMSMee
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
 const CLMSNewsItemView = (props) => {
   const { content } = props;
-  const files = content.items.map((item) =>
-    item['@type'] === 'File' ? item : null,
-  );
+  const files =
+    content.items !== undefined
+      ? content.items.map((item) => (item['@type'] === 'File' ? item : null))
+      : [];
   const index = files.indexOf(null);
   if (index > -1) {
     files.splice(index, 1);
@@ -44,11 +45,13 @@ const CLMSNewsItemView = (props) => {
               <StringToHTML string={content.text?.data || ''} />
             </div>
             <LightGalleryListing />
-            <CclListingCards
-              variation="file"
-              items={files}
-              linkHref={`${files['@id']}/@@download/file`}
-            />
+            {files.length > 0 && (
+              <CclListingCards
+                variation="file"
+                items={files}
+                linkHref={`${files['@id']}/@@download/file`}
+              />
+            )}
           </div>
         </>
       )}

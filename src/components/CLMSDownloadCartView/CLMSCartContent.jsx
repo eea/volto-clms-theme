@@ -234,7 +234,15 @@ const CLMSCartContent = (props) => {
             : item.type_options.length > 0 && item.type_options[0].id
         }
         options={item.type_options.map((option) => {
-          return { key: option.id, value: option.id, text: option.name };
+          return {
+            key: option.id,
+            value: option.id,
+            text:
+              option.name +
+              ((option.collection !== undefined &&
+                ' (' + option.collection + ')') ||
+                ''),
+          };
         })}
         onChange={(e, data) => {
           const objIndex = cartItems.findIndex(
