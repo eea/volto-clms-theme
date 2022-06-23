@@ -78,6 +78,7 @@ export const getCartObjectFromMapviewer = (
         id: item['@id'],
         name: item.name,
         full_format: item.full_format,
+        collection: item.collection,
       });
     });
   }
