@@ -20,6 +20,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getSubscriptionConfig } from './subscription_utils';
 import { toast } from 'react-toastify';
+import validator from 'validator';
 
 const messages = defineMessages({
   subscribeToThe: {
@@ -39,8 +40,12 @@ const messages = defineMessages({
     defaultMessage: 'Changes saved!',
   },
   subscriptionSuccessMessage: {
-    id: 'You will receive an email confirmation to',
-    defaultMessage: 'You will receive an email confirmation to {email}',
+    id: 'You will receive a subscription confirmation email to',
+    defaultMessage: 'You will receive a subscription confirmation email to',
+  },
+  unsubscriptionSuccessMessage: {
+    id: 'You will receive an unsubscription confirmation email to',
+    defaultMessage: 'You will receive an unsubscription confirmation email to',
   },
   success: {
     id: 'Success',
@@ -103,6 +108,10 @@ class SubscriptionView extends Component {
     );
   };
 
+  invalidEmailErrorToast = () => {
+    toast.error(<Toast error title={'Error'} content={'Invalid email'} />);
+  };
+
   requestErrorToast = () => {
     toast.error(
       <Toast
@@ -122,10 +131,15 @@ class SubscriptionView extends Component {
           <>
             <p>{this.props.intl.formatMessage(messages.saved)}</p>
             <small>
-              {this.props.intl.formatMessage(
-                messages.subscriptionSuccessMessage,
-                { email: this.state.value },
-              )}
+              {this.props.isUnsubscribe
+                ? this.props.intl.formatMessage(
+                    messages.unsubscriptionSuccessMessage,
+                    { email: this.state.value },
+                  )
+                : this.props.intl.formatMessage(
+                    messages.subscriptionSuccessMessage,
+                    { email: this.state.value },
+                  )}
             </small>
           </>
         }
@@ -183,7 +197,11 @@ class SubscriptionView extends Component {
             <Form
               className="ccl-form user-form contact-form"
               size={'large'}
-              onSubmit={this.onSubmit}
+              onSubmit={
+                validator.isEmail(this.state.value)
+                  ? this.onSubmit
+                  : this.invalidEmailErrorToast
+              }
             >
               <div className="ccl-fieldset">
                 <div className="ccl-form-group">
@@ -201,11 +219,12 @@ class SubscriptionView extends Component {
                   </p>
                   <Form.Group inline widths="equal">
                     <Form.Input
+                      maxLength={8000}
                       placeholder="example@example.com"
                       fluid
                       name="email"
                       id="email"
-                      required={true}
+                      // required={true}
                       value={this.state.value}
                       onChange={this.handleChange}
                     />

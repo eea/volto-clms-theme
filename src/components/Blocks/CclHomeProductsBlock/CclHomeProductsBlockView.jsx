@@ -18,10 +18,12 @@ const CclHomeProductsBlockView = (props) => {
           }
           tabIndex={0}
           onClick={() => {
-            window.location.href = product?.linkSelector || props.path;
+            window.location.href =
+              product?.linkSelector[0]['@id'] || props.path;
           }}
           onKeyDown={() => {
-            window.location.href = product?.linkSelector || props.path;
+            window.location.href =
+              product?.linkSelector[0]['@id'] || props.path;
           }}
           id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >

@@ -26,6 +26,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { subscribeTo } from '../../../../../actions';
 import { toast } from 'react-toastify';
+import validator from 'validator';
 
 const messages = defineMessages({
   copernicusServices: {
@@ -154,6 +155,10 @@ class Footer extends Component {
     toast.error(
       <Toast error title={'Error'} content={'Write your email in the field'} />,
     );
+  };
+
+  invalidEmailErrorToast = () => {
+    toast.error(<Toast error title={'Error'} content={'Invalid email'} />);
   };
 
   /**
@@ -335,6 +340,7 @@ class Footer extends Component {
               <form action="" className="ccl-footer-form">
                 <div className="ccl-footer-newsletter">
                   <input
+                    maxLength="8000"
                     placeholder="Enter an email adress"
                     type="text"
                     value={this.state.value}
@@ -343,7 +349,11 @@ class Footer extends Component {
                   <button
                     type="submit"
                     className="footer-privacy-button"
-                    onClick={this.onSubmit}
+                    onClick={
+                      validator.isEmail(this.state.value)
+                        ? this.onSubmit
+                        : this.invalidEmailErrorToast
+                    }
                   >
                     {this.props.intl.formatMessage(messages.subscribe)}
                   </button>

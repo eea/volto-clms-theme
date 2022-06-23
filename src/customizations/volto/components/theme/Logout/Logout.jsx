@@ -57,7 +57,7 @@ class CclLogout extends Component {
           <div className="event-detail-content">
             <p>{'You have logged out correctly'}</p>
           </div>
-          <CclButton mode={'filled'}>
+          <CclButton isButton={'false'} mode={'filled'}>
             <CclLoginModal />
           </CclButton>
         </div>

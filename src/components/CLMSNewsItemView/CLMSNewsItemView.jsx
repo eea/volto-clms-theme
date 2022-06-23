@@ -3,8 +3,17 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import { hasBlocksData } from '@plone/volto/helpers';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { LightGalleryListing } from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CclLightGallery';
+import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
 const CLMSNewsItemView = (props) => {
   const { content } = props;
+  const files = content.items.map((item) =>
+    item['@type'] === 'File' ? item : null,
+  );
+  const index = files.indexOf(null);
+  if (index > -1) {
+    files.splice(index, 1);
+  }
   return (
     <div className="ccl-container">
       {hasBlocksData(content) && content.blocks_layout?.items?.length > 4 ? (
@@ -34,6 +43,12 @@ const CLMSNewsItemView = (props) => {
             <div className="news-detail-content">
               <StringToHTML string={content.text?.data || ''} />
             </div>
+            <LightGalleryListing />
+            <CclListingCards
+              variation="file"
+              items={files}
+              linkHref={`${files['@id']}/@@download/file`}
+            />
           </div>
         </>
       )}
