@@ -96,7 +96,7 @@ const CLMSDownloadTasks = (props) => {
       : [];
 
     return filtered_tasks.length > 0 ? (
-      <Grid columns={2}>
+      <Grid doubling columns={2}>
         {filtered_tasks.map((item, key) => (
           <Grid.Column key={key}>
             <FileCard
