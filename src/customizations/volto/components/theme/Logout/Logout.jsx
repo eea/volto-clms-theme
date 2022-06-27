@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import { logout, purgeMessages } from '@plone/volto/actions';
+import { Redirect } from 'react-router-dom';
 
 /**
  * Logout class.
@@ -50,19 +51,7 @@ class CclLogout extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    return (
-      <div id="page-document" className="ui container">
-        <h1 className="page-title">{'Log out'}</h1>
-        <div className="event-detail">
-          <div className="event-detail-content">
-            <p>{'You have logged out correctly'}</p>
-          </div>
-          <CclButton isButton={'false'} mode={'filled'}>
-            <CclLoginModal />
-          </CclButton>
-        </div>
-      </div>
-    );
+    return <Redirect to={'/en'} />;
   }
 }
 
