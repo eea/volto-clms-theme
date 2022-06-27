@@ -4,8 +4,6 @@
  */
 
 import React, { Component } from 'react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import qs from 'query-string';

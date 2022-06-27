@@ -7,9 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { withServerErrorCode } from '@plone/volto/helpers/Utils/Utils';
-import { getBaseUrl } from '@plone/volto/helpers';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
 /**
@@ -19,7 +17,6 @@ import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/Ccl
  */
 const Unauthorized = () => {
   const error_message = useSelector((state) => state.apierror.message);
-  let location = useLocation();
 
   return (
     <Container className="view-wrapper">
