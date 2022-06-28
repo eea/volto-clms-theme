@@ -59,6 +59,15 @@ const RightModalFacets = (props) => {
   const { showSearchButton } = data;
   const isLive = !showSearchButton;
   const intl = useIntl();
+  if (querystring?.sortable_indexes?.effective?.title) {
+    querystring.sortable_indexes.effective.title = 'Publication date';
+  }
+  if (querystring?.sortable_indexes?.sortable_title?.title) {
+    querystring.sortable_indexes.sortable_title.title = 'Sort by title';
+  }
+  if (querystring?.sortable_indexes?.modified?.title) {
+    querystring.sortable_indexes.modified.title = 'Last edited';
+  }
   return (
     <Grid className="searchBlock-facets right-column-facets" stackable>
       {data?.headline && (
@@ -104,7 +113,7 @@ const RightModalFacets = (props) => {
           </div>
 
           <div className="search-results-count-sort search-filters">
-            <SearchDetails text={searchedText} total={totalItems} />
+            <SearchDetails total={totalItems} />
             <div className="filters-container">
               {data.showSortOn && (
                 <SortOn
