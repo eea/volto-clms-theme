@@ -104,7 +104,7 @@ const RightModalFacets = (props) => {
           </div>
 
           <div className="search-results-count-sort search-filters">
-            <SearchDetails text={searchedText} total={totalItems} />
+            <SearchDetails total={totalItems} />
             <div className="filters-container">
               {data.showSortOn && (
                 <SortOn
