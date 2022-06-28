@@ -52,12 +52,12 @@ export const ProductSchema = () => ({
       ],
     },
     linkSelector: {
-      title: 'Product link selector',
-      description: 'Select site content or paste external url',
-      widget: 'object_browser',
-      mode: 'link',
+      title: 'Url',
+      description: 'Paste external url',
+      /* mode: 'link',
+      widget: 'url',
       selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
-      allowExternals: true,
+      allowExternals: true, */
     },
   },
   required: [],

@@ -1,4 +1,5 @@
 import React from 'react';
+import { isUrl } from '@plone/volto/helpers';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
@@ -18,12 +19,18 @@ const CclHomeProductsBlockView = (props) => {
           }
           tabIndex={0}
           onClick={() => {
-            window.location.href =
-              product?.linkSelector[0]['@id'] || props.path;
+            window.location.href = isUrl(product?.linkSelector)
+              ? product.linkSelector
+              : isUrl('http://' + product?.linkSelector)
+              ? 'http://' + product.linkSelector
+              : '#';
           }}
           onKeyDown={() => {
-            window.location.href =
-              product?.linkSelector[0]['@id'] || props.path;
+            window.location.href = isUrl(product?.linkSelector)
+              ? product.linkSelector
+              : isUrl('http://' + product?.linkSelector)
+              ? 'http://' + product.linkSelector
+              : '#';
           }}
           id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
