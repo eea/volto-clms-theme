@@ -12,7 +12,8 @@ import './ccl-login-modal.css';
  * @example <CclLoginModal />
  *
  */
-function CclLoginModal() {
+function CclLoginModal(props) {
+  let { classname = 'header-login-link' } = props;
   const dispatch = useDispatch();
   const registryRecords = useSelector((state) => state.registry.records);
   const [loginUrl, setLoginUrl] = React.useState('');
@@ -35,7 +36,7 @@ function CclLoginModal() {
   return (
     <CclModal
       trigger={
-        <span className="header-login-link">
+        <span className={classname}>
           <FormattedMessage
             id="loginRegister"
             defaultMessage="Register/Login"

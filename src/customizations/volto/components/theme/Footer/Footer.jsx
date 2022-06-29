@@ -118,6 +118,7 @@ const messages = defineMessages({
  * @class CLMSProfileView
  * @extends Component
  */
+
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -141,7 +142,9 @@ class Footer extends Component {
 
   handleInputChange() {
     this.setState({
-      inputValue: !this.state.inputValue,
+      inputValue: validator.isEmail(this.state.value)
+        ? !this.state.inputValue
+        : this.state.inputValue,
     });
   }
 
@@ -169,7 +172,11 @@ class Footer extends Component {
    */
   onSubmit(event) {
     event.preventDefault();
-    if (this.state.inputValue === true && this.state.value) {
+    if (
+      validator.isEmail(this.state.value) === true &&
+      this.state.inputValue === true &&
+      this.state.value !== ''
+    ) {
       this.props
         .subscribeTo('newsletter', this.state.value)
         .then(() => {
@@ -192,7 +199,15 @@ class Footer extends Component {
               />,
             );
         });
-    } else if (this.state.inputValue === false && this.state.value) {
+    } else if (
+      this.state.inputValue === true &&
+      validator.isEmail(this.state.value) === false
+    ) {
+      this.invalidEmailErrorToast();
+    } else if (
+      this.state.inputValue === false &&
+      validator.isEmail(this.state.value) === true
+    ) {
       toast.error(
         <Toast
           error
@@ -347,10 +362,17 @@ class Footer extends Component {
                     onChange={this.handleChange}
                   />
                   <button
+                    disabled={
+                      this.state.inputValue === true &&
+                      validator.isEmail(this.state.value) === true
+                        ? false
+                        : true
+                    }
                     type="submit"
                     className="footer-privacy-button"
                     onClick={
-                      validator.isEmail(this.state.value)
+                      validator.isEmail(this.state.value) &&
+                      this.state.inputValue === true
                         ? this.onSubmit
                         : this.invalidEmailErrorToast
                     }
@@ -364,8 +386,16 @@ class Footer extends Component {
                       type="checkbox"
                       id="footer_privacy"
                       name="footerPrivacy"
-                      value={this.state.inputValue}
-                      onClick={this.handleInputChange}
+                      value={
+                        validator.isEmail(this.state.value) === false
+                          ? false
+                          : this.state.inputValue
+                      }
+                      onClick={
+                        validator.isEmail(this.state.value)
+                          ? this.handleInputChange
+                          : this.invalidEmailErrorToast
+                      }
                       className="ccl-checkbox ccl-form-check-input"
                       required={true}
                     />

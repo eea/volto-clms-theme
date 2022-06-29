@@ -1,3 +1,8 @@
 .header-login-link {
   color: white;
 }
+
+.green-login-link {
+  color: #a0b128bf;
+  cursor: pointer;
+}

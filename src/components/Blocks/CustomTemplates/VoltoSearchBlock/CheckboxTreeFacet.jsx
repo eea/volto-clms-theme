@@ -11,6 +11,31 @@ import {
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
 
+const hasAllChildrensSelected = (value, childrens) => {
+  var result = true;
+  if (!childrens || childrens.length === 0) {
+    result = false;
+  }
+  childrens.forEach((ch) => {
+    if (value.filter((v) => v.value === ch.value).length === 0) {
+      result = false;
+    }
+  });
+  return result;
+};
+
+const checkAllChildren = (value, childrens) => {
+  if (!childrens || childrens.length === 0) {
+    return value;
+  }
+  childrens.forEach((ch) => {
+    if (value.filter((v) => v.value === ch.value).length === 0) {
+      value.push(ch);
+    }
+  });
+  return value;
+};
+
 const CheckboxTreeFacet = (props) => {
   const { facet, choices, onChange, value } = props;
   const facetValue = value;
@@ -62,20 +87,31 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
             onChange={(event, { checked }) => {
               checked
                 ? onChange(id, [
-                    ...value
-                      .filter((f) => f.value !== option.value)
-                      .map((f) => f.value),
-                    ...(checked ? [option.value] : []),
+                    // if this option has children, check them all
+                    ...checkAllChildren(value, option.childrens).map(
+                      (f) => f.value,
+                    ),
                   ])
-                : onChange(
-                    id,
-                    value.filter((item) => item.value !== option.value),
-                  );
+                : onChange(id, [
+                    ...value
+                      .filter((item) => item.value !== option.value)
+                      .filter(
+                        (item) =>
+                          option.childrens?.length > 0 &&
+                          !option.childrens
+                            .map((ch) => ch.value)
+                            .includes(item.value),
+                      )
+                      .map((f) => f.value),
+                  ]);
             }}
             label={
               <label htmlFor={`field-${option.value}`}>{option.label}</label>
             }
-            checked={value.some((item) => item.value === option.value)}
+            checked={
+              value.some((item) => item.value === option.value) ||
+              hasAllChildrensSelected(value, option.childrens)
+            }
             value={option.value}
           />
         </List.Header>

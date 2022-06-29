@@ -14,11 +14,19 @@ const messages = defineMessages({
 });
 
 const FilterList = (props) => {
-  const { facets, setFacets, isEditMode } = props;
+  const { facets, setFacets, isEditMode, data } = props;
   const showFilterList = !Object.values(facets).every((facet) => !facet.length);
 
+  const baseFacets = data.facets;
   const currentFilters = Object.fromEntries(
-    Object.entries(facets).filter((v) => v[1] && v[0] !== 'SearchableText'),
+    Object.entries(facets)
+      .filter((v) => v[1] && v[0] !== 'SearchableText')
+      .filter(
+        (v) =>
+          v[1] &&
+          baseFacets.length > 0 &&
+          !baseFacets.map((bf) => bf.field?.value).includes(v[0]),
+      ),
   );
 
   const totalFilters = [].concat.apply([], Object.values(currentFilters))

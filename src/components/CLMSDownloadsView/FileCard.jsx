@@ -227,33 +227,33 @@ const FileCard = (props) => {
                   className="red-loader"
                 />
               ) : (
-                <Popup
-                  content="Remove task"
-                  size="small"
-                  trigger={
-                    <button
-                      onClick={() => {
-                        deleteTaskInProgress(item?.TaskID);
-                      }}
-                      style={{
-                        backgroundColor: 'transparent',
-                        color: 'inherit',
-                        border: 'none',
-                        padding: 0,
-                        font: 'inherit',
-                        cursor: 'pointer',
-                        outline: 'inherit',
-                      }}
-                    >
-                      <Icon
-                        name={removeSVG}
-                        size={30}
-                        color="#e40166"
-                        title={'Remove task'}
-                      />
-                    </button>
-                  }
-                />
+                <span
+                  className="info-icon"
+                  tooltip="Remove task"
+                  direction="up"
+                >
+                  <button
+                    onClick={() => {
+                      deleteTaskInProgress(item?.TaskID);
+                    }}
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: 'inherit',
+                      border: 'none',
+                      padding: 0,
+                      font: 'inherit',
+                      cursor: 'pointer',
+                      outline: 'inherit',
+                    }}
+                  >
+                    <Icon
+                      name={removeSVG}
+                      size={30}
+                      color="#e40166"
+                      title={'Remove task'}
+                    />
+                  </button>
+                </span>
               )}
             </Grid.Column>
           )}

@@ -20,6 +20,7 @@ import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemVi
 import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
+import CLMSWorkOpportunityView from '@eeacms/volto-clms-theme/components/CLMSWorkOpportunityView/WorkOpportunityView';
 
 // WIDGET
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -51,6 +52,8 @@ const applyConfig = (config) => {
       'eea.meeting.subscriber': CLMSMeetingSubscriberView,
       'eea.meeting.emails': CLMSMeetingEmailsView,
       'eea.meeting.email': CLMSMeetingEmailView,
+      WorkOpportunity: CLMSWorkOpportunityView,
+      Tender: CLMSWorkOpportunityView,
     },
   };
   config.blocks = {
