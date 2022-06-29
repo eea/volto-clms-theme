@@ -103,13 +103,22 @@ function CclDownloadTable(props) {
   };
 
   const selectAllCart = (checked) => {
+    const currentPageSelection = currentPageItems.filter((item) =>
+      cartSelection.includes(item.unique_id),
+    );
     let newCartSelection = [];
-    if (checked) {
+    if (checked && currentPageSelection.length > 0) {
+      newCartSelection = [
+        ...cartSelection,
+        ...currentPageItems
+          .filter((unique_id) => !currentPageSelection.includes(unique_id))
+          .map((item) => item.unique_id),
+      ];
+    } else if (checked) {
       newCartSelection = [
         ...cartSelection,
         ...currentPageItems.map((item) => item.unique_id),
       ];
-      setCartSelection(newCartSelection);
     } else {
       newCartSelection = [...cartSelection];
       currentPageItems.forEach((pageItem) => {
@@ -117,8 +126,8 @@ function CclDownloadTable(props) {
           (cartUid) => pageItem.unique_id !== cartUid,
         );
       });
-      setCartSelection(newCartSelection);
     }
+    setCartSelection(newCartSelection);
   };
 
   const addToCard = () => {

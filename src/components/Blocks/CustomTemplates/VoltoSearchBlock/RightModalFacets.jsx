@@ -2,11 +2,10 @@ import { Button, Grid, Segment } from 'semantic-ui-react';
 import {
   Facets,
   SearchDetails,
-  SearchInput,
   SortOn,
 } from '@plone/volto/components/manage/Blocks/Search/components';
 import { defineMessages, useIntl } from 'react-intl';
-
+import SearchInput from './SearchInput';
 import FilterList from './FilterList';
 import CclFiltersModal from '@eeacms/volto-clms-theme/components/CclFiltersModal/CclFiltersModal';
 import { Icon } from '@plone/volto/components';
