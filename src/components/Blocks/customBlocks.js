@@ -59,6 +59,7 @@ import SubscriptionBlockView from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import SubscriptionBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionEdit';
 import containerSVG from '@plone/volto/icons/apps.svg';
 import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
+import VocabularyWidget from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/VocabularyWidget';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import homeBand from '@plone/volto/icons/image-wide.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
@@ -462,6 +463,17 @@ const customBlocks = (config) => ({
   form: {
     ...config.blocks.blocksConfig.form,
     fieldSchema: customIdFieldSchema,
+    additionalFields: [
+      {
+        id: 'product_vocabulary',
+        label: 'Products Vocabulary',
+        component: (props) =>
+          VocabularyWidget({
+            ...props,
+            vocabulary: 'clms.types.ProductsVocabulary',
+          }),
+      },
+    ],
   },
 });
 
