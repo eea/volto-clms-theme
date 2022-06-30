@@ -22,6 +22,7 @@ const VocabularyWidget = ({
   title,
   required,
   vocabulary,
+  isMulti,
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const VocabularyWidget = ({
       classNamePrefix="react-select"
       isDisabled={disabled}
       invalid={invalid}
+      isMulti={isMulti}
       {...(invalid === 'true' ? { className: 'is-invalid' } : {})}
     />
   );
