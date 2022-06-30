@@ -470,7 +470,7 @@ const customBlocks = (config) => ({
         component: (props) =>
           VocabularyWidget({
             ...props,
-            vocabulary: 'clms.types.ProductsVocabulary',
+            vocabulary: 'clms.types.ProductsAndDatasetsVocabulary',
             isMulti: true,
           }),
       },
