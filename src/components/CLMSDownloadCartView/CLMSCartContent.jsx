@@ -223,6 +223,24 @@ const CLMSCartContent = (props) => {
       );
     } else if (!item.type) {
       return '-';
+    } else {
+      let values = item.type_options.filter((myitem) => {
+        return myitem['id'] === item.type;
+      });
+      return values.length > 0 ? values[0].name : '.';
+    }
+  };
+
+  const CollectionNaming = (typeProps) => {
+    const { item } = typeProps;
+    if (item.file_id) {
+      return (
+        <span className={'tag tag-' + item?.type?.toLowerCase()}>
+          {contentOrDash(item.type)}
+        </span>
+      );
+    } else if (!item.type) {
+      return '-';
     }
 
     return (
@@ -237,11 +255,7 @@ const CLMSCartContent = (props) => {
           return {
             key: option.id,
             value: option.id,
-            text:
-              option.name +
-              ((option.collection !== undefined &&
-                ' (' + option.collection + ')') ||
-                ''),
+            text: (option.collection === undefined && '-') || option.collection,
           };
         })}
         onChange={(e, data) => {
@@ -290,6 +304,7 @@ const CLMSCartContent = (props) => {
                   <th>Source</th>
                   <th>Area</th>
                   <th>Type</th>
+                  <th>Collection</th>
                   <th>Format</th>
                   <th>Projection</th>
                   <th></th>
@@ -345,6 +360,9 @@ const CLMSCartContent = (props) => {
                       </td>
                       <td>
                         <TypeNaming item={item} />
+                      </td>
+                      <td>
+                        <CollectionNaming item={item} />
                       </td>
                       <td className="table-td-format">
                         {!item.file_id ? (
