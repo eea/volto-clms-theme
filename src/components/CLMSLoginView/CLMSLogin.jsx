@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRegistry } from '@eeacms/volto-clms-theme/actions';
-import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
 import { toPublicURL } from '@plone/volto/helpers/Url/Url';
 import './CLMSLogin.css';
@@ -14,8 +11,6 @@ import './CLMSLogin.css';
  *
  */
 function CLMSLoginView(props) {
-  let { classname = 'header-login-link' } = props;
-  const dispatch = useDispatch();
   const registryRecords = useSelector((state) => state.registry.records);
   const [loginUrl, setLoginUrl] = React.useState('');
   const registry_key = config.settings?.registry?.login_url || null;
@@ -27,12 +22,6 @@ function CLMSLoginView(props) {
       );
     }
   }, [registryRecords, registry_key]);
-
-  function modalStatus(status) {
-    if (status === true) {
-      dispatch(getRegistry(registry_key));
-    }
-  }
 
   return (
     <>
