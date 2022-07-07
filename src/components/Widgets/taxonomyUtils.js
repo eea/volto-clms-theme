@@ -1,3 +1,20 @@
+const sort_array_items_by_key = (items, key) =>
+  items
+    ? items.sort((a, b) => {
+        if (a[key].startsWith('and similar')) {
+          return 999;
+        } else if (b[key].startsWith('and similar')) {
+          return -999;
+        } else if (a[key].toLowerCase() < b[key].toLowerCase()) {
+          return -1;
+        } else if (a[key].toLowerCase() > b[key].toLowerCase()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      })
+    : [];
+
 export const structure_taxonomy_terms = (choices) => {
   let options = [];
   choices.forEach((choice) => {
@@ -22,5 +39,11 @@ export const structure_taxonomy_terms = (choices) => {
       });
     }
   });
-  return options;
+
+  options = options.map((item) => {
+    item['children'] = sort_array_items_by_key(item['childrens'], 'label');
+    return item;
+  });
+
+  return sort_array_items_by_key(options, 'label');
 };
