@@ -30,7 +30,7 @@ const SearchInput = (props) => {
   return (
     <div className="search-input">
       <Input
-        maxLength="8000"
+        maxLength="200"
         id={`${props.id}-searchtext`}
         value={searchText}
         placeholder={

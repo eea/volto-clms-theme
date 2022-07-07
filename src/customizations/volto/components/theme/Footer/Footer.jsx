@@ -369,7 +369,7 @@ class Footer extends Component {
                         : true
                     }
                     type="submit"
-                    className="footer-privacy-button"
+                    className="ccl-button ccl-button--default"
                     onClick={
                       validator.isEmail(this.state.value) &&
                       this.state.inputValue === true
@@ -386,16 +386,8 @@ class Footer extends Component {
                       type="checkbox"
                       id="footer_privacy"
                       name="footerPrivacy"
-                      value={
-                        validator.isEmail(this.state.value) === false
-                          ? false
-                          : this.state.inputValue
-                      }
-                      onClick={
-                        validator.isEmail(this.state.value)
-                          ? this.handleInputChange
-                          : this.invalidEmailErrorToast
-                      }
+                      value={this.state.inputValue}
+                      onClick={this.handleInputChange}
                       className="ccl-checkbox ccl-form-check-input"
                       required={true}
                     />

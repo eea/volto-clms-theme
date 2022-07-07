@@ -38,6 +38,7 @@ import TextLinkWidget from './components/Widgets/TextLinkWidget';
 
 import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
+import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 
 const applyConfig = (config) => {
   config.views = {
@@ -136,6 +137,14 @@ const applyConfig = (config) => {
 
   config.addonRoutes = [
     ...config.addonRoutes,
+    {
+      path: '/login',
+      component: CLMSLoginView,
+    },
+    {
+      path: '/**/login',
+      component: CLMSLoginView,
+    },
     {
       path: '/profile',
       component: ProfileView,
