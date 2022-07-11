@@ -8,7 +8,7 @@ import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { Label } from 'semantic-ui-react';
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 import penSVG from '@plone/volto/icons/pen.svg';
-import { Icon, Grid } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
@@ -135,24 +135,14 @@ function CclCard(props) {
             )}
             {type === 'file' && (
               <>
-                <Grid columns={2}>
-                  <Grid.Row>
-                    <Grid.Column className="card-icon" width={2}>
-                      <Icon
-                        color="olive"
-                        size="huge"
-                        name="file alternate outline"
-                      />
-                    </Grid.Column>
-                    <Grid.Column className="card-text" width={10}>
-                      <CardLink url={url}>{card?.title}</CardLink>
-                      <div className="card-description">
-                        {card?.description}
-                      </div>
-                      {children}
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
+                <div className="card-icon">
+                  <Icon name="file alternate outline" />
+                </div>
+                <div className="card-text">
+                  <CardLink url={url}>{card?.title}</CardLink>
+                  <div className="card-description">{card?.description}</div>
+                  {children}
+                </div>
               </>
             )}
             {type === 'globalSearch' && (

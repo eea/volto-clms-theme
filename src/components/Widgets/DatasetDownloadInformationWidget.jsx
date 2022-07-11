@@ -5,7 +5,7 @@ const ItemSchema = () => ({
   title: 'Dataset Download Information',
   properties: {
     name: {
-      title: 'Name',
+      title: 'Type',
       description: '',
       type: 'string',
     },

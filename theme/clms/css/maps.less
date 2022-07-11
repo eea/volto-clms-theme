@@ -119,6 +119,7 @@
   }
 
   .measurement-dropdown .ccl-expandable__button .dropdown-icon {
+    height: 1.25rem;
     margin-left: auto;
     color: #a0b128;
   }
@@ -369,16 +370,12 @@
     .ccl-expandable__button[aria-expanded='false']
     .dropdown-icon {
     transform: rotate(0deg);
-    -webkit-transition: transform 0.3s ease-out;
-    transition: transform 0.3s ease-out;
   }
 
   .map-menu-dropdown
     .ccl-expandable__button[aria-expanded='true']
     .dropdown-icon {
     transform: rotate(90deg);
-    -webkit-transition: transform 0.3s ease-out;
-    transition: transform 0.3s ease-out;
   }
 
   .map-menu-dropdown .ccl-expandable__button[aria-expanded='false'] + * {
@@ -561,6 +558,10 @@
 
   .esri-legend .esri-legend__service {
     border-bottom: solid 1px #a0b12833;
+  }
+
+  .esri-legend esri-legend__layer-cell--info {
+    display: none;
   }
 
   /* Info widget */
