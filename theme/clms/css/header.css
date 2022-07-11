@@ -612,6 +612,7 @@
 .ccl-header .ccl-header-tools .ccl-header-menu-tools .header-dropdown li {
   margin: 0 !important;
   background-color: #a0b128;
+  line-height: 2rem;
   list-style: none;
 }
 
