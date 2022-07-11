@@ -3,7 +3,7 @@ import customBlocks, {
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 
 // ROUTE VIEWS
-import { ContactForm, Search, Sitemap } from '@plone/volto/components';
+import { ContactForm, Search, Sitemap, Login } from '@plone/volto/components';
 
 // VIEWS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
@@ -39,6 +39,7 @@ import TextLinkWidget from './components/Widgets/TextLinkWidget';
 import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
+// import Login from '@plone/volto/components/Login';
 
 const applyConfig = (config) => {
   config.views = {
@@ -137,6 +138,14 @@ const applyConfig = (config) => {
 
   config.addonRoutes = [
     ...config.addonRoutes,
+    {
+      path: '/login-plone',
+      component: Login,
+    },
+    {
+      path: '/**/login-plone',
+      component: Login,
+    },
     {
       path: '/login',
       component: CLMSLoginView,
