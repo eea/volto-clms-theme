@@ -7,7 +7,6 @@ import { FormFieldWrapper } from '@plone/volto/components';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Input } from 'semantic-ui-react';
 
 /** EmailWidget, a widget for email addresses
  *
@@ -28,7 +27,6 @@ const EmailWidget = (props) => {
     onBlur,
     onClick,
     minLength,
-    maxLength,
     placeholder,
     isDisabled,
   } = props;
