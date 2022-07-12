@@ -41,16 +41,20 @@ const EmailWidget = (props) => {
   });
 
   const email =
-    typeof window !== 'undefined' && document.getElementById(inputId);
-
-  // console.log(email);
+    typeof window !== 'undefined' && document.getElementById(inputId) !== null
+      ? document.getElementById(inputId).value
+      : '';
   // email.addEventListener('input', function (e) {
   React.useEffect(() => {
-    if (email.validity.typeMismatch) {
-      email.setCustomValidity(intl.formatMessage(messages.invalid_email));
-      email.reportValidity();
+    if (email !== '') {
+      if (email.validity.typeMismatch) {
+        email.setCustomValidity(intl.formatMessage(messages.invalid_email));
+        email.reportValidity();
+      } else {
+        email.setCustomValidity('');
+      }
     } else {
-      email.setCustomValidity('');
+      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email.value]);

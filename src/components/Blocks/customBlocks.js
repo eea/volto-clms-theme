@@ -65,6 +65,7 @@ import homeBand from '@plone/volto/icons/image-wide.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
+import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
 
 export const customGroupBlocksOrder = [
   {
@@ -473,6 +474,11 @@ const customBlocks = (config) => ({
             vocabulary: 'clms.types.ProductsAndDatasetsVocabulary',
             isMulti: true,
           }),
+      },
+      {
+        id: 'image_field_widget',
+        label: 'Image Field Widget',
+        component: ImageWidget,
       },
     ],
   },
