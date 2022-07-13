@@ -476,6 +476,26 @@ const customBlocks = (config) => ({
           }),
       },
       {
+        id: 'topic_vocabulary',
+        label: 'Topics Vocabulary',
+        component: (props) =>
+          VocabularyWidget({
+            ...props,
+            vocabulary: 'clms.types.TopicsVocabulary',
+            isMulti: true,
+          }),
+      },
+      {
+        id: 'spatial_coverage_vocabulary',
+        label: 'Spatial Coverage Vocabulary',
+        component: (props) =>
+          VocabularyWidget({
+            ...props,
+            vocabulary: 'clms.types.UseCaseSpatialCoverageVocabulary',
+            isMulti: true,
+          }),
+      },
+      {
         id: 'image_field_widget',
         label: 'Image Field Widget',
         component: ImageWidget,
