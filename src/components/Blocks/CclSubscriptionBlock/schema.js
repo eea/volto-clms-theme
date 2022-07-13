@@ -4,7 +4,7 @@ export const SubscriptionSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['type'],
+      fields: ['type', 'title'],
     },
   ],
   properties: {
@@ -15,6 +15,10 @@ export const SubscriptionSchema = () => ({
         ['events', 'events'],
         ['newsletter', 'newsletter'],
       ],
+    },
+    title: {
+      title: 'Title',
+      type: 'string',
     },
   },
   required: ['product'],

@@ -65,6 +65,7 @@ import homeBand from '@plone/volto/icons/image-wide.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
+import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
 
 export const customGroupBlocksOrder = [
   {
@@ -473,6 +474,31 @@ const customBlocks = (config) => ({
             vocabulary: 'clms.types.ProductsAndDatasetsVocabulary',
             isMulti: true,
           }),
+      },
+      {
+        id: 'topic_vocabulary',
+        label: 'Topics Vocabulary',
+        component: (props) =>
+          VocabularyWidget({
+            ...props,
+            vocabulary: 'clms.types.TopicsVocabulary',
+            isMulti: true,
+          }),
+      },
+      {
+        id: 'spatial_coverage_vocabulary',
+        label: 'Spatial Coverage Vocabulary',
+        component: (props) =>
+          VocabularyWidget({
+            ...props,
+            vocabulary: 'clms.types.UseCaseSpatialCoverageVocabulary',
+            isMulti: true,
+          }),
+      },
+      {
+        id: 'image_field_widget',
+        label: 'Image Field Widget',
+        component: ImageWidget,
       },
     ],
   },

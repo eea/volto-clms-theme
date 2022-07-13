@@ -27,7 +27,7 @@ function CclModal(props) {
       onOpen={() => openModal()}
       open={open}
       trigger={trigger}
-      className={'modal-clms'}
+      className={'modal-clms-container'}
       size={size}
     >
       <div className={'modal-close modal-clms-close'}>

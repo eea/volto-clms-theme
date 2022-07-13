@@ -25,7 +25,7 @@ const FilterList = (props) => {
         (v) =>
           v[1] &&
           baseFacets.length > 0 &&
-          !baseFacets.map((bf) => bf.field?.value).includes(v[0]),
+          baseFacets.map((bf) => bf.field?.value).includes(v[0]),
       ),
   );
 
