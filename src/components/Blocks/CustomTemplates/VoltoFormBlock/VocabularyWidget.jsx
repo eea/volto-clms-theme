@@ -45,11 +45,13 @@ const VocabularyWidget = ({
       getVocabulary={() => {}}
       getVocabularyTokenTitle={() => {}}
       choices={
-        vocabItems?.loaded && [
-          ...vocabItems.items.map((item) => {
-            return [item.label, item.label];
-          }),
-        ]
+        vocabItems?.loaded
+          ? [
+              ...vocabItems.items.map((item) => {
+                return [item.label, item.label];
+              }),
+            ]
+          : []
       }
       value={value}
       onChange={onChange}
