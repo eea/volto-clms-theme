@@ -8,7 +8,7 @@ import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTe
 import config from '@plone/volto/registry';
 import { Icon } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
-import { Accordion, Grid } from 'semantic-ui-react';
+import { Accordion } from 'semantic-ui-react';
 import { CLMSRelatedItems } from '../CLMSRelatedItems';
 
 const CLMSNewsItemView = (props) => {

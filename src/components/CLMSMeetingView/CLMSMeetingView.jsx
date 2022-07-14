@@ -1,7 +1,7 @@
 import './meetingstyles.less';
 
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { Header, Image, Message, Segment, Grid } from 'semantic-ui-react';
+import { Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Icon, Toast } from '@plone/volto/components';
 import {
   Recurrence,
