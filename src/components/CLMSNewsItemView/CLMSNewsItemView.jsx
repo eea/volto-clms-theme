@@ -12,14 +12,9 @@ import { Accordion, Grid } from 'semantic-ui-react';
 
 const CLMSNewsItemView = (props) => {
   const { content } = props;
-  const files =
-    content.items !== undefined
-      ? content.items.map((item) => (item['@type'] === 'File' ? item : null))
-      : [];
-  const index = files.indexOf(null);
-  if (index > -1) {
-    files.splice(index, 1);
-  }
+  const files = content.items
+    ? content.items.filter((item) => item['@type'] === 'File')
+    : [];
   const [activeIndex, setActiveIndex] = React.useState([99]);
 
   const handleClick = ({ index }) => {

@@ -112,15 +112,9 @@ export const CLMSMeetingView = (props) => {
     );
     history.push(props.location.pathname + '/form');
   }
-
-  const files =
-    content.items !== undefined
-      ? content.items.map((item) => (item['@type'] === 'File' ? item : null))
-      : [];
-  const index = files.indexOf(null);
-  if (index > -1) {
-    files.splice(index, 1);
-  }
+  const files = content.items
+    ? content.items.filter((item) => item['@type'] === 'File')
+    : [];
   const RegistrationButton = ({ rContent, rMeeting_register, rIsLoggedIn }) => {
     return (
       <>
@@ -425,6 +419,7 @@ export const CLMSMeetingView = (props) => {
         )}
         <StringToHTML string={content.text?.data || ''} />
         <LightGalleryListing />
+
         {files.length > 0 && (
           <CclListingCards
             variation="file"
