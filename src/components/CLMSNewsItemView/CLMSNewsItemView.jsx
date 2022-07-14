@@ -9,6 +9,7 @@ import config from '@plone/volto/registry';
 import { Icon } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
 import { Accordion, Grid } from 'semantic-ui-react';
+import { CLMSRelatedItems } from '../CLMSRelatedItems';
 
 const CLMSNewsItemView = (props) => {
   const { content } = props;
@@ -101,36 +102,7 @@ const CLMSNewsItemView = (props) => {
           </Accordion.Title>
           <Accordion.Content active={activeIndex.includes(0)}>
             <AnimateHeight animateOpacity duration={500} height={'auto'}>
-              <ul>
-                {content.products.map((product, key) => (
-                  <li key={key}>
-                    <Grid columns={2}>
-                      <Grid.Column width={2}>
-                        {product.image_field && (
-                          <img
-                            src={
-                              product.image_field
-                                ? `${product['@id']}/@@images/image`
-                                : 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                            }
-                            alt={
-                              product.image_field
-                                ? product.image?.filename
-                                : 'Placeholder'
-                            }
-                          />
-                        )}
-                      </Grid.Column>
-                      <Grid.Column width={10}>
-                        <a href={product['@id']}>
-                          <strong>{product.title}</strong>
-                        </a>
-                        <p>{product.description}</p>
-                      </Grid.Column>
-                    </Grid>
-                  </li>
-                ))}
-              </ul>
+              <CLMSRelatedItems items={content.products} />
             </AnimateHeight>
           </Accordion.Content>
         </Accordion>
@@ -151,36 +123,7 @@ const CLMSNewsItemView = (props) => {
           </Accordion.Title>
           <Accordion.Content active={activeDatasetIndex.includes(0)}>
             <AnimateHeight animateOpacity duration={500} height={'auto'}>
-              <ul>
-                {content.datasets.map((dataset, key) => (
-                  <li key={key}>
-                    <Grid columns={2}>
-                      <Grid.Column width={2}>
-                        {dataset.image_field && (
-                          <img
-                            src={
-                              dataset.image_field
-                                ? `${dataset['@id']}/@@images/image`
-                                : 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                            }
-                            alt={
-                              dataset.image_field
-                                ? dataset.image?.filename
-                                : 'Placeholder'
-                            }
-                          />
-                        )}
-                      </Grid.Column>
-                      <Grid.Column width={10}>
-                        <a href={dataset['@id']}>
-                          <strong>{dataset.title}</strong>
-                        </a>
-                        <p>{dataset.description}</p>
-                      </Grid.Column>
-                    </Grid>
-                  </li>
-                ))}
-              </ul>
+              <CLMSRelatedItems items={content.datasets} />
             </AnimateHeight>
           </Accordion.Content>
         </Accordion>
