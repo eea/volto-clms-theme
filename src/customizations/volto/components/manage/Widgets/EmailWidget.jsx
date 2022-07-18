@@ -47,11 +47,13 @@ const EmailWidget = (props) => {
   // email.addEventListener('input', function (e) {
   React.useEffect(() => {
     if (email !== '') {
-      if (email.validity.typeMismatch) {
-        email.setCustomValidity(intl.formatMessage(messages.invalid_email));
-        email.reportValidity();
-      } else {
-        email.setCustomValidity('');
+      if (email.validity !== undefined) {
+        if (email.validity.typeMismatch) {
+          email.setCustomValidity(intl.formatMessage(messages.invalid_email));
+          email.reportValidity();
+        } else {
+          email.setCustomValidity('');
+        }
       }
     } else {
       return;
