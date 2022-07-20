@@ -64,8 +64,11 @@ const EmailWidget = (props) => {
 
   return (
     <FormFieldWrapper {...props} className="email">
-      <input
+      <div
         className="ui input"
+        >
+
+      <input
         id={inputId}
         name={id}
         type="email"
@@ -73,15 +76,16 @@ const EmailWidget = (props) => {
         disabled={isDisabled}
         placeholder={placeholder}
         onChange={({ target }) =>
-          onChange(id, target.value === '' ? undefined : target.value)
-        }
-        onBlur={({ target }) =>
-          onBlur(id, target.value === '' ? undefined : target.value)
-        }
-        onClick={() => onClick()}
-        minLength={minLength || null}
-        maxLength={200}
-      />
+        onChange(id, target.value === '' ? undefined : target.value)
+      }
+      onBlur={({ target }) =>
+      onBlur(id, target.value === '' ? undefined : target.value)
+    }
+    onClick={() => onClick()}
+    minLength={minLength || null}
+    maxLength={200}
+    />
+    </div>
     </FormFieldWrapper>
   );
 };
