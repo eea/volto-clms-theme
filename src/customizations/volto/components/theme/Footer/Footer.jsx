@@ -142,9 +142,7 @@ class Footer extends Component {
 
   handleInputChange() {
     this.setState({
-      inputValue: validator.isEmail(this.state.value)
-        ? !this.state.inputValue
-        : this.state.inputValue,
+      inputValue: !this.state.inputValue,
     });
   }
 

@@ -33,6 +33,8 @@ import MapLayersWidget from './components/Widgets/MapLayersWidget';
 import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsWidget';
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
+import ImageSizeWidget from './components/Widgets/ImageSizeWidget';
+
 // CUSTOM REDUCERS IMPORT
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
 
@@ -78,6 +80,7 @@ const applyConfig = (config) => {
     geonetwork_identifiers_widget: GeonetworkIdentifiersWidget,
     text_link_widget: TextLinkWidget,
     dataset_download_information_widget: DatasetDownloadInformationWidget,
+    image_size: ImageSizeWidget,
   };
   config.widgets.id = {
     ...config.widgets.id,
