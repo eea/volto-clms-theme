@@ -213,54 +213,59 @@ export const CLMSMeetingView = (props) => {
   return (
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
-      {user.roles && user.roles.includes('Manager') && (
-        <Segment.Group compact horizontal>
-          {content.allow_anonymous_registration && (
-            <Segment padded={'very'} color={'olive'} circular>
-              <strong>
-                <FormattedMessage
-                  id="Anonymous registration form"
-                  defaultMessage="Anonymous registration form"
-                />
-              </strong>
-              <br />
-              <br />
-              {content.anonymous_registration_form ? (
-                <CclButton
-                  url={content.anonymous_registration_form?.url + '/edit'}
-                >
-                  <FormattedMessage id="Edit form" defaultMessage="Edit form" />
-                </CclButton>
-              ) : (
-                content.allow_anonymous_registration && (
-                  <CclButton onClick={createForm} isButton={true}>
+      {user.roles &&
+        user.roles.includes('Manager') &&
+        (content.allow_anonymous_registration ||
+          (content.allow_register && content.subscribers_link)) && (
+          <Segment.Group compact horizontal>
+            {content.allow_anonymous_registration && (
+              <Segment padded={'very'} color={'olive'} circular>
+                <strong>
+                  <FormattedMessage
+                    id="Anonymous registration form"
+                    defaultMessage="Anonymous registration form"
+                  />
+                </strong>
+                <br />
+                <br />
+                {content.anonymous_registration_form ? (
+                  <CclButton
+                    url={content.anonymous_registration_form?.url + '/edit'}
+                  >
                     <FormattedMessage
-                      id="Create form"
-                      defaultMessage="Create form"
+                      id="Edit form"
+                      defaultMessage="Edit form"
                     />
                   </CclButton>
-                )
-              )}
-              {content.anonymous_registration_form &&
-                (!content.anonymous_registration_form?.email ||
-                  !content.anonymous_registration_form?.fullname ||
-                  !content.anonymous_registration_form?.published) && (
-                  <p>
-                    <br />
-                    <Message
-                      negative
-                      compact
-                      size="large"
-                      header={intl.formatMessage(messages.form_not_ready)}
-                      list={formErrorMessagesList}
-                    ></Message>
-                  </p>
+                ) : (
+                  content.allow_anonymous_registration && (
+                    <CclButton onClick={createForm} isButton={true}>
+                      <FormattedMessage
+                        id="Create form"
+                        defaultMessage="Create form"
+                      />
+                    </CclButton>
+                  )
                 )}
-            </Segment>
-          )}
-          <Segment padded={'very'} color={'olive'} circular>
+                {content.anonymous_registration_form &&
+                  (!content.anonymous_registration_form?.email ||
+                    !content.anonymous_registration_form?.fullname ||
+                    !content.anonymous_registration_form?.published) && (
+                    <p>
+                      <br />
+                      <Message
+                        negative
+                        compact
+                        size="large"
+                        header={intl.formatMessage(messages.form_not_ready)}
+                        list={formErrorMessagesList}
+                      ></Message>
+                    </p>
+                  )}
+              </Segment>
+            )}
             {content.allow_register && content.subscribers_link && (
-              <>
+              <Segment padded={'very'} color={'olive'} circular>
                 <strong>
                   <FormattedMessage
                     id="Meeting register information"
@@ -281,11 +286,10 @@ export const CLMSMeetingView = (props) => {
                     defaultMessage="Mail archive"
                   />
                 </CclButton>
-              </>
+              </Segment>
             )}
-          </Segment>
-        </Segment.Group>
-      )}
+          </Segment.Group>
+        )}
       {content.description}
       <Segment compact padded={'very'} color={'olive'} floated="left">
         <div className="dataset-info-field">

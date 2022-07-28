@@ -4,6 +4,7 @@ import {
   WithType,
   DoubleRangeFacet,
   CheckboxTreeFacet,
+  CheckboxTreeParentFacet,
   rewriteOptions,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock';
 import { SelectFacetFilterListEntry } from '@plone/volto/components/manage/Blocks/Search/components';
@@ -342,6 +343,16 @@ const customBlocks = (config) => ({
             schemaEnhancer: CheckboxTreeFacet.schemaEnhancer,
             stateToValue: CheckboxTreeFacet.stateToValue,
             valueToQuery: CheckboxTreeFacet.valueToQuery,
+            filterListComponent: SelectFacetFilterListEntry,
+          },
+          {
+            id: 'checkboxTreeParentFacet',
+            title: 'Checkbox Tree Parents',
+            view: CheckboxTreeParentFacet,
+            isDefault: false,
+            schemaEnhancer: CheckboxTreeParentFacet.schemaEnhancer,
+            stateToValue: CheckboxTreeParentFacet.stateToValue,
+            valueToQuery: CheckboxTreeParentFacet.valueToQuery,
             filterListComponent: SelectFacetFilterListEntry,
           },
 
