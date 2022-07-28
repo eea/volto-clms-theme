@@ -10,6 +10,7 @@ import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import config from '@plone/volto/registry';
 import { searchContent } from '@plone/volto/actions';
+import { useLocation } from 'react-router-dom';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
@@ -22,12 +23,13 @@ const DataSetInfoContent = (props) => {
     geonetwork_identifiers,
     citation,
   } = props;
+  const location = useLocation();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
   const user = useSelector((state) => state.users.user);
   React.useEffect(() => {
-    UID &&
+    if (location.hash === '#GeneralInfo' && UID) {
       dispatch(
         searchContent(
           '',
@@ -40,7 +42,8 @@ const DataSetInfoContent = (props) => {
           id,
         ),
       );
-  }, [id, UID, dispatch]);
+    }
+  }, [id, UID, dispatch, location]);
 
   const [activeIndex, setActiveIndex] = React.useState([99]);
 
