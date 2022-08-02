@@ -6,6 +6,8 @@
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
+  RelatedNews,
+  RelatedUseCases,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
 import { Modal, Segment } from 'semantic-ui-react';
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -282,6 +284,8 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
+        <div tabTitle="Use cases">{RelatedUseCases(content)}</div>
+        <div tabTitle="News">{RelatedNews(content)}</div>
         {content?.downloadable_dataset &&
           content?.downloadable_files?.items?.length > 0 && (
             <div tabTitle="Download">{DownloadDataSetContent(content)}</div>

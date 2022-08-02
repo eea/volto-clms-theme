@@ -21,6 +21,7 @@ import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSu
 import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 import CLMSWorkOpportunityView from '@eeacms/volto-clms-theme/components/CLMSWorkOpportunityView/WorkOpportunityView';
+import CLMSUseCaseView from './components/CLMSUseCasesView/CLMSUseCasesView';
 
 // WIDGET
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -50,6 +51,7 @@ const applyConfig = (config) => {
       ...config.contentTypesViews,
       DataSet: CLMSDatasetDetailView,
       'News Item': CLMSNewsItemView,
+      UseCase: CLMSUseCaseView,
       File: CLMSDownloadableFileView,
       'eea.meeting': CLMSMeetingView,
       'eea.meeting.subscribers': CLMSMeetingSubscribersView,
