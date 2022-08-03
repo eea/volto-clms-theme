@@ -135,7 +135,7 @@ class Footer extends Component {
   componentDidMount() {
     this.setState({
       value: '',
-      inputValue: false,
+      inputValue: this.state.inputValue,
       lang: this.props.intl.locale,
     });
   }

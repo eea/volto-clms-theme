@@ -45,7 +45,6 @@ const CLMSNewsItemView = (props) => {
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
   }
-
   return (
     <div className="ccl-container">
       {hasBlocksData(content) && content.blocks_layout?.items?.length > 4 ? (

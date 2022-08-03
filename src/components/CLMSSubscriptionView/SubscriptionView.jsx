@@ -24,8 +24,16 @@ import validator from 'validator';
 
 const messages = defineMessages({
   subscribeToThe: {
-    id: '{subscribe_or_unsubscribe} to receive the {type}',
-    defaultMessage: '{subscribe_or_unsubscribe} to receive the {type}',
+    id: 'subscribe to receive the {type}',
+    defaultMessage: 'Subscribe to receive the {type}',
+  },
+  unsubscribeFromThe: {
+    id: 'unsubscribe from the {type}',
+    defaultMessage: 'Unsubscribe from the {type}',
+  },
+  notifications: {
+    id: 'notifications',
+    defaultMessage: 'notifications',
   },
   emailTitle: {
     id: 'E-mail',
@@ -33,7 +41,7 @@ const messages = defineMessages({
   },
   emailDescription: {
     id: 'We will use this address to send you the {type}',
-    defaultMessage: 'We will use this address to send you the {type}',
+    defaultMessage: 'We will use this address to send you the {type} ',
   },
   saved: {
     id: 'Changes saved',
@@ -65,7 +73,8 @@ const messages = defineMessages({
   },
   invalid_email: {
     id: 'The entered email address is not valid',
-    defaultMessage: 'The entered email address is not valid',
+    defaultMessage:
+      'You must agree privacy policy and enter a valid email address',
   },
   subscribe: {
     id: 'Subscribe',
@@ -78,6 +87,14 @@ const messages = defineMessages({
   write_email_here: {
     id: 'Write your email in the field',
     defaultMessage: 'Write your email in the field',
+  },
+  agreePrivacyPolicy: {
+    id: 'agreePrivacyPolicy',
+    defaultMessage: 'I agree to the ',
+  },
+  agreePrivacyPolicyLinkText: {
+    id: 'agreePrivacyPolicyLinkText',
+    defaultMessage: 'privacy policy.',
   },
 });
 
@@ -100,16 +117,24 @@ class SubscriptionView extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       value: '',
       type_conf: null,
+      inputValue: false,
     };
   }
 
   componentDidMount() {
     const type_conf = getSubscriptionConfig(this.props.type);
-    this.setState({ type_conf });
+    this.setState({ type_conf, inputValue: this.state.inputValue });
     this.props.getExtraBreadcrumbItems([]);
+  }
+
+  handleInputChange() {
+    this.setState({
+      inputValue: !this.state.inputValue,
+    });
   }
 
   handleChange(event) {
@@ -213,19 +238,28 @@ class SubscriptionView extends Component {
         {this.state.type_conf ? (
           <Container>
             <h1 className="page-title">
-              {this.props.intl.formatMessage(messages.subscribeToThe, {
-                type: this.props.type,
-                subscribe_or_unsubscribe: this.props.isUnsubscribe
-                  ? this.props.intl.formatMessage(messages.unsubscribe)
-                  : this.props.intl.formatMessage(messages.subscribe),
-              })}
+              {this.props.isUnsubscribe && this.props.type !== 'newsletter'
+                ? this.props.intl.formatMessage(messages.unsubscribeFromThe, {
+                    type: this.props.type,
+                  }) +
+                  ' ' +
+                  this.props.intl.formatMessage(messages.notifications)
+                : this.props.isUnsubscribe && this.props.type === 'newsletter'
+                ? this.props.intl.formatMessage(messages.unsubscribeFromThe, {
+                    type: this.props.type,
+                  })
+                : this.props.intl.formatMessage(messages.subscribeToThe, {
+                    type: this.props.type,
+                  })}
             </h1>
             <Form
               className="ccl-form user-form contact-form"
               size={'large'}
               onSubmit={
                 validator.isEmail(this.state.value)
-                  ? this.onSubmit
+                  ? this.state.inputValue === true
+                    ? this.onSubmit
+                    : this.invalidEmailErrorToast
                   : this.invalidEmailErrorToast
               }
             >
@@ -238,11 +272,20 @@ class SubscriptionView extends Component {
                     {this.props.intl.formatMessage(messages.emailTitle)}
                   </label>
                   <span className="label-required">*</span>
-                  <p>
-                    {this.props.intl.formatMessage(messages.emailDescription, {
-                      type: this.props.type,
-                    })}
-                  </p>
+                  {this.props.isUnsubscribe ? (
+                    ''
+                  ) : (
+                    <p>
+                      {this.props.intl.formatMessage(
+                        messages.emailDescription,
+                        {
+                          type: this.props.type,
+                        },
+                      )}
+                      {this.props.type !== 'newsletter' &&
+                        this.props.intl.formatMessage(messages.notifications)}
+                    </p>
+                  )}
                   <Form.Group inline widths="equal">
                     <Form.Input
                       maxLength={8000}
@@ -264,6 +307,34 @@ class SubscriptionView extends Component {
                   </Form.Group>
                 </div>
               </div>
+              {!this.props.isUnsubscribe && (
+                <div className="ccl-form footer-privacy-check ccl-profile-privacy">
+                  <div className="ccl-form-group">
+                    <input
+                      type="checkbox"
+                      id="footer_privacy"
+                      name="footerPrivacy"
+                      value={this.state.inputValue}
+                      onClick={this.handleInputChange}
+                      className="ccl-checkbox ccl-form-check-input"
+                      required={true}
+                    />
+                    <label
+                      className="ccl-form-check-label"
+                      htmlFor="footer_privacy"
+                    >
+                      {this.props.intl.formatMessage(
+                        messages.agreePrivacyPolicy,
+                      )}
+                      <Link to={`/${this.props.lang}/personal-data-protection`}>
+                        {this.props.intl.formatMessage(
+                          messages.agreePrivacyPolicyLinkText,
+                        )}
+                      </Link>
+                    </label>
+                  </div>
+                </div>
+              )}
             </Form>
             {!this.props.isUnsubscribe && (
               <>
@@ -272,7 +343,8 @@ class SubscriptionView extends Component {
                     pathname: `/${this.props.intl.locale}/unsubscribe/${this.props.type}`,
                   }}
                 >
-                  UNSUBSCRIBE
+                  {'Click here if you would like to unsubscribe from our'}{' '}
+                  {this.props.type} {'notifications'}
                 </Link>
               </>
             )}
@@ -289,6 +361,7 @@ export default compose(
   injectIntl,
   connect(
     (state, props) => ({
+      lang: state.intl.locale,
       loaded: state.subscription.loaded,
       loading: state.subscription.loading,
       error: state.subscription.error,
