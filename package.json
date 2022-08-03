@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.0.110",
+  "version": "1.0.111",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "volto-cookie-banner": "2.1.0",
-    "@eeacms/volto-accordion-block": "3.4.13",
+    "@eeacms/volto-accordion-block": "3.5.0",
     "@eeacms/volto-arcgis-block": "*",
     "@eeacms/volto-clms-utils": "0.1.6",
     "@eeacms/volto-columns-block": "4.4.3",
