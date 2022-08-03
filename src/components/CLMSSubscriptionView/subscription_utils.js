@@ -1,16 +1,16 @@
 export const AVAILABLE_SUBSCRIPTIONS = [
   {
-    title: 'Subscribe to our newsletter',
+    title: 'Subscribe to the newsletter',
     type: 'newsletter',
     back_url: 'newsletter',
   },
   {
-    title: 'Subscribe to our news',
+    title: 'Subscribe to news notifications',
     type: 'news',
     back_url: 'newsitem',
   },
   {
-    title: 'Subscribe to our events',
+    title: 'Subscribe to event notifications',
     type: 'events',
     back_url: 'event',
   },

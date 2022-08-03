@@ -10,6 +10,7 @@ import {
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
+import { checkAllChildren } from './utils';
 
 const hasAllChildrensSelected = (value, childrens) => {
   var result = true;
@@ -24,20 +25,20 @@ const hasAllChildrensSelected = (value, childrens) => {
   return result;
 };
 
-const checkAllChildren = (value, childrens) => {
-  if (!childrens || childrens.length === 0) {
-    return value;
+const Wrapper = ({ typeName, children }) => {
+  if (typeName === 'checkbox') {
+    return <div className="ccl-form">{children}</div>;
+  } else if (typeName === 'label') {
+    return (
+      <div>
+        <div className="filters-tag-container">{children}</div>
+      </div>
+    );
   }
-  childrens.forEach((ch) => {
-    if (value.filter((v) => v.value === ch.value).length === 0) {
-      value.push(ch);
-    }
-  });
-  return value;
 };
 
 const CheckboxTreeParentFacet = (props) => {
-  const { facet, choices, onChange, value } = props;
+  const { facet, choices, onChange, value, typeName } = props;
   const facetValue = value;
   var [open, setOpen] = useState(false);
   let options = [];
@@ -56,7 +57,7 @@ const CheckboxTreeParentFacet = (props) => {
       >
         <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
-      <div>
+      <Wrapper typeName={typeName}>
         <List>
           {options.map((option) => (
             <CheckboxListParent
@@ -68,7 +69,7 @@ const CheckboxTreeParentFacet = (props) => {
             />
           ))}
         </List>
-      </div>
+      </Wrapper>
     </fieldset>
   );
 };
@@ -85,12 +86,10 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
             key={option.value}
             name={`field-${option.value}`}
             onChange={(event, { checked }) => {
-              checked
+              return checked
                 ? onChange(id, [
                     // if this option has children, check them all
-                    ...checkAllChildren(value, option.childrens).map(
-                      (f) => f.value,
-                    ),
+                    ...checkAllChildren(value, option).map((f) => f.value),
                   ])
                 : onChange(id, [
                     ...value

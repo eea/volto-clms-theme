@@ -87,3 +87,8 @@ export {
   POST_IMPORT_WMS_LAYERS,
   postImportWMSLayers,
 } from './import_wms_layers/import_wms_layers';
+
+export {
+  POST_IMPORT_WMS_FIELDS,
+  postImportWMSFields,
+} from './import_wms_fields/import_wms_fields';

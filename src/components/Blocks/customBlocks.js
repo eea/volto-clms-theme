@@ -328,7 +328,7 @@ const customBlocks = (config) => ({
           {
             id: 'doubleRangeFacet',
             title: 'Double Range',
-            view: DoubleRangeFacet,
+            view: WithType(DoubleRangeFacet, 'range'),
             isDefault: false,
             schemaEnhancer: DoubleRangeFacet.schemaEnhancer,
             stateToValue: DoubleRangeFacet.stateToValue,
@@ -338,7 +338,7 @@ const customBlocks = (config) => ({
           {
             id: 'checkboxTreeFacet',
             title: 'Checkbox Tree',
-            view: CheckboxTreeFacet,
+            view: WithType(CheckboxTreeFacet, 'checkbox'),
             isDefault: false,
             schemaEnhancer: CheckboxTreeFacet.schemaEnhancer,
             stateToValue: CheckboxTreeFacet.stateToValue,
@@ -348,7 +348,7 @@ const customBlocks = (config) => ({
           {
             id: 'checkboxTreeParentFacet',
             title: 'Checkbox Tree Parents',
-            view: CheckboxTreeParentFacet,
+            view: WithType(CheckboxTreeParentFacet, 'checkbox'),
             isDefault: false,
             schemaEnhancer: CheckboxTreeParentFacet.schemaEnhancer,
             stateToValue: CheckboxTreeParentFacet.stateToValue,

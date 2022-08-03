@@ -34,12 +34,25 @@ const ItemSchema = {
       type: 'string',
       default: '',
     },
+    fields: {
+      title: 'Fields to be shown in the mapviewer',
+      description: 'Enter the JSON representing the fields',
+      type: 'text',
+      default: '',
+    },
   },
   fieldsets: [
     {
       id: 'default',
       title: 'Layer',
-      fields: ['id', 'title', 'default_active', 'hide', 'static_legend_url'],
+      fields: [
+        'id',
+        'title',
+        'default_active',
+        'hide',
+        'static_legend_url',
+        'fields',
+      ],
     },
   ],
   required: [],

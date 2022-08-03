@@ -1,4 +1,4 @@
-import { Checkbox } from 'semantic-ui-react';
+import { Checkbox, List } from 'semantic-ui-react';
 import React from 'react';
 import {
   selectFacetSchemaEnhancer,
@@ -47,38 +47,46 @@ const AccordionFacet = (props) => {
         <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
       <Wrapper typeName={typeName}>
-        {choices.map((choice, i) => (
-          <div
-            className={
-              typeName === 'checkbox' ? 'ccl-form-group' : 'filters-tag'
-            }
-            key={choice.value}
-          >
-            <Checkbox
-              disabled={isEditMode}
-              label={choice.label}
-              radio={!isMulti}
-              checked={
-                isMulti
-                  ? !!facetValue?.find((f) => f.value === choice.value)
-                  : facetValue && facetValue.value === choice.value
-              }
-              onChange={(e, { checked }) =>
-                onChange(
-                  facet.field.value,
-                  isMulti
-                    ? [
-                        ...facetValue
-                          .filter((f) => f.value !== choice.value)
-                          .map((f) => f.value),
-                        ...(checked ? [choice.value] : []),
-                      ]
-                    : isChoiceValue(checked, choice.value),
-                )
-              }
-            />
-          </div>
-        ))}
+        <List>
+          {choices.map((choice, i) => (
+            <List.Item
+              key={choice.value}
+              style={{
+                paddingLeft: '15px',
+                paddingBottom: '15px',
+                paddingTop: '10px',
+              }}
+            >
+              <List.Content>
+                <List.Header>
+                  <Checkbox
+                    disabled={isEditMode}
+                    label={choice.label}
+                    radio={!isMulti}
+                    checked={
+                      isMulti
+                        ? !!facetValue?.find((f) => f.value === choice.value)
+                        : facetValue && facetValue.value === choice.value
+                    }
+                    onChange={(e, { checked }) =>
+                      onChange(
+                        facet.field.value,
+                        isMulti
+                          ? [
+                              ...facetValue
+                                .filter((f) => f.value !== choice.value)
+                                .map((f) => f.value),
+                              ...(checked ? [choice.value] : []),
+                            ]
+                          : isChoiceValue(checked, choice.value),
+                      )
+                    }
+                  />
+                </List.Header>
+              </List.Content>
+            </List.Item>
+          ))}
+        </List>
       </Wrapper>
     </fieldset>
   );

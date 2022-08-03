@@ -1,6 +1,5 @@
 import { defineMessages, useIntl } from 'react-intl';
 
-import { Link } from 'react-router-dom';
 import React from 'react';
 
 const messages = defineMessages({
@@ -14,20 +13,10 @@ const messages = defineMessages({
   },
 });
 
-function hasProtocol(url) {
-  if (url) {
-    return url.startsWith('https://') || url.startsWith('http://')
-      ? true
-      : false;
-  }
-  return false;
-}
-
 const CclHomeSearchBlockView = (props) => {
   const { data, searchText } = props;
   var SearchText = searchText || '';
   const intl = useIntl();
-  let url = data?.link?.[0]?.['@id'];
 
   function handleChange(event) {
     SearchText = event.target.value;
@@ -67,14 +56,6 @@ const CclHomeSearchBlockView = (props) => {
               <span className="ccl-icon-zoom"></span>
             </button>
           </form>
-        </div>
-        <div className="home-datasets-text">
-          <span>{intl.formatMessage(messages.countText, { count: 999 })}</span>
-          {url && hasProtocol(url) ? (
-            <a href={url}>{data.linkText}</a>
-          ) : (
-            <Link to={url}>{data.linkText}</Link>
-          )}
         </div>
       </div>
     </div>
