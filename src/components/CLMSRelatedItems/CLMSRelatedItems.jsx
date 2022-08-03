@@ -1,5 +1,6 @@
 import { Grid, Image } from 'semantic-ui-react';
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
+import { UniversalLink } from '@plone/volto/components';
 
 const CLMSRelatedItems = (props) => {
   const { items } = props;
@@ -24,9 +25,12 @@ const CLMSRelatedItems = (props) => {
               )}
             </Grid.Column>
             <Grid.Column width={9}>
-              <a href={item['@id']}>
+              <UniversalLink href={`${item['@id']}`}>
+                <strong>{item?.title}</strong>
+              </UniversalLink>
+              {/* <a href={item['@id']}>
                 <strong>{item.title}</strong>
-              </a>
+              </a> */}
               {item?.description && <p>{item.description}</p>}
             </Grid.Column>
           </Grid>
