@@ -8,6 +8,7 @@ const getInitialState = {
   error: null,
   loaded: false,
   loading: false,
+  error_message: '',
 };
 
 export const subscribeToReducer = (state = getInitialState, action = {}) => {
@@ -25,7 +26,10 @@ export const subscribeToReducer = (state = getInitialState, action = {}) => {
         error: true,
         loaded: false,
         loading: false,
-        error_message: action.error?.response?.body?.error || '',
+        error_message:
+          action.error?.response?.body?.message ||
+          action.error?.response?.body?.error ||
+          '',
       };
     case `${POST_SUBSCRIBE_TO}_SUCCESS`:
       return {

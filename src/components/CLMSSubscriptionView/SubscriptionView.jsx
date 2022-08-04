@@ -163,12 +163,14 @@ class SubscriptionView extends Component {
     );
   };
 
-  requestErrorToast = () => {
+  requestErrorToast = (errorMessage) => {
     toast.error(
       <Toast
         error
         title={this.props.intl.formatMessage(messages.error)}
-        content={this.props.intl.formatMessage(messages.errorMessage)}
+        content={
+          errorMessage || this.props.intl.formatMessage(messages.errorMessage)
+        }
       />,
     );
   };
@@ -210,7 +212,11 @@ class SubscriptionView extends Component {
         this.props
           .unsubscribeTo(this.state.type_conf.back_url, this.state.value)
           .then(() => this.props.loaded && this.requestSuccessToast())
-          .catch(() => this.props.error && this.requestErrorToast());
+          .catch(
+            () =>
+              this.props.error &&
+              this.requestErrorToast(this.props.error_message),
+          );
       } else {
         this.emptyFieldErrorToast();
       }
@@ -220,7 +226,11 @@ class SubscriptionView extends Component {
         this.props
           .subscribeTo(this.state.type_conf.back_url, this.state.value)
           .then(() => this.props.loaded && this.requestSuccessToast())
-          .catch(() => this.props.error && this.requestErrorToast());
+          .catch(
+            () =>
+              this.props.error &&
+              this.requestErrorToast(this.props.error_message),
+          );
       } else {
         this.emptyFieldErrorToast();
       }
@@ -256,10 +266,11 @@ class SubscriptionView extends Component {
               className="ccl-form user-form contact-form"
               size={'large'}
               onSubmit={
-                validator.isEmail(this.state.value)
-                  ? this.state.inputValue === true
-                    ? this.onSubmit
-                    : this.invalidEmailErrorToast
+                validator.isEmail(this.state.value) &&
+                ((!this.props.isUnsubscribe &&
+                  this.state.inputValue === true) ||
+                  this.props.isUnsubscribe)
+                  ? this.onSubmit
                   : this.invalidEmailErrorToast
               }
             >

@@ -57,7 +57,7 @@ const CclHomeUsersBlockEdit = ({
         }}
         aria-hidden="true"
       >
-        {data.title}
+        {data.title || 'Home users block'}
       </div>
       <div>
         <div className={'line'}>
@@ -91,8 +91,22 @@ const CclHomeUsersBlockEdit = ({
                   />
                 </div>
                 <div className={'card-text'}>
-                  <div className="card-title">{panel?.title}</div>
-                  <div className="card-description">{panel?.description}</div>
+                  <div className="card-title">
+                    {panel.title
+                      ? panel.title
+                      : panel.productUrl &&
+                        panel.productUrl.length > 0 &&
+                        panel.productUrl[0]['@id'].indexOf('http') !== 0
+                      ? panel.productUrl[0].title
+                      : panel.title}
+                  </div>
+                  <div className="card-description">
+                    {panel.description
+                      ? panel.description
+                      : panel.productUrl && panel.productUrl.length > 0
+                      ? panel.productUrl[0].description
+                      : panel.description}
+                  </div>
                 </div>
               </div>
             </div>

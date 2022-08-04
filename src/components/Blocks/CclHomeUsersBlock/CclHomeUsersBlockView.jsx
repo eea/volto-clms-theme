@@ -4,7 +4,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './styles.less';
-import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import { ConditionalLink } from '@plone/volto/components';
 
 const CclHomeUsersBlockView = (props) => {
   const settings = {
@@ -42,7 +42,6 @@ const CclHomeUsersBlockView = (props) => {
   let cards = data?.customCards?.blocks_layout?.items.map(
     (uid) => data.customCards.blocks[uid],
   );
-
   return (
     <div className="home-meet-container">
       <div className="ccl-container">
@@ -57,6 +56,13 @@ const CclHomeUsersBlockView = (props) => {
                       src={`${card.image.url}/@@images/image`}
                       alt={card.image.alt}
                     />
+                  ) : card.productUrl &&
+                    card.productUrl.length > 0 &&
+                    card.productUrl[0].image_field ? (
+                    <img
+                      src={`${card.productUrl[0]['@id']}/@@images/${card.productUrl[0].image_field}/preview`}
+                      alt={card?.productUrl[0].title || 'Placeholder'}
+                    />
                   ) : (
                     <img
                       src={
@@ -66,14 +72,31 @@ const CclHomeUsersBlockView = (props) => {
                     />
                   )}
                 </div>
-                <a
-                  href={flattenToAppURL(card.url)}
-                  target={'_blank'}
-                  rel="noreferrer"
+                <ConditionalLink
+                  condition={card.productUrl && card.productUrl.length > 0}
+                  item={
+                    card.productUrl && card.productUrl.length > 0
+                      ? card.productUrl[0]
+                      : {}
+                  }
                 >
-                  <h4>{card.title}</h4>
-                </a>
-                <p>{card.description}</p>
+                  <h4>
+                    {card.title
+                      ? card.title
+                      : card.productUrl &&
+                        card.productUrl.length > 0 &&
+                        card.productUrl[0]['@id'].indexOf('http') !== 0
+                      ? card.productUrl[0].title
+                      : card.title}
+                  </h4>
+                </ConditionalLink>
+                <p>
+                  {card.description
+                    ? card.description
+                    : card.productUrl && card.productUrl.length > 0
+                    ? card.productUrl[0].description
+                    : card.description}
+                </p>
               </div>
             </div>
           ))}
