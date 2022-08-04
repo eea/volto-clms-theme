@@ -24,7 +24,7 @@ const CclTabs = (props) => {
   let { children, routing = false } = props;
   let [activeTab, setActiveTab] = useState(
     props.children[0].props.tabId ||
-      props.children[0].props.tabTitle.replace(' ', ''),
+      props.children[0].props.tabTitle.split(' ').join('-'),
   );
 
   function onClickTabItem(tab) {
@@ -37,7 +37,7 @@ const CclTabs = (props) => {
       if (hash) {
         setActiveTab(hash);
       } else {
-        setActiveTab(firstTab.props?.tabTitle?.replace(' ', ''));
+        setActiveTab(firstTab.props?.tabTitle?.split(' ').join('-'));
       }
     }
   }, [children, routing]);
@@ -51,7 +51,7 @@ const CclTabs = (props) => {
             .filter((item) => !!item?.props?.tabTitle)
             .map((child, key) => {
               const { tabTitle, redirect } = child.props;
-              const tabId = tabTitle?.replace(' ', '');
+              const tabId = tabTitle?.split(' ').join('-');
               return (
                 <CclTab
                   activeTab={activeTab}
@@ -82,7 +82,8 @@ const CclTabs = (props) => {
             .flat()
             .filter((item) => !!item?.props?.tabTitle)
             .map((child, index) => {
-              return child.props?.tabTitle?.replace(' ', '') !== activeTab ? (
+              return child.props?.tabTitle?.split(' ').join('-') !==
+                activeTab ? (
                 <div key={index} className="deactivate-content">
                   {child.props.children}
                 </div>

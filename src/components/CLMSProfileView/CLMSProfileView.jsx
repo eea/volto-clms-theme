@@ -57,7 +57,7 @@ class CLMSProfileView extends Component {
       <div className="ccl-container ">
         <Helmet title="User profile"></Helmet>
         {loggedIn ? (
-          <CclTabs>
+          <CclTabs routing={true}>
             <div tabTitle="User profile">
               <CLMSUserProfileView />
             </div>

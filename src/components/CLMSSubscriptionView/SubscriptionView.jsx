@@ -308,7 +308,7 @@ class SubscriptionView extends Component {
                 </div>
               </div>
               {!this.props.isUnsubscribe && (
-                <div className="ccl-form footer-privacy-check ccl-profile-privacy">
+                <div className="ccl-form ccl-profile-privacy">
                   <div className="ccl-form-group">
                     <input
                       type="checkbox"
