@@ -28,7 +28,7 @@ export const CardBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'description', 'url'],
+      fields: ['title', 'description', 'productUrl'],
     },
   ],
   properties: {
@@ -42,9 +42,12 @@ export const CardBlockSchema = () => ({
       title: 'Product description',
       type: 'string',
     },
-    url: {
-      title: 'url',
-      type: 'string',
+    productUrl: {
+      title: 'Object or url',
+      widget: 'object_browser',
+      mode: 'link',
+      selectedItemAttrs: ['description', 'image_field'],
+      allowExternals: true,
     },
   },
   required: ['product'],
