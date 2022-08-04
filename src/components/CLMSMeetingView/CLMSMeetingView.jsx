@@ -132,10 +132,7 @@ export const CLMSMeetingView = (props) => {
         ) : (
           rIsLoggedIn && (
             <CclButton onClick={() => handleRegister()}>
-              <FormattedMessage
-                id="Register to this meeting"
-                defaultMessage="Register to this meeting"
-              />
+              <FormattedMessage id="Register" defaultMessage="Register" />
             </CclButton>
           )
         )}
@@ -395,8 +392,8 @@ export const CLMSMeetingView = (props) => {
                     content.anonymous_registration_form?.fullname && (
                       <CclButton url={content.anonymous_registration_form?.url}>
                         <FormattedMessage
-                          id="Register to this meeting"
-                          defaultMessage="Register to this meeting"
+                          id="Register"
+                          defaultMessage="Register"
                         />
                       </CclButton>
                     )}

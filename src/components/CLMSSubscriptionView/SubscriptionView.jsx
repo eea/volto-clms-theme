@@ -308,12 +308,20 @@ class SubscriptionView extends Component {
                 </div>
               </div>
               {!this.props.isUnsubscribe && (
-                <div className="ccl-form footer-privacy-check ccl-profile-privacy">
+                <div className="ccl-form ccl-profile-privacy">
                   <div className="ccl-form-group">
                     <input
                       type="checkbox"
-                      id="footer_privacy"
-                      name="footerPrivacy"
+                      id={`footer_privacy-${
+                        this.state.type_conf
+                          ? this.state.type_conf.type
+                          : 'loading'
+                      }`}
+                      name={`footer_privacy-${
+                        this.state.type_conf
+                          ? this.state.type_conf.type
+                          : 'loading'
+                      }`}
                       value={this.state.inputValue}
                       onClick={this.handleInputChange}
                       className="ccl-checkbox ccl-form-check-input"
@@ -321,7 +329,11 @@ class SubscriptionView extends Component {
                     />
                     <label
                       className="ccl-form-check-label"
-                      htmlFor="footer_privacy"
+                      htmlFor={`footer_privacy-${
+                        this.state.type_conf
+                          ? this.state.type_conf.type
+                          : 'loading'
+                      }`}
                     >
                       {this.props.intl.formatMessage(
                         messages.agreePrivacyPolicy,
