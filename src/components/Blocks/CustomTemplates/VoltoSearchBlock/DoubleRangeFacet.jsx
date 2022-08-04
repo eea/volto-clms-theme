@@ -57,9 +57,7 @@ const DoubleRangeFacet = (props) => {
         tabIndex={0}
         role={'button'}
       >
-        <legend className="ccl-form-legend">
-          {facet.title} {startingValues.min} - {startingValues.max}
-        </legend>
+        <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
       <div>
         <Segment basic padded>
