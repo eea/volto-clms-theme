@@ -256,10 +256,11 @@ class SubscriptionView extends Component {
               className="ccl-form user-form contact-form"
               size={'large'}
               onSubmit={
-                validator.isEmail(this.state.value)
-                  ? this.state.inputValue === true
-                    ? this.onSubmit
-                    : this.invalidEmailErrorToast
+                validator.isEmail(this.state.value) &&
+                ((!this.props.isUnsubscribe &&
+                  this.state.inputValue === true) ||
+                  this.props.isUnsubscribe)
+                  ? this.onSubmit
                   : this.invalidEmailErrorToast
               }
             >
