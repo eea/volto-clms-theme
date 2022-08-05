@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const messages = defineMessages({
   ProcurementNo: {
@@ -52,7 +53,7 @@ const CclWorkOpportunity = (props) => {
         <span className="card-work-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
-        {new Date(item.submission_deadline).toLocaleString()}
+        {cclDateTimeFormat(item.submission_deadline)}
       </div>
     </div>
   );

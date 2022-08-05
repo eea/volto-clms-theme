@@ -1,5 +1,6 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const messages = defineMessages({
   ProcurementNo: {
@@ -46,7 +47,7 @@ const CLMSWorkOpportunityView = (props) => {
             <span className="card-work-title">
               {intl.formatMessage(messages.SubmissionDeadline)}
             </span>
-            {new Date(content.submission_deadline).toLocaleString()}
+            {cclDateTimeFormat(content.submission_deadline)}
           </div>
         </div>
       </>
