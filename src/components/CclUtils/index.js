@@ -3,8 +3,8 @@ import StringToHTML from './StringToHTML';
 export { StringToHTML };
 
 export {
-  oldCclDateFormat,
-  oldCclDateTimeFormat,
+  workOpportunitiesCclDateFormat,
+  workOpportunitiesCclDateTimeFormat,
   cclDateFormat,
   cclDateTimeFormat,
 } from './dateFormats';

@@ -1,14 +1,12 @@
 import { parseDateTime } from '@plone/volto/helpers';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
 
-const getInternalValue = (value) => {
-  const lang = useSelector((state) => state.intl.locale);
+const getInternalValue = (value, lang) => {
   moment.locale(lang);
   return parseDateTime(lang, value, undefined, moment);
 };
 
-export const oldCclDateTimeFormat = (date) => {
+export const cclDateTimeFormat = (date) => {
   const dateObj = new Date(date);
   const day = ('0' + dateObj.getDate()).slice(-2);
   const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
@@ -18,12 +16,12 @@ export const oldCclDateTimeFormat = (date) => {
   return `${day}.${month}.${year} ${hours}.${minutes}`;
 };
 
-export const cclDateTimeFormat = (date) => {
-  const internal = getInternalValue(date);
+export const workOpportunitiesCclDateTimeFormat = (date, lang) => {
+  const internal = getInternalValue(date, lang);
   return internal.format('DD.MM.YYYY hh.mm A');
 };
 
-export const oldCclDateFormat = (date) => {
+export const cclDateFormat = (date) => {
   const dateObj = new Date(date);
   const day = dateObj.getDate();
   const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
@@ -31,7 +29,7 @@ export const oldCclDateFormat = (date) => {
   return `${day}.${month}.${year}`;
 };
 
-export const cclDateFormat = (date) => {
-  const internal = getInternalValue(date);
+export const workOpportunitiesCclDateFormat = (date, lang) => {
+  const internal = getInternalValue(date, lang);
   return internal.format('DD.MM.YYYY');
 };

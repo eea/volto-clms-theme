@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { workOpportunitiesCclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const messages = defineMessages({
   ProcurementNo: {
@@ -22,6 +22,8 @@ const messages = defineMessages({
 
 const CclWorkOpportunity = (props) => {
   const { item, intl, user } = props;
+  const lang = useSelector((state) => state.intl.locale);
+
   return (
     <div className="card-work">
       {user.roles && user.roles.includes('Manager') && (
@@ -53,7 +55,7 @@ const CclWorkOpportunity = (props) => {
         <span className="card-work-title">
           {intl.formatMessage(messages.SubmissionDeadline)}
         </span>
-        {cclDateTimeFormat(item.submission_deadline)}
+        {workOpportunitiesCclDateTimeFormat(item.submission_deadline, lang)}
       </div>
     </div>
   );

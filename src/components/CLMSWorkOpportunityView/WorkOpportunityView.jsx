@@ -1,6 +1,7 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { workOpportunitiesCclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { useSelector } from 'react-redux';
 
 const messages = defineMessages({
   ProcurementNo: {
@@ -25,6 +26,7 @@ const CLMSWorkOpportunityView = (props) => {
       ? content.items.map((item) => (item['@type'] === 'File' ? item : null))
       : [];
   const index = files.indexOf(null);
+  const lang = useSelector((state) => state.intl.locale);
   if (index > -1) {
     files.splice(index, 1);
   }
@@ -47,7 +49,10 @@ const CLMSWorkOpportunityView = (props) => {
             <span className="card-work-title">
               {intl.formatMessage(messages.SubmissionDeadline)}
             </span>
-            {cclDateTimeFormat(content.submission_deadline)}
+            {workOpportunitiesCclDateTimeFormat(
+              content.submission_deadline,
+              lang,
+            )}
           </div>
         </div>
       </>
