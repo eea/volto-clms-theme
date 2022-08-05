@@ -11,6 +11,7 @@ import {
   CLMSApiTokensView,
   CLMSNewsletterSubscriberView,
   CLMSUserProfileView,
+  CLMSDeleteProfileView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
 import React, { Component } from 'react';
 
@@ -75,6 +76,9 @@ class CLMSProfileView extends Component {
                 <SubscriptionView type={subscription?.type} />
               </div>
             ))}
+            <div tabTitle="Delete profile">
+              <CLMSDeleteProfileView />
+            </div>
           </CclTabs>
         ) : (
           <Unauthorized />

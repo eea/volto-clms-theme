@@ -27,6 +27,7 @@ const UniversalLink = ({
   ...props
 }) => {
   const token = useSelector((state) => state.userSession?.token);
+  const user = useSelector((state) => state.users.user);
 
   let url = href;
   if (!href && item) {
@@ -51,7 +52,7 @@ const UniversalLink = ({
 
       //case: item of type 'File'
       if (
-        !this.props.roles?.includes('Manager') &&
+        !user?.roles?.includes('Manager') &&
         config.settings.downloadableObjects.includes(item['@type'])
       ) {
         url = `${url}/@@download/file`;

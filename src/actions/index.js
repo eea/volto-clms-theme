@@ -92,3 +92,5 @@ export {
   POST_IMPORT_WMS_FIELDS,
   postImportWMSFields,
 } from './import_wms_fields/import_wms_fields';
+
+export { DELETE_PROFILE, delProfile } from './profile/delete_profile';
