@@ -11,6 +11,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { delProfile } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { logout } from '@plone/volto/actions';
 
 export const CLMSDeleteProfileView = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export const CLMSDeleteProfileView = (props) => {
 
   if (isDeleted === true) {
     history.push('/');
+    dispatch(logout());
   }
 
   return (
