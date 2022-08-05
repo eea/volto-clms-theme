@@ -2,4 +2,9 @@ import StringToHTML from './StringToHTML';
 
 export { StringToHTML };
 
-export { cclDateFormat, cclDateTimeFormat } from './dateFormats';
+export {
+  oldCclDateFormat,
+  oldCclDateTimeFormat,
+  cclDateFormat,
+  cclDateTimeFormat,
+} from './dateFormats';
