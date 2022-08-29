@@ -25,11 +25,11 @@ import validator from 'validator';
 const messages = defineMessages({
   subscribeToThe: {
     id: 'subscribe to receive the {type}',
-    defaultMessage: 'Subscribe to receive the {type}',
+    defaultMessage: 'Subscribe to {type}',
   },
   unsubscribeFromThe: {
     id: 'unsubscribe from the {type}',
-    defaultMessage: 'Unsubscribe from the {type}',
+    defaultMessage: 'Unsubscribe from {type}',
   },
   notifications: {
     id: 'notifications',
@@ -41,7 +41,7 @@ const messages = defineMessages({
   },
   emailDescription: {
     id: 'We will use this address to send you the {type}',
-    defaultMessage: 'We will use this address to send you the {type} ',
+    defaultMessage: 'We will use this address to send you {type} ',
   },
   saved: {
     id: 'Changes saved',
@@ -248,19 +248,26 @@ class SubscriptionView extends Component {
         {this.state.type_conf ? (
           <Container>
             <h1 className="page-title">
-              {this.props.isUnsubscribe && this.props.type !== 'newsletter'
-                ? this.props.intl.formatMessage(messages.unsubscribeFromThe, {
-                    type: this.props.type,
-                  }) +
-                  ' ' +
-                  this.props.intl.formatMessage(messages.notifications)
-                : this.props.isUnsubscribe && this.props.type === 'newsletter'
-                ? this.props.intl.formatMessage(messages.unsubscribeFromThe, {
-                    type: this.props.type,
-                  })
-                : this.props.intl.formatMessage(messages.subscribeToThe, {
-                    type: this.props.type,
-                  })}
+              {this.props.isUnsubscribe &&
+                this.props.intl.formatMessage(messages.unsubscribeFromThe, {
+                  type:
+                    this.props.type === 'events'
+                      ? 'event'
+                      : this.props.type === 'newsletter'
+                      ? 'the newsletter'
+                      : this.props.type,
+                })}
+              {this.props.isUnsubscribe === false &&
+                this.props.intl.formatMessage(messages.subscribeToThe, {
+                  type:
+                    this.props.type === 'events'
+                      ? 'event'
+                      : this.props.type === 'newsletter'
+                      ? 'the newsletter'
+                      : this.props.type,
+                })}{' '}
+              {this.props.type !== 'newsletter' &&
+                this.props.intl.formatMessage(messages.notifications)}
             </h1>
             <Form
               className="ccl-form user-form contact-form"
@@ -290,7 +297,12 @@ class SubscriptionView extends Component {
                       {this.props.intl.formatMessage(
                         messages.emailDescription,
                         {
-                          type: this.props.type,
+                          type:
+                            this.props.type === 'newsletter'
+                              ? 'the newsletter'
+                              : this.props.type === 'events'
+                              ? 'event'
+                              : this.props.type,
                         },
                       )}
                       {this.props.type !== 'newsletter' &&
@@ -308,13 +320,32 @@ class SubscriptionView extends Component {
                       value={this.state.value}
                       onChange={this.handleChange}
                     />
-                    <Button basic primary value="subscribe">
-                      {!this.props.loading ? (
-                        <Icon className="circled" name={aheadSVG} size="30px" />
-                      ) : (
-                        <Loader active inline indeterminate size="small" />
-                      )}
-                    </Button>
+                    {this.state.inputValue === false ||
+                    validator.isEmail(this.state.value) === false ? (
+                      <Button basic primary value="subscribe" disabled>
+                        {!this.props.loading ? (
+                          <Icon
+                            className="circled"
+                            name={aheadSVG}
+                            size="30px"
+                          />
+                        ) : (
+                          <Loader active inline indeterminate size="small" />
+                        )}
+                      </Button>
+                    ) : (
+                      <Button basic primary value="subscribe">
+                        {!this.props.loading ? (
+                          <Icon
+                            className="circled"
+                            name={aheadSVG}
+                            size="30px"
+                          />
+                        ) : (
+                          <Loader active inline indeterminate size="small" />
+                        )}
+                      </Button>
+                    )}
                   </Form.Group>
                 </div>
               </div>
@@ -367,7 +398,8 @@ class SubscriptionView extends Component {
                   }}
                 >
                   {'Click here if you would like to unsubscribe from our'}{' '}
-                  {this.props.type} {'notifications'}
+                  {this.props.type === 'events' ? 'event' : this.props.type}
+                  {this.props.type === 'newsletter' ? '' : ' notifications'}
                 </Link>
               </>
             )}
