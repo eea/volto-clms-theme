@@ -10,7 +10,7 @@ const CclGreenBgView = (props) => {
       <div
         className="ccl-banner-top-main"
         style={{
-          backgroundImage: `url(${data?.image?.url}/@@images/image/large)`,
+          backgroundImage: `url(${data?.image?.url}/@@images/image/huge)`,
         }}
       >
         {isEditMode && <CclHomeImageEditor {...props} />}

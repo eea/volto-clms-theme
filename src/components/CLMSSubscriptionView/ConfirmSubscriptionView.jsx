@@ -111,8 +111,8 @@ class ConfirmSubscriptionView extends Component {
                 type:
                   this.props.type[0].toUpperCase() + this.props.type.slice(1),
                 subscribe_or_unsubscribe: this.props.isUnsubscribe
-                  ? 'unsubscribe'
-                  : 'subscribe',
+                  ? 'unsubscription'
+                  : 'subscription',
               })}
             </h1>
             <div className="event-detail">
@@ -120,8 +120,8 @@ class ConfirmSubscriptionView extends Component {
                 <p>
                   {this.props.intl.formatMessage(messages.description, {
                     subscribe_or_unsubscribe: this.props.isUnsubscribe
-                      ? 'unsubscribe'
-                      : 'subscribe',
+                      ? 'unsubscription'
+                      : 'subscription',
                   })}
                 </p>
               </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import { hasBlocksData } from '@plone/volto/helpers';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
-import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 import { LightGalleryListing } from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CclLightGallery';
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
 import config from '@plone/volto/registry';
@@ -54,7 +54,7 @@ const CLMSNewsItemView = (props) => {
           <h1 className="page-title">{content.title}</h1>
           <div className="news-detail">
             <div className="news-detail-date">
-              {cclDateTimeFormat(content?.effective)}
+              {cclDateFormat(content?.effective)}
             </div>
             {content?.image && (
               <figure className="news-detail-image">

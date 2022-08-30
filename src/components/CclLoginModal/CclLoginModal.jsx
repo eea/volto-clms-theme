@@ -5,6 +5,7 @@ import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
 import config from '@plone/volto/registry';
 import { toPublicURL } from '@plone/volto/helpers/Url/Url';
+import { UniversalLink } from '@plone/volto/components';
 import './ccl-login-modal.css';
 /**
  * Login Modal component doc.
@@ -47,36 +48,56 @@ function CclLoginModal(props) {
       modalStatus={modalStatus}
     >
       <div className="content">
-        <div className="modal-login-title">Registration / Login</div>
+        <div className="modal-login-title">
+          This website uses EU Login for user authentication.
+        </div>
         <div className="modal-login-text">
           <p>
-            This site uses EU Login to handle user registration and login. You
-            can read more about this service in the{' '}
-            <a href="https://ecas.ec.europa.eu/cas/about.html">
-              EU Login site help
-            </a>
+            {' '}
+            EU Login, the European Commission Authentication Service, enables
+            you to access various web applications centrally using the same
+            e-mail and password. You can read more{' '}
+            <UniversalLink
+              openLinkInNewTab
+              href="https://ecas.ec.europa.eu/cas/about.html"
+            >
+              here
+            </UniversalLink>
             .
           </p>
           <p>
             {' '}
-            When you clik on the following link, you will be sent to EU Login
-            and after a successful login there you will be redirected back to
-            this site.
+            If you have EU Login account, please click 'Login using EU Login'.
           </p>
           <p>
-            If you have any issues or questions, please contact us using the
-            <a href="/en/contact-service-helpdesk"> helpdesk</a>.
+            If you don't have EU Login account, please folloe this{' '}
+            <UniversalLink
+              openLinkInNewTab
+              href="https://ecas.ec.europa.eu/cas/eim/external/register.cgi"
+            >
+              link
+            </UniversalLink>{' '}
+            to create it
+          </p>
+          <p>
+            If you have othe questions, please contact our
+            <UniversalLink openLinkInNewTab href="/en/service-desk">
+              {' '}
+              Service desk
+            </UniversalLink>
+            .
           </p>
         </div>
       </div>
       <div className="actions">
         <div className="modal-buttons">
-          <a
+          <UniversalLink
             href={toPublicURL(loginUrl) || '#'}
+            openLinkInNewTab
             className="ccl-button ccl-button-green"
           >
             Login using EU Login
-          </a>
+          </UniversalLink>
         </div>
       </div>
     </CclModal>

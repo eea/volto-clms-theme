@@ -85,6 +85,13 @@ const DataSetInfoContent = (props) => {
           ></CclInfoDescription>
         )}
       </CclInfoContainer>
+      {citation?.data && citation?.data !== '<p><br/></p>' && (
+        <CclCitation
+          title="Citation status"
+          marginBottom={true}
+          children={<StringToHTML string={citation?.data} />}
+        ></CclCitation>
+      )}
       <div className="dataset-info-documents dropdown">
         <div className="accordion-block">
           {renderAccordion(geonetwork_identifiers?.items, libraries) && (
@@ -192,14 +199,6 @@ const DataSetInfoContent = (props) => {
           )}
         </div>
       </div>
-
-      {citation?.data && citation?.data !== '<p><br/></p>' && (
-        <CclCitation
-          title="Citation status"
-          marginBottom={true}
-          children={<StringToHTML string={citation?.data} />}
-        ></CclCitation>
-      )}
     </div>
   );
 };

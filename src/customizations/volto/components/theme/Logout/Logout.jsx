@@ -3,12 +3,11 @@
  * @module components/theme/Logout/Logout
  */
 
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 import { logout, purgeMessages } from '@plone/volto/actions';
-import { Redirect } from 'react-router-dom';
 
 /**
  * Logout class.
@@ -39,7 +38,8 @@ class CclLogout extends Component {
   };
 
   componentDidMount() {
-    this.props.logout();
+    // eslint-disable-next-line no-restricted-globals
+    this.props.logout().then(history.back(1));
     this.props.purgeMessages();
   }
 
@@ -49,7 +49,7 @@ class CclLogout extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    return <Redirect to={'/en'} />;
+    return '';
   }
 }
 

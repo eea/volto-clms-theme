@@ -34,6 +34,10 @@ const DownloadDataSetContent = (data) => {
             >
               Go to download by area
             </CclButton>
+          ) : data.mapviewer_istimeseries === true ? (
+            <CclButton url={location.pathname + '/download-by-area'}>
+              Go to download by area and time
+            </CclButton>
           ) : (
             <CclButton url={location.pathname + '/download-by-area'}>
               Go to download by area
