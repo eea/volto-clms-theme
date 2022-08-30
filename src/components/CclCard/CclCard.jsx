@@ -11,7 +11,7 @@ import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon } from 'semantic-ui-react';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
-import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -194,7 +194,7 @@ function CclCard(props) {
                     {/* <CardLink url={url} title={card?.title} /> */}
                   </div>
                   <div className="card-news-date">
-                    {cclDateTimeFormat(card?.effective)}
+                    {cclDateFormat(card?.effective)}
                   </div>
                   <p className="card-news-description">{card?.description}</p>
                 </div>

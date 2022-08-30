@@ -30,7 +30,6 @@ function CLMSLoginView(props) {
         <h1 className="page-title">Registration / Login</h1>
         <div className="modal-login-text">
           <p>
-            {' '}
             EU Login, the European Commission Authentication Service, enables
             you to access various web applications centrally using the same
             e-mail and password. You can read more{' '}
@@ -43,7 +42,6 @@ function CLMSLoginView(props) {
             .
           </p>
           <p>
-            {' '}
             If you have EU Login account, please click 'Login using EU Login'.
           </p>
           <p>
