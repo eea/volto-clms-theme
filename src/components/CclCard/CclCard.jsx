@@ -184,7 +184,7 @@ function CclCard(props) {
                     <CardImage
                       isCustomCard={isCustomCard}
                       card={card}
-                      size={'mini'}
+                      size={'preview'}
                     />
                   )}
                 </div>
@@ -243,7 +243,7 @@ function CclCard(props) {
                 <CardImage
                   isCustomCard={isCustomCard}
                   card={card}
-                  size={'mini'}
+                  size={'preview'}
                 />
               )}
             </div>
