@@ -408,7 +408,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             {content?.image && (
               <div className="menu-detail-image">
                 <img
-                  src={content?.image?.scales?.mini?.download}
+                  src={content?.image?.scales?.preview?.download}
                   alt="Placeholder"
                 />
               </div>
