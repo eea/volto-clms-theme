@@ -27,8 +27,8 @@ const UniversalLink = ({
   ...props
 }) => {
   const token = useSelector((state) => state.userSession?.token);
-  const user = useSelector((state) => state.users.user);
-
+  const users = useSelector((state) => state.users);
+  const user = users?.user;
   let url = href;
   if (!href && item) {
     if (!item['@id']) {
