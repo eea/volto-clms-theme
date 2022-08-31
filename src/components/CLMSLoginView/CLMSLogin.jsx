@@ -68,7 +68,6 @@ function CLMSLoginView(props) {
         <div className="modal-buttons">
           <UniversalLink
             href={toPublicURL(loginUrl) || '#'}
-            openLinkInNewTab
             className="ccl-button ccl-button-green"
           >
             Login using EU Login
