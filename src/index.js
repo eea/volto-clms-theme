@@ -35,8 +35,6 @@ import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsW
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
 import ImageSizeWidget from './components/Widgets/ImageSizeWidget';
-import { DateWidget } from '@eeacms/volto-widgets-view/components';
-import { getWidgetView } from '@eeacms/volto-widgets-view/helpers';
 
 // CUSTOM REDUCERS IMPORT
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
@@ -90,20 +88,6 @@ const applyConfig = (config) => {
     ...config.widgets.id,
     taxonomy_technical_library_categorization: TaxonomyWidget,
     product_components: ProductComponentsWidget,
-  };
-  config.widgets.views = {
-    getWidget: getWidgetView,
-    id: {
-      effective: DateWidget,
-      ...(config.widgets.views?.id || {}),
-    },
-    widget: {
-      datetime: DateWidget,
-      ...(config.widgets.views?.widget || {}),
-    },
-    type: {
-      ...(config.widgets.views?.type || {}),
-    },
   };
   config.settings = {
     ...config.settings,
