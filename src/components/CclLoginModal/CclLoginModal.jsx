@@ -70,7 +70,7 @@ function CclLoginModal(props) {
             If you have EU Login account, please click 'Login using EU Login'.
           </p>
           <p>
-            If you don't have EU Login account, please folloe this{' '}
+            If you don't have EU Login account, please follow this{' '}
             <UniversalLink
               openLinkInNewTab
               href="https://ecas.ec.europa.eu/cas/eim/external/register.cgi"
