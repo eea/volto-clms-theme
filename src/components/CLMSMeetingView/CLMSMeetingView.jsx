@@ -107,7 +107,7 @@ export const CLMSMeetingView = (props) => {
     dispatch(
       createContent(props.location.pathname, {
         '@type': 'AnonymousForm',
-        title: 'Event Registration',
+        title: 'Meeting Registration',
         id: 'form',
       }),
     );
