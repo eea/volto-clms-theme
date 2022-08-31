@@ -77,7 +77,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                   key={item.id}
                   loading={geonetwork_importation.loading}
                   circular
-                  style={{width:"50%"}}
+                  style={{ width: '50%' }}
                 >
                   <strong>
                     {item.title} (from {item.type}):{' '}
@@ -204,7 +204,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             key={'wms-layers-import'}
             loading={wms_layers_importation?.loading}
             circular
-            style={{width:"50%"}}
+            style={{ width: '50%' }}
           >
             <Modal
               onClose={() => {
@@ -296,7 +296,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             key={'wms-fields-import'}
             loading={wms_fields_importation?.loading}
             circular
-            style={{width:"50%"}}
+            style={{ width: '50%' }}
           >
             <Modal
               onClose={() => {

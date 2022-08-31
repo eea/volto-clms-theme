@@ -293,7 +293,7 @@ export const CLMSMeetingView = (props) => {
         padded={'small'}
         color={'olive'}
         floated="right"
-        style={{marginRight: 0}}
+        style={{ marginRight: 0 }}
       >
         <div className="dataset-info-field">
           <div className="dataset-field-title">
