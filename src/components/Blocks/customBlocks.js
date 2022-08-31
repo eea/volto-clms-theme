@@ -59,8 +59,12 @@ import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/Ccl
 import SubscriptionBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionView';
 import SubscriptionBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionEdit';
 import containerSVG from '@plone/volto/icons/apps.svg';
-import customIdFieldSchema from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema';
-import VocabularyWidget from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/VocabularyWidget';
+import {
+  customIdFieldSchema,
+  CheckboxSchemaExtender,
+  CheckboxHtmlWidget,
+  VocabularyWidget,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import homeBand from '@plone/volto/icons/image-wide.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
@@ -475,6 +479,9 @@ const customBlocks = (config) => ({
   form: {
     ...config.blocks.blocksConfig.form,
     fieldSchema: customIdFieldSchema,
+    fieldTypeSchemaExtenders: {
+      checkbox_html: CheckboxSchemaExtender,
+    },
     additionalFields: [
       {
         id: 'product_vocabulary',
@@ -510,6 +517,11 @@ const customBlocks = (config) => ({
         id: 'image_field_widget',
         label: 'Image Field Widget',
         component: ImageWidget,
+      },
+      {
+        id: 'checkbox_html',
+        label: 'Checkbox with html',
+        component: CheckboxHtmlWidget,
       },
     ],
   },
