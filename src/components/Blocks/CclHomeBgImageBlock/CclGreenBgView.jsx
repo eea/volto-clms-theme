@@ -70,6 +70,7 @@ const CclGreenBgView = (props) => {
                   className="ccl-banner-info-link"
                   href={'' + data?.locationHref?.[0]?.['@id']}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   More info
                 </a>
