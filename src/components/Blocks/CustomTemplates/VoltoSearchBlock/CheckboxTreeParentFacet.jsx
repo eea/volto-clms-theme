@@ -10,7 +10,7 @@ import {
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
-import { checkAllChildren } from './utils';
+import { checkAllChildren, uncheckOptionAndChildren } from './utils';
 
 const hasAllChildrensSelected = (value, childrens) => {
   var result = true;
@@ -92,16 +92,9 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                     ...checkAllChildren(value, option).map((f) => f.value),
                   ])
                 : onChange(id, [
-                    ...value
-                      .filter((item) => item.value !== option.value)
-                      .filter(
-                        (item) =>
-                          option.childrens?.length > 0 &&
-                          !option.childrens
-                            .map((ch) => ch.value)
-                            .includes(item.value),
-                      )
-                      .map((f) => f.value),
+                    ...uncheckOptionAndChildren(value, option).map(
+                      (f) => f.value,
+                    ),
                   ]);
             }}
             label={
