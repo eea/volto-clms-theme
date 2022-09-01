@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
 import config from '@plone/volto/registry';
-import { toPublicURL } from '@plone/volto/helpers/Url/Url';
 import { UniversalLink } from '@plone/volto/components';
 import './ccl-login-modal.css';
 /**
@@ -92,7 +91,7 @@ function CclLoginModal(props) {
       <div className="actions">
         <div className="modal-buttons">
           <UniversalLink
-            href={toPublicURL(loginUrl) || '#'}
+            href={loginUrl || '#'}
             className="ccl-button ccl-button-green"
           >
             Login using EU Login

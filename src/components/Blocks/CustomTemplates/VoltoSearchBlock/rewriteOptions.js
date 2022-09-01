@@ -7,6 +7,7 @@ export const portal_types_labels = {
   WorkOpportunity: 'Job vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
+  Document: 'Page',
 };
 
 export const category_labels = {
@@ -48,6 +49,7 @@ const rewriteOptions = (name, choices) => {
     'WorkOpportunity',
     'Tender',
     'TechnicalLibrary',
+    'Document',
   ];
   if (name === 'portal_type') {
     result = choices
