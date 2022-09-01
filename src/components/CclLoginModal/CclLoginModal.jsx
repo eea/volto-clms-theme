@@ -70,7 +70,7 @@ function CclLoginModal(props) {
             If you have EU Login account, please click 'Login using EU Login'.
           </p>
           <p>
-            If you don't have EU Login account, please folloe this{' '}
+            If you don't have EU Login account, please follow this{' '}
             <UniversalLink
               openLinkInNewTab
               href="https://ecas.ec.europa.eu/cas/eim/external/register.cgi"
@@ -93,7 +93,6 @@ function CclLoginModal(props) {
         <div className="modal-buttons">
           <UniversalLink
             href={toPublicURL(loginUrl) || '#'}
-            openLinkInNewTab
             className="ccl-button ccl-button-green"
           >
             Login using EU Login
