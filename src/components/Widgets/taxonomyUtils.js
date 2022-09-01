@@ -46,5 +46,6 @@ export const structure_taxonomy_terms = (choices) => {
   // });
 
   // return sort_array_items_by_key(options, 'label');
-  return options.reverse();
+  //return options.reverse();
+  return options;
 };
