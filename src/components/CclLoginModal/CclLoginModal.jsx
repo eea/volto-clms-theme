@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
 import config from '@plone/volto/registry';
-import { toPublicURL } from '@plone/volto/helpers/Url/Url';
 import { UniversalLink } from '@plone/volto/components';
 import './ccl-login-modal.css';
 /**
