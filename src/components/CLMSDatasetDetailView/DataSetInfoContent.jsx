@@ -29,7 +29,7 @@ const DataSetInfoContent = (props) => {
   let librariesPending = searchSubrequests?.[id]?.loading;
   const user = useSelector((state) => state.users.user);
   React.useEffect(() => {
-    if (location.hash === '#GeneralInfo' && UID) {
+    if (location.hash === '#General-Info' && UID) {
       dispatch(
         searchContent(
           '',
