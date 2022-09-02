@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
+import { structure_taxonomy_terms } from '@eeacms/volto-clms-theme/components';
 
 const messages = defineMessages({
   currentFilters: {
@@ -14,7 +15,7 @@ const messages = defineMessages({
 });
 
 const FilterList = (props) => {
-  const { facets, setFacets, isEditMode, data } = props;
+  const { facets, setFacets, isEditMode, data, querystring } = props;
   const showFilterList = !Object.values(facets).every((facet) => !facet.length);
 
   const baseFacets = data.facets;
@@ -28,10 +29,44 @@ const FilterList = (props) => {
           baseFacets.map((bf) => bf.field?.value).includes(v[0]),
       ),
   );
+  const fieldsToAvoidChildren = data.facets
+    .filter((item) => item.type === 'checkboxTreeParentFacet')
+    .map((item) => item.field.value);
+  let filtersToAvoid = [];
+  if (querystring.loaded) {
+    filtersToAvoid = fieldsToAvoidChildren
+      .map((field) => {
+        let result = [];
+        const fieldValuesDict = querystring.indexes[field].values;
+        const fieldValues = Object.keys(fieldValuesDict).map((key) => {
+          return { value: key, label: fieldValuesDict[key].title };
+        });
+        const fieldStructuredValues = structure_taxonomy_terms(fieldValues);
+        fieldStructuredValues.forEach((parent) => {
+          parent.childrens.forEach((children) => result.push(children.value));
+        });
+        return result;
+      })
+      .flat(1);
+  }
+  const filtersToAvoidSet = new Set(filtersToAvoid);
 
-  const totalFilters = [].concat.apply([], Object.values(currentFilters))
+  // if (choices?.length > 0) {
+  //   options = structure_taxonomy_terms(choices);
+  // }
+  const currentFiltersToCount = {};
+  Object.keys(currentFilters).forEach((filterKey) => {
+    currentFiltersToCount[filterKey] = currentFilters[filterKey].filter(
+      (filter) => {
+        return !filtersToAvoidSet.has(filter);
+      },
+    );
+  });
+  // const totalFilters = [].concat.apply([], Object.values(currentFilters))
+  //   .length;
+
+  const totalFilters = [].concat.apply([], Object.values(currentFiltersToCount))
     .length;
-
   const intl = useIntl();
 
   return showFilterList && Object.keys(currentFilters).length ? (

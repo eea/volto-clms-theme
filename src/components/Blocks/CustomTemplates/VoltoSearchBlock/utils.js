@@ -7,5 +7,6 @@ export const checkAllChildren = (value, option) => {
       value.push(ch);
     }
   });
+  value.push({ label: option.label, value: option.value });
   return value;
 };
