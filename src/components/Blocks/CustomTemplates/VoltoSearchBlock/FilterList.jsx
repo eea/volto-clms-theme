@@ -29,15 +29,18 @@ const FilterList = (props) => {
           baseFacets.map((bf) => bf.field?.value).includes(v[0]),
       ),
   );
-  const fieldsToAvoidChildren = data.facets
-    .filter((item) => item.type === 'checkboxTreeParentFacet')
-    .map((item) => item.field.value);
+  const fieldsToAvoidChildren =
+    data?.facets?.length > 0
+      ? data.facets
+          .filter((item) => item.type === 'checkboxTreeParentFacet')
+          .map((item) => item.field.value)
+      : [];
   let filtersToAvoid = [];
   if (querystring.loaded) {
     filtersToAvoid = fieldsToAvoidChildren
       .map((field) => {
         let result = [];
-        const fieldValuesDict = querystring.indexes[field].values;
+        const fieldValuesDict = querystring?.indexes[field]?.values;
         const fieldValues = Object.keys(fieldValuesDict).map((fieldKey) => {
           return { value: fieldKey, label: fieldValuesDict[fieldKey].title };
         });
@@ -56,11 +59,12 @@ const FilterList = (props) => {
   // }
   const currentFiltersToCount = {};
   Object.keys(currentFilters).forEach((filterKey) => {
-    currentFiltersToCount[filterKey] = currentFilters[filterKey].filter(
-      (filter) => {
-        return !filtersToAvoidSet.has(filter);
-      },
-    );
+    currentFiltersToCount[filterKey] =
+      typeof currentFilters[filterKey] === 'object'
+        ? currentFilters[filterKey].filter((filter) => {
+            return !filtersToAvoidSet.has(filter);
+          })
+        : null;
   });
   // const totalFilters = [].concat.apply([], Object.values(currentFilters))
   //   .length;
