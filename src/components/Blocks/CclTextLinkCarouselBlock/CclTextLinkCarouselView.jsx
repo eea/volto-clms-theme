@@ -1,5 +1,6 @@
 import React from 'react';
 import loadable from '@loadable/component';
+import { UniversalLink } from '@plone/volto/components';
 const Slider = loadable(() => import('react-slick'));
 
 const CclTextLinkCarouselView = (props) => {
@@ -24,7 +25,14 @@ const CclTextLinkCarouselView = (props) => {
           {data?.textLink?.items.map((item, index) => (
             <div className="text-link-carousel-block" key={index}>
               <div className="text-link-carousel-block-content">
-                <a href={'' + item?.link?.[0]?.['@id']}>{item?.text}</a>
+                <UniversalLink
+                  openLinkInNewTab={true}
+                  href={'' + item?.link?.[0]?.['@id']}
+                >
+                  {item?.text}
+                </UniversalLink>
+
+                {/* <a href={'' + item?.link?.[0]?.['@id']}>{item?.text}</a> */}
               </div>
             </div>
           ))}
