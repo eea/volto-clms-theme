@@ -90,12 +90,9 @@ function CclLoginModal(props) {
       </div>
       <div className="actions">
         <div className="modal-buttons">
-          <UniversalLink
-            href={loginUrl || '#'}
-            className="ccl-button ccl-button-green"
-          >
+          <a href={loginUrl || '#'} className="ccl-button ccl-button-green">
             Login using EU Login
-          </UniversalLink>
+          </a>
         </div>
       </div>
     </CclModal>
