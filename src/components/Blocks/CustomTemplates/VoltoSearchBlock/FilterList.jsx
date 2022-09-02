@@ -38,8 +38,8 @@ const FilterList = (props) => {
       .map((field) => {
         let result = [];
         const fieldValuesDict = querystring.indexes[field].values;
-        const fieldValues = Object.keys(fieldValuesDict).map((key) => {
-          return { value: key, label: fieldValuesDict[key].title };
+        const fieldValues = Object.keys(fieldValuesDict).map((fieldKey) => {
+          return { value: fieldKey, label: fieldValuesDict[fieldKey].title };
         });
         const fieldStructuredValues = structure_taxonomy_terms(fieldValues);
         fieldStructuredValues.forEach((parent) => {
