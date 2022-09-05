@@ -31,6 +31,13 @@ body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-ano
   overflow: hidden;
 }
 
+body.view-editview main,
+body.view-addview main,
+body.document_wide_view main,
+body.is-anonymous main {
+  overflow: visible !important;
+}
+
 /* detect if is logged in but in view with toolbar open */
 body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous)
   .stretch {
