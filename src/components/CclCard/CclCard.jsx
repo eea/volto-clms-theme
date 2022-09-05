@@ -140,6 +140,9 @@ function CclCard(props) {
                 </div>
                 <div className="card-text">
                   <CardLink url={url}>{card?.title}</CardLink>
+                  <div className="news-detail-date">
+                    {cclDateFormat(card?.effective)}
+                  </div>
                   <div className="card-description">{card?.description}</div>
                   {children}
                 </div>

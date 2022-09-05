@@ -29,7 +29,7 @@ const DataSetInfoContent = (props) => {
   let librariesPending = searchSubrequests?.[id]?.loading;
   const user = useSelector((state) => state.users.user);
   React.useEffect(() => {
-    if (location.hash === '#GeneralInfo' && UID) {
+    if (location.hash === '#General-Info' && UID) {
       dispatch(
         searchContent(
           '',
@@ -66,7 +66,6 @@ const DataSetInfoContent = (props) => {
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
   }
-
   return (
     <div>
       {validation?.data && validation?.data !== '<p><br/></p>' && (
@@ -79,8 +78,8 @@ const DataSetInfoContent = (props) => {
       <CclInfoContainer>
         {dataResourceAbstract?.data && (
           <CclInfoDescription
-            title="Data resource abstract"
-            description={<StringToHTML string={dataResourceAbstract.data} />}
+            title="Overview"
+            description={<StringToHTML string={props.description} />}
             tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
           ></CclInfoDescription>
         )}
