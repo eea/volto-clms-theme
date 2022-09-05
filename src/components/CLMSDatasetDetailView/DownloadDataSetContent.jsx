@@ -1,7 +1,7 @@
 import React from 'react';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Redirect } from 'react-router-dom';
 
 const DownloadDataSetContent = (data) => {
   let url = '/register';
@@ -9,6 +9,12 @@ const DownloadDataSetContent = (data) => {
 
   return (
     <div>
+      {data.downloadable_files?.items[0].path === '' &&
+      location.hash === '#Download' ? (
+        <Redirect to={location.pathname + '/download-by-area'} />
+      ) : (
+        ''
+      )}
       {data.token === '' && (
         <div className="login-block">
           <div className="login-content">

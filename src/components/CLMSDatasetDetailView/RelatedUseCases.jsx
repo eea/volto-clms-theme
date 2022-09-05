@@ -14,7 +14,7 @@ const RelatedUseCases = (props) => {
   let librariesPending = searchSubrequests?.[id]?.loading;
   const location = useLocation();
   React.useEffect(() => {
-    if (location.hash === '#Usecases' && UID) {
+    if (location.hash === '#Use-cases' && UID) {
       dispatch(
         searchContent(
           '',

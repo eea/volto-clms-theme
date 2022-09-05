@@ -14,22 +14,14 @@ import { useLocation } from 'react-router-dom';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
-  const {
-    UID,
-    id,
-    validation,
-    dataResourceAbstract,
-    data,
-    geonetwork_identifiers,
-    citation,
-  } = props;
+  const { UID, id, validation, data, geonetwork_identifiers, citation } = props;
   const location = useLocation();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
   const user = useSelector((state) => state.users.user);
   React.useEffect(() => {
-    if (location.hash === '#GeneralInfo' && UID) {
+    if (location.hash === '#General-Info' && UID) {
       dispatch(
         searchContent(
           '',
@@ -66,7 +58,6 @@ const DataSetInfoContent = (props) => {
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
   }
-
   return (
     <div>
       {validation?.data && validation?.data !== '<p><br/></p>' && (
@@ -77,11 +68,9 @@ const DataSetInfoContent = (props) => {
         ></CclCitation>
       )}
       <CclInfoContainer>
-        {dataResourceAbstract?.data && (
+        {props?.description && (
           <CclInfoDescription
-            title="Data resource abstract"
-            description={<StringToHTML string={dataResourceAbstract.data} />}
-            tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
+            description={<StringToHTML string={props.description} />}
           ></CclInfoDescription>
         )}
       </CclInfoContainer>
