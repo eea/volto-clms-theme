@@ -76,11 +76,9 @@ const DataSetInfoContent = (props) => {
         ></CclCitation>
       )}
       <CclInfoContainer>
-        {dataResourceAbstract?.data && (
+        {props?.description && (
           <CclInfoDescription
-            title="Overview"
             description={<StringToHTML string={props.description} />}
-            tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
           ></CclInfoDescription>
         )}
       </CclInfoContainer>
