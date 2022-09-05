@@ -102,12 +102,14 @@ const FileWidget = (props) => {
     readAsDataURL(file).then((data) => {
       const fields = data.match(/^data:(.*);(.*),(.*)$/);
       if (
-        fields[0] !== 'image/png' ||
-        'image/jpeg' ||
-        'image/webp' ||
-        'image/jpg' ||
-        'image/gif' ||
-        'image/svg+xml'
+        fields[0].indexOf(
+          'image/png' ||
+            'image/jpeg' ||
+            'image/webp' ||
+            'image/jpg' ||
+            'image/gif' ||
+            'image/svg+xml',
+        ) <= -1
       ) {
         // eslint-disable-next-line no-alert
         alert(intl.formatMessage(messages.invalid_file));
