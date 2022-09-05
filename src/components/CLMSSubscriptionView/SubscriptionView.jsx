@@ -40,8 +40,8 @@ const messages = defineMessages({
     defaultMessage: 'E-mail',
   },
   emailDescription: {
-    id: 'We will use this address to send you the {type}',
-    defaultMessage: 'We will use this address to send you {type} ',
+    id: 'We will use this e-mail address to send you the {type}',
+    defaultMessage: 'We will use this e-mail address to send you {type} ',
   },
   saved: {
     id: 'Changes saved',
