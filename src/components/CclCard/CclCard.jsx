@@ -139,11 +139,12 @@ function CclCard(props) {
                   <Icon name="file alternate outline" />
                 </div>
                 <div className="card-text">
-                  <CardLink url={url}>{card?.title}</CardLink>
-                  <div className="news-detail-date">
+                  <div className="card-file-title">
+                    <CardLink url={url}>{card?.title}</CardLink>
+                  </div>
+                  <div className="card-file-date">
                     {cclDateFormat(card?.effective)}
                   </div>
-                  <div className="card-description">{card?.description}</div>
                   {children}
                 </div>
               </>
