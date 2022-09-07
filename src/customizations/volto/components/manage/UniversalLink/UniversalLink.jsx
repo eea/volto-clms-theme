@@ -27,8 +27,6 @@ const UniversalLink = ({
   ...props
 }) => {
   const token = useSelector((state) => state.userSession?.token);
-  const users = useSelector((state) => state.users);
-  const user = users?.user;
   let url = href;
   if (!href && item) {
     if (!item['@id']) {
@@ -51,10 +49,7 @@ const UniversalLink = ({
       }
 
       //case: item of type 'File'
-      if (
-        !user?.roles?.includes('Manager') &&
-        config.settings.downloadableObjects.includes(item['@type'])
-      ) {
+      if (config.settings.downloadableObjects.includes(item['@type'])) {
         url = `${url}/@@download/file`;
       }
 
@@ -66,7 +61,6 @@ const UniversalLink = ({
       }
     }
   }
-
   const isBlacklisted =
     (config.settings.externalRoutes ?? []).find((route) =>
       matchPath(flattenToAppURL(url), route.match),
@@ -75,6 +69,10 @@ const UniversalLink = ({
   const isDownload = (!isExternal && url.includes('@@download')) || download;
   const isDisplayFile =
     (!isExternal && url.includes('@@display-file')) || false;
+
+  const isFile = config.settings.downloadableObjects.includes(item?.['@type'])
+    ? true
+    : false;
 
   const checkedURL = URLUtils.checkAndNormalizeUrl(url);
 
@@ -92,18 +90,14 @@ const UniversalLink = ({
     </Link>
   );
 
-  if (isExternal) {
+  if (isExternal || isFile) {
     tag = (
       <a
         href={url}
         title={title}
-        target={
-          !checkedURL.isMail &&
-          !checkedURL.isTelephone &&
-          !(openLinkInNewTab === false)
-            ? '_blank'
-            : null
-        }
+        target={!checkedURL.isMail && !checkedURL.isTelephone ? '_blank' : null}
+        download={isFile ? true : false}
+        openLinkInNewTab={true}
         rel="noopener noreferrer"
         className={className}
         {...props}
@@ -115,7 +109,7 @@ const UniversalLink = ({
     tag = (
       <a
         href={flattenToAppURL(url)}
-        download
+        download={true}
         title={title}
         className={className}
         {...props}
