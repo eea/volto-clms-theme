@@ -49,30 +49,30 @@ const CardLink = ({ url, children, className, condition = true }) => {
 const DocCard = ({ card, url, showEditor, children }) => {
   return (
     <>
-      <div className="card-doc-title">
-        {card?.Type === 'TechnicalLibrary' ? (
-          <a href={`${card['@id']}/@@download/file`}>{card?.title}</a>
-        ) : (
-          <Link to={url}>{card?.title}</Link>
-        )}
-        {card?.Type === 'TechnicalLibrary' && showEditor && (
-          <Link to={`${url}/edit`}>
-            <Icon
-              name={penSVG}
-              size="15px"
-              className="circled"
-              title={'Edit'}
-            />
-          </Link>
-        )}
-      </div>
-      <div className="card-doc-text">
-        <div className="doc-description">{card?.description}</div>
+      <div className="card-doc-header">
+        <div className="card-doc-title">
+          {card?.Type === 'TechnicalLibrary' ? (
+            <a href={`${card['@id']}/@@download/file`}>{card?.title}</a>
+          ) : (
+            <Link to={url}>{card?.title}</Link>
+          )}
+          {card?.Type === 'TechnicalLibrary' && showEditor && (
+            <Link to={`${url}/edit`}>
+              <Icon
+                name={penSVG}
+                size="15px"
+                className="circled"
+                title={'Edit'}
+              />
+            </Link>
+          )}
+        </div>
         {card?.Type === 'TechnicalLibrary' && (
           <div className="card-doc-size">{card.getObjSize || ''}</div>
         )}
-        {children}
       </div>
+      <div className="card-doc-description">{card?.description}</div>
+      {children}
     </>
   );
 };
@@ -139,11 +139,14 @@ function CclCard(props) {
                   <Icon name="file alternate outline" />
                 </div>
                 <div className="card-text">
-                  <CardLink url={url}>{card?.title}</CardLink>
-                  <div className="news-detail-date">
-                    {cclDateFormat(card?.effective)}
+                  <div className="card-file-title">
+                    <CardLink url={url}>{card?.title}</CardLink>
                   </div>
-                  <div className="card-description">{card?.description}</div>
+                  <div className="card-file-date">
+                    {card?.effective
+                      ? cclDateFormat(card?.effective)
+                      : cclDateFormat(card?.created)}
+                  </div>
                   {children}
                 </div>
               </>
