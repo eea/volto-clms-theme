@@ -68,7 +68,6 @@
 
 .ccl-banner-top-bar {
   height: 2rem;
-  padding: 0 1rem;
   border-top: 1px solid #6c6e73;
   border-bottom: 1px solid #6c6e73;
   background-color: #a0b128;
@@ -91,13 +90,13 @@
 }
 
 .ccl-banner-top-bar .ccl-container .ccl-banner-top-bar-right {
-  margin-left: 0.5rem;
   cursor: pointer;
 }
 
 .ccl-banner-top-bar .ccl-container {
   display: flex;
   height: 100%;
+  padding: 0 2rem;
   align-items: center;
   justify-content: space-between;
 }

@@ -496,7 +496,7 @@
 .ccl-banner-info {
   position: absolute;
   z-index: 1;
-  right: 0;
+  right: 2rem;
   bottom: 2rem;
   display: none;
   width: 100%;
@@ -524,9 +524,7 @@
 }
 
 .ccl-banner-info-link {
-  display: inline-block;
-  width: 100%;
-  text-align: right;
+  float: right;
 }
 
 .tabs-block > .styled {

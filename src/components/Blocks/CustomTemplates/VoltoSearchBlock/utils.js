@@ -7,6 +7,17 @@ export const checkAllChildren = (value, option) => {
       value.push(ch);
     }
   });
-  value.push({ label: option.label, value: option.value });
-  return value;
+  return [...value, { label: option.label, value: option.value }];
+};
+
+export const uncheckOptionAndChildren = (value, option) => {
+  return value
+    .filter((item) => item.value !== option.value)
+    .filter((item) => {
+      if (option.childrens?.length > 0) {
+        return !option.childrens.map((ch) => ch.value).includes(item.value);
+      } else {
+        return true;
+      }
+    });
 };

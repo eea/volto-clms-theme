@@ -7,6 +7,7 @@ export const portal_types_labels = {
   WorkOpportunity: 'Job vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
+  Document: 'Page',
 };
 
 export const category_labels = {
@@ -48,6 +49,7 @@ const rewriteOptions = (name, choices) => {
     'WorkOpportunity',
     'Tender',
     'TechnicalLibrary',
+    'Document',
   ];
   if (name === 'portal_type') {
     result = choices
@@ -76,6 +78,20 @@ const rewriteOptions = (name, choices) => {
           return 1;
         }
         return 0;
+      });
+  }
+  if (name === 'taxonomy_technical_library_categorization') {
+    result = choices
+      .sort((a, b) => {
+        if (a.label < b.label) {
+          return -1;
+        } else if (a.label > b.label) {
+          return 1;
+        }
+        return 0;
+      })
+      .map((opt) => {
+        return { ...opt, label: opt.label.replace(/^[0-9][0-9]#/, '') };
       });
   }
   if (name === 'gemet') {

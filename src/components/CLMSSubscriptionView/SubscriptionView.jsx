@@ -121,7 +121,7 @@ class SubscriptionView extends Component {
     this.state = {
       value: '',
       type_conf: null,
-      inputValue: false,
+      inputValue: this.props.isUnsubscribe ? true : false,
     };
   }
 

@@ -14,15 +14,7 @@ import { useLocation } from 'react-router-dom';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
-  const {
-    UID,
-    id,
-    validation,
-    dataResourceAbstract,
-    data,
-    geonetwork_identifiers,
-    citation,
-  } = props;
+  const { UID, id, validation, data, geonetwork_identifiers, citation } = props;
   const location = useLocation();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
@@ -76,11 +68,9 @@ const DataSetInfoContent = (props) => {
         ></CclCitation>
       )}
       <CclInfoContainer>
-        {dataResourceAbstract?.data && (
+        {props?.description && (
           <CclInfoDescription
-            title="Overview"
             description={<StringToHTML string={props.description} />}
-            tooltip="Brief narrative summary of the content of the resource(s) with coverage, main attributes, data sources, important of the work, etc."
           ></CclInfoDescription>
         )}
       </CclInfoContainer>
