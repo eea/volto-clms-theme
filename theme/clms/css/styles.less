@@ -908,6 +908,20 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   box-shadow: 0px 0px 4px 0px #dadada;
 }
 
+.dataset-download-table .ui.checkbox input:checked ~ label:before,
+.dataset-download-table .ui.checkbox input:checked:focus ~ label:before {
+  border-color: #a0b128;
+}
+
+.dataset-download-table .ui.checkbox input:checked ~ label:after,
+.dataset-download-table .ui.checkbox input:checked:focus ~ label:after {
+  color: #a0b128;
+}
+
+.dataset-download-table .segment .button svg {
+  vertical-align: middle;
+}
+
 /* Downloads */
 .download-block {
   position: relative;

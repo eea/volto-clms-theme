@@ -355,7 +355,7 @@ const CLMSCartContent = (props) => {
                         <td>{contentOrDash(item.name)}</td>
                       )}
                       <td>{contentOrDash(item.source)}</td>
-                      <td>
+                      <td style={{wordBreak:"break-word"}}>
                         <AreaNaming item={item} />
                       </td>
                       <td>
