@@ -266,6 +266,16 @@
   border-color: #a0b128 !important;
 }
 
+.ccl-form .ui.checkbox input:checked ~ label:before,
+.ccl-form .ui.checkbox input:checked:focus ~ label:before {
+  border-color: #a0b128;
+}
+
+.ccl-form .ui.checkbox input:checked ~ label:after,
+.ccl-form .ui.checkbox input:checked:focus ~ label:after {
+  color: #a0b128;
+}
+
 .ccl-form
   .ccl-checkbox[type='checkbox']:checked
   + .ccl-form-check-label:before {

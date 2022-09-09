@@ -86,7 +86,7 @@ p {
 }
 
 li {
-  margin-left: 1.125rem;
+  margin-left: 1.25rem;
   font-size: 1.125rem;
   line-height: 1.6875rem;
 }
@@ -901,6 +901,25 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
 .dataset-download-table .ui.message {
   left: 25%;
   width: 50%;
+  background-color: #F8F8F9;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0px 0px 4px 0px #dadada;
+}
+
+.dataset-download-table .ui.checkbox input:checked ~ label:before,
+.dataset-download-table .ui.checkbox input:checked:focus ~ label:before {
+  border-color: #a0b128;
+}
+
+.dataset-download-table .ui.checkbox input:checked ~ label:after,
+.dataset-download-table .ui.checkbox input:checked:focus ~ label:after {
+  color: #a0b128;
+}
+
+.dataset-download-table .segment .button svg {
+  vertical-align: middle;
 }
 
 /* Downloads */
