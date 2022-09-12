@@ -79,7 +79,7 @@ function CclLoginModal(props) {
             to create it
           </p>
           <p>
-            If you have othe questions, please contact our
+            If you have other questions, please contact our
             <UniversalLink openLinkInNewTab href="/en/service-desk">
               {' '}
               Service desk
