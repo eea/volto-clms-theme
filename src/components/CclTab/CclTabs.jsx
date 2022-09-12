@@ -34,7 +34,9 @@ const CclTabs = (props) => {
     const hash = window.location.hash.substring(1) || '';
     const firstTab = children.filter((item) => !!item?.props?.tabTitle)[0];
     if (routing) {
-      if (hash) {
+      if (hash.startsWith('b_size')) {
+        setActiveTab(firstTab.props?.tabTitle?.split(' ').join('-'));
+      } else if (hash) {
         setActiveTab(hash);
       } else {
         setActiveTab(firstTab.props?.tabTitle?.split(' ').join('-'));
