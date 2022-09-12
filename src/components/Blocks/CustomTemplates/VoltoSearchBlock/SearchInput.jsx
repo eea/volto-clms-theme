@@ -25,6 +25,7 @@ const SearchInput = (props) => {
   useEffect(() => {
     onTriggerSearch(rest.searchedText);
     setSearchText(rest.searchedText);
+    return () => {};
   }, [rest.searchedText, onTriggerSearch, setSearchText]);
 
   return (

@@ -63,19 +63,6 @@ const messages = defineMessages({
     id: 'form_field_type_static_text',
     defaultMessage: 'Static text',
   },
-  field_input_values: {
-    id: 'form_field_input_values',
-    defaultMessage: 'Possible values',
-  },
-  useAsReplyTo: {
-    id: 'form_useAsReplyTo',
-    defineMessages: "Use as 'reply to'",
-  },
-  useAsReplyTo_description: {
-    id: 'form_useAsReplyTo_description',
-    defineMessages:
-      'If selected, this will be the address the receiver can use to reply.',
-  },
   field_custom_id: {
     id: 'field_custom_id',
     defineMessages: 'Field Custom Id',
@@ -107,14 +94,11 @@ export default (props) => {
           ),
         }
       : {};
-  var fieldTypeChoices = [
-    'select',
-    'single_choice',
-    'multiple_choice',
-  ].includes(props?.field_type)
-    ? ['input_values']
-    : [];
-  var useAsReplyTo = props?.field_type === 'from' ? ['use_as_reply_to'] : [];
+  var schemaExtender =
+    config.blocks.blocksConfig.form.fieldTypeSchemaExtenders[props?.field_type];
+  const schemaExtenderValues = schemaExtender
+    ? schemaExtender(intl)
+    : { properties: [], fields: [], required: [] };
   return {
     title: props?.label || '',
     fieldsets: [
@@ -125,8 +109,7 @@ export default (props) => {
           'label',
           'description',
           'field_type',
-          ...fieldTypeChoices,
-          ...useAsReplyTo,
+          ...schemaExtenderValues.fields,
           'required',
           'field_custom_id',
         ],
@@ -151,27 +134,22 @@ export default (props) => {
         ],
         ...attachmentDescription,
       },
-      input_values: {
-        title: intl.formatMessage(messages.field_input_values),
-        type: 'array',
-        creatable: true,
-      },
-      use_as_reply_to: {
-        title: intl.formatMessage(messages.useAsReplyTo),
-        description: intl.formatMessage(messages.useAsReplyTo_description),
-        type: 'boolean',
-        default: false,
-      },
       required: {
         title: intl.formatMessage(messages.field_required),
         type: 'boolean',
         default: false,
       },
+      ...schemaExtenderValues.properties,
       field_custom_id: {
         title: intl.formatMessage(messages.field_custom_id),
         send_to_backend: true,
       },
     },
-    required: ['label', 'field_type', 'input_values', ...fieldTypeChoices],
+    required: [
+      'label',
+      'field_type',
+      'input_values',
+      ...schemaExtenderValues.required,
+    ],
   };
 };

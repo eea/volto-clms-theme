@@ -4,7 +4,7 @@ export const portal_types_labels = {
   'News Item': 'News',
   'eea.meeting': 'Event',
   UseCase: 'Use case',
-  WorkOpportunity: 'Job vacancy',
+  WorkOpportunity: 'Vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
   Document: 'Page',
@@ -93,6 +93,16 @@ const rewriteOptions = (name, choices) => {
       .map((opt) => {
         return { ...opt, label: opt.label.replace(/^[0-9][0-9]#/, '') };
       });
+  }
+  if (name === 'gemet') {
+    result = choices.sort((a, b) => {
+      if (a.label.toLowerCase() < b.label.toLowerCase()) {
+        return -1;
+      } else if (a.label.toLowerCase() > b.label.toLowerCase()) {
+        return 1;
+      }
+      return 0;
+    });
   }
   return result;
 };
