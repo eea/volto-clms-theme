@@ -4,7 +4,7 @@ export const portal_types_labels = {
   'News Item': 'News',
   'eea.meeting': 'Event',
   UseCase: 'Use case',
-  WorkOpportunity: 'Job vacancy',
+  WorkOpportunity: 'Vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
   Document: 'Page',
