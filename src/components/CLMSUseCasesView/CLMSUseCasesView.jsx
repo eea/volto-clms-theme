@@ -99,11 +99,11 @@ const CLMSUseCaseView = (props) => {
                 {content?.outcome}
               </p>
             )}
-            {content?.geographicCoverage.length > 0 && (
+            {content?.taxonomy_use_case_spatial_coverage.length > 0 && (
               <>
                 <strong>{'Geographic coverage: '}</strong>
                 <ul>
-                  {content?.geographicCoverage.map(
+                  {content?.taxonomy_use_case_spatial_coverage.map(
                     (geographicCoverage, key) => (
                       <li key={key}>
                         <strong>{geographicCoverage.title}</strong>
