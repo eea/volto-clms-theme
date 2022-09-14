@@ -509,7 +509,7 @@ const customBlocks = (config) => ({
         component: (props) =>
           VocabularyWidget({
             ...props,
-            vocabulary: 'clms.types.UseCaseSpatialCoverageVocabulary',
+            vocabulary: 'collective.taxonomy.use_case_spatial_coverage',
             isMulti: true,
           }),
       },
