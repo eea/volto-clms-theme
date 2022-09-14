@@ -12,8 +12,8 @@ import { toast } from 'react-toastify';
 
 const messages = defineMessages({
   suscriptionConfirm: {
-    id: '{type} {subscribe_or_unsubscribe} confirm',
-    defaultMessage: '{type} {subscribe_or_unsubscribe} confirm',
+    id: '{type} {subscribe_or_unsubscribe} confirmation',
+    defaultMessage: '{type} {subscribe_or_unsubscribe} confirmation',
   },
   description: {
     id: 'Click on the button bellow to confirm your {subscribe_or_unsubscribe}',
