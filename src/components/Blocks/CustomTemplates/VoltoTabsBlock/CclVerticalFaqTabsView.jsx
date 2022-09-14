@@ -14,6 +14,10 @@ import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 const CclVerticalFaqTabsView = (props) => {
   const { metadata = {}, tabsList = [] } = props;
 
+  function isSpan(subTab, nextSubTab) {
+    return subTab === false && nextSubTab !== false;
+  }
+
   const PanelsComponent = () => {
     const { activeTab = null, tabs = {} } = props;
     return (
@@ -52,26 +56,37 @@ const CclVerticalFaqTabsView = (props) => {
           {tabsList.map((tab, index) => {
             const { activeTab = null, tabs = {}, setActiveTab } = props;
             const title = tabs[tab].title;
+            const subTab = tabs[tab]?.subTab?.subtab || false;
             const tabIndex = index + 1;
+            const nextSubTab =
+              tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
             const defaultTitle = `Tab ${tabIndex}`;
             return (
               <div
                 key={index}
                 id={tabIndex}
-                className={cx('card', tab === activeTab && 'active')}
+                className={cx(
+                  'card',
+                  tab === activeTab && 'active',
+                  subTab && 'subcard',
+                )}
               >
-                <NavLink
-                  to={'#tab=' + tabIndex}
-                  className="collapsed"
-                  onClick={(e) => {
-                    handleActive(activeTab, tab, setActiveTab);
-                  }}
-                  onKeyDown={() => {
-                    handleActive(activeTab, tab, setActiveTab);
-                  }}
-                >
-                  {title || defaultTitle}
-                </NavLink>
+                {isSpan(subTab, nextSubTab) ? (
+                  <span>{title || defaultTitle}</span>
+                ) : (
+                  <NavLink
+                    to={'#tab=' + tabIndex}
+                    className="collapsed"
+                    onClick={(e) => {
+                      handleActive(activeTab, tab, setActiveTab);
+                    }}
+                    onKeyDown={() => {
+                      handleActive(activeTab, tab, setActiveTab);
+                    }}
+                  >
+                    {title || defaultTitle}
+                  </NavLink>
+                )}
               </div>
             );
           })}
