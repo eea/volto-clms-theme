@@ -40,6 +40,7 @@ const CLMSUseCaseView = (props) => {
     if (content?.topics.length > 0) {
       dispatch(getVocabulary({ vocabNameOrURL: TOPICS_VOCABULARY_NAME }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, dispatch]);
 
   const vocabItems = useSelector((state) =>
