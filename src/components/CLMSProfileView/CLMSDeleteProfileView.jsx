@@ -34,7 +34,7 @@ export const CLMSDeleteProfileView = (props) => {
     <Container>
       <div>
         <h1 className="page-title">Delete your profile</h1>
-        <p>Click in the button bellow to your profile.</p>
+        <p>Click in the button bellow to delete your profile.</p>
 
         <CclButton
           to="profile#Delete-profile"
@@ -43,7 +43,7 @@ export const CLMSDeleteProfileView = (props) => {
             handleClick();
           }}
         >
-          Delete
+          Delete my account
         </CclButton>
       </div>
     </Container>
