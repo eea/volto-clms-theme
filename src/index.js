@@ -47,6 +47,9 @@ import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 // import Login from '@plone/volto/components/Login';
 
+// custom link plugin for slate link inserter
+import installEditor from 'volto-slate/editor/plugins/Link';
+
 const applyConfig = (config) => {
   config.views = {
     ...config.views,
@@ -257,6 +260,9 @@ const applyConfig = (config) => {
     ...config.addonReducers,
     ...reducers,
   };
+
+  config = installEditor(config);
+
   return config;
 };
 export default applyConfig;
