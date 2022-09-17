@@ -17,6 +17,7 @@ import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
 import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { useSelector } from 'react-redux';
+import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
@@ -194,7 +195,11 @@ function CclDownloadTable(props) {
           datasets from this website. If you are looking for older versions
           please contact us.
         </p>
-        {dataset?.description && <p>{dataset?.description}</p>}
+
+        {dataset?.download_page_information.data && (
+          <StringToHTML string={dataset?.download_page_information.data} />
+        )}
+
         <Segment basic>
           {prePackagedCollection.length > 10 && (
             <div className="block search">
