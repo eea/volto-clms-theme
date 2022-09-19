@@ -71,6 +71,8 @@ import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
+import TextWidget from '../../customizations/volto/components/manage/Widgets/TextWidget';
+import TextareaWidget from '../../customizations/volto/components/manage/Widgets/TextareaWidget';
 
 export const customGroupBlocksOrder = [
   {
@@ -522,6 +524,16 @@ const customBlocks = (config) => ({
         id: 'checkbox_html',
         label: 'Checkbox with html',
         component: CheckboxHtmlWidget,
+      },
+      {
+        id: 'text_widget',
+        label: 'CCL Text Widget',
+        component: TextWidget,
+      },
+      {
+        id: 'text_area_widget',
+        label: 'CCL Text Area Widget',
+        component: TextareaWidget,
       },
     ],
   },
