@@ -725,7 +725,7 @@
 
 .ccl-header-main-menu li {
   font-size: 1.125rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 /* Language */
