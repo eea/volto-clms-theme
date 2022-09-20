@@ -146,6 +146,15 @@ a:hover,
 
 /* Container */
 
+/* CLMS-1356 */
+@media only screen and (max-width: 768px) {
+  .ccl-container {
+    width: auto!important;
+    margin-right: 1em!important;
+    margin-left: 1em!important;
+  }
+}
+
 .ccl-container {
   max-width: 1400px;
   margin-right: auto;
@@ -556,7 +565,7 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   font-size: 1.125rem;
 }
 
-/* Downloads cart */
+/* Downloads cart CLMS-1357 */
 @media only screen and (max-width: 500px) {
   .center.aligned.middle.aligned.two.wide.column {
     padding:0px;
