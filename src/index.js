@@ -35,7 +35,8 @@ import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsW
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
 import ImageSizeWidget from './components/Widgets/ImageSizeWidget';
-import { DateWidget } from '@eeacms/volto-widgets-view/components';
+import { CLMSDateWidget } from './components/Widgets/CLMSDateWidget';
+// import { DateWidget } from '@eeacms/volto-widgets-view/components';
 import { getWidgetView } from '@eeacms/volto-widgets-view/helpers';
 
 // CUSTOM REDUCERS IMPORT
@@ -94,11 +95,11 @@ const applyConfig = (config) => {
   config.widgets.views = {
     getWidget: getWidgetView,
     id: {
-      effective: DateWidget,
+      effective: CLMSDateWidget,
       ...(config.widgets.views?.id || {}),
     },
     widget: {
-      datetime: DateWidget,
+      datetime: CLMSDateWidget,
       ...(config.widgets.views?.widget || {}),
     },
     type: {
@@ -256,6 +257,7 @@ const applyConfig = (config) => {
     ...config.addonReducers,
     ...reducers,
   };
+
   return config;
 };
 export default applyConfig;

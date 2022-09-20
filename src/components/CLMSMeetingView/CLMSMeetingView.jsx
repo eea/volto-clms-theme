@@ -2,7 +2,7 @@ import './meetingstyles.less';
 
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Header, Image, Message, Segment } from 'semantic-ui-react';
-import { Icon, Toast } from '@plone/volto/components';
+import { Icon, Toast, UniversalLink } from '@plone/volto/components';
 import {
   Recurrence,
   When,
@@ -326,20 +326,22 @@ export const CLMSMeetingView = (props) => {
             )}
           </div>
         </div>
-        {content.location && (
+        {content.meeting_type.title !== 'Webinar' && content.location && (
           <>
             <div className="dataset-info-field">
               <div className="dataset-field-title">
                 <Header>{intl.formatMessage(messages.where)}</Header>
               </div>
               <div className="dataset-field-description">
-                <a
+                {/* Do not show in case of webinar */}
+                <UniversalLink
+                  openLinkInNewTab
                   title="View on map"
                   itemProp="location"
                   href={`http://maps.google.com?q=${content.location}`}
                 >
                   {content.location}
-                </a>
+                </UniversalLink>
               </div>
             </div>
           </>
