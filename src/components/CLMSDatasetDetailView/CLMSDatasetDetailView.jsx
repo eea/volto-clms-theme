@@ -1,31 +1,31 @@
-/**
- * Full view component.
- * @module components/theme/View/CLMSDatasetDetailView
- */
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { Modal, Segment } from 'semantic-ui-react';
 
+import { getUser } from '@plone/volto/actions';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
   DataSetInfoContent,
   DownloadDataSetContent,
-  RelatedNews,
-  RelatedUseCases,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
-import { Modal, Segment } from 'semantic-ui-react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+
 import {
   postImportGeonetwork,
   postImportWMSLayers,
   postImportWMSFields,
 } from '../../actions';
 
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { compose } from 'redux';
-import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
-import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+
+/**
+ * Full view component.
+ * @module components/theme/View/CLMSDatasetDetailView
+ */
 
 /**
  * Full view component class.
@@ -385,8 +385,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
-        <div tabTitle="Use cases">{RelatedUseCases(content)}</div>
-        <div tabTitle="News">{RelatedNews(content)}</div>
+
         {content?.downloadable_dataset &&
           content?.downloadable_files?.items?.length > 0 && (
             <div tabTitle="Download">{DownloadDataSetContent(content)}</div>

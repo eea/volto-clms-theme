@@ -66,6 +66,7 @@ const UniversalLink = ({
       matchPath(flattenToAppURL(url), route.match),
     )?.length > 0;
   const isExternal = !isInternalURL(url) || isBlacklisted;
+  const isInternalDownload = !isExternal && url.includes('@@download');
   const isDownload = (!isExternal && url.includes('@@download')) || download;
   const isDisplayFile =
     (!isExternal && url.includes('@@display-file')) || false;
@@ -90,13 +91,12 @@ const UniversalLink = ({
     </Link>
   );
 
-  if (isExternal || isFile) {
+  if (isExternal || isFile || isInternalDownload) {
     tag = (
       <a
         href={url}
         title={title}
         target={!checkedURL.isMail && !checkedURL.isTelephone ? '_blank' : null}
-        download={isFile ? true : false}
         openLinkInNewTab={true}
         rel="noopener noreferrer"
         className={className}

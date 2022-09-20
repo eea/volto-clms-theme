@@ -8,6 +8,7 @@ import { Icon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 
 import { CLMSRelatedItems } from '../CLMSRelatedItems';
+// import { getVocabulary } from '@plone/volto/actions';
 
 const CLMSUseCaseView = (props) => {
   const { content } = props;

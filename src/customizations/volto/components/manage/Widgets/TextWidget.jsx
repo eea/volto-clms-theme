@@ -66,7 +66,7 @@ class TextWidget extends Component {
     icon: null,
     iconAction: null,
     minLength: null,
-    maxLength: null,
+    maxLength: 1000,
   };
 
   /**
@@ -95,6 +95,7 @@ class TextWidget extends Component {
       icon,
       iconAction,
       minLength,
+      maxLength = 1000,
       placeholder,
     } = this.props;
 
@@ -118,7 +119,7 @@ class TextWidget extends Component {
           }
           onClick={() => onClick()}
           minLength={minLength || null}
-          maxLength={1000}
+          maxLength={maxLength}
         />
         {icon && iconAction && (
           <button className={`field-${id}-action-button`} onClick={iconAction}>

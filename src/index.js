@@ -35,7 +35,8 @@ import TabsWidget from './components/Blocks/CustomTemplates/VoltoTabsBlock/TabsW
 import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
 import ImageSizeWidget from './components/Widgets/ImageSizeWidget';
-import { DateWidget } from '@eeacms/volto-widgets-view/components';
+import { CLMSDateWidget } from './components/Widgets/CLMSDateWidget';
+// import { DateWidget } from '@eeacms/volto-widgets-view/components';
 import { getWidgetView } from '@eeacms/volto-widgets-view/helpers';
 
 // CUSTOM REDUCERS IMPORT
@@ -45,6 +46,9 @@ import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 // import Login from '@plone/volto/components/Login';
+
+// custom link plugin for slate link inserter
+import installEditor from 'volto-slate/editor/plugins/Link';
 
 const applyConfig = (config) => {
   config.views = {
@@ -94,11 +98,11 @@ const applyConfig = (config) => {
   config.widgets.views = {
     getWidget: getWidgetView,
     id: {
-      effective: DateWidget,
+      effective: CLMSDateWidget,
       ...(config.widgets.views?.id || {}),
     },
     widget: {
-      datetime: DateWidget,
+      datetime: CLMSDateWidget,
       ...(config.widgets.views?.widget || {}),
     },
     type: {
@@ -256,6 +260,9 @@ const applyConfig = (config) => {
     ...config.addonReducers,
     ...reducers,
   };
+
+  config = installEditor(config);
+
   return config;
 };
 export default applyConfig;
