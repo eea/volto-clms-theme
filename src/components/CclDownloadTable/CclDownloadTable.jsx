@@ -196,8 +196,8 @@ function CclDownloadTable(props) {
           please contact us.
         </p>
 
-        {dataset?.download_page_information.data && (
-          <StringToHTML string={dataset?.download_page_information.data} />
+        {dataset?.download_page_information?.data && (
+          <StringToHTML string={dataset?.download_page_information?.data} />
         )}
 
         <Segment basic>

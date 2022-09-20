@@ -73,6 +73,7 @@ import upSVG from '@plone/volto/icons/up-key.svg';
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
 import TextWidget from '../../customizations/volto/components/manage/Widgets/TextWidget';
 import TextareaWidget from '../../customizations/volto/components/manage/Widgets/TextareaWidget';
+import EmailWidget from '../../customizations/volto/components/manage/Widgets/EmailWidget';
 
 export const customGroupBlocksOrder = [
   {
@@ -534,6 +535,11 @@ const customBlocks = (config) => ({
         id: 'text_area_widget',
         label: 'CCL Text Area Widget',
         component: TextareaWidget,
+      },
+      {
+        id: 'email_widget',
+        label: 'CCL Email Widget',
+        component: EmailWidget,
       },
     ],
   },
