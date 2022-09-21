@@ -3,6 +3,8 @@ import React from 'react';
 const RoutingHOC = (TabView) =>
   function Component(props) {
     const { tabsList = [], tabs, activeTabIndex = 0, setActiveTab } = props;
+    const hash = props?.tabData?.title.split(' ').join('-');
+
     function reloadTab(window, rTabs, rTabsList) {
       if (
         window.location.hash.length === 0 &&
@@ -16,19 +18,20 @@ const RoutingHOC = (TabView) =>
       ) {
         return rTabsList[0];
       }
-      if (
-        window.location.hash.match(/.*&?#?tab=(.*)/) &&
-        window.location.hash.match(/.*&?#?tab=(.*)/).length > 1
-      ) {
-        return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
-      }
+      // Deprecated, now we use tab title to set the hash
+      // if (
+      //   window.location.hash.match(/.*&?#?tab=(.*)/) &&
+      //   window.location.hash.match(/.*&?#?tab=(.*)/).length > 1
+      // ) {
+      //   return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
+      // }
+      if (window.location.hash.match(hash))
+        return setActiveTab(props.activeTab);
     }
     React.useEffect(() => {
       const isReload =
         String(window.performance.getEntriesByType('navigation')[0].type) ===
-          'navigate' ||
-        String(window.performance.getEntriesByType('navigation')[0].type) ===
-          'reload';
+        'reload';
       if (isReload) {
         setActiveTab(reloadTab(window, tabs, tabsList));
       }
