@@ -50,7 +50,7 @@ const DownloadDataSetContent = (data, token) => {
 
       {data?.mapviewer_viewservice?.length > 0 && (
         <div className="dataset-download-area">
-          <h2>Download by area</h2>
+          <h2>Custom download</h2>
           <p>
             Use this option if you would like to download the dataset for
             area(s) of interest.
@@ -58,11 +58,11 @@ const DownloadDataSetContent = (data, token) => {
           {user?.['@id'] ? (
             data.mapviewer_istimeseries === true ? (
               <CclButton url={location.pathname + '/download-by-area'}>
-                Go to download by area and time
+                Go to custom download
               </CclButton>
             ) : (
               <CclButton url={location.pathname + '/download-by-area'}>
-                Go to download by area
+                Go to custom download
               </CclButton>
             )
           ) : (
@@ -74,7 +74,7 @@ const DownloadDataSetContent = (data, token) => {
                 >
                   <FormattedMessage
                     id="downloadByArea"
-                    defaultMessage="Go to download by area"
+                    defaultMessage="Go to custom download"
                   />
                 </CclButton>
               }
@@ -141,15 +141,15 @@ const DownloadDataSetContent = (data, token) => {
               url={location.pathname + '/download-by-area'}
               disabled={true}
             >
-              Go to download by area
+              Go to custom download
             </CclButton>
           ) : data.mapviewer_istimeseries === true ? (
             <CclButton url={location.pathname + '/download-by-area'}>
-              Go to download by area and time
+              Go to custom download and time
             </CclButton>
           ) : (
             <CclButton url={location.pathname + '/download-by-area'}>
-              Go to download by area
+              Go to custom download
             </CclButton>
           )} */}
         </div>

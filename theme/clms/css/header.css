@@ -137,6 +137,13 @@
   }
 }
 
+/* full width search bar on mobile */
+@media (max-width: 500px) {
+  #main > div:nth-child(2) > header > div.ccl-header-tools > div > div.ccl-header-tools-container > div > form > div{
+    width: 100%
+  }
+}
+
 .ccl-header .ccl-header-tools .ccl-header-search input {
   display: block;
   width: 100%;
@@ -725,7 +732,7 @@
 
 .ccl-header-main-menu li {
   font-size: 1.125rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 /* Language */
