@@ -409,19 +409,19 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 />
               </div>
             )}
-            {content?.mapviewer_viewservice?.length > 0 &&
-              Object.keys(user).length !== 0 && (
-                <div className="menu-detail-button">
-                  <CclButton
-                    url={'/' + locale + '/map-viewer?dataset=' + content.UID}
-                  >
-                    <FormattedMessage
-                      id="View in the map viewer"
-                      defaultMessage="View in the map viewer"
-                    />
-                  </CclButton>
-                </div>
-              )}
+            {content?.mapviewer_viewservice?.length > 0 && (
+              <div className="menu-detail-button">
+                <CclButton
+                  disabled={Object.keys(user).length === 0}
+                  url={'/' + locale + '/map-viewer?dataset=' + content.UID}
+                >
+                  <FormattedMessage
+                    id="View in the map viewer"
+                    defaultMessage="View in the map viewer"
+                  />
+                </CclButton>
+              </div>
+            )}
           </nav>
         </div>
       </CclTabs>
