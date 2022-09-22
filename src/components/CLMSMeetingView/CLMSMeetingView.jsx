@@ -8,10 +8,10 @@ import {
   When,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import React, { useState } from 'react';
+import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import checkSVG from '@plone/volto/icons/check.svg';
 import { createContent } from '@plone/volto/actions';
@@ -24,7 +24,6 @@ import config from '@plone/volto/registry';
 import AnimateHeight from 'react-animate-height';
 import { Accordion } from 'semantic-ui-react';
 import { CLMSRelatedItems } from '../CLMSRelatedItems';
-import { RegisterButtonReasons } from './utils';
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -101,14 +100,6 @@ export const CLMSMeetingView = (props) => {
       defaultMessage:
         'Some anonymous registration form parameters are not ready to go',
     },
-    agreePrivacyPolicy: {
-      id: 'agreePrivacyPolicy',
-      defaultMessage: 'I agree to the ',
-    },
-    agreePrivacyPolicyLinkText: {
-      id: 'agreePrivacyPolicyLinkText',
-      defaultMessage: 'privacy policy.',
-    },
   });
 
   function createForm() {
@@ -124,13 +115,7 @@ export const CLMSMeetingView = (props) => {
   const files = content.items
     ? content.items.filter((item) => item['@type'] === 'File')
     : [];
-  const RegistrationButton = ({
-    rContent,
-    rMeeting_register,
-    rIsLoggedIn,
-    locale,
-  }) => {
-    const [privacy, setPrivacy] = useState(false);
+  const RegistrationButton = ({ rContent, rMeeting_register, rIsLoggedIn }) => {
     return (
       <>
         {rContent.is_registered ||
@@ -145,32 +130,9 @@ export const CLMSMeetingView = (props) => {
           </Message>
         ) : (
           rIsLoggedIn && (
-            <>
-              <div>
-                <input
-                  type="checkbox"
-                  id={`footer_privacy-register`}
-                  name={`footer_privacy-register`}
-                  value={privacy}
-                  onClick={() => setPrivacy(!privacy)}
-                  className="ccl-checkbox ccl-form-check-input"
-                  required={true}
-                />
-                <label
-                  className="ccl-form-check-label"
-                  htmlFor={`footer_privacy-register`}
-                >
-                  {intl.formatMessage(messages.agreePrivacyPolicy)}
-                  <Link to={`/${locale}/personal-data-protection`}>
-                    {intl.formatMessage(messages.agreePrivacyPolicyLinkText)}
-                  </Link>
-                </label>
-              </div>
-              <br />
-              <CclButton disabled={!privacy} onClick={() => handleRegister()}>
-                <FormattedMessage id="Register" defaultMessage="Register" />
-              </CclButton>
-            </>
+            <CclButton onClick={() => handleRegister()}>
+              <FormattedMessage id="Register" defaultMessage="Register" />
+            </CclButton>
           )
         )}
       </>
@@ -427,7 +389,7 @@ export const CLMSMeetingView = (props) => {
             </div>
           </>
         )}
-        {RegisterButtonReasons(content)}
+
         {content.registrations_open && (
           <div className="meeting-info-container right-content">
             <div className="card-button">
@@ -445,14 +407,11 @@ export const CLMSMeetingView = (props) => {
                     )}
                 </>
               ) : (
-                <>
-                  <RegistrationButton
-                    rContent={content}
-                    rMeeting_register={meeting_register}
-                    rIsLoggedIn={isLoggedIn}
-                    locale={props.intl.locale}
-                  />
-                </>
+                <RegistrationButton
+                  rContent={content}
+                  rMeeting_register={meeting_register}
+                  rIsLoggedIn={isLoggedIn}
+                />
               )}
             </div>
           </div>
