@@ -45,6 +45,7 @@ export const getCartObjectFromPrepackaged = (file_data, dataset_data) => {
   return {
     name: dataset_data.title,
     title: file_data.title,
+    file: file_data.file,
     area: file_data.area,
     format: file_data.format?.token || file_data.format,
     resolution: file_data.resolution,
@@ -85,6 +86,7 @@ export const getCartObjectFromMapviewer = (
   return {
     name: dataset_data.title || '-',
     area: area || '-',
+    file: file || '-',
     format: type_options.length > 0 ? type_options[0].full_format : null,
     original_format:
       type_options.length > 0 ? type_options[0].full_format : null,

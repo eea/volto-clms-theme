@@ -201,13 +201,16 @@ const CLMSCartContent = (props) => {
 
   const AreaNaming = (areaProps) => {
     const { item } = areaProps;
+    console.log(item);
     switch (item.area?.type) {
       case 'polygon':
         return 'Bounding Box';
       case 'nuts':
         return 'NUTS: ' + (item.area.valueName || item.area.value);
       case undefined:
-        return item.area || '-';
+        return item.area || item.file || '-';
+      case typeof item.area === 'string':
+        return item.area || item.file || '-';
       default:
         return '-';
     }
