@@ -201,7 +201,6 @@ const CLMSCartContent = (props) => {
 
   const AreaNaming = (areaProps) => {
     const { item } = areaProps;
-    console.log(item);
     switch (item.area?.type) {
       case 'polygon':
         return 'Bounding Box';
