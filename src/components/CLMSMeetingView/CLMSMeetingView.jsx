@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Accordion } from 'semantic-ui-react';
@@ -163,9 +163,9 @@ export const CLMSMeetingView = (props) => {
                   htmlFor={`footer_privacy-register`}
                 >
                   {intl.formatMessage(messages.agreePrivacyPolicy)}
-                  <UniversalLink href={`/${locale}/personal-data-protection`}>
+                  <Link to={`/${locale}/personal-data-protection`}>
                     {intl.formatMessage(messages.agreePrivacyPolicyLinkText)}
-                  </UniversalLink>
+                  </Link>
                 </label>
               </div>
               <br />
