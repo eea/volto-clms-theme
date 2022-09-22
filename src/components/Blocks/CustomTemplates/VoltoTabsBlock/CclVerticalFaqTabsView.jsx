@@ -23,10 +23,8 @@ const CclVerticalFaqTabsView = (props) => {
     return (
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
-          const title = tabs[tab].title;
-          const tabHash = title.split(' ').join('-');
           return (
-            <Route to={'#' + tabHash}>
+            <Route to={'#' + activeTab}>
               <div
                 key={index}
                 className={cx('panel', tab === activeTab && 'panel-selected')}
@@ -63,11 +61,10 @@ const CclVerticalFaqTabsView = (props) => {
             const nextSubTab =
               tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
             const defaultTitle = `Tab ${tabIndex}`;
-            const tabHash = title.split(' ').join('-');
             return (
               <div
                 key={index}
-                id={tabHash}
+                id={tabIndex}
                 className={cx(
                   'card',
                   tab === activeTab && 'active',
@@ -78,7 +75,7 @@ const CclVerticalFaqTabsView = (props) => {
                   <span>{title || defaultTitle}</span>
                 ) : (
                   <NavLink
-                    to={'#' + tabHash}
+                    to={'#tab=' + tabIndex}
                     className="collapsed"
                     onClick={(e) => {
                       handleActive(activeTab, tab, setActiveTab);
