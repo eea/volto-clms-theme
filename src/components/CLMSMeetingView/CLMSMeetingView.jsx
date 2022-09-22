@@ -429,7 +429,9 @@ export const CLMSMeetingView = (props) => {
             </div>
           </>
         )}
-        {RegisterButtonReasons(content)}
+        {user.roles &&
+          user.roles.includes('Manager') &&
+          RegisterButtonReasons(content)}
         {content.registrations_open && (
           <div className="meeting-info-container right-content">
             <div className="card-button">
