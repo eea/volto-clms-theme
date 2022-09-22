@@ -1,14 +1,16 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { NavLink, Route } from 'react-router-dom';
+import { compose } from 'redux';
+
+import { RenderBlocks } from '@plone/volto/components';
+import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+
+import { slugify } from '../../utils';
 import './fontawesome';
 
-import { NavLink, Route } from 'react-router-dom';
-
-import React from 'react';
-import { RenderBlocks } from '@plone/volto/components';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import cx from 'classnames';
-import { withRouter } from 'react-router';
-import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
 const CclVerticalTabsView = (props) => {
   const {
@@ -35,7 +37,7 @@ const CclVerticalTabsView = (props) => {
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
           const title = tabs[tab].title;
-          const tabHash = title.split(' ').join('-');
+          const tabHash = slugify(title);
           return (
             <Route key={index} to={'#' + tabHash}>
               <div
@@ -68,7 +70,7 @@ const CclVerticalTabsView = (props) => {
             const nextSubTab =
               tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
             const defaultTitle = `Tab ${tabIndex}`;
-            const tabHash = title.split(' ').join('-');
+            const tabHash = slugify(title);
             return (
               <div
                 key={index}

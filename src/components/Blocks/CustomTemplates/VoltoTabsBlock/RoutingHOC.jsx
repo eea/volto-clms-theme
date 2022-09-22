@@ -1,9 +1,9 @@
 import React from 'react';
+import { slugify } from '../../utils';
 
 const RoutingHOC = (TabView) =>
   function Component(props) {
     const { tabsList = [], tabs, activeTabIndex = 0, setActiveTab } = props;
-    const hash = props?.tabData?.title.split(' ').join('-');
 
     function reloadTab(window, rTabs, rTabsList) {
       if (
@@ -18,6 +18,9 @@ const RoutingHOC = (TabView) =>
       ) {
         return rTabsList[0];
       }
+      const tabsDict = Object.entries(rTabs).map((t) => {
+        return { title: t[1].title, id: t[0] };
+      });
       // Deprecated, now we use tab title to set the hash
       // if (
       //   window.location.hash.match(/.*&?#?tab=(.*)/) &&
@@ -25,8 +28,16 @@ const RoutingHOC = (TabView) =>
       // ) {
       //   return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
       // }
-      if (window.location.hash.match(hash))
-        return setActiveTab(props.activeTab);
+      if (
+        window.location.hash.match(/.*&?(#.*)/) &&
+        window.location.hash.match(/.*&?(#.*)/).length > 1
+      ) {
+        const hashMatch = window.location.hash
+          .match(/.*&?(#.*)/)[1]
+          .replace('#', '');
+        const result = tabsDict.filter((t) => slugify(t.title) === hashMatch);
+        return result[0].id;
+      }
     }
     React.useEffect(() => {
       const isReload =

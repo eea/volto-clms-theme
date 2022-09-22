@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import cx from 'classnames';
 import { withRouter } from 'react-router';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { slugify } from '../../utils';
 
 const CclVerticalFaqTabsView = (props) => {
   const { metadata = {}, tabsList = [] } = props;
@@ -24,7 +25,7 @@ const CclVerticalFaqTabsView = (props) => {
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
           const title = tabs[tab].title;
-          const tabHash = title.split(' ').join('-');
+          const tabHash = slugify(title);
           return (
             <Route to={'#' + tabHash}>
               <div
