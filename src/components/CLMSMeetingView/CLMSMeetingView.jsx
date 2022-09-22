@@ -1,32 +1,30 @@
-import React, { useState } from 'react';
-import AnimateHeight from 'react-animate-height';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { Header, Image, Message, Segment } from 'semantic-ui-react';
-import { Accordion } from 'semantic-ui-react';
+import './meetingstyles.less';
 
-import { createContent } from '@plone/volto/actions';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Icon, Toast, UniversalLink } from '@plone/volto/components';
 import {
   Recurrence,
   When,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
-import checkSVG from '@plone/volto/icons/check.svg';
-import config from '@plone/volto/registry';
-import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation, Link } from 'react-router-dom';
+
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import React, { useState } from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
-
-import { postMeetingRegister } from '../../actions';
-import { CLMSRelatedItems } from '../CLMSRelatedItems';
-import { LightGalleryListing } from './CclLightGallery';
-import './meetingstyles.less';
-import { RegisterButtonReasons } from './utils';
-
+import checkSVG from '@plone/volto/icons/check.svg';
+import { createContent } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
-
+import { postMeetingRegister } from '../../actions';
+import { toast } from 'react-toastify';
+import { LightGalleryListing } from './CclLightGallery';
+import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
+import config from '@plone/volto/registry';
+import AnimateHeight from 'react-animate-height';
+import { Accordion } from 'semantic-ui-react';
+import { CLMSRelatedItems } from '../CLMSRelatedItems';
+import { RegisterButtonReasons } from './utils';
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
