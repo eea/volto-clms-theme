@@ -36,15 +36,21 @@ const RoutingHOC = (TabView) =>
           .match(/.*&?(#.*)/)[1]
           .replace('#', '');
         const result = tabsDict.filter((t) => slugify(t.title) === hashMatch);
-        return result[0].id;
+        if (result.length > 0) {
+          return result[0].id;
+        }
+        return '';
       }
     }
     React.useEffect(() => {
       const isReload =
         String(window.performance.getEntriesByType('navigation')[0].type) ===
-        'reload';
+          'navigate' ||
+        String(window.performance.getEntriesByType('navigation')[0].type) ===
+          'reload';
       if (isReload) {
-        setActiveTab(reloadTab(window, tabs, tabsList));
+        const existingTab = reloadTab(window, tabs, tabsList);
+        if (existingTab) setActiveTab(existingTab);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTabIndex]);
