@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { compose } from 'redux';
 import { Modal, Segment } from 'semantic-ui-react';
 
 import { getUser } from '@plone/volto/actions';
@@ -21,6 +20,7 @@ import {
 
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 
 /**
  * Full view component.
@@ -61,6 +61,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
   const [open, setOpen] = React.useState({});
   const locale = useSelector((state) => state.intl.locale);
+
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
@@ -409,19 +410,18 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 />
               </div>
             )}
-            {content?.mapviewer_viewservice?.length > 0 &&
-              Object.keys(user).length !== 0 && (
-                <div className="menu-detail-button">
-                  <CclButton
-                    url={'/' + locale + '/map-viewer?dataset=' + content.UID}
-                  >
-                    <FormattedMessage
-                      id="View in the map viewer"
-                      defaultMessage="View in the map viewer"
-                    />
-                  </CclButton>
-                </div>
-              )}
+            {content?.mapviewer_viewservice?.length > 0 && (
+              <div className="menu-detail-button">
+                <CclButton
+                  url={'/' + locale + '/map-viewer?dataset=' + content.UID}
+                >
+                  <FormattedMessage
+                    id="View in the map viewer"
+                    defaultMessage="View in the map viewer"
+                  />
+                </CclButton>
+              </div>
+            )}
           </nav>
         </div>
       </CclTabs>
