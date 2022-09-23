@@ -137,10 +137,16 @@
   }
 }
 
-/* full width search bar on mobile */
+/* CLMS-1128 */
 @media (max-width: 500px) {
+  /* full width search bar on mobile */
   #main > div:nth-child(2) > header > div.ccl-header-tools > div > div.ccl-header-tools-container > div > form > div{
     width: 100%
+  }
+
+  /* align search icon right*/
+  .ccl-search-collapse-button {
+    margin-left: auto !important;
   }
 }
 
