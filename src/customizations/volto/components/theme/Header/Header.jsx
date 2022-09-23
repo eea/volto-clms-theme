@@ -224,13 +224,25 @@ class Header extends Component {
                     if (
                       !e.currentTarget.classList.contains(
                         'ccl-header-search-show',
+                      ) &&
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-hidden',
                       )
                     ) {
                       this.setState({ mobileSearchBoxOpen: false });
                     }
                   }}
                   onBlur={(e) => {
-                    this.setState({ mobileSearchBoxOpen: false });
+                    if (
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-show',
+                      ) &&
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-hidden',
+                      )
+                    ) {
+                      this.setState({ mobileSearchBoxOpen: false });
+                    }
                   }}
                   className={
                     this.state.mobileSearchBoxOpen
