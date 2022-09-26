@@ -89,9 +89,9 @@ const CclUseCaseListEdit = (props) => {
                         {useCase.title}
                       </div>
                       <div className="use-case-element-description">
-                        <span>
+                        {/* <span>
                           {useCase.topics.map((topic) => topic.title)}
-                        </span>
+                        </span> */}
                         <span>{cclDateTimeFormat(useCase?.effective)}</span>
                         <span>{useCase.responsibleOrganization}</span>
                       </div>
