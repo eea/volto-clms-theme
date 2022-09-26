@@ -59,12 +59,13 @@ const FilterList = (props) => {
   // }
   const currentFiltersToCount = {};
   Object.keys(currentFilters).forEach((filterKey) => {
-    currentFiltersToCount[filterKey] =
-      typeof currentFilters[filterKey] === 'object'
-        ? currentFilters[filterKey].filter((filter) => {
-            return !filtersToAvoidSet.has(filter);
-          })
-        : null;
+    if (typeof currentFilters[filterKey] === 'object') {
+      currentFiltersToCount[filterKey] = currentFilters[filterKey].filter(
+        (filter) => {
+          return !filtersToAvoidSet.has(filter);
+        },
+      );
+    }
   });
   // const totalFilters = [].concat.apply([], Object.values(currentFilters))
   //   .length;

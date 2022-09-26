@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Input } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Icon } from '@plone/volto/components';
@@ -22,9 +22,11 @@ const SearchInput = (props) => {
   } = props;
   const intl = useIntl();
 
-  useEffect(() => {
-    onTriggerSearch(rest.searchedText);
-    setSearchText(rest.searchedText);
+  React.useEffect(() => {
+    if (rest.searchedText !== '') {
+      onTriggerSearch(rest.searchedText);
+      setSearchText(rest.searchedText);
+    }
     return () => {};
   }, [rest.searchedText, onTriggerSearch, setSearchText]);
 

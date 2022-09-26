@@ -71,9 +71,9 @@ import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
-import TextWidget from '../../customizations/volto/components/manage/Widgets/TextWidget';
-import TextareaWidget from '../../customizations/volto/components/manage/Widgets/TextareaWidget';
-import EmailWidget from '../../customizations/volto/components/manage/Widgets/EmailWidget';
+import TextWidget from '@plone/volto/components/manage/Widgets/TextWidget';
+import TextareaWidget from '@plone/volto/components/manage/Widgets/TextareaWidget';
+import EmailWidget from '@plone/volto/components/manage/Widgets/EmailWidget';
 
 export const customGroupBlocksOrder = [
   {

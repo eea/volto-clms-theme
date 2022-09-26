@@ -25,3 +25,10 @@ export const getPanels = (data) => {
     data.blocks?.[id],
   ]);
 };
+
+export const slugify = (string) => {
+  return string
+    .toLowerCase()
+    .replace(/[\s-]+/g, '_')
+    .replace(/[^\w]+/g, '');
+};
