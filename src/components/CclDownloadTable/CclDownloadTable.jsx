@@ -56,7 +56,7 @@ function CclDownloadTable(props) {
 
   React.useEffect(() => {
     let fItems = prePackagedCollection.filter((item) =>
-      item?.resolution?.toLowerCase().includes(filterText.toLocaleLowerCase()),
+      item?.area?.toLowerCase().includes(filterText.toLocaleLowerCase()),
     );
     if (filterText) {
       setCurrentPageItems(fItems.slice(0, 10));
@@ -77,6 +77,8 @@ function CclDownloadTable(props) {
       cartSelection.includes(item.unique_id),
     );
     if (currentPageSelection.length === 10) {
+      setpageCheckboxStatus(2);
+    } else if (currentPageSelection.length === currentPageItems.length) {
       setpageCheckboxStatus(2);
     } else if (cartSelection.length > 0) {
       setpageCheckboxStatus(1);
@@ -129,6 +131,10 @@ function CclDownloadTable(props) {
       });
     }
     setCartSelection(newCartSelection);
+  };
+
+  const selectAllPagesCart = () => {
+    setCartSelection(prePackagedCollection.map((item) => item.unique_id));
   };
 
   const addToCard = () => {
@@ -227,6 +233,14 @@ function CclDownloadTable(props) {
                   {' - '}
                   <Button basic color="olive" onClick={clearSelection}>
                     Clear selection <Icon name={clearSVG} size={20}></Icon>
+                  </Button>
+                </>
+              )}
+              {cartSelection.length !== prePackagedCollection.length && (
+                <>
+                  <br />
+                  <Button basic color="olive" onClick={selectAllPagesCart}>
+                    Select all
                   </Button>
                 </>
               )}
