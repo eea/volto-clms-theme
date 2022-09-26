@@ -29,13 +29,24 @@ export const structure_taxonomy_terms = (choices) => {
       childrens: [],
     };
     splitted_option.length === 1 && options.push(modified_option);
+  });
+  choices.forEach((choice) => {
+    var splitted_option = choice.label.split(' » ');
+    var modified_option = {
+      value: choice.value,
+      label:
+        splitted_option.length > 1
+          ? splitted_option.slice(-1).pop()
+          : choice.label,
+      original: choice.label,
+      childrens: [],
+    };
     if (splitted_option.length > 1) {
       var parent_option = splitted_option.slice(0, -1).pop();
-      options.map((opt) => {
+      options.forEach((opt) => {
         if (opt.label === parent_option) {
           opt.childrens.push(modified_option);
         }
-        return '';
       });
     }
   });

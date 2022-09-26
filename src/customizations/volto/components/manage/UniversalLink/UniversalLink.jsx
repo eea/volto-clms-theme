@@ -97,7 +97,6 @@ const UniversalLink = ({
         href={url}
         title={title}
         target={!checkedURL.isMail && !checkedURL.isTelephone ? '_blank' : null}
-        openLinkInNewTab={true}
         rel="noopener noreferrer"
         className={className}
         {...props}
