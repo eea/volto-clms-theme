@@ -81,9 +81,9 @@ const CclUseCaseListView = (props) => {
                           {useCase.title}
                         </div>
                         <div className="use-case-element-description">
-                          {/* <span>
+                          <span>
                             {useCase.topics.map((topic) => topic.title)}
-                          </span> */}
+                          </span>
                           <span>
                             {new Date(useCase?.effective).toLocaleDateString()}
                           </span>

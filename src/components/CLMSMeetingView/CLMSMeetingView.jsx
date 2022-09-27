@@ -484,7 +484,7 @@ export const CLMSMeetingView = (props) => {
         )}
 
         {is_manager && (
-          <div className="dataset-info-documents dropdown">
+          <div className="dataset-info-documents dropdown card-container">
             <div className="accordion-block"></div>
             {content?.products?.length > 0 && (
               <Accordion fluid styled>
