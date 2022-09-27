@@ -479,6 +479,7 @@ export const CLMSMeetingView = (props) => {
           <CclListingCards
             variation="file"
             items={files}
+            showDates={false}
             linkHref={`${files['@id']}/@@download/file`}
           />
         )}
