@@ -9,6 +9,11 @@ const ItemSchema = () => ({
       description: 'Enter the title of this file.',
       type: 'string',
     },
+    file: {
+      title: 'File name',
+      description: 'Enter the file name.',
+      type: 'string',
+    },
     area: {
       title: 'Area of interest',
       description: 'Enter the area of this file.',
@@ -68,6 +73,7 @@ const ItemSchema = () => ({
       title: 'File',
       fields: [
         'title',
+        'file',
         'area',
         'year',
         'version',

@@ -1,8 +1,10 @@
 import React from 'react';
+import { slugify } from '../../utils';
 
 const RoutingHOC = (TabView) =>
   function Component(props) {
     const { tabsList = [], tabs, activeTabIndex = 0, setActiveTab } = props;
+
     function reloadTab(window, rTabs, rTabsList) {
       if (
         window.location.hash.length === 0 &&
@@ -16,11 +18,28 @@ const RoutingHOC = (TabView) =>
       ) {
         return rTabsList[0];
       }
+      const tabsDict = Object.entries(rTabs).map((t) => {
+        return { title: t[1].title, id: t[0] };
+      });
+      // Deprecated, now we use tab title to set the hash
+      // if (
+      //   window.location.hash.match(/.*&?#?tab=(.*)/) &&
+      //   window.location.hash.match(/.*&?#?tab=(.*)/).length > 1
+      // ) {
+      //   return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
+      // }
       if (
-        window.location.hash.match(/.*&?#?tab=(.*)/) &&
-        window.location.hash.match(/.*&?#?tab=(.*)/).length > 1
+        window.location.hash.match(/.*&?(#.*)/) &&
+        window.location.hash.match(/.*&?(#.*)/).length > 1
       ) {
-        return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
+        const hashMatch = window.location.hash
+          .match(/.*&?(#.*)/)[1]
+          .replace('#', '');
+        const result = tabsDict.filter((t) => slugify(t.title) === hashMatch);
+        if (result.length > 0) {
+          return result[0].id;
+        }
+        return '';
       }
     }
     React.useEffect(() => {
@@ -30,7 +49,8 @@ const RoutingHOC = (TabView) =>
         String(window.performance.getEntriesByType('navigation')[0].type) ===
           'reload';
       if (isReload) {
-        setActiveTab(reloadTab(window, tabs, tabsList));
+        const existingTab = reloadTab(window, tabs, tabsList);
+        if (existingTab) setActiveTab(existingTab);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTabIndex]);

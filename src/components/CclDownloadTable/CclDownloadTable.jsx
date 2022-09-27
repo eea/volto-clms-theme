@@ -139,6 +139,7 @@ function CclDownloadTable(props) {
         UID: item.UID,
         file_id: item['@id'],
         area: item.area,
+        file: item.file,
         unique_id: item.unique_id,
       }));
     addCartItem(selectedCartItems);
@@ -174,6 +175,7 @@ function CclDownloadTable(props) {
 
   const columns = [
     hasSome('title'),
+    hasSome('file'),
     hasSome('area'),
     hasSome('year'),
     hasSome('version'),
@@ -241,9 +243,8 @@ function CclDownloadTable(props) {
                   </th>
                 )}
                 {columns.includes('title') && <th>Title</th>}
-                {columns.includes('area') && (
-                  <th>{dataset.download_table_area_of_interest_title}</th>
-                )}
+                {columns.includes('file') && <th>File name</th>}
+                {columns.includes('area') && <th>Area of interest</th>}
                 {columns.includes('year') && <th>Year</th>}
                 {columns.includes('version') && <th>Version</th>}
                 {columns.includes('resolution') && <th>Resolution</th>}
@@ -272,6 +273,9 @@ function CclDownloadTable(props) {
                         )}
                         {columns.includes('title') && (
                           <td>{contentOrDash(dataset_file?.title)}</td>
+                        )}
+                        {columns.includes('file') && (
+                          <td>{contentOrDash(dataset_file?.file)}</td>
                         )}
                         {columns.includes('area') && (
                           <td>{contentOrDash(dataset_file?.area)}</td>
