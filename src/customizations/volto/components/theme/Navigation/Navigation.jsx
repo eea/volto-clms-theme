@@ -94,10 +94,10 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   closeMobileMenu() {
-    if (!this.state.isMobileMenuOpen) {
-      return;
-    }
     this.setState({ isMobileMenuOpen: false });
+    this.props.setHeaderState({
+      mobileMenuOpen: false,
+    });
   }
 
   /**
@@ -121,6 +121,7 @@ class Navigation extends Component {
                   ? item.url === `/${lang}`
                   : item.url === ''
               }
+              onClick={this.closeMobileMenu}
             >
               {item.title}
             </NavLink>

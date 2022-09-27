@@ -219,10 +219,30 @@ class Header extends Component {
                 </ul>
                 <div
                   onMouseOut={(e) => {
-                    this.setState({ mobileSearchBoxOpen: false });
+                    // this event might be a touch on the search button, make sure it isnt.
+                    // ccl-header-search-show
+                    if (
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-show',
+                      ) &&
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-hidden',
+                      )
+                    ) {
+                      this.setState({ mobileSearchBoxOpen: false });
+                    }
                   }}
                   onBlur={(e) => {
-                    this.setState({ mobileSearchBoxOpen: false });
+                    if (
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-show',
+                      ) &&
+                      !e.currentTarget.classList.contains(
+                        'ccl-header-search-hidden',
+                      )
+                    ) {
+                      this.setState({ mobileSearchBoxOpen: false });
+                    }
                   }}
                   className={
                     this.state.mobileSearchBoxOpen
@@ -247,7 +267,12 @@ class Header extends Component {
                     : 'ccl-main-menu'
                 }
               >
-                <Navigation pathname={this.props.pathname} />
+                <Navigation
+                  pathname={this.props.pathname}
+                  setHeaderState={(p) => {
+                    this.setState(p);
+                  }}
+                />
                 <ul className="ccl-header-menu-tools ccl-collapsible-toolmenu">
                   <CclTopMainMenu></CclTopMainMenu>
                   <li className="header-vertical-line">
