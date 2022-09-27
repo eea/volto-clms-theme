@@ -218,39 +218,18 @@ class Header extends Component {
                   </li>
                 </ul>
                 <div
-                  onMouseOut={(e) => {
-                    // this event might be a touch on the search button, make sure it isnt.
-                    // ccl-header-search-show
-                    if (
-                      !e.currentTarget.classList.contains(
-                        'ccl-header-search-show',
-                      ) &&
-                      !e.currentTarget.classList.contains(
-                        'ccl-header-search-hidden',
-                      )
-                    ) {
-                      this.setState({ mobileSearchBoxOpen: false });
-                    }
-                  }}
-                  onBlur={(e) => {
-                    if (
-                      !e.currentTarget.classList.contains(
-                        'ccl-header-search-show',
-                      ) &&
-                      !e.currentTarget.classList.contains(
-                        'ccl-header-search-hidden',
-                      )
-                    ) {
-                      this.setState({ mobileSearchBoxOpen: false });
-                    }
-                  }}
                   className={
                     this.state.mobileSearchBoxOpen
                       ? 'ccl-header-search-show'
                       : 'ccl-header-search-hidden'
                   }
                 >
-                  <SearchWidget pathname={this.props.pathname} />
+                  <SearchWidget
+                    pathname={this.props.pathname}
+                    setHeaderState={(p) => {
+                      this.setState(p);
+                    }}
+                  />
                 </div>
                 {/* Language selector wont be shown until translations are completed */}
                 {/* <CclLanguageSelector /> */}

@@ -14,6 +14,9 @@ import loadable from '@loadable/component';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
 
+import { Toast } from '@plone/volto/components';
+import { toast } from 'react-toastify';
+
 const imageMimetypes = [
   'image/png',
   'image/jpeg',
@@ -91,6 +94,15 @@ const FileWidget = (props) => {
     ? `data:${value['content-type']};${value.encoding},${value.data}`
     : null;
 
+  const allowedFileTypes = [
+    'image/png',
+    'image/jpeg',
+    'image/webp',
+    'image/jpg',
+    'image/gif',
+    'image/svg+xml',
+  ];
+
   /**
    * Drop handler
    * @method onDrop
@@ -101,18 +113,14 @@ const FileWidget = (props) => {
     const file = files[0];
     readAsDataURL(file).then((data) => {
       const fields = data.match(/^data:(.*);(.*),(.*)$/);
-      if (
-        fields[0].indexOf(
-          'image/png' ||
-            'image/jpeg' ||
-            'image/webp' ||
-            'image/jpg' ||
-            'image/gif' ||
-            'image/svg+xml',
-        ) <= -1
-      ) {
-        // eslint-disable-next-line no-alert
-        alert(intl.formatMessage(messages.invalid_file));
+      if (!allowedFileTypes.includes(fields[1])) {
+        toast.error(
+          <Toast
+            autoClose={5000}
+            title={intl.formatMessage(messages.invalid_file)}
+          />,
+        );
+
         return;
       } else {
         onChange(id, {

@@ -83,6 +83,7 @@ function CclCard(props) {
     card,
     showEditor = false,
     CclImageEditor = null,
+    showDates = true,
     onClickImage = () => {
       return '';
     },
@@ -142,11 +143,13 @@ function CclCard(props) {
                   <div className="card-file-title">
                     <CardLink url={url}>{card?.title}</CardLink>
                   </div>
-                  <div className="card-file-date">
-                    {card?.effective
-                      ? cclDateFormat(card?.effective)
-                      : cclDateFormat(card?.created)}
-                  </div>
+                  {showDates && (
+                    <div className="card-file-date">
+                      {card?.effective
+                        ? cclDateFormat(card?.effective)
+                        : cclDateFormat(card?.created)}
+                    </div>
+                  )}
                   {children}
                 </div>
               </>

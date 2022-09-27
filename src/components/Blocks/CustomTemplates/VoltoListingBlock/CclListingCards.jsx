@@ -9,7 +9,14 @@ import { useSelector } from 'react-redux';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
 const CclListingCards = (props) => {
-  const { items, linkHref, linkTitle, isEditMode, variation = 'doc' } = props;
+  const {
+    items,
+    linkHref,
+    linkTitle,
+    isEditMode,
+    variation = 'doc',
+    showDates = true,
+  } = props;
   let link = null;
   let href = linkHref?.[0]?.['@id'] || '';
   const user = useSelector((state) => state.users.user);
@@ -37,6 +44,7 @@ const CclListingCards = (props) => {
                 key={index}
                 type={variation}
                 card={item}
+                showDates={showDates}
                 showEditor={user?.roles?.includes('Manager')}
               />
             ))

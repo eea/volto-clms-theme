@@ -105,7 +105,32 @@ class SearchWidget extends Component {
       <Form
         className="ccl-header-search"
         action="/global-search"
-        onSubmit={this.onSubmit}
+        onMouseOut={(e) => {
+          if (e.relatedTarget) {
+            if (
+              !e.relatedTarget.offsetParent.classList.contains(
+                'ccl-header-search',
+              )
+            ) {
+              this.props.setHeaderState({ mobileSearchBoxOpen: false });
+            }
+          } else {
+            this.props.setHeaderState({ mobileSearchBoxOpen: false });
+          }
+        }}
+        onBlur={(e) => {
+          if (e.relatedTarget) {
+            if (
+              !e.relatedTarget.offsetParent.classList.contains(
+                'ccl-header-search',
+              )
+            ) {
+              this.props.setHeaderState({ mobileSearchBoxOpen: false });
+            }
+          } else {
+            this.props.setHeaderState({ mobileSearchBoxOpen: false });
+          }
+        }}
       >
         <Input
           aria-label={this.props.intl.formatMessage(messages.search)}
@@ -119,8 +144,15 @@ class SearchWidget extends Component {
         <button
           type="submit"
           aria-label={this.props.intl.formatMessage(messages.search)}
+          onClick={this.onSubmit}
         >
-          <span className="ccl-icon-zoom"></span>
+          <span
+            className="ccl-icon-zoom"
+            role="button"
+            onClick={this.onSubmit}
+            onKeyDown={this.onSubmit}
+            tabIndex={0}
+          ></span>
         </button>
       </Form>
     );
