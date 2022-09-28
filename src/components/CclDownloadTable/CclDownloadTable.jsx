@@ -220,7 +220,7 @@ function CclDownloadTable(props) {
                 <div className="search-input">
                   <Input
                     id={`${props.id}-searchtext`}
-                    placeholder={'Filter'}
+                    placeholder={'Search in the pre-packaged data collection'}
                     fluid
                     onChange={(event, { value }) => {
                       setFilterText(value);
