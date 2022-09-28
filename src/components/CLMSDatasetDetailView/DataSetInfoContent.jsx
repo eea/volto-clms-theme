@@ -78,7 +78,7 @@ const DataSetInfoContent = (props) => {
         citation?.data !== '<p><br/></p>' &&
         citation?.data !== '<p></p>' && (
           <CclCitation
-            title="Citation status"
+            title="Dataset citation"
             marginBottom={true}
             children={<StringToHTML string={citation?.data} />}
           ></CclCitation>
