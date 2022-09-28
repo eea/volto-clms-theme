@@ -203,13 +203,13 @@ function CclDownloadTable(props) {
         )}
 
         <Segment basic>
-          {prePackagedCollection.length > 10 && (
+          {prePackagedCollection.length > 1 && (
             <div className="block search">
               <div className="search-wrapper">
                 <div className="search-input">
                   <Input
                     id={`${props.id}-searchtext`}
-                    placeholder={'Filter by Resolution'}
+                    placeholder={'Filter'}
                     fluid
                     onChange={(event, { value }) => {
                       setFilterText(value);
