@@ -55,8 +55,19 @@ function CclDownloadTable(props) {
   }, [cartSelection, currentPage]);
 
   React.useEffect(() => {
-    let fItems = prePackagedCollection.filter((item) =>
-      item?.resolution?.toLowerCase().includes(filterText.toLocaleLowerCase()),
+    let fItems = prePackagedCollection.filter(
+      (item) =>
+        item?.title?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.file?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.area?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.year?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.version?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.resolution
+          ?.toLowerCase()
+          .includes(filterText.toLocaleLowerCase()) ||
+        item?.type?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.format?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
+        item?.size?.toLowerCase().includes(filterText.toLocaleLowerCase()),
     );
     if (filterText) {
       setCurrentPageItems(fItems.slice(0, 10));
