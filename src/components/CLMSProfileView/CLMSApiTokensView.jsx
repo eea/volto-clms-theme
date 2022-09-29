@@ -271,7 +271,7 @@ class CLMSApiTokensView extends Component {
                     <CclModal
                       onClick={() => this.onClose}
                       trigger={
-                        <CclButton mode={'filled'}>
+                        <CclButton mode={'filled'} to="profile#API-tokens">
                           {this.props.intl.formatMessage(messages.deleteButton)}
                         </CclButton>
                       }
@@ -284,6 +284,7 @@ class CLMSApiTokensView extends Component {
                       </p>
                       <CclButton
                         mode={'filled'}
+                        to="profile#API-tokens"
                         onClick={() => {
                           this.deleteToken(item.key_id);
                         }}
@@ -294,10 +295,14 @@ class CLMSApiTokensView extends Component {
                   </div>
                 </>
               ))}
-              <br></br>
-              <br></br>
+              <br />
+              <br />
               {this.state.createNewToken === false && (
-                <CclButton mode={'filled'} onClick={this.handleClick}>
+                <CclButton
+                  mode={'filled'}
+                  onClick={this.handleClick}
+                  to="profile#API-tokens"
+                >
                   {this.props.intl.formatMessage(messages.createTitle)}
                 </CclButton>
               )}
@@ -305,7 +310,7 @@ class CLMSApiTokensView extends Component {
                 <CclModal
                   onClick={() => this.onClose}
                   trigger={
-                    <CclButton mode={'filled'}>
+                    <CclButton mode={'filled'} to="profile#API-tokens">
                       {this.props.intl.formatMessage(messages.createTitle)}
                     </CclButton>
                   }
@@ -343,6 +348,7 @@ class CLMSApiTokensView extends Component {
                             placeholder=""
                             aria-label="Name of the new token"
                           />
+                          <br />
                           <input
                             className="ccl-button ccl-button-green"
                             type="button"
@@ -393,8 +399,10 @@ class CLMSApiTokensView extends Component {
                                         class="ccl-text-input"
                                         value={JSON.stringify(item)}
                                       />
+                                      <br />
                                       <CclButton
                                         mode={'filled'}
+                                        to="profile#API-tokens"
                                         onClick={() => {
                                           navigator.clipboard.writeText(
                                             JSON.stringify(item),
@@ -405,13 +413,18 @@ class CLMSApiTokensView extends Component {
                                           messages.copyButton,
                                         )}
                                       </CclButton>
+                                      <br />
                                     </>
                                   )) ||
                                     ''}
                                 </>
                               ))}
                             </form>
-                            <CclButton mode={'filled'} onClick={this.onClose}>
+                            <CclButton
+                              mode={'filled'}
+                              onClick={this.onClose}
+                              to="profile#API-tokens"
+                            >
                               {this.props.intl.formatMessage(
                                 messages.goBackButton,
                               )}
