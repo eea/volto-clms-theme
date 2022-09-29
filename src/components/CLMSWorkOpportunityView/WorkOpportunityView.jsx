@@ -1,7 +1,9 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { workOpportunitiesCclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 import { useSelector } from 'react-redux';
+
+import { UniversalLink } from '@plone/volto/components';
+import { workOpportunitiesCclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const messages = defineMessages({
   ProcurementNo: {
@@ -41,7 +43,9 @@ const CLMSWorkOpportunityView = (props) => {
               : intl.formatMessage(messages.ProcurementNo)}
           </span>
           {content.url ? (
-            <a href={content.url || ''}>{content.procurement_no}</a>
+            <UniversalLink href={content.url || ''}>
+              {content.procurement_no}
+            </UniversalLink>
           ) : (
             content.procurement_no
           )}
