@@ -258,7 +258,9 @@ function CclDownloadTable(props) {
                 )}
                 {columns.includes('title') && <th>Title</th>}
                 {columns.includes('file') && <th>File name</th>}
-                {columns.includes('area') && <th>Area of interest</th>}
+                {columns.includes('area') && (
+                  <th>{dataset.download_table_area_of_interest_title}</th>
+                )}
                 {columns.includes('year') && <th>Year</th>}
                 {columns.includes('version') && <th>Version</th>}
                 {columns.includes('resolution') && <th>Resolution</th>}
