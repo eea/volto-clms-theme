@@ -80,20 +80,20 @@ const rewriteOptions = (name, choices) => {
         return 0;
       });
   }
-  if (name === 'taxonomy_technical_library_categorization') {
-    result = choices
-      .sort((a, b) => {
-        if (a.label < b.label) {
-          return -1;
-        } else if (a.label > b.label) {
-          return 1;
-        }
-        return 0;
-      })
-      .map((opt) => {
-        return { ...opt, label: opt.label.replace(/^[0-9][0-9]#/, '') };
-      });
-  }
+  // if (name === 'taxonomy_technical_library_categorization') {
+  //   result = choices
+  //     .sort((a, b) => {
+  //       if (a.label < b.label) {
+  //         return -1;
+  //       } else if (a.label > b.label) {
+  //         return 1;
+  //       }
+  //       return 0;
+  //     })
+  //     .map((opt) => {
+  //       return { ...opt, label: opt.label.replace(/^[0-9][0-9]#/, '') };
+  //     });
+  // }
   if (name === 'component_title') {
     result = choices
       .sort((a, b) => {
