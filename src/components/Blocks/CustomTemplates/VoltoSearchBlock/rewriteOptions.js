@@ -41,16 +41,17 @@ const rewriteOptions = (name, choices) => {
     }));
   }
   const portal_types = [
-    'DataSet',
     'Product',
+    'DataSet',
+    'TechnicalLibrary',
+    'UseCase',
     'News Item',
     'eea.meeting',
-    'UseCase',
-    'WorkOpportunity',
     'Tender',
-    'TechnicalLibrary',
+    'WorkOpportunity',
     'Document',
   ];
+
   if (name === 'portal_type') {
     result = choices
       .filter((opt) => portal_types.includes(opt.value))
@@ -58,12 +59,7 @@ const rewriteOptions = (name, choices) => {
         return { ...opt, label: portal_types_labels[opt.value] };
       })
       .sort((a, b) => {
-        if (a.label < b.label) {
-          return -1;
-        } else if (a.label > b.label) {
-          return 1;
-        }
-        return 0;
+        return portal_types.indexOf(a.value) - portal_types.indexOf(b.value);
       });
   }
   if (name === 'classificationTopicCategory') {
