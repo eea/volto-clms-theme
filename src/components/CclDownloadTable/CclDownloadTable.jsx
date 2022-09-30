@@ -10,7 +10,7 @@ import {
 import React, { useState } from 'react';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { Icon } from '@plone/volto/components';
+import { Icon, Toast } from '@plone/volto/components';
 import PropTypes from 'prop-types';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
@@ -18,11 +18,13 @@ import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { useSelector } from 'react-redux';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { toast } from 'react-toastify';
+import { defineMessages, useIntl } from 'react-intl';
 
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
-  const { addCartItem, Toast, isLoggedIn } = useCartState();
+  const { addCartItem, isLoggedIn } = useCartState();
   const [cartSelection, setCartSelection] = useState([]);
   const [currentPageItems, setCurrentPageItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +34,7 @@ function CclDownloadTable(props) {
   const [totalPages, setTotalPages] = useState(
     Math.ceil(dataset?.downloadable_files?.items.length / 10),
   );
+  const intl = useIntl();
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
     (element) => {
@@ -44,13 +47,24 @@ function CclDownloadTable(props) {
     },
   );
 
+  const messages = defineMessages({
+    added_to_cart: {
+      id: 'Added to cart',
+      defaultMessage: 'Added to cart',
+    },
+    success: {
+      id: 'Success',
+      defaultMessage: 'Success',
+    },
+  });
+
   React.useEffect(() => {
     setCurrentPageItems(prePackagedCollection.slice(0, 10));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
-    calcHeaderCheckboxStatus();
+    calcHeaderCheckboxStatus(currentPageItems);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartSelection, currentPage]);
 
@@ -67,18 +81,21 @@ function CclDownloadTable(props) {
       setFilteredItems(prePackagedCollection);
       setTotalPages(Math.ceil(prePackagedCollection.length / 10));
     }
-    calcHeaderCheckboxStatus();
+    calcHeaderCheckboxStatus(currentPageItems);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterText]);
 
-  const calcHeaderCheckboxStatus = () => {
-    const currentPageSelection = currentPageItems.filter((item) =>
+  const calcHeaderCheckboxStatus = (currentPI) => {
+    const currentPageSelection = currentPI.filter((item) =>
       cartSelection.includes(item.unique_id),
     );
     if (currentPageSelection.length === 10) {
       setpageCheckboxStatus(2);
-    } else if (currentPageSelection.length === currentPageItems.length) {
+    } else if (
+      currentPI.length !== 0 &&
+      currentPageSelection.length === currentPI.length
+    ) {
       setpageCheckboxStatus(2);
     } else if (cartSelection.length > 0) {
       setpageCheckboxStatus(1);
@@ -137,7 +154,7 @@ function CclDownloadTable(props) {
     setCartSelection(prePackagedCollection.map((item) => item.unique_id));
   };
 
-  const addToCard = () => {
+  const addToCard = async () => {
     let selectedCartItems = prePackagedCollection
       .filter((item) => cartSelection.includes(item.unique_id) && item)
       // Get only UID and unique_id from selectedCartItems array of objects
@@ -148,7 +165,15 @@ function CclDownloadTable(props) {
         file: item.file,
         unique_id: item.unique_id,
       }));
-    addCartItem(selectedCartItems);
+    await addCartItem(selectedCartItems).then(() => {
+      toast.success(
+        <Toast
+          success
+          title={intl.formatMessage(messages.success)}
+          content={intl.formatMessage(messages.added_to_cart)}
+        />,
+      );
+    });
   };
 
   const clearSelection = () => {
@@ -196,7 +221,6 @@ function CclDownloadTable(props) {
     validcolums &&
     columns && (
       <div className="dataset-download-table">
-        <Toast message="Added to cart" time={5000}></Toast>
         <h2>Download pre-packaged data collections</h2>
         <p>
           Please note that you can only download the latest version of our
@@ -232,7 +256,7 @@ function CclDownloadTable(props) {
                 <>
                   {' - '}
                   <Button basic color="olive" onClick={clearSelection}>
-                    Clear selection <Icon name={clearSVG} size={20}></Icon>
+                    Clear selection <Icon name={clearSVG} size={'20px'}></Icon>
                   </Button>
                 </>
               )}
