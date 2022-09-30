@@ -1,13 +1,15 @@
+import { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { logout, purgeMessages } from '@plone/volto/actions';
+
+import PropTypes from 'prop-types';
+import qs from 'query-string';
+
 /**
  * Login container.
  * @module components/theme/Logout/Logout
  */
-
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import qs from 'query-string';
-import { logout, purgeMessages } from '@plone/volto/actions';
 
 /**
  * Logout class.
@@ -39,7 +41,8 @@ class CclLogout extends Component {
 
   componentDidMount() {
     // eslint-disable-next-line no-restricted-globals
-    this.props.logout().then(history.back(1));
+    this.props.logout();
+    window.location.href = '/';
     this.props.purgeMessages();
   }
 

@@ -39,6 +39,10 @@ const EmailWidget = (props) => {
       id: 'The entered email address is not valid',
       defaultMessage: 'The entered email address is not valid',
     },
+    valid_email: {
+      id: 'Valid email address',
+      defaultMessage: 'Valid email address',
+    },
   });
 
   const email =
@@ -55,6 +59,9 @@ const EmailWidget = (props) => {
     if (email !== '') {
       if (validator.isEmail(email) === false) {
         input.setCustomValidity(intl.formatMessage(messages.invalid_email));
+        input.reportValidity();
+      } else if (validator.isEmail(email)) {
+        input.setCustomValidity(intl.formatMessage(messages.valid_email));
         input.reportValidity();
       }
     } else {
