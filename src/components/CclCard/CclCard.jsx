@@ -9,6 +9,7 @@ import { Label } from 'semantic-ui-react';
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon } from 'semantic-ui-react';
+import { Icon as VoltoIcon } from '@plone/volto/components';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
@@ -58,9 +59,9 @@ const DocCard = ({ card, url, showEditor, children }) => {
           )}
           {card?.Type === 'TechnicalLibrary' && showEditor && (
             <Link to={`${url}/edit`}>
-              <Icon
+              <VoltoIcon
                 name={penSVG}
-                size="15px"
+                size="12px"
                 className="circled"
                 title={'Edit'}
               />
