@@ -5,29 +5,26 @@
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
   getNutsNames,
 } from '../../actions';
-import useCartState, {
-  CART_SESSION_KEY,
-} from '@eeacms/volto-clms-utils/cart/useCartState';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CLMSCartContent from './CLMSCartContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Helmet } from '@plone/volto/helpers';
 import { Link } from 'react-router-dom';
+import { getFormatConversionTable, getProjections } from '../../actions';
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
-  const user_id = useSelector((state) => state.users.user.id);
   const locale = useSelector((state) => state.intl?.locale);
-  const [localSessionCart, setLocalSessionCart] = useState([]);
+  const cart = useSelector((state) => state.cart_items.items);
   const { isLoggedIn } = useCartState();
-
   const { formatMessage } = useIntl();
   const messages = defineMessages({
     Cart: {
@@ -35,6 +32,11 @@ const CLMSDownloadCartView = (props) => {
       defaultMessage: 'Cart',
     },
   });
+
+  useEffect(() => {
+    dispatch(getProjections());
+    dispatch(getFormatConversionTable());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(
@@ -50,23 +52,17 @@ const CLMSDownloadCartView = (props) => {
     return () => {
       dispatch(getExtraBreadcrumbItems([]));
     };
-  }, [dispatch, formatMessage, messages.Cart, props.location.pathname]);
-
-  useEffect(() => {
-    const CART_SESSION_USER_KEY = CART_SESSION_KEY.concat(`_${user_id}`);
-    setLocalSessionCart(
-      JSON.parse(localStorage.getItem(CART_SESSION_USER_KEY)) || [],
-    );
-  }, [user_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.location.pathname]);
 
   useEffect(() => {
     let localsessionUidsList = [];
-    if (localSessionCart?.length !== 0) {
+    if (cart?.length !== 0) {
       localsessionUidsList = [
-        ...new Set(localSessionCart.map((item) => item.UID || item.id)),
+        ...new Set(cart.map((item) => item.UID || item.id)),
       ];
     }
-    let localsessionNutsIDList = [...new Set(getNutsIDList(localSessionCart))];
+    let localsessionNutsIDList = [...new Set(getNutsIDList(cart))];
     let uidsList = [...new Set(localsessionUidsList)];
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
@@ -75,7 +71,7 @@ const CLMSDownloadCartView = (props) => {
       dispatch(getNutsNames(localsessionNutsIDList));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localSessionCart, dispatch]);
+  }, [cart, dispatch]);
 
   function getNutsIDList(cart_data) {
     const nuts_ids = [];
@@ -134,7 +130,7 @@ const CLMSDownloadCartView = (props) => {
                   </ul>
                 </div>
               </div>
-              <CLMSCartContent localSessionCart={localSessionCart} />
+              <CLMSCartContent localSessionCart={cart} />
             </div>
           </>
         )}
