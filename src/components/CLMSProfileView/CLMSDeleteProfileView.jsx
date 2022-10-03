@@ -1,6 +1,5 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
@@ -8,9 +7,9 @@ import { Modal, Segment } from 'semantic-ui-react';
 
 import { logout } from '@plone/volto/actions';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 import { delProfile } from '../../actions';
+import { FormattedMessage } from 'react-intl';
 
 /**
  * CLMSProfileView container.
@@ -27,14 +26,11 @@ export const CLMSDeleteProfileView = (props) => {
 
   const deleting = useSelector((state) => state.profile_delete.loading);
 
-  const { removeAllCart } = useCartState();
-
   function handleClick() {
     dispatch(delProfile());
   }
 
   if (isDeleted === true) {
-    removeAllCart();
     history.push('/');
     dispatch(logout());
   }
@@ -100,6 +96,7 @@ export const CLMSDeleteProfileView = (props) => {
                       setOpen({ ...open, 'delete-profile': false });
                     }}
                     mode="filled"
+                    to="profile#Delete-profile"
                   >
                     <FormattedMessage
                       id="Yes, I want to delete my account"

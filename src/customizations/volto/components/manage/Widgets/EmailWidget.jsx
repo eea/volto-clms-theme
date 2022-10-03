@@ -7,6 +7,7 @@ import { FormFieldWrapper } from '@plone/volto/components';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import validator from 'validator';
 
 /** EmailWidget, a widget for email addresses
  *
@@ -38,28 +39,36 @@ const EmailWidget = (props) => {
       id: 'The entered email address is not valid',
       defaultMessage: 'The entered email address is not valid',
     },
+    valid_email: {
+      id: 'Valid email address',
+      defaultMessage: 'Valid email address',
+    },
   });
 
   const email =
     typeof window !== 'undefined' && document.getElementById(inputId) !== null
       ? document.getElementById(inputId).value
       : '';
+
+  const input =
+    typeof window !== 'undefined' && document.getElementById(inputId) !== null
+      ? document.getElementById(inputId)
+      : '';
   // email.addEventListener('input', function (e) {
   React.useEffect(() => {
     if (email !== '') {
-      if (email.validity !== undefined) {
-        if (email.validity.typeMismatch) {
-          email.setCustomValidity(intl.formatMessage(messages.invalid_email));
-          email.reportValidity();
-        } else {
-          email.setCustomValidity('');
-        }
+      if (validator.isEmail(email) === false) {
+        input.setCustomValidity(intl.formatMessage(messages.invalid_email));
+        input.reportValidity();
+      } else if (validator.isEmail(email)) {
+        input.setCustomValidity(intl.formatMessage(messages.valid_email));
+        input.reportValidity();
       }
     } else {
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email.value]);
+  }, [email]);
   // });
 
   return (
@@ -68,7 +77,7 @@ const EmailWidget = (props) => {
         <input
           id={inputId}
           name={id}
-          type="email"
+          // type="text"
           value={value || ''}
           disabled={isDisabled}
           placeholder={placeholder}

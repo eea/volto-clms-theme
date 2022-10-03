@@ -30,6 +30,8 @@ const DataSetInfoContent = (props) => {
             portal_type: 'TechnicalLibrary',
             path: '/',
             associated_datasets: UID,
+            sort_on: 'documentation_sorting',
+            sort_order: 'ascending',
           },
           id,
         ),

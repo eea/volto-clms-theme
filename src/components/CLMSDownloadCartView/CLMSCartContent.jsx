@@ -13,12 +13,7 @@ import {
   formatNaming,
   originalFormatNaming,
 } from './cartUtils';
-import {
-  getDownloadtool,
-  getFormatConversionTable,
-  getProjections,
-  postDownloadtool,
-} from '../../actions';
+import { getDownloadtool, postDownloadtool } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
@@ -34,18 +29,20 @@ const CLMSCartContent = (props) => {
   const dispatch = useDispatch();
   const { removeCartItem, removeCartItems } = useCartState();
 
-  // component states
-  const [openedModal, setOpenedModal] = useState(false);
-  const [cartSelection, setCartSelection] = useState([]);
-  const [loadingTable, setLoadingTable] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-
   // state connections
   const cart = useSelector((state) => state.cart_items.items);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
-  const datasets = useSelector((state) => state.datasetsByUid.datasets.items);
+
+  // component states
+  const [openedModal, setOpenedModal] = useState(false);
+  const [cartSelection, setCartSelection] = useState([]);
+  const [loadingTable, setLoadingTable] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const datasets_items = useSelector(
+    (state) => state.datasetsByUid.datasets.items,
+  );
   const formatConversionTable = useSelector(
     (state) => state.downloadtool.format_conversion_table_in_progress,
   );
@@ -55,12 +52,7 @@ const CLMSCartContent = (props) => {
   const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
 
   useEffect(() => {
-    dispatch(getProjections());
-    dispatch(getFormatConversionTable());
-  }, [dispatch]);
-
-  useEffect(() => {
-    setCartItemInProgress(post_download_in_progress['unique_ids']);
+    setCartItemInProgress(post_download_in_progress.unique_ids || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post_download_in_progress]);
 
@@ -70,10 +62,14 @@ const CLMSCartContent = (props) => {
       array_ids.includes(item.unique_id),
     );
     setCartItems(cleanDuplicatesEntries(newCart));
-    if (datasets?.length > 0 && cart.length > 0 && !newCart.length) {
+    if (
+      datasets_items?.length > 0 &&
+      cart.length > 0 &&
+      cart.length !== newCart.length
+    ) {
       concatRequestedCartItem();
     }
-  }, [cart, datasets]);
+  }, [cart, datasets_items]);
 
   useEffect(() => {
     if (Object.keys(nutsnames).length > 0 && cart.length > 0) {
@@ -82,21 +78,22 @@ const CLMSCartContent = (props) => {
   }, [nutsnames]);
 
   function concatRequestedCartItem() {
+    let newCartItems = [...cartItems];
     localSessionCart.forEach((localItem) => {
-      const requestedItem = datasets
-        ? datasets.find((req) => req.UID === localItem.UID)
+      const requestedItem = datasets_items
+        ? datasets_items.find((req) => req.UID === localItem.UID)
         : false;
       if (requestedItem) {
         const file_data = requestedItem?.downloadable_files?.items.find(
           (item) => item['@id'] === localItem.file_id,
         );
         if (file_data) {
-          cartItems.push(
+          newCartItems.push(
             getCartObjectFromPrepackaged(file_data, requestedItem),
           );
-          setCartItems(cleanDuplicatesEntries(cartItems));
+          setCartItems(cleanDuplicatesEntries(newCartItems));
         } else {
-          cartItems.push(
+          newCartItems.push(
             getCartObjectFromMapviewer(
               localItem,
               requestedItem,
@@ -104,7 +101,7 @@ const CLMSCartContent = (props) => {
               nutsnames,
             ),
           );
-          setCartItems(cleanDuplicatesEntries(cartItems));
+          setCartItems(cleanDuplicatesEntries(newCartItems));
         }
       }
     });
@@ -265,8 +262,8 @@ const CLMSCartContent = (props) => {
             (obj) => obj.unique_id === item.unique_id,
           );
           cartItems[objIndex].type = data.value;
-          const dataset = datasets
-            ? datasets.find((req) => req.UID === item.dataset_uid)
+          const dataset = datasets_items
+            ? datasets_items.find((req) => req.UID === item.dataset_uid)
             : false;
           const format_item = dataset.dataset_download_information.items.find(
             (item) => item['@id'] === data.value,
