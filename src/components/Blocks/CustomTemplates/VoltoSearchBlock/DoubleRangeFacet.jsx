@@ -6,10 +6,28 @@ import React, { useState } from 'react';
 import InputRange from 'react-input-range';
 import { Segment } from 'semantic-ui-react';
 import {
-  selectFacetSchemaEnhancer,
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
+
+const doubleRangeFacetSchemaEnhancer = ({ schema, formData }) => {
+  // adds (enables) the 'multiple' field after the 'type' dropdown
+  let { fields } = schema.fieldsets[0];
+  const pos = fields.indexOf('type') + 1;
+  fields = [
+    ...fields.slice(0, pos),
+    'step',
+    'multiple',
+    ...fields.slice(pos, fields.length),
+  ];
+
+  schema.properties = {
+    ...schema.properties,
+    step: { title: 'Step', type: 'number', default: 1 },
+  };
+  schema.fieldsets[0].fields = fields;
+  return schema;
+};
 
 const DoubleRangeFacet = (props) => {
   const { facet, choices, onChange, value } = props;
@@ -21,13 +39,13 @@ const DoubleRangeFacet = (props) => {
       min: Math.min.apply(
         Math,
         values.map(function (o) {
-          return o.value;
+          return o.value.replace(/[a-zA-Z]/, '');
         }),
       ),
       max: Math.max.apply(
         Math,
         values.map(function (o) {
-          return o.value;
+          return o.value.replace(/[a-zA-Z]/, '');
         }),
       ),
     };
@@ -64,6 +82,7 @@ const DoubleRangeFacet = (props) => {
           <InputRange
             minValue={startingValues.min}
             maxValue={startingValues.max}
+            step={facet.step || 1}
             value={
               facetValue.length > 0 ? convertToRange(facetValue) : rangeValues
             }
@@ -76,7 +95,7 @@ const DoubleRangeFacet = (props) => {
   );
 };
 
-DoubleRangeFacet.schemaEnhancer = selectFacetSchemaEnhancer;
+DoubleRangeFacet.schemaEnhancer = doubleRangeFacetSchemaEnhancer;
 DoubleRangeFacet.stateToValue = selectFacetStateToValue;
 DoubleRangeFacet.valueToQuery = selectFacetValueToQuery;
 export default DoubleRangeFacet;

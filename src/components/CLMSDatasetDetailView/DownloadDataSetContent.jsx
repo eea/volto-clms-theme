@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
-import { getUser } from '@plone/volto/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import config from '@plone/volto/registry';
@@ -29,9 +28,6 @@ const DownloadDataSetContent = (data, token) => {
     }
   }, [registryRecords, registry_key, location.pathname]);
   const user = useSelector((state) => state.users?.user);
-  React.useEffect(() => {
-    dispatch(getUser(token));
-  }, [dispatch, token]);
 
   function modalStatus(status) {
     if (status === true) {

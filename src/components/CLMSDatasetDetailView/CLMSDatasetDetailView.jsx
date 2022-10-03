@@ -44,7 +44,9 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const wms_fields_importation = useSelector((state) => state.importWMSFields);
   const user = useSelector((state) => state.users?.user);
   React.useEffect(() => {
-    dispatch(getUser(token));
+    if (token) {
+      dispatch(getUser(token));
+    }
   }, [dispatch, token]);
 
   function handleImport(id, type) {
@@ -388,7 +390,9 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
         {content?.downloadable_dataset &&
           content?.downloadable_files?.items?.length > 0 && (
-            <div tabTitle="Download">{DownloadDataSetContent(content)}</div>
+            <div tabTitle="Download">
+              {DownloadDataSetContent(content, token)}
+            </div>
           )}
         {content?.downloadable_dataset &&
           content?.downloadable_files?.items?.length === 0 && (

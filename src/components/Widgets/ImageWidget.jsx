@@ -24,6 +24,9 @@ const imageMimetypes = [
   'image/jpg',
   'image/gif',
   'image/svg+xml',
+  'image/tif',
+  'image/tiff',
+  'image/bmp',
 ];
 const Dropzone = loadable(() => import('react-dropzone'));
 
@@ -94,15 +97,6 @@ const FileWidget = (props) => {
     ? `data:${value['content-type']};${value.encoding},${value.data}`
     : null;
 
-  const allowedFileTypes = [
-    'image/png',
-    'image/jpeg',
-    'image/webp',
-    'image/jpg',
-    'image/gif',
-    'image/svg+xml',
-  ];
-
   /**
    * Drop handler
    * @method onDrop
@@ -113,7 +107,7 @@ const FileWidget = (props) => {
     const file = files[0];
     readAsDataURL(file).then((data) => {
       const fields = data.match(/^data:(.*);(.*),(.*)$/);
-      if (!allowedFileTypes.includes(fields[1])) {
+      if (!imageMimetypes.includes(fields[1])) {
         toast.error(
           <Toast
             autoClose={5000}
@@ -135,7 +129,11 @@ const FileWidget = (props) => {
     let reader = new FileReader();
     reader.onload = function () {
       const fields = reader.result.match(/^data:(.*);(.*),(.*)$/);
-      if (imageMimetypes.includes(fields[1])) {
+      if (fields[1] === 'image/tif' || fields[1] === 'image/tiff') {
+        setFileType(true);
+        let imagePreview = document.getElementById(`field-${id}-image`);
+        imagePreview.src = '';
+      } else if (imageMimetypes.includes(fields[1])) {
         setFileType(true);
         let imagePreview = document.getElementById(`field-${id}-image`);
         imagePreview.src = reader.result;

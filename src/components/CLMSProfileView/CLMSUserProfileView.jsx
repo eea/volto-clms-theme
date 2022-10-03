@@ -1,20 +1,24 @@
+import React, { Component } from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+import { compose } from 'redux';
+import { Container } from 'semantic-ui-react';
+
+import { getUser, updateUser } from '@plone/volto/actions';
+import { UniversalLink } from '@plone/volto/components';
+import { Form, Toast } from '@plone/volto/components';
+import { getBaseUrl } from '@plone/volto/helpers';
+
+import { getUserSchema } from '../../actions';
+
+import jwtDecode from 'jwt-decode';
+import PropTypes from 'prop-types';
+
 /**
  * CLMSProfileView container.
  * @module components/CLMSProfileView/CLMSProfileView
  */
-
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { defineMessages, injectIntl } from 'react-intl';
-import jwtDecode from 'jwt-decode';
-import { Form, Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
-import { getUser, updateUser } from '@plone/volto/actions';
-import { getBaseUrl } from '@plone/volto/helpers';
-import { Container } from 'semantic-ui-react';
-import { getUserSchema } from '../../actions';
 
 const messages = defineMessages({
   UserProfile: {
@@ -159,7 +163,10 @@ class CLMSUserProfileView extends Component {
                 using EU Login to enter this site. <br />
                 If you want to change your fullname and e-mail address, please
                 do so in your{' '}
-                <a href="https://ecas.ec.europa.eu/cas/">EU Login account</a>.
+                <UniversalLink href={'https://ecas.ec.europa.eu/cas/'}>
+                  EU Login account
+                </UniversalLink>
+                .
               </p>
               <div>
                 {this.props?.userschema?.loaded && (

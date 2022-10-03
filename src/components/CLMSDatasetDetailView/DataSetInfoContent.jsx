@@ -30,6 +30,8 @@ const DataSetInfoContent = (props) => {
             portal_type: 'TechnicalLibrary',
             path: '/',
             associated_datasets: UID,
+            sort_on: 'documentation_sorting',
+            sort_order: 'ascending',
           },
           id,
         ),
@@ -78,7 +80,7 @@ const DataSetInfoContent = (props) => {
         citation?.data !== '<p><br/></p>' &&
         citation?.data !== '<p></p>' && (
           <CclCitation
-            title="Citation status"
+            title="Dataset citation"
             marginBottom={true}
             children={<StringToHTML string={citation?.data} />}
           ></CclCitation>

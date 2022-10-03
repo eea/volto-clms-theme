@@ -180,7 +180,7 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                 }}
                 label={
                   <label htmlFor={`field-${option.value}`}>
-                    {option.label.replace(/^[0-9][0-9]#/, '')}
+                    {option.label}
                   </label>
                 }
                 checked={
