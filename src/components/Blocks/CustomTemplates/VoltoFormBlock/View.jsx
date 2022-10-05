@@ -150,7 +150,11 @@ const View = ({ data, id, path }) => {
             let name = getFieldName(subblock.label, subblock.id);
             if (formattedFormData[name]?.value) {
               formattedFormData[name].field_id = subblock.field_id;
-              const isAttachment = subblock.field_type === 'attachment';
+              // const isAttachment = subblock.field_type === 'attachment';
+              const isAttachment = [
+                'attachment',
+                'image_field_widget',
+              ].contains(subblock.field_type);
               const isDate = subblock.field_type === 'date';
 
               if (isAttachment) {
