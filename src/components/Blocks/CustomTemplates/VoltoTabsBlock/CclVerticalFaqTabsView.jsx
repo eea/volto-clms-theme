@@ -25,7 +25,7 @@ const CclVerticalFaqTabsView = (props) => {
       <div className="right-content cont-w-75">
         {tabsList.map((tab, index) => {
           const title = tabs[tab].title;
-          const tabHash = slugify(title);
+          const tabHash = `tab=${slugify(title)}`;
           return (
             <Route to={'#' + tabHash}>
               <div
@@ -64,7 +64,7 @@ const CclVerticalFaqTabsView = (props) => {
             const nextSubTab =
               tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
             const defaultTitle = `Tab ${tabIndex}`;
-            const tabHash = title.split(' ').join('-');
+            const tabHash = `tab=${slugify(title)}`;
             return (
               <div
                 key={index}
