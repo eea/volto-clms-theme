@@ -154,7 +154,7 @@ const View = ({ data, id, path }) => {
               const isAttachment = [
                 'attachment',
                 'image_field_widget',
-              ].contains(subblock.field_type);
+              ].includes(subblock.field_type);
               const isDate = subblock.field_type === 'date';
 
               if (isAttachment) {
@@ -171,12 +171,29 @@ const View = ({ data, id, path }) => {
               }
             }
           });
+
+          const sortedFormattedFormData = Object.keys(formattedFormData)
+            .sort((a, b) => {
+              return (
+                data.subblocks
+                  .map((subblock) => getFieldName(subblock.label, subblock.id))
+                  .indexOf(a) -
+                data.subblocks
+                  .map((subblock) => getFieldName(subblock.label, subblock.id))
+                  .indexOf(b)
+              );
+            })
+            .reduce((accumulator, key) => {
+              accumulator[key] = formattedFormData[key];
+
+              return accumulator;
+            }, {});
           dispatch(
             submitForm(
               path,
               id,
-              Object.keys(formattedFormData).map((name) => ({
-                ...formattedFormData[name],
+              Object.keys(sortedFormattedFormData).map((name) => ({
+                ...sortedFormattedFormData[name],
               })),
               attachments,
               captcha,
@@ -222,6 +239,7 @@ const View = ({ data, id, path }) => {
 
       setFormState({ type: FORM_STATES.error, error: errorDescription });
     }
+    captchaToken.current = undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitResults]);
 
