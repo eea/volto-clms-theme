@@ -57,12 +57,11 @@ const EmailWidget = (props) => {
   // email.addEventListener('input', function (e) {
   React.useEffect(() => {
     if (email !== '') {
-      if (validator.isEmail(email) === false) {
+      if (!validator.isEmail(email)) {
         input.setCustomValidity(intl.formatMessage(messages.invalid_email));
         input.reportValidity();
-      } else if (validator.isEmail(email)) {
-        input.setCustomValidity(intl.formatMessage(messages.valid_email));
-        input.reportValidity();
+      } else {
+        input.setCustomValidity('');
       }
     } else {
       return;
