@@ -30,7 +30,8 @@
     "volto-form-block",
     "@eeacms/volto-taxonomy",
     "volto-cookie-banner",
-    "@eeacms/volto-tableau"
+    "@eeacms/volto-tableau",
+    "@eeacms/volto-embed"
   ],
   "dependencies": {
     "volto-cookie-banner": "2.1.0",
@@ -44,6 +45,7 @@
     "@eeacms/volto-tabs-block": "1.2.7",
     "@eeacms/volto-taxonomy": "^1.0.0",
     "@eeacms/volto-tableau": "1.2.4",
+    "@eeacms/volto-embed": "4.0.2",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
     "@fortawesome/free-solid-svg-icons": "5.15.3",

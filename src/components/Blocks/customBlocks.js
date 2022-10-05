@@ -75,6 +75,8 @@ import TextWidget from '@plone/volto/components/manage/Widgets/TextWidget';
 import TextareaWidget from '@plone/volto/components/manage/Widgets/TextareaWidget';
 import EmailWidget from '@plone/volto/components/manage/Widgets/EmailWidget';
 import { default as FormCustomView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/View';
+import { default as CustomVideoView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VideoBlock/View';
+import { default as CustomVideoEdit } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VideoBlock/Edit';
 export const customGroupBlocksOrder = [
   {
     id: 'ccl_blocks',
@@ -139,6 +141,9 @@ const customBlocks = (config) => ({
   video: {
     ...config.blocks.blocksConfig.video,
     mostUsed: false,
+    restricted: false,
+    edit: CustomVideoEdit,
+    view: CustomVideoView,
   },
 
   [ARCGIS_BLOCK]: {
@@ -543,6 +548,10 @@ const customBlocks = (config) => ({
         component: EmailWidget,
       },
     ],
+  },
+  maps: {
+    ...config.blocks.blocksConfig.maps,
+    restricted: false,
   },
 });
 
