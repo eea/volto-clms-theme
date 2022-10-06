@@ -69,6 +69,7 @@ import downSVG from '@plone/volto/icons/down-key.svg';
 import homeBand from '@plone/volto/icons/image-wide.svg';
 import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
+import codeSVG from '@plone/volto/icons/code.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
 import TextWidget from '@plone/volto/components/manage/Widgets/TextWidget';
@@ -77,6 +78,8 @@ import EmailWidget from '@plone/volto/components/manage/Widgets/EmailWidget';
 import { default as FormCustomView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/View';
 import { default as CustomVideoView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VideoBlock/View';
 import { default as CustomVideoEdit } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VideoBlock/Edit';
+import { default as CustomHtmlView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/HtmlBlock/View';
+import { default as CustomHtmlEdit } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/HtmlBlock/Edit';
 export const customGroupBlocksOrder = [
   {
     id: 'ccl_blocks',
@@ -145,7 +148,22 @@ const customBlocks = (config) => ({
     edit: CustomVideoEdit,
     view: CustomVideoView,
   },
-
+  html: {
+    id: 'html',
+    title: 'HTML',
+    icon: codeSVG,
+    group: 'common',
+    view: CustomHtmlView,
+    edit: CustomHtmlEdit,
+    schema: BlockSettingsSchema,
+    restricted: false,
+    mostUsed: false,
+    sidebarTab: 1,
+    security: {
+      addPermission: [],
+      view: [],
+    },
+  },
   [ARCGIS_BLOCK]: {
     ...config.blocks.blocksConfig[ARCGIS_BLOCK],
     styles: {

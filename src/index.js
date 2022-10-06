@@ -156,6 +156,7 @@ const applyConfig = (config) => {
       login_url: 'clms.addon.login_url_controlpanel.login_url',
     },
     showTags: false,
+    ownDomain: 'land.copernicus.eu',
   };
 
   config.addonRoutes = [
