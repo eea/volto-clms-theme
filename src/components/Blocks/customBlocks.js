@@ -74,7 +74,7 @@ import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget
 import TextWidget from '@plone/volto/components/manage/Widgets/TextWidget';
 import TextareaWidget from '@plone/volto/components/manage/Widgets/TextareaWidget';
 import EmailWidget from '@plone/volto/components/manage/Widgets/EmailWidget';
-
+import { default as FormCustomView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoFormBlock/View';
 export const customGroupBlocksOrder = [
   {
     id: 'ccl_blocks',
@@ -481,6 +481,7 @@ const customBlocks = (config) => ({
   },
   form: {
     ...config.blocks.blocksConfig.form,
+    view: FormCustomView,
     fieldSchema: customIdFieldSchema,
     fieldTypeSchemaExtenders: {
       checkbox_html: CheckboxSchemaExtender,

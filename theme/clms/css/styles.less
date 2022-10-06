@@ -940,6 +940,11 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   vertical-align: middle;
 }
 
+.dataset-download-table > .ui.basic.segment {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 /* Downloads */
 .download-block {
   position: relative;
@@ -1251,4 +1256,9 @@ div#page-document h1.documentFirstHeading {
 #sidebar-metadata .react-select__option {
   white-space: nowrap;
   width: fit-content;
+}
+
+// CLMS-1424
+.cart-table td {
+  word-break: unset !important;
 }
