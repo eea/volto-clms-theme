@@ -53,14 +53,11 @@ const DoubleRangeFacet = (props) => {
 
   const startingValues = convertToRange(choices);
 
-  // const [rangeValues, setRangeValues] = useState(startingValues);
-
   const onChangeRange = (rValue, onChangeR, sValue) => {
     const fixedValue = {
       min: rValue.min < sValue.min ? sValue.min : rValue.min,
       max: rValue.max > sValue.max ? sValue.max : rValue.max,
     };
-    // setRangeValues(fixedValue);
     onChangeR(
       facet.field.value,
       [...Array(fixedValue.max - fixedValue.min + 1).keys()].map((i) =>
@@ -86,7 +83,7 @@ const DoubleRangeFacet = (props) => {
           <InputRange
             minValue={startingValues.min}
             maxValue={startingValues.max}
-            step={facet.step || 1}
+            step={facet.step ?? 1}
             value={
               facetValue.length > 0
                 ? convertToRange(facetValue)
