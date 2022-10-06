@@ -1,7 +1,7 @@
 import 'react-input-range/lib/css/index.css';
 import './range.css';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import InputRange from 'react-input-range';
 import { Segment } from 'semantic-ui-react';
@@ -53,14 +53,18 @@ const DoubleRangeFacet = (props) => {
 
   const startingValues = convertToRange(choices);
 
-  const [rangeValues, setRangeValues] = useState(startingValues);
+  // const [rangeValues, setRangeValues] = useState(startingValues);
 
-  const onChangeRange = (rValue, onChangeR) => {
-    setRangeValues(rValue);
+  const onChangeRange = (rValue, onChangeR, sValue) => {
+    const fixedValue = {
+      min: rValue.min < sValue.min ? sValue.min : rValue.min,
+      max: rValue.max > sValue.max ? sValue.max : rValue.max,
+    };
+    // setRangeValues(fixedValue);
     onChangeR(
       facet.field.value,
-      [...Array(rValue.max - rValue.min + 1).keys()].map((i) =>
-        (i + rValue.min).toString(),
+      [...Array(fixedValue.max - fixedValue.min + 1).keys()].map((i) =>
+        (i + fixedValue.min).toString(),
       ),
     );
   };
@@ -84,9 +88,13 @@ const DoubleRangeFacet = (props) => {
             maxValue={startingValues.max}
             step={facet.step || 1}
             value={
-              facetValue.length > 0 ? convertToRange(facetValue) : rangeValues
+              facetValue.length > 0
+                ? convertToRange(facetValue)
+                : startingValues
             }
-            onChange={(changedValue) => onChangeRange(changedValue, onChange)}
+            onChange={(changedValue) =>
+              onChangeRange(changedValue, onChange, startingValues)
+            }
           />
         </Segment>
         <br />
