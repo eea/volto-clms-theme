@@ -190,14 +190,16 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                 value={option.value}
               />
             </Grid.Column>
-            <Grid.Column
-              onClick={() => setOpen(!open)}
-              width={2}
-              style={{ cursor: 'pointer' }}
-              textAlign="center"
-            >
-              <Icon className="" name={downSVG} size={25} />
-            </Grid.Column>
+            {option.childrens.length > 0 && (
+              <Grid.Column
+                onClick={() => setOpen(!open)}
+                width={2}
+                style={{ cursor: 'pointer' }}
+                textAlign="center"
+              >
+                <Icon className="" name={downSVG} size={25} />
+              </Grid.Column>
+            )}
           </Grid>
         </List.Header>
         {option.childrens.length > 0 && (
