@@ -58,7 +58,7 @@ const DocCard = ({ card, url, showEditor, children }) => {
             <Link to={url}>{card?.title}</Link>
           )}
           {card?.Type === 'TechnicalLibrary' && showEditor && (
-            <Link to={`${url}/edit`}>
+            <Link to={`${url}/edit`} class="technical-library-edit-link">
               <VoltoIcon
                 name={penSVG}
                 size="12px"
