@@ -31,7 +31,7 @@ const TextareaWidget = (props) => {
       let remlength = maxLength - value.length;
       if (remlength < 0) {
         setlengthError(
-          `You have exceed character limit by ${Math.abs(remlength)}`,
+          `You have exceeded the character limit by ${Math.abs(remlength)}`,
         );
       } else {
         setlengthError('');

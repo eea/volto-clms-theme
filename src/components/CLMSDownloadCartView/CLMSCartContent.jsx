@@ -171,7 +171,7 @@ const CLMSCartContent = (props) => {
     const hasPrepackaged =
       selectedItems.filter((item) => item.file_id).length > 0;
     const hasMapSelection =
-      selectedItems.filter((item) => item.area).length > 0;
+      selectedItems.filter((item) => !item.file_id).length > 0;
     if (!(hasMapSelection && hasPrepackaged)) {
       startDownloading();
     } else {
@@ -456,19 +456,21 @@ const CLMSCartContent = (props) => {
                 ></span>
               </div>
               <p>Download processing</p>
-              {'The download is going to be processed in two different files.'}
+              {
+                'Data download will be made available in separate files for pre-packaged files and custom data selection.'
+              }
               <br />
               <br />
-              <strong>Prepackaged files:</strong>
+              <strong>Selected pre-packaged files:</strong>
               <ul>
                 {getSelectedCartItems()
                   .filter((item) => item.file_id)
                   .map((item, key) => (
-                    <li key={key}>{item.name}</li>
+                    <li key={key}>{item.title || item.area}</li>
                   ))}
               </ul>
               <br />
-              <strong>Map viewer selection:</strong>
+              <strong>Custom data selection from:</strong>
               <ul>
                 {[
                   ...new Set(

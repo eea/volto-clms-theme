@@ -57,14 +57,18 @@ const FilterList = (props) => {
   // if (choices?.length > 0) {
   //   options = structure_taxonomy_terms(choices);
   // }
-  const currentFiltersToCount = {};
+  let currentFiltersToCount = {};
   Object.keys(currentFilters).forEach((filterKey) => {
     if (typeof currentFilters[filterKey] === 'object') {
-      currentFiltersToCount[filterKey] = currentFilters[filterKey].filter(
-        (filter) => {
-          return !filtersToAvoidSet.has(filter);
-        },
-      );
+      currentFiltersToCount[filterKey] =
+        baseFacets.filter((facet) => facet.field.value === filterKey).length >
+          0 &&
+        baseFacets.filter((facet) => facet.field.value === filterKey)[0]
+          .type === 'doubleRangeFacet'
+          ? ['placeholder']
+          : currentFilters[filterKey].filter((filter) => {
+              return !filtersToAvoidSet.has(filter);
+            });
     }
   });
   // const totalFilters = [].concat.apply([], Object.values(currentFilters))
@@ -73,7 +77,6 @@ const FilterList = (props) => {
   const totalFilters = [].concat.apply([], Object.values(currentFiltersToCount))
     .length;
   const intl = useIntl();
-
   return showFilterList && Object.keys(currentFilters).length ? (
     <div className="accordion ui filter-listing">
       <div
