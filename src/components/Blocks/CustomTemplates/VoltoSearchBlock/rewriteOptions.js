@@ -7,7 +7,7 @@ export const portal_types_labels = {
   WorkOpportunity: 'Vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
-  Document: 'Page',
+  Document: 'Other content',
 };
 
 export const category_labels = {
