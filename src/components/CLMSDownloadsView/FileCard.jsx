@@ -38,7 +38,7 @@ const DatasetNaming = (props) => {
   const { dataset } = props;
   return (
     <>
-      {`${dataset['name']} -
+      {`${dataset['name'] ? dataset['name'] : 'loading...'} -
     ${
       dataset?.OutputFormat
         ? dataset?.OutputFormat
