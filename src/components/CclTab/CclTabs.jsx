@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
           // Any content under tabs
         </div>
       </CclTabs>
- * 
+ *
  */
 const CclTabs = (props) => {
   let { children, routing = false } = props;
@@ -63,6 +63,7 @@ const CclTabs = (props) => {
                   tabTitle={tabTitle}
                   onClick={onClickTabItem}
                   redirect={redirect}
+                  {...child.props}
                 />
               );
             })}

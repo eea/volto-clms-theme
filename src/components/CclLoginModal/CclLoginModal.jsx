@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
-import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import { FormattedMessage } from 'react-intl';
-import config from '@plone/volto/registry';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { UniversalLink } from '@plone/volto/components';
+import config from '@plone/volto/registry';
+import { getRegistry } from '@eeacms/volto-clms-theme/actions';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+
 import './ccl-login-modal.css';
+
 /**
  * Login Modal component doc.
  * @function CclLoginModal
@@ -13,7 +16,14 @@ import './ccl-login-modal.css';
  *
  */
 function CclLoginModal(props) {
-  let { classname = 'header-login-link' } = props;
+  let {
+    classname = 'header-login-link',
+    triggerComponent = () => (
+      <span className={classname}>
+        <FormattedMessage id="loginRegister" defaultMessage="Register/Login" />
+      </span>
+    ),
+  } = props;
   const dispatch = useDispatch();
   const registryRecords = useSelector((state) => state.registry.records);
   const [loginUrl, setLoginUrl] = React.useState('');
@@ -35,14 +45,7 @@ function CclLoginModal(props) {
 
   return (
     <CclModal
-      trigger={
-        <span className={classname}>
-          <FormattedMessage
-            id="loginRegister"
-            defaultMessage="Register/Login"
-          />
-        </span>
-      }
+      trigger={triggerComponent()}
       size="tiny"
       modalStatus={modalStatus}
     >

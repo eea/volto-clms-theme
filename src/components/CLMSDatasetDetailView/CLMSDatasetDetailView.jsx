@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { compose } from 'redux';
 import { Modal, Segment } from 'semantic-ui-react';
 
 import { getUser } from '@plone/volto/actions';
@@ -20,7 +21,6 @@ import {
 
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 
 /**
  * Full view component.
@@ -390,19 +390,23 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
         {content?.downloadable_dataset &&
           content?.downloadable_files?.items?.length > 0 && (
-            <div tabTitle="Download">
+            <div
+              tabTitle="Download"
+              loginRequired={true}
+              redirect={location.pathname + '/download-by-area'}
+            >
               {DownloadDataSetContent(content, token)}
             </div>
           )}
-        {content?.downloadable_dataset &&
+        {/* {content?.downloadable_dataset &&
           content?.downloadable_files?.items?.length === 0 && (
             <div
-              tabTitle="Download"
+              tabTitle="Downloadaa"
               redirect={`${location.pathname}/download-by-area`}
             >
               {''}
             </div>
-          )}
+          )} */}
 
         <div underPanel={true}>
           <nav className="left-menu-detail">
