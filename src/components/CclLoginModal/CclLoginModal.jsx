@@ -23,7 +23,7 @@ function CclLoginModal(props) {
         <FormattedMessage id="loginRegister" defaultMessage="Register/Login" />
       </span>
     ),
-    otherPath,
+    otherPath = undefined,
   } = props;
   const dispatch = useDispatch();
   const registryRecords = useSelector((state) => state.registry.records);
@@ -32,11 +32,13 @@ function CclLoginModal(props) {
 
   useEffect(() => {
     if (registryRecords && registry_key in registryRecords) {
-      setLoginUrl(
-        `${registryRecords[registry_key]}?came_from=${
-          otherPath ?? window.location.href
-        }`,
-      );
+      if (otherPath) {
+        setLoginUrl(`${registryRecords[registry_key]}?came_from=${otherPath}`);
+      } else {
+        setLoginUrl(
+          `${registryRecords[registry_key]}?came_from=${window.location.href}`,
+        );
+      }
     }
   }, [otherPath, registryRecords, registry_key]);
 
@@ -96,7 +98,12 @@ function CclLoginModal(props) {
       </div>
       <div className="actions">
         <div className="modal-buttons">
-          <a href={loginUrl || '#'} className="ccl-button ccl-button-green">
+          <a
+            href={loginUrl || '#'}
+            target="_blank"
+            rel="noreferrer"
+            className="ccl-button ccl-button-green"
+          >
             Login using EU Login
           </a>
         </div>

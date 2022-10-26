@@ -29,16 +29,12 @@ function CclTab(props) {
       onClick={(e) => {
         !loginRequired
           ? onTabClick(e)
-          : loginRequired && token
-          ? onTabClick(e)
-          : e.preventDefault();
+          : loginRequired && token && onTabClick(e);
       }}
       onKeyDown={(e) => {
         !loginRequired
           ? onTabClick(e)
-          : loginRequired && token
-          ? onTabClick(e)
-          : e.preventDefault();
+          : loginRequired && token && onTabClick(e);
       }}
       tabIndex="0"
       role="button"
@@ -46,17 +42,10 @@ function CclTab(props) {
     >
       {loginRequired && !token ? (
         <CclLoginModal
-          otherPath={redirect}
+          otherPath={redirect ? redirect : undefined}
           triggerComponent={() => (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a
-              rel="noreferrer"
-              role="button"
-              tabIndex={0}
-              style={{ cursor: 'pointer' }}
-            >
-              {tabTitle}
-            </a>
+            <a style={{ cursor: 'pointer' }}>{tabTitle}</a>
           )}
         />
       ) : routing && !redirect ? (
