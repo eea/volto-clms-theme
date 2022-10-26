@@ -26,8 +26,20 @@ function CclTab(props) {
   return (
     <div
       className={cx('card', activeTab === tabId ? 'active' : '')}
-      onClick={onTabClick}
-      onKeyDown={onTabClick}
+      onClick={(e) => {
+        !loginRequired
+          ? onTabClick(e)
+          : loginRequired && token
+          ? onTabClick(e)
+          : e.preventDefault();
+      }}
+      onKeyDown={(e) => {
+        !loginRequired
+          ? onTabClick(e)
+          : loginRequired && token
+          ? onTabClick(e)
+          : e.preventDefault();
+      }}
       tabIndex="0"
       role="button"
       id={tabId}
@@ -63,7 +75,7 @@ function CclTab(props) {
             style={{ cursor: 'pointer' }}
           >
             {tabTitle}
-            {redirecting && <Redirect to={redirect} />}
+            {redirecting && <Redirect push to={redirect} />}
           </a>
         )
       )}
