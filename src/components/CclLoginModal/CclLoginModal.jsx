@@ -98,12 +98,7 @@ function CclLoginModal(props) {
       </div>
       <div className="actions">
         <div className="modal-buttons">
-          <a
-            href={loginUrl || '#'}
-            target="_blank"
-            rel="noreferrer"
-            className="ccl-button ccl-button-green"
-          >
+          <a href={loginUrl || '#'} className="ccl-button ccl-button-green">
             Login using EU Login
           </a>
         </div>
