@@ -49,6 +49,7 @@ export const ProductSchema = () => ({
         ['home_product_3', 'Leaf'],
         ['home_product_4', 'Computer'],
         ['home_product_5', 'Database'],
+        ['home_product_6', 'Satellite'],
       ],
     },
     linkSelector: {
