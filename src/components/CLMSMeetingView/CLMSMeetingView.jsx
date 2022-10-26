@@ -146,7 +146,8 @@ export const CLMSMeetingView = (props) => {
             />
           </Message>
         ) : (
-          rIsLoggedIn && (
+          rIsLoggedIn &&
+          rContent.can_register && (
             <>
               <div>
                 <input
@@ -439,7 +440,8 @@ export const CLMSMeetingView = (props) => {
                 <>
                   {content.anonymous_registration_form?.published &&
                     content.anonymous_registration_form?.email &&
-                    content.anonymous_registration_form?.fullname && (
+                    content.anonymous_registration_form?.fullname &&
+                    content.can_register && (
                       <CclButton url={content.anonymous_registration_form?.url}>
                         <FormattedMessage
                           id="Register"

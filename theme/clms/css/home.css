@@ -248,6 +248,10 @@
   background-image: url('../img/home_product_5.png');
 }
 
+#home_product_6 {
+  background-image: url('../img/home_product_6.png');
+}
+
 /* Datasets band */
 .home-datasets-container {
   padding: 3rem 1rem;
