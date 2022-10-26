@@ -23,6 +23,7 @@ function CclLoginModal(props) {
         <FormattedMessage id="loginRegister" defaultMessage="Register/Login" />
       </span>
     ),
+    otherPath,
   } = props;
   const dispatch = useDispatch();
   const registryRecords = useSelector((state) => state.registry.records);
@@ -32,10 +33,12 @@ function CclLoginModal(props) {
   useEffect(() => {
     if (registryRecords && registry_key in registryRecords) {
       setLoginUrl(
-        registryRecords[registry_key] + '?came_from=' + window.location.href,
+        `${registryRecords[registry_key]}?came_from=${
+          otherPath ?? window.location.href
+        }`,
       );
     }
-  }, [registryRecords, registry_key]);
+  }, [otherPath, registryRecords, registry_key]);
 
   function modalStatus(status) {
     if (status === true) {

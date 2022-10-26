@@ -34,6 +34,7 @@ function CclTab(props) {
     >
       {loginRequired && !token ? (
         <CclLoginModal
+          otherPath={redirect}
           triggerComponent={() => (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
