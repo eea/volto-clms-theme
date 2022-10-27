@@ -198,7 +198,7 @@ const FileCard = (props) => {
                 {item.Message}
               </Segment>
             )}
-            {item?.Status === 'Finished_ok' && 10 - daysDiff > -1 && (
+            {item?.Status === 'Finished_ok' && 3 - daysDiff > -1 && (
               <Segment basic className="file-download">
                 {item?.DownloadURL && (
                   <a href={item.DownloadURL} target="_blank" rel="noreferrer">
@@ -207,7 +207,7 @@ const FileCard = (props) => {
                 )}
                 {item?.FileSize && ` (${prettyBytes(item.FileSize)})`}
                 {item?.FinalizationDateTime &&
-                  ` | Expires in ${10 - daysDiff} days`}
+                  ` | Expires in ${3 - daysDiff} days`}
               </Segment>
             )}
           </Grid.Column>

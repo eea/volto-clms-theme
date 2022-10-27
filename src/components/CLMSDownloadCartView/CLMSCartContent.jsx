@@ -466,7 +466,7 @@ const CLMSCartContent = (props) => {
                 {getSelectedCartItems()
                   .filter((item) => item.file_id)
                   .map((item, key) => (
-                    <li key={key}>{item.title || item.area}</li>
+                    <li key={key}>{item.area || item.file || item.title}</li>
                   ))}
               </ul>
               <br />
