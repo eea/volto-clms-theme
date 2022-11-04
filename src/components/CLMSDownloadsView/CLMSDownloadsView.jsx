@@ -1,25 +1,45 @@
-/**
- * CLMSDownloadsView.
- * @module components/CLMSDownloadsView/CLMSDownloadsView
- */
+import React, { useEffect, useState } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
-import React, { useEffect } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
+import { Helmet } from '@plone/volto/helpers';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+import { Segment } from 'semantic-ui-react';
+
 import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
   getDownloadtool,
 } from '../../actions';
-import { useDispatch, useSelector } from 'react-redux';
-
 import CLMSDownloadTask from './CLMSDownloadTasks';
-import { Helmet } from '@plone/volto/helpers';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+
+/**
+ * CLMSDownloadsView.
+ * @module components/CLMSDownloadsView/CLMSDownloadsView
+ */
+
+const useInterval = (f, delay) => {
+  const [timer, setTimer] = useState(undefined);
+  const start = () => {
+    if (timer) return;
+    setTimer(setInterval(f, delay));
+  };
+  const stop = () => {
+    if (!timer) return;
+    setTimer(clearInterval(timer));
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => stop, []);
+  return start;
+};
 
 const CLMSDownloadsView = (props) => {
   const dispatch = useDispatch();
   const downloadtool = useSelector((state) => state.downloadtool);
+  const datasetsByUid = useSelector((state) => state.datasetsByUid);
+  /* DISPATCH THE getDownloadtool ACTION EVERY 60 SECONDS */
+  const start = useInterval((_) => dispatch(getDownloadtool()), 60000);
   const { isLoggedIn } = useCartState();
 
   const { formatMessage } = useIntl();
@@ -109,7 +129,9 @@ const CLMSDownloadsView = (props) => {
   useEffect(() => {
     if (downloadtool.delete_download_in_progress) {
       dispatch(getDownloadtool());
+      start();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, downloadtool.delete_download_in_progress]);
 
   return (
@@ -137,7 +159,12 @@ const CLMSDownloadsView = (props) => {
               {formatMessage(messages.CartDownloads)}
             </h1>
             <div className="ccl-container">
-              <CLMSDownloadTask />
+              <Segment
+                basic
+                loading={downloadtool.loading || datasetsByUid.loading}
+              >
+                <CLMSDownloadTask />
+              </Segment>
             </div>
           </>
         )}
