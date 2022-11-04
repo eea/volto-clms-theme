@@ -170,12 +170,27 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                 onChange={(event, { checked }) => {
                   checked
                     ? onChange(id, [
-                        ...value,
+                        ...value.filter(
+                          (v) =>
+                            option.childrens.filter(
+                              (ch) => ch.value === v.token,
+                            ).length === 0,
+                        ),
                         { title: option.original, token: option.value },
+                        ...option.childrens.map((ch) => {
+                          return { title: ch.original, token: ch.value };
+                        }),
                       ])
                     : onChange(
                         id,
-                        value.filter((item) => item.token !== option.value),
+                        value
+                          .filter((item) => item.token !== option.value)
+                          .filter(
+                            (v) =>
+                              option.childrens.filter(
+                                (ch) => ch.value === v.token,
+                              ).length === 0,
+                          ),
                       );
                 }}
                 label={
