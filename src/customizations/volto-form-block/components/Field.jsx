@@ -100,6 +100,7 @@ const Field = ({
           isDisabled={disabled}
           invalid={isInvalid().toString()}
           required={required}
+          noValueOption={!required}
           {...(isInvalid() ? { className: 'is-invalid' } : {})}
         />
       )}
