@@ -507,6 +507,7 @@ const customBlocks = (config) => ({
     view: FormCustomView,
     fieldSchema: customIdFieldSchema,
     fieldTypeSchemaExtenders: {
+      ...config.blocks.blocksConfig.form.fieldTypeSchemaExtenders,
       checkbox_html: CheckboxSchemaExtender,
     },
     additionalFields: [
