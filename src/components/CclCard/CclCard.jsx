@@ -13,6 +13,7 @@ import { Icon as VoltoIcon } from '@plone/volto/components';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { UniversalLink } from '@plone/volto/components';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -142,7 +143,12 @@ function CclCard(props) {
                 </div>
                 <div className="card-text">
                   <div className="card-file-title">
-                    <CardLink url={url}>{card?.title}</CardLink>
+                    <UniversalLink
+                      openLinkInNewTab={true}
+                      href={url + '/@@download/file'}
+                    >
+                      {card?.title}
+                    </UniversalLink>
                   </div>
                   {showDates && (
                     <div className="card-file-date">

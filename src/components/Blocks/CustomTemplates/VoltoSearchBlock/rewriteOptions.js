@@ -52,6 +52,13 @@ const rewriteOptions = (name, choices) => {
     'Document',
   ];
 
+  const dataset_geographical_classification = [
+    'EEA',
+    'Northern hemisphere',
+    'Southern hemisphere',
+    'Global',
+  ];
+
   if (name === 'portal_type') {
     result = choices
       .filter((opt) => portal_types.includes(opt.value))
@@ -114,6 +121,16 @@ const rewriteOptions = (name, choices) => {
       return 0;
     });
   }
+
+  if (name === 'dataset_geographical_classification') {
+    result = choices.sort((a, b) => {
+      return (
+        dataset_geographical_classification.indexOf(a.value) -
+        dataset_geographical_classification.indexOf(b.value)
+      );
+    });
+  }
+
   return result;
 };
 
