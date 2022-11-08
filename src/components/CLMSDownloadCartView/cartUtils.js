@@ -3,7 +3,9 @@ export const formatNaming = (item) => {
 };
 
 export const originalFormatNaming = (item) => {
-  return item?.original_format?.token || item?.original_format;
+  const original = item?.original_format?.token || item?.original_format;
+  const format = item?.format?.token || item?.format;
+  return format ? format : original;
 };
 
 export const getDownloadToolPostBody = (selectedItems) => {
