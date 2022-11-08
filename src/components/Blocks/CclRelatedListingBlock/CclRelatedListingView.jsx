@@ -51,8 +51,8 @@ const CclRelatedListingView = (props) => {
     sort_order = 'descending';
   } else if (data.content_type === 'TechnicalLibrary') {
     //if documentation_sorting is null the TechnicalLibrary is not stored in libraries [BACKEND]
-    sort_on = 'documentation_sorting';
-    sort_order = 'ascending';
+    sort_on = ['documentation_sorting', 'sortable_title'];
+    sort_order = ['ascending', 'ascending'];
   }
 
   React.useEffect(() => {
