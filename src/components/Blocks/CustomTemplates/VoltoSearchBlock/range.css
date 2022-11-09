@@ -17,7 +17,7 @@
 .input-range__track.input-range__track--background
   span.input-range__slider-container:nth-child(3)
   span.input-range__label.input-range__label--value {
-  width: 15px;
+  width: 0;
 }
 
 .range-container {
