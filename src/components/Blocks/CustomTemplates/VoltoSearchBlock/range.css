@@ -8,12 +8,12 @@
 .input-range__track.input-range__track--background
   span.input-range__slider-container:nth-child(2)
   span.input-range__label.input-range__label--value {
-  direction: rtl;
   width: 0;
+  direction: rtl;
   white-space: nowrap;
 }
 
 .range-container {
-  padding-left: 15px;
   padding-right: 15px;
+  padding-left: 15px;
 }
