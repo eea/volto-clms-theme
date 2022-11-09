@@ -78,7 +78,7 @@ const DoubleRangeFacet = (props) => {
       >
         <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
-      <div>
+      <div class="range-container">
         <Segment basic padded>
           <InputRange
             minValue={startingValues.min}
