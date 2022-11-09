@@ -3,3 +3,15 @@
   border: #a0b128;
   background: #a0b128;
 }
+
+/* first label, prevents overlapping CLMS-1459 */
+.input-range__track.input-range__track--background span.input-range__slider-container:nth-child(2) span.input-range__label.input-range__label--value {
+  direction: rtl;
+  width: 0;
+  white-space: nowrap;
+}
+
+.range-container {
+  padding-left:15px;
+  padding-right:15px;
+}
