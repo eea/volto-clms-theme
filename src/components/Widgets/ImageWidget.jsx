@@ -48,8 +48,8 @@ const messages = defineMessages({
     defaultMessage: 'Replace existing image',
   },
   addNewFile: {
-    id: 'Choose a image',
-    defaultMessage: 'Choose a image',
+    id: 'Choose an image',
+    defaultMessage: 'Choose an image',
   },
   invalid_file: {
     id: 'The uploaded file is not valid',

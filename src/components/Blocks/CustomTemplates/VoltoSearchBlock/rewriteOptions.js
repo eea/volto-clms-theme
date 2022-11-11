@@ -7,7 +7,7 @@ export const portal_types_labels = {
   WorkOpportunity: 'Vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
-  Document: 'Page',
+  Document: 'Other content',
 };
 
 export const category_labels = {
@@ -50,6 +50,13 @@ const rewriteOptions = (name, choices) => {
     'Tender',
     'WorkOpportunity',
     'Document',
+  ];
+
+  const dataset_geographical_classification = [
+    'EEA',
+    'Northern hemisphere',
+    'Southern hemisphere',
+    'Global',
   ];
 
   if (name === 'portal_type') {
@@ -114,6 +121,16 @@ const rewriteOptions = (name, choices) => {
       return 0;
     });
   }
+
+  if (name === 'dataset_geographical_classification') {
+    result = choices.sort((a, b) => {
+      return (
+        dataset_geographical_classification.indexOf(a.value) -
+        dataset_geographical_classification.indexOf(b.value)
+      );
+    });
+  }
+
   return result;
 };
 

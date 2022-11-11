@@ -225,6 +225,8 @@ const View = ({ data, id, path }) => {
     onChangeFormData,
   });
 
+  const formid = `form-${id}`;
+
   useEffect(() => {
     if (submitResults?.loaded) {
       setFormState({
@@ -232,6 +234,16 @@ const View = ({ data, id, path }) => {
         result: intl.formatMessage(messages.formSubmitted),
       });
       captcha.reset();
+      const formItem = document.getElementById(formid);
+      if (formItem !== null) {
+        const formItemPosition = formItem.getBoundingClientRect();
+        formItemPosition !== null &&
+          window.scrollTo({
+            top: formItemPosition.x,
+            left: formItemPosition.y,
+            behavior: 'smooth',
+          });
+      }
     } else if (submitResults?.error) {
       let errorDescription = `${
         JSON.parse(submitResults.error.response?.text ?? '{}')?.message
@@ -249,6 +261,7 @@ const View = ({ data, id, path }) => {
 
   return (
     <FormView
+      id={formid}
       formState={formState}
       formErrors={formErrors}
       formData={formData}

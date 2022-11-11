@@ -171,7 +171,7 @@ const CLMSCartContent = (props) => {
     const hasPrepackaged =
       selectedItems.filter((item) => item.file_id).length > 0;
     const hasMapSelection =
-      selectedItems.filter((item) => item.area).length > 0;
+      selectedItems.filter((item) => !item.file_id).length > 0;
     if (!(hasMapSelection && hasPrepackaged)) {
       startDownloading();
     } else {
@@ -233,11 +233,7 @@ const CLMSCartContent = (props) => {
   const CollectionNaming = (typeProps) => {
     const { item } = typeProps;
     if (item.file_id) {
-      return (
-        <span className={'tag tag-' + item?.type?.toLowerCase()}>
-          {contentOrDash(item.type)}
-        </span>
-      );
+      return '-';
     } else if (!item.type) {
       return '-';
     }
@@ -250,13 +246,17 @@ const CLMSCartContent = (props) => {
             ? item.type
             : item.type_options.length > 0 && item.type_options[0].id
         }
-        options={item.type_options.map((option) => {
-          return {
-            key: option.id,
-            value: option.id,
-            text: (option.collection === undefined && '-') || option.collection,
-          };
-        })}
+        options={
+          item?.type_options?.length > 0 &&
+          item?.type_options.map((option) => {
+            return {
+              key: option.id,
+              value: option.id,
+              text:
+                (option.collection === undefined && '-') || option.collection,
+            };
+          })
+        }
         onChange={(e, data) => {
           const objIndex = cartItems.findIndex(
             (obj) => obj.unique_id === item.unique_id,
@@ -346,13 +346,13 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      {item.title ? (
+                      {/* {item.title ? (
                         <td>
                           {item.title} ({contentOrDash(item.name)})
                         </td>
-                      ) : (
-                        <td>{contentOrDash(item.name)}</td>
-                      )}
+                      ) : ( */}
+                      <td>{contentOrDash(item.name)}</td>
+                      {/* )} */}
                       <td>{contentOrDash(item.source)}</td>
                       <td style={{ wordBreak: 'break-word' }}>
                         <AreaNaming item={item} />
@@ -456,19 +456,21 @@ const CLMSCartContent = (props) => {
                 ></span>
               </div>
               <p>Download processing</p>
-              {'The download is going to be processed in two different files.'}
+              {
+                'Data download will be made available in separate files for pre-packaged files and custom data selection.'
+              }
               <br />
               <br />
-              <strong>Prepackaged files:</strong>
+              <strong>Selected pre-packaged files:</strong>
               <ul>
                 {getSelectedCartItems()
                   .filter((item) => item.file_id)
                   .map((item, key) => (
-                    <li key={key}>{item.name}</li>
+                    <li key={key}>{item.area || item.file || item.title}</li>
                   ))}
               </ul>
               <br />
-              <strong>Map viewer selection:</strong>
+              <strong>Custom data selection from:</strong>
               <ul>
                 {[
                   ...new Set(

@@ -5,6 +5,7 @@ import { flattenToAppURL } from '@plone/volto/helpers';
 
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { useSelector } from 'react-redux';
+import { UniversalLink } from '@plone/volto/components';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 
@@ -27,7 +28,7 @@ const CclListingCards = (props) => {
       </ConditionalLink>
     );
   } else if (href) {
-    link = <a href={href}>{linkTitle || href}</a>;
+    link = <UniversalLink href={href}>{linkTitle || href}</UniversalLink>;
   }
   let containerClass = '';
   if (['news', 'event'].includes(variation)) {
