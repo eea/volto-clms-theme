@@ -87,7 +87,7 @@ const CLMSNewsItemView = (props) => {
       )}
       {files.length > 0 && (
         <CclListingCards
-          variation="file"
+          variation="downloadFile"
           items={files}
           showDates={false}
           linkHref={`${files['@id']}/@@download/file`}
