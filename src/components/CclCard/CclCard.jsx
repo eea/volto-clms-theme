@@ -149,12 +149,7 @@ function CclCard(props) {
                 </div>
                 <div className="card-text">
                   <div className="card-file-title">
-                    <UniversalLink
-                      openLinkInNewTab={true}
-                      href={url + '/@@download/file'}
-                    >
-                      {card?.title}
-                    </UniversalLink>
+                    <CardLink url={url}>{card?.title}</CardLink>
                   </div>
                   {showDates && (
                     <div className="card-file-date">
