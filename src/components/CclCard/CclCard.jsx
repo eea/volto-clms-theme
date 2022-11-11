@@ -108,9 +108,15 @@ function CclCard(props) {
     'threeColumns',
     'globalSearch',
     'file',
+    'downloadFile',
   ];
   const wrapperClass =
-    'card-' + (type === 'globalSearch' ? 'doc' : type || 'line');
+    'card-' +
+    (type === 'globalSearch'
+      ? 'doc'
+      : type === 'downloadFile'
+      ? 'file'
+      : type || 'line');
   return (
     <CardLink
       url={url}
@@ -143,6 +149,28 @@ function CclCard(props) {
                 <div className="card-text">
                   <div className="card-file-title">
                     <CardLink url={url}>{card?.title}</CardLink>
+                  </div>
+                  {showDates && (
+                    <div className="card-file-date">
+                      {card?.effective
+                        ? cclDateFormat(card?.effective)
+                        : cclDateFormat(card?.created)}
+                    </div>
+                  )}
+                  {children}
+                </div>
+              </>
+            )}
+            {type === 'downloadFile' && (
+              <>
+                <div className="card-icon">
+                  <Icon name="file alternate outline" />
+                </div>
+                <div className="card-text">
+                  <div className="card-file-title">
+                    <CardLink url={url + '/@@download/file'}>
+                      {card?.title}
+                    </CardLink>
                   </div>
                   {showDates && (
                     <div className="card-file-date">

@@ -101,6 +101,12 @@ function listingVariation(id, isDefault, title, template, isWO = false) {
 const availableVariations = [
   listingVariation('CclCardsdoc', true, 'Line list', 'doc'),
   listingVariation('CclFiles', false, 'Files list', 'file'),
+  listingVariation(
+    'CclFilesDownload',
+    false,
+    'Files list (link to download)',
+    'downloadFile',
+  ),
   listingVariation('CclCardsline', false, 'Line list with Image', 'line'),
   listingVariation(
     'CclCardsline-color',
