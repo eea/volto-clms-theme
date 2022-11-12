@@ -11,6 +11,8 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { CSVLink } from 'react-csv';
 import { Toast } from '@plone/volto/components';
 import { toast } from 'react-toastify';
+import { Unauthorized } from '@plone/volto/components';
+
 export const CLMSMeetingSubscribersView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -113,104 +115,131 @@ export const CLMSMeetingSubscribersView = (props) => {
         subscriberSelection,
         manipulation_type,
       ),
-    ).then((response) => {
-      toast.success(
-        <Toast success autoClose={5000} title={response.message} />,
-      );
-    });
+    )
+      .then((response) => {
+        toast.success(
+          <Toast
+            success
+            autoClose={5000}
+            title={'Success'}
+            content={response.message}
+          />,
+        );
+      })
+      .catch(() => {
+        toast.error(
+          <Toast
+            error
+            autoClose={5000}
+            title={'Error'}
+            content={'There was an error handling your request'}
+          />,
+        );
+      });
     setSubscriberSelection([]);
   }
 
+  const isManager = useSelector((state) =>
+    state.users?.user.roles.includes('Manager'),
+  );
+
   return (
     <div className="ccl-container">
-      <h1 className="page-title">{content.title}</h1>
-
-      {subscribers && (
-        <div className="ccl-container">
-          <div className="event-detail">
-            <div className="custom-table dataset-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      <Checkbox
-                        onChange={(e, data) => selectAllRows(data.checked)}
-                        checked={subscribers
-                          ?.map((item, key) => item.id)
-                          .every(function (val) {
-                            return subscriberSelection.indexOf(val) !== -1;
-                          })}
-                      />
-                    </th>
-                    <th>{intl.formatMessage(messages.user_name)}</th>
-                    <th>{intl.formatMessage(messages.name)}</th>
-                    <th>{intl.formatMessage(messages.email)}</th>
-                    <th>{intl.formatMessage(messages.state)}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {subscribers.length > 0 ? (
-                    subscribers?.map((subscriber, index) => (
-                      <tr key={index}>
-                        <td>
+      {!isManager && (
+        <Unauthorized
+          pathname={props.pathname}
+          staticContext={props.staticContext}
+        />
+      )}
+      {isManager && (
+        <>
+          <h1 className="page-title">{content.title}</h1>
+          {subscribers && (
+            <div className="ccl-container">
+              <div className="event-detail">
+                <div className="custom-table dataset-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
                           <Checkbox
-                            onChange={(e, data) =>
-                              selectRow(subscriber, data.checked)
-                            }
-                            checked={subscriberSelection.includes(
-                              subscriber.id,
-                            )}
+                            onChange={(e, data) => selectAllRows(data.checked)}
+                            checked={subscribers
+                              ?.map((item, key) => item.id)
+                              .every(function (val) {
+                                return subscriberSelection.indexOf(val) !== -1;
+                              })}
                           />
-                        </td>
-                        <td>
-                          <Link href={`${subscriber['@id']}/edit`}>
-                            {subscriber.id}
-                          </Link>
-                        </td>
-                        <td>{subscriber.title}</td>
-                        <td>{subscriber.email}</td>
-                        <td>{subscriber.review_state}</td>
+                        </th>
+                        <th>{intl.formatMessage(messages.user_name)}</th>
+                        <th>{intl.formatMessage(messages.name)}</th>
+                        <th>{intl.formatMessage(messages.email)}</th>
+                        <th>{intl.formatMessage(messages.state)}</th>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="4">
-                        <p>{intl.formatMessage(messages.no_results)}</p>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-              <CclButton
-                disabled={subscriberSelection.length === 0}
-                onClick={() => handleSubscribersManipulationClick('delete')}
-              >
-                {intl.formatMessage(messages.delete_selected)}
-              </CclButton>
-              <CclButton
-                disabled={subscriberSelection.length === 0}
-                onClick={() => handleSubscribersManipulationClick('approve')}
-              >
-                {intl.formatMessage(messages.approve_selected)}
-              </CclButton>
-              <CclButton
-                disabled={subscriberSelection.length === 0}
-                onClick={() => handleSubscribersManipulationClick('reject')}
-              >
-                {intl.formatMessage(messages.reject_selected)}
-              </CclButton>
-              <CSVLink
-                disabled={subscriberSelection.length === 0}
-                data={downloadData}
-                className="ccl-button ccl-button--default"
-                filename={content.id + '.csv'}
-                target="_blank"
-              >
-                {intl.formatMessage(messages.download_selected)}
-              </CSVLink>
+                    </thead>
+                    <tbody>
+                      {subscribers.length > 0 ? (
+                        subscribers?.map((subscriber, index) => (
+                          <tr key={index}>
+                            <td>
+                              <Checkbox
+                                onChange={(e, data) =>
+                                  selectRow(subscriber, data.checked)
+                                }
+                                checked={subscriberSelection.includes(
+                                  subscriber.id,
+                                )}
+                              />
+                            </td>
+                            <td>{subscriber.id}</td>
+                            <td>{subscriber.title}</td>
+                            <td>{subscriber.email}</td>
+                            <td>{subscriber.review_state}</td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4">
+                            <p>{intl.formatMessage(messages.no_results)}</p>
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  <CclButton
+                    disabled={subscriberSelection.length === 0}
+                    onClick={() => handleSubscribersManipulationClick('delete')}
+                  >
+                    {intl.formatMessage(messages.delete_selected)}
+                  </CclButton>
+                  <CclButton
+                    disabled={subscriberSelection.length === 0}
+                    onClick={() =>
+                      handleSubscribersManipulationClick('approve')
+                    }
+                  >
+                    {intl.formatMessage(messages.approve_selected)}
+                  </CclButton>
+                  <CclButton
+                    disabled={subscriberSelection.length === 0}
+                    onClick={() => handleSubscribersManipulationClick('reject')}
+                  >
+                    {intl.formatMessage(messages.reject_selected)}
+                  </CclButton>
+                  <CSVLink
+                    disabled={subscriberSelection.length === 0}
+                    data={downloadData}
+                    className="ccl-button ccl-button--default"
+                    filename={content.id + '.csv'}
+                    target="_blank"
+                  >
+                    {intl.formatMessage(messages.download_selected)}
+                  </CSVLink>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </div>
   );
