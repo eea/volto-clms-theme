@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { CSVLink } from 'react-csv';
 import { defineMessages, injectIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Checkbox } from 'semantic-ui-react';
+
+import { Toast } from '@plone/volto/components';
+import { Unauthorized } from '@plone/volto/components';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+
 import {
   MeetingSubscribers,
   MeetingSubscribersManipulation,
 } from '../../actions';
-import { Checkbox } from 'semantic-ui-react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { CSVLink } from 'react-csv';
-import { Toast } from '@plone/volto/components';
-import { toast } from 'react-toastify';
-import { Unauthorized } from '@plone/volto/components';
 
 export const CLMSMeetingSubscribersView = (props) => {
   const { content, intl } = props;
