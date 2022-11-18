@@ -109,6 +109,7 @@ function CclCard(props) {
     'globalSearch',
     'file',
     'downloadFile',
+    'fileWithoutDates',
   ];
   const wrapperClass =
     'card-' +
@@ -116,7 +117,10 @@ function CclCard(props) {
       ? 'doc'
       : type === 'downloadFile'
       ? 'file'
+      : type === 'fileWithoutDates'
+      ? 'file card-file-aligned'
       : type || 'line');
+
   return (
     <CardLink
       url={url}
@@ -179,6 +183,19 @@ function CclCard(props) {
                         : cclDateFormat(card?.created)}
                     </div>
                   )}
+                  {children}
+                </div>
+              </>
+            )}
+            {type === 'fileWithoutDates' && (
+              <>
+                <div className="card-icon">
+                  <Icon name="file alternate outline" />
+                </div>
+                <div className="card-text">
+                  <div className="card-file-title">
+                    <CardLink url={url}>{card?.title}</CardLink>
+                  </div>
                   {children}
                 </div>
               </>

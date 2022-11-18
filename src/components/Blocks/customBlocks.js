@@ -112,6 +112,12 @@ const availableVariations = [
     'Files list (link to download)',
     'downloadFile',
   ),
+  listingVariation(
+    'CclFilesWithoutDate',
+    false,
+    'Files list (without dates)',
+    'fileWithoutDates',
+  ),
   listingVariation('CclCardsline', false, 'Line list with Image', 'line'),
   listingVariation(
     'CclCardsline-color',
