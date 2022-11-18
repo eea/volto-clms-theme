@@ -120,6 +120,12 @@ const availableVariations = [
   ),
   listingVariation('CclCardsline', false, 'Line list with Image', 'line'),
   listingVariation(
+    'CclCardsline-no-description',
+    false,
+    'Line list with Image (no description)',
+    'line-no-description',
+  ),
+  listingVariation(
     'CclCardsline-color',
     false,
     'Colored Line list with Image',

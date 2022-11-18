@@ -119,6 +119,8 @@ function CclCard(props) {
       ? 'file'
       : type === 'fileWithoutDates'
       ? 'file card-file-aligned'
+      : type === 'line-no-description'
+      ? 'line card-line-no-description'
       : type || 'line');
 
   return (
@@ -307,7 +309,9 @@ function CclCard(props) {
                 <CardLink url={url}>{card?.title}</CardLink>
                 {/* <CardLink url={url} title={card?.title} /> */}
               </div>
-              <div className="card-description">{card?.description}</div>
+              {type !== 'line-no-description' && (
+                <div className="card-description">{card?.description}</div>
+              )}
               {children}
             </div>
           </>
