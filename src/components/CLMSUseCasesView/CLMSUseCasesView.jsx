@@ -143,60 +143,6 @@ const CLMSUseCaseView = (props) => {
               </ul>
             </>
           )}
-          {content?.products?.length > 0 && (
-            <Accordion fluid styled>
-              <Accordion.Title
-                as={'h2'}
-                onClick={() => handleClick({ index: 0 })}
-                className={'accordion-title align-arrow-right'}
-              >
-                {activeIndex.includes(0) ? (
-                  <Icon
-                    name={iconName(content, titleIcons.opened)}
-                    size="24px"
-                  />
-                ) : (
-                  <Icon
-                    name={iconName(content, titleIcons.closed)}
-                    size="24px"
-                  />
-                )}
-                <span>Related products</span>
-              </Accordion.Title>
-              <Accordion.Content active={activeIndex.includes(0)}>
-                <AnimateHeight animateOpacity duration={500} height={'auto'}>
-                  <CLMSRelatedItems items={content.products} />
-                </AnimateHeight>
-              </Accordion.Content>
-            </Accordion>
-          )}
-          {content?.datasets?.length > 0 && (
-            <Accordion fluid styled>
-              <Accordion.Title
-                as={'h2'}
-                onClick={() => handleDatasetClick({ datasetindex: 0 })}
-                className={'accordion-title align-arrow-right'}
-              >
-                {activeDatasetIndex.includes(0) ? (
-                  <Icon
-                    name={iconName(content, titleIcons.opened)}
-                    size="24px"
-                  />
-                ) : (
-                  <Icon
-                    name={iconName(content, titleIcons.closed)}
-                    size="24px"
-                  />
-                )}
-                <span>Related datasets</span>
-              </Accordion.Title>
-              <Accordion.Content active={activeDatasetIndex.includes(0)}>
-                <AnimateHeight animateOpacity duration={500} height={'auto'}>
-                  <CLMSRelatedItems items={content.datasets} />
-                </AnimateHeight>
-              </Accordion.Content>
-            </Accordion>
-          )}
         </div>
       </div>
     </div>
