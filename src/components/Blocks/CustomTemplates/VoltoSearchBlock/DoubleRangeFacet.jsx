@@ -66,6 +66,10 @@ const DoubleRangeFacet = (props) => {
     );
   };
 
+  const mToKm = (m) => {
+    return m >= 1000 ? Math.round((m / 1000) * 10) / 10 + 'km' : m + 'm';
+  };
+
   return (
     <fieldset className="ccl-fieldset">
       <div
@@ -78,7 +82,7 @@ const DoubleRangeFacet = (props) => {
       >
         <legend className="ccl-form-legend">{facet.title}</legend>
       </div>
-      <div class="range-container">
+      <div className="range-container">
         <Segment basic padded>
           <InputRange
             minValue={startingValues.min}
@@ -92,6 +96,13 @@ const DoubleRangeFacet = (props) => {
             onChange={(changedValue) =>
               onChangeRange(changedValue, onChange, startingValues)
             }
+            formatLabel={(value) => {
+              if (facet.field.value === 'spatial_resolution') {
+                return mToKm(value);
+              } else {
+                return value;
+              }
+            }}
           />
         </Segment>
         <br />
