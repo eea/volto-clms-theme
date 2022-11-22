@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Image, Grid, List } from 'semantic-ui-react';
 
 import { getVocabulary } from '@plone/volto/actions';
 import { UniversalLink } from '@plone/volto/components';
@@ -35,9 +36,6 @@ const CLMSUseCaseView = (props) => {
     })
     .sort();
 
-  const detailClasses = 'news-detail usecase-detail';
-  const detailClassesContent = 'news-detail-content usecase-detail-content';
-
   return (
     <div className="ccl-container">
       {content?.external_url ? (
@@ -47,54 +45,68 @@ const CLMSUseCaseView = (props) => {
       ) : (
         <h1 className="page-title">{content.title}</h1>
       )}
-      <div className={detailClasses}>
-        {content?.image?.scales?.mini?.download ? (
-          <figure>
-            <img
-              src={
-                content?.image?.scales?.mini?.download ||
-                'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-              }
-              alt={content?.image ? content?.image?.filename : 'Placeholder'}
-            />
-          </figure>
-        ) : (
-          <figure>
-            <img src={PlaceHolder} alt={content?.image?.alt || 'Placeholder'} />
-          </figure>
-        )}
-
-        <div className={detailClassesContent}>
-          {topicValues.length > 0 && (
-            <>
-              {topicValues.map((topic, key) => (
-                <strong key={key}>{topic}</strong>
-              ))}
-            </>
-          )}
-          <p>
-            {content?.submittingProducionYear && (
-              <span className="usecase-detail-item">
-                {content?.submittingProducionYear + ' | '}
-              </span>
+      <Grid>
+        <Grid.Row columns={2}>
+          <Grid.Column width={3}>
+            {content?.image?.scales?.mini?.download ? (
+              <figure>
+                <Image
+                  src={content?.image?.scales?.mini?.download}
+                  alt={
+                    content?.image ? content?.image?.filename : 'Placeholder'
+                  }
+                />
+              </figure>
+            ) : (
+              <Image
+                src={PlaceHolder}
+                alt={content?.image?.alt || 'Placeholder'}
+              />
             )}
-            {content?.taxonomy_use_case_spatial_coverage.map(
-              (taxonomy_use_case_spatial_coverage, key) => (
-                <span className="usecase-detail-item" key={key}>
-                  {taxonomy_use_case_spatial_coverage.title}
-                </span>
-              ),
-            )}{' '}
-            {content?.taxonomy_use_case_spatial_coverage && ' | '}
-            {content?.responsibleOrganization && (
-              <span className="usecase-detail-item">
-                {content?.responsibleOrganization}
-              </span>
+          </Grid.Column>
+          <Grid.Column width={9}>
+            {topicValues.length > 0 && (
+              <List celled horizontal className="usecase-topic-values-list">
+                {topicValues.map((topic, key) => (
+                  <List.Item key={key}>
+                    <strong>{topic}</strong>
+                  </List.Item>
+                ))}
+              </List>
             )}
-          </p>
-          {content?.text && <StringToHTML string={content?.text?.data} />}
-        </div>
-      </div>
+            <p>
+              <List celled horizontal className="usecase-other-values-list">
+                <List.Item>
+                  {content?.submittingProducionYear && (
+                    <span className="usecase-year">
+                      {content?.submittingProducionYear}
+                    </span>
+                  )}
+                </List.Item>
+                <List.Item>
+                  {content?.taxonomy_use_case_spatial_coverage
+                    .map(
+                      (taxonomy_use_case_spatial_coverage) =>
+                        taxonomy_use_case_spatial_coverage.title,
+                    )
+                    .sort()
+                    .join(', ')}
+                </List.Item>
+                <List.Item>
+                  {content?.responsibleOrganization && (
+                    <span className="usecase-detail-item">
+                      {content?.responsibleOrganization}
+                    </span>
+                  )}
+                </List.Item>
+              </List>
+            </p>
+            <div className="usecase-body-text">
+              {content?.text && <StringToHTML string={content?.text?.data} />}
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };
