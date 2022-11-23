@@ -84,7 +84,7 @@ function CclLoginModal(props) {
             >
               link
             </UniversalLink>{' '}
-            to create it
+            to create it.
           </p>
           <p>
             If you have other questions, please contact our

@@ -52,7 +52,7 @@ function CLMSLoginView(props) {
             >
               link
             </UniversalLink>{' '}
-            to create it
+            to create it.
           </p>
           <p>
             If you have othe questions, please contact our
