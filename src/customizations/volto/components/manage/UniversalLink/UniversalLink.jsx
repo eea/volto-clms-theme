@@ -27,6 +27,7 @@ const UniversalLink = ({
   ...props
 }) => {
   const token = useSelector((state) => state.userSession?.token);
+
   let url = href;
   if (!href && item) {
     if (!item['@id']) {
@@ -96,7 +97,13 @@ const UniversalLink = ({
       <a
         href={url}
         title={title}
-        target={!checkedURL.isMail && !checkedURL.isTelephone ? '_blank' : null}
+        target={
+          !checkedURL.isMail &&
+          !checkedURL.isTelephone &&
+          !(openLinkInNewTab === false)
+            ? '_blank'
+            : null
+        }
         rel="noopener noreferrer"
         className={className}
         {...props}
