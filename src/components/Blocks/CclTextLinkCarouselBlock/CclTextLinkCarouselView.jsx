@@ -20,7 +20,7 @@ const CclTextLinkCarouselView = (props) => {
 
   return (
     <>
-      <div className="ccl-container">
+      <div className="ccl-container carousel-text-link-container">
         <Slider {...settings} ref={slider} className="text-carousel">
           {data?.textLink?.items.map((item, index) => (
             <div className="text-link-carousel-block" key={index}>
