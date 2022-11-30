@@ -18,10 +18,6 @@
 
 ## Features
 
-###
-
-Demo GIF
-
 ## Getting started
 
 1. Create new volto project if you don't already have one:
