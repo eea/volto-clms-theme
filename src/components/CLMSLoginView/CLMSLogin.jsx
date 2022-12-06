@@ -4,6 +4,7 @@ import config from '@plone/volto/registry';
 import { UniversalLink } from '@plone/volto/components';
 import { toPublicURL } from '@plone/volto/helpers/Url/Url';
 import './CLMSLogin.css';
+import { toBase64 } from '../CclUtils';
 
 /**
  * Login Modal component doc.
@@ -19,7 +20,9 @@ function CLMSLoginView(props) {
   useEffect(() => {
     if (registryRecords && registry_key in registryRecords) {
       setLoginUrl(
-        registryRecords[registry_key] + '?came_from=' + window.location.href,
+        registryRecords[registry_key] +
+          '?came_from=' +
+          toBase64(window.location.href),
       );
     }
   }, [registryRecords, registry_key]);
