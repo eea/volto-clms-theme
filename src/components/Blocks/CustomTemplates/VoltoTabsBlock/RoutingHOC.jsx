@@ -53,7 +53,7 @@ const RoutingHOC = (TabView) =>
         if (existingTab) setActiveTab(existingTab);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeTabIndex]);
+    }, [activeTabIndex, window.location.hash]);
 
     return <TabView {...props} />;
   };
