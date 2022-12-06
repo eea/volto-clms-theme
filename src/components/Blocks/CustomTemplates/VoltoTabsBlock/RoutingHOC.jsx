@@ -1,9 +1,11 @@
 import React from 'react';
 import { slugify } from '../../utils';
+import { useSelector } from 'react-redux';
 
 const RoutingHOC = (TabView) =>
   function Component(props) {
     const { tabsList = [], tabs, activeTabIndex = 0, setActiveTab } = props;
+    const location = useSelector((state) => state.router.location);
 
     function reloadTab(window, rTabs, rTabsList) {
       if (
@@ -42,6 +44,7 @@ const RoutingHOC = (TabView) =>
         return '';
       }
     }
+
     React.useEffect(() => {
       const isReload =
         String(window.performance.getEntriesByType('navigation')[0].type) ===
@@ -53,7 +56,7 @@ const RoutingHOC = (TabView) =>
         if (existingTab) setActiveTab(existingTab);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeTabIndex, window.location.hash]);
+    }, [activeTabIndex, location]);
 
     return <TabView {...props} />;
   };
