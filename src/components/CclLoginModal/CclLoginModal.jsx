@@ -6,7 +6,7 @@ import { UniversalLink } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-
+import { toBase64 } from '../CclUtils';
 import './ccl-login-modal.css';
 
 /**
@@ -33,10 +33,14 @@ function CclLoginModal(props) {
   useEffect(() => {
     if (registryRecords && registry_key in registryRecords) {
       if (otherPath) {
-        setLoginUrl(`${registryRecords[registry_key]}?came_from=${otherPath}`);
+        setLoginUrl(
+          `${registryRecords[registry_key]}?came_from=${toBase64(otherPath)}`,
+        );
       } else {
         setLoginUrl(
-          `${registryRecords[registry_key]}?came_from=${window.location.href}`,
+          `${registryRecords[registry_key]}?came_from=${toBase64(
+            window.location.href,
+          )}`,
         );
       }
     }
