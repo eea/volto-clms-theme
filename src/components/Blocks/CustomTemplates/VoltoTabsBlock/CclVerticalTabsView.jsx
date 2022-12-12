@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import { NavLink, Route } from 'react-router-dom';
 import { compose } from 'redux';
 
@@ -120,4 +120,4 @@ export default compose(
     };
   }),
   withScrollToTarget,
-)(withRouter(CclVerticalTabsView));
+)(CclVerticalTabsView);
