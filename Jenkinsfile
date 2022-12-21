@@ -54,7 +54,7 @@ pipeline {
           },
 
           "Prettier": {
-            node(label: 'docker') {ç
+            node(label: 'docker') {
               sh '''docker pull plone/volto-addon-ci:15.x'''
               sh '''docker run -i --rm --name="$BUILD_TAG-prettier" -e VOLTO=$VOLTO -e NAMESPACE="$NAMESPACE" -e GIT_NAME=$GIT_NAME -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" plone/volto-addon-ci:15.x prettier'''
             }
