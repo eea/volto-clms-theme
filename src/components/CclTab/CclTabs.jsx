@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import CclTab from './CclTab';
 import PropTypes from 'prop-types';
+import { slugify } from '../Blocks/utils';
 
 /**
  * Tabs component documentation.
@@ -23,8 +24,7 @@ import PropTypes from 'prop-types';
 const CclTabs = (props) => {
   let { children, routing = false } = props;
   let [activeTab, setActiveTab] = useState(
-    props.children[0].props.tabId ||
-      props.children[0].props.tabTitle.split(' ').join('-'),
+    props.children[0].props.tabId || slugify(props.children[0].props.tabTitle),
   );
 
   function onClickTabItem(tab) {
@@ -35,11 +35,11 @@ const CclTabs = (props) => {
     const firstTab = children.filter((item) => !!item?.props?.tabTitle)[0];
     if (routing) {
       if (hash.startsWith('b_size')) {
-        setActiveTab(firstTab.props?.tabTitle?.split(' ').join('-'));
+        setActiveTab(slugify(firstTab.props?.tabTitle));
       } else if (hash) {
         setActiveTab(hash);
       } else {
-        setActiveTab(firstTab.props?.tabTitle?.split(' ').join('-'));
+        setActiveTab(slugify(firstTab.props?.tabTitle));
       }
     }
   }, [children, routing]);
@@ -53,7 +53,14 @@ const CclTabs = (props) => {
             .filter((item) => !!item?.props?.tabTitle)
             .map((child, key) => {
               const { tabTitle, redirect } = child.props;
-              const tabId = tabTitle?.split(' ').join('-');
+              const tabId = slugify(tabTitle);
+              let hasSubtab = false;
+              const currentTab = children.filter(
+                (item) => slugify(item?.props?.tabTitle) === tabId,
+              )[0];
+              if (currentTab?.props?.parent) {
+                hasSubtab = true;
+              }
               return (
                 <CclTab
                   activeTab={activeTab}
@@ -63,6 +70,7 @@ const CclTabs = (props) => {
                   tabTitle={tabTitle}
                   onClick={onClickTabItem}
                   redirect={redirect}
+                  hasSubtab={hasSubtab}
                   {...child.props}
                 />
               );
@@ -85,8 +93,7 @@ const CclTabs = (props) => {
             .flat()
             .filter((item) => !!item?.props?.tabTitle)
             .map((child, index) => {
-              return child.props?.tabTitle?.split(' ').join('-') !==
-                activeTab ? (
+              return slugify(child.props?.tabTitle) !== activeTab ? (
                 <div key={index} className="deactivate-content">
                   {child.props.children}
                 </div>

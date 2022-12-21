@@ -17,6 +17,8 @@ function CclTab(props) {
     routing,
     redirect,
     loginRequired,
+    className = '',
+    hasSubtab = false,
   } = props;
   const token = useSelector((state) => state.userSession?.token);
   function onTabClick() {
@@ -25,22 +27,24 @@ function CclTab(props) {
   const [redirecting, setRedirecting] = React.useState(false);
   return (
     <div
-      className={cx('card', activeTab === tabId ? 'active' : '')}
+      className={cx('card ' + className, activeTab === tabId ? 'active ' : '')}
       onClick={(e) => {
         !loginRequired
-          ? onTabClick(e)
+          ? !hasSubtab && onTabClick(e)
           : loginRequired && token && onTabClick(e);
       }}
       onKeyDown={(e) => {
         !loginRequired
-          ? onTabClick(e)
+          ? !hasSubtab && onTabClick(e)
           : loginRequired && token && onTabClick(e);
       }}
       tabIndex="0"
       role="button"
       id={tabId}
     >
-      {loginRequired && !token ? (
+      {hasSubtab ? (
+        <span>{tabTitle}</span>
+      ) : loginRequired && !token ? (
         <CclLoginModal
           otherPath={redirect ? redirect : undefined}
           triggerComponent={() => (

@@ -1,7 +1,8 @@
 import React from 'react';
+import CclFAQBlockView from './CclFAQBlockView';
 
-const CclFAQBlock = (props) => {
-  return <strong>FAQ</strong>;
+const CclFAQBlockEdit = (props) => {
+  return <CclFAQBlockView props={props} />;
 };
 
-export default CclFAQBlock;
+export default CclFAQBlockEdit;

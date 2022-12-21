@@ -28,7 +28,9 @@ export const getPanels = (data) => {
 
 export const slugify = (string) => {
   return string
-    .toLowerCase()
-    .replace(/[\s-]+/g, '_')
-    .replace(/[^\w]+/g, '');
+    ? string
+        .toLowerCase()
+        .replace(/[\s-]+/g, '_')
+        .replace(/[^\w]+/g, '')
+    : '';
 };
