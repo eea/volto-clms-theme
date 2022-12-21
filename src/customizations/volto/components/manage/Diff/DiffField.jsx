@@ -7,7 +7,7 @@ import React from 'react';
 // import { diffWords as dWords } from 'diff';
 import { join, map } from 'lodash';
 import PropTypes from 'prop-types';
-import { Table, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-intl-redux';
 import { createBrowserHistory } from 'history';
@@ -106,8 +106,8 @@ const DiffField = ({
   }
   return (
     <Grid compact data-testid="DiffField">
-      <Grid.Row>
-        <Grid.Column colSpan={2}>{schema.title}</Grid.Column>
+      <Grid.Row inverted>
+        <Grid.Column width={12}>{schema.title}</Grid.Column>
       </Grid.Row>
       {view === 'split' && (
         <Grid.Row>
