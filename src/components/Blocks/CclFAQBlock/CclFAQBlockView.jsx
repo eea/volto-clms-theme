@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchContent } from '@plone/volto/actions';
 import config from '@plone/volto/registry';
 import { Accordion, Segment } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
+import { Icon, UniversalLink } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import penSVG from '@plone/volto/icons/pen.svg';
 
 const CclFAQBlockView = (props) => {
+  const { isEditMode } = props;
   const dispatch = useDispatch();
   const path = useSelector((state) => state.router.location.pathname);
   const search = useSelector((state) => state.search);
@@ -94,6 +96,18 @@ const CclFAQBlockView = (props) => {
                                 <Icon name={titleIcons.opened.rightPosition} />
                               ) : (
                                 <Icon name={titleIcons.closed.rightPosition} />
+                              )}
+                              {isEditMode && (
+                                <UniversalLink
+                                  openLinkInNewTab={true}
+                                  href={`${item['@id']}/edit`}
+                                >
+                                  <Icon
+                                    name={penSVG}
+                                    className="circled"
+                                    title={'Edit'}
+                                  />
+                                </UniversalLink>
                               )}
                               <span>{item.title}</span>
                             </Accordion.Title>
