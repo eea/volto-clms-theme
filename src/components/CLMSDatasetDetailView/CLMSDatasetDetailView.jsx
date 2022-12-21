@@ -64,6 +64,14 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const [open, setOpen] = React.useState({});
   const locale = useSelector((state) => state.intl.locale);
 
+  const isAuxiliary = content.mapviewer_viewservice
+    .toLowerCase()
+    .startsWith(
+      'https://trial.discomap.eea.europa.eu/arcgis/services/clms/worldcountries/mapserver/wmsserver',
+    );
+
+  console.log('isAuxiliary', isAuxiliary);
+
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
@@ -422,7 +430,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 />
               </div>
             )}
-            {content?.mapviewer_viewservice?.length > 0 && (
+            {content?.mapviewer_viewservice?.length > 0 && !isAuxiliary && (
               <div className="menu-detail-button">
                 <CclButton
                   url={'/' + locale + '/map-viewer?dataset=' + content.UID}
