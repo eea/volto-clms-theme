@@ -461,12 +461,18 @@ const CLMSCartContent = (props) => {
               }
               <br />
               <br />
-              <strong>Selected pre-packaged files:</strong>
+              <strong>Selected pre-packaged files from:</strong>
               <ul>
-                {getSelectedCartItems()
-                  .filter((item) => item.file_id)
+                {[
+                  ...new Set(
+                    getSelectedCartItems()
+                      .filter((item) => item.file_id)
+                      .map((item) => item.name),
+                  ),
+                ]
+                  .sort()
                   .map((item, key) => (
-                    <li key={key}>{item.area || item.file || item.title}</li>
+                    <li key={key}>{item}</li>
                   ))}
               </ul>
               <br />
