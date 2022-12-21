@@ -70,8 +70,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       'https://trial.discomap.eea.europa.eu/arcgis/services/clms/worldcountries/mapserver/wmsserver',
     );
 
-  console.log('isAuxiliary', isAuxiliary);
-
   return (
     <div className="ccl-container ">
       <h1 className="page-title">{content.title}</h1>
