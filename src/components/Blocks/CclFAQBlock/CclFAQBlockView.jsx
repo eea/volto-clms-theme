@@ -31,6 +31,32 @@ const CclFAQBlockView = (props) => {
       }),
     );
   }, [path, dispatch]);
+  React.useEffect(() => {
+    if (search.loaded) {
+      const firstOfCategories = categories.map((cat, key, self) => {
+        const cat_indexes = search.items.reduce((filtered, item, index) => {
+          if (filtered.UID) {
+            filtered = [];
+          }
+          if (
+            item.taxonomy_faqcategories.filter((item_cat) =>
+              item_cat.title.includes(cat.title),
+            ).length > 0
+          ) {
+            if (index === 1) {
+              filtered.push(0);
+            } else {
+              filtered.push(index);
+            }
+          }
+          return filtered;
+        });
+        return cat_indexes.length > 0 ? cat_indexes[0] : 0;
+      });
+      setActiveIndex(firstOfCategories);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
   let categories =
     search.items.length > 0
       ? [
@@ -63,9 +89,9 @@ const CclFAQBlockView = (props) => {
       categories[index - 1]['parent'] = true;
     }
   });
-  const [activeIndex, setActiveIndex] = React.useState([0]);
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
+  const [activeIndex, setActiveIndex] = React.useState([0]);
   return (
     <div id="faq-listing" className="ccl-container tab-container">
       {search.loaded ? (
