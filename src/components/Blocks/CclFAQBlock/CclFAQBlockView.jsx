@@ -27,6 +27,7 @@ const CclFAQBlockView = (props) => {
       searchContent(path.replace('/edit', ''), {
         fullobjects: 1,
         portal_type: 'FAQ',
+        b_size: 999,
       }),
     );
   }, [path, dispatch]);
@@ -38,12 +39,16 @@ const CclFAQBlockView = (props) => {
           ),
         ]
           .map((cat) => {
-            const cat_family = cat.title.split(' » ');
+            const cat_family = cat.title?.split(' » ');
             if (cat_family.length > 1) {
               cat['subTab'] = true;
             }
             return cat;
           })
+          .filter(
+            (thing, index, self) =>
+              index === self.findIndex((t) => t.token === thing.token),
+          )
           .sort((a, b) => {
             if (a.title < b.title) {
               return -1;
@@ -54,11 +59,11 @@ const CclFAQBlockView = (props) => {
           })
       : [];
   categories.forEach((cat, index) => {
-    if (cat.subTab) {
+    if (cat.subTab && !categories[index - 1].subTab) {
       categories[index - 1]['parent'] = true;
     }
   });
-  const [activeIndex, setActiveIndex] = React.useState([99]);
+  const [activeIndex, setActiveIndex] = React.useState([0]);
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
   return (
@@ -84,7 +89,7 @@ const CclFAQBlockView = (props) => {
                     {search.items.map((item, item_key) => {
                       return (
                         item.taxonomy_faqcategories.filter((faq_cat) =>
-                          faq_cat.title.includes(cat_title),
+                          faq_cat.title.includes(cat.title),
                         ).length > 0 && (
                           <Accordion fluid styled key={item_key}>
                             <Accordion.Title
