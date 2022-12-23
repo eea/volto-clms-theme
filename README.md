@@ -53,6 +53,12 @@
 
 1. Happy editing!
 
+## Things to keep in mind before migrating to Volto 16
+1. Remove the volto-slate override. This override is a patch to clean up duplicate SlateContextToolbar buttons. This is not necessary in Volto 16.
+
+   ````bash
+   rm -rf src/customizations/volto-slate
+   ````
 ## Release
 
 ### Automatic release using Jenkins
