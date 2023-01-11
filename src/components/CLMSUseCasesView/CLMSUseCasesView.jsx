@@ -74,7 +74,7 @@ const CLMSUseCaseView = (props) => {
                 ))}
               </List>
             )}
-            <p>
+            <div className="usecase-list">
               <List celled horizontal className="usecase-other-values-list">
                 <List.Item>
                   {content?.submittingProducionYear && (
@@ -100,7 +100,7 @@ const CLMSUseCaseView = (props) => {
                   )}
                 </List.Item>
               </List>
-            </p>
+            </div>
             <div className="usecase-body-text">
               {content?.text && <StringToHTML string={content?.text?.data} />}
             </div>
