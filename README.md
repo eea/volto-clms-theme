@@ -59,6 +59,11 @@
    ````bash
    rm -rf src/customizations/volto-slate
    ````
+2. Remove ArrayWidget override. https://github.com/eea/volto-clms-theme/commit/7cf72aba7b1d69cf1b310a89410aa3a3753f01f3
+
+   ````bash
+   rm -rf src/customizations/volto/components/manage/Widgets/ArrayWidget.jsx
+   ````
 ## Release
 
 ### Automatic release using Jenkins

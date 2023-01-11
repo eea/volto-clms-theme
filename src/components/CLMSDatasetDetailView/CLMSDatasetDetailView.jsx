@@ -64,11 +64,13 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const [open, setOpen] = React.useState({});
   const locale = useSelector((state) => state.intl.locale);
 
-  const isAuxiliary = content.mapviewer_viewservice
-    .toLowerCase()
-    .startsWith(
-      'https://trial.discomap.eea.europa.eu/arcgis/services/clms/worldcountries/mapserver/wmsserver',
-    );
+  const isAuxiliary = content?.mapviewer_viewservice
+    ? content?.mapviewer_viewservice
+        .toLowerCase()
+        .startsWith(
+          'https://trial.discomap.eea.europa.eu/arcgis/services/clms/worldcountries/mapserver/wmsserver',
+        )
+    : false;
 
   return (
     <div className="ccl-container ">
