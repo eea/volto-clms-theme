@@ -2,24 +2,33 @@
  * CLMSProfileView container.
  * @module components/CLMSProfileView/CLMSProfileView
  */
-
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import qs from 'query-string';
-import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
-import jwtDecode from 'jwt-decode';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Container } from 'semantic-ui-react';
+
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { Container } from 'semantic-ui-react';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+
 import {
   getTokens,
   createTokens,
   deleteTokens,
 } from '../../actions/tokens/tokens';
+import { slugify } from '../Blocks/utils';
+
+import jwtDecode from 'jwt-decode';
+import PropTypes from 'prop-types';
+import qs from 'query-string';
+
+/**
+ * CLMSProfileView class.
+ * @class CLMSProfileView
+ * @extends Component
+ */
 
 const messages = defineMessages({
   ApiTokens: {
@@ -91,11 +100,6 @@ const messages = defineMessages({
   },
 });
 
-/**
- * CLMSProfileView class.
- * @class CLMSProfileView
- * @extends Component
- */
 class CLMSApiTokensView extends Component {
   /**
    * Property types.
@@ -271,7 +275,12 @@ class CLMSApiTokensView extends Component {
                     <CclModal
                       onClick={() => this.onClose}
                       trigger={
-                        <CclButton mode={'filled'} to="profile#API-tokens">
+                        <CclButton
+                          mode={'filled'}
+                          to={`profile#${slugify(
+                            this.props.intl.formatMessage(messages.ApiTokens),
+                          )}`}
+                        >
                           {this.props.intl.formatMessage(messages.deleteButton)}
                         </CclButton>
                       }
@@ -284,7 +293,9 @@ class CLMSApiTokensView extends Component {
                       </p>
                       <CclButton
                         mode={'filled'}
-                        to="profile#API-tokens"
+                        to={`profile#${slugify(
+                          this.props.intl.formatMessage(messages.ApiTokens),
+                        )}`}
                         onClick={() => {
                           this.deleteToken(item.key_id);
                         }}
@@ -301,7 +312,9 @@ class CLMSApiTokensView extends Component {
                 <CclButton
                   mode={'filled'}
                   onClick={this.handleClick}
-                  to="profile#API-tokens"
+                  to={`profile#${slugify(
+                    this.props.intl.formatMessage(messages.ApiTokens),
+                  )}`}
                 >
                   {this.props.intl.formatMessage(messages.createTitle)}
                 </CclButton>
@@ -310,7 +323,12 @@ class CLMSApiTokensView extends Component {
                 <CclModal
                   onClick={() => this.onClose}
                   trigger={
-                    <CclButton mode={'filled'} to="profile#API-tokens">
+                    <CclButton
+                      mode={'filled'}
+                      to={`profile#${slugify(
+                        this.props.intl.formatMessage(messages.ApiTokens),
+                      )}`}
+                    >
                       {this.props.intl.formatMessage(messages.createTitle)}
                     </CclButton>
                   }
@@ -402,7 +420,11 @@ class CLMSApiTokensView extends Component {
                                       <br />
                                       <CclButton
                                         mode={'filled'}
-                                        to="profile#API-tokens"
+                                        to={`profile#${slugify(
+                                          this.props.intl.formatMessage(
+                                            messages.ApiTokens,
+                                          ),
+                                        )}`}
                                         onClick={() => {
                                           navigator.clipboard.writeText(
                                             JSON.stringify(item),
@@ -423,7 +445,11 @@ class CLMSApiTokensView extends Component {
                             <CclButton
                               mode={'filled'}
                               onClick={this.onClose}
-                              to="profile#API-tokens"
+                              to={`profile#${slugify(
+                                this.props.intl.formatMessage(
+                                  messages.ApiTokens,
+                                ),
+                              )}`}
                             >
                               {this.props.intl.formatMessage(
                                 messages.goBackButton,

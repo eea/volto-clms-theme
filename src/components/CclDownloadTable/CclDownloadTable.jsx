@@ -1,5 +1,7 @@
-import './download-table.less';
-
+import React, { useState } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   Button,
   Checkbox,
@@ -7,19 +9,26 @@ import {
   Pagination,
   Segment,
 } from 'semantic-ui-react';
-import React, { useState } from 'react';
 
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { Icon, Toast } from '@plone/volto/components';
-import PropTypes from 'prop-types';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
 import paginationRightSVG from '@plone/volto/icons/right-key.svg';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import { useSelector } from 'react-redux';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
-import { toast } from 'react-toastify';
-import { defineMessages, useIntl } from 'react-intl';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
+
+import './download-table.less';
+
+import PropTypes from 'prop-types';
+
+/**
+ * Property types.
+ * @property {Object} propTypes Property types.
+ * @static
+ */
 
 function CclDownloadTable(props) {
   const locale = useSelector((state) => state.intl?.locale);
@@ -47,6 +56,10 @@ function CclDownloadTable(props) {
     },
   );
 
+  const prepackage_grid = props.dataset['@id'].split('products');
+  const prepackage_grid_image =
+    prepackage_grid[0] + 'products/prepackages-grid.png/@@images/image';
+
   const messages = defineMessages({
     added_to_cart: {
       id: 'Added to cart',
@@ -55,6 +68,10 @@ function CclDownloadTable(props) {
     success: {
       id: 'Success',
       defaultMessage: 'Success',
+    },
+    prePackages_location_map: {
+      id: 'Click to open pre-packages location map',
+      defaultMessage: 'Click to open pre-packages location map',
     },
   });
 
@@ -227,6 +244,7 @@ function CclDownloadTable(props) {
     hasSome('size'),
   ];
   const validcolums = columns.some((column) => !!column);
+
   return (
     prePackagedCollection.length > 0 &&
     validcolums &&
@@ -270,6 +288,27 @@ function CclDownloadTable(props) {
                     Clear selection <Icon name={clearSVG} size={'20px'}></Icon>
                   </Button>
                 </>
+              )}
+              {props.dataset.show_legend_on_prepackages && (
+                <CclModal
+                  trigger={
+                    <CclButton to="#download">
+                      {intl.formatMessage(messages.prePackages_location_map)}
+                    </CclButton>
+                  }
+                  size={'medium'}
+                >
+                  <div className="image-modal">
+                    <img
+                      src={
+                        prepackage_grid_image
+                          ? prepackage_grid_image
+                          : PlaceHolder
+                      }
+                      alt={'Placeholder'}
+                    />
+                  </div>
+                </CclModal>
               )}
               {cartSelection.length !== prePackagedCollection.length && (
                 <>
@@ -407,11 +446,6 @@ function CclDownloadTable(props) {
   );
 }
 
-/**
- * Property types.
- * @property {Object} propTypes Property types.
- * @static
- */
 CclDownloadTable.propTypes = {
   type: PropTypes.string,
   dataset: PropTypes.shape({

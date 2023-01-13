@@ -56,7 +56,7 @@ export const CLMSDeleteProfileView = (props) => {
             }}
             open={open['delete-profile']}
             trigger={
-              <CclButton mode={'filled'} to="profile#Delete-profile">
+              <CclButton mode={'filled'} to="profile#delete_profile">
                 <FormattedMessage
                   id="Delete my account"
                   defaultMessage="Delete my account"
@@ -100,7 +100,7 @@ export const CLMSDeleteProfileView = (props) => {
                       setOpen({ ...open, 'delete-profile': false });
                     }}
                     mode="filled"
-                    to="profile#Delete-profile"
+                    to="profile#delete_profile"
                   >
                     <FormattedMessage
                       id="Yes, I want to delete my account"
@@ -112,7 +112,7 @@ export const CLMSDeleteProfileView = (props) => {
                       setOpen({ ...open, 'delete-profile': false });
                     }}
                     mode="filled"
-                    to="profile#Delete-profile"
+                    to="profile#delete_profile"
                   >
                     <FormattedMessage
                       id="No, I want to keep my account"
