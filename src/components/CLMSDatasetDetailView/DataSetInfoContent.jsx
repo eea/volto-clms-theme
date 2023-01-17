@@ -32,6 +32,7 @@ const DataSetInfoContent = (props) => {
             associated_datasets: UID,
             sort_on: ['documentation_sorting', 'sortable_title'],
             sort_order: ['ascending', 'ascending'],
+            sort_limit: 99999,
           },
           id,
         ),
