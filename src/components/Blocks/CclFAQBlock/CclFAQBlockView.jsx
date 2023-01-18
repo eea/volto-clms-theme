@@ -153,9 +153,9 @@ const CclFAQBlockView = (props) => {
                                 duration={500}
                                 height={'auto'}
                               >
-                                <StringToHTML
+                                {/* <StringToHTML
                                   string={item.text ? item.text.data : ''}
-                                />
+                                /> */}
                                 {hasBlocksData(item) && (
                                   <RenderBlocks content={item} />
                                 )}
