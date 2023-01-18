@@ -1,13 +1,16 @@
 import React from 'react';
-import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchContent } from '@plone/volto/actions';
-import config from '@plone/volto/registry';
-import { Accordion, Segment } from 'semantic-ui-react';
-import { Icon, UniversalLink } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
-import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { useDispatch, useSelector } from 'react-redux';
+import { Accordion, Segment } from 'semantic-ui-react';
+
+import { searchContent } from '@plone/volto/actions';
+import { Icon, UniversalLink } from '@plone/volto/components';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { hasBlocksData } from '@plone/volto/helpers';
 import penSVG from '@plone/volto/icons/pen.svg';
+import config from '@plone/volto/registry';
+import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
+// import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const CclFAQBlockView = (props) => {
   const { isEditMode } = props;
@@ -150,9 +153,12 @@ const CclFAQBlockView = (props) => {
                                 duration={500}
                                 height={'auto'}
                               >
-                                <StringToHTML
+                                {/* <StringToHTML
                                   string={item.text ? item.text.data : ''}
-                                />
+                                /> */}
+                                {hasBlocksData(item) && (
+                                  <RenderBlocks content={item} />
+                                )}
                               </AnimateHeight>
                             </Accordion.Content>
                           </Accordion>
