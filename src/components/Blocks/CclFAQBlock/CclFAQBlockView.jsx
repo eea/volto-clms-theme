@@ -10,7 +10,7 @@ import { hasBlocksData } from '@plone/volto/helpers';
 import penSVG from '@plone/volto/icons/pen.svg';
 import config from '@plone/volto/registry';
 import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
-import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+// import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const CclFAQBlockView = (props) => {
   const { isEditMode } = props;
