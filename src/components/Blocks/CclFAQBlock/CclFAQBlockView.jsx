@@ -31,6 +31,7 @@ const CclFAQBlockView = (props) => {
         fullobjects: 1,
         portal_type: 'FAQ',
         b_size: 999,
+        sort_on: 'getObjPositionInParent',
       }),
     );
   }, [path, dispatch]);
