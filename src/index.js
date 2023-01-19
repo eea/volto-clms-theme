@@ -22,6 +22,7 @@ import ProfileView from './components/CLMSProfileView/CLMSProfileView';
 import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
 import CLMSWorkOpportunityView from '@eeacms/volto-clms-theme/components/CLMSWorkOpportunityView/WorkOpportunityView';
 import CLMSUseCaseView from './components/CLMSUseCasesView/CLMSUseCasesView';
+import CLMSFAQView from './components/CLMSFAQView/CLMSFAQView';
 
 // WIDGET
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -63,6 +64,7 @@ const applyConfig = (config) => {
       'eea.meeting.email': CLMSMeetingEmailView,
       WorkOpportunity: CLMSWorkOpportunityView,
       Tender: CLMSWorkOpportunityView,
+      FAQ: CLMSFAQView,
     },
   };
   config.blocks = {
