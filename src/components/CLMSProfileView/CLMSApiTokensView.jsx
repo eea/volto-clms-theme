@@ -183,15 +183,21 @@ class CLMSApiTokensView extends Component {
 
   deleteToken(key_id) {
     this.props.deleteTokens(key_id);
-    this.props.getTokens();
+    this.componentDidMount();
   }
 
   onClose() {
-    this.componentDidMount();
+    this.props.getTokens();
     this.setState({
       createNewToken: false,
       public_key: undefined,
       private_key: undefined,
+      tokenTitle: '',
+      modal: false,
+      createdToken: true,
+      textToCopy: '',
+      key_id: '',
+      value: '',
     });
   }
 
@@ -209,7 +215,10 @@ class CLMSApiTokensView extends Component {
       createNewToken: true,
       public_key: undefined,
       private_key: undefined,
+      createdToken: false,
+      value: '',
     });
+    this.props.getTokens();
   }
 
   handlePost(tokenTitle) {
@@ -227,14 +236,15 @@ class CLMSApiTokensView extends Component {
     this.props.getUser(this.props.userId);
     this.props.getTokens();
     this.setState({
-      value: undefined,
-      tokenTitle: undefined,
-      button: false,
-      // createNewToken: true,
+      tokenTitle: '',
+      createNewToken: true,
       modal: false,
       createdToken: false,
-      textToCopy: undefined,
-      key_id: undefined,
+      textToCopy: '',
+      key_id: '',
+      public_key: undefined,
+      private_key: undefined,
+      value: '',
     });
   }
 
@@ -311,7 +321,9 @@ class CLMSApiTokensView extends Component {
               {this.state.createNewToken === false && (
                 <CclButton
                   mode={'filled'}
-                  onClick={this.handleClick}
+                  onClick={() => {
+                    this.handleClick();
+                  }}
                   to={`profile#${slugify(
                     this.props.intl.formatMessage(messages.ApiTokens),
                   )}`}
@@ -373,6 +385,8 @@ class CLMSApiTokensView extends Component {
                             disabled={
                               this.state.createdToken === true ||
                               this.state.tokenTitle === ''
+                                ? true
+                                : false
                             }
                             value={this.props.intl.formatMessage(
                               messages.createToken,
@@ -414,7 +428,7 @@ class CLMSApiTokensView extends Component {
                                         disabled="disabled"
                                         id="created_token"
                                         name="createdToken"
-                                        class="ccl-text-input"
+                                        className="ccl-text-input"
                                         value={JSON.stringify(item)}
                                       />
                                       <br />
