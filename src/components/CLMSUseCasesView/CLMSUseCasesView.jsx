@@ -74,33 +74,39 @@ const CLMSUseCaseView = (props) => {
                 ))}
               </List>
             )}
-            <div className="usecase-list">
-              <List celled horizontal className="usecase-other-values-list">
-                <List.Item>
+            <p>
+              {(content?.taxonomy_use_case_spatial_coverage?.length > 0 ||
+                content?.responsibleOrganization ||
+                content?.submittingProducionYear) && (
+                <List celled horizontal className="usecase-other-values-list">
                   {content?.submittingProducionYear && (
-                    <span className="usecase-year">
-                      {content?.submittingProducionYear}
-                    </span>
+                    <List.Item>
+                      <span className="usecase-year">
+                        {content?.submittingProducionYear}
+                      </span>
+                    </List.Item>
                   )}
-                </List.Item>
-                <List.Item>
-                  {content?.taxonomy_use_case_spatial_coverage
-                    .map(
-                      (taxonomy_use_case_spatial_coverage) =>
-                        taxonomy_use_case_spatial_coverage.title,
-                    )
-                    .sort()
-                    .join(', ')}
-                </List.Item>
-                <List.Item>
+                  {content?.taxonomy_use_case_spatial_coverage.length > 0 && (
+                    <List.Item>
+                      {content?.taxonomy_use_case_spatial_coverage
+                        .map(
+                          (taxonomy_use_case_spatial_coverage) =>
+                            taxonomy_use_case_spatial_coverage.title,
+                        )
+                        .sort()
+                        .join(', ')}
+                    </List.Item>
+                  )}
                   {content?.responsibleOrganization && (
-                    <span className="usecase-detail-item">
-                      {content?.responsibleOrganization}
-                    </span>
+                    <List.Item>
+                      <span className="usecase-detail-item">
+                        {content?.responsibleOrganization}
+                      </span>
+                    </List.Item>
                   )}
-                </List.Item>
-              </List>
-            </div>
+                </List>
+              )}
+            </p>
             <div className="usecase-body-text">
               {content?.text && <StringToHTML string={content?.text?.data} />}
             </div>
