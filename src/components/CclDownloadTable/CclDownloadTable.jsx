@@ -251,11 +251,13 @@ function CclDownloadTable(props) {
     columns && (
       <div className="dataset-download-table">
         <h2>Download pre-packaged data collections</h2>
-        <p>
-          Please note that you can only download the latest version of our
-          datasets from this website. If you are looking for older versions
-          please contact us.
-        </p>
+        {/* {prePackagedCollection.length === 0 && (
+          <p>
+            Please note that you can only download the latest version of our
+            datasets from this website. If you are looking for older versions
+            please contact us.
+          </p>
+        )} */}
 
         {dataset?.download_page_information?.data && (
           <StringToHTML string={dataset?.download_page_information?.data} />
@@ -292,7 +294,10 @@ function CclDownloadTable(props) {
               {props.dataset.show_legend_on_prepackages && (
                 <CclModal
                   trigger={
-                    <CclButton to="#download">
+                    <CclButton
+                      className="ccl-button ccl-button--default show_legend_on_prepackages"
+                      to="#download"
+                    >
                       {intl.formatMessage(messages.prePackages_location_map)}
                     </CclButton>
                   }
