@@ -74,7 +74,7 @@ const CLMSUseCaseView = (props) => {
                 ))}
               </List>
             )}
-            <p>
+            <div className="usecase-other-values-list-container">
               {(content?.taxonomy_use_case_spatial_coverage?.length > 0 ||
                 content?.responsibleOrganization ||
                 content?.submittingProducionYear) && (
@@ -106,7 +106,7 @@ const CLMSUseCaseView = (props) => {
                   )}
                 </List>
               )}
-            </p>
+            </div>
             <div className="usecase-body-text">
               {content?.text && <StringToHTML string={content?.text?.data} />}
             </div>

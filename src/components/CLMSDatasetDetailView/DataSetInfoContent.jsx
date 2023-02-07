@@ -11,6 +11,7 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import config from '@plone/volto/registry';
 import { searchContent } from '@plone/volto/actions';
 import { useLocation } from 'react-router-dom';
+import { formatFileSize } from '../Blocks/utils';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
@@ -180,8 +181,13 @@ const DataSetInfoContent = (props) => {
                       {libraries.map((item, index) => (
                         <CclCard
                           key={index}
+                          Type="TechnicalLibrary"
                           type="doc"
-                          card={{ Type: item['@type'], ...item }}
+                          card={{
+                            Type: item['@type'],
+                            getObjSize: formatFileSize(item.file.size),
+                            ...item,
+                          }}
                           showEditor={user?.roles?.includes('Manager')}
                         />
                       ))}
