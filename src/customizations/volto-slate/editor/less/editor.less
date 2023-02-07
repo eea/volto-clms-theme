@@ -89,7 +89,6 @@
         }
 
         &.active {
-          // TODO: stop using !important, use smth better
           background: #efefef !important;
           border-radius: 3px;
           box-shadow: inset 0 0 0 1px @blue !important;
@@ -107,12 +106,10 @@
     }
 
     .ui.button:not(.icon) > .icon:not(.button):not(.dropdown) {
-      // TODO: is it possible to not use !important here and override button.less?
       margin: auto auto auto auto !important;
     }
 
     .ui.button:last-child {
-      // TODO: is it possible to not use !important here and override button.less?
       margin-right: 0 !important;
     }
   }
