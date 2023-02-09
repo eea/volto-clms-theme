@@ -18,14 +18,14 @@ const FilterList = (props) => {
   const { facets, setFacets, isEditMode, data, querystring } = props;
   const showFilterList = !Object.values(facets).every((facet) => !facet.length);
 
-  const baseFacets = data.facets;
+  const baseFacets = data?.facets;
   const currentFilters = Object.fromEntries(
     Object.entries(facets)
       .filter((v) => v[1] && v[0] !== 'SearchableText')
       .filter(
         (v) =>
           v[1] &&
-          baseFacets.length > 0 &&
+          baseFacets?.length > 0 &&
           baseFacets.map((bf) => bf.field?.value).includes(v[0]),
       ),
   );
