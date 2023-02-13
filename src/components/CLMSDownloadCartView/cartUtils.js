@@ -1,3 +1,5 @@
+import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
+
 export const formatNaming = (item) => {
   return item?.format?.token || item?.format;
 };
@@ -154,4 +156,41 @@ export const refreshCart = (cartItems, setCartItems, updateCart) => {
       };
     }),
   ]);
+};
+
+export const concatRequestedCartItem = (
+  cartItems,
+  setCartItems,
+  localSessionCart,
+  datasets_items,
+  projections,
+  nutsnames,
+) => {
+  let newCartItems = [...cartItems];
+  localSessionCart.forEach((localItem) => {
+    const requestedItem = datasets_items
+      ? datasets_items.find((req) => req.UID === localItem.UID)
+      : false;
+    if (requestedItem) {
+      const file_data = requestedItem?.downloadable_files?.items.find(
+        (item) => item['@id'] === localItem.file_id,
+      );
+      if (file_data) {
+        newCartItems.push(
+          getCartObjectFromPrepackaged(file_data, requestedItem),
+        );
+        setCartItems(cleanDuplicatesEntries(newCartItems));
+      } else {
+        newCartItems.push(
+          getCartObjectFromMapviewer(
+            localItem,
+            requestedItem,
+            projections,
+            nutsnames,
+          ),
+        );
+        setCartItems(cleanDuplicatesEntries(newCartItems));
+      }
+    }
+  });
 };

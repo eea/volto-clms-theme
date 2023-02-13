@@ -13,14 +13,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
 import {
-  getCartObjectFromMapviewer,
-  getCartObjectFromPrepackaged,
   getDownloadToolPostBody,
   formatNaming,
   originalFormatNaming,
   getCollectionByItem,
   duplicateCartItem,
-  refreshCart,
+  concatRequestedCartItem,
 } from './cartUtils';
 import { getAvailableConversion } from './conversion';
 import { toast } from 'react-toastify';
@@ -74,45 +72,16 @@ const CLMSCartContent = (props) => {
       cart.length > 0 &&
       cart.length !== newCart.length
     ) {
-      concatRequestedCartItem();
+      concatRequestedCartItem(
+        cartItems,
+        setCartItems,
+        localSessionCart,
+        datasets_items,
+        projections,
+        nutsnames,
+      );
     }
   }, [cart, datasets_items]);
-
-  useEffect(() => {
-    if (Object.keys(nutsnames).length > 0 && cart.length > 0) {
-      concatRequestedCartItem();
-    }
-  }, [nutsnames]);
-
-  function concatRequestedCartItem() {
-    let newCartItems = [...cartItems];
-    localSessionCart.forEach((localItem) => {
-      const requestedItem = datasets_items
-        ? datasets_items.find((req) => req.UID === localItem.UID)
-        : false;
-      if (requestedItem) {
-        const file_data = requestedItem?.downloadable_files?.items.find(
-          (item) => item['@id'] === localItem.file_id,
-        );
-        if (file_data) {
-          newCartItems.push(
-            getCartObjectFromPrepackaged(file_data, requestedItem),
-          );
-          setCartItems(cleanDuplicatesEntries(newCartItems));
-        } else {
-          newCartItems.push(
-            getCartObjectFromMapviewer(
-              localItem,
-              requestedItem,
-              projections,
-              nutsnames,
-            ),
-          );
-          setCartItems(cleanDuplicatesEntries(newCartItems));
-        }
-      }
-    });
-  }
 
   const selectAllCart = (checked) => {
     if (checked) {
@@ -189,8 +158,7 @@ const CLMSCartContent = (props) => {
   const setProjectionValue = (unique_id, value) => {
     const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
     cartItems[objIndex].projection = value;
-    refreshCart(cartItems, setCartItems, updateCart);
-    // setCartItems([...cartItems]);
+    setCartItems([...cartItems]);
   };
 
   function isChecked(cartSelectionCh, cartItemsCh) {
@@ -247,22 +215,22 @@ const CLMSCartContent = (props) => {
             };
           })}
           onChange={(e, data) => {
-            const objIndex = cartItems.findIndex(
+            const new_cartItems = [...cartItems];
+            const objIndex = new_cartItems.findIndex(
               (obj) => obj.unique_id === item.unique_id,
             );
             const first_type_id = item.type_options.filter(
               (t_o) => t_o.name === data.value,
             )[0].id;
-            cartItems[objIndex].type = first_type_id;
+            new_cartItems[objIndex].type = first_type_id;
             const dataset = datasets_items
               ? datasets_items.find((req) => req.UID === item.dataset_uid)
               : false;
             const format_item = dataset.dataset_download_information.items.find(
               (item) => item['@id'] === first_type_id,
             );
-            cartItems[objIndex].format = format_item.full_format;
-            refreshCart(cartItems, setCartItems, updateCart);
-            // setCartItems([...cartItems]);
+            new_cartItems[objIndex].format = format_item.full_format;
+            setCartItems([...new_cartItems]);
           }}
         />
       ) : (
@@ -302,19 +270,22 @@ const CLMSCartContent = (props) => {
             })
         }
         onChange={(e, data) => {
-          const objIndex = cartItems.findIndex(
+          const new_cartItems = [...cartItems];
+          const objIndex = new_cartItems.findIndex(
             (obj) => obj.unique_id === item.unique_id,
           );
-          cartItems[objIndex].type = data.value;
+          new_cartItems[objIndex].type = data.value;
           const dataset = datasets_items
             ? datasets_items.find((req) => req.UID === item.dataset_uid)
             : false;
           const format_item = dataset.dataset_download_information.items.find(
             (item) => item['@id'] === data.value,
           );
-          cartItems[objIndex].format = format_item.full_format;
-          refreshCart(cartItems, setCartItems, updateCart);
-          // setCartItems([...cartItems]);
+          new_cartItems[objIndex].format = {
+            title: format_item.full_format,
+            token: format_item.full_format,
+          };
+          setCartItems([...cartItems]);
         }}
       />
     ) : (
@@ -338,8 +309,7 @@ const CLMSCartContent = (props) => {
               (obj) => obj.unique_id === item.unique_id,
             );
             cartItems[objIndex].format = data.value;
-            refreshCart(cartItems, setCartItems, updateCart);
-            // setCartItems([...cartItems]);
+            setCartItems([...cartItems]);
           }}
         />
       ) : (
@@ -381,6 +351,7 @@ const CLMSCartContent = (props) => {
                   <th>Collection</th>
                   <th>Format</th>
                   <th>Projection</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -464,7 +435,7 @@ const CLMSCartContent = (props) => {
                       <td>
                         {item.task_in_progress ? (
                           <FontAwesomeIcon icon="spinner" spin />
-                        ) : (
+                        ) : !item.file_id ? (
                           <span
                             className="info-icon"
                             tooltip="Add a duplicated row below"
@@ -491,11 +462,13 @@ const CLMSCartContent = (props) => {
                             >
                               <Icon
                                 name={addDocumentSVG}
-                                size={25}
+                                size="25"
                                 title={'Add a duplicated row below'}
                               />
                             </button>
                           </span>
+                        ) : (
+                          <></>
                         )}
                       </td>
                       <td>
@@ -523,7 +496,7 @@ const CLMSCartContent = (props) => {
                             >
                               <Icon
                                 name={removeSVG}
-                                size={25}
+                                size="25"
                                 color="#e40166"
                                 title={'Remove this row from the cart'}
                               />
