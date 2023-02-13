@@ -4,8 +4,15 @@ export const formatNaming = (item) => {
 
 export const originalFormatNaming = (item) => {
   const original = item?.original_format?.token || item?.original_format;
-  const format = item?.format?.token || item?.format;
+  const collection = getCollectionByItem(item);
+  const format = collection?.full_format?.token || collection?.full_format;
   return format ? format : original;
+};
+
+export const getCollectionByItem = (item) => {
+  return item?.type_options
+    ? item.type_options.find((t_o) => t_o['id'] === item.type)
+    : { id: '' };
 };
 
 export const getDownloadToolPostBody = (selectedItems) => {
@@ -107,4 +114,44 @@ export const getCartObjectFromMapviewer = (
     projection: dataset_data.projection || projections[0],
     timeExtent: local_cart_data.timeExtent || [],
   };
+};
+
+export const duplicateCartItem = (
+  unique_id,
+  cartItems,
+  setCartItems,
+  updateCart,
+) => {
+  if (cartItems.length > 0) {
+    const itemIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
+    const new_item = Object.assign(
+      {},
+      {
+        ...cartItems[itemIndex],
+        unique_id: cartItems[itemIndex].unique_id + '-copy',
+      },
+    );
+    while (cartItems.some((c_i) => c_i.unique_id === new_item.unique_id)) {
+      new_item['unique_id'] = new_item.unique_id + '-copy';
+    }
+    cartItems.splice(itemIndex + 1, 0, new_item);
+    refreshCart(cartItems, setCartItems, updateCart);
+  }
+};
+
+export const refreshCart = (cartItems, setCartItems, updateCart) => {
+  setCartItems([...cartItems]);
+  updateCart([
+    ...cartItems.map((c_i) => {
+      const file_id = c_i.file_id ? { file_id: c_i.file_id } : {};
+      const id = c_i.id ? { id: c_i.id } : {};
+      return {
+        ...file_id,
+        ...id,
+        UID: c_i.dataset_uid,
+        unique_id: c_i.unique_id,
+        area: c_i.area,
+      };
+    }),
+  ]);
 };
