@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
-import { UniversalLink } from '@plone/volto/components';
+import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DownloadDataSetContent = (data, token) => {
   const location = useLocation();
@@ -58,13 +58,12 @@ const DownloadDataSetContent = (data, token) => {
           <br />
           <br />
           <h2>Download full dataset</h2>
-          <p>
-            If you want to download the full dataset, click{' '}
-            <UniversalLink href="/en/how-to-guides/how-to-download-spatial-data/how-to-download-m2m">
-              here
-            </UniversalLink>{' '}
-            to learn more
-          </p>
+          {data.download_full_dataset_text?.data && (
+            <StringToHTML
+              string={data.download_full_dataset_text?.data || ''}
+            />
+          )}
+
           {/* {data.token === '' ? (
             <CclButton
               url={location.pathname + '/download-by-area'}
