@@ -1,12 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import React from 'react';
-import config from '@plone/volto/registry';
+import { useDispatch, useSelector } from 'react-redux';
+import { Segment, Input, Pagination } from 'semantic-ui-react';
+
 import { searchContent } from '@plone/volto/actions';
-import { Segment } from 'semantic-ui-react';
+import { Icon } from '@plone/volto/components';
+import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
+import paginationRightSVG from '@plone/volto/icons/right-key.svg';
+import config from '@plone/volto/registry';
+
+import { useFilteredPagination } from '../../CclUtils/useFilteredPagination';
 
 const CclRelatedListingView = (props) => {
   const { data, id, properties, metadata } = props;
+  const use_pagination = useFilteredPagination([]);
+  const p_functions = use_pagination.functions;
+  const p_data = use_pagination.data;
+  const { pagination, currentPage, paginationSize, dataList } = p_data;
+
   const dispatch = useDispatch();
   const searchSubrequests = useSelector(
     (state) => state.search.subrequests?.[props.id],
@@ -59,6 +69,11 @@ const CclRelatedListingView = (props) => {
   }
 
   React.useEffect(() => {
+    if (searchSubrequests?.loaded) {
+      p_functions.setOriginalDataList([...searchSubrequests.items]);
+      p_functions.setDataList([...searchSubrequests.items]);
+    }
+
     uid &&
       !searchSubrequests?.loading &&
       !searchSubrequests?.loaded &&
@@ -83,7 +98,55 @@ const CclRelatedListingView = (props) => {
   return (
     <>
       {searchSubrequests?.loaded && libraries.length > 0 ? (
-        <TemplateView items={libraries} variation={template_id} />
+        <div>
+          {paginationSize < libraries.length && (
+            <div className="block search">
+              <div className="search-wrapper">
+                <div className="search-input">
+                  <Input
+                    id={`${props.id}-searchtext`}
+                    placeholder={'Search in the pre-packaged data collection'}
+                    fluid
+                    onChange={(event, value) => {
+                      p_functions.applySearch(event, value, 'title');
+                      p_functions.setCurrentPage(1);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          <TemplateView items={pagination} variation={template_id} />
+          {dataList.length / paginationSize > 1 && (
+            <div className="pagination-wrapper">
+              <Pagination
+                activePage={currentPage}
+                totalPages={Math.ceil(dataList.length / paginationSize)}
+                onPageChange={(e, { activePage }) => {
+                  p_functions.setCurrentPage(activePage);
+                }}
+                firstItem={null}
+                lastItem={null}
+                prevItem={{
+                  content: <Icon name={paginationLeftSVG} size="18px" />,
+                  icon: true,
+                  'aria-disabled': currentPage === 1,
+                  className: currentPage === 1 ? 'disabled' : null,
+                }}
+                nextItem={{
+                  content: <Icon name={paginationRightSVG} size="18px" />,
+                  icon: true,
+                  'aria-disabled':
+                    currentPage === Math.ceil(dataList.length / paginationSize),
+                  className:
+                    currentPage === Math.ceil(dataList.length / paginationSize)
+                      ? 'disabled'
+                      : null,
+                }}
+              ></Pagination>
+            </div>
+          )}
+        </div>
       ) : (
         <p>There are no related items.</p>
       )}
