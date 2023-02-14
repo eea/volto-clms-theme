@@ -105,7 +105,7 @@ const CclRelatedListingView = (props) => {
                 <div className="search-input">
                   <Input
                     id={`${props.id}-searchtext`}
-                    placeholder={'Search in the pre-packaged data collection'}
+                    placeholder={'Search in the following items'}
                     fluid
                     onChange={(event, value) => {
                       p_functions.applySearch(event, value, 'title');
