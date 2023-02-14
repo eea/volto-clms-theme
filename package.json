@@ -37,7 +37,7 @@
     "volto-cookie-banner": "2.1.0",
     "@eeacms/volto-accordion-block": "3.5.0",
     "@eeacms/volto-arcgis-block": "*",
-    "@eeacms/volto-clms-utils": "0.1.6",
+    "@eeacms/volto-clms-utils": "0.1.7",
     "@eeacms/volto-columns-block": "4.4.3",
     "@eeacms/volto-metadata-block": "^2.1.0",
     "@eeacms/volto-react-table-widget": "0.1.1",
