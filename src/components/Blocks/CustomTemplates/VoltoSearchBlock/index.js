@@ -1,3 +1,4 @@
+import DoubleRangeSpatialFacet from './DoubleRangeSpatialFacet';
 import DoubleRangeFacet from './DoubleRangeFacet';
 import AccordionFacet from './AccordionFacet';
 import RightModalFacets from './RightModalFacets';
@@ -11,6 +12,7 @@ export {
   AccordionFacet,
   WithType,
   DoubleRangeFacet,
+  DoubleRangeSpatialFacet,
   CheckboxTreeFacet,
   CheckboxTreeParentFacet,
   rewriteOptions,

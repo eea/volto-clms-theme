@@ -110,6 +110,7 @@ const applyConfig = (config) => {
   };
   config.settings = {
     ...config.settings,
+    downloadableObjects: ['File', 'TechnicalLibrary'],
     appExtras: [
       ...config.settings.appExtras,
       {

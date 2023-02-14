@@ -1,33 +1,38 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
+
+import { Icon } from '@plone/volto/components';
+import { Toast } from '@plone/volto/components';
+import removeSVG from '@plone/volto/icons/delete.svg';
+import addDocumentSVG from '@plone/volto/icons/add-document.svg';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { getDownloadtool, postDownloadtool } from '../../actions';
+import {
+  getDownloadToolPostBody,
+  formatNaming,
+  originalFormatNaming,
+  getCollectionByItem,
+  duplicateCartItem,
+  concatRequestedCartItem,
+} from './cartUtils';
+import { getAvailableConversion } from './conversion';
+import { toast } from 'react-toastify';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
  * CLMSCartContent container.
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 
-import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
-import React, { useEffect, useState } from 'react';
-import {
-  getCartObjectFromMapviewer,
-  getCartObjectFromPrepackaged,
-  getDownloadToolPostBody,
-  formatNaming,
-  originalFormatNaming,
-} from './cartUtils';
-import { getDownloadtool, postDownloadtool } from '../../actions';
-import { useDispatch, useSelector } from 'react-redux';
-
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Toast } from '@plone/volto/components';
-import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
-import { getAvailableConversion } from './conversion';
-import { toast } from 'react-toastify';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-
 const CLMSCartContent = (props) => {
   const { localSessionCart } = props;
   const dispatch = useDispatch();
-  const { removeCartItem, removeCartItems } = useCartState();
+  const { removeCartItem, removeCartItems, updateCart } = useCartState();
 
   // state connections
   const cart = useSelector((state) => state.cart_items.items);
@@ -67,45 +72,16 @@ const CLMSCartContent = (props) => {
       cart.length > 0 &&
       cart.length !== newCart.length
     ) {
-      concatRequestedCartItem();
+      concatRequestedCartItem(
+        cartItems,
+        setCartItems,
+        localSessionCart,
+        datasets_items,
+        projections,
+        nutsnames,
+      );
     }
   }, [cart, datasets_items]);
-
-  useEffect(() => {
-    if (Object.keys(nutsnames).length > 0 && cart.length > 0) {
-      concatRequestedCartItem();
-    }
-  }, [nutsnames]);
-
-  function concatRequestedCartItem() {
-    let newCartItems = [...cartItems];
-    localSessionCart.forEach((localItem) => {
-      const requestedItem = datasets_items
-        ? datasets_items.find((req) => req.UID === localItem.UID)
-        : false;
-      if (requestedItem) {
-        const file_data = requestedItem?.downloadable_files?.items.find(
-          (item) => item['@id'] === localItem.file_id,
-        );
-        if (file_data) {
-          newCartItems.push(
-            getCartObjectFromPrepackaged(file_data, requestedItem),
-          );
-          setCartItems(cleanDuplicatesEntries(newCartItems));
-        } else {
-          newCartItems.push(
-            getCartObjectFromMapviewer(
-              localItem,
-              requestedItem,
-              projections,
-              nutsnames,
-            ),
-          );
-          setCartItems(cleanDuplicatesEntries(newCartItems));
-        }
-      }
-    });
-  }
 
   const selectAllCart = (checked) => {
     if (checked) {
@@ -212,8 +188,11 @@ const CLMSCartContent = (props) => {
     }
   };
 
-  const TypeNaming = (typeProps) => {
-    const { item } = typeProps;
+  const TypeNaming = ({ item }) => {
+    const types_options =
+      item?.type_options?.length > 0
+        ? [...new Set(item.type_options.map((ddi) => ddi.name))]
+        : [];
     if (item.file_id) {
       return (
         <span className={'tag tag-' + item?.type?.toLowerCase()}>
@@ -223,22 +202,51 @@ const CLMSCartContent = (props) => {
     } else if (!item.type) {
       return '-';
     } else {
-      let values = item.type_options.filter((myitem) => {
-        return myitem['id'] === item.type;
-      });
-      return values.length > 0 ? values[0].name : '.';
+      let defaultType = getCollectionByItem(item);
+      return types_options.length > 1 ? (
+        <Select
+          placeholder="Select type"
+          value={defaultType.name}
+          options={types_options.map((option) => {
+            return {
+              key: option,
+              value: option,
+              text: option,
+            };
+          })}
+          onChange={(e, data) => {
+            const new_cartItems = [...cartItems];
+            const objIndex = new_cartItems.findIndex(
+              (obj) => obj.unique_id === item.unique_id,
+            );
+            const first_type_id = item.type_options.filter(
+              (t_o) => t_o.name === data.value,
+            )[0].id;
+            new_cartItems[objIndex].type = first_type_id;
+            const dataset = datasets_items
+              ? datasets_items.find((req) => req.UID === item.dataset_uid)
+              : false;
+            const format_item = dataset.dataset_download_information.items.find(
+              (item) => item['@id'] === first_type_id,
+            );
+            new_cartItems[objIndex].format = format_item.full_format;
+            setCartItems([...new_cartItems]);
+          }}
+        />
+      ) : (
+        defaultType.name
+      );
     }
   };
 
-  const CollectionNaming = (typeProps) => {
-    const { item } = typeProps;
+  const CollectionNaming = ({ item }) => {
     if (item.file_id) {
       return '-';
     } else if (!item.type) {
       return '-';
     }
-
-    return (
+    return item.type_options.filter((t_o) => t_o.id === item.type).length >
+      1 ? (
       <Select
         placeholder="Select type"
         value={
@@ -248,30 +256,65 @@ const CLMSCartContent = (props) => {
         }
         options={
           item?.type_options?.length > 0 &&
-          item?.type_options.map((option) => {
-            return {
-              key: option.id,
-              value: option.id,
-              text:
-                (option.collection === undefined && '-') || option.collection,
-            };
-          })
+          item?.type_options
+            .filter(
+              (o) =>
+                o.name ===
+                item?.type_options.find((t_o) => t_o.id === item.type).name,
+            )
+            .map((option) => {
+              return {
+                key: option.id,
+                value: option.id,
+                text: option.collection ?? '-',
+              };
+            })
         }
         onChange={(e, data) => {
-          const objIndex = cartItems.findIndex(
+          const new_cartItems = [...cartItems];
+          const objIndex = new_cartItems.findIndex(
             (obj) => obj.unique_id === item.unique_id,
           );
-          cartItems[objIndex].type = data.value;
+          new_cartItems[objIndex].type = data.value;
           const dataset = datasets_items
             ? datasets_items.find((req) => req.UID === item.dataset_uid)
             : false;
           const format_item = dataset.dataset_download_information.items.find(
             (item) => item['@id'] === data.value,
           );
-          cartItems[objIndex].format = format_item.full_format;
-          setCartItems([...cartItems]);
+          new_cartItems[objIndex].format = format_item.full_format;
+          setCartItems([...new_cartItems]);
         }}
       />
+    ) : (
+      getCollectionByItem(item).collection ?? '-'
+    );
+  };
+  const FormatNaming = ({ item }) => {
+    const format_options = getAvailableConversion(
+      formatConversionTable,
+      originalFormatNaming(item),
+    );
+    const item_format_name = formatNaming(item);
+    return !item.file_id ? (
+      format_options.length > 1 ? (
+        <Select
+          placeholder="Select format"
+          value={item_format_name}
+          options={format_options}
+          onChange={(e, data) => {
+            const objIndex = cartItems.findIndex(
+              (obj) => obj.unique_id === item.unique_id,
+            );
+            cartItems[objIndex].format = data.value;
+            setCartItems([...cartItems]);
+          }}
+        />
+      ) : (
+        item_format_name
+      )
+    ) : (
+      item_format_name
     );
   };
 
@@ -306,6 +349,7 @@ const CLMSCartContent = (props) => {
                   <th>Collection</th>
                   <th>Format</th>
                   <th>Projection</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -364,25 +408,7 @@ const CLMSCartContent = (props) => {
                         <CollectionNaming item={item} />
                       </td>
                       <td className="table-td-format">
-                        {!item.file_id ? (
-                          <Select
-                            placeholder="Select format"
-                            value={formatNaming(item)}
-                            options={getAvailableConversion(
-                              formatConversionTable,
-                              originalFormatNaming(item),
-                            )}
-                            onChange={(e, data) => {
-                              const objIndex = cartItems.findIndex(
-                                (obj) => obj.unique_id === item.unique_id,
-                              );
-                              cartItems[objIndex].format = data.value;
-                              setCartItems([...cartItems]);
-                            }}
-                          />
-                        ) : (
-                          formatNaming(item)
-                        )}
+                        <FormatNaming item={item} />
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
@@ -407,14 +433,73 @@ const CLMSCartContent = (props) => {
                       <td>
                         {item.task_in_progress ? (
                           <FontAwesomeIcon icon="spinner" spin />
+                        ) : !item.file_id ? (
+                          <span
+                            className="info-icon"
+                            tooltip="Add a duplicated row below"
+                            direction="up"
+                          >
+                            <button
+                              onClick={() => {
+                                duplicateCartItem(
+                                  item.unique_id,
+                                  cartItems,
+                                  setCartItems,
+                                  updateCart,
+                                );
+                              }}
+                              style={{
+                                backgroundColor: 'transparent',
+                                color: 'inherit',
+                                border: 'none',
+                                padding: 0,
+                                font: 'inherit',
+                                cursor: 'pointer',
+                                outline: 'inherit',
+                              }}
+                            >
+                              <Icon
+                                name={addDocumentSVG}
+                                size={25}
+                                title={'Add a duplicated row below'}
+                              />
+                            </button>
+                          </span>
                         ) : (
-                          <FontAwesomeIcon
-                            icon={['fas', 'trash']}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                              removeCartItem(item.unique_id);
-                            }}
-                          />
+                          <></>
+                        )}
+                      </td>
+                      <td>
+                        {item.task_in_progress ? (
+                          <FontAwesomeIcon icon="spinner" spin />
+                        ) : (
+                          <span
+                            className="info-icon"
+                            tooltip="Remove this row from the cart"
+                            direction="up"
+                          >
+                            <button
+                              onClick={() => {
+                                removeCartItem(item.unique_id);
+                              }}
+                              style={{
+                                backgroundColor: 'transparent',
+                                color: 'inherit',
+                                border: 'none',
+                                padding: 0,
+                                font: 'inherit',
+                                cursor: 'pointer',
+                                outline: 'inherit',
+                              }}
+                            >
+                              <Icon
+                                name={removeSVG}
+                                size={25}
+                                color="#e40166"
+                                title={'Remove this row from the cart'}
+                              />
+                            </button>
+                          </span>
                         )}
                       </td>
                     </tr>
