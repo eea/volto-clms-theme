@@ -245,7 +245,8 @@ const CLMSCartContent = (props) => {
     } else if (!item.type) {
       return '-';
     }
-    return item.type_options.length > 1 ? (
+    return item.type_options.filter((t_o) => t_o.id === item.type).length >
+      1 ? (
       <Select
         placeholder="Select type"
         value={
