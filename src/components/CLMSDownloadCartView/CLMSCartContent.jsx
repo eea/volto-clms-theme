@@ -281,11 +281,8 @@ const CLMSCartContent = (props) => {
           const format_item = dataset.dataset_download_information.items.find(
             (item) => item['@id'] === data.value,
           );
-          new_cartItems[objIndex].format = {
-            title: format_item.full_format,
-            token: format_item.full_format,
-          };
-          setCartItems([...cartItems]);
+          new_cartItems[objIndex].format = format_item.full_format;
+          setCartItems([...new_cartItems]);
         }}
       />
     ) : (
@@ -462,7 +459,7 @@ const CLMSCartContent = (props) => {
                             >
                               <Icon
                                 name={addDocumentSVG}
-                                size="25"
+                                size={25}
                                 title={'Add a duplicated row below'}
                               />
                             </button>
@@ -496,7 +493,7 @@ const CLMSCartContent = (props) => {
                             >
                               <Icon
                                 name={removeSVG}
-                                size="25"
+                                size={25}
                                 color="#e40166"
                                 title={'Remove this row from the cart'}
                               />
