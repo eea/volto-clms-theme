@@ -232,18 +232,27 @@ function CclDownloadTable(props) {
       : '';
   };
 
-  const columns = [
-    hasSome('title'),
-    hasSome('file'),
-    hasSome('area'),
-    hasSome('year'),
-    hasSome('version'),
-    hasSome('resolution'),
-    hasSome('type'),
-    hasSome('format'),
-    hasSome('size'),
-  ];
+  const columns =
+    prePackagedCollection.length > 0
+      ? Object.keys(prePackagedCollection[0]).map((key) => {
+          return hasSome(key);
+        })
+      : [];
+  // const columns = [
+  //   hasSome('title'),
+  //   hasSome('file'),
+  //   hasSome('area'),
+  //   hasSome('year'),
+  //   hasSome('version'),
+  //   hasSome('resolution'),
+  //   hasSome('type'),
+  //   hasSome('format'),
+  //   hasSome('size'),
+  // ];
   const validcolums = columns.some((column) => !!column);
+
+  console.log('columns', columns);
+  console.log('prePackagedCollection', prePackagedCollection);
 
   return (
     prePackagedCollection.length > 0 &&
@@ -335,7 +344,16 @@ function CclDownloadTable(props) {
                     <HeaderCheckbox />{' '}
                   </th>
                 )}
-                {columns.includes('title') && <th>Title</th>}
+                {columns.forEach((column) => {
+                  if (column !== ['@id'] || column !== ['UID']) {
+                    return <th>{column}</th>;
+                  } else return '';
+                })}
+                {columns.map((column) => {
+                  return column !== '@id' && <th>{column}</th>;
+                })}
+
+                {/* {columns.includes('title') && <th>Title</th>}
                 {columns.includes('file') && <th>File name</th>}
                 {columns.includes('area') && (
                   <th>{dataset.download_table_area_of_interest_title}</th>
@@ -345,7 +363,7 @@ function CclDownloadTable(props) {
                 {columns.includes('resolution') && <th>Resolution</th>}
                 {columns.includes('type') && <th>Type</th>}
                 {columns.includes('format') && <th>Format</th>}
-                {columns.includes('size') && <th>Size</th>}
+                {columns.includes('size') && <th>Size</th>} */}
               </tr>
             </thead>
             <tbody>
