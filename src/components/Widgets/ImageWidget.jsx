@@ -53,7 +53,11 @@ const messages = defineMessages({
   },
   invalid_file: {
     id: 'The uploaded file is not valid',
-    defaultMessage: 'The uploaded file must be an image',
+    defaultMessage: 'The uploaded file must be an image.',
+  },
+  invalid_file_size: {
+    id: 'The uploaded file size is too big',
+    defaultMessage: 'The uploaded file size must be at most 10 MB.',
   },
 });
 
@@ -85,6 +89,8 @@ const FileWidget = (props) => {
   const [fileType, setFileType] = React.useState(false);
   const intl = useIntl();
 
+  const FILE_SIZE_LIMIT = 1024 * 1024 * 10;
+
   React.useEffect(() => {
     if (value && imageMimetypes.includes(value['content-type'])) {
       setFileType(true);
@@ -105,6 +111,15 @@ const FileWidget = (props) => {
    */
   const onDrop = (files) => {
     const file = files[0];
+    if (file.size > FILE_SIZE_LIMIT) {
+      toast.error(
+        <Toast
+          autoClose={5000}
+          title={intl.formatMessage(messages.invalid_file_size)}
+        />,
+      );
+      return;
+    }
     readAsDataURL(file).then((data) => {
       const fields = data.match(/^data:(.*);(.*),(.*)$/);
       if (!imageMimetypes.includes(fields[1])) {
