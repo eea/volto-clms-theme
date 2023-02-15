@@ -3,6 +3,7 @@ import { ReactTableWidget } from '@eeacms/volto-react-table-widget';
 import { useSchema } from './SchemaCreatorWidget';
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder/dist/index';
 import CclButton from '../CclButton/CclButton';
+import './DownloadableFilesTableWidget.less';
 
 const DownloadableFilesTableWidget = (props) => {
   const { functions, data } = useSchema();
@@ -11,6 +12,9 @@ const DownloadableFilesTableWidget = (props) => {
 
   return (
     <>
+      <div className="ui container">
+        <label className="downloadable-files-editor-title">{props.title}</label>
+      </div>
       <FormBuilder
         schema={JSON.stringify(schema)}
         uischema={JSON.stringify(uiSchema)}
@@ -23,13 +27,15 @@ const DownloadableFilesTableWidget = (props) => {
           setUISchema(JSON.parse(newUiSchema));
         }}
       />
-      <CclButton
-        onClick={() => {
-          setSchemaHandler(schema);
-        }}
-      >
-        Reload table
-      </CclButton>
+      <div className="ui container">
+        <CclButton
+          onClick={() => {
+            setSchemaHandler(schema);
+          }}
+        >
+          Reload table schema
+        </CclButton>
+      </div>
       {ready && (
         <ReactTableWidget
           {...props}

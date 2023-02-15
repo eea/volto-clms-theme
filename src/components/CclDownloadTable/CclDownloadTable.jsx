@@ -251,9 +251,6 @@ function CclDownloadTable(props) {
   // ];
   const validcolums = columns.some((column) => !!column);
 
-  console.log('columns', columns);
-  console.log('prePackagedCollection', prePackagedCollection);
-
   return (
     prePackagedCollection.length > 0 &&
     validcolums &&
