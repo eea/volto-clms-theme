@@ -12,10 +12,6 @@ const DownloadableFilesTableWidget = (props) => {
   );
   const { schema, uiSchema, ready } = data;
   const { setSchema, setUISchema, setSchemaHandler } = functions;
-  let savedUISchema = props.value.schema
-    ? { 'ui:order': props.value.schema.fieldsets[0].fields }
-    : uiSchema;
-  console.log('schema', schema);
   return (
     <>
       <div className="ui container">
@@ -31,7 +27,6 @@ const DownloadableFilesTableWidget = (props) => {
           ];
           setSchema(parsed_newSchema);
           setUISchema(JSON.parse(newUiSchema));
-          console.log('parsed_newSchema', parsed_newSchema);
         }}
       />
       <div className="ui container">
@@ -39,16 +34,18 @@ const DownloadableFilesTableWidget = (props) => {
           onClick={() => {
             setSchemaHandler(
               schema,
-              (id, value) =>
-                props.onChange(id, { ...props.value, schema: value }),
               uiSchema,
-              (id, value) =>
-                props.onChange(id, { ...props.value, uiSchema: value }),
+              (id, schema, uiSchema) =>
+                props.onChange(id, {
+                  ...props.value,
+                  schema: schema,
+                  uiSchema: uiSchema,
+                }),
               props.id,
             );
           }}
         >
-          Reload table schema
+          APPLY MODIFIED SCHEMA
         </CclButton>
       </div>
       {ready && (

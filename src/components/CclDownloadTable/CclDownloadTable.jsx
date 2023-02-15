@@ -32,6 +32,7 @@ import PropTypes from 'prop-types';
  */
 
 function CclDownloadTable(props) {
+  const intl = useIntl();
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
   const { addCartItem, isLoggedIn } = useCartState();
@@ -44,10 +45,11 @@ function CclDownloadTable(props) {
   const [totalPages, setTotalPages] = useState(
     Math.ceil(dataset?.downloadable_files?.items.length / 10),
   );
-  const intl = useIntl();
   const { data } = useSchema();
-  const { schema } = data;
-
+  const default_schema = data.schema;
+  const saved_schema = dataset.downloadable_files.schema;
+  const schema = saved_schema ?? default_schema;
+  const hidden_columns = ['@id', 'path'];
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
     (element) => {
@@ -59,6 +61,19 @@ function CclDownloadTable(props) {
       };
     },
   );
+
+  const hasSome = (field) => {
+    return prePackagedCollection.filter((ppItem) => ppItem[field]).length > 0
+      ? field
+      : '';
+  };
+
+  const columns =
+    schema?.fieldsets?.length > 0
+      ? schema.fieldsets[0].fields.filter((key) => {
+          return hasSome(key) && !hidden_columns.includes(key);
+        })
+      : [];
 
   const prepackage_grid = props.dataset['@id'].split('products');
   const prepackage_grid_image =
@@ -230,38 +245,9 @@ function CclDownloadTable(props) {
     return content || '-';
   };
 
-  const hasSome = (field) => {
-    return prePackagedCollection.filter((ppItem) => ppItem[field]).length > 0
-      ? field
-      : '';
-  };
-
-  const columns =
-    prePackagedCollection.length > 0
-      ? Object.keys(prePackagedCollection[0]).map((key) => {
-          return hasSome(key);
-        })
-      : [];
-  // const columns = [
-  //   hasSome('title'),
-  //   hasSome('file'),
-  //   hasSome('area'),
-  //   hasSome('year'),
-  //   hasSome('version'),
-  //   hasSome('resolution'),
-  //   hasSome('type'),
-  //   hasSome('format'),
-  //   hasSome('size'),
-  // ];
-  const validcolums = columns.some((column) => !!column);
-
-  console.log('schema', schema.fieldsets[0].fields);
-  console.log('columns', columns);
-
   return (
     prePackagedCollection.length > 0 &&
-    validcolums &&
-    columns && (
+    columns.length > 0 && (
       <div className="dataset-download-table">
         <h2>Download pre-packaged data collections</h2>
         {/* {prePackagedCollection.length === 0 && (
@@ -348,28 +334,9 @@ function CclDownloadTable(props) {
                     <HeaderCheckbox />{' '}
                   </th>
                 )}
-                {columns
-                  .sort(function (a, b) {
-                    return (
-                      schema.fieldsets[0].fields.indexOf(a) -
-                      schema.fieldsets[0].fields.indexOf(b)
-                    );
-                  })
-                  .map((column, key) => {
-                    return (
-                      column !== '@id' &&
-                      column !== 'UID' &&
-                      column !== 'unique_id' &&
-                      column !== '' &&
-                      column !== 'name' &&
-                      column !== 'path' &&
-                      column !== 'source' && (
-                        <th key={key}>
-                          {column.charAt(0).toUpperCase() + column.slice(1)}
-                        </th>
-                      )
-                    );
-                  })}
+                {columns.map((column, key) => (
+                  <th key={key}>{schema?.properties[column]?.title}</th>
+                ))}
                 {/* {columns.map((column) => {
                   return (
                     column !== '@id' &&
@@ -412,29 +379,21 @@ function CclDownloadTable(props) {
                         {columns.map((column, i) => {
                           let data = dataset_file?.[`${column}`];
                           return (
-                            column !== '@id' &&
-                            column !== 'UID' &&
-                            column !== 'unique_id' &&
-                            column !== '' &&
-                            column !== 'name' &&
-                            column !== 'path' &&
-                            column !== 'source' && (
-                              <td key={i}>
-                                {column === 'type' ? (
-                                  <span
-                                    className={
-                                      'tag tag-' +
-                                      (dataset_file?.type?.toLowerCase() ||
-                                        'raster')
-                                    }
-                                  >
-                                    {contentOrDash(dataset_file?.type)}
-                                  </span>
-                                ) : (
-                                  contentOrDash(data)
-                                )}
-                              </td>
-                            )
+                            <td key={i}>
+                              {column === 'type' ? (
+                                <span
+                                  className={
+                                    'tag tag-' +
+                                    (dataset_file?.type?.toLowerCase() ||
+                                      'raster')
+                                  }
+                                >
+                                  {contentOrDash(dataset_file?.type)}
+                                </span>
+                              ) : (
+                                contentOrDash(data)
+                              )}
+                            </td>
                           );
                         })}
                         {/* {columns.includes('title') && (

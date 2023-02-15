@@ -86,18 +86,14 @@ export const useSchema = (baseSchema, baseUISchema) => {
       ],
     },
   );
-  function setUiSchemaHandler(uiSchema, onChangeUi, id) {
-    setTimeout(() => onChangeUi(id, uiSchema), 1500);
-  }
   const [ready, setReady] = useState(true);
-  function setSchemaHandler(schema, onChange, uiSchema, onChangeUi, id) {
+  const setSchemaHandler = (schema, uiSchema, onChange, id) => {
     setReady(false);
     setSchema(schema);
-    setTimeout(() => onChange(id, schema), 1000);
+    onChange(id, schema, uiSchema);
     // setTimeout(() => onChangeUi(id, uiSchema), 1500);
     setTimeout(() => setReady(true), 1500);
-    setUiSchemaHandler();
-  }
+  };
 
   const [uiSchema, setUISchema] = useState(
     baseUISchema || {
