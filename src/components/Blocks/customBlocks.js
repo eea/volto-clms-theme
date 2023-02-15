@@ -75,6 +75,7 @@ import navSVG from '@plone/volto/icons/nav.svg';
 import codeSVG from '@plone/volto/icons/code.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
+import AttachmentWithSizeLimit from '@eeacms/volto-clms-theme/components/Widgets/AttachmentWithSizeLimit';
 import TextWidget from '@plone/volto/components/manage/Widgets/TextWidget';
 import TextareaWidget from '@plone/volto/components/manage/Widgets/TextareaWidget';
 import EmailWidget from '@plone/volto/components/manage/Widgets/EmailWidget';
@@ -596,6 +597,11 @@ const customBlocks = (config) => ({
         id: 'email_widget',
         label: 'CCL Email Widget',
         component: EmailWidget,
+      },
+      {
+        id: 'attachment_with_size_limit',
+        label: 'Attachment (size limit)',
+        component: AttachmentWithSizeLimit,
       },
     ],
   },
