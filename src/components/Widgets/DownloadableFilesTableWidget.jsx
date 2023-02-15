@@ -3,6 +3,7 @@ import { ReactTableWidget } from '@eeacms/volto-react-table-widget';
 import { useSchema } from './SchemaCreatorWidget';
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder/dist/index';
 import CclButton from '../CclButton/CclButton';
+import { Segment } from 'semantic-ui-react';
 import './DownloadableFilesTableWidget.less';
 
 const DownloadableFilesTableWidget = (props) => {
@@ -12,6 +13,7 @@ const DownloadableFilesTableWidget = (props) => {
   );
   const { schema, uiSchema, ready } = data;
   const { setSchema, setUISchema, setSchemaHandler } = functions;
+  const [edited, setEdited] = React.useState(false);
   return (
     <>
       <div className="ui container">
@@ -21,6 +23,7 @@ const DownloadableFilesTableWidget = (props) => {
         schema={JSON.stringify(schema)}
         uischema={JSON.stringify(uiSchema)}
         onChange={(newSchema, newUiSchema) => {
+          setEdited(true);
           let parsed_newSchema = JSON.parse(newSchema);
           parsed_newSchema.fieldsets[0].fields = JSON.parse(newUiSchema)[
             'ui:order'
@@ -30,8 +33,21 @@ const DownloadableFilesTableWidget = (props) => {
         }}
       />
       <div className="ui container">
+        {edited && (
+          <Segment
+            color="red"
+            inverted
+            className="schema-modification-alert-message"
+          >
+            <strong>
+              You have modified the schema, if you don't apply the changes, they
+              will be lost!
+            </strong>
+          </Segment>
+        )}
         <CclButton
           onClick={() => {
+            setEdited(false);
             setSchemaHandler(
               schema,
               uiSchema,
