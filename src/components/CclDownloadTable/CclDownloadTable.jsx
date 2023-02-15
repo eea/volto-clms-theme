@@ -14,13 +14,14 @@ import { Icon, Toast } from '@plone/volto/components';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
 import paginationRightSVG from '@plone/volto/icons/right-key.svg';
+import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 
 import './download-table.less';
+import { useSchema } from '../Widgets/SchemaCreatorWidget';
 
 import PropTypes from 'prop-types';
 
@@ -44,6 +45,9 @@ function CclDownloadTable(props) {
     Math.ceil(dataset?.downloadable_files?.items.length / 10),
   );
   const intl = useIntl();
+  const { data } = useSchema();
+  const { schema } = data;
+
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
     (element) => {
@@ -251,6 +255,9 @@ function CclDownloadTable(props) {
   // ];
   const validcolums = columns.some((column) => !!column);
 
+  console.log('schema', schema.fieldsets[0].fields);
+  console.log('columns', columns);
+
   return (
     prePackagedCollection.length > 0 &&
     validcolums &&
@@ -341,15 +348,36 @@ function CclDownloadTable(props) {
                     <HeaderCheckbox />{' '}
                   </th>
                 )}
-                {columns.forEach((column) => {
-                  if (column !== ['@id'] || column !== ['UID']) {
-                    return <th>{column}</th>;
-                  } else return '';
-                })}
-                {columns.map((column) => {
-                  return column !== '@id' && <th>{column}</th>;
-                })}
-
+                {columns
+                  .sort(function (a, b) {
+                    return (
+                      schema.fieldsets[0].fields.indexOf(a) -
+                      schema.fieldsets[0].fields.indexOf(b)
+                    );
+                  })
+                  .map((column, key) => {
+                    return (
+                      column !== '@id' &&
+                      column !== 'UID' &&
+                      column !== 'unique_id' &&
+                      column !== '' &&
+                      column !== 'name' &&
+                      column !== 'path' &&
+                      column !== 'source' && (
+                        <th key={key}>
+                          {column.charAt(0).toUpperCase() + column.slice(1)}
+                        </th>
+                      )
+                    );
+                  })}
+                {/* {columns.map((column) => {
+                  return (
+                    column !== '@id' &&
+                    column !== 'UID' &&
+                    column !== 'unique_id' &&
+                    column !== '' && <th>{column}</th>
+                  );
+                })} */}
                 {/* {columns.includes('title') && <th>Title</th>}
                 {columns.includes('file') && <th>File name</th>}
                 {columns.includes('area') && (
@@ -381,7 +409,35 @@ function CclDownloadTable(props) {
                             />
                           </td>
                         )}
-                        {columns.includes('title') && (
+                        {columns.map((column, i) => {
+                          let data = dataset_file?.[`${column}`];
+                          return (
+                            column !== '@id' &&
+                            column !== 'UID' &&
+                            column !== 'unique_id' &&
+                            column !== '' &&
+                            column !== 'name' &&
+                            column !== 'path' &&
+                            column !== 'source' && (
+                              <td key={i}>
+                                {column === 'type' ? (
+                                  <span
+                                    className={
+                                      'tag tag-' +
+                                      (dataset_file?.type?.toLowerCase() ||
+                                        'raster')
+                                    }
+                                  >
+                                    {contentOrDash(dataset_file?.type)}
+                                  </span>
+                                ) : (
+                                  contentOrDash(data)
+                                )}
+                              </td>
+                            )
+                          );
+                        })}
+                        {/* {columns.includes('title') && (
                           <td>{contentOrDash(dataset_file?.title)}</td>
                         )}
                         {columns.includes('file') && (
@@ -416,7 +472,7 @@ function CclDownloadTable(props) {
                         )}
                         {columns.includes('size') && (
                           <td>{contentOrDash(dataset_file?.size)}</td>
-                        )}
+                        )} */}
                       </tr>
                     );
                   })
