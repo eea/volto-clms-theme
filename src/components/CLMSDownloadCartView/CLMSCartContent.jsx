@@ -245,8 +245,11 @@ const CLMSCartContent = (props) => {
     } else if (!item.type) {
       return '-';
     }
-    return item.type_options.filter((t_o) => t_o.id === item.type).length >
-      1 ? (
+    const this_type_collections = item?.type_options.filter(
+      (o) =>
+        o.name === item?.type_options.find((t_o) => t_o.id === item.type).name,
+    );
+    return this_type_collections.length > 1 ? (
       <Select
         placeholder="Select type"
         value={
@@ -256,19 +259,13 @@ const CLMSCartContent = (props) => {
         }
         options={
           item?.type_options?.length > 0 &&
-          item?.type_options
-            .filter(
-              (o) =>
-                o.name ===
-                item?.type_options.find((t_o) => t_o.id === item.type).name,
-            )
-            .map((option) => {
-              return {
-                key: option.id,
-                value: option.id,
-                text: option.collection ?? '-',
-              };
-            })
+          this_type_collections.map((option) => {
+            return {
+              key: option.id,
+              value: option.id,
+              text: option.collection ?? '-',
+            };
+          })
         }
         onChange={(e, data) => {
           const new_cartItems = [...cartItems];
