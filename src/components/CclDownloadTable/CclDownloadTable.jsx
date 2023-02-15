@@ -14,13 +14,14 @@ import { Icon, Toast } from '@plone/volto/components';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
 import paginationRightSVG from '@plone/volto/icons/right-key.svg';
+import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 
 import './download-table.less';
+import { useSchema } from '../Widgets/SchemaCreatorWidget';
 
 import PropTypes from 'prop-types';
 
@@ -31,6 +32,7 @@ import PropTypes from 'prop-types';
  */
 
 function CclDownloadTable(props) {
+  const intl = useIntl();
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
   const { addCartItem, isLoggedIn } = useCartState();
@@ -43,7 +45,11 @@ function CclDownloadTable(props) {
   const [totalPages, setTotalPages] = useState(
     Math.ceil(dataset?.downloadable_files?.items.length / 10),
   );
-  const intl = useIntl();
+  const { data } = useSchema();
+  const default_schema = data.schema;
+  const saved_schema = dataset.downloadable_files.schema;
+  const schema = saved_schema ?? default_schema;
+  const hidden_columns = ['@id', 'path'];
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
     (element) => {
@@ -55,6 +61,19 @@ function CclDownloadTable(props) {
       };
     },
   );
+
+  const hasSome = (field) => {
+    return prePackagedCollection.filter((ppItem) => ppItem[field]).length > 0
+      ? field
+      : '';
+  };
+
+  const columns =
+    schema?.fieldsets?.length > 0
+      ? schema.fieldsets[0].fields.filter((key) => {
+          return hasSome(key) && !hidden_columns.includes(key);
+        })
+      : [];
 
   const prepackage_grid = props.dataset['@id'].split('products');
   const prepackage_grid_image =
@@ -226,29 +245,9 @@ function CclDownloadTable(props) {
     return content || '-';
   };
 
-  const hasSome = (field) => {
-    return prePackagedCollection.filter((ppItem) => ppItem[field]).length > 0
-      ? field
-      : '';
-  };
-
-  const columns = [
-    hasSome('title'),
-    hasSome('file'),
-    hasSome('area'),
-    hasSome('year'),
-    hasSome('version'),
-    hasSome('resolution'),
-    hasSome('type'),
-    hasSome('format'),
-    hasSome('size'),
-  ];
-  const validcolums = columns.some((column) => !!column);
-
   return (
     prePackagedCollection.length > 0 &&
-    validcolums &&
-    columns && (
+    columns.length > 0 && (
       <div className="dataset-download-table">
         <h2>Download pre-packaged data collections</h2>
         {/* {prePackagedCollection.length === 0 && (
@@ -335,7 +334,18 @@ function CclDownloadTable(props) {
                     <HeaderCheckbox />{' '}
                   </th>
                 )}
-                {columns.includes('title') && <th>Title</th>}
+                {columns.map((column, key) => (
+                  <th key={key}>{schema?.properties[column]?.title}</th>
+                ))}
+                {/* {columns.map((column) => {
+                  return (
+                    column !== '@id' &&
+                    column !== 'UID' &&
+                    column !== 'unique_id' &&
+                    column !== '' && <th>{column}</th>
+                  );
+                })} */}
+                {/* {columns.includes('title') && <th>Title</th>}
                 {columns.includes('file') && <th>File name</th>}
                 {columns.includes('area') && (
                   <th>{dataset.download_table_area_of_interest_title}</th>
@@ -345,7 +355,7 @@ function CclDownloadTable(props) {
                 {columns.includes('resolution') && <th>Resolution</th>}
                 {columns.includes('type') && <th>Type</th>}
                 {columns.includes('format') && <th>Format</th>}
-                {columns.includes('size') && <th>Size</th>}
+                {columns.includes('size') && <th>Size</th>} */}
               </tr>
             </thead>
             <tbody>
@@ -366,7 +376,27 @@ function CclDownloadTable(props) {
                             />
                           </td>
                         )}
-                        {columns.includes('title') && (
+                        {columns.map((column, i) => {
+                          let data = dataset_file?.[`${column}`];
+                          return (
+                            <td key={i}>
+                              {column === 'type' ? (
+                                <span
+                                  className={
+                                    'tag tag-' +
+                                    (dataset_file?.type?.toLowerCase() ||
+                                      'raster')
+                                  }
+                                >
+                                  {contentOrDash(dataset_file?.type)}
+                                </span>
+                              ) : (
+                                contentOrDash(data)
+                              )}
+                            </td>
+                          );
+                        })}
+                        {/* {columns.includes('title') && (
                           <td>{contentOrDash(dataset_file?.title)}</td>
                         )}
                         {columns.includes('file') && (
@@ -401,7 +431,7 @@ function CclDownloadTable(props) {
                         )}
                         {columns.includes('size') && (
                           <td>{contentOrDash(dataset_file?.size)}</td>
-                        )}
+                        )} */}
                       </tr>
                     );
                   })

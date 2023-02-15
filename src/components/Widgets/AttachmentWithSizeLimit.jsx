@@ -1,6 +1,7 @@
 /**
  * FileWidget component.
  * @module components/manage/Widgets/FileWidget
+ * added aria- attributes
  */
 
 import React from 'react';
@@ -13,7 +14,6 @@ import { Icon, FormFieldWrapper } from '@plone/volto/components';
 import loadable from '@loadable/component';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import { defineMessages, useIntl } from 'react-intl';
-
 import { Toast } from '@plone/volto/components';
 import { toast } from 'react-toastify';
 
@@ -24,36 +24,29 @@ const imageMimetypes = [
   'image/jpg',
   'image/gif',
   'image/svg+xml',
-  'image/tif',
-  'image/tiff',
-  'image/bmp',
 ];
 const Dropzone = loadable(() => import('react-dropzone'));
 
 const messages = defineMessages({
   releaseDrag: {
-    id: 'Drop images here ...',
-    defaultMessage: 'Drop images here ...',
+    id: 'Drop files here ...',
+    defaultMessage: 'Drop files here ...',
   },
   editFile: {
-    id: 'Drop image here to replace the existing image',
-    defaultMessage: 'Drop image here to replace the existing image',
+    id: 'Drop file here to replace the existing file',
+    defaultMessage: 'Drop file here to replace the existing file',
   },
   fileDrag: {
-    id: 'Drop image here to upload a new image',
-    defaultMessage: 'Drop image here to upload a new image',
+    id: 'Drop file here to upload a new file',
+    defaultMessage: 'Drop file here to upload a new file',
   },
   replaceFile: {
-    id: 'Replace existing image',
-    defaultMessage: 'Replace existing image',
+    id: 'Replace existing file',
+    defaultMessage: 'Replace existing file',
   },
   addNewFile: {
-    id: 'Choose an image',
-    defaultMessage: 'Choose an image',
-  },
-  invalid_file: {
-    id: 'The uploaded file is not valid',
-    defaultMessage: 'The uploaded file must be an image.',
+    id: 'Choose a file',
+    defaultMessage: 'Choose a file',
   },
   invalid_file_size: {
     id: 'The uploaded file size is too big',
@@ -85,7 +78,7 @@ const messages = defineMessages({
  *
  */
 const FileWidget = (props) => {
-  const { id, value, onChange } = props;
+  const { id, value, onChange, required, invalid } = props;
   const [fileType, setFileType] = React.useState(false);
   const intl = useIntl();
 
@@ -111,6 +104,7 @@ const FileWidget = (props) => {
    */
   const onDrop = (files) => {
     const file = files[0];
+
     if (file.size > FILE_SIZE_LIMIT) {
       toast.error(
         <Toast
@@ -120,35 +114,21 @@ const FileWidget = (props) => {
       );
       return;
     }
+
     readAsDataURL(file).then((data) => {
       const fields = data.match(/^data:(.*);(.*),(.*)$/);
-      if (!imageMimetypes.includes(fields[1])) {
-        toast.error(
-          <Toast
-            autoClose={5000}
-            title={intl.formatMessage(messages.invalid_file)}
-          />,
-        );
-
-        return;
-      } else {
-        onChange(id, {
-          data: fields[3],
-          encoding: fields[2],
-          'content-type': fields[1],
-          filename: file.name,
-        });
-      }
+      onChange(id, {
+        data: fields[3],
+        encoding: fields[2],
+        'content-type': fields[1],
+        filename: file.name,
+      });
     });
 
     let reader = new FileReader();
     reader.onload = function () {
       const fields = reader.result.match(/^data:(.*);(.*),(.*)$/);
-      if (fields[1] === 'image/tif' || fields[1] === 'image/tiff') {
-        setFileType(true);
-        let imagePreview = document.getElementById(`field-${id}-image`);
-        imagePreview.src = '';
-      } else if (imageMimetypes.includes(fields[1])) {
+      if (imageMimetypes.includes(fields[1])) {
         setFileType(true);
         let imagePreview = document.getElementById(`field-${id}-image`);
         imagePreview.src = reader.result;
@@ -158,6 +138,17 @@ const FileWidget = (props) => {
     };
     reader.readAsDataURL(files[0]);
   };
+
+  let attributes = {};
+  if (required) {
+    attributes.required = true;
+    attributes['aria-required'] = true;
+  }
+
+  const isInvalid = invalid === true || invalid === 'true';
+  if (isInvalid) {
+    attributes['aria-invalid'] = true;
+  }
 
   return (
     <FormFieldWrapper {...props}>
@@ -203,6 +194,7 @@ const FileWidget = (props) => {
               id={`field-${id}`}
               name={id}
               type="file"
+              {...attributes}
             />
           </div>
         )}

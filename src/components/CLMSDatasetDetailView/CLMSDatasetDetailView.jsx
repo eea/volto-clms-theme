@@ -18,6 +18,7 @@ import {
   postImportWMSLayers,
   postImportWMSFields,
 } from '../../actions';
+import { useSchema } from '../Widgets/SchemaCreatorWidget';
 
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
@@ -71,6 +72,34 @@ const CLMSDatasetDetailView = ({ content, token }) => {
           'https://trial.discomap.eea.europa.eu/arcgis/services/clms/worldcountries/mapserver/wmsserver',
         )
     : false;
+  const { data } = useSchema();
+  const default_schema = data.schema;
+  const saved_schema = content.downloadable_files.schema;
+  const schema = saved_schema ?? default_schema;
+  const hidden_columns = ['@id', 'path'];
+  // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
+  const prePackagedCollection = content?.downloadable_files?.items.map(
+    (element) => {
+      return {
+        ...element,
+        name: content.title,
+        UID: content.UID,
+        unique_id: `${content.UID}_${element['@id']}`,
+      };
+    },
+  );
+  const hasSome = (field) => {
+    return prePackagedCollection.filter((ppItem) => ppItem[field]).length > 0
+      ? field
+      : '';
+  };
+
+  const columns =
+    schema?.fieldsets?.length > 0
+      ? schema.fieldsets[0].fields.filter((key) => {
+          return hasSome(key) && !hidden_columns.includes(key);
+        })
+      : [];
 
   return (
     <div className="ccl-container ">
@@ -396,29 +425,19 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       <CclTabs routing={true}>
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
 
-        {content?.downloadable_dataset &&
-          content?.downloadable_files?.items?.length > 0 && (
-            <div
-              tabTitle="Download"
-              loginRequired={true}
-              redirect={
-                content?.downloadable_files?.items[0].path === ''
-                  ? location.pathname + '/download-by-area'
-                  : ''
-              }
-            >
-              {DownloadDataSetContent(content, token)}
-            </div>
-          )}
-        {/* {content?.downloadable_dataset &&
-          content?.downloadable_files?.items?.length === 0 && (
-            <div
-              tabTitle="Downloadaa"
-              redirect={`${location.pathname}/download-by-area`}
-            >
-              {''}
-            </div>
-          )} */}
+        {content?.downloadable_dataset && (
+          <div
+            tabTitle="Download"
+            loginRequired={true}
+            redirect={
+              columns.length === 0
+                ? location.pathname + '/download-by-area'
+                : ''
+            }
+          >
+            {DownloadDataSetContent(content, token)}
+          </div>
+        )}
 
         <div underPanel={true}>
           <nav className="left-menu-detail">
