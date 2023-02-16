@@ -1,17 +1,18 @@
-import { Accordion, Loader, Segment } from 'semantic-ui-react';
-import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
-import { useDispatch, useSelector } from 'react-redux';
-
+import React from 'react';
 import AnimateHeight from 'react-animate-height';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { Accordion, Loader, Segment } from 'semantic-ui-react';
+
+import { searchContent } from '@plone/volto/actions';
+import { Icon } from '@plone/volto/components';
+import config from '@plone/volto/registry';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
-import { Icon } from '@plone/volto/components';
-import React from 'react';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
-import config from '@plone/volto/registry';
-import { searchContent } from '@plone/volto/actions';
-import { useLocation } from 'react-router-dom';
+
 import { formatFileSize } from '../Blocks/utils';
+import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
