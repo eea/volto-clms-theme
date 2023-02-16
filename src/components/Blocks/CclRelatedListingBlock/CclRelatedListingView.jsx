@@ -11,7 +11,13 @@ import config from '@plone/volto/registry';
 import { useFilteredPagination } from '../../CclUtils/useFilteredPagination';
 
 const CclRelatedListingView = (props) => {
-  const { data, id, properties, metadata } = props;
+  const {
+    data,
+    id,
+    properties,
+    metadata,
+    associated_elements = 'products',
+  } = props;
   const use_pagination = useFilteredPagination([]);
   const p_functions = use_pagination.functions;
   const p_data = use_pagination.data;
@@ -19,9 +25,13 @@ const CclRelatedListingView = (props) => {
 
   const dispatch = useDispatch();
   const searchSubrequests = useSelector(
-    (state) => state.search.subrequests?.[props.id],
+    (state) => state.search.subrequests?.[id],
   );
   const uid = metadata ? metadata['UID'] : properties['UID'];
+  const associated =
+    associated_elements === 'products'
+      ? { associated_products: uid }
+      : { associated_datasets: uid };
   let libraries = searchSubrequests?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
@@ -83,7 +93,7 @@ const CclRelatedListingView = (props) => {
           '/',
           {
             portal_type: data.content_type || 'News Item',
-            associated_products: uid,
+            ...associated,
             metadata_fields: '_all',
             sort_on: sort_on,
             sort_order: sort_order,
@@ -104,7 +114,7 @@ const CclRelatedListingView = (props) => {
               <div className="search-wrapper">
                 <div className="search-input">
                   <Input
-                    id={`${props.id}-searchtext`}
+                    id={`${id}-searchtext`}
                     placeholder={'Search in the following items'}
                     fluid
                     onChange={(event, value) => {

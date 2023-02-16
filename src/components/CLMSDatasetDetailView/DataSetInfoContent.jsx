@@ -7,11 +7,10 @@ import { Accordion, Loader, Segment } from 'semantic-ui-react';
 import { searchContent } from '@plone/volto/actions';
 import { Icon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
-import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 
-import { formatFileSize } from '../Blocks/utils';
 import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 
 const DataSetInfoContent = (props) => {
@@ -21,19 +20,15 @@ const DataSetInfoContent = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
-  const user = useSelector((state) => state.users.user);
   React.useEffect(() => {
     if (UID) {
       dispatch(
         searchContent(
           '',
           {
-            fullobjects: 1,
             portal_type: 'TechnicalLibrary',
             path: '/',
             associated_datasets: UID,
-            sort_on: ['documentation_sorting', 'sortable_title'],
-            sort_order: ['ascending', 'ascending'],
             sort_limit: 99999,
           },
           id,
@@ -179,19 +174,15 @@ const DataSetInfoContent = (props) => {
                       duration={500}
                       height={'auto'}
                     >
-                      {libraries.map((item, index) => (
-                        <CclCard
-                          key={index}
-                          Type="TechnicalLibrary"
-                          type="doc"
-                          card={{
-                            Type: item['@type'],
-                            getObjSize: formatFileSize(item.file.size),
-                            ...item,
-                          }}
-                          showEditor={user?.roles?.includes('Manager')}
-                        />
-                      ))}
+                      <CclRelatedListingView
+                        id={'dataset-info-technicals'}
+                        properties={{ ...props }}
+                        data={{
+                          variation: 'CclCardsdoc',
+                          content_type: 'TechnicalLibrary',
+                        }}
+                        associated_elements="dataset"
+                      />
                     </AnimateHeight>
                   </Accordion.Content>
                 </Accordion>
