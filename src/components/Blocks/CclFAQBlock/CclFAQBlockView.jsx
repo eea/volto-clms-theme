@@ -16,7 +16,8 @@ const CclFAQBlockView = (props) => {
   const { isEditMode } = props;
   const dispatch = useDispatch();
   const path = useSelector((state) => state.router.location.pathname);
-  const search = useSelector((state) => state.search);
+  const search = useSelector((state) => state.search.subrequests);
+  const search_key = 'faq-block';
   const handleClick = ({ index }) => {
     const newIndex =
       activeIndex.indexOf(index) === -1
@@ -27,51 +28,62 @@ const CclFAQBlockView = (props) => {
   };
   React.useEffect(() => {
     dispatch(
-      searchContent(path.replace('/edit', ''), {
-        fullobjects: 1,
-        portal_type: 'FAQ',
-        b_size: 999,
-        sort_on: 'getObjPositionInParent',
-      }),
+      searchContent(
+        path.replace('/edit', ''),
+        {
+          fullobjects: 1,
+          portal_type: 'FAQ',
+          b_size: 999,
+          sort_on: 'getObjPositionInParent',
+        },
+        search_key,
+      ),
     );
   }, [path, dispatch]);
   React.useEffect(() => {
-    if (search.loaded) {
+    if (search[search_key].loaded) {
       const firstOfCategories = categories.map((cat, key, self) => {
-        const cat_indexes = search.items.reduce((filtered, item, index) => {
-          if (filtered.UID) {
-            filtered = [];
-          }
-          if (
-            item.taxonomy_faqcategories.filter((item_cat) =>
-              item_cat.title.includes(cat.title),
-            ).length > 0
-          ) {
-            if (index === 1) {
-              filtered.push(0);
-            } else {
-              filtered.push(index);
+        const cat_indexes = search[search_key].items.reduce(
+          (filtered, item, index) => {
+            if (filtered.UID) {
+              filtered = [];
             }
-          }
-          return filtered;
-        });
+            if (
+              item.taxonomy_faqcategories.filter(
+                (item_cat) =>
+                  item_cat.title && item_cat.title.includes(cat.title),
+              ).length > 0
+            ) {
+              if (index === 1) {
+                filtered.push(0);
+              } else {
+                filtered.push(index);
+              }
+            }
+            return filtered;
+          },
+        );
         return cat_indexes.length > 0 ? cat_indexes[0] : 0;
       });
       setActiveIndex(firstOfCategories);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [search[search_key]]);
   let categories =
-    search.items.length > 0
+    search[search_key].loaded && search[search_key].items.length > 0
       ? [
           ...new Set(
-            search.items.map((item) => item.taxonomy_faqcategories).flat(),
+            search[search_key].items
+              .map((item) => item.taxonomy_faqcategories)
+              .flat(),
           ),
         ]
           .map((cat) => {
-            const cat_family = cat.title?.split(' » ');
-            if (cat_family.length > 1) {
-              cat['subTab'] = true;
+            if (cat.title) {
+              const cat_family = cat.title?.split(' » ');
+              if (cat_family && cat_family.length > 1) {
+                cat['subTab'] = true;
+              }
             }
             return cat;
           })
@@ -98,16 +110,20 @@ const CclFAQBlockView = (props) => {
   const [activeIndex, setActiveIndex] = React.useState([0]);
   return (
     <div id="faq-listing" className="ccl-container tab-container">
-      {search.loaded ? (
-        search.items?.length > 0 &&
+      {search[search_key].loaded ? (
+        search[search_key].items?.length > 0 &&
         categories.length > 0 && (
           <CclTabs routing={true}>
             {categories.map((cat, key) => {
-              const cat_family = cat.title.split(' » ');
-              const cat_title =
-                cat_family.length > 1
-                  ? cat_family[1].split('#')[1]
-                  : cat_family[0].split('#')[1];
+              let cat_title = '';
+              let cat_family = [];
+              if (cat.title) {
+                cat_family = cat.title.split(' » ');
+                cat_title =
+                  cat_family.length > 1
+                    ? cat_family[1].split('#')[1]
+                    : cat_family[0].split('#')[1];
+              }
               return (
                 <div
                   key={key}
@@ -116,10 +132,11 @@ const CclFAQBlockView = (props) => {
                   parent={cat.parent}
                 >
                   <div className="accordion-block">
-                    {search.items.map((item, item_key) => {
+                    {search[search_key].items.map((item, item_key) => {
                       return (
-                        item.taxonomy_faqcategories.filter((faq_cat) =>
-                          faq_cat.title.includes(cat.title),
+                        item.taxonomy_faqcategories.filter(
+                          (faq_cat) =>
+                            faq_cat.title && faq_cat.title.includes(cat.title),
                         ).length > 0 && (
                           <Accordion fluid styled key={item_key}>
                             <Accordion.Title
@@ -173,7 +190,7 @@ const CclFAQBlockView = (props) => {
           </CclTabs>
         )
       ) : (
-        <Segment loading={search.loading}></Segment>
+        <Segment loading={search[search_key].loading}></Segment>
       )}
     </div>
   );
