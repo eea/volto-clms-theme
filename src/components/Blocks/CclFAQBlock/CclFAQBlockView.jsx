@@ -16,7 +16,7 @@ const CclFAQBlockView = (props) => {
   const { isEditMode } = props;
   const dispatch = useDispatch();
   const path = useSelector((state) => state.router.location.pathname);
-  const search = useSelector((state) => state.search.subrequests);
+  const search = useSelector((state) => state.search);
   const search_key = 'faq-block';
   const handleClick = ({ index }) => {
     const newIndex =
@@ -41,9 +41,9 @@ const CclFAQBlockView = (props) => {
     );
   }, [path, dispatch]);
   React.useEffect(() => {
-    if (search[search_key].loaded) {
+    if (search?.subrequests?.[search_key]?.loaded) {
       const firstOfCategories = categories.map((cat, key, self) => {
-        const cat_indexes = search[search_key].items.reduce(
+        const cat_indexes = search?.subrequests?.[search_key]?.items.reduce(
           (filtered, item, index) => {
             if (filtered.UID) {
               filtered = [];
@@ -68,12 +68,15 @@ const CclFAQBlockView = (props) => {
       setActiveIndex(firstOfCategories);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search[search_key]]);
+  }, [search?.subrequests]);
   let categories =
-    search[search_key].loaded && search[search_key].items.length > 0
+    search?.subrequests &&
+    search?.subrequests?.[search_key] &&
+    search?.subrequests?.[search_key]?.loaded &&
+    search?.subrequests?.[search_key]?.items.length > 0
       ? [
           ...new Set(
-            search[search_key].items
+            search?.subrequests?.[search_key]?.items
               .map((item) => item.taxonomy_faqcategories)
               .flat(),
           ),
@@ -110,8 +113,8 @@ const CclFAQBlockView = (props) => {
   const [activeIndex, setActiveIndex] = React.useState([0]);
   return (
     <div id="faq-listing" className="ccl-container tab-container">
-      {search[search_key].loaded ? (
-        search[search_key].items?.length > 0 &&
+      {search?.subrequests?.[search_key]?.loaded ? (
+        search?.subrequests?.[search_key]?.items?.length > 0 &&
         categories.length > 0 && (
           <CclTabs routing={true}>
             {categories.map((cat, key) => {
@@ -132,57 +135,64 @@ const CclFAQBlockView = (props) => {
                   parent={cat.parent}
                 >
                   <div className="accordion-block">
-                    {search[search_key].items.map((item, item_key) => {
-                      return (
-                        item.taxonomy_faqcategories.filter(
-                          (faq_cat) =>
-                            faq_cat.title && faq_cat.title.includes(cat.title),
-                        ).length > 0 && (
-                          <Accordion fluid styled key={item_key}>
-                            <Accordion.Title
-                              as={'h2'}
-                              onClick={() => handleClick({ index: item_key })}
-                              className={'accordion-title align-arrow-right'}
-                            >
-                              {activeIndex.includes(item_key) ? (
-                                <Icon name={titleIcons.opened.rightPosition} />
-                              ) : (
-                                <Icon name={titleIcons.closed.rightPosition} />
-                              )}
-                              {isEditMode && (
-                                <UniversalLink
-                                  openLinkInNewTab={true}
-                                  href={`${item['@id']}/edit`}
-                                >
-                                  <Icon
-                                    name={penSVG}
-                                    className="circled"
-                                    title={'Edit'}
-                                  />
-                                </UniversalLink>
-                              )}
-                              <span>{item.title}</span>
-                            </Accordion.Title>
-                            <Accordion.Content
-                              active={activeIndex.includes(item_key)}
-                            >
-                              <AnimateHeight
-                                animateOpacity
-                                duration={500}
-                                height={'auto'}
+                    {search?.subrequests?.[search_key]?.items.map(
+                      (item, item_key) => {
+                        return (
+                          item.taxonomy_faqcategories.filter(
+                            (faq_cat) =>
+                              faq_cat.title &&
+                              faq_cat.title.includes(cat.title),
+                          ).length > 0 && (
+                            <Accordion fluid styled key={item_key}>
+                              <Accordion.Title
+                                as={'h2'}
+                                onClick={() => handleClick({ index: item_key })}
+                                className={'accordion-title align-arrow-right'}
                               >
-                                {/* <StringToHTML
+                                {activeIndex.includes(item_key) ? (
+                                  <Icon
+                                    name={titleIcons.opened.rightPosition}
+                                  />
+                                ) : (
+                                  <Icon
+                                    name={titleIcons.closed.rightPosition}
+                                  />
+                                )}
+                                {isEditMode && (
+                                  <UniversalLink
+                                    openLinkInNewTab={true}
+                                    href={`${item['@id']}/edit`}
+                                  >
+                                    <Icon
+                                      name={penSVG}
+                                      className="circled"
+                                      title={'Edit'}
+                                    />
+                                  </UniversalLink>
+                                )}
+                                <span>{item.title}</span>
+                              </Accordion.Title>
+                              <Accordion.Content
+                                active={activeIndex.includes(item_key)}
+                              >
+                                <AnimateHeight
+                                  animateOpacity
+                                  duration={500}
+                                  height={'auto'}
+                                >
+                                  {/* <StringToHTML
                                   string={item.text ? item.text.data : ''}
                                 /> */}
-                                {hasBlocksData(item) && (
-                                  <RenderBlocks content={item} />
-                                )}
-                              </AnimateHeight>
-                            </Accordion.Content>
-                          </Accordion>
-                        )
-                      );
-                    })}
+                                  {hasBlocksData(item) && (
+                                    <RenderBlocks content={item} />
+                                  )}
+                                </AnimateHeight>
+                              </Accordion.Content>
+                            </Accordion>
+                          )
+                        );
+                      },
+                    )}
                   </div>
                 </div>
               );
@@ -190,7 +200,7 @@ const CclFAQBlockView = (props) => {
           </CclTabs>
         )
       ) : (
-        <Segment loading={search[search_key].loading}></Segment>
+        <Segment loading={search?.subrequests?.[search_key]?.loading}></Segment>
       )}
     </div>
   );
