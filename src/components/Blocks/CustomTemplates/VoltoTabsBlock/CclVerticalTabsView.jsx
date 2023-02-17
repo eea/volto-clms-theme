@@ -6,14 +6,16 @@ import { compose } from 'redux';
 
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
+import { useLocation } from 'react-router-dom';
 
 import { slugify } from '../../utils';
 import './fontawesome';
 
 import cx from 'classnames';
 
-const handleClick = (e, tab, activeTab, setActiveTab) => {
+const handleClick = (e, tab, activeTab, setActiveTab, location, tabHash) => {
   if (activeTab !== tab) {
+    location.hash = `#${tabHash}`;
     setActiveTab(tab);
   }
 };
@@ -32,6 +34,7 @@ const TabsComponent = (props) => {
     tabs = {},
     setActiveTab,
   } = props;
+  const location = useLocation();
   return (
     <div className="left-content cont-w-25">
       {<ExtraComponent />}
@@ -60,10 +63,24 @@ const TabsComponent = (props) => {
                   to={'#' + tabHash}
                   className="collapsed"
                   onClick={(e) => {
-                    handleClick(e, tab, activeTab, setActiveTab);
+                    handleClick(
+                      e,
+                      tab,
+                      activeTab,
+                      setActiveTab,
+                      location,
+                      tabHash,
+                    );
                   }}
                   onKeyDown={(e) => {
-                    handleClick(e, tab, activeTab, setActiveTab);
+                    handleClick(
+                      e,
+                      tab,
+                      activeTab,
+                      setActiveTab,
+                      location,
+                      tabHash,
+                    );
                   }}
                 >
                   {title || defaultTitle}

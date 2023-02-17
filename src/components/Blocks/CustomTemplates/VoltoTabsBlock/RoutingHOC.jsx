@@ -2,34 +2,27 @@ import React from 'react';
 import { slugify } from '../../utils';
 import { useSelector } from 'react-redux';
 
+const decideTabSubtab = (tabs, option1, option2) => {
+  if (!option2) {
+    return option1;
+  }
+  if (!tabs[option1]?.subTab?.subtab && tabs[option2]?.subTab?.subtab) {
+    return option2;
+  } else if (!tabs[option2]?.subTab?.subtab) {
+    return option1;
+  }
+  return option1;
+};
+
 const RoutingHOC = (TabView) =>
   function Component(props) {
     const { tabsList = [], tabs, activeTabIndex = 0, setActiveTab } = props;
     const location = useSelector((state) => state.router.location);
 
     function reloadTab(window, rTabs, rTabsList) {
-      if (
-        window.location.hash.length === 0 &&
-        rTabs[rTabsList[1]]?.subTab?.subtab &&
-        !rTabs[rTabsList[0]]?.subTab?.subtab
-      ) {
-        return rTabsList[1];
-      } else if (
-        window.location.hash.length === 0 &&
-        !rTabs[rTabsList[1]]?.subTab?.subtab
-      ) {
-        return rTabsList[0];
-      }
       const tabsDict = Object.entries(rTabs).map((t) => {
         return { title: t[1].title, id: t[0] };
       });
-      // Deprecated, now we use tab title to set the hash
-      // if (
-      //   window.location.hash.match(/.*&?#?tab=(.*)/) &&
-      //   window.location.hash.match(/.*&?#?tab=(.*)/).length > 1
-      // ) {
-      //   return rTabsList[window.location.hash.match(/.*&?#?tab=(.*)/)[1] - 1];
-      // }
       if (
         window.location.hash.match(/.*([&|#]tab=.*)/) &&
         window.location.hash.match(/.*([&|#]tab=.*)/).length > 1
@@ -41,8 +34,8 @@ const RoutingHOC = (TabView) =>
         if (result.length > 0) {
           return result[0].id;
         }
-        return '';
       }
+      return decideTabSubtab(rTabs, rTabsList[0], rTabsList[1]);
     }
 
     React.useEffect(() => {

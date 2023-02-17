@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { dynamicSort } from './dynamicSort';
-export const useFilteredPagination = (original_data) => {
+export const useFilteredPagination = (
+  original_data,
+  defaultPaginationSize = 10,
+) => {
   const [originalDataList, setOriginalDataList] = useState(original_data);
   const [dataList, setDataList] = useState(original_data);
-  const [paginationSize, setPaginationSize] = useState(10);
+  const [paginationSize, setPaginationSize] = useState(defaultPaginationSize);
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState(
     original_data.slice(
