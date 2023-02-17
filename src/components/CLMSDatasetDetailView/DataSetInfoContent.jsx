@@ -10,7 +10,7 @@ import config from '@plone/volto/registry';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
-
+import { MetadataPaginatedListing } from './MetadataPaginatedListing';
 import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
 
 const DataSetInfoContent = (props) => {
@@ -113,36 +113,11 @@ const DataSetInfoContent = (props) => {
                       duration={500}
                       height={'auto'}
                     >
-                      <ul>
-                        {geonetwork_identifiers.items.map((geonetwork, key) => (
-                          <li key={key}>
-                            <strong>{geonetwork.title}</strong> -{' '}
-                            <a
-                              href={
-                                geonetwork.type === 'EEA'
-                                  ? `https://sdi.eea.europa.eu/catalogue/srv/api/records/${geonetwork.id}/formatters/xsl-view?output=pdf&language=eng&approved=true`
-                                  : `https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xsl-view?root=div&output=pdf`
-                              }
-                              rel="noreferrer"
-                              target="_blank"
-                            >
-                              PDF
-                            </a>{' '}
-                            -{' '}
-                            <a
-                              href={
-                                geonetwork.type === 'EEA'
-                                  ? `https://sdi.eea.europa.eu/catalogue/srv/api/records/${geonetwork.id}/formatters/xml?approved=true`
-                                  : `https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xml?attachment=true`
-                              }
-                              rel="noreferrer"
-                              target="_blank"
-                            >
-                              XML
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
+                      <MetadataPaginatedListing
+                        geonetwork_identifiers_items={
+                          geonetwork_identifiers.items
+                        }
+                      />
                     </AnimateHeight>
                   </Accordion.Content>
                 </Accordion>
