@@ -472,9 +472,8 @@ function CclDownloadTable(props) {
         >
           Add to cart
         </CclButton>
-
+        &nbsp;&nbsp;&nbsp;
         {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
-
         <br></br>
       </div>
     )
