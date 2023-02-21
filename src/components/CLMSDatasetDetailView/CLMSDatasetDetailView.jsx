@@ -298,15 +298,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
 
         {content?.downloadable_dataset && (
-          <div
-            tabTitle="Download"
-            loginRequired={true}
-            redirect={
-              columns.length === 0
-                ? location.pathname + '/download-by-area'
-                : ''
-            }
-          >
+          <div tabTitle="Download" loginRequired={true}>
             {DownloadDataSetContent(content, token)}
           </div>
         )}
