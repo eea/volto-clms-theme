@@ -8,11 +8,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Breadcrumb, Container, Segment } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
+
+import { Icon } from '@plone/volto/components';
 import { getBreadcrumbs } from '@plone/volto/actions';
-import { getBaseUrl } from '@plone/volto/helpers';
-import '@eeacms/volto-clms-theme/../theme/clms/css/breadcrumbs.css';
+import { getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
+
+import homeSVG from '@plone/volto/icons/home.svg';
 
 const messages = defineMessages({
   home: {
@@ -27,10 +30,8 @@ const messages = defineMessages({
 
 /**
  * Breadcrumbs container class.
- * @class Breadcrumbs
- * @extends Component
  */
-class Breadcrumbs extends Component {
+export class BreadcrumbsComponent extends Component {
   /**
    * Property types.
    * @property {Object} propTypes Property types.
@@ -46,21 +47,12 @@ class Breadcrumbs extends Component {
         url: PropTypes.string,
       }),
     ).isRequired,
-    extraItems: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        url: PropTypes.string,
-      }),
-    ),
   };
 
-  /**
-   * Component will mount
-   * @method componentWillMount
-   * @returns {undefined}
-   */
-  UNSAFE_componentWillMount() {
-    this.props.getBreadcrumbs(getBaseUrl(this.props.pathname));
+  componentDidMount() {
+    if (!hasApiExpander('breadcrumbs', getBaseUrl(this.props.pathname))) {
+      this.props.getBreadcrumbs(getBaseUrl(this.props.pathname));
+    }
   }
 
   /**
@@ -71,7 +63,9 @@ class Breadcrumbs extends Component {
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.pathname !== this.props.pathname) {
-      this.props.getBreadcrumbs(getBaseUrl(nextProps.pathname));
+      if (!hasApiExpander('breadcrumbs', getBaseUrl(this.props.pathname))) {
+        this.props.getBreadcrumbs(getBaseUrl(nextProps.pathname));
+      }
     }
   }
 
@@ -82,60 +76,48 @@ class Breadcrumbs extends Component {
    */
   render() {
     return (
-      <>
-        {this.props.items.length > 0 && (
-          <nav
-            aria-label={this.props.intl.formatMessage(messages.breadcrumbs)}
-            className="ccl-breadcrumb"
-          >
-            <Container>
-              <span className="ccl-u-sr-only">You are here:</span>
-              <ol className="ccl-breadcrumb__segments-wrapper">
-                <li className="ccl-breadcrumb__segment ccl-breadcrumb__segment--first">
-                  <Link
-                    to={this.props.root || '/'}
-                    className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
-                    title={this.props.intl.formatMessage(messages.home)}
-                  >
-                    {this.props.intl.formatMessage(messages.home)}
-                  </Link>
-                </li>
-                {this?.props?.items?.map((item, index, items) => [
-                  index < items.length - 1 ? (
-                    <li key={index} className="ccl-breadcrumb__segment">
-                      <Link
-                        to={item.url}
-                        className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  ) : (
-                    <li
-                      key={index}
-                      className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last"
-                    >
-                      <span>{item.title}</span>
-                    </li>
-                  ),
-                ])}
-              </ol>
-            </Container>
-          </nav>
-        )}
-      </>
+      <Segment
+        role="navigation"
+        aria-label={this.props.intl.formatMessage(messages.breadcrumbs)}
+        className="breadcrumbs"
+        secondary
+        vertical
+      >
+        <Container>
+          <Breadcrumb>
+            <Link
+              to={this.props.root || '/'}
+              className="section"
+              title={this.props.intl.formatMessage(messages.home)}
+            >
+              <Icon name={homeSVG} size="18px" />
+            </Link>
+            {this.props.items.map((item, index, items) => [
+              <Breadcrumb.Divider key={`divider-${item.url}`} />,
+              index < items.length - 1 ? (
+                <Link key={item.url} to={item.url} className="section">
+                  {item.title}
+                </Link>
+              ) : (
+                <Breadcrumb.Section key={item.url} active>
+                  {item.title}
+                </Breadcrumb.Section>
+              ),
+            ])}
+          </Breadcrumb>
+        </Container>
+      </Segment>
     );
   }
 }
 
-export const BreadcrumbsComponent = Breadcrumbs;
 export default compose(
   injectIntl,
   connect(
     (state) => ({
-      items: state.breadcrumbs.items.concat(state.extra_breadcrumbs.items),
+      items: state.breadcrumbs.items,
       root: state.breadcrumbs.root,
     }),
     { getBreadcrumbs },
   ),
-)(Breadcrumbs);
+)(BreadcrumbsComponent);
