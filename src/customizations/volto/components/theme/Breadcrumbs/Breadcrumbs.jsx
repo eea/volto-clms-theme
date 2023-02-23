@@ -8,14 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Container, Segment } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { Icon } from '@plone/volto/components';
 import { getBreadcrumbs } from '@plone/volto/actions';
 import { getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
-
-import homeSVG from '@plone/volto/icons/home.svg';
 
 const messages = defineMessages({
   home: {
@@ -47,6 +44,12 @@ export class BreadcrumbsComponent extends Component {
         url: PropTypes.string,
       }),
     ).isRequired,
+    extraItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        url: PropTypes.string,
+      }),
+    ),
   };
 
   componentDidMount() {
@@ -76,37 +79,48 @@ export class BreadcrumbsComponent extends Component {
    */
   render() {
     return (
-      <Segment
-        role="navigation"
-        aria-label={this.props.intl.formatMessage(messages.breadcrumbs)}
-        className="breadcrumbs"
-        secondary
-        vertical
-      >
-        <Container>
-          <Breadcrumb>
-            <Link
-              to={this.props.root || '/'}
-              className="section"
-              title={this.props.intl.formatMessage(messages.home)}
-            >
-              <Icon name={homeSVG} size="18px" />
-            </Link>
-            {this.props.items.map((item, index, items) => [
-              <Breadcrumb.Divider key={`divider-${item.url}`} />,
-              index < items.length - 1 ? (
-                <Link key={item.url} to={item.url} className="section">
-                  {item.title}
-                </Link>
-              ) : (
-                <Breadcrumb.Section key={item.url} active>
-                  {item.title}
-                </Breadcrumb.Section>
-              ),
-            ])}
-          </Breadcrumb>
-        </Container>
-      </Segment>
+      <>
+        {this.props.items.length > 0 && (
+          <nav
+            aria-label={this.props.intl.formatMessage(messages.breadcrumbs)}
+            className="ccl-breadcrumb"
+          >
+            <Container>
+              <span className="ccl-u-sr-only">You are here:</span>
+              <ol className="ccl-breadcrumb__segments-wrapper">
+                <li className="ccl-breadcrumb__segment ccl-breadcrumb__segment--first">
+                  <Link
+                    to={this.props.root || '/'}
+                    className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
+                    title={this.props.intl.formatMessage(messages.home)}
+                  >
+                    {this.props.intl.formatMessage(messages.home)}
+                  </Link>
+                </li>
+                {this?.props?.items?.map((item, index, items) => [
+                  index < items.length - 1 ? (
+                    <li key={index} className="ccl-breadcrumb__segment">
+                      <Link
+                        to={item.url}
+                        className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ) : (
+                    <li
+                      key={index}
+                      className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last"
+                    >
+                      <span>{item.title}</span>
+                    </li>
+                  ),
+                ])}
+              </ol>
+            </Container>
+          </nav>
+        )}
+      </>
     );
   }
 }
