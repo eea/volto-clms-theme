@@ -1,8 +1,8 @@
 import React from 'react'; // , useState
-import SlateToolbar from 'volto-slate/editor/ui/SlateToolbar';
-import SlateContextToolbar from 'volto-slate/editor/ui/SlateContextToolbar';
+import SlateToolbar from '@plone/volto-slate/editor/ui/SlateToolbar';
+import SlateContextToolbar from '@plone/volto-slate/editor/ui/SlateContextToolbar';
 import config from '@plone/volto/registry';
-import { hasRangeSelection } from 'volto-slate/utils';
+import { hasRangeSelection } from '@plone/volto-slate/utils';
 import { ReactEditor } from 'slate-react';
 import cx from 'classnames';
 
