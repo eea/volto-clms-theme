@@ -7,9 +7,8 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { withServerErrorCode } from '@plone/volto/helpers/Utils/Utils';
-import { getBaseUrl } from '@plone/volto/helpers';
+import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
 /**
  * unauthorized function.
@@ -17,8 +16,7 @@ import { getBaseUrl } from '@plone/volto/helpers';
  * @returns {string} Markup of the unauthorized page.
  */
 const Unauthorized = () => {
-  const error_message = useSelector((state) => state.apierror?.message);
-  let location = useLocation();
+  const error_message = useSelector((state) => state.apierror.message);
 
   return (
     <Container className="view-wrapper">
@@ -31,11 +29,7 @@ const Unauthorized = () => {
           id="You are trying to access a protected resource, please {login} first."
           defaultMessage="You are trying to access a protected resource, please {login} first."
           values={{
-            login: (
-              <Link to={`${getBaseUrl(location.pathname)}/login`}>
-                <FormattedMessage id="log in" defaultMessage="log in" />
-              </Link>
-            ),
+            login: <CclLoginModal classname={'green-login-link'} />,
           }}
         />
       </p>
