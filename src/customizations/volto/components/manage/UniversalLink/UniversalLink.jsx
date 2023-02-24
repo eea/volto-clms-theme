@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import { useSelector } from 'react-redux';
 import {
   flattenToAppURL,
@@ -50,7 +50,10 @@ const UniversalLink = ({
       }
 
       //case: item of type 'File'
-      if (config.settings.downloadableObjects.includes(item['@type'])) {
+      if (
+        !token &&
+        config.settings.downloadableObjects.includes(item['@type'])
+      ) {
         url = `${url}/@@download/file`;
       }
 
@@ -62,37 +65,33 @@ const UniversalLink = ({
       }
     }
   }
+
   const isBlacklisted =
     (config.settings.externalRoutes ?? []).find((route) =>
       matchPath(flattenToAppURL(url), route.match),
     )?.length > 0;
   const isExternal = !isInternalURL(url) || isBlacklisted;
-  const isInternalDownload = !isExternal && url.includes('@@download');
   const isDownload = (!isExternal && url.includes('@@download')) || download;
   const isDisplayFile =
     (!isExternal && url.includes('@@display-file')) || false;
 
-  const isFile = config.settings.downloadableObjects.includes(item?.['@type'])
-    ? true
-    : false;
-
   const checkedURL = URLUtils.checkAndNormalizeUrl(url);
 
   url = checkedURL.url;
-
   let tag = (
     <Link
       to={flattenToAppURL(url)}
       target={openLinkInNewTab ?? false ? '_blank' : null}
       title={title}
       className={className}
+      smooth={config.settings.hashLinkSmoothScroll}
       {...props}
     >
       {children}
     </Link>
   );
 
-  if (isExternal || isFile || isInternalDownload) {
+  if (isExternal) {
     tag = (
       <a
         href={url}
@@ -115,7 +114,7 @@ const UniversalLink = ({
     tag = (
       <a
         href={flattenToAppURL(url)}
-        download={true}
+        download
         title={title}
         className={className}
         {...props}
