@@ -11,7 +11,6 @@ import { Grid } from 'semantic-ui-react';
 import ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-intl-redux';
 import { createBrowserHistory } from 'history';
-// eslint-disable-next-line import/no-unresolved
 import { ConnectedRouter } from 'connected-react-router';
 import { useSelector } from 'react-redux';
 
