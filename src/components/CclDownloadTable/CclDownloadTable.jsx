@@ -260,7 +260,6 @@ function CclDownloadTable(props) {
         {dataset?.download_page_information?.data && (
           <StringToHTML string={dataset?.download_page_information?.data} />
         )}
-
         <Segment basic>
           {prePackagedCollection.length > 1 && (
             <div className="block search">
