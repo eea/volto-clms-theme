@@ -3,21 +3,31 @@
  * @module components/theme/Logo/Logo
  */
 
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
-import { UniversalLink } from '@plone/volto/components';
-import LogoImage from '@plone/volto/components/theme/Logo/Logo.svg';
+import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/EU-Cop-logo.svg';
+import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land-text.svg';
 
 const messages = defineMessages({
   site: {
-    id: 'Site',
-    defaultMessage: 'Site',
+    id: 'Land Monitoring Service Site',
+    defaultMessage: 'Land Monitoring Service Site',
   },
   plonesite: {
-    id: 'Plone Site',
-    defaultMessage: 'Plone Site',
+    id: 'Copernicus Land Logo',
+    defaultMessage: 'Copernicus Land Logo',
+  },
+  copernicuslogo: {
+    id: 'Copernicus Logo',
+    defaultMessage: 'Copernicus Logo',
+  },
+  copernicussite: {
+    id: 'Copernicus Site',
+    defaultMessage: 'Copernicus Site',
   },
 });
 
@@ -33,16 +43,35 @@ const Logo = () => {
   const intl = useIntl();
 
   return (
-    <UniversalLink
-      href={settings.isMultilingual ? `/${lang}` : '/'}
-      title={intl.formatMessage(messages.site)}
-    >
-      <Image
-        src={LogoImage}
-        alt={intl.formatMessage(messages.plonesite)}
-        title={intl.formatMessage(messages.plonesite)}
-      />
-    </UniversalLink>
+    <div className="ccl-header-logos-container">
+      <div className="ccl-header-logo-container">
+        <a
+          href="https://www.copernicus.eu/en"
+          target="_blank"
+          rel="noreferrer"
+          className="ccl-header-logo ccl-service-button"
+        >
+          <Image
+            src={CopernicusImage}
+            alt={intl.formatMessage(messages.copernicuslogo)}
+            title={intl.formatMessage(messages.copernicuslogo)}
+            height={44}
+          />
+        </a>
+        <Link
+          to={settings.isMultilingual ? `/${lang}` : '/'}
+          title={intl.formatMessage(messages.site)}
+          className="ccl-header-logo ccl-service-button"
+        >
+          <Image
+            src={LandImage}
+            alt={intl.formatMessage(messages.plonesite)}
+            title={intl.formatMessage(messages.plonesite)}
+            height={44}
+          />
+        </Link>
+      </div>
+    </div>
   );
 };
 
