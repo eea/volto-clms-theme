@@ -257,11 +257,9 @@ function CclDownloadTable(props) {
             please contact us.
           </p>
         )} */}
-
         {dataset?.download_page_information?.data && (
           <StringToHTML string={dataset?.download_page_information?.data} />
         )}
-
         <Segment basic>
           {prePackagedCollection.length > 1 && (
             <div className="block search">
@@ -464,7 +462,6 @@ function CclDownloadTable(props) {
             </div>
           )}
         </div>
-
         <CclButton
           isButton={true}
           onClick={() => addToCard()}
@@ -472,9 +469,8 @@ function CclDownloadTable(props) {
         >
           Add to cart
         </CclButton>
-
+        &nbsp;&nbsp;&nbsp;
         {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
-
         <br></br>
       </div>
     )
