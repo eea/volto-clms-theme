@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, defineMessages } from 'react-intl';
+
 import WysiwygWidget from '@plone/volto/components/manage/Widgets/WysiwygWidget';
 import {
   EmailWidget,
@@ -44,6 +45,7 @@ const Field = ({
   disabled = false,
   formHasErrors = false,
   id,
+  ...rest
 }) => {
   const intl = useIntl();
 
@@ -99,7 +101,9 @@ const Field = ({
           isDisabled={disabled}
           invalid={isInvalid().toString()}
           required={required}
+          noValueOption={!required}
           {...(isInvalid() ? { className: 'is-invalid' } : {})}
+          {...rest}
         />
       )}
       {field_type === 'single_choice' && (
@@ -230,6 +234,7 @@ const Field = ({
               formHasErrors={formHasErrors}
               invalid={isInvalid().toString()}
               {...(isInvalid() ? { className: 'is-invalid' } : {})}
+              {...rest}
             />,
           ];
 
