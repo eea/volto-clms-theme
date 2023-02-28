@@ -4,15 +4,28 @@
  */
 
 import React, { Component } from 'react';
-
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import config from '@plone/volto/registry';
 import { connect } from 'react-redux';
-import { getBaseUrl } from '@plone/volto/helpers';
+import { compose } from 'redux';
+import { defineMessages, injectIntl } from 'react-intl';
+import { Menu } from 'semantic-ui-react';
+import cx from 'classnames';
+import { BodyClass, getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
+import config from '@plone/volto/registry';
 import { getNavigation } from '@plone/volto/actions';
-import { injectIntl } from 'react-intl';
+import { CSSTransition } from 'react-transition-group';
+import NavItems from '@plone/volto/components/theme/Navigation/NavItems';
+
+const messages = defineMessages({
+  closeMobileMenu: {
+    id: 'Close menu',
+    defaultMessage: 'Close menu',
+  },
+  openMobileMenu: {
+    id: 'Open menu',
+    defaultMessage: 'Open menu',
+  },
+});
 
 /**
  * Navigation container class.
@@ -37,6 +50,10 @@ class Navigation extends Component {
     lang: PropTypes.string.isRequired,
   };
 
+  static defaultProps = {
+    token: null,
+  };
+
   /**
    * Constructor
    * @method constructor
@@ -52,16 +69,14 @@ class Navigation extends Component {
     };
   }
 
-  /**
-   * Component will mount
-   * @method componentWillMount
-   * @returns {undefined}
-   */
-  UNSAFE_componentWillMount() {
-    this.props.getNavigation(
-      getBaseUrl(this.props.pathname),
-      config.settings.navDepth,
-    );
+  componentDidMount() {
+    const { settings } = config;
+    if (!hasApiExpander('navigation', getBaseUrl(this.props.pathname))) {
+      this.props.getNavigation(
+        getBaseUrl(this.props.pathname),
+        settings.navDepth,
+      );
+    }
   }
 
   /**
@@ -71,11 +86,17 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.pathname !== this.props.pathname) {
-      this.props.getNavigation(
-        getBaseUrl(nextProps.pathname),
-        config.settings.navDepth,
-      );
+    const { settings } = config;
+    if (
+      nextProps.pathname !== this.props.pathname ||
+      nextProps.token !== this.props.token
+    ) {
+      if (!hasApiExpander('navigation', getBaseUrl(this.props.pathname))) {
+        this.props.getNavigation(
+          getBaseUrl(nextProps.pathname),
+          settings.navDepth,
+        );
+      }
     }
   }
 
@@ -94,10 +115,10 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   closeMobileMenu() {
+    if (!this.state.isMobileMenuOpen) {
+      return;
+    }
     this.setState({ isMobileMenuOpen: false });
-    this.props.setHeaderState({
-      mobileMenuOpen: false,
-    });
   }
 
   /**
@@ -106,28 +127,64 @@ class Navigation extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { lang } = this.props;
-
     return (
-      <ul className="ccl-header-main-menu">
-        {this?.props?.items?.map((item) => (
-          <li key={item.url}>
-            <NavLink
-              to={item.url === '' ? '/' : item.url}
-              key={item.url}
-              activeClassName="active"
-              exact={
-                config.settings.isMultilingual
-                  ? item.url === `/${lang}`
-                  : item.url === ''
-              }
-              onClick={this.closeMobileMenu}
-            >
-              {item.title}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      <nav className="navigation" id="navigation" aria-label="navigation">
+        <div className="hamburger-wrapper mobile tablet only">
+          <button
+            className={cx('hamburger hamburger--spin', {
+              'is-active': this.state.isMobileMenuOpen,
+            })}
+            aria-label={
+              this.state.isMobileMenuOpen
+                ? this.props.intl.formatMessage(messages.closeMobileMenu, {
+                    type: this.props.type,
+                  })
+                : this.props.intl.formatMessage(messages.openMobileMenu, {
+                    type: this.props.type,
+                  })
+            }
+            title={
+              this.state.isMobileMenuOpen
+                ? this.props.intl.formatMessage(messages.closeMobileMenu, {
+                    type: this.props.type,
+                  })
+                : this.props.intl.formatMessage(messages.openMobileMenu, {
+                    type: this.props.type,
+                  })
+            }
+            type="button"
+            onClick={this.toggleMobileMenu}
+          >
+            <span className="hamburger-box">
+              <span className="hamburger-inner" />
+            </span>
+          </button>
+        </div>
+        <Menu
+          stackable
+          pointing
+          secondary
+          className="computer large screen widescreen only"
+          onClick={this.closeMobileMenu}
+        >
+          <NavItems items={this.props.items} lang={this.props.lang} />
+        </Menu>
+        <CSSTransition
+          in={this.state.isMobileMenuOpen}
+          timeout={500}
+          classNames="mobile-menu"
+          unmountOnExit
+        >
+          <div key="mobile-menu-key" className="mobile-menu">
+            <BodyClass className="has-mobile-menu-open" />
+            <div className="mobile-menu-nav">
+              <Menu stackable pointing secondary onClick={this.closeMobileMenu}>
+                <NavItems items={this.props.items} lang={this.props.lang} />
+              </Menu>
+            </div>
+          </div>
+        </CSSTransition>
+      </nav>
     );
   }
 }
@@ -136,6 +193,7 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
+      token: state.userSession.token,
       items: state.navigation.items,
       lang: state.intl.locale,
     }),
