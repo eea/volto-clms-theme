@@ -3,7 +3,7 @@ import { ReactTableWidget } from '@eeacms/volto-react-table-widget';
 import { useSchema } from './SchemaCreatorWidget';
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder/dist/index';
 import CclButton from '../CclButton/CclButton';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Loader, Header, Divider } from 'semantic-ui-react';
 import './DownloadableFilesTableWidget.less';
 
 const DownloadableFilesTableWidget = (props) => {
@@ -64,6 +64,14 @@ const DownloadableFilesTableWidget = (props) => {
           APPLY MODIFIED SCHEMA
         </CclButton>
       </div>
+      {!ready && (
+        <Segment placeholder>
+          <Loader active inline="centered" />
+          <Segment.Inline>
+            <Header textAlign="centered">Applying the new schema...</Header>
+          </Segment.Inline>
+        </Segment>
+      )}
       {ready && (
         <ReactTableWidget
           {...props}
@@ -76,6 +84,7 @@ const DownloadableFilesTableWidget = (props) => {
           }
         />
       )}
+      <Divider />
     </>
   );
 };

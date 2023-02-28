@@ -39,6 +39,10 @@ export const useSchema = (baseSchema, baseUISchema) => {
         },
         type: {
           enum: ['Raster', 'Vector'],
+          choices: [
+            ['Raster', 'Raster'],
+            ['Vector', 'Vector'],
+          ],
           title: 'Type',
           type: 'string',
         },
@@ -89,6 +93,15 @@ export const useSchema = (baseSchema, baseUISchema) => {
   const [ready, setReady] = useState(true);
   const setSchemaHandler = (schema, uiSchema, onChange, id) => {
     setReady(false);
+    // console.log('schema', schema);
+    Object.keys(schema.properties).forEach((pr) => {
+      if (schema.properties[pr].enum) {
+        schema.properties[pr].choices = schema.properties[pr].enum.map((en) => [
+          en,
+          en,
+        ]);
+      }
+    });
     setSchema(schema);
     onChange(id, schema, uiSchema);
     // setTimeout(() => onChangeUi(id, uiSchema), 1500);
