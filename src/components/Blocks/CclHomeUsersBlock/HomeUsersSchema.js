@@ -4,7 +4,7 @@ export const HomeUsersSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'customCards'],
+      fields: ['title', 'moreLinkText', 'moreLinkUrl', 'customCards'],
     },
   ],
   properties: {
@@ -12,6 +12,18 @@ export const HomeUsersSchema = () => ({
       title: 'Title',
       description: 'Friendly name for the users band',
       type: 'string',
+    },
+    moreLinkText: {
+      title: 'More link text',
+      description: 'The text for the more items link after the band',
+      type: 'string',
+    },
+    moreLinkUrl: {
+      title: 'More link url',
+      description: 'Internal or external link for the button after the band',
+      widget: 'object_browser',
+      mode: 'link',
+      allowExternals: true,
     },
     customCards: {
       title: 'User cards',
