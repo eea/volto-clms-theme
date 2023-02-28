@@ -10,9 +10,6 @@ import { compose } from 'redux';
 import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
-import { Icon } from '@plone/volto/components';
-import zoomSVG from '@plone/volto/icons/zoom.svg';
-
 const messages = defineMessages({
   search: {
     id: 'Search',
@@ -95,22 +92,58 @@ class SearchWidget extends Component {
    */
   render() {
     return (
-      <Form action="/search" onSubmit={this.onSubmit}>
-        <Form.Field className="searchbox">
-          <Input
-            aria-label={this.props.intl.formatMessage(messages.search)}
-            onChange={this.onChangeText}
-            name="SearchableText"
-            value={this.state.text}
-            transparent
-            autoComplete="off"
-            placeholder={this.props.intl.formatMessage(messages.searchSite)}
-            title={this.props.intl.formatMessage(messages.search)}
-          />
-          <button aria-label={this.props.intl.formatMessage(messages.search)}>
-            <Icon name={zoomSVG} size="18px" />
-          </button>
-        </Form.Field>
+      <Form
+        className="ccl-header-search"
+        action="/global-search"
+        onMouseOut={(e) => {
+          if (e.relatedTarget) {
+            if (
+              !e.relatedTarget.offsetParent.classList.contains(
+                'ccl-header-search',
+              )
+            ) {
+              this.props.setHeaderState({ mobileSearchBoxOpen: false });
+            }
+          } else {
+            this.props.setHeaderState({ mobileSearchBoxOpen: false });
+          }
+        }}
+        onBlur={(e) => {
+          if (e.relatedTarget) {
+            if (
+              !e.relatedTarget.offsetParent.classList.contains(
+                'ccl-header-search',
+              )
+            ) {
+              this.props.setHeaderState({ mobileSearchBoxOpen: false });
+            }
+          } else {
+            this.props.setHeaderState({ mobileSearchBoxOpen: false });
+          }
+        }}
+      >
+        <Input
+          aria-label={this.props.intl.formatMessage(messages.search)}
+          onChange={this.onChangeText}
+          name="SearchableText"
+          value={this.state.text}
+          autoComplete="off"
+          placeholder={this.props.intl.formatMessage(messages.searchSite)}
+          title={this.props.intl.formatMessage(messages.search)}
+        />
+        <button
+          type="submit"
+          aria-label={this.props.intl.formatMessage(messages.search)}
+          onClick={this.onSubmit}
+        >
+          <span
+            className="ccl-icon-zoom"
+            role="button"
+            onClick={this.onSubmit}
+            onKeyDown={this.onSubmit}
+            tabIndex={0}
+          ></span>
+        </button>
       </Form>
     );
   }
