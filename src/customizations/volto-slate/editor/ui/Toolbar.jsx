@@ -73,10 +73,15 @@ const Toolbar = ({
 
     el.style.opacity = 1;
     el.style.top = `${rect.top + window.pageYOffset - el.offsetHeight - 6}px`;
-    el.style.left = `${Math.max(
+    const baseLeft = Math.max(
       rect.left + window.pageXOffset - el.offsetWidth / 2 + rect.width / 2,
       0, // if the left edge of the toolbar should be otherwise offscreen
-    )}px`;
+    );
+    const leftNumber =
+      baseLeft + el.offsetWidth > document.body.offsetWidth
+        ? document.body.offsetWidth - el.offsetWidth - 30
+        : baseLeft;
+    el.style.left = `${leftNumber}px`;
   });
 
   return (
