@@ -2,30 +2,20 @@
  * Navigation components.
  * @module components/theme/Navigation/Navigation
  */
-
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import { compose } from 'redux';
-import { defineMessages, injectIntl } from 'react-intl';
 import { Menu } from 'semantic-ui-react';
-import cx from 'classnames';
+
+import { getNavigation } from '@plone/volto/actions';
+import NavItems from '@plone/volto/components/theme/Navigation/NavItems';
 import { BodyClass, getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
-import { getNavigation } from '@plone/volto/actions';
-import { CSSTransition } from 'react-transition-group';
-import NavItems from '@plone/volto/components/theme/Navigation/NavItems';
 
-const messages = defineMessages({
-  closeMobileMenu: {
-    id: 'Close menu',
-    defaultMessage: 'Close menu',
-  },
-  openMobileMenu: {
-    id: 'Open menu',
-    defaultMessage: 'Open menu',
-  },
-});
+import PropTypes from 'prop-types';
 
 /**
  * Navigation container class.
@@ -115,10 +105,10 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   closeMobileMenu() {
-    if (!this.state.isMobileMenuOpen) {
-      return;
-    }
     this.setState({ isMobileMenuOpen: false });
+    this.props.setHeaderState({
+      mobileMenuOpen: false,
+    });
   }
 
   /**
@@ -127,48 +117,29 @@ class Navigation extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    const { lang } = this.props;
+
     return (
       <nav className="navigation" id="navigation" aria-label="navigation">
-        <div className="hamburger-wrapper mobile tablet only">
-          <button
-            className={cx('hamburger hamburger--spin', {
-              'is-active': this.state.isMobileMenuOpen,
-            })}
-            aria-label={
-              this.state.isMobileMenuOpen
-                ? this.props.intl.formatMessage(messages.closeMobileMenu, {
-                    type: this.props.type,
-                  })
-                : this.props.intl.formatMessage(messages.openMobileMenu, {
-                    type: this.props.type,
-                  })
-            }
-            title={
-              this.state.isMobileMenuOpen
-                ? this.props.intl.formatMessage(messages.closeMobileMenu, {
-                    type: this.props.type,
-                  })
-                : this.props.intl.formatMessage(messages.openMobileMenu, {
-                    type: this.props.type,
-                  })
-            }
-            type="button"
-            onClick={this.toggleMobileMenu}
-          >
-            <span className="hamburger-box">
-              <span className="hamburger-inner" />
-            </span>
-          </button>
-        </div>
-        <Menu
-          stackable
-          pointing
-          secondary
-          className="computer large screen widescreen only"
-          onClick={this.closeMobileMenu}
-        >
-          <NavItems items={this.props.items} lang={this.props.lang} />
-        </Menu>
+        <ul className="ccl-header-main-menu">
+          {this?.props?.items?.map((item) => (
+            <li key={item.url}>
+              <NavLink
+                to={item.url === '' ? '/' : item.url}
+                key={item.url}
+                activeClassName="active"
+                exact={
+                  config.settings.isMultilingual
+                    ? item.url === `/${lang}`
+                    : item.url === ''
+                }
+                onClick={this.closeMobileMenu}
+              >
+                {item.title}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
         <CSSTransition
           in={this.state.isMobileMenuOpen}
           timeout={500}
