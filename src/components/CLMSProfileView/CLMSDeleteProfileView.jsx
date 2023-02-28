@@ -45,7 +45,7 @@ export const CLMSDeleteProfileView = (props) => {
     <Container>
       <div>
         <h1 className="page-title">Delete your profile</h1>
-        <p>Click in the button bellow to delete your profile.</p>
+        <p>Click in the button below to delete your profile.</p>
         <Segment basic loading={deleting}>
           <Modal
             onClose={() => {

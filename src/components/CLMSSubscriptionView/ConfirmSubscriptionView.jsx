@@ -16,9 +16,9 @@ const messages = defineMessages({
     defaultMessage: '{type} {subscribe_or_unsubscribe} confirmation',
   },
   description: {
-    id: 'Click on the button bellow to confirm your {subscribe_or_unsubscribe}',
+    id: 'Click on the button below to confirm your {subscribe_or_unsubscribe}',
     defaultMessage:
-      'Click on the button bellow to confirm your {subscribe_or_unsubscribe}',
+      'Click on the button below to confirm your {subscribe_or_unsubscribe}',
   },
   errorMessage: {
     id: 'An error has occured. Please try again',

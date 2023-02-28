@@ -48,7 +48,7 @@ class CLMSNewsletterSubscriberView extends Component {
             Download a list of newsletter subscribers
           </h1>
           <p>
-            Click in the button bellow to download a list of all the newsletter
+            Click in the button below to download a list of all the newsletter
             subscribers.
           </p>
           <CclButton mode={'filled'} onClick={this.handleClick}>
