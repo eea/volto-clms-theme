@@ -8,4 +8,5 @@ export {
   workOpportunitiesCclDateTimeFormat,
   cclDateFormat,
   cclDateTimeFormat,
+  cclTimeFormat,
 } from './dateFormats';
