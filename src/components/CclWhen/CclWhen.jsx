@@ -7,7 +7,6 @@ import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 import { useSelector } from 'react-redux';
 import {
   cclDateFormat,
-  cclDateTimeFormat,
   cclTimeFormat,
 } from '@eeacms/volto-clms-theme/components/CclUtils';
 
