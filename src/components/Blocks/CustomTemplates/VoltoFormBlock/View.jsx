@@ -154,6 +154,7 @@ const View = ({ data, id, path }) => {
               const isAttachment = [
                 'attachment',
                 'image_field_widget',
+                'attachment_with_size_limit',
               ].includes(subblock.field_type);
               const isDate = subblock.field_type === 'date';
 
