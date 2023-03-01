@@ -48,6 +48,9 @@ import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 // import Login from '@plone/volto/components/Login';
 
+//SLATE CONFIGURATION
+import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
+
 const applyConfig = (config) => {
   config.views = {
     ...config.views,
@@ -108,6 +111,27 @@ const applyConfig = (config) => {
       ...(config.widgets.views?.type || {}),
     },
   };
+
+  config.settings.slate.toolbarButtons = [
+    'bold',
+    'italic',
+    'separator',
+    'heading-two',
+    'heading-three',
+    'numbered-list',
+    'bulleted-list',
+    'blockquote',
+    'callout',
+    'table',
+    'metadata',
+    'footnote',
+    'citation',
+  ];
+  config.settings.slate.expandedToolbarButtons = [
+    ...(config.settings.slate.expandedToolbarButtons || []),
+  ];
+  config = installLinkEditor(config);
+
   config.settings = {
     ...config.settings,
     downloadableObjects: ['File', 'TechnicalLibrary'],
