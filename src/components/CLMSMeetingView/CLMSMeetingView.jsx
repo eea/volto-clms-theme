@@ -61,11 +61,11 @@ export const CLMSMeetingView = (props) => {
     },
     contactName: {
       id: 'event_contactname',
-      defaultMessage: 'Contact Name',
+      defaultMessage: 'Contact name',
     },
     contactPhone: {
       id: 'event_contactphone',
-      defaultMessage: 'Contact Phone',
+      defaultMessage: 'Contact phone',
     },
     attendees: {
       id: 'event_attendees',
