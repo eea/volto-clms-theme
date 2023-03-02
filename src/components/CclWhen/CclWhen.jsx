@@ -64,7 +64,7 @@ const When_ = ({
       {!datesInfo.sameDay ? (
         <>
           <span className="start">
-            <span className="start-date">{cclDateFormat(start)}</span>
+            <span className="start-date">{datesInfo.startDate}</span>
             {!whole_day && (
               <>
                 {/* Plone has an optional word based on locale here */}
@@ -77,7 +77,7 @@ const When_ = ({
             <>
               &nbsp;to&nbsp;
               <span className="end">
-                <span className="end-date">{cclDateFormat(end)}</span>
+                <span className="end-date">{datesInfo.endDate}</span>
                 {!whole_day && (
                   <>
                     {/* Plone has an optional word based on locale here */}
@@ -93,18 +93,18 @@ const When_ = ({
       ) : (
         <>
           {whole_day && (
-            <span className="start-date">{cclDateFormat(start)}</span>
+            <span className="start-date">{datesInfo.startDate}</span>
           )}
           {open_end && !whole_day && (
             <>
-              <span className="start-date">{cclDateFormat(start)}</span>
+              <span className="start-date">{datesInfo.startDate}</span>
               &nbsp;from&nbsp;
               <span className="start-time">{cclTimeFormat(start)}</span>
             </>
           )}
           {!(whole_day || open_end) && (
             <>
-              <span className="start-date">{cclDateFormat(start)}</span>
+              <span className="start-date">{datesInfo.startDate}</span>
               &nbsp;from&nbsp;
               <span className="start-time">{cclTimeFormat(start)}</span>
               &nbsp;to&nbsp;
