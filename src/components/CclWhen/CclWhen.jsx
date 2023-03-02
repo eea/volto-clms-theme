@@ -5,10 +5,7 @@ import cx from 'classnames';
 import { RRule, rrulestr } from 'rrule';
 import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 import { useSelector } from 'react-redux';
-import {
-  cclDateFormat,
-  cclTimeFormat,
-} from '@eeacms/volto-clms-theme/components/CclUtils';
+import { cclTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 export const datesForDisplay = (start, end, moment) => {
   const mStart = moment(start);
