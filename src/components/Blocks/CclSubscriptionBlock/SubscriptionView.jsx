@@ -10,7 +10,6 @@ const SubscriptionBlockView = (props) => {
       trigger={
         <CclButton mode={'filled'}>{data.title || 'Text example...'}</CclButton>
       }
-      size="small"
     >
       <SubscriptionView type={data.type || 'events'} />
     </CclModal>
