@@ -57,12 +57,16 @@ const DownloadDataSetContent = (data, token) => {
           <br />
           <br />
           <br />
-          <h2>Download full dataset</h2>
-          {data.download_full_dataset_text?.data && (
-            <StringToHTML
-              string={data.download_full_dataset_text?.data || ''}
-            />
-          )}
+          {data.download_full_dataset_text?.data &&
+            data.download_full_dataset_text?.data !== '<p><br/><p>' &&
+            data.download_full_dataset_text?.data !== '<p></p>' && (
+              <>
+                <h2>Download full dataset</h2>
+                <StringToHTML
+                  string={data.download_full_dataset_text?.data || ''}
+                />
+              </>
+            )}
 
           {/* {data.token === '' ? (
             <CclButton
