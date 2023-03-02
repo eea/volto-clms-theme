@@ -269,7 +269,11 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
 
         {content?.downloadable_dataset && (
-          <div tabTitle="Download" loginRequired={true}>
+          <div
+            tabTitle="Download"
+            loginRequired={true}
+            currentLocation={content['@id']}
+          >
             {DownloadDataSetContent(content, token)}
           </div>
         )}
