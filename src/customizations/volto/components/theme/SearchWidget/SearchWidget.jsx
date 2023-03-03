@@ -2,13 +2,14 @@
  * Search widget component.
  * @module components/theme/SearchWidget/SearchWidget
  */
-
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Form, Input } from 'semantic-ui-react';
-import { compose } from 'redux';
-import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { Form, Input } from 'semantic-ui-react';
+
+import { PropTypes } from 'prop-types';
 
 const messages = defineMessages({
   search: {
@@ -71,17 +72,10 @@ class SearchWidget extends Component {
    * @returns {undefined}
    */
   onSubmit(event) {
-    const path =
-      this.props.pathname?.length > 0
-        ? `&path=${encodeURIComponent(this.props.pathname)}`
-        : '';
+    const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/search?SearchableText=${encodeURIComponent(this.state.text)}${path}`,
+      `/${this.props.locale}/global-search?SearchableText=${this.state.text}${section}`,
     );
-    // reset input value
-    this.setState({
-      text: '',
-    });
     event.preventDefault();
   }
 
@@ -149,4 +143,10 @@ class SearchWidget extends Component {
   }
 }
 
-export default compose(withRouter, injectIntl)(SearchWidget);
+export default compose(
+  withRouter,
+  injectIntl,
+  connect((state) => ({
+    locale: state.intl.locale,
+  })),
+)(SearchWidget);
