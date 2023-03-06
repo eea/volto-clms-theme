@@ -101,7 +101,11 @@ const CclHomeUsersBlockView = (props) => {
             </div>
           ))}
         </Slider>
-        <CclButton url={'en/use-cases'}>{'All use cases'}</CclButton>
+        {data.moreLinkUrl && data.moreLinkText && (
+          <CclButton url={data.moreLinkUrl[0]['@id']}>
+            {data.moreLinkText}
+          </CclButton>
+        )}
       </div>
     </div>
   );

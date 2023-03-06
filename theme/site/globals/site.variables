@@ -145,6 +145,7 @@
 @grey             : #68778D; // Palette: blueishGrey
 @black            : #252525; // Palette: darkishGrey
 @clmsGreen        : #ACBE39; // CLMS green color
+@olive            : #ACBE39; // CLMS green color
 
 /*---  Light Colors  ---*/
 @lightOlive       : #C9EAB1; // Palette: lightSage

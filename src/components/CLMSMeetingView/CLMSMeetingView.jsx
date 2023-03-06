@@ -11,8 +11,10 @@ import { createContent } from '@plone/volto/actions';
 import { Icon, Toast, UniversalLink } from '@plone/volto/components';
 import {
   Recurrence,
-  When,
+  // When,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
+import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
+
 import checkSVG from '@plone/volto/icons/check.svg';
 import config from '@plone/volto/registry';
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
@@ -59,11 +61,11 @@ export const CLMSMeetingView = (props) => {
     },
     contactName: {
       id: 'event_contactname',
-      defaultMessage: 'Contact Name',
+      defaultMessage: 'Contact name',
     },
     contactPhone: {
       id: 'event_contactphone',
-      defaultMessage: 'Contact Phone',
+      defaultMessage: 'Contact phone',
     },
     attendees: {
       id: 'event_attendees',
@@ -346,12 +348,14 @@ export const CLMSMeetingView = (props) => {
                 start={content.start}
                 end={content.start}
                 whole_day={content.whole_day}
+                br_in_timezone={true}
               />
             ) : (
               <When
                 start={content.start}
                 end={content.end}
                 whole_day={content.whole_day}
+                br_in_timezone={true}
               />
             )}
             {content.recurrence && (

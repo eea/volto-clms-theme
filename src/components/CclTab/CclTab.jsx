@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
@@ -19,6 +18,7 @@ function CclTab(props) {
     loginRequired,
     className = '',
     hasSubtab = false,
+    currentLocation = '',
   } = props;
   const token = useSelector((state) => state.userSession?.token);
   function onTabClick() {
@@ -46,7 +46,7 @@ function CclTab(props) {
         <span>{tabTitle}</span>
       ) : loginRequired && !token ? (
         <CclLoginModal
-          otherPath={redirect ? redirect : undefined}
+          otherPath={redirect ? redirect : `${currentLocation}#${tabId}`}
           triggerComponent={() => (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a style={{ cursor: 'pointer' }}>{tabTitle}</a>

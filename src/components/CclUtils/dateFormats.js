@@ -33,3 +33,10 @@ export const workOpportunitiesCclDateFormat = (date, lang) => {
   const internal = getInternalValue(date, lang);
   return internal.format('DD.MM.YYYY');
 };
+
+export const cclTimeFormat = (date) => {
+  const dateObj = new Date(date);
+  const hours = ('0' + dateObj.getHours()).slice(-2);
+  const minutes = ('0' + dateObj.getMinutes()).slice(-2);
+  return `${hours}.${minutes}`;
+};
