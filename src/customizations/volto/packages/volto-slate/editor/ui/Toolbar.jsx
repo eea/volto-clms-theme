@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { Portal } from 'react-portal';
 import { useSlate } from 'slate-react';
-import Separator from 'volto-slate/editor/ui/Separator';
-import BasicToolbar from 'volto-slate/editor/ui/BasicToolbar';
+import Separator from '@plone/volto-slate/editor/ui/Separator';
+import BasicToolbar from '@plone/volto-slate/editor/ui/BasicToolbar';
 import { Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 

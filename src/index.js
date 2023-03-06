@@ -122,10 +122,7 @@ const applyConfig = (config) => {
     'bulleted-list',
     'blockquote',
     'callout',
-    'table',
-    'metadata',
     'footnote',
-    'citation',
   ];
   config.settings.slate.expandedToolbarButtons = [
     ...(config.settings.slate.expandedToolbarButtons || []),
