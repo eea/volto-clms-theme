@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
  * @class Navigation
  * @extends Component
  */
+
 class Navigation extends Component {
   /**
    * Property types.
