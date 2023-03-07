@@ -31,7 +31,7 @@ export const GeonetworkImporterButtons = (props) => {
   return (
     <Segment basic>
       <h2>Geonetwork importation options:</h2>
-      {paginationSize < geonetwork_identifiers_items.length && (
+      {paginationSize < geonetwork_identifiers_items?.length && (
         <div className="block search">
           <div className="search-wrapper">
             <div className="search-input">
@@ -175,11 +175,11 @@ export const GeonetworkImporterButtons = (props) => {
           })}
         </Grid>
       )}
-      {dataList.length / paginationSize > 1 && (
+      {dataList?.length / paginationSize > 1 && (
         <div className="pagination-wrapper">
           <Pagination
             activePage={currentPage}
-            totalPages={Math.ceil(dataList.length / paginationSize)}
+            totalPages={Math.ceil(dataList?.length / paginationSize)}
             onPageChange={(e, { activePage }) => {
               p_functions.setCurrentPage(activePage);
             }}
@@ -195,9 +195,9 @@ export const GeonetworkImporterButtons = (props) => {
               content: <Icon name={paginationRightSVG} size="18px" />,
               icon: true,
               'aria-disabled':
-                currentPage === Math.ceil(dataList.length / paginationSize),
+                currentPage === Math.ceil(dataList?.length / paginationSize),
               className:
-                currentPage === Math.ceil(dataList.length / paginationSize)
+                currentPage === Math.ceil(dataList?.length / paginationSize)
                   ? 'disabled'
                   : null,
             }}
