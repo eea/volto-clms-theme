@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import { IntlProvider } from 'react-intl';
 
 const mockStore = configureStore();
 let store = mockStore({
@@ -80,9 +81,11 @@ describe('CLMSDatasetDetailView', () => {
       .create(
         <Provider store={store}>
           <MemoryRouter>
-            <CLMSDatasetDetailView content={content}>
-              <p>Metadata view test</p>
-            </CLMSDatasetDetailView>
+            <IntlProvider locale="en">
+              <CLMSDatasetDetailView content={content}>
+                <p>Metadata view test</p>
+              </CLMSDatasetDetailView>
+            </IntlProvider>
           </MemoryRouter>
         </Provider>,
       )
@@ -120,9 +123,11 @@ describe('CLMSDatasetDetailView', () => {
       .create(
         <Provider store={store}>
           <MemoryRouter>
-            <CLMSDatasetDetailView content={content}>
-              <p>Metadata view test</p>
-            </CLMSDatasetDetailView>
+            <IntlProvider locale="en">
+              <CLMSDatasetDetailView content={content}>
+                <p>Metadata view test</p>
+              </CLMSDatasetDetailView>
+            </IntlProvider>
           </MemoryRouter>
         </Provider>,
       )
@@ -151,9 +156,11 @@ describe('CLMSDatasetDetailView', () => {
       .create(
         <Provider store={store}>
           <MemoryRouter>
-            <CLMSDatasetDetailView content={content}>
-              <p>Metadata view test</p>
-            </CLMSDatasetDetailView>
+            <IntlProvider locale="en">
+              <CLMSDatasetDetailView content={content}>
+                <p>Metadata view test</p>
+              </CLMSDatasetDetailView>
+            </IntlProvider>
           </MemoryRouter>
         </Provider>,
       )
