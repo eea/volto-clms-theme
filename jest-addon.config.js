@@ -15,6 +15,7 @@ module.exports = {
     '@plone/volto-slate':
       '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src',
     '~/(.*)$': '<rootDir>/src/$1',
+    '@root/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
     'load-volto-addons':
       '<rootDir>/node_modules/@plone/volto/jest-addons-loader.js',
   },
