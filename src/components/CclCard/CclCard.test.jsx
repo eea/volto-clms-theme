@@ -2,10 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import CclCard from './CclCard';
 import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-
-const mockStore = configureStore();
 
 describe('CclCard', () => {
   const card = {
