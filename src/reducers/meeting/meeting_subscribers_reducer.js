@@ -57,10 +57,10 @@ export const meetingSubscribersReducer = (
     case `${MEETING_SUBSCRIBERS_MANIPULATION}_FAIL`:
       return {
         ...state,
-        error: action.error.response.body.error.message,
+        error: action?.error?.response?.body?.error?.message,
         loaded: false,
         loading: false,
-        message: action.error.response.body.error.message,
+        message: action?.error?.response?.body?.error?.message,
       };
 
     case `${MEETING_SUBSCRIBERS_MANIPULATION}_SUCCESS`:
