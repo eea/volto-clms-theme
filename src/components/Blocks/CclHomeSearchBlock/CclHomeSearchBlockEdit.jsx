@@ -27,7 +27,7 @@ function hasProtocol(url) {
 }
 
 const CclHomeSearchBlockEdit = (props) => {
-  const { block, data, onChangeBlock, selected } = props;
+  const { block, data, onChangeBlock, selected = false } = props;
   const intl = useIntl();
   let url = data?.link?.[0]?.['@id'];
   return (
