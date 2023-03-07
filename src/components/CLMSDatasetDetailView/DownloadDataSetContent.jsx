@@ -11,7 +11,7 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 const DownloadDataSetContent = (data, token) => {
   const location = useLocation();
 
-  const user = useSelector((state) => state.users?.user);
+  const user = useSelector((state) => state?.users?.user);
 
   return (
     <div>
