@@ -1,5 +1,5 @@
 import React from 'react';
-import ContextNavigationComponent from '@plone/volto/components';
+import { ContextNavigationComponent } from '@plone/volto/components/theme/Navigation/ContextNavigation';
 
 const CclContextNavigationBlockEdit = (props) => {
   const regex = /\/edit$/;
