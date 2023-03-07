@@ -27,7 +27,7 @@ describe('CclTab', () => {
             onClick={onTabClick}
             tabTitle="tab title"
             tabContent="tab content"
-            redirect={true}
+            redirect={'/'}
           />
         </MemoryRouter>
       </Provider>,

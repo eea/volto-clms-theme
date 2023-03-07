@@ -77,7 +77,7 @@ function CclTab(props) {
 }
 
 CclTab.propTypes = {
-  activeTab: PropTypes.string.isRequired,
+  activeTab: PropTypes.string,
   tabTitle: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
