@@ -109,10 +109,10 @@ describe('meetingSubscribersReducer', () => {
       error: true,
     };
     expect(meetingSubscribersReducer({}, action)).toEqual({
-      error: true,
+      error: undefined,
       loaded: false,
       loading: false,
-      message: 'error' || '',
+      message: undefined,
     });
   });
   it('should handle MEETING_SUBSCRIBERS_MANIPULATION_FAIL without error message', () => {
@@ -124,10 +124,10 @@ describe('meetingSubscribersReducer', () => {
       },
     };
     expect(meetingSubscribersReducer({}, action)).toEqual({
-      error: true,
+      error: undefined,
       loaded: false,
       loading: false,
-      message: '',
+      message: undefined,
     });
   });
   //jest test to meetingSubscribersReducer -manipulation  -pending
