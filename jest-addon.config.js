@@ -11,7 +11,7 @@ module.exports = {
     '@package/(.*)$': '<rootDir>/src/$1',
     '@plone/volto-quanta/(.*)$': '<rootDir>/src/addons/volto-quanta/src/$1',
     '@eeacms/volto-clms-theme/(.*)$':
-      '<rootDir>/src/addons/volto-clms-theme/src/$2',
+      '<rootDir>/src/addons/volto-clms-theme/src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '@plone/volto-slate':
       '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src',
