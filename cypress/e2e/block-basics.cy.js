@@ -1,4 +1,4 @@
-import { setupBeforeEach, tearDownAfterEach } from '../support';
+import { setupBeforeEach, tearDownAfterEach } from '../support/e2e';
 
 describe('Blocks Tests', () => {
   beforeEach(setupBeforeEach);
@@ -6,13 +6,15 @@ describe('Blocks Tests', () => {
 
   it('Add Block: Empty', () => {
     // Change page title
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
+    cy.get('.documentFirstHeading')
+      .focused()
       .clear()
       .type('My Add-on Page')
-      .get('.documentFirstHeading span[data-text]')
+      .get('.documentFirstHeading')
       .contains('My Add-on Page');
 
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block').type('{enter}');
+    cy.get('.documentFirstHeading') /* .focused() */
+      .type('{enter}');
 
     // Add block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
