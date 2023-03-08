@@ -2,7 +2,7 @@ import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { Accordion } from 'semantic-ui-react';
 
-import { Icon } from '@plone/volto/components';
+import Icon from '@plone/volto/components/theme/Icon/Icon';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { hasBlocksData } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';

@@ -3,20 +3,21 @@ import PropTypes from 'prop-types';
 import { useIntl, defineMessages } from 'react-intl';
 
 import WysiwygWidget from '@plone/volto/components/manage/Widgets/WysiwygWidget';
-
-import EmailWidget from 'volto-form-block/components/Widget/EmailWidget';
-import FileWidget from 'volto-form-block/components/Widget/FileWidget';
-import DatetimeWidget from 'volto-form-block/components/Widget/DatetimeWidget';
-import CheckboxWidget from 'volto-form-block/components/Widget/CheckboxWidget';
-import SelectWidget from 'volto-form-block/components/Widget/SelectWidget';
-import TextWidget from 'volto-form-block/components/Widget/TextWidget';
-import TextareaWidget from 'volto-form-block/components/Widget/TextareaWidget';
-import CheckboxListWidget from 'volto-form-block/components/Widget/CheckboxListWidget';
-import RadioWidget from 'volto-form-block/components/Widget/RadioWidget';
-
-import 'volto-form-block/components/Field.css';
-
+import {
+  EmailWidget,
+  FileWidget,
+  DatetimeWidget,
+  CheckboxWidget,
+  SelectWidget,
+  TextWidget,
+  TextareaWidget,
+  CheckboxListWidget,
+  RadioWidget,
+} from 'volto-form-block/components/Widget';
 import config from '@plone/volto/registry';
+
+/* Style */
+import 'volto-form-block/components/Field.css';
 
 const messages = defineMessages({
   select_a_value: {
@@ -102,6 +103,7 @@ const Field = ({
           required={required}
           noValueOption={!required}
           {...(isInvalid() ? { className: 'is-invalid' } : {})}
+          {...rest}
         />
       )}
       {field_type === 'single_choice' && (

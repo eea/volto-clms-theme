@@ -26,7 +26,7 @@ function CclLoginModal(props) {
     otherPath = undefined,
   } = props;
   const dispatch = useDispatch();
-  const registryRecords = useSelector((state) => state.registry.records);
+  const registryRecords = useSelector((state) => state?.registry?.records);
   const [loginUrl, setLoginUrl] = React.useState('');
   const registry_key = config.settings?.registry?.login_url || null;
 

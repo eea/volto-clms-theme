@@ -243,17 +243,6 @@ exports[`CclSearchBlock Check search block view 1`] = `
         </button>
       </form>
     </div>
-    <div
-      className="home-datasets-text"
-    >
-      <span>
-        More than 999 datasets in our 
-      </span>
-      <a
-        href="/"
-        onClick={[Function]}
-      />
-    </div>
   </div>
 </div>
 `;
@@ -292,18 +281,6 @@ exports[`CclSearchBlock Check search block view with http/https url 1`] = `
           />
         </button>
       </form>
-    </div>
-    <div
-      className="home-datasets-text"
-    >
-      <span>
-        More than 999 datasets in our 
-      </span>
-      <a
-        href="https://google.com"
-      >
-        Google
-      </a>
     </div>
   </div>
 </div>

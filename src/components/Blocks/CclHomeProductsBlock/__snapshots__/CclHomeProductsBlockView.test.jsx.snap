@@ -7,6 +7,10 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
   <div
     className="home-product"
     id="home-product"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="home-product-title"
@@ -20,6 +24,10 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
   <div
     className="home-product"
     id="home-product"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="home-product-title"
@@ -40,6 +48,10 @@ exports[`renders a CclHomeProductsBlockView component iconless style 1`] = `
   <div
     className="home-product home-product-main"
     id=""
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <h3>
       example title1
@@ -48,6 +60,10 @@ exports[`renders a CclHomeProductsBlockView component iconless style 1`] = `
   <div
     className="home-product home-product-main"
     id=""
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <h3>
       example title2

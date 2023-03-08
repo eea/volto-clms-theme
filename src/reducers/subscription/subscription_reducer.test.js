@@ -8,6 +8,7 @@ describe('subscribeToReducer', () => {
       error: null,
       loaded: false,
       loading: false,
+      error_message: '',
     });
   });
   //jest test for subscribeToReducer -success

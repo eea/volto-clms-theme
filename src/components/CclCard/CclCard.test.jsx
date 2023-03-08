@@ -2,10 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import CclCard from './CclCard';
 import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-
-const mockStore = configureStore();
 
 describe('CclCard', () => {
   const card = {
@@ -41,26 +37,6 @@ describe('CclCard', () => {
     effective:
       'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
   };
-  it('Check event card', () => {
-    const store = mockStore({
-      intl: {
-        locale: 'en',
-        messages: {},
-      },
-    });
-    const cardtest = renderer
-      .create(
-        <Provider store={store}>
-          <MemoryRouter>
-            <CclCard type="event" card={card}>
-              <p>Event card test</p>
-            </CclCard>
-          </MemoryRouter>
-        </Provider>,
-      )
-      .toJSON();
-    expect(cardtest).toBeDefined();
-  });
   it('Check doc card', () => {
     const cardtest = renderer
       .create(

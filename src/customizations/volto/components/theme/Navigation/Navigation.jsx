@@ -2,23 +2,27 @@
  * Navigation components.
  * @module components/theme/Navigation/Navigation
  */
-
 import React, { Component } from 'react';
-
-import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import config from '@plone/volto/registry';
-import { connect } from 'react-redux';
-import { getBaseUrl } from '@plone/volto/helpers';
-import { getNavigation } from '@plone/volto/actions';
 import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import { compose } from 'redux';
+import { Menu } from 'semantic-ui-react';
+
+import { getNavigation } from '@plone/volto/actions';
+import NavItems from '@plone/volto/components/theme/Navigation/NavItems';
+import { BodyClass, getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
+import config from '@plone/volto/registry';
+
+import PropTypes from 'prop-types';
 
 /**
  * Navigation container class.
  * @class Navigation
  * @extends Component
  */
+
 class Navigation extends Component {
   /**
    * Property types.
@@ -37,6 +41,10 @@ class Navigation extends Component {
     lang: PropTypes.string.isRequired,
   };
 
+  static defaultProps = {
+    token: null,
+  };
+
   /**
    * Constructor
    * @method constructor
@@ -52,16 +60,14 @@ class Navigation extends Component {
     };
   }
 
-  /**
-   * Component will mount
-   * @method componentWillMount
-   * @returns {undefined}
-   */
-  UNSAFE_componentWillMount() {
-    this.props.getNavigation(
-      getBaseUrl(this.props.pathname),
-      config.settings.navDepth,
-    );
+  componentDidMount() {
+    const { settings } = config;
+    if (!hasApiExpander('navigation', getBaseUrl(this.props.pathname))) {
+      this.props.getNavigation(
+        getBaseUrl(this.props.pathname),
+        settings.navDepth,
+      );
+    }
   }
 
   /**
@@ -71,11 +77,17 @@ class Navigation extends Component {
    * @returns {undefined}
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.pathname !== this.props.pathname) {
-      this.props.getNavigation(
-        getBaseUrl(nextProps.pathname),
-        config.settings.navDepth,
-      );
+    const { settings } = config;
+    if (
+      nextProps.pathname !== this.props.pathname ||
+      nextProps.token !== this.props.token
+    ) {
+      if (!hasApiExpander('navigation', getBaseUrl(this.props.pathname))) {
+        this.props.getNavigation(
+          getBaseUrl(nextProps.pathname),
+          settings.navDepth,
+        );
+      }
     }
   }
 
@@ -109,25 +121,42 @@ class Navigation extends Component {
     const { lang } = this.props;
 
     return (
-      <ul className="ccl-header-main-menu">
-        {this?.props?.items?.map((item) => (
-          <li key={item.url}>
-            <NavLink
-              to={item.url === '' ? '/' : item.url}
-              key={item.url}
-              activeClassName="active"
-              exact={
-                config.settings.isMultilingual
-                  ? item.url === `/${lang}`
-                  : item.url === ''
-              }
-              onClick={this.closeMobileMenu}
-            >
-              {item.title}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      <nav className="navigation" id="navigation" aria-label="navigation">
+        <ul className="ccl-header-main-menu">
+          {this?.props?.items?.map((item) => (
+            <li key={item.url}>
+              <NavLink
+                to={item.url === '' ? '/' : item.url}
+                key={item.url}
+                activeClassName="active"
+                exact={
+                  config.settings.isMultilingual
+                    ? item.url === `/${lang}`
+                    : item.url === ''
+                }
+                onClick={this.closeMobileMenu}
+              >
+                {item.title}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+        <CSSTransition
+          in={this.state.isMobileMenuOpen}
+          timeout={500}
+          classNames="mobile-menu"
+          unmountOnExit
+        >
+          <div key="mobile-menu-key" className="mobile-menu">
+            <BodyClass className="has-mobile-menu-open" />
+            <div className="mobile-menu-nav">
+              <Menu stackable pointing secondary onClick={this.closeMobileMenu}>
+                <NavItems items={this.props.items} lang={this.props.lang} />
+              </Menu>
+            </div>
+          </div>
+        </CSSTransition>
+      </nav>
     );
   }
 }
@@ -136,6 +165,7 @@ export default compose(
   injectIntl,
   connect(
     (state) => ({
+      token: state.userSession.token,
       items: state.navigation.items,
       lang: state.intl.locale,
     }),

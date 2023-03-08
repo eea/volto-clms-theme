@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom';
 import React from 'react';
-import { SetLanguagePath } from './multilingualPath';
-import { getItemsByPath } from 'volto-dropdownmenu/utils';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { flattenToAppURL } from '@plone/volto/helpers';
+
+import { getItemsByPath } from 'volto-dropdownmenu/utils';
+import { SetLanguagePath } from './multilingualPath';
 
 const CclFooterMenu = () => {
   const pathname = SetLanguagePath('footer');
@@ -17,7 +20,7 @@ const CclFooterMenu = () => {
             ?.filter((item) => item.visible)
             ?.map((item, index) => (
               <li key={index}>
-                <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
+                <Link to={flattenToAppURL(item.linkUrl?.[0]?.['@id'])}>
                   {item.title}
                 </Link>
               </li>
