@@ -29,7 +29,12 @@ import {
   unlockContent,
 } from '@plone/volto/actions';
 import { Icon } from '@plone/volto/components';
-import { BodyClass, getBaseUrl } from '@plone/volto/helpers';
+import {
+  BodyClass,
+  getBaseUrl,
+  getCookieOptions,
+  hasApiExpander,
+} from '@plone/volto/helpers';
 import { Pluggable } from '@plone/volto/components/manage/Pluggable';
 
 import penSVG from '@plone/volto/icons/pen.svg';
@@ -38,9 +43,8 @@ import folderSVG from '@plone/volto/icons/folder.svg';
 import addSVG from '@plone/volto/icons/add-document.svg';
 import moreSVG from '@plone/volto/icons/more.svg';
 import userSVG from '@plone/volto/icons/user.svg';
+import backSVG from '@plone/volto/icons/back.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
-
-// import cookie from 'react-cookie';
 
 const messages = defineMessages({
   edit: {
@@ -105,7 +109,7 @@ const messages = defineMessages({
   },
 });
 
-const toolbarComponents = {
+let toolbarComponents = {
   personalTools: { component: PersonalTools, wrapper: null },
   more: { component: More, wrapper: null },
   types: { component: Types, wrapper: null, contentAsProps: true },
@@ -198,8 +202,20 @@ class Toolbar extends Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    this.props.listActions(getBaseUrl(this.props.pathname));
-    this.props.getTypes(getBaseUrl(this.props.pathname));
+    // Do not trigger the actions action if the expander is present
+    if (!hasApiExpander('actions', getBaseUrl(this.props.pathname))) {
+      this.props.listActions(getBaseUrl(this.props.pathname));
+    }
+    // Do not trigger the types action if the expander is present
+    if (!hasApiExpander('types', getBaseUrl(this.props.pathname))) {
+      this.props.getTypes(getBaseUrl(this.props.pathname));
+    }
+    toolbarComponents = {
+      ...(config.settings
+        ? config.settings.additionalToolbarComponents || {}
+        : {}),
+      ...toolbarComponents,
+    };
     this.props.setExpandedToolbar(this.state.expanded);
     document.addEventListener('mousedown', this.handleClickOutside, false);
   }
@@ -212,8 +228,14 @@ class Toolbar extends Component {
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.pathname !== this.props.pathname) {
-      this.props.listActions(getBaseUrl(nextProps.pathname));
-      this.props.getTypes(getBaseUrl(nextProps.pathname));
+      // Do not trigger the actions action if the expander is present
+      if (!hasApiExpander('actions', getBaseUrl(nextProps.pathname))) {
+        this.props.listActions(getBaseUrl(nextProps.pathname));
+      }
+      // Do not trigger the types action if the expander is present
+      if (!hasApiExpander('types', getBaseUrl(nextProps.pathname))) {
+        this.props.getTypes(getBaseUrl(nextProps.pathname));
+      }
     }
 
     // Unlock
@@ -233,12 +255,7 @@ class Toolbar extends Component {
 
   handleShrink = () => {
     const { cookies } = this.props;
-    cookies.set('toolbar_expanded', !this.state.expanded, {
-      expires: new Date(
-        new Date().getTime() + config.settings.cookieExpires * 1000,
-      ),
-      path: '/',
-    });
+    cookies.set('toolbar_expanded', !this.state.expanded, getCookieOptions());
     this.setState(
       (state) => ({ expanded: !state.expanded }),
       () => this.props.setExpandedToolbar(this.state.expanded),
@@ -279,10 +296,18 @@ class Toolbar extends Component {
         showMenu: !state.showMenu,
         menuStyle: { bottom: 0 },
       }));
+    } else if (selector === 'more') {
+      this.setState((state) => ({
+        showMenu: !state.showMenu,
+        menuStyle: {
+          overflow: 'visible',
+          top: 0,
+        },
+      }));
     } else {
       this.setState((state) => ({
         showMenu: !state.showMenu,
-        menuStyle: { top: 0, overflow: 'initial' },
+        menuStyle: { top: 0 },
       }));
     }
     this.loadComponent(selector);
@@ -480,8 +505,8 @@ class Toolbar extends Component {
                             )}
                           >
                             <Icon
-                              name={clearSVG}
-                              className="contents circled"
+                              name={backSVG}
+                              className="circled"
                               size="30px"
                               title={this.props.intl.formatMessage(
                                 messages.back,
@@ -494,7 +519,7 @@ class Toolbar extends Component {
                           this.props.types.length > 0) ||
                           (config.settings.isMultilingual &&
                             this.props.content['@components']
-                              .translations)) && (
+                              ?.translations)) && (
                           <button
                             className="add"
                             aria-label={this.props.intl.formatMessage(
@@ -545,9 +570,13 @@ class Toolbar extends Component {
                       </button>
                     </>
                   )}
+                  <Pluggable name="main.toolbar.top" />
                 </div>
                 <div className="toolbar-bottom">
-                  <Pluggable name="main.toolbar.bottom" />
+                  <Pluggable
+                    name="main.toolbar.bottom"
+                    params={{ onClickHandler: this.toggleMenu }}
+                  />
                   {!this.props.hideDefaultViewButtons && (
                     <button
                       className="user"

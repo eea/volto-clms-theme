@@ -2,14 +2,14 @@
  * Search widget component.
  * @module components/theme/SearchWidget/SearchWidget
  */
-
 import React, { Component } from 'react';
-import { Form, Input } from 'semantic-ui-react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { Form, Input } from 'semantic-ui-react';
+
+import { PropTypes } from 'prop-types';
 
 const messages = defineMessages({
   search: {
@@ -34,7 +34,7 @@ class SearchWidget extends Component {
    * @static
    */
   static propTypes = {
-    pathname: PropTypes.string.isRequired,
+    pathname: PropTypes.string,
   };
 
   /**
@@ -46,12 +46,9 @@ class SearchWidget extends Component {
   constructor(props) {
     super(props);
     this.onChangeText = this.onChangeText.bind(this);
-    this.onChangeSection = this.onChangeSection.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      lang: 'en',
       text: '',
-      section: false,
     };
   }
 
@@ -65,19 +62,6 @@ class SearchWidget extends Component {
   onChangeText(event, { value }) {
     this.setState({
       text: value,
-    });
-  }
-
-  /**
-   * On change section
-   * @method onChangeSection
-   * @param {object} event Event object.
-   * @param {bool} checked Section checked.
-   * @returns {undefined}
-   */
-  onChangeSection(event, { checked }) {
-    this.setState({
-      section: checked,
     });
   }
 

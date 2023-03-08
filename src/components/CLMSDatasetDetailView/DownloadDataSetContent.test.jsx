@@ -2,6 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import DownloadDataSetContent from './DownloadDataSetContent';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+const mockStore = configureStore();
 
 describe('DownloadDataSetContent', () => {
   it('Check dataset download view', () => {
@@ -31,6 +34,11 @@ describe('DownloadDataSetContent', () => {
         ],
       },
     };
+    const store = mockStore({
+      user: {
+        '@id': 'user-id',
+      },
+    });
     const type = 'raster';
     const url = '/register';
     const location = {
@@ -38,17 +46,19 @@ describe('DownloadDataSetContent', () => {
     };
     const datasetDownload = renderer
       .create(
-        <MemoryRouter>
-          <DownloadDataSetContent
-            data={data}
-            url={url}
-            type={type}
-            // eslint-disable-next-line no-use-before-define
-            location={location.pathname}
-          >
-            <p>Dataset download view test</p>
-          </DownloadDataSetContent>
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter>
+            <DownloadDataSetContent
+              data={data}
+              url={url}
+              type={type}
+              // eslint-disable-next-line no-use-before-define
+              location={location.pathname}
+            >
+              <p>Dataset download view test</p>
+            </DownloadDataSetContent>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(datasetDownload).toBeDefined();
@@ -111,6 +121,11 @@ describe('DownloadDataSetContent', () => {
         },
       ],
     };
+    const store = mockStore({
+      user: {
+        '@id': 'user-id',
+      },
+    });
     const type2 = 'raster';
     const url2 = '/register';
     const location2 = {
@@ -118,17 +133,19 @@ describe('DownloadDataSetContent', () => {
     };
     const datasetDownload = renderer
       .create(
-        <MemoryRouter>
-          <DownloadDataSetContent
-            data={data2}
-            url={url2}
-            type={type2}
-            // eslint-disable-next-line no-use-before-define
-            location={location2.pathname}
-          >
-            <p>Dataset download view test</p>
-          </DownloadDataSetContent>
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter>
+            <DownloadDataSetContent
+              data={data2}
+              url={url2}
+              type={type2}
+              // eslint-disable-next-line no-use-before-define
+              location={location2.pathname}
+            >
+              <p>Dataset download view test</p>
+            </DownloadDataSetContent>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(datasetDownload).toBeDefined();

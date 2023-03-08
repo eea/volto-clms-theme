@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import ImageSizeWidget from './ImageSizeWidget';
 
@@ -17,12 +18,14 @@ test('renders an image sizes widget component', () => {
 
   const component = renderer.create(
     <Provider store={store}>
-      <ImageSizeWidget
-        id="image_size"
-        title="Image Size"
-        fieldSet="default"
-        onChange={() => {}}
-      />
+      <MemoryRouter>
+        <ImageSizeWidget
+          id="image_size"
+          title="Image Size"
+          fieldSet="default"
+          onChange={() => {}}
+        />
+      </MemoryRouter>
     </Provider>,
   );
   const json = component.toJSON();

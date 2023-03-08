@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConditionalLink } from '@plone/volto/components';
+import ConditionalLink from '@plone/volto/components/manage/ConditionalLink/ConditionalLink';
 import { flattenToAppURL } from '@plone/volto/helpers';
-
+// import { ConditionalLink, UniversalLink } from '@plone/volto/components';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { useSelector } from 'react-redux';
-import { UniversalLink } from '@plone/volto/components';
+import UniversalLink from '@plone/volto/components/manage/UniversalLink/UniversalLink';
 
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
 

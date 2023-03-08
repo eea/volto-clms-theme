@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Accordion, Loader, Segment } from 'semantic-ui-react';
 
 import { searchContent } from '@plone/volto/actions';
-import { Icon } from '@plone/volto/components';
+import Icon from '@plone/volto/components/theme/Icon/Icon';
 import config from '@plone/volto/registry';
 import CclCitation from '@eeacms/volto-clms-theme/components/CclCitation/CclCitation';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
@@ -68,10 +68,12 @@ const DataSetInfoContent = (props) => {
         ></CclCitation>
       )}
       <CclInfoContainer>
-        {props?.description && (
+        {props?.description ? (
           <CclInfoDescription
             description={<StringToHTML string={props.description} />}
           ></CclInfoDescription>
+        ) : (
+          ''
         )}
       </CclInfoContainer>
       {citation?.data &&

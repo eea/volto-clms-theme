@@ -68,7 +68,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       <h1 className="page-title">{content.title}</h1>
       {user?.roles && user.roles.includes('Manager') && (
         <GeonetworkImporterButtons
-          geonetwork_identifiers_items={content.geonetwork_identifiers.items}
+          geonetwork_identifiers_items={content?.geonetwork_identifiers?.items}
           open={open}
           setOpen={setOpen}
         />

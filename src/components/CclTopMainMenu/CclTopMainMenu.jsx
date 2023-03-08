@@ -1,15 +1,19 @@
-import { Link } from 'react-router-dom';
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { SetLanguagePath } from './multilingualPath';
-import { getItemsByPath } from 'volto-dropdownmenu/utils';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { flattenToAppURL } from '@plone/volto/helpers';
+
+import { getItemsByPath } from 'volto-dropdownmenu/utils';
+import { SetLanguagePath } from './multilingualPath';
 
 const CclTopMainMenu = () => {
   const pathname = SetLanguagePath('header');
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
+  // console.log('dropdownMenuNavItems', dropdownMenuNavItems);
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
   return (
     <>
@@ -22,7 +26,10 @@ const CclTopMainMenu = () => {
             ?.map((item, index) =>
               item.mode === 'simpleLink' ? (
                 <li key={index}>
-                  <Link to={{ pathname: item.linkUrl?.[0]?.['@id'] }}>
+                  <Link
+                    to={flattenToAppURL(item.linkUrl?.[0]?.['@id'])}
+                    replace
+                  >
                     {item.title}
                   </Link>
                 </li>
@@ -36,7 +43,7 @@ const CclTopMainMenu = () => {
                     <ul>
                       {item.navigationRoot?.map((element, navIndex) => (
                         <li key={navIndex}>
-                          <Link to={{ pathname: element?.['@id'] }}>
+                          <Link to={flattenToAppURL(element?.['@id'])} replace>
                             {element.title}
                           </Link>
                         </li>

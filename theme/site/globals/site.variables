@@ -6,7 +6,9 @@
        Fonts
 --------------------*/
 
-@fontName          : 'Lato';
+
+@pageFont: 'Lato';
+@headerFont: 'Lato';
 
 @googleFontSizes   : '300,400,500,700,400italic,700italic&display=swap';
 @toolbalWidth: 80px;
