@@ -18,7 +18,7 @@ export const cclDateTimeFormat = (date) => {
 
 export const workOpportunitiesCclDateTimeFormat = (date, lang) => {
   const internal = getInternalValue(date, lang);
-  return internal?.format('DD.MM.YYYY hh.mm A');
+  return internal?.format('DD.MM.YYYY HH.mm');
 };
 
 export const cclDateFormat = (date) => {
