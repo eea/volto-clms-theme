@@ -31,6 +31,7 @@
 
 .ccl-breadcrumb .ccl-breadcrumb__segment {
   display: block;
+  margin-left: 0 !important;
   font-size: 1rem;
   line-height: 1.25;
 }
@@ -301,7 +302,8 @@
   height: 20px;
 }
 
-.filters-element select:focus-visible, .filters-element select:focus {
+.filters-element select:focus-visible,
+.filters-element select:focus {
   outline: none;
 }
 
@@ -320,7 +322,10 @@
   font-weight: bold;
 }
 
-.filters-container .react-select__control .react-select__dropdown-indicator svg {
+.filters-container
+  .react-select__control
+  .react-select__dropdown-indicator
+  svg {
   fill: #273b4b !important;
 }
 
@@ -368,14 +373,14 @@
 .block.search .filter-list-header .filter-list-title svg {
   margin-right: 0.5rem;
   transform: rotate(0deg) !important;
-  -webkit-transition: transform .3s ease-out;
-  transition: transform 0.3s ease-out; 
+  -webkit-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .block.search .active.filter-list-header .filter-list-title svg {
   transform: rotate(-180deg) !important;
-  -webkit-transition: transform .3s ease-out;
-  transition: transform 0.3s ease-out; 
+  -webkit-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .block.search .filter-listing .trash.icon {
@@ -397,7 +402,6 @@
 .block.search .filter-listing .filter-list-group .label {
   margin: 0.25rem !important;
 }
-
 
 /* Filters modal */
 .modal-filters {
@@ -422,7 +426,7 @@
   width: 100%;
   background: white;
 }
-@media (min-width: 576px) { 
+@media (min-width: 576px) {
   .modal-filters-container {
     width: 70%;
   }
@@ -461,7 +465,7 @@
   font-size: 0.85rem;
   padding-right: 1rem;
   margin-right: 1rem;
-  border-right: solid 1px #273B4B;
+  border-right: solid 1px #273b4b;
   line-height: 1.5rem;
   cursor: pointer;
 }
@@ -513,28 +517,28 @@
 }
 
 .modal-filters-dropdown .ccl-expandable__button::after {
-  font-family: "ccl-icons";
+  font-family: 'ccl-icons';
   color: #a0b128;
   margin-right: 1.5rem;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   position: absolute;
   right: 0;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s  ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .modal-filters-dropdown .ccl-expandable__button[aria-expanded='false']::after {
   content: '\e914';
   transform: rotate(0deg);
-  -webkit-transition: transform .3s ease-out;
-  transition: transform 0.3s ease-out; 
+  -webkit-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .modal-filters-dropdown .ccl-expandable__button[aria-expanded='true']::after {
   content: '\e914';
   transform: rotate(-180deg);
-  -webkit-transition: transform .3s ease-out;
+  -webkit-transition: transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
 
@@ -563,7 +567,10 @@
   padding: 1rem 1.5rem;
 }
 
-.modal-filters-dropdown .ccl-expandable__button + .ccl-form .ccl-expandable__button {
+.modal-filters-dropdown
+  .ccl-expandable__button
+  + .ccl-form
+  .ccl-expandable__button {
   background-color: transparent;
   margin: 0;
   padding: 0;
@@ -573,7 +580,11 @@
   margin-top: 1.66rem;
 }
 
-.modal-filters-dropdown .ccl-expandable__button + .ccl-form .ccl-expandable__button .ccl-form {
+.modal-filters-dropdown
+  .ccl-expandable__button
+  + .ccl-form
+  .ccl-expandable__button
+  .ccl-form {
   padding: 0;
 }
 
@@ -604,10 +615,10 @@
 }
 
 .modal-filters-dropdown .filters-tag .checkbox input:checked + label {
-  color:white;
+  color: white;
   background: #a0b128;
-  -webkit-transition: all .3s ease-out;
-  transition: all .3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .modal-filters-dropdown .filters-tag .checkbox label {
@@ -617,8 +628,8 @@
   border: solid 1px #a0b128;
   cursor: pointer;
   text-align: center;
-  -webkit-transition: all .3s ease-out;
-  transition: all .3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .modal-filters-dropdown .ui.checkbox input:focus ~ label {
@@ -626,7 +637,7 @@
 }
 
 .modal-filters-dropdown .filters-tag .checkbox label:hover {
-  color:white;
+  color: white;
   background: #a0b128;
 }
 
@@ -643,7 +654,7 @@
 .modal-filters-dropdown .ui.checkbox input:checked:focus ~ label:after {
   color: #a0b128;
 }
-.modal-filters-dropdown .ui.checkbox input:checked ~ label:before, 
+.modal-filters-dropdown .ui.checkbox input:checked ~ label:before,
 .modal-filters-dropdown .ui.checkbox input:checked:focus ~ label:before {
   border: 1px solid #a0b128;
 }
