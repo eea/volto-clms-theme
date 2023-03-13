@@ -24,7 +24,7 @@ import {
   ClearIndicator,
   selectTheme,
   customSelectStyles,
-  MenuList,
+  // MenuList,
   SortableMultiValue,
   SortableMultiValueLabel,
   MultiValueContainer,
@@ -346,9 +346,9 @@ class ArrayWidget extends Component {
           styles={customSelectStyles}
           theme={selectTheme}
           components={{
-            ...(this.props.choices?.length > 25 && {
-              MenuList,
-            }),
+            // ...(this.props.choices?.length > 25 && {
+            //   MenuList,
+            // }),
             MultiValueContainer,
             MultiValue: SortableMultiValue,
             MultiValueLabel: SortableMultiValueLabel,
