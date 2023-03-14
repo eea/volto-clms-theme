@@ -455,11 +455,7 @@ const CLMSCartContent = (props) => {
                                 outline: 'inherit',
                               }}
                             >
-                              <Icon
-                                name={addDocumentSVG}
-                                size={25}
-                                title={'Add a duplicated row below'}
-                              />
+                              <Icon name={addDocumentSVG} size={25} />
                             </button>
                           </span>
                         ) : (
@@ -493,7 +489,6 @@ const CLMSCartContent = (props) => {
                                 name={removeSVG}
                                 size={25}
                                 color="#e40166"
-                                title={'Remove this row from the cart'}
                               />
                             </button>
                           </span>
