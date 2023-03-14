@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal, Segment } from 'semantic-ui-react';
+import { Modal, Segment, Grid } from 'semantic-ui-react';
 
 import { getUser } from '@plone/volto/actions';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
@@ -77,191 +77,209 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       {user?.roles && user.roles.includes('Manager') && (
         <>
           <h2>MapLayers importation options:</h2>
-          <Segment.Group compact horizontal>
-            <Segment
-              padded={'very'}
-              color={'olive'}
-              key={'wms-layers-import'}
-              loading={wms_layers_importation?.loading}
-              circular
-              style={{ width: '50%' }}
-            >
-              <Modal
-                onClose={() => {
-                  setOpen({ ...open, 'wms-layers-import': false });
-                }}
-                onOpen={() => {
-                  setOpen({ ...open, 'wms-layers-import': true });
-                }}
-                open={open['wms-layers-import']}
-                trigger={
-                  <CclButton>
-                    <FormattedMessage
-                      id="Import WMS Layers"
-                      defaultMessage="Import WMS Layers"
-                    />
-                  </CclButton>
-                }
-                className={'modal-clms'}
-              >
-                <div className={'modal-clms-background'}>
-                  <div className={'modal-clms-container'}>
-                    <div className={'modal-close modal-clms-close'}>
-                      <span
-                        className="ccl-icon-close"
-                        aria-label="Close"
-                        onClick={() => {
-                          setOpen({ ...open, 'wms-layers-import': false });
-                        }}
-                        onKeyDown={() => {
-                          setOpen({ ...open, 'wms-layers-import': false });
-                        }}
-                        tabIndex="0"
-                        role="button"
-                      ></span>
-                    </div>
-                    <div className="modal-login-text">
-                      <h1>
+          <Segment basic>
+            <Grid columns={2} compact horizontal>
+              <Grid.Column>
+                <Segment
+                  padded={'very'}
+                  color={'olive'}
+                  key={'wms-layers-import'}
+                  loading={wms_layers_importation?.loading}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Modal
+                    onClose={() => {
+                      setOpen({ ...open, 'wms-layers-import': false });
+                    }}
+                    onOpen={() => {
+                      setOpen({ ...open, 'wms-layers-import': true });
+                    }}
+                    open={open['wms-layers-import']}
+                    trigger={
+                      <CclButton>
                         <FormattedMessage
                           id="Import WMS Layers"
                           defaultMessage="Import WMS Layers"
                         />
-                      </h1>
-                      This action will import the WMS Layers from the view
-                      service defined in the dataset or from GeoNetwork if the
-                      view service is not defined and a linked geonetwork record
-                      has a valid WMS service link
-                      <br />
-                      <br />
+                      </CclButton>
+                    }
+                    className={'modal-clms'}
+                  >
+                    <div className={'modal-clms-background'}>
+                      <div className={'modal-clms-container'}>
+                        <div className={'modal-close modal-clms-close'}>
+                          <span
+                            className="ccl-icon-close"
+                            aria-label="Close"
+                            onClick={() => {
+                              setOpen({ ...open, 'wms-layers-import': false });
+                            }}
+                            onKeyDown={() => {
+                              setOpen({ ...open, 'wms-layers-import': false });
+                            }}
+                            tabIndex="0"
+                            role="button"
+                          ></span>
+                        </div>
+                        <div className="modal-login-text">
+                          <h1>
+                            <FormattedMessage
+                              id="Import WMS Layers"
+                              defaultMessage="Import WMS Layers"
+                            />
+                          </h1>
+                          This action will import the WMS Layers from the view
+                          service defined in the dataset or from GeoNetwork if
+                          the view service is not defined and a linked
+                          geonetwork record has a valid WMS service link
+                          <br />
+                          <br />
+                        </div>
+                        <CclButton
+                          onClick={() => {
+                            handleWMSImport();
+                            setOpen({ ...open, 'wms-layers-import': false });
+                          }}
+                          mode="filled"
+                        >
+                          <FormattedMessage
+                            id="Import data"
+                            defaultMessage="Import data"
+                          />
+                        </CclButton>
+                      </div>
                     </div>
-                    <CclButton
-                      onClick={() => {
-                        handleWMSImport();
-                        setOpen({ ...open, 'wms-layers-import': false });
-                      }}
-                      mode="filled"
-                    >
-                      <FormattedMessage
-                        id="Import data"
-                        defaultMessage="Import data"
-                      />
-                    </CclButton>
-                  </div>
-                </div>
-              </Modal>
-              {wms_layers_importation?.imported_wms_layers?.status && (
-                <p>
-                  {wms_layers_importation?.loaded &&
-                    wms_layers_importation?.error === null && (
+                  </Modal>
+                  {wms_layers_importation?.imported_wms_layers?.status && (
+                    <p>
+                      {wms_layers_importation?.loaded &&
+                        wms_layers_importation?.error === null && (
+                          <strong>
+                            {' '}
+                            {
+                              wms_layers_importation?.imported_wms_layers
+                                ?.message
+                            }
+                          </strong>
+                        )}
+                    </p>
+                  )}
+                  {wms_layers_importation?.imported_wms_layers?.status ===
+                    'error' && (
+                    <p>
                       <strong>
                         {' '}
                         {wms_layers_importation?.imported_wms_layers?.message}
                       </strong>
-                    )}
-                </p>
-              )}
-              {wms_layers_importation?.imported_wms_layers?.status ===
-                'error' && (
-                <p>
-                  <strong>
-                    {' '}
-                    {wms_layers_importation?.imported_wms_layers?.message}
-                  </strong>
-                </p>
-              )}
-            </Segment>
-            <Segment
-              padded={'very'}
-              color={'olive'}
-              key={'wms-fields-import'}
-              loading={wms_fields_importation?.loading}
-              circular
-              style={{ width: '50%' }}
-            >
-              <Modal
-                onClose={() => {
-                  setOpen({ ...open, 'wms-fields-import': false });
-                }}
-                onOpen={() => {
-                  setOpen({ ...open, 'wms-fields-import': true });
-                }}
-                open={open['wms-fields-import']}
-                trigger={
-                  <CclButton>
-                    <FormattedMessage
-                      id="Import WMS Fields"
-                      defaultMessage="Import WMS Fields"
-                    />
-                  </CclButton>
-                }
-                className={'modal-clms'}
-              >
-                <div className={'modal-clms-background'}>
-                  <div className={'modal-clms-container'}>
-                    <div className={'modal-close modal-clms-close'}>
-                      <span
-                        className="ccl-icon-close"
-                        aria-label="Close"
-                        onClick={() => {
-                          setOpen({ ...open, 'wms-fields-import': false });
-                        }}
-                        onKeyDown={() => {
-                          setOpen({ ...open, 'wms-fields-import': false });
-                        }}
-                        tabIndex="0"
-                        role="button"
-                      ></span>
-                    </div>
-                    <div className="modal-login-text">
-                      <h1>
+                    </p>
+                  )}
+                </Segment>
+              </Grid.Column>
+              <Grid.Column>
+                <Segment
+                  padded={'very'}
+                  color={'olive'}
+                  key={'wms-fields-import'}
+                  loading={wms_fields_importation?.loading}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Modal
+                    onClose={() => {
+                      setOpen({ ...open, 'wms-fields-import': false });
+                    }}
+                    onOpen={() => {
+                      setOpen({ ...open, 'wms-fields-import': true });
+                    }}
+                    open={open['wms-fields-import']}
+                    trigger={
+                      <CclButton>
                         <FormattedMessage
                           id="Import WMS Fields"
                           defaultMessage="Import WMS Fields"
                         />
-                      </h1>
-                      This action will import the WMS Fields from the view
-                      service defined in the dataset if this WMS service is
-                      Arcgis based
-                      <br />
-                      <br />
+                      </CclButton>
+                    }
+                    className={'modal-clms'}
+                  >
+                    <div className={'modal-clms-background'}>
+                      <div className={'modal-clms-container'}>
+                        <div className={'modal-close modal-clms-close'}>
+                          <span
+                            className="ccl-icon-close"
+                            aria-label="Close"
+                            onClick={() => {
+                              setOpen({ ...open, 'wms-fields-import': false });
+                            }}
+                            onKeyDown={() => {
+                              setOpen({ ...open, 'wms-fields-import': false });
+                            }}
+                            tabIndex="0"
+                            role="button"
+                          ></span>
+                        </div>
+                        <div className="modal-login-text">
+                          <h1>
+                            <FormattedMessage
+                              id="Import WMS Fields"
+                              defaultMessage="Import WMS Fields"
+                            />
+                          </h1>
+                          This action will import the WMS Fields from the view
+                          service defined in the dataset if this WMS service is
+                          Arcgis based
+                          <br />
+                          <br />
+                        </div>
+                        <CclButton
+                          onClick={() => {
+                            handleWMSFieldimport();
+                            setOpen({ ...open, 'wms-fields-import': false });
+                          }}
+                          mode="filled"
+                        >
+                          <FormattedMessage
+                            id="Import data"
+                            defaultMessage="Import data"
+                          />
+                        </CclButton>
+                      </div>
                     </div>
-                    <CclButton
-                      onClick={() => {
-                        handleWMSFieldimport();
-                        setOpen({ ...open, 'wms-fields-import': false });
-                      }}
-                      mode="filled"
-                    >
-                      <FormattedMessage
-                        id="Import data"
-                        defaultMessage="Import data"
-                      />
-                    </CclButton>
-                  </div>
-                </div>
-              </Modal>
-              {wms_fields_importation?.imported_wms_fields?.status && (
-                <p>
-                  {wms_fields_importation?.loaded &&
-                    wms_fields_importation?.error === null && (
+                  </Modal>
+                  {wms_fields_importation?.imported_wms_fields?.status && (
+                    <p>
+                      {wms_fields_importation?.loaded &&
+                        wms_fields_importation?.error === null && (
+                          <strong>
+                            {' '}
+                            {
+                              wms_fields_importation?.imported_wms_fields
+                                ?.message
+                            }
+                          </strong>
+                        )}
+                    </p>
+                  )}
+                  {wms_fields_importation?.imported_wms_fields?.status ===
+                    'error' && (
+                    <p>
                       <strong>
                         {' '}
                         {wms_fields_importation?.imported_wms_fields?.message}
                       </strong>
-                    )}
-                </p>
-              )}
-              {wms_fields_importation?.imported_wms_fields?.status ===
-                'error' && (
-                <p>
-                  <strong>
-                    {' '}
-                    {wms_fields_importation?.imported_wms_fields?.message}
-                  </strong>
-                </p>
-              )}
-            </Segment>
-          </Segment.Group>
+                    </p>
+                  )}
+                </Segment>
+              </Grid.Column>
+            </Grid>
+          </Segment>
         </>
       )}
 

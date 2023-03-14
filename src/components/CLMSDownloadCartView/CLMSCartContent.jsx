@@ -287,7 +287,7 @@ const CLMSCartContent = (props) => {
       getCollectionByItem(item).collection ?? '-'
     );
   };
-  const FormatNaming = ({ item }) => {
+  const FormatNaming = ({ item, formatConversionTable }) => {
     const format_options = getAvailableConversion(
       formatConversionTable,
       originalFormatNaming(item),
@@ -405,7 +405,12 @@ const CLMSCartContent = (props) => {
                         <CollectionNaming item={item} />
                       </td>
                       <td className="table-td-format">
-                        <FormatNaming item={item} />
+                        {formatConversionTable && item && (
+                          <FormatNaming
+                            item={item}
+                            formatConversionTable={formatConversionTable}
+                          />
+                        )}
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
@@ -455,11 +460,7 @@ const CLMSCartContent = (props) => {
                                 outline: 'inherit',
                               }}
                             >
-                              <Icon
-                                name={addDocumentSVG}
-                                size={25}
-                                title={'Add a duplicated row below'}
-                              />
+                              <Icon name={addDocumentSVG} size={25} />
                             </button>
                           </span>
                         ) : (
@@ -493,7 +494,6 @@ const CLMSCartContent = (props) => {
                                 name={removeSVG}
                                 size={25}
                                 color="#e40166"
-                                title={'Remove this row from the cart'}
                               />
                             </button>
                           </span>
