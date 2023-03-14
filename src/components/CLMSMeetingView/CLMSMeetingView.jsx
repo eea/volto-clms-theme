@@ -314,13 +314,19 @@ export const CLMSMeetingView = (props) => {
                 </strong>
                 <br />
                 <br />
-                <CclButton url={location.pathname + '/subscribers'}>
+                <CclButton
+                  url={location.pathname + '/subscribers'}
+                  style={{ marginLeft: '10px', marginRight: '10px' }}
+                >
                   <FormattedMessage
                     id="Participants"
                     defaultMessage="Participants"
                   />
                 </CclButton>
-                <CclButton url={location.pathname + '/emails'}>
+                <CclButton
+                  url={location.pathname + '/emails'}
+                  style={{ marginLeft: '10px', marginRight: '10px' }}
+                >
                   <FormattedMessage
                     id="Mail archive"
                     defaultMessage="Mail archive"
