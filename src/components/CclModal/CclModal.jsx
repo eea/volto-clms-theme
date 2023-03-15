@@ -8,8 +8,13 @@ function CclModal(props) {
     children,
     size = 'fullscreen',
     modalStatus = () => {},
+    onCloseExtra = () => {},
   } = props;
   const [open, setOpen] = React.useState(false);
+
+  // React.useEffect(() => {
+  //   setOpen(openState);
+  // }, [openState]);
 
   function openModal() {
     setOpen(true);
@@ -19,6 +24,7 @@ function CclModal(props) {
   function closeModal() {
     setOpen(false);
     modalStatus(false);
+    onCloseExtra();
   }
 
   return (
