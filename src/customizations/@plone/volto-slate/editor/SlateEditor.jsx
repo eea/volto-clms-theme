@@ -180,6 +180,7 @@ class SlateEditor extends Component {
       if (window.getSelection().type === 'None') {
         // TODO: why is this condition checked?
         if (this.state.editor.children.length === 0) {
+          // eslint-disable-next-line react/no-direct-mutation-state
           this.state.editor.children = [
             { children: [{ text: '' }], type: 'p' },
           ];
