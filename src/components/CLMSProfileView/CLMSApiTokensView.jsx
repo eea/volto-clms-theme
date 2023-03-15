@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Container } from 'semantic-ui-react';
+import { Container, Segment } from 'semantic-ui-react';
 
 import { getUser, updateUser } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
@@ -56,10 +56,6 @@ const messages = defineMessages({
     id: 'Create token description',
     defaultMessage:
       'Use this form to create a new token and name it in a way that you can recognize it.',
-  },
-  createName: {
-    id: 'Create token name',
-    defaultMessage: 'Name',
   },
   createToken: {
     id: 'Create token',
@@ -130,17 +126,6 @@ class CLMSApiTokensView extends Component {
     updateUser: PropTypes.func.isRequired,
     getBaseUrl: PropTypes.func.isRequired,
     input: PropTypes.string,
-    createdTokens: PropTypes.arrayOf(
-      PropTypes.shape({
-        '@id': PropTypes.string,
-        client_id: PropTypes.string,
-        ip_range: PropTypes.string,
-        issued: PropTypes.string,
-        key_id: PropTypes.string,
-        last_used: PropTypes.string,
-        title: PropTypes.string,
-      }),
-    ),
     newTokens: PropTypes.arrayOf(
       PropTypes.shape({
         '@id': PropTypes.string,
@@ -157,18 +142,18 @@ class CLMSApiTokensView extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
     this.handlePost = this.handlePost.bind(this);
     this.onClose = this.onClose.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.deleteToken = this.deleteToken.bind(this);
     this.state = {
       tokenTitle: '',
-      createNewToken: true,
+      canCreateNewToken: true,
       modal: false,
       createdToken: false,
       textToCopy: '',
-      key_id: '',
+      openState: false,
     };
   }
   /**
@@ -177,23 +162,34 @@ class CLMSApiTokensView extends Component {
    * @static
    */
   static defaultProps = {
-    createdTokens: [],
+    tokensDeleteState: {
+      items: [],
+      loaded: false,
+      loading: false,
+      error: false,
+    },
+    tokensGetState: { items: [], loaded: false, loading: false, error: false },
+    tokensCreateState: {
+      items: [],
+      loaded: false,
+      loading: false,
+      error: false,
+    },
     newTokens: [],
   };
 
   deleteToken(key_id) {
     this.props.deleteTokens(key_id);
-    this.componentDidMount();
+    // this.props.getTokens();
+    this.setState({ openState: false });
+    // this.componentDidMount();
   }
 
   onClose() {
     this.props.getTokens();
     this.setState({
-      createNewToken: false,
-      public_key: undefined,
-      private_key: undefined,
+      canCreateNewToken: false,
       tokenTitle: '',
-      modal: false,
       createdToken: true,
       textToCopy: '',
       key_id: '',
@@ -209,26 +205,12 @@ class CLMSApiTokensView extends Component {
     });
   }
 
-  handleClick() {
-    this.setState({
-      modal: false,
-      createNewToken: true,
-      public_key: undefined,
-      private_key: undefined,
-      createdToken: false,
-      value: '',
-    });
-    this.props.getTokens();
-  }
-
   handlePost(tokenTitle) {
+    this.props.createTokens(tokenTitle);
     this.setState({
       createdToken: true,
-      modal: false,
-      button: false,
       key_id: '',
     });
-    this.props.createTokens(tokenTitle);
     this.props.getTokens();
   }
 
@@ -237,15 +219,24 @@ class CLMSApiTokensView extends Component {
     this.props.getTokens();
     this.setState({
       tokenTitle: '',
-      createNewToken: true,
-      modal: false,
+      canCreateNewToken: true,
       createdToken: false,
       textToCopy: '',
       key_id: '',
-      public_key: undefined,
-      private_key: undefined,
       value: '',
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.tokensDeleteState.loading &&
+      nextProps.tokensDeleteState.loaded
+    ) {
+      this.props.getTokens();
+    }
+    // if (this.props !== nextProps) {
+    //   this.setState(nextProps);
+    // }
   }
 
   /**
@@ -277,48 +268,72 @@ class CLMSApiTokensView extends Component {
             <div>
               <h2>{this.props.intl.formatMessage(messages.title)}</h2>
               <p>{this.props.intl.formatMessage(messages.description)}</p>
-              {this.props.createdTokens?.map((item) => (
-                <>
-                  <div>
-                    <p>{item.title}</p>
-                    <p>{item.key_id}</p>
-                    <CclModal
-                      onClick={() => this.onClose}
-                      trigger={
-                        <CclButton
-                          mode={'filled'}
-                          to={`profile#${slugify(
-                            this.props.intl.formatMessage(messages.ApiTokens),
-                          )}`}
+              {(this.props.tokensGetState.items.length > 0 ||
+                this.props.tokensGetState.loading) && (
+                <Segment basic loading={this.props.tokensGetState.loading}>
+                  {this.props.tokensGetState.loaded &&
+                    this.props.tokensGetState.items.length > 0 &&
+                    this.props.tokensGetState.items?.map((item, key) => (
+                      <Segment key={key}>
+                        <p>
+                          <strong>Token title: </strong>
+                          {item.title}
+                        </p>
+                        <p>
+                          <strong>Token id: </strong>
+                          {item.key_id}
+                        </p>
+                        <CclModal
+                          id={key}
+                          trigger={
+                            <CclButton
+                              key={key}
+                              mode={'filled'}
+                              to={`profile#${slugify(
+                                this.props.intl.formatMessage(
+                                  messages.ApiTokens,
+                                ),
+                              )}`}
+                            >
+                              {this.props.intl.formatMessage(
+                                messages.deleteButton,
+                              )}
+                            </CclButton>
+                          }
+                          size="tiny"
                         >
-                          {this.props.intl.formatMessage(messages.deleteButton)}
-                        </CclButton>
-                      }
-                      size="small"
-                    >
-                      <h4>This token will be deleted forever</h4>
-                      <p>
-                        You will not be able to use this token again. Only
-                        delete your tokens when you are absolutely sure of it
-                      </p>
-                      <CclButton
-                        mode={'filled'}
-                        to={`profile#${slugify(
-                          this.props.intl.formatMessage(messages.ApiTokens),
-                        )}`}
-                        onClick={() => {
-                          this.deleteToken(item.key_id);
-                        }}
-                      >
-                        {'I confirm that I want to delete this token'}
-                      </CclButton>
-                    </CclModal>
-                  </div>
-                </>
-              ))}
+                          <Segment
+                            basic
+                            loading={this.props.tokensDeleteState.loading}
+                          >
+                            <h4>This token will be deleted forever</h4>
+                            <p>
+                              You will not be able to use this token again. Only
+                              delete your tokens when you are absolutely sure of
+                              it
+                            </p>
+                            <CclButton
+                              mode={'filled'}
+                              to={`profile#${slugify(
+                                this.props.intl.formatMessage(
+                                  messages.ApiTokens,
+                                ),
+                              )}`}
+                              onClick={() => {
+                                this.deleteToken(item.key_id);
+                              }}
+                            >
+                              {'I confirm that I want to delete this token'}
+                            </CclButton>
+                          </Segment>
+                        </CclModal>
+                      </Segment>
+                    ))}
+                </Segment>
+              )}
               <br />
               <br />
-              {this.state.createNewToken === false && (
+              {/* {this.state.canCreateNewToken === false && (
                 <CclButton
                   mode={'filled'}
                   onClick={() => {
@@ -330,10 +345,9 @@ class CLMSApiTokensView extends Component {
                 >
                   {this.props.intl.formatMessage(messages.createTitle)}
                 </CclButton>
-              )}
-              {this.state.createNewToken === true && (
+              )} */}
+              {this.state.canCreateNewToken === true && (
                 <CclModal
-                  onClick={() => this.onClose}
                   trigger={
                     <CclButton
                       mode={'filled'}
@@ -344,74 +358,85 @@ class CLMSApiTokensView extends Component {
                       {this.props.intl.formatMessage(messages.createTitle)}
                     </CclButton>
                   }
-                  size="fullscreen"
+                  onCloseExtra={() =>
+                    this.setState({
+                      canCreateNewToken: true,
+                      createdToken: false,
+                      value: '',
+                    })
+                  }
+                  size="large"
                 >
-                  <div>
-                    <h3>
-                      {this.props.intl.formatMessage(messages.createTitle)}
-                    </h3>
-                    <p>
-                      {this.props.intl.formatMessage(
-                        messages.createDescription,
-                      )}
-                    </p>
-                    <p> {this.props.intl.formatMessage(messages.createName)}</p>
-                    <form className="ccl-form user-form contact-form">
-                      <div className="ccl-fieldset">
-                        <div className="ccl-form-group">
-                          <label
-                            className="ccl-form-label"
-                            htmlFor="contact_form_subject"
-                          >
-                            {this.props.intl.formatMessage(
-                              messages.tokenTitleLabel,
-                            )}
-                          </label>
-                          <span className="label-required">*</span>
-                          <input
-                            value={this.state.value}
-                            onChange={this.handleChange}
-                            type="text"
-                            className="ccl-text-input"
-                            id="create_new_token"
-                            name="createToken"
-                            placeholder=""
-                            aria-label="Name of the new token"
-                          />
-                          <br />
-                          <input
-                            className="ccl-button ccl-button-green"
-                            type="button"
-                            disabled={
-                              this.state.createdToken === true ||
-                              this.state.tokenTitle === ''
-                                ? true
-                                : false
-                            }
-                            value={this.props.intl.formatMessage(
-                              messages.createToken,
-                            )}
-                            onClick={() => {
-                              this.handlePost(this.state.tokenTitle);
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </form>
-                    {this.state.tokenTitle !== '' && (
+                  <Segment basic loading={this.props.tokensCreateState.loading}>
+                    {this.state.createdToken === false && (
                       <>
-                        {(this.state.createdToken === true && (
-                          <div>
-                            <h3>
-                              {this.props.intl.formatMessage(
-                                messages.createdToken,
-                              )}
-                            </h3>
-                            <form className="ccl-form search-form">
-                              {this.props.newTokens?.map((item) => (
-                                <>
-                                  {(item?.private_key && (
+                        <h3>
+                          {this.props.intl.formatMessage(messages.createTitle)}
+                        </h3>
+                        <p>
+                          {this.props.intl.formatMessage(
+                            messages.createDescription,
+                          )}
+                        </p>
+                        <form className="ccl-form user-form contact-form">
+                          <div className="ccl-fieldset">
+                            <div className="ccl-form-group">
+                              <label
+                                className="ccl-form-label"
+                                htmlFor="contact_form_subject"
+                              >
+                                {this.props.intl.formatMessage(
+                                  messages.tokenTitleLabel,
+                                )}
+                              </label>
+                              <span className="label-required">*</span>
+                              <input
+                                value={this.state.value}
+                                onChange={this.handleChange}
+                                type="text"
+                                className="ccl-text-input"
+                                id="create_new_token"
+                                name="createToken"
+                                placeholder=""
+                                aria-label="Name of the new token"
+                              />
+                              <br />
+                              <CclButton
+                                className="ccl-button ccl-button-green"
+                                isButton={true}
+                                disabled={this.state.tokenTitle === ''}
+                                onClick={() => {
+                                  this.handlePost(this.state.tokenTitle);
+                                }}
+                              >
+                                {this.props.intl.formatMessage(
+                                  messages.createToken,
+                                )}
+                              </CclButton>
+                            </div>
+                          </div>
+                        </form>
+                      </>
+                    )}
+                    {this.state.createdToken &&
+                      !this.props.tokensCreateState.loading && (
+                        <div>
+                          <h3>
+                            {this.props.intl.formatMessage(
+                              messages.createdToken,
+                            )}
+                          </h3>
+
+                          {this.props.tokensCreateState.items.length > 0 &&
+                            this.props.tokensCreateState.items?.map(
+                              (item, key) => (
+                                <React.Fragment key={key}>
+                                  {item?.private_key ? (
                                     <>
+                                      <h4>
+                                        <strong>Token title: </strong>
+                                        {item.title}
+                                      </h4>
                                       <p>{'Download your service key.'}</p>
                                       <p>
                                         {
@@ -423,14 +448,12 @@ class CLMSApiTokensView extends Component {
                                           'You should copy & paste this key into a .json file, and store this file in a location accessible only to your service application. This key grants anyone in possession of it full access to this account. You should therefore make sure to protect it with the least file system permissions possible.'
                                         }
                                       </p>
-
-                                      <textarea
-                                        disabled="disabled"
-                                        id="created_token"
-                                        name="createdToken"
-                                        className="ccl-text-input"
-                                        value={JSON.stringify(item)}
-                                      />
+                                      <Segment
+                                        style={{ wordWrap: 'break-word' }}
+                                        secondary
+                                      >
+                                        {JSON.stringify(item)}
+                                      </Segment>
                                       <br />
                                       <CclButton
                                         mode={'filled'}
@@ -449,32 +472,30 @@ class CLMSApiTokensView extends Component {
                                           messages.copyButton,
                                         )}
                                       </CclButton>
-                                      <br />
+                                      &nbsp;
+                                      <CclButton
+                                        mode={'filled'}
+                                        onClick={this.onClose}
+                                        to={`profile#${slugify(
+                                          this.props.intl.formatMessage(
+                                            messages.ApiTokens,
+                                          ),
+                                        )}`}
+                                      >
+                                        {this.props.intl.formatMessage(
+                                          messages.goBackButton,
+                                        )}
+                                      </CclButton>
                                     </>
-                                  )) ||
-                                    ''}
-                                </>
-                              ))}
-                            </form>
-                            <CclButton
-                              mode={'filled'}
-                              onClick={this.onClose}
-                              to={`profile#${slugify(
-                                this.props.intl.formatMessage(
-                                  messages.ApiTokens,
-                                ),
-                              )}`}
-                            >
-                              {this.props.intl.formatMessage(
-                                messages.goBackButton,
-                              )}
-                            </CclButton>
-                          </div>
-                        )) ||
-                          ''}
-                      </>
-                    )}
-                  </div>
+                                  ) : (
+                                    ''
+                                  )}
+                                </React.Fragment>
+                              ),
+                            )}
+                        </div>
+                      )}
+                  </Segment>
                 </CclModal>
               )}
             </div>
@@ -495,8 +516,10 @@ export default compose(
         : '',
       returnUrl: qs.parse(props.location).return_url,
       pathname: props.pathname,
-      createdTokens: state.tokens.get.items,
       newTokens: state.tokens.create.items,
+      tokensDeleteState: state.tokens.delete,
+      tokensGetState: state.tokens.get,
+      tokensCreateState: state.tokens.create,
     }),
     { getUser, updateUser, getBaseUrl, getTokens, createTokens, deleteTokens },
   ),

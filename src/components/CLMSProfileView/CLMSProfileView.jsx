@@ -14,6 +14,7 @@ import {
   CLMSDeleteProfileView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
 import React, { Component } from 'react';
+import { injectIntl } from 'react-intl';
 
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import PropTypes from 'prop-types';
@@ -88,6 +89,7 @@ class CLMSProfileView extends Component {
   }
 }
 export default compose(
+  injectIntl,
   connect(
     (state) => ({
       roles: state.users.user.roles,
