@@ -8,21 +8,21 @@ import { v4 as uuid } from 'uuid';
 
 import config from '@plone/volto/registry';
 
-import { Element, Leaf } from './render';
+import { Element, Leaf } from '@plone/volto-slate/editor/render';
 
-import withTestingFeatures from './extensions/withTestingFeatures';
+import withTestingFeatures from '@plone/volto-slate/editor/extensions/withTestingFeatures';
 import {
   makeEditor,
   toggleInlineFormat,
   toggleMark,
   parseDefaultSelection,
 } from '@plone/volto-slate/utils';
-import { InlineToolbar } from './ui';
-import EditorContext from './EditorContext';
+import { InlineToolbar } from '@plone/volto-slate/editor/ui';
+import EditorContext from '@plone/volto-slate/editor/EditorContext';
 
 import isHotkey from 'is-hotkey';
 
-import './less/editor.less';
+import '@plone/volto-slate/editor/less/editor.less';
 
 import Toolbar from './ui/Toolbar';
 
@@ -177,9 +177,13 @@ class SlateEditor extends Component {
 
     if (!prevProps.selected && this.props.selected) {
       // if the SlateEditor becomes selected from unselected
-
       if (window.getSelection().type === 'None') {
         // TODO: why is this condition checked?
+        if (this.state.editor.children.length === 0) {
+          this.state.editor.children = [
+            { children: [{ text: '' }], type: 'p' },
+          ];
+        }
         Transforms.select(
           this.state.editor,
           Editor.range(this.state.editor, Editor.start(this.state.editor, [])),
