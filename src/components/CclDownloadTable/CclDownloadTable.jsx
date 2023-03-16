@@ -49,7 +49,7 @@ function CclDownloadTable(props) {
   const default_schema = data.schema;
   const saved_schema = dataset.downloadable_files.schema;
   const schema = saved_schema ?? default_schema;
-  const hidden_columns = ['@id', 'path'];
+  const hidden_columns = ['@id', 'path', 'source'];
   // complete the selected file with dataset UID, title and a concat of dataset.UID and block id to get unique id for the whole web
   const prePackagedCollection = dataset?.downloadable_files?.items.map(
     (element) => {
