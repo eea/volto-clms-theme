@@ -46,6 +46,7 @@ const DownloadableFilesTableWidget = (props) => {
           setUISchema(JSON.parse(newUiSchema));
         }}
         mods={{
+          // eslint-disable-next-line no-undef
           customFormInputs,
           deactivatedFormInputs: ['array', 'radio', 'password', 'longAnswer'],
         }}
