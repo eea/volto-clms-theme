@@ -14,14 +14,28 @@ const DownloadableFilesTableWidget = (props) => {
   const { schema, uiSchema, ready } = data;
   const { setSchema, setUISchema, setSchemaHandler } = functions;
   const [edited, setEdited] = React.useState(false);
+
   return (
     <>
       <div className="ui container">
         <label className="downloadable-files-editor-title">{props.title}</label>
       </div>
+      {edited && (
+        <Segment
+          color="red"
+          inverted
+          className="schema-modification-alert-message"
+        >
+          <strong>
+            You have modified the schema, if you don't apply the changes, they
+            will be lost!
+          </strong>
+        </Segment>
+      )}
       <FormBuilder
         schema={JSON.stringify(schema)}
         uischema={JSON.stringify(uiSchema)}
+        className={edited ? 'edited-schema' : ''}
         onChange={(newSchema, newUiSchema) => {
           setEdited(true);
           let parsed_newSchema = JSON.parse(newSchema);
@@ -31,20 +45,25 @@ const DownloadableFilesTableWidget = (props) => {
           setSchema(parsed_newSchema);
           setUISchema(JSON.parse(newUiSchema));
         }}
+        mods={{
+          // eslint-disable-next-line no-undef
+          customFormInputs,
+          deactivatedFormInputs: ['array', 'radio', 'password', 'longAnswer'],
+        }}
       />
+      {edited && (
+        <Segment
+          color="red"
+          inverted
+          className="schema-modification-alert-message"
+        >
+          <strong>
+            You have modified the schema, if you don't apply the changes, they
+            will be lost!
+          </strong>
+        </Segment>
+      )}
       <div className="ui container">
-        {edited && (
-          <Segment
-            color="red"
-            inverted
-            className="schema-modification-alert-message"
-          >
-            <strong>
-              You have modified the schema, if you don't apply the changes, they
-              will be lost!
-            </strong>
-          </Segment>
-        )}
         <CclButton
           onClick={() => {
             setEdited(false);

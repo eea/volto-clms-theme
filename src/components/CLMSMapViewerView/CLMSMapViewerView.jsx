@@ -1,18 +1,23 @@
+import React, { useEffect } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
+import { useDispatch } from 'react-redux';
+
+import { Forbidden, Unauthorized } from '@plone/volto/components';
+import { Helmet, getBaseUrl } from '@plone/volto/helpers';
+import { MapViewer } from '@eeacms/volto-arcgis-block/components';
+import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+
+import { getExtraBreadcrumbItems } from '../../actions';
+
 /**
  * CLMSMapViewView container.
  * @module components/CLMSMapViewView/CLMSMapViewView
  */
 
-import { Helmet, getBaseUrl } from '@plone/volto/helpers';
-import React, { useEffect } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
-
-import { MapViewer } from '@eeacms/volto-arcgis-block/components';
-import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
-import { getExtraBreadcrumbItems } from '../../actions';
-import { useDispatch } from 'react-redux';
 const CLMSMapViewerView = (props) => {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useCartState();
 
   const { formatMessage } = useIntl();
   const messages = defineMessages({
@@ -85,13 +90,32 @@ const CLMSMapViewerView = (props) => {
 
   return (
     <div>
-      <Helmet title={formatMessage(messages.DownloadByArea)} />
-      <MapViewer
-        cfg={config_by_area}
-        url={getBaseUrl(props.location.pathname)}
-        customClass={'land'}
-        id={props.location.pathname}
-      ></MapViewer>
+      {!isLoggedIn && (
+        <>
+          {props.token ? (
+            <Forbidden
+              pathname={props.pathname}
+              staticContext={props.staticContext}
+            />
+          ) : (
+            <Unauthorized
+              pathname={props.pathname}
+              staticContext={props.staticContext}
+            />
+          )}
+        </>
+      )}
+      {isLoggedIn && (
+        <>
+          <Helmet title={formatMessage(messages.DownloadByArea)} />
+          <MapViewer
+            cfg={config_by_area}
+            url={getBaseUrl(props.location.pathname)}
+            customClass={'land'}
+            id={props.location.pathname}
+          ></MapViewer>
+        </>
+      )}
     </div>
   );
 };

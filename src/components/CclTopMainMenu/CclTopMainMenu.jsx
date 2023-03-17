@@ -26,10 +26,7 @@ const CclTopMainMenu = () => {
             ?.map((item, index) =>
               item.mode === 'simpleLink' ? (
                 <li key={index}>
-                  <Link
-                    to={flattenToAppURL(item.linkUrl?.[0]?.['@id'])}
-                    replace
-                  >
+                  <Link to={flattenToAppURL(item.linkUrl?.[0]?.['@id'])}>
                     {item.title}
                   </Link>
                 </li>
@@ -43,7 +40,7 @@ const CclTopMainMenu = () => {
                     <ul>
                       {item.navigationRoot?.map((element, navIndex) => (
                         <li key={navIndex}>
-                          <Link to={flattenToAppURL(element?.['@id'])} replace>
+                          <Link to={flattenToAppURL(element?.['@id'])}>
                             {element.title}
                           </Link>
                         </li>
