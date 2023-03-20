@@ -53,17 +53,6 @@
 
 1. Happy editing!
 
-## Things to keep in mind before migrating to Volto 16
-1. Remove the volto-slate override. This override is a patch to clean up duplicate SlateContextToolbar buttons. This is not necessary in Volto 16.
-
-   ````bash
-   rm -rf src/customizations/volto-slate
-   ````
-2. Remove ArrayWidget override. https://github.com/eea/volto-clms-theme/commit/7cf72aba7b1d69cf1b310a89410aa3a3753f01f3
-
-   ````bash
-   rm -rf src/customizations/volto/components/manage/Widgets/ArrayWidget.jsx
-   ````
 ## Release
 
 ### Automatic release using Jenkins
