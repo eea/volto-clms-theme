@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { Segment } from 'semantic-ui-react';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';

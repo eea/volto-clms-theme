@@ -3,7 +3,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { compose } from 'redux';
-import { Container } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
 
 import { getUser, updateUser } from '@plone/volto/actions';
 import { UniversalLink } from '@plone/volto/components';
@@ -147,6 +147,16 @@ class CLMSUserProfileView extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    let userschema = {};
+    if (this.props.userschema?.loaded) {
+      userschema = JSON.parse(
+        JSON.stringify(this.props?.userschema?.userschema),
+      );
+      userschema.fieldsets[0]['fields'] = userschema.fieldsets[0][
+        'fields'
+      ].filter((item) => !item.includes('email') && !item.includes('fullname'));
+    }
+
     const loggedIn = !!this.props.userId;
     return (
       <>
@@ -158,21 +168,30 @@ class CLMSUserProfileView extends Component {
               </h1>
               <p>
                 Use this form to update your profile details. Be aware that if
-                you change your fullname and e-mail address they will be
-                rewriten when you log in again next time. This is because we are
-                using EU Login to enter this site. <br />
-                If you want to change your fullname and e-mail address, please
+                you want to change your fullname and e-mail address, you have to
                 do so in your{' '}
                 <UniversalLink href={'https://ecas.ec.europa.eu/cas/'}>
                   EU Login account
                 </UniversalLink>
                 .
               </p>
+
+              <Segment>
+                <ul>
+                  <li>
+                    <strong>Fullname:</strong> {this.props.user.fullname}
+                  </li>
+                  <li>
+                    <strong>E-mail:</strong> {this.props.user.email}
+                  </li>
+                </ul>
+              </Segment>
+
               <div>
                 {this.props?.userschema?.loaded && (
                   <Form
                     formData={this.props.user}
-                    schema={this.props.userschema.userschema}
+                    schema={userschema}
                     onSubmit={this.onSubmit.bind(this)}
                     onCancel={this.onCancel}
                     loading={this.props.userschema.loading}
