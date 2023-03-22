@@ -15,6 +15,13 @@ const DownloadableFilesTableWidget = (props) => {
   const { setSchema, setUISchema, setSchemaHandler } = functions;
   const [edited, setEdited] = React.useState(false);
 
+  const fixSchema = (schema) => {
+    schema.properties = Object.fromEntries(
+      Object.entries(schema.properties).filter(([k, v]) => v != null && k),
+    );
+    schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter((f) => f);
+  };
+
   return (
     <>
       <div className="ui container">
@@ -64,6 +71,7 @@ const DownloadableFilesTableWidget = (props) => {
       <div className="ui container">
         <CclButton
           onClick={() => {
+            fixSchema(schema);
             setEdited(false);
             setSchemaHandler(
               schema,
