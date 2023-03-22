@@ -89,6 +89,17 @@ const DownloadDataSetContent = (data, token) => {
       {data.downloadable_files?.items?.length > 0 && (
         <CclDownloadTable dataset={data}></CclDownloadTable>
       )}
+
+      {data?.download_other_ways_access_dataset?.data &&
+        data?.download_other_ways_access_dataset?.data !== '<p><br/><p>' &&
+        data?.download_other_ways_access_dataset?.data !== '<p></p>' && (
+          <>
+            <h2>You can also access this dataset</h2>
+            <StringToHTML
+              string={data?.download_other_ways_access_dataset?.data || ''}
+            />
+          </>
+        )}
     </div>
   );
 };
