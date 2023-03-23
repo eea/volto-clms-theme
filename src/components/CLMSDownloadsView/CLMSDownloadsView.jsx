@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import { Segment } from 'semantic-ui-react';
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Helmet } from '@plone/volto/helpers';
+import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import { Segment } from 'semantic-ui-react';
 
 import {
   getDatasetsByUid,
@@ -38,6 +39,7 @@ const CLMSDownloadsView = (props) => {
   const dispatch = useDispatch();
   const downloadtool = useSelector((state) => state.downloadtool);
   const datasetsByUid = useSelector((state) => state.datasetsByUid);
+  const content = useSelector((state) => state.content.data);
   /* DISPATCH THE getDownloadtool ACTION EVERY 60 SECONDS */
   const start = useInterval((_) => dispatch(getDownloadtool()), 60000);
   const { isLoggedIn } = useCartState();
@@ -136,7 +138,9 @@ const CLMSDownloadsView = (props) => {
 
   return (
     <>
-      <Helmet title={formatMessage(messages.CartDownloads)} />
+      <Helmet
+        title={helmetTitle(formatMessage(messages.CartDownloads), content)}
+      />
       <div className="ui container">
         {!isLoggedIn && (
           <>

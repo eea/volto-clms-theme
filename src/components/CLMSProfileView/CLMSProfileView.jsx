@@ -1,35 +1,34 @@
-/**
- * CLMSProfileView container.
- * @module components/CLMSProfileView/CLMSProfileView
- */
+import React, { Component } from 'react';
+import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import {
-  AVAILABLE_SUBSCRIPTIONS,
-  SubscriptionView,
-} from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
+import { Unauthorized } from '@plone/volto/components';
+import { Helmet } from '@plone/volto/helpers';
+import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
+import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import {
   CLMSApiTokensView,
   CLMSNewsletterSubscriberView,
   CLMSUserProfileView,
   CLMSDeleteProfileView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
-import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import {
+  AVAILABLE_SUBSCRIPTIONS,
+  SubscriptionView,
+} from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 
-import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { getExtraBreadcrumbItems } from '../../actions';
+
 import jwtDecode from 'jwt-decode';
-import { Unauthorized } from '@plone/volto/components';
-import { Helmet } from '@plone/volto/helpers';
+import PropTypes from 'prop-types';
 
 /**
  * CLMSProfileView class.
  * @class CLMSProfileView
  * @extends Component
  */
+
 class CLMSProfileView extends Component {
   /**
    * Property types.
@@ -57,7 +56,9 @@ class CLMSProfileView extends Component {
 
     return (
       <div className="ccl-container ">
-        <Helmet title="User profile"></Helmet>
+        <Helmet
+          title={helmetTitle('User profile', this.props.content)}
+        ></Helmet>
         {loggedIn ? (
           <CclTabs routing={true}>
             <div tabTitle="User profile">
@@ -96,6 +97,7 @@ export default compose(
       userId: state.userSession.token
         ? jwtDecode(state.userSession.token).sub
         : '',
+      content: state.content.data,
     }),
     { getExtraBreadcrumbItems },
   ),
