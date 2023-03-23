@@ -1,6 +1,7 @@
 import React from 'react';
 import { toPublicURL, Helmet } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
+import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const ContentMetadataTags = (props) => {
   const {
@@ -45,12 +46,7 @@ const ContentMetadataTags = (props) => {
 
   const contentImageInfo = getContentImageInfo();
 
-  let title_tag_content = seo_title || title;
-  let nav_root_title = props.content['@components']['navroot']['title'];
-  title_tag_content =
-    (nav_root_title === title_tag_content && title_tag_content) ||
-    title_tag_content + ' — ' + nav_root_title;
-  title_tag_content = title_tag_content.replace(/\u00AD/g, '');
+  let title_tag_content = helmetTitle(seo_title || title, props.content);
 
   return (
     <>
