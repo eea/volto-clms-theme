@@ -62,7 +62,8 @@ const CLMSCartContent = (props) => {
   }, [post_download_in_progress]);
 
   useEffect(() => {
-    const array_ids = cart?.map((item) => item.unique_id);
+    const array_ids =
+      cart.length > 0 ? cart?.map((item) => item.unique_id) : [];
     const newCart = cartItems.filter((item) =>
       array_ids.includes(item.unique_id),
     );
@@ -84,7 +85,7 @@ const CLMSCartContent = (props) => {
   }, [cart, datasets_items]);
 
   const selectAllCart = (checked) => {
-    if (checked) {
+    if (checked && cartItems.length > 0) {
       setCartSelection(
         cartItems
           .filter((item) => item.task_in_progress === false)
@@ -108,12 +109,16 @@ const CLMSCartContent = (props) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setCartItemInProgress = (in_progress_unique_ids) => {
-    let started_processing_items = cartItems.filter((r) =>
-      in_progress_unique_ids.includes(r['unique_id']),
-    );
-    var items_to_remove = started_processing_items.map(
-      (item) => item.unique_id,
-    );
+    let started_processing_items =
+      cartItems.length > 0
+        ? cartItems.filter((r) =>
+            in_progress_unique_ids.includes(r['unique_id']),
+          )
+        : [];
+    var items_to_remove =
+      started_processing_items.length > 0
+        ? started_processing_items.map((item) => item.unique_id)
+        : [];
     removeCartItems(items_to_remove);
     dispatch(getDownloadtool());
   };
@@ -124,7 +129,10 @@ const CLMSCartContent = (props) => {
 
     let selectedItems = getSelectedCartItems();
     const body = getDownloadToolPostBody(selectedItems);
-    const unique_ids = selectedItems.map((item) => item.unique_id);
+    const unique_ids =
+      selectedItems.length > 0
+        ? selectedItems.map((item) => item.unique_id)
+        : [];
     dispatch(postDownloadtool(body, unique_ids))
       .then((response) => {
         setLoadingTable(false);
@@ -162,7 +170,7 @@ const CLMSCartContent = (props) => {
   };
 
   function isChecked(cartSelectionCh, cartItemsCh) {
-    return cartItemsCh
+    return cartItemsCh.length > 0
       ? cartItemsCh
           .filter((item) => item.task_in_progress === false)
           .map((item, key) => item.unique_id)
@@ -207,13 +215,17 @@ const CLMSCartContent = (props) => {
         <Select
           placeholder="Select type"
           value={defaultType.name}
-          options={types_options.map((option) => {
-            return {
-              key: option,
-              value: option,
-              text: option,
-            };
-          })}
+          options={
+            types_options.length > 0
+              ? types_options.map((option) => {
+                  return {
+                    key: option,
+                    value: option,
+                    text: option,
+                  };
+                })
+              : []
+          }
           onChange={(e, data) => {
             const new_cartItems = [...cartItems];
             const objIndex = new_cartItems.findIndex(
@@ -351,7 +363,7 @@ const CLMSCartContent = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {cartItems &&
+                {cartItems.length > 0 &&
                   cartItems.map((item, key) => (
                     <tr
                       key={key}
@@ -417,13 +429,16 @@ const CLMSCartContent = (props) => {
                           <Select
                             placeholder="Select projection"
                             value={item.projection}
-                            options={projections?.map((projection) => {
-                              return {
-                                key: projection,
-                                value: projection,
-                                text: projection,
-                              };
-                            })}
+                            options={
+                              projections.length > 0 &&
+                              projections?.map((projection) => {
+                                return {
+                                  key: projection,
+                                  value: projection,
+                                  text: projection,
+                                };
+                              })
+                            }
                             onChange={(e, data) => {
                               setProjectionValue(item.unique_id, data.value);
                             }}
