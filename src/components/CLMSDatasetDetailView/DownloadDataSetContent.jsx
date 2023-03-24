@@ -22,7 +22,7 @@ const DownloadDataSetContent = (data, token) => {
         ''
       )} */}
 
-      {data?.mapviewer_viewservice?.length > 0 && (
+      {data?.downloadable_full_dataset && (
         <div className="dataset-download-area">
           {data.mapviewer_istimeseries ? (
             <>
