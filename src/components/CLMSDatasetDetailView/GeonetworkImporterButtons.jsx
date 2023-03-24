@@ -49,130 +49,133 @@ export const GeonetworkImporterButtons = (props) => {
         </div>
       )}
       {pagination?.length > 0 && (
-        <Grid columns={3} compact horizontal>
-          {pagination.map((item) => {
-            return (
-              <Grid.Column key={item.id}>
-                <Segment
-                  padded={'very'}
-                  color={'olive'}
-                  loading={geonetwork_importation.loading}
-                >
-                  <strong>
-                    {item.title} (from {item.type}):{' '}
-                  </strong>
-                  <br />
-                  <br />
-                  <Modal
-                    onClose={() => {
-                      setOpen({ ...open, [item.id]: false });
-                    }}
-                    onOpen={() => {
-                      setOpen({ ...open, [item.id]: true });
-                    }}
-                    open={open[item.id]}
-                    trigger={
-                      <CclButton>
-                        <FormattedMessage
-                          id="Import data"
-                          defaultMessage="Import data"
-                        />
-                      </CclButton>
-                    }
-                    className={'modal-clms'}
+        <Grid columns={3}>
+          <Grid.Row stretched>
+            {pagination.map((item) => {
+              return (
+                <Grid.Column key={item.id}>
+                  <Segment
+                    padded={'very'}
+                    color={'olive'}
+                    loading={geonetwork_importation.loading}
                   >
-                    <div className={'modal-clms-background'}>
-                      <div className={'modal-clms-container'}>
-                        <div className={'modal-close modal-clms-close'}>
-                          <span
-                            className="ccl-icon-close"
-                            aria-label="Close"
-                            onClick={() => {
-                              setOpen({ ...open, [item.id]: false });
-                            }}
-                            onKeyDown={() => {
-                              setOpen({ ...open, [item.id]: false });
-                            }}
-                            tabIndex="0"
-                            role="button"
-                          ></span>
-                        </div>
-                        <div className="modal-login-text">
-                          <h1>
-                            <FormattedMessage
-                              id="Import from GeoNetwork"
-                              defaultMessage="Import from GeoNetwork"
-                            />
-                          </h1>
-                          This action will import the data from{' '}
-                          <strong>{item.title}</strong> (from {item.type}) into
-                          this dataset.
-                          <br />
-                          <br />
-                          <a
-                            target="_blank"
-                            rel="noreferrer"
-                            href={
-                              item.type === 'EEA'
-                                ? 'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
-                                  item.id
-                                : 'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
-                                  item.id
-                            }
-                          >
-                            {item.type === 'EEA' && (
-                              <FormattedMessage
-                                id="EEA Geonetwork element"
-                                defaultMessage="EEA Geonetwork element"
-                              />
-                            )}
-                            {item.type === 'VITO' && (
-                              <FormattedMessage
-                                id="VITO Geonetwork element"
-                                defaultMessage="VITO Geonetwork element"
-                              />
-                            )}
-                          </a>
-                        </div>
-                        <CclButton
-                          onClick={() => {
-                            handleImport(item.id, item.type);
-                            setOpen({ ...open, [item.id]: false });
-                          }}
-                          mode="filled"
-                        >
+                    <strong>
+                      {item.title} (from {item.type}):{' '}
+                    </strong>
+                    <br />
+                    <br />
+                    <Modal
+                      onClose={() => {
+                        setOpen({ ...open, [item.id]: false });
+                      }}
+                      onOpen={() => {
+                        setOpen({ ...open, [item.id]: true });
+                      }}
+                      open={open[item.id]}
+                      trigger={
+                        <CclButton>
                           <FormattedMessage
                             id="Import data"
                             defaultMessage="Import data"
                           />
                         </CclButton>
+                      }
+                      className={'modal-clms'}
+                    >
+                      <div className={'modal-clms-background'}>
+                        <div className={'modal-clms-container'}>
+                          <div className={'modal-close modal-clms-close'}>
+                            <span
+                              className="ccl-icon-close"
+                              aria-label="Close"
+                              onClick={() => {
+                                setOpen({ ...open, [item.id]: false });
+                              }}
+                              onKeyDown={() => {
+                                setOpen({ ...open, [item.id]: false });
+                              }}
+                              tabIndex="0"
+                              role="button"
+                            ></span>
+                          </div>
+                          <div className="modal-login-text">
+                            <h1>
+                              <FormattedMessage
+                                id="Import from GeoNetwork"
+                                defaultMessage="Import from GeoNetwork"
+                              />
+                            </h1>
+                            This action will import the data from{' '}
+                            <strong>{item.title}</strong> (from {item.type})
+                            into this dataset.
+                            <br />
+                            <br />
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={
+                                item.type === 'EEA'
+                                  ? 'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
+                                    item.id
+                                  : 'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
+                                    item.id
+                              }
+                            >
+                              {item.type === 'EEA' && (
+                                <FormattedMessage
+                                  id="EEA Geonetwork element"
+                                  defaultMessage="EEA Geonetwork element"
+                                />
+                              )}
+                              {item.type === 'VITO' && (
+                                <FormattedMessage
+                                  id="VITO Geonetwork element"
+                                  defaultMessage="VITO Geonetwork element"
+                                />
+                              )}
+                            </a>
+                          </div>
+                          <CclButton
+                            onClick={() => {
+                              handleImport(item.id, item.type);
+                              setOpen({ ...open, [item.id]: false });
+                            }}
+                            mode="filled"
+                          >
+                            <FormattedMessage
+                              id="Import data"
+                              defaultMessage="Import data"
+                            />
+                          </CclButton>
+                        </div>
                       </div>
-                    </div>
-                  </Modal>
-                  {geonetwork_importation.imported_data
-                    ?.requested_geonetwork_id === item.id && (
-                    <p>
-                      {geonetwork_importation.loaded &&
-                        geonetwork_importation.error === null && (
-                          <strong>
-                            {' '}
-                            The data has been successfully imported
-                          </strong>
-                        )}
-                    </p>
-                  )}
-                  {geonetwork_importation.imported_data?.status === 'error' && (
-                    <p>
-                      <strong>
-                        {' '}
-                        {geonetwork_importation.imported_data?.message}
-                      </strong>
-                    </p>
-                  )}
-                </Segment>
-              </Grid.Column>
-            );
-          })}
+                    </Modal>
+                    {geonetwork_importation.imported_data
+                      ?.requested_geonetwork_id === item.id && (
+                      <p>
+                        {geonetwork_importation.loaded &&
+                          geonetwork_importation.error === null && (
+                            <strong>
+                              {' '}
+                              The data has been successfully imported
+                            </strong>
+                          )}
+                      </p>
+                    )}
+                    {geonetwork_importation.imported_data?.status ===
+                      'error' && (
+                      <p>
+                        <strong>
+                          {' '}
+                          {geonetwork_importation.imported_data?.message}
+                        </strong>
+                      </p>
+                    )}
+                  </Segment>
+                </Grid.Column>
+              );
+            })}
+          </Grid.Row>
         </Grid>
       )}
       {dataList?.length / paginationSize > 1 && (
