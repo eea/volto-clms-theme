@@ -22,6 +22,8 @@ import {
   CclListingCards,
   CclListingWorkOpportunities,
   VariationHOC,
+  NoResultsComponent,
+  noResultsSchema,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock';
 import {
   DefaultEdit,
@@ -245,6 +247,8 @@ const customBlocks = (config) => ({
   listing: {
     ...config.blocks.blocksConfig.listing,
     showLinkMore: true,
+    schemaEnhancer: noResultsSchema,
+    noResultsComponent: NoResultsComponent,
     variations: availableVariations,
   },
   accordion: {

@@ -22,13 +22,25 @@ const DownloadDataSetContent = (data, token) => {
         ''
       )} */}
 
-      {data?.mapviewer_viewservice?.length > 0 && (
+      {data?.downloadable_full_dataset && (
         <div className="dataset-download-area">
-          <h2>Download by area</h2>
-          <p>
-            Use this option if you would like to download the dataset for
-            area(s) of interest.
-          </p>
+          {data.mapviewer_istimeseries ? (
+            <>
+              <h2>Download by area and time</h2>
+              <p>
+                Use this option if you would like to download the dataset for
+                area(s) of interest and time.
+              </p>
+            </>
+          ) : (
+            <>
+              <h2>Download by area</h2>
+              <p>
+                Use this option if you would like to download the dataset for
+                area(s) of interest.
+              </p>
+            </>
+          )}
           {user?.['@id'] ? (
             data.mapviewer_istimeseries === true ? (
               <CclButton url={location.pathname + '/download-by-area'}>
@@ -67,7 +79,6 @@ const DownloadDataSetContent = (data, token) => {
                 />
               </>
             )}
-
           {/* {data.token === '' ? (
             <CclButton
               url={location.pathname + '/download-by-area'}
@@ -89,6 +100,17 @@ const DownloadDataSetContent = (data, token) => {
       {data.downloadable_files?.items?.length > 0 && (
         <CclDownloadTable dataset={data}></CclDownloadTable>
       )}
+
+      {data?.download_other_ways_access_dataset?.data &&
+        data?.download_other_ways_access_dataset?.data !== '<p><br/><p>' &&
+        data?.download_other_ways_access_dataset?.data !== '<p></p>' && (
+          <>
+            <h2>You can also access this dataset</h2>
+            <StringToHTML
+              string={data?.download_other_ways_access_dataset?.data || ''}
+            />
+          </>
+        )}
     </div>
   );
 };

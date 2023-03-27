@@ -10,3 +10,4 @@ export {
   cclDateTimeFormat,
   cclTimeFormat,
 } from './dateFormats';
+export { helmetTitle } from './helmetTitle';

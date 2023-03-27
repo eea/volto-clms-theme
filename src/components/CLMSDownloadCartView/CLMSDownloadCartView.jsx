@@ -1,29 +1,32 @@
-/**
- * CLMSDownloadCartView container.
- * @module components/CLMSDownloadCartView/CLMSDownloadCartView
- */
+import React, { useEffect } from 'react';
+import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
-import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
-import React, { useEffect } from 'react';
+import { Helmet } from '@plone/volto/helpers';
+import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
+import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
   getNutsNames,
 } from '../../actions';
-import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import { useDispatch, useSelector } from 'react-redux';
-
-import CLMSCartContent from './CLMSCartContent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Helmet } from '@plone/volto/helpers';
-import { Link } from 'react-router-dom';
 import { getFormatConversionTable, getProjections } from '../../actions';
+import CLMSCartContent from './CLMSCartContent';
+
+/**
+ * CLMSDownloadCartView container.
+ * @module components/CLMSDownloadCartView/CLMSDownloadCartView
+ */
 
 const CLMSDownloadCartView = (props) => {
   const dispatch = useDispatch();
   const locale = useSelector((state) => state.intl?.locale);
   const cart = useSelector((state) => state.cart_items.items);
+  const content = useSelector((state) => state.content.data);
   const { isLoggedIn } = useCartState();
   const { formatMessage } = useIntl();
   const messages = defineMessages({
@@ -84,7 +87,7 @@ const CLMSDownloadCartView = (props) => {
 
   return (
     <>
-      <Helmet title={formatMessage(messages.Cart)} />
+      <Helmet title={helmetTitle(formatMessage(messages.Cart), content)} />
       <div className="ui container">
         {!isLoggedIn && (
           <>

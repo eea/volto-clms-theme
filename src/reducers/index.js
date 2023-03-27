@@ -18,6 +18,7 @@ import { userschemaReducer } from './userschema/userschema';
 import { importWMSLayersReducer } from './import_wms_layers/import_wms_layers_reducer';
 import { importWMSFieldsReducer } from './import_wms_fields/import_wms_fields_reducer';
 import { deleteProfileReducer } from './profile/delete_profile_reducer';
+import navroot from './navroot/navroot';
 
 /**
  * Root reducer.
@@ -45,6 +46,7 @@ const reducers = {
   importWMSLayers: importWMSLayersReducer,
   importWMSFields: importWMSFieldsReducer,
   profile_delete: deleteProfileReducer,
+  navroot,
 };
 
 export default reducers;

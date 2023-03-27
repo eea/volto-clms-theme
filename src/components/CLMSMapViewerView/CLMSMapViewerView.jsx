@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Helmet, getBaseUrl } from '@plone/volto/helpers';
 import { MapViewer } from '@eeacms/volto-arcgis-block/components';
 import config from '@eeacms/volto-arcgis-block/components/MapViewer/config';
+import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
 import { getExtraBreadcrumbItems } from '../../actions';
@@ -18,6 +19,7 @@ import { getExtraBreadcrumbItems } from '../../actions';
 const CLMSMapViewerView = (props) => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useCartState();
+  const content = useSelector((state) => state.content.data);
 
   const { formatMessage } = useIntl();
   const messages = defineMessages({
@@ -107,7 +109,9 @@ const CLMSMapViewerView = (props) => {
       )}
       {isLoggedIn && (
         <>
-          <Helmet title={formatMessage(messages.DownloadByArea)} />
+          <Helmet
+            title={helmetTitle(formatMessage(messages.DownloadByArea), content)}
+          />
           <MapViewer
             cfg={config_by_area}
             url={getBaseUrl(props.location.pathname)}
