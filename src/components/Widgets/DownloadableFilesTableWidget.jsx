@@ -22,6 +22,23 @@ const DownloadableFilesTableWidget = (props) => {
     schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter((f) => f);
   };
 
+  const deleteNotExistingColumnsData = (props, schema) => {
+    const { id, value } = props;
+    const validFields = ['@id', ...Object.keys(schema?.properties)];
+    for (let i in value?.items) {
+      Object.keys(value?.items[i]).forEach((k) => {
+        if (!validFields.includes(k)) {
+          delete value?.items[i][k];
+        }
+      });
+    }
+    props.onChange(id, {
+      items: value.items,
+      ...props.schema,
+      ...props.uiSchema,
+    });
+  };
+
   return (
     <>
       <div className="ui container">
@@ -84,6 +101,7 @@ const DownloadableFilesTableWidget = (props) => {
                 }),
               props.id,
             );
+            deleteNotExistingColumnsData(props, schema);
           }}
         >
           APPLY MODIFIED SCHEMA
