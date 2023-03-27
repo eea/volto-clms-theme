@@ -95,6 +95,7 @@ export const useSchema = (baseSchema, baseUISchema) => {
     setReady(false);
     // console.log('schema', schema);
     Object.keys(schema.properties).forEach((pr) => {
+      //modify the Dropdown field type to make it compatible with Volto select
       if (schema.properties[pr].enum) {
         schema.properties[pr].choices = schema.properties[pr].enum.map((en) => [
           en,

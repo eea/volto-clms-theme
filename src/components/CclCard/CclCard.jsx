@@ -73,6 +73,23 @@ const DocCard = ({ card, url, showEditor, children }) => {
           <div className="card-doc-size">{card.getObjSize || ''}</div>
         )}
       </div>
+      {card?.Type === 'TechnicalLibrary' &&
+        (card.publication_date || card.version) && (
+          <div className="card-doc-extrametadata">
+            {card?.Type === 'TechnicalLibrary' && card.publication_date && (
+              <>
+                <strong>Publication date: </strong>
+                <span>{cclDateFormat(card.publication_date)}</span>
+              </>
+            )}{' '}
+            &nbsp;
+            {card?.Type === 'TechnicalLibrary' && card.version && (
+              <>
+                <strong>Version: </strong> <span>{card.version}</span>
+              </>
+            )}
+          </div>
+        )}
       <div className="card-doc-description">{card?.description}</div>
       {children}
     </>
