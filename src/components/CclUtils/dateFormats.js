@@ -23,7 +23,8 @@ export const workOpportunitiesCclDateTimeFormat = (date, lang) => {
 
 export const cclDateFormat = (date) => {
   const dateObj = new Date(date);
-  const day = dateObj.getDate();
+  //const day = dateObj.getDate();
+  const day = ('0' + dateObj.getDate()).slice(-2);
   const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
   const year = dateObj.getFullYear();
   return `${day}.${month}.${year}`;
