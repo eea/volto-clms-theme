@@ -20,6 +20,11 @@ const messages = defineMessages({
     defaultMessage:
       'Click on the button below to confirm your {subscribe_or_unsubscribe}',
   },
+  process_finished: {
+    id: 'Your {subscribe_or_unsubscribe} request was processed correctly',
+    defaultMessage:
+      'Your {subscribe_or_unsubscribe} request was processed correctly',
+  },
   errorMessage: {
     id: 'An error has occured. Please try again',
     defaultMessage: 'An error has occured. Please try again',
@@ -44,6 +49,7 @@ class ConfirmSubscriptionView extends Component {
     this.handlePost = this.handlePost.bind(this);
     this.state = {
       type_conf: null,
+      action_completed: false,
     };
   }
 
@@ -52,6 +58,7 @@ class ConfirmSubscriptionView extends Component {
     this.setState({ type_conf });
   }
   requestSuccessToast = () => {
+    this.setState({ action_completed: true });
     toast.success(
       <Toast
         success
@@ -115,20 +122,36 @@ class ConfirmSubscriptionView extends Component {
                   : 'subscription',
               })}
             </h1>
-            <div className="event-detail">
-              <div className="event-detail-content">
-                <p>
-                  {this.props.intl.formatMessage(messages.description, {
-                    subscribe_or_unsubscribe: this.props.isUnsubscribe
-                      ? 'unsubscription'
-                      : 'subscription',
-                  })}
-                </p>
+            {this.state.action_completed ? (
+              <div className="event-detail">
+                <div className="event-detail-content">
+                  <p>
+                    {this.props.intl.formatMessage(messages.process_finished, {
+                      subscribe_or_unsubscribe: this.props.isUnsubscribe
+                        ? 'unsubscription'
+                        : 'subscription',
+                    })}
+                  </p>
+                </div>
               </div>
-            </div>
-            <CclButton onClick={this.handlePost}>
-              <ButtonText loading={this.props.loading} />
-            </CclButton>
+            ) : (
+              <>
+                <div className="event-detail">
+                  <div className="event-detail-content">
+                    <p>
+                      {this.props.intl.formatMessage(messages.description, {
+                        subscribe_or_unsubscribe: this.props.isUnsubscribe
+                          ? 'unsubscription'
+                          : 'subscription',
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <CclButton onClick={this.handlePost}>
+                  <ButtonText loading={this.props.loading} />
+                </CclButton>
+              </>
+            )}
           </div>
         ) : (
           <NotFound />
