@@ -112,23 +112,6 @@ const applyConfig = (config) => {
     },
   };
 
-  config.settings.slate.toolbarButtons = [
-    'bold',
-    'italic',
-    'separator',
-    'heading-two',
-    'heading-three',
-    'numbered-list',
-    'bulleted-list',
-    'blockquote',
-    'callout',
-    'footnote',
-  ];
-  config.settings.slate.expandedToolbarButtons = [
-    ...(config.settings.slate.expandedToolbarButtons || []),
-  ];
-  config = installLinkEditor(config);
-
   config.settings = {
     ...config.settings,
     downloadableObjects: ['File', 'TechnicalLibrary'],
@@ -182,6 +165,21 @@ const applyConfig = (config) => {
     showTags: false,
     ownDomain: 'land.copernicus.eu',
   };
+
+  config.settings.slate.toolbarButtons = [
+    'bold',
+    'italic',
+    'separator',
+    'heading-two',
+    'heading-three',
+    'numbered-list',
+    'bulleted-list',
+    'blockquote',
+    'callout',
+    'footnote',
+  ];
+
+  config = installLinkEditor(config);
 
   config.addonRoutes = [
     ...config.addonRoutes,
