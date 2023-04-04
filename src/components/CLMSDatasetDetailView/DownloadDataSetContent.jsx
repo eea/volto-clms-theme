@@ -59,21 +59,20 @@ const DownloadDataSetContent = (data, token) => {
               )}
             />
           )}
-          <br />
-          <br />
-          <br />
-          {data.download_full_dataset_text?.data &&
-            data.download_full_dataset_text?.data !== '<p><br/><p>' &&
-            data.download_full_dataset_text?.data !== '<p></p>' && (
-              <>
-                <h2>Download full dataset</h2>
-                <StringToHTML
-                  string={data.download_full_dataset_text?.data || ''}
-                />
-              </>
-            )}
         </div>
       )}
+
+      {data.download_full_dataset_text?.data &&
+        data.download_full_dataset_text?.data !== '<p><br/><p>' &&
+        data.download_full_dataset_text?.data !== '<p></p>' && (
+          <div className="dataset-download-area">
+            <h2>Download full dataset</h2>
+            <StringToHTML
+              string={data.download_full_dataset_text?.data || ''}
+            />
+          </div>
+        )}
+
       {data.downloadable_files?.items?.length > 0 && (
         <CclDownloadTable dataset={data}></CclDownloadTable>
       )}
@@ -81,12 +80,12 @@ const DownloadDataSetContent = (data, token) => {
       {data?.download_other_ways_access_dataset?.data &&
         data?.download_other_ways_access_dataset?.data !== '<p><br/><p>' &&
         data?.download_other_ways_access_dataset?.data !== '<p></p>' && (
-          <>
+          <div className="dataset-download-area">
             <h2>You can also access this dataset</h2>
             <StringToHTML
               string={data?.download_other_ways_access_dataset?.data || ''}
             />
-          </>
+          </div>
         )}
     </div>
   );
