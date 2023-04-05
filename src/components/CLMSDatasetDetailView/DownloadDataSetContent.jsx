@@ -80,7 +80,7 @@ const DownloadDataSetContent = (data, token) => {
       {data?.download_other_ways_access_dataset?.data &&
         data?.download_other_ways_access_dataset?.data !== '<p><br/><p>' &&
         data?.download_other_ways_access_dataset?.data !== '<p></p>' && (
-          <div className="dataset-download-area">
+          <div className="dataset-access-container">
             <h2>You can also access this dataset</h2>
             <StringToHTML
               string={data?.download_other_ways_access_dataset?.data || ''}
