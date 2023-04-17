@@ -168,8 +168,8 @@ class CLMSUserProfileView extends Component {
               </h1>
               <p>
                 Use this form to update your profile details. Be aware that if
-                you want to change your full name and e-mail address, you have
-                to do so in your{' '}
+                you want to change your name and e-mail address, you have to do
+                so in your{' '}
                 <UniversalLink href={'https://ecas.ec.europa.eu/cas/'}>
                   EU Login account
                 </UniversalLink>
@@ -179,7 +179,7 @@ class CLMSUserProfileView extends Component {
               <Segment>
                 <ul>
                   <li>
-                    <strong>Full name:</strong> {this.props.user.fullname}
+                    <strong>Name:</strong> {this.props.user.fullname}
                   </li>
                   <li>
                     <strong>E-mail:</strong> {this.props.user.email}
