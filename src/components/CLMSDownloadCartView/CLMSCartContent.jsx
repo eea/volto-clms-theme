@@ -184,7 +184,16 @@ const CLMSCartContent = (props) => {
     const { item } = areaProps;
     switch (item.area?.type) {
       case 'polygon':
-        return 'Bounding Box';
+        return (
+          <>
+            <span>Bounding Box</span>
+            <br />
+            <span>
+              {'('} {item.area.value.map((item) => item.toFixed(3)).join(', ')}
+              {')'}
+            </span>
+          </>
+        );
       case 'nuts':
         return 'NUTS: ' + (item.area.valueName || item.area.value);
       case undefined:
