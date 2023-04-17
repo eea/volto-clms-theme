@@ -4,7 +4,7 @@ import React from 'react';
 
 const CclGreenBgView = (props) => {
   const { data, isEditMode } = props;
-  const { showInfo, setShowInfo } = props.properties;
+  const { showInfo, setShowInfo } = props?.content || {};
   return (
     <div className="ccl-banner-top-container">
       <div
