@@ -4,7 +4,7 @@ export const TextLinkCarouselSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['textLink'],
+      fields: ['textLink', 'speed'],
     },
   ],
   properties: {
@@ -12,6 +12,10 @@ export const TextLinkCarouselSchema = () => ({
       title: 'Text and Link',
       widget: 'text_link_widget',
       type: 'string',
+    },
+    speed: {
+      title: 'Speed',
+      type: 'number',
     },
   },
   required: [],

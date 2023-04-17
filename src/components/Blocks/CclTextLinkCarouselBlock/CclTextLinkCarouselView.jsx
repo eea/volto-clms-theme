@@ -15,7 +15,7 @@ const CclTextLinkCarouselView = (props) => {
     cssEase: 'linear',
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: parseInt(data?.speed) || 2000,
   };
 
   return (
