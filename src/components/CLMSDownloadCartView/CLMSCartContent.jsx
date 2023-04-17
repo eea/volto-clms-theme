@@ -23,6 +23,7 @@ import {
 import { getAvailableConversion } from './conversion';
 import { toast } from 'react-toastify';
 
+import './cart-table.less';
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
  * CLMSCartContent container.
