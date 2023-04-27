@@ -193,7 +193,10 @@ class Footer extends Component {
               <Toast
                 error
                 title={this.props.intl.formatMessage(messages.error)}
-                content={this.props.intl.formatMessage(messages.errorMessage)}
+                content={
+                  this.props.subscribe_error_message ||
+                  this.props.intl.formatMessage(messages.errorMessage)
+                }
               />,
             );
         });
@@ -501,6 +504,7 @@ export default compose(
       subscribe_loaded: state.subscription.loaded,
       subscribe_loading: state.subscription.loading,
       subscribe_error: state.subscription.error,
+      subscribe_error_message: state.subscription.error_message,
     }),
     {
       subscribeTo,

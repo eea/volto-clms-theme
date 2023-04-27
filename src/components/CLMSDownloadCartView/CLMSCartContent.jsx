@@ -190,8 +190,13 @@ const CLMSCartContent = (props) => {
             <span>Bounding Box</span>
             <br />
             <span>
-              {'('} {item.area.value.map((item) => item.toFixed(3)).join(', ')}
-              {')'}
+              {`N: ${item.area.value[0].toFixed(
+                1,
+              )}º E: ${item.area.value[1].toFixed(1)}º`}
+              <br />
+              {`S: ${item.area.value[2].toFixed(
+                1,
+              )}º W: ${item.area.value[3].toFixed(1)}º`}
             </span>
           </>
         );
