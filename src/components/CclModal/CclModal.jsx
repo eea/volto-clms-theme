@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal } from 'semantic-ui-react';
+import { Segment, Modal, Button } from 'semantic-ui-react';
 import './modal.less';
+import Draggable from 'react-draggable';
 
 function CclModal(props) {
   let {
@@ -9,6 +10,7 @@ function CclModal(props) {
     size = 'fullscreen',
     modalStatus = () => {},
     onCloseExtra = () => {},
+    draggable = false,
   } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -27,7 +29,34 @@ function CclModal(props) {
     onCloseExtra();
   }
 
-  return (
+  return draggable ? (
+    <>
+      <Segment
+        onClick={() => {
+          openModal();
+        }}
+      >
+        {trigger}
+      </Segment>
+      {open && (
+        <Draggable>
+          <Segment stacked>
+            <div className={'modal-close modal-clms-close'}>
+              <span
+                className="ccl-icon-close"
+                aria-label="Close"
+                onClick={() => closeModal()}
+                onKeyDown={() => closeModal()}
+                tabIndex="0"
+                role="button"
+              ></span>
+            </div>
+            {children}
+          </Segment>
+        </Draggable>
+      )}
+    </>
+  ) : (
     <Modal
       onClose={() => closeModal()}
       onOpen={() => openModal()}
