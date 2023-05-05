@@ -32,6 +32,8 @@ function CclModal(props) {
   return draggable ? (
     <>
       <Segment
+        basic
+        compact
         onClick={() => {
           !open ? openModal() : closeModal();
         }}
@@ -39,8 +41,9 @@ function CclModal(props) {
         {trigger}
       </Segment>
       {open && (
-        <Draggable>
-          <Segment stacked>
+        //Draggable should work as a modal opening in middle of screen
+        <Draggable handle=".handle" className="dragable-modal">
+          <Segment raised>
             <div className={'modal-close modal-clms-close'}>
               <span
                 className="ccl-icon-close"
@@ -51,6 +54,10 @@ function CclModal(props) {
                 role="button"
               ></span>
             </div>
+            <Segment compact className="handle">
+              Drag here
+            </Segment>
+
             {children}
           </Segment>
         </Draggable>
