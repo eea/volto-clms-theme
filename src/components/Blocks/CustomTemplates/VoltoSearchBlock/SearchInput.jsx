@@ -30,6 +30,8 @@ const SearchInput = (props) => {
     return () => {};
   }, [rest.searchedText, onTriggerSearch, setSearchText]);
 
+  console.log('isLive', isLive);
+
   return (
     <div className="search-input">
       <Input
@@ -50,11 +52,6 @@ const SearchInput = (props) => {
           }
         }}
       />
-      {isLive && (
-        <Button basic icon className="search-input-live-icon-button">
-          <Icon name={loupeSVG} />
-        </Button>
-      )}
     </div>
   );
 };
