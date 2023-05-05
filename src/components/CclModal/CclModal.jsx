@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Modal, Button } from 'semantic-ui-react';
+import { Segment, Modal } from 'semantic-ui-react';
 import './modal.less';
 import Draggable from 'react-draggable';
 
@@ -33,7 +33,7 @@ function CclModal(props) {
     <>
       <Segment
         onClick={() => {
-          openModal();
+          !open ? openModal() : closeModal();
         }}
       >
         {trigger}
