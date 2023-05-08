@@ -2,6 +2,8 @@ import React from 'react';
 import { Segment, Modal } from 'semantic-ui-react';
 import './modal.less';
 import Draggable from 'react-draggable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 
 function CclModal(props) {
   let {
@@ -31,19 +33,11 @@ function CclModal(props) {
 
   return draggable ? (
     <>
-      <Segment
-        basic
-        compact
-        onClick={() => {
-          !open ? openModal() : closeModal();
-        }}
-      >
-        {trigger}
-      </Segment>
       {open && (
         //Draggable should work as a modal opening in middle of screen
-        <Draggable defaultPosition={{ x: 0, y: 0 }} handle=".handle">
-          <div className="dragable-modal">
+        // <div className="dragable-modal">
+        <Draggable handle=".handle">
+          <div className="dragable-modal-dialog">
             <div className={'modal-close modal-clms-close'}>
               <span
                 className="ccl-icon-close"
@@ -55,13 +49,23 @@ function CclModal(props) {
               ></span>
             </div>
             <Segment compact className="handle">
-              Drag here
+              <FontAwesomeIcon icon={faGripHorizontal} size="lg" />
             </Segment>
 
             {children}
           </div>
         </Draggable>
+        // </div>
       )}
+      <Segment
+        basic
+        compact
+        onClick={() => {
+          !open ? openModal() : closeModal();
+        }}
+      >
+        {trigger}
+      </Segment>
     </>
   ) : (
     <Modal
