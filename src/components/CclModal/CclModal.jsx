@@ -42,8 +42,8 @@ function CclModal(props) {
       </Segment>
       {open && (
         //Draggable should work as a modal opening in middle of screen
-        <Draggable handle=".handle" className="dragable-modal">
-          <Segment raised>
+        <Draggable defaultPosition={{ x: 0, y: 0 }} handle=".handle">
+          <div className="dragable-modal">
             <div className={'modal-close modal-clms-close'}>
               <span
                 className="ccl-icon-close"
@@ -59,7 +59,7 @@ function CclModal(props) {
             </Segment>
 
             {children}
-          </Segment>
+          </div>
         </Draggable>
       )}
     </>
