@@ -16,10 +16,6 @@ function CclModal(props) {
   } = props;
   const [open, setOpen] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   setOpen(openState);
-  // }, [openState]);
-
   function openModal() {
     setOpen(true);
     modalStatus(true);
@@ -34,8 +30,6 @@ function CclModal(props) {
   return draggable ? (
     <>
       {open && (
-        //Draggable should work as a modal opening in middle of screen
-        // <div className="dragable-modal">
         <Draggable handle=".handle">
           <div className="dragable-modal-dialog">
             <div className={'modal-close modal-clms-close'}>
@@ -55,7 +49,6 @@ function CclModal(props) {
             {children}
           </div>
         </Draggable>
-        // </div>
       )}
       <Segment
         basic
