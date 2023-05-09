@@ -14,16 +14,16 @@ exports[`Unauthorized renders a not found component 1`] = `
     className="description"
   >
     You are trying to access a protected resource, please 
-    <span
-      className="green-login-link"
+    <a
+      href="/"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      Register/Login
-    </span>
+      Register / Login
+    </a>
      first.
   </p>
   <p>
