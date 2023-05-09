@@ -248,6 +248,20 @@
 .modal .ccl-container {
   max-width: 100%;
 }
+
+.dragable-modal-dialog {
+  position: absolute;
+  z-index: 9999 !important;
+  width: auto;
+  max-width: 700px;
+  border: 1px solid #acbe39;
+  background-color: white;
+}
+
+.handle {
+  cursor: grab;
+}
+
 @media (min-width: 576px) {
   .modal .ccl-container {
     max-width: 540px;
