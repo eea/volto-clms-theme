@@ -289,28 +289,31 @@ function CclDownloadTable(props) {
                 </>
               )}
               {props.dataset.show_legend_on_prepackages && (
-                <CclModal
-                  trigger={
-                    <CclButton
-                      className="ccl-button ccl-button--default show_legend_on_prepackages"
-                      to="#download"
-                    >
-                      {intl.formatMessage(messages.prePackages_location_map)}
-                    </CclButton>
-                  }
-                  size={'medium'}
-                >
-                  <div className="image-modal">
-                    <img
-                      src={
-                        prepackage_grid_image
-                          ? prepackage_grid_image
-                          : PlaceHolder
-                      }
-                      alt={'Placeholder'}
-                    />
-                  </div>
-                </CclModal>
+                <>
+                  <CclModal
+                    draggable={true}
+                    trigger={
+                      <CclButton
+                        className="ccl-button ccl-button--default show_legend_on_prepackages"
+                        to="#download"
+                      >
+                        {intl.formatMessage(messages.prePackages_location_map)}
+                      </CclButton>
+                    }
+                    size={'medium'}
+                  >
+                    <div className="image-modal">
+                      <img
+                        src={
+                          prepackage_grid_image
+                            ? prepackage_grid_image
+                            : PlaceHolder
+                        }
+                        alt={'Placeholder'}
+                      />
+                    </div>
+                  </CclModal>
+                </>
               )}
               {cartSelection.length !== prePackagedCollection.length && (
                 <>

@@ -8,8 +8,8 @@ import './DownloadableFilesTableWidget.less';
 
 const DownloadableFilesTableWidget = (props) => {
   const { functions, data } = useSchema(
-    props.value.schema,
-    props.value.uiSchema,
+    props?.value?.schema,
+    props?.value?.uiSchema,
   );
   const { schema, uiSchema, ready } = data;
   const { setSchema, setUISchema, setSchemaHandler } = functions;
@@ -34,8 +34,8 @@ const DownloadableFilesTableWidget = (props) => {
     }
     props.onChange(id, {
       items: value.items,
-      ...props.schema,
-      ...props.uiSchema,
+      ...props?.schema,
+      ...props?.uiSchema,
     });
   };
 

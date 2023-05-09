@@ -222,7 +222,7 @@
     height: 30vw;
   }
 }
-@media (max-width: 380px) {
+@media (max-width: 420px) {
   .home-products-container {
     margin-top: 3.6rem;
   }

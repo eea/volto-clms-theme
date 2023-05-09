@@ -1,12 +1,12 @@
 /**
  * @module components/theme/Unauthorized/Unauthorized
  */
-
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { useSelector } from 'react-redux';
+
 import { withServerErrorCode } from '@plone/volto/helpers/Utils/Utils';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
@@ -29,7 +29,18 @@ const Unauthorized = () => {
           id="You are trying to access a protected resource, please {login} first."
           defaultMessage="You are trying to access a protected resource, please {login} first."
           values={{
-            login: <CclLoginModal classname={'green-login-link'} />,
+            login: (
+              <CclLoginModal
+                triggerComponent={() => (
+                  <Link to={'#'}>
+                    <FormattedMessage
+                      id="register-login"
+                      defaultMessage="Register / Login"
+                    />
+                  </Link>
+                )}
+              />
+            ),
           }}
         />
       </p>
