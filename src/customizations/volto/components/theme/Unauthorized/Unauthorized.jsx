@@ -29,7 +29,18 @@ const Unauthorized = () => {
           id="You are trying to access a protected resource, please {login} first."
           defaultMessage="You are trying to access a protected resource, please {login} first."
           values={{
-            login: <CclLoginModal classname={'green-login-link'} />,
+            login: (
+              <CclLoginModal
+                triggerComponent={() => (
+                  <Link isButton={false}>
+                    <FormattedMessage
+                      id="register-login"
+                      defaultMessage="Register / Login"
+                    />
+                  </Link>
+                )}
+              />
+            ),
           }}
         />
       </p>
