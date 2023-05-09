@@ -1,12 +1,12 @@
 /**
  * @module components/theme/Unauthorized/Unauthorized
  */
-
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { useSelector } from 'react-redux';
+
 import { withServerErrorCode } from '@plone/volto/helpers/Utils/Utils';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
