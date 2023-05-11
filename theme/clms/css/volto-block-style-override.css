@@ -41,12 +41,112 @@ body.is-anonymous main {
 /* detect if is logged in but in view with toolbar open */
 body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous)
   .stretch {
-  max-width: 1636px;
+  max-width: 100vw !important;
   margin: 0;
 }
 
 body:not(.is-authenticated):not(.document_wide_view).stretch {
   padding: 0;
+}
+
+/* @media screen and (max-width: 1790px) {
+  body.section-stats.section-dashboards .stretch {
+    padding-left: 80px !important;
+    margin-left: -21vw !important;
+  }
+}
+ */
+
+@media screen and (max-width: 3900px) {
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous)
+    .stretch {
+    right: auto;
+    left: auto;
+    width: auto;
+    padding: 0;
+    transform: none;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar-collapsed)
+    .stretch {
+    max-width: 100vw !important;
+    margin: 0 -26.54vw !important;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar)
+    .stretch {
+    max-width: 100vw !important;
+    margin: 0 -26.5vw !important;
+  }
+}
+
+@media screen and (max-width: 3400px) {
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous)
+    .stretch {
+    right: auto;
+    left: auto;
+    width: auto;
+    padding: 0;
+    transform: none;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar-collapsed)
+    .stretch {
+    max-width: 100vw !important;
+    margin: 0 -26.54vw !important;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar)
+    .stretch {
+    max-width: 100vw !important;
+    margin: 0 -26.5vw !important;
+  }
+}
+
+@media screen and (max-width: 2600px) {
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous)
+    .stretch {
+    right: auto;
+    left: auto;
+    width: auto;
+    padding: 0;
+    transform: none;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar-collapsed)
+    .stretch {
+    max-width: 100vw !important;
+    margin: 0 -19.54vw !important;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar)
+    .stretch {
+    max-width: 100vw !important;
+    margin: 0 -19.5vw !important;
+  }
+}
+
+@media screen and (max-width: 2200px) {
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous)
+    .stretch {
+    right: auto;
+    left: auto;
+    width: auto;
+    padding: 0;
+    transform: none;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar-collapsed)
+    .stretch {
+    max-width: 1636px !important;
+    margin: 0 !important;
+  }
+
+  body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar)
+    .stretch {
+    max-width: 1636px !important;
+    margin: 0 !important;
+  }
 }
 
 @media screen and (max-width: 1790px) {
