@@ -138,14 +138,14 @@ body:not(.is-authenticated):not(.document_wide_view).stretch {
 
   body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar-collapsed)
     .stretch {
-    max-width: 1636px !important;
-    margin: 0 !important;
+    max-width: 100vw !important;
+    margin: 0 -18 !important;
   }
 
   body:not(.view-editview):not(.view-addview):not(.document_wide_view):not(.is-anonymous):not(.has-toolbar)
     .stretch {
-    max-width: 1636px !important;
-    margin: 0 !important;
+    max-width: 100vw !important;
+    margin: 0 -18 !important;
   }
 }
 
