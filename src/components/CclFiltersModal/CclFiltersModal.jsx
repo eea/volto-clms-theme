@@ -83,10 +83,7 @@ function CclFiltersModal(props) {
                 onClick={() => closeModal()}
                 onKeyDown={() => closeModal()}
               >
-                <FormattedMessage
-                  id="Apply filters"
-                  defaultMessage="Apply filters"
-                />
+                <FormattedMessage id="Close" defaultMessage="Close" />
               </button>
             </div>
           </div>

@@ -29,6 +29,7 @@ const FilterList = (props) => {
           baseFacets.map((bf) => bf.field?.value).includes(v[0]),
       ),
   );
+
   const fieldsToAvoidChildren =
     data?.facets?.length > 0
       ? data.facets
@@ -61,10 +62,14 @@ const FilterList = (props) => {
   Object.keys(currentFilters).forEach((filterKey) => {
     if (typeof currentFilters[filterKey] === 'object') {
       currentFiltersToCount[filterKey] =
-        baseFacets.filter((facet) => facet.field.value === filterKey).length >
+        (baseFacets.filter((facet) => facet.field.value === filterKey).length >
           0 &&
-        baseFacets.filter((facet) => facet.field.value === filterKey)[0]
-          .type === 'doubleRangeFacet'
+          baseFacets.filter((facet) => facet.field.value === filterKey)[0]
+            .type === 'doubleRangeFacet') ||
+        (baseFacets.filter((facet) => facet.field.value === filterKey).length >
+          0 &&
+          baseFacets.filter((facet) => facet.field.value === filterKey)[0]
+            .type === 'doubleRangeSpatialFacet')
           ? ['placeholder']
           : currentFilters[filterKey].filter((filter) => {
               return !filtersToAvoidSet.has(filter);
@@ -76,6 +81,7 @@ const FilterList = (props) => {
 
   const totalFilters = [].concat.apply([], Object.values(currentFiltersToCount))
     .length;
+
   const intl = useIntl();
   return showFilterList && Object.keys(currentFilters).length ? (
     <div className="accordion ui filter-listing">
