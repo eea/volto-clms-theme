@@ -390,8 +390,10 @@ body:not(.is-authenticated):not(.document_wide_view).stretch {
   }
 }
 
-.blocks-chooser {
-  right: 0;
-  left: auto !important;
-  margin-top: 50px;
+.tabs-block {
+  .blocks-chooser {
+    right: 0;
+    left: auto !important;
+    margin-top: 50px;
+  }
 }
