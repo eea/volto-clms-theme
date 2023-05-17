@@ -262,6 +262,10 @@
 }
 
 /* Search */
+.block.search .search-wrapper {
+  margin-bottom: 0 !important;
+}
+
 .block.search .search-wrapper .search-input + .button {
   padding: 0.75rem;
   margin-right: 0;
@@ -279,6 +283,10 @@
 
 .block.search .search-wrapper .ui.input > input:focus-visible {
   outline: -webkit-focus-ring-color auto 1px;
+}
+
+.block.search .search-box-hint p {
+  font-size: 0.8rem;
 }
 
 /* Filters */
