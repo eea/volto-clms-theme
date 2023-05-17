@@ -389,3 +389,9 @@ body:not(.is-authenticated):not(.document_wide_view).stretch {
     margin: 0 -1.3vw;
   }
 }
+
+.blocks-chooser {
+  right: 0;
+  left: auto !important;
+  margin-top: 50px;
+}
