@@ -141,13 +141,22 @@ const CLMSCartContent = (props) => {
           <Toast
             success
             autoClose={5000}
-            title={'Selected file(s) added to the downloading process.'}
+            title={'Downloading process started'}
+            content={'Selected file(s) added to the downloading process.'}
           />,
         );
       })
       .catch(function (error) {
         setLoadingTable(false);
-        toast.error(<Toast autoClose={5000} title={'Something went wrong.'} />);
+        toast.error(
+          <Toast
+            autoClose={5000}
+            title={'Something went wrong.'}
+            error={
+              'There was an error when requesting the download, please try again.'
+            }
+          />,
+        );
       });
   };
 
@@ -189,12 +198,12 @@ const CLMSCartContent = (props) => {
           <>
             <span>Bounding Box</span>
             <br />
-            <span class="cart-bounding-boxes">
-              <span class="cart-bounding-box-row">
+            <span className="cart-bounding-boxes">
+              <span className="cart-bounding-box-row">
                 <span>{`N: ${item.area.value[0].toFixed(1)}º `}</span>&nbsp;
                 <span>{`E: ${item.area.value[1].toFixed(1)}º `}</span>
               </span>
-              <span class="cart-bounding-box-row">
+              <span className="cart-bounding-box-row">
                 <span>{`S: ${item.area.value[2].toFixed(1)}º `}</span>&nbsp;
                 <span>{`W: ${item.area.value[3].toFixed(1)}º `}</span>
               </span>
@@ -343,6 +352,53 @@ const CLMSCartContent = (props) => {
     );
   };
 
+  const LayerNaming = ({ item }) => {
+    if (item.file_id) {
+      return '-';
+    } else if (!item.type) {
+      return '-';
+    }
+
+    const this_type_layers = item?.type_options.filter(
+      (o) =>
+        o.collection ===
+        item?.type_options.find((t_o) => t_o.id === item.type).collection,
+    );
+
+    return this_type_layers.length > 0 &&
+      this_type_layers[0].layers.length > 0 ? (
+      <Select
+        placeholder="Select layer"
+        value={
+          item.layer
+            ? item.layer
+            : this_type_layers[0].layers.length > 0 &&
+              this_type_layers[0].layers[0]
+        }
+        options={
+          this_type_layers[0]?.layers.length > 0 &&
+          this_type_layers[0].layers.map((option) => {
+            return {
+              key: option,
+              value: option,
+              text: option,
+            };
+          })
+        }
+        onChange={(e, data) => {
+          const new_cartItems = [...cartItems];
+          const objIndex = new_cartItems.findIndex(
+            (obj) => obj.unique_id === item.unique_id,
+          );
+          new_cartItems[objIndex].layer = data.value;
+          setCartItems([...new_cartItems]);
+        }}
+      />
+    ) : (
+      '-'
+    );
+  };
+
   const contentOrDash = (content) => {
     return content || '-';
   };
@@ -373,6 +429,7 @@ const CLMSCartContent = (props) => {
                   <th>Type</th>
                   <th>Collection</th>
                   <th>Format</th>
+                  <th>Layer/Band</th>
                   <th>Projection</th>
                   <th></th>
                   <th></th>
@@ -440,6 +497,9 @@ const CLMSCartContent = (props) => {
                           />
                         )}
                       </td>
+                      <td className="table-td-format">
+                        <LayerNaming item={item} />
+                      </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
                           <Select
@@ -491,7 +551,7 @@ const CLMSCartContent = (props) => {
                                 outline: 'inherit',
                               }}
                             >
-                              <Icon name={addDocumentSVG} size={25} />
+                              <Icon name={addDocumentSVG} size={'41'} />
                             </button>
                           </span>
                         ) : (
@@ -523,7 +583,7 @@ const CLMSCartContent = (props) => {
                             >
                               <Icon
                                 name={removeSVG}
-                                size={25}
+                                size={'45'}
                                 color="#e40166"
                               />
                             </button>

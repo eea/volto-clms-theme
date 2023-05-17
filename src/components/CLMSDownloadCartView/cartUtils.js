@@ -20,6 +20,7 @@ export const getCollectionByItem = (item) => {
 export const getDownloadToolPostBody = (selectedItems) => {
   const datasetList = selectedItems.map((item) => {
     let body_extras = {};
+
     if (item.file_id) {
       body_extras['FileID'] = item.file_id;
     } else {
@@ -43,6 +44,9 @@ export const getDownloadToolPostBody = (selectedItems) => {
       }
       if (item.type) {
         body_extras['DatasetDownloadInformationID'] = item.type;
+      }
+      if (item.layer) {
+        body_extras['Layer'] = item.layer;
       }
     }
     return { DatasetID: item.dataset_uid, ...body_extras };
@@ -92,9 +96,11 @@ export const getCartObjectFromMapviewer = (
         name: item.name,
         full_format: item.full_format,
         collection: item.collection,
+        layers: item?.layers || [],
       });
     });
   }
+
   return {
     name: dataset_data.title || '-',
     area: area || '-',

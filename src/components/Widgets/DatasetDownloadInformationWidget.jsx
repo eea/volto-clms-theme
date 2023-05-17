@@ -49,6 +49,13 @@ const ItemSchema = () => ({
       description: '',
       type: 'string',
     },
+    layers: {
+      title: 'Layers / Bands',
+      description:
+        'Some datasets provide options to download specific layers. Write here the layer names, one per line',
+      type: 'string',
+      widget: 'token',
+    },
   },
   fieldsets: [
     {
@@ -61,6 +68,7 @@ const ItemSchema = () => ({
         'full_format',
         'full_source',
         'wekeo_choices',
+        'layers',
       ],
     },
   ],
