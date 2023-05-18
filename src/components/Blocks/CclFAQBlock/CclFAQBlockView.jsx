@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { useDispatch, useSelector } from 'react-redux';
 import { Accordion, Segment } from 'semantic-ui-react';
 
-import { searchContent } from '@plone/volto/actions';
+import { getContextNavigation } from '@plone/volto/actions';
 import { Icon, UniversalLink } from '@plone/volto/components';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { hasBlocksData } from '@plone/volto/helpers';
@@ -16,8 +16,8 @@ const CclFAQBlockView = (props) => {
   const { isEditMode } = props;
   const dispatch = useDispatch();
   const path = useSelector((state) => state.router.location.pathname);
-  const search = useSelector((state) => state.search);
-  const search_key = 'faq-block';
+  const contextNavigation = useSelector((state) => state.contextNavigation);
+  const cn_key = `${path.replace('/edit', '')}/@contextnavigation`;
   const handleClick = ({ index }) => {
     const newIndex =
       activeIndex.indexOf(index) === -1
@@ -26,181 +26,108 @@ const CclFAQBlockView = (props) => {
 
     setActiveIndex(newIndex);
   };
+
+  const flattenCN = (cn_items) => {
+    return cn_items.reduce((prev, curr) => {
+      prev.push(curr);
+      if (curr.items.filter((i) => i.type === 'document').length > 0) {
+        curr.items
+          .filter((i) => i.type === 'document')
+          .forEach((i_i) => prev.push({ ...i_i, isSubtab: true }));
+      }
+      return prev;
+    }, []);
+  };
+  const flatCN = flattenCN(
+    contextNavigation?.[cn_key]?.data?.items
+      ? contextNavigation?.[cn_key]?.data?.items.filter(
+          (i) => i.type === 'document',
+        )
+      : [],
+  );
+  const [activeIndex, setActiveIndex] = useState([0]);
   React.useEffect(() => {
-    dispatch(
-      searchContent(
-        path.replace('/edit', ''),
-        {
-          fullobjects: 1,
-          portal_type: 'FAQ',
-          b_size: 999,
-          sort_on: 'getObjPositionInParent',
-        },
-        search_key,
-      ),
-    );
+    dispatch(getContextNavigation(path.replace('/edit', '')));
   }, [path, dispatch]);
-  React.useEffect(() => {
-    if (search?.subrequests?.[search_key]?.loaded) {
-      const firstOfCategories = categories.map((cat, key, self) => {
-        const cat_indexes = search?.subrequests?.[search_key]?.items.reduce(
-          (filtered, item, index) => {
-            if (filtered.UID) {
-              filtered = [];
-            }
-            if (
-              item.taxonomy_faqcategories.filter(
-                (item_cat) =>
-                  item_cat.title && item_cat.title.includes(cat.title),
-              ).length > 0
-            ) {
-              if (index === 1) {
-                filtered.push(0);
-              } else {
-                filtered.push(index);
-              }
-            }
-            return filtered;
-          },
-        );
-        return cat_indexes.length > 0 ? cat_indexes[0] : 0;
-      });
-      setActiveIndex(firstOfCategories);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search?.subrequests]);
-  let categories =
-    search?.subrequests &&
-    search?.subrequests?.[search_key] &&
-    search?.subrequests?.[search_key]?.loaded &&
-    search?.subrequests?.[search_key]?.items.length > 0
-      ? [
-          ...new Set(
-            search?.subrequests?.[search_key]?.items
-              .map((item) => item.taxonomy_faqcategories)
-              .flat(),
-          ),
-        ]
-          .map((cat) => {
-            if (cat.title) {
-              const cat_family = cat.title?.split(' » ');
-              if (cat_family && cat_family.length > 1) {
-                cat['subTab'] = true;
-              }
-            }
-            return cat;
-          })
-          .filter(
-            (thing, index, self) =>
-              index === self.findIndex((t) => t.token === thing.token),
-          )
-          .sort((a, b) => {
-            if (a.title < b.title) {
-              return -1;
-            } else if (a.title > b.title) {
-              return 1;
-            }
-            return 0;
-          })
-      : [];
-  categories.forEach((cat, index) => {
-    if (cat.subTab && !categories[index - 1].subTab) {
-      categories[index - 1]['parent'] = true;
-    }
-  });
+
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
-  const [activeIndex, setActiveIndex] = React.useState([0]);
   return (
     <div id="faq-listing" className="ccl-container tab-container">
-      {search?.subrequests?.[search_key]?.loaded ? (
-        search?.subrequests?.[search_key]?.items?.length > 0 &&
-        categories.length > 0 && (
+      {contextNavigation?.[cn_key]?.loaded ? (
+        contextNavigation?.[cn_key]?.data?.items?.length > 0 && (
           <CclTabs routing={true}>
-            {categories.map((cat, key) => {
-              let cat_title = '';
-              let cat_family = [];
-              if (cat.title) {
-                cat_family = cat.title.split(' » ');
-                cat_title =
-                  cat_family.length > 1
-                    ? cat_family[1].split('#')[1]
-                    : cat_family[0].split('#')[1];
-              }
-              return (
+            {flatCN
+              .filter((cn) => cn.type === 'document')
+              .map((cn, key) => (
                 <div
                   key={key}
-                  tabTitle={cat_title}
-                  className={cat_family.length > 1 ? 'subcard' : ''}
-                  parent={cat.parent}
+                  tabTitle={cn.title}
+                  className={
+                    cn.isSubtab
+                      ? 'subcard'
+                      : cn.items.filter((i) => i.type === 'document').length > 0
+                  }
+                  parent={
+                    cn.items.filter((i) => i.type === 'document').length > 0
+                  }
                 >
                   <div className="accordion-block">
-                    {search?.subrequests?.[search_key]?.items.map(
-                      (item, item_key) => {
+                    {cn.items
+                      .filter((item) => item.type === 'faq')
+                      .map((item, item_key) => {
                         return (
-                          item.taxonomy_faqcategories.filter(
-                            (faq_cat) =>
-                              faq_cat.title &&
-                              faq_cat.title.includes(cat.title),
-                          ).length > 0 && (
-                            <Accordion fluid styled key={item_key}>
-                              <Accordion.Title
-                                as={'h2'}
-                                onClick={() => handleClick({ index: item_key })}
-                                className={'accordion-title align-arrow-right'}
-                              >
-                                {activeIndex.includes(item_key) ? (
-                                  <Icon
-                                    name={titleIcons.opened.rightPosition}
-                                  />
-                                ) : (
-                                  <Icon
-                                    name={titleIcons.closed.rightPosition}
-                                  />
-                                )}
-                                {isEditMode && (
-                                  <UniversalLink
-                                    openLinkInNewTab={true}
-                                    href={`${item['@id']}/edit`}
-                                  >
-                                    <Icon
-                                      name={penSVG}
-                                      className="circled"
-                                      title={'Edit'}
-                                    />
-                                  </UniversalLink>
-                                )}
-                                <span>{item.title}</span>
-                              </Accordion.Title>
-                              <Accordion.Content
-                                active={activeIndex.includes(item_key)}
-                              >
-                                <AnimateHeight
-                                  animateOpacity
-                                  duration={500}
-                                  height={'auto'}
+                          <Accordion fluid styled key={item_key}>
+                            <Accordion.Title
+                              as={'h2'}
+                              onClick={() => handleClick({ index: item_key })}
+                              className={'accordion-title align-arrow-right'}
+                            >
+                              {activeIndex.includes(item_key) ? (
+                                <Icon name={titleIcons.opened.rightPosition} />
+                              ) : (
+                                <Icon name={titleIcons.closed.rightPosition} />
+                              )}
+                              {isEditMode && (
+                                <UniversalLink
+                                  openLinkInNewTab={true}
+                                  href={`${item['@id']}/edit`}
                                 >
-                                  {/* <StringToHTML
+                                  <Icon
+                                    name={penSVG}
+                                    className="circled"
+                                    title={'Edit'}
+                                  />
+                                </UniversalLink>
+                              )}
+                              <span>{item.title}</span>
+                            </Accordion.Title>
+                            <Accordion.Content
+                              active={activeIndex.includes(item_key)}
+                            >
+                              <AnimateHeight
+                                animateOpacity
+                                duration={500}
+                                height={'auto'}
+                              >
+                                {/* <StringToHTML
                                   string={item.text ? item.text.data : ''}
                                 /> */}
-                                  {hasBlocksData(item) && (
-                                    <RenderBlocks content={item} />
-                                  )}
-                                </AnimateHeight>
-                              </Accordion.Content>
-                            </Accordion>
-                          )
+                                {hasBlocksData(item) && (
+                                  <RenderBlocks content={item} />
+                                )}
+                              </AnimateHeight>
+                            </Accordion.Content>
+                          </Accordion>
                         );
-                      },
-                    )}
+                      })}
                   </div>
                 </div>
-              );
-            })}
+              ))}
           </CclTabs>
         )
       ) : (
-        <Segment loading={search?.subrequests?.[search_key]?.loading}></Segment>
+        <Segment loading={contextNavigation?.[cn_key]?.loading}></Segment>
       )}
     </div>
   );
