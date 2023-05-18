@@ -551,7 +551,7 @@ const CLMSCartContent = (props) => {
                                 outline: 'inherit',
                               }}
                             >
-                              <Icon name={addDocumentSVG} size={'41'} />
+                              <Icon name={addDocumentSVG} size={25} />
                             </button>
                           </span>
                         ) : (
@@ -583,7 +583,7 @@ const CLMSCartContent = (props) => {
                             >
                               <Icon
                                 name={removeSVG}
-                                size={'45'}
+                                size={25}
                                 color="#e40166"
                               />
                             </button>
