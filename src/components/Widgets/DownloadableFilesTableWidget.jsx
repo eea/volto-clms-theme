@@ -6,6 +6,41 @@ import CclButton from '../CclButton/CclButton';
 import { Segment, Loader, Header, Divider } from 'semantic-ui-react';
 import './DownloadableFilesTableWidget.less';
 
+const orderKeysBy = (array, data) => {
+  if (data) {
+    return JSON.stringify(
+      array.reduce((obj, key) => {
+        obj[key] = data[key] || '';
+        return obj;
+      }, {}),
+    );
+  }
+  return {};
+};
+const deleteNotExistingColumnsData = (props, schema, uiSchema) => {
+  const { id, value } = props;
+  const validFields = ['@id', ...Object.keys(schema?.properties)];
+  for (let i in value?.items) {
+    Object.keys(value?.items[i]).forEach((k) => {
+      if (!validFields.includes(k)) {
+        delete value?.items[i][k];
+      }
+    });
+  }
+  props.onChange(id, {
+    items: value.items,
+    schema,
+    uiSchema,
+  });
+};
+
+const fixSchema = (schema) => {
+  schema.properties = Object.fromEntries(
+    Object.entries(schema.properties).filter(([k, v]) => v != null && k),
+  );
+  schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter((f) => f);
+};
+
 const DownloadableFilesTableWidget = (props) => {
   const { functions, data } = useSchema(
     props?.value?.schema,
@@ -14,30 +49,6 @@ const DownloadableFilesTableWidget = (props) => {
   const { schema, uiSchema, ready } = data;
   const { setSchema, setUISchema, setSchemaHandler } = functions;
   const [edited, setEdited] = React.useState(false);
-
-  const fixSchema = (schema) => {
-    schema.properties = Object.fromEntries(
-      Object.entries(schema.properties).filter(([k, v]) => v != null && k),
-    );
-    schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter((f) => f);
-  };
-
-  const deleteNotExistingColumnsData = (props, schema) => {
-    const { id, value } = props;
-    const validFields = ['@id', ...Object.keys(schema?.properties)];
-    for (let i in value?.items) {
-      Object.keys(value?.items[i]).forEach((k) => {
-        if (!validFields.includes(k)) {
-          delete value?.items[i][k];
-        }
-      });
-    }
-    props.onChange(id, {
-      items: value.items,
-      ...props?.schema,
-      ...props?.uiSchema,
-    });
-  };
 
   return (
     <>
@@ -93,15 +104,11 @@ const DownloadableFilesTableWidget = (props) => {
             setSchemaHandler(
               schema,
               uiSchema,
-              (id, schema, uiSchema) =>
-                props.onChange(id, {
-                  ...props.value,
-                  schema: schema,
-                  uiSchema: uiSchema,
-                }),
+              props.onChange,
               props.id,
+              props.value,
             );
-            deleteNotExistingColumnsData(props, schema);
+            deleteNotExistingColumnsData(props, schema, uiSchema);
           }}
         >
           APPLY MODIFIED SCHEMA
@@ -121,9 +128,22 @@ const DownloadableFilesTableWidget = (props) => {
           schema={schema}
           csvexport={true}
           csvimport={true}
-          value={props.value?.items || props.default?.items || []}
+          value={
+            [
+              ...props.value?.items.map((i) =>
+                JSON.parse(orderKeysBy(['@id', ...uiSchema['ui:order']], i)),
+              ),
+            ] ||
+            props.default?.items ||
+            []
+          }
           onChange={(id, value) =>
-            props.onChange(id, { ...props.value, items: value })
+            props.onChange(id, {
+              ...props.value,
+              items: value,
+              schema: schema,
+              uiSchema: uiSchema,
+            })
           }
         />
       )}
