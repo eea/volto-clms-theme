@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 export const useSchema = (baseSchema, baseUISchema) => {
   const [schema, setSchema] = useState(
     baseSchema || {
@@ -91,9 +92,8 @@ export const useSchema = (baseSchema, baseUISchema) => {
     },
   );
   const [ready, setReady] = useState(true);
-  const setSchemaHandler = (schema, uiSchema, onChange, id) => {
+  const setSchemaHandler = (schema, uiSchema, onChange, id, value) => {
     setReady(false);
-    // console.log('schema', schema);
     Object.keys(schema.properties).forEach((pr) => {
       //modify the Dropdown field type to make it compatible with Volto select
       if (schema.properties[pr].enum) {
@@ -104,8 +104,11 @@ export const useSchema = (baseSchema, baseUISchema) => {
       }
     });
     setSchema(schema);
-    onChange(id, schema, uiSchema);
-    // setTimeout(() => onChangeUi(id, uiSchema), 1500);
+    onChange(id, {
+      ...value,
+      schema: schema,
+      uiSchema: uiSchema,
+    });
     setTimeout(() => setReady(true), 1500);
   };
 

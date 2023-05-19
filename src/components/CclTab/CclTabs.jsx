@@ -38,6 +38,16 @@ const CclTabs = (props) => {
         setActiveTab(slugify(firstTab.props?.tabTitle));
       } else if (hash) {
         setActiveTab(hash);
+      } else if (
+        children.filter((item) => !!item?.props?.tabTitle).length > 1 &&
+        firstTab.props?.parent
+      ) {
+        setActiveTab(
+          slugify(
+            children.filter((item) => !!item?.props?.tabTitle)[1].props
+              ?.tabTitle,
+          ),
+        );
       } else {
         setActiveTab(slugify(firstTab.props?.tabTitle));
       }

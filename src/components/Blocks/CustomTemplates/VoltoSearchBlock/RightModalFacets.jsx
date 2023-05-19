@@ -82,21 +82,29 @@ const RightModalFacets = (props) => {
           {(Object.keys(data).includes('showSearchInput')
             ? data.showSearchInput
             : true) && (
-            <div className="search-wrapper">
-              <SearchInput {...props} isLive={isLive} />
-              {data.showSearchButton && (
-                <Button
-                  primary
-                  onClick={() => onTriggerSearch(searchText)}
-                  aria-label={
-                    data.searchButtonLabel ||
-                    intl.formatMessage(messages.searchButtonText)
-                  }
-                >
-                  <span className="ccl-icon-zoom"></span>
-                </Button>
-              )}
-            </div>
+            <>
+              <div className="search-wrapper">
+                <SearchInput {...props} isLive={isLive} />
+                {data.showSearchButton && (
+                  <Button
+                    primary
+                    onClick={() => onTriggerSearch(searchText)}
+                    aria-label={
+                      data.searchButtonLabel ||
+                      intl.formatMessage(messages.searchButtonText)
+                    }
+                  >
+                    <span className="ccl-icon-zoom"></span>
+                  </Button>
+                )}
+              </div>
+              <div className="search-box-hint">
+                <p>
+                  Hint: you can use double quotes to search for exact phrases.
+                  Ex: "High resolution vegetation"
+                </p>
+              </div>
+            </>
           )}
 
           <div>
