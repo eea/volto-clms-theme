@@ -326,7 +326,7 @@
 }
 
 /* Map band */
-.home-map-container {
+/* .home-map-container {
   padding: 4rem 1rem;
   background: url(../img/home-map-background.jpg) no-repeat center;
   background-size: cover;
@@ -344,7 +344,7 @@
   .home-map-container > .ccl-container {
     padding: 0;
   }
-}
+} */
 
 .home-map-banner {
   max-width: 100%;
