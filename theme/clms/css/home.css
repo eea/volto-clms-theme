@@ -119,11 +119,21 @@
 }
 
 .home-carousel .ccl-banner-top-main {
-  padding: 4rem 4rem;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
+/*
+.ccl-banner-top-main img {
+  object-fit: cover;
+  object-position: center;
+  width: auto;
+  min-width: 100%;
+  max-height: 349px;
+  min-height: 349px;
+  max-width: 100%;
+} */
+
 @media (max-width: 480px) {
   .home-carousel .ccl-banner-top-main {
     padding: 2rem 2rem;
@@ -327,12 +337,26 @@
 
 /* Map band */
 .home-map-container {
-  padding: 4rem 1rem;
-  /*  background: url(../img/home-map-background.jpg) no-repeat center;
-  background-size: cover; */
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.home-map-container img {
+  width: auto;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 262px;
+  max-height: 262px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .home-map-container > .ccl-container {
+  position: absolute;
+  bottom: 4rem;
+  width: 100%;
+  max-width: 1400px;
   padding: 0 2rem;
 }
 
