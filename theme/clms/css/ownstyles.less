@@ -717,10 +717,9 @@ main .search-form button {
 }
 
 .ccl-banner-top-container {
-  padding: 4rem 2rem;
-  background-image: url('../img/home-main-background.png');
-  background-position: center;
-  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 @media (max-width: 1250px) {
   .ccl-banner-top-container {
@@ -754,10 +753,10 @@ main .search-form button {
   height: 2rem;
 }
 
-.ccl-banner-top-container .ccl-banner-top-main-block-title {
+/* .ccl-banner-top-container .ccl-banner-top-main-block-title {
   max-width: 100%;
   padding: 1.5rem;
-}
+} */
 
 @media (min-width: 576px) {
   .ccl-banner-top-container .ccl-banner-top-main-block-title {
@@ -837,9 +836,26 @@ main .search-form button {
 }
 
 .home-map-container {
-  padding: 4rem 1rem;
-  background: url('../img/home-map-background.jpg') no-repeat center;
-  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.home-map-container img {
+  width: auto;
+  min-width: 100%;
+  min-height: 262px;
+  max-height: 262px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.home-map-container > .ccl-container {
+  position: absolute;
+  bottom: 4rem;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 2rem;
 }
 
 .home-datasets-container h4 {
