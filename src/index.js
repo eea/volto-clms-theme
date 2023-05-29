@@ -10,6 +10,7 @@ import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatas
 import CLMSDownloadCartView from './components/CLMSDownloadCartView/CLMSDownloadCartView';
 import CLMSDownloadableFileView from '@eeacms/volto-clms-theme/components/CLMSDownloadableFileView/CLMSDownloadableFileView';
 import CLMSDownloadsView from './components/CLMSDownloadsView/CLMSDownloadsView';
+import CLMSHistoricDownloadsView from './components/CLMSDownloadsView/CLMSHistoricDownloadsView';
 import CLMSMapViewerView from './components/CLMSMapViewerView/CLMSMapViewerView';
 import CLMSMeetingEmailView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailView';
 import CLMSMeetingEmailsView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingEmailsView';
@@ -128,6 +129,7 @@ const applyConfig = (config) => {
       '/download-by-area',
       '/cart',
       '/cart-downloads',
+      '/all-downloads',
       '/newsletter-notification-subscription',
       '/newsletter-notification-unsubscription',
     ],
@@ -262,6 +264,10 @@ const applyConfig = (config) => {
     {
       path: '/**/cart-downloads',
       component: CLMSDownloadsView,
+    },
+    {
+      path: '/**/all-downloads',
+      component: CLMSHistoricDownloadsView,
     },
     {
       path: `/(${config.settings.supportedLanguages.join('|')})/sitemap`,

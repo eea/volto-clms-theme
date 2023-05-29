@@ -74,6 +74,14 @@ const HeaderDropdown = ({ user }) => {
           </Link>
         </li>
         <li>
+          <Link
+            to={`/${intl.locale}/all-downloads`}
+            className="header-login-link"
+          >
+            Historic Downloads
+          </Link>
+        </li>
+        <li>
           <Link to="/logout" className="header-login-link">
             <FormattedMessage id="logout" defaultMessage="Logout" />
           </Link>
