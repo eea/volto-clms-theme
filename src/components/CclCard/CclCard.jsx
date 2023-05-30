@@ -3,7 +3,6 @@ import './cards.less';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React from 'react';
 // import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 import { Label } from 'semantic-ui-react';
@@ -14,6 +13,9 @@ import { Icon as VoltoIcon } from '@plone/volto/components';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getVocabulary } from '@plone/volto/actions';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -49,6 +51,49 @@ const CardLink = ({ url, children, className, condition = true }) => {
 };
 
 const DocCard = ({ card, url, showEditor, children }) => {
+  const dispatch = useDispatch();
+  const CATEGORIZATION_VOCABULARY_NAME =
+    'collective.taxonomy.technical_library_categorization';
+  useEffect(() => {
+    if (card?.taxonomy_technical_library_categorization.length > 0) {
+      dispatch(
+        getVocabulary({ vocabNameOrURL: CATEGORIZATION_VOCABULARY_NAME }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [card, dispatch]);
+
+  const vocabularies_state = useSelector(
+    (state) => state.vocabularies[CATEGORIZATION_VOCABULARY_NAME],
+  );
+
+  const vocabItems = vocabularies_state?.loaded
+    ? vocabularies_state?.items
+    : [];
+
+  const vocabItemsDict = vocabItems.reduce((obj, item) => {
+    return {
+      ...obj,
+      [item['value']]: item['label'].replace(/^[0-9][0-9]#/, ''),
+    };
+  }, {});
+
+  const TechnicalLibraryCategorization = ({ categorization }) => {
+    return vocabularies_state?.loaded && categorization ? (
+      <>
+        {categorization
+          .map((item) => {
+            return vocabItemsDict[item].split(' » ').length > 1
+              ? vocabItemsDict[item].split(' » ').slice(-1)
+              : null;
+          })
+          .map((item) => {
+            return item && <Label>{item}</Label>;
+          })}
+      </>
+    ) : null;
+  };
+
   return (
     <>
       <div className="card-doc-header">
@@ -59,7 +104,7 @@ const DocCard = ({ card, url, showEditor, children }) => {
             <Link to={url}>{card?.title}</Link>
           )}
           {card?.Type === 'TechnicalLibrary' && showEditor && (
-            <Link to={`${url}/edit`} class="technical-library-edit-link">
+            <Link to={`${url}/edit`} className="technical-library-edit-link">
               <VoltoIcon
                 name={penSVG}
                 size="12px"
@@ -74,8 +119,21 @@ const DocCard = ({ card, url, showEditor, children }) => {
         )}
       </div>
       {card?.Type === 'TechnicalLibrary' &&
-        (card.publication_date || card.version) && (
+        (card.publication_date ||
+          card.version ||
+          card.taxonomy_technical_library_categorization) && (
           <div className="card-doc-extrametadata">
+            {card?.Type === 'TechnicalLibrary' &&
+              vocabItemsDict &&
+              card.taxonomy_technical_library_categorization && (
+                <TechnicalLibraryCategorization
+                  categorization={
+                    card.taxonomy_technical_library_categorization
+                  }
+                />
+              )}{' '}
+            <br />
+            <br />
             {card?.Type === 'TechnicalLibrary' && card.publication_date && (
               <>
                 <strong>Publication date: </strong>

@@ -41,6 +41,8 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.post_download_in_progress,
   );
 
+  const post_download = useSelector((state) => state.downloadtool);
+
   // component states
   const [openedModal, setOpenedModal] = useState(false);
   const [cartSelection, setCartSelection] = useState([]);
@@ -152,9 +154,7 @@ const CLMSCartContent = (props) => {
           <Toast
             autoClose={5000}
             title={'Something went wrong.'}
-            error={
-              'There was an error when requesting the download, please try again.'
-            }
+            content={post_download?.error?.response?.body?.msg}
           />,
         );
       });
