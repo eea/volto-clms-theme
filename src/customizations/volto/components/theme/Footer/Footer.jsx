@@ -155,8 +155,9 @@ class Footer extends Component {
       value: event.target.value,
     });
     const input =
-      typeof window !== 'undefined' && document.getElementById('email') !== null
-        ? document.getElementById('email')
+      typeof window !== 'undefined' &&
+      document.getElementById('footer-email') !== null
+        ? document.getElementById('footer-email')
         : '';
     if (!validator.isEmail(event.target.value)) {
       input.setCustomValidity(
@@ -376,7 +377,7 @@ class Footer extends Component {
                     maxLength="8000"
                     placeholder="Enter an email adress"
                     type="text"
-                    id="email"
+                    id="footer-email"
                     value={this.state.value}
                     onChange={this.handleChange}
                   />
