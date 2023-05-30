@@ -13,6 +13,7 @@ import { Grid } from 'semantic-ui-react';
 import { dynamicSort } from '../CclUtils';
 
 const CLMSDownloadTasks = (props) => {
+  const { all = false } = props;
   const dispatch = useDispatch();
   const [queued, setQueued] = useState([]);
   const [taskInProgress, setTaskInProgress] = useState([]);
@@ -92,7 +93,7 @@ const CLMSDownloadTasks = (props) => {
           })
           .sort(dynamicSort('-RegistrationDateTime'))
           .filter((item) => {
-            return filterItemByDate(item);
+            return all || filterItemByDate(item);
           })
       : [];
 

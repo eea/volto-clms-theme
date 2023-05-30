@@ -93,6 +93,10 @@ const messages = defineMessages({
     id: 'Success',
     defaultMessage: 'Success',
   },
+  invalid_mail: {
+    id: 'The entered mail address is not valid',
+    defaultMessage: 'The entered email address is not valid',
+  },
   agreePrivacyPolicyCheck: {
     id: 'agreePrivacyPolicyCheck',
     defaultMessage: 'You have to agree to the privacy policy',
@@ -150,6 +154,19 @@ class Footer extends Component {
     this.setState({
       value: event.target.value,
     });
+    const input =
+      typeof window !== 'undefined' && document.getElementById('email') !== null
+        ? document.getElementById('email')
+        : '';
+    if (!validator.isEmail(event.target.value)) {
+      input.setCustomValidity(
+        this.props.intl.formatMessage(messages.invalid_mail),
+      );
+      input.reportValidity();
+    } else {
+      input.setCustomValidity('');
+      input.reportValidity();
+    }
   }
 
   emptyFieldErrorToast = () => {
@@ -359,6 +376,7 @@ class Footer extends Component {
                     maxLength="8000"
                     placeholder="Enter an email adress"
                     type="text"
+                    id="email"
                     value={this.state.value}
                     onChange={this.handleChange}
                   />
