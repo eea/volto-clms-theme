@@ -2,8 +2,32 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import CclCard from './CclCard';
 import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-intl-redux';
+
+const mockStore = configureStore();
 
 describe('CclCard', () => {
+  const store = mockStore({
+    content: {
+      create: {},
+      data: {},
+    },
+    intl: {
+      locale: 'en',
+      messages: {},
+    },
+    users: {
+      user: {
+        roles: ['Manager'],
+      },
+    },
+    vocabularies: {
+      'Product manuals': ['Technical guidelines', 'User manuals'],
+      'Product methodological': ['Metodology', 'Description'],
+    },
+    taxonomy_technical_library_categorization: ['1', '2', '3'],
+  });
   const card = {
     title: 'title example',
     description: 'description example',
@@ -28,6 +52,7 @@ describe('CclCard', () => {
       download: 'false',
       alt: 'Placeholder',
     },
+    taxonomy_technical_library_categorization: ['1', '2', '3'],
     file: {
       'content-type': 'text/html',
       src:
@@ -40,11 +65,14 @@ describe('CclCard', () => {
   it('Check doc card', () => {
     const cardtest = renderer
       .create(
-        <MemoryRouter>
-          <CclCard type="doc" card={card}>
-            <p>Doc card test</p>
-          </CclCard>
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter>
+            <CclCard type="doc" card={card}>
+              <p>Doc card test</p>
+            </CclCard>
+          </MemoryRouter>
+          ,
+        </Provider>,
       )
       .toJSON();
     expect(cardtest).toBeDefined();
