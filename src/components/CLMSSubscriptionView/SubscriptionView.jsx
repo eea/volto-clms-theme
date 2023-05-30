@@ -76,6 +76,10 @@ const messages = defineMessages({
     defaultMessage:
       'You must agree privacy policy and enter a valid email address',
   },
+  invalid_mail: {
+    id: 'The entered mail address is not valid',
+    defaultMessage: 'The entered email address is not valid',
+  },
   subscribe: {
     id: 'Subscribe',
     defaultMessage: 'Subscribe',
@@ -141,6 +145,19 @@ class SubscriptionView extends Component {
     this.setState({
       value: event.target.value,
     });
+    const input =
+      typeof window !== 'undefined' && document.getElementById('email') !== null
+        ? document.getElementById('email')
+        : '';
+    if (!validator.isEmail(event.target.value)) {
+      input.setCustomValidity(
+        this.props.intl.formatMessage(messages.invalid_mail),
+      );
+      input.reportValidity();
+    } else {
+      input.setCustomValidity('');
+      input.reportValidity();
+    }
   }
 
   emptyFieldErrorToast = () => {
