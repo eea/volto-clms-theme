@@ -40,8 +40,7 @@ const CLMSCartContent = (props) => {
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
-
-  const post_download = useSelector((state) => state.downloadtool);
+  const downloadtool_state = useSelector((state) => state.downloadtool);
 
   // component states
   const [openedModal, setOpenedModal] = useState(false);
@@ -126,6 +125,34 @@ const CLMSCartContent = (props) => {
     dispatch(getDownloadtool());
   };
 
+  useEffect(() => {
+    if (
+      downloadtool_state?.requested &&
+      downloadtool_state?.loaded &&
+      !downloadtool_state?.loading
+    ) {
+      setLoadingTable(false);
+      toast.success(
+        <Toast
+          success
+          autoClose={5000}
+          title={'Downloading process started'}
+          content={'Selected file(s) added to the downloading process.'}
+        />,
+      );
+    }
+    if (downloadtool_state?.error) {
+      setLoadingTable(false);
+      toast.error(
+        <Toast
+          autoClose={5000}
+          title={'Something went wrong.'}
+          content={downloadtool_state?.error?.response?.body?.msg}
+        />,
+      );
+    }
+  }, [downloadtool_state]);
+
   const startDownloading = () => {
     setLoadingTable(true);
     window.scrollTo(0, 0);
@@ -136,28 +163,7 @@ const CLMSCartContent = (props) => {
       selectedItems.length > 0
         ? selectedItems.map((item) => item.unique_id)
         : [];
-    dispatch(postDownloadtool(body, unique_ids))
-      .then((response) => {
-        setLoadingTable(false);
-        toast.success(
-          <Toast
-            success
-            autoClose={5000}
-            title={'Downloading process started'}
-            content={'Selected file(s) added to the downloading process.'}
-          />,
-        );
-      })
-      .catch(function (error) {
-        setLoadingTable(false);
-        toast.error(
-          <Toast
-            autoClose={5000}
-            title={'Something went wrong.'}
-            content={post_download?.error?.response?.body?.msg}
-          />,
-        );
-      });
+    dispatch(postDownloadtool(body, unique_ids));
   };
 
   const downloadModal = () => {
