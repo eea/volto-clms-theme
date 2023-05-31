@@ -42,6 +42,7 @@ const ItemSchema = () => ({
         ['EEA', 'EEA'],
         ['LANDCOVER', 'LANDCOVER'],
         ['LEGACY', 'LEGACY'],
+        ['HOTSPOTS', 'HOTSPOTS'],
       ],
     },
     wekeo_choices: {
