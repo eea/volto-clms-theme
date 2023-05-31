@@ -118,14 +118,7 @@ class TaxonomyWidget extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const {
-      id,
-      value,
-      onChange,
-      choices,
-      vocabBaseUrl,
-      vocabName,
-    } = this.props;
+    const { id, value, onChange, choices, vocabBaseUrl } = this.props;
     // const normalizedValue = normalizeValue(choices, value, intl);
     let currentValue = value;
     if (!value) {
