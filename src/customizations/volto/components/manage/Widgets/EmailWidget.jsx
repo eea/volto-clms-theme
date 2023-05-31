@@ -25,7 +25,7 @@ const EmailWidget = (props) => {
     id,
     value = '',
     onChange,
-    onBlur,
+    // onBlur,
     onClick,
     minLength,
     placeholder,
@@ -54,8 +54,8 @@ const EmailWidget = (props) => {
     typeof window !== 'undefined' && document.getElementById(inputId) !== null
       ? document.getElementById(inputId)
       : '';
-  // email.addEventListener('input', function (e) {
-  React.useEffect(() => {
+
+  const handleBlur = () => {
     if (email !== '') {
       if (!validator.isEmail(email)) {
         input.setCustomValidity(intl.formatMessage(messages.invalid_email));
@@ -66,9 +66,7 @@ const EmailWidget = (props) => {
     } else {
       return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email]);
-  // });
+  };
 
   return (
     <FormFieldWrapper {...props} className="email">
@@ -83,9 +81,7 @@ const EmailWidget = (props) => {
           onChange={({ target }) =>
             onChange(id, target.value === '' ? undefined : target.value)
           }
-          onBlur={({ target }) =>
-            onBlur(id, target.value === '' ? undefined : target.value)
-          }
+          onBlur={handleBlur}
           onClick={() => onClick()}
           minLength={minLength || null}
           maxLength={200}
