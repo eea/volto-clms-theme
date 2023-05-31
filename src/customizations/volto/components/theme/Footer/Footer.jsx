@@ -128,6 +128,7 @@ class Footer extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       value: '',
@@ -154,6 +155,8 @@ class Footer extends Component {
     this.setState({
       value: event.target.value,
     });
+  }
+  handleBlur(event) {
     const input =
       typeof window !== 'undefined' &&
       document.getElementById('footer-email') !== null
@@ -380,6 +383,7 @@ class Footer extends Component {
                     id="footer-email"
                     value={this.state.value}
                     onChange={this.handleChange}
+                    onBlur={this.handleBlur}
                   />
                   <button
                     disabled={

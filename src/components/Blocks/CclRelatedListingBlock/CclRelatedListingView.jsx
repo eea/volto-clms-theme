@@ -77,6 +77,11 @@ const CclRelatedListingView = (props) => {
     sort_on = 'sortable_title';
     sort_order = 'ascending';
   }
+  const ref = React.useRef();
+
+  const handleScroll = (ref) => {
+    ref.scrollIntoView({ behavior: 'smooth' });
+  };
 
   React.useEffect(() => {
     if (searchSubrequests?.loaded) {
@@ -108,7 +113,7 @@ const CclRelatedListingView = (props) => {
   return (
     <>
       {searchSubrequests?.loaded && libraries.length > 0 ? (
-        <div>
+        <div ref={ref}>
           {paginationSize < libraries.length && (
             <div className="block search">
               <div className="search-wrapper">
@@ -133,6 +138,7 @@ const CclRelatedListingView = (props) => {
                 activePage={currentPage}
                 totalPages={Math.ceil(dataList.length / paginationSize)}
                 onPageChange={(e, { activePage }) => {
+                  if (ref.current) handleScroll(ref.current);
                   p_functions.setCurrentPage(activePage);
                 }}
                 firstItem={null}

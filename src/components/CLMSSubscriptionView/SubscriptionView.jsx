@@ -122,6 +122,7 @@ class SubscriptionView extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.state = {
       value: '',
       type_conf: null,
@@ -145,6 +146,9 @@ class SubscriptionView extends Component {
     this.setState({
       value: event.target.value,
     });
+  }
+
+  handleBlur(event) {
     const input =
       typeof window !== 'undefined' && document.getElementById('email') !== null
         ? document.getElementById('email')
@@ -336,6 +340,7 @@ class SubscriptionView extends Component {
                       // required={true}
                       value={this.state.value}
                       onChange={this.handleChange}
+                      onBlur={this.handleBlur}
                     />
                     {this.state.inputValue === false ||
                     validator.isEmail(this.state.value) === false ? (
