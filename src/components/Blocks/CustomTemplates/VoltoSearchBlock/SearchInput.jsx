@@ -1,6 +1,8 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react';
+import { Button, Input } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
+import { Icon } from '@plone/volto/components';
+import clearSVG from '@plone/volto/icons/clear.svg';
 
 const messages = defineMessages({
   search: {
@@ -10,23 +12,8 @@ const messages = defineMessages({
 });
 
 const SearchInput = (props) => {
-  const {
-    data,
-    searchText,
-    setSearchText,
-    isLive,
-    onTriggerSearch,
-    ...rest
-  } = props;
+  const { data, searchText, setSearchText, isLive, onTriggerSearch } = props;
   const intl = useIntl();
-
-  React.useEffect(() => {
-    if (rest.searchedText !== '') {
-      onTriggerSearch(rest.searchedText);
-      setSearchText(rest.searchedText);
-    }
-    return () => {};
-  }, [rest.searchedText, onTriggerSearch, setSearchText]);
 
   return (
     <div className="search-input">
@@ -44,10 +31,25 @@ const SearchInput = (props) => {
         onChange={(event, { value }) => {
           setSearchText(value);
           if (isLive) {
-            onTriggerSearch(searchText);
+            onTriggerSearch(value);
           }
         }}
       />
+      <div className="search-input-actions">
+        {searchText && (
+          <Button
+            basic
+            icon
+            className="search-input-clear-icon-button"
+            onClick={() => {
+              setSearchText('');
+              onTriggerSearch('');
+            }}
+          >
+            <Icon name={clearSVG}></Icon>
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

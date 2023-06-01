@@ -81,7 +81,17 @@ const DownloadableFilesTableWidget = (props) => {
           setUISchema(JSON.parse(newUiSchema));
         }}
         mods={{
-          deactivatedFormInputs: ['array', 'radio', 'password', 'longAnswer'],
+          deactivatedFormInputs: [
+            'array',
+            'radio',
+            'password',
+            'longAnswer',
+            'date',
+            'dateTime',
+            'time',
+            'checkbox',
+            'integer',
+          ],
         }}
       />
       {edited && (
