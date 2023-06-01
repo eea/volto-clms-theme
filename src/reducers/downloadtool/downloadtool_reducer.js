@@ -15,6 +15,7 @@ const getInitialState = {
   error: null,
   loaded: false,
   loading: false,
+  requested: false,
   download_queued: {},
   download_in_progress: {},
   download_finished_ok: {},
@@ -78,6 +79,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
+        requested: false,
         download_queued: queued,
         download_in_progress: in_progress,
         download_finished_ok: finished_ok,
@@ -91,6 +93,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         error: null,
         loaded: true,
         loading: false,
+        requested: true,
         post_download_in_progress: {
           unique_ids: action.unique_ids,
           task_id: action.result['TaskID'],
@@ -103,6 +106,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         loaded: true,
         loading: false,
         delete_download_in_progress: true,
+        requested: false,
       };
     case `${GET_FORMATCONVERSIONTABLE}_SUCCESS`:
       return {

@@ -83,14 +83,12 @@ const DocCard = ({ card, url, showEditor, children }) => {
     return vocabularies_state?.loaded && categorization ? (
       <>
         {categorization
-          .map((item) => {
-            return vocabItemsDict[item].split(' » ').length > 1
-              ? vocabItemsDict[item].split(' » ').slice(-1)
-              : null;
-          })
-          .map((item) => {
-            return item && <Label>{item}</Label>;
-          })}
+          .filter((item) => vocabItemsDict[item].split(' » ').length > 1)
+          .map((item, key) => (
+            <Label key={key}>
+              {vocabItemsDict[item].split(' » ').slice(-1)}
+            </Label>
+          ))}
       </>
     ) : null;
   };

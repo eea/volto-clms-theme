@@ -14,6 +14,7 @@ describe('downloadtoolReducer', () => {
       error: null,
       loaded: false,
       loading: false,
+      requested: false,
       download_queued: {},
       download_in_progress: {},
       download_finished_ok: {},
@@ -34,6 +35,7 @@ describe('downloadtoolReducer', () => {
           error: null,
           loaded: false,
           loading: false,
+          requested: false,
           download_queued: {},
           download_in_progress: {},
           download_finished_ok: {
@@ -76,6 +78,7 @@ describe('downloadtoolReducer', () => {
       error: null,
       loaded: true,
       loading: false,
+      requested: false,
       download_queued: [],
       download_in_progress: [],
       download_finished_ok: [],
@@ -128,6 +131,7 @@ describe('downloadtoolReducer', () => {
           error: null,
           loaded: false,
           loading: false,
+          requested: false,
           download_queued: {},
           download_in_progress: {},
           download_finished_ok: {},
@@ -159,6 +163,7 @@ describe('downloadtoolReducer', () => {
       error: null,
       loaded: true,
       loading: false,
+      requested: true,
       download_queued: {},
       download_in_progress: {},
       download_finished_ok: {},
@@ -216,6 +221,7 @@ describe('downloadtoolReducer', () => {
       error: null,
       loaded: true,
       loading: false,
+      requested: false,
       delete_download_in_progress: true,
     });
   });

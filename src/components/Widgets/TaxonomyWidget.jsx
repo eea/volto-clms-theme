@@ -102,10 +102,10 @@ class TaxonomyWidget extends Component {
   componentDidMount() {
     if (
       (!this.props.choices || this.props.choices?.length === 0) &&
-      this.props.vocabBaseUrl
+      this.props.vocabName
     ) {
       this.props.getVocabulary({
-        vocabNameOrURL: this.props.vocabBaseUrl,
+        vocabNameOrURL: this.props.vocabName,
         size: -1,
         subrequest: this.props.intl.locale,
       });
@@ -118,15 +118,15 @@ class TaxonomyWidget extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { id, value, onChange } = this.props;
+    const { id, value, onChange, choices, vocabBaseUrl } = this.props;
     // const normalizedValue = normalizeValue(choices, value, intl);
     let currentValue = value;
     if (!value) {
       currentValue = [];
     }
     let options = [];
-    if (this.props.vocabBaseUrl && this.props.choices?.length > 0) {
-      options = structure_taxonomy_terms(this.props.choices);
+    if (vocabBaseUrl && choices?.length > 0) {
+      options = structure_taxonomy_terms(choices);
     }
 
     return (
@@ -281,8 +281,10 @@ export default compose(
           getVocabFromItems(props)
         : '';
 
+      const vocabName = vocabBaseUrl.split('@vocabularies/').slice(-1);
+
       const vocabState =
-        state.vocabularies?.[vocabBaseUrl]?.subrequests?.[props.intl.locale];
+        state.vocabularies?.[vocabName]?.subrequests?.[props.intl.locale];
 
       // If the schema already has the choices in it, then do not try to get the vocab,
       // even if there is one
@@ -293,6 +295,7 @@ export default compose(
       } else if (vocabState) {
         return {
           vocabBaseUrl,
+          vocabName,
           choices: vocabState?.items ?? [],
         };
         // There is a moment that vocabState is not there yet, so we need to pass the
@@ -300,6 +303,7 @@ export default compose(
       } else if (vocabBaseUrl) {
         return {
           vocabBaseUrl,
+          vocabName,
         };
       }
       return {};
