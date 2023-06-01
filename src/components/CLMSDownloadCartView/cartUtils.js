@@ -121,6 +121,10 @@ export const getCartObjectFromMapviewer = (
     task_in_progress: false,
     projection: dataset_data.projection || projections[0],
     timeExtent: local_cart_data.timeExtent || [],
+    layer:
+      type_options.length > 0 && type_options[0].layers.length > 0
+        ? type_options[0].layers[0]
+        : null,
   };
 };
 
