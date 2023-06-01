@@ -39,6 +39,7 @@ const SearchInput = (props) => {
         {searchText && (
           <Button
             basic
+            icon
             className="search-input-clear-icon-button"
             onClick={() => {
               setSearchText('');
