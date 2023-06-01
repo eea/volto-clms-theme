@@ -28,6 +28,7 @@ import './meetingstyles.less';
 import { RegisterButtonReasons } from './utils';
 
 import jwtDecode from 'jwt-decode';
+import CclCard from '../CclCard/CclCard';
 
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
@@ -127,6 +128,9 @@ export const CLMSMeetingView = (props) => {
   }
   const files = content.items
     ? content.items.filter((item) => item['@type'] === 'File')
+    : [];
+  const urls = content.items
+    ? content.items.filter((item) => item['@type'] === 'Link')
     : [];
   const RegistrationButton = ({
     rContent,
@@ -495,6 +499,19 @@ export const CLMSMeetingView = (props) => {
             linkHref={`${files['@id']}/@@download/file`}
           />
         )}
+
+        {urls.length > 0 &&
+          urls.map((url, i) => {
+            return (
+              <CclCard
+                key={i}
+                type="file"
+                url={url.getRemoteUrl}
+                card={url}
+                showDates={false}
+              />
+            );
+          })}
 
         {is_manager && (
           <div className="dataset-info-documents dropdown card-container">
