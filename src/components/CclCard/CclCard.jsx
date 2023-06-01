@@ -10,6 +10,7 @@ import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock'
 import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon } from 'semantic-ui-react';
 import { Icon as VoltoIcon } from '@plone/volto/components';
+import { UniversalLink } from '@plone/volto/components';
 
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
@@ -36,7 +37,7 @@ const CardLink = ({ url, children, className, condition = true }) => {
       protocolUrl.startsWith('https://') || protocolUrl.startsWith('http://')
     );
   }
-  const RenderElement = hasProtocol(url) ? 'a' : Link;
+  const RenderElement = hasProtocol(url) ? UniversalLink : Link;
   return !condition ? (
     children
   ) : hasProtocol(url) ? (
@@ -166,13 +167,13 @@ function CclCard(props) {
   } = props;
   let url = '/';
   let content_type = '';
-  if (card && !isCustomCard) {
+  if (card?.getRemoteUrl) {
+    url = card.getRemoteUrl || '/';
+  } else if (card && !isCustomCard) {
     url = card['@id'] || '/';
     content_type = portal_types_labels[card['@type']] || card['@type'];
-  } else {
-    if (card?.url?.length > 0) {
-      url = card.url[0]['@id'] || '/';
-    }
+  } else if (card?.url?.length > 0 && !card?.getRemoteUrl) {
+    url = card.url[0]['@id'] || '/';
   }
   const conditional_types = [
     'doc',
