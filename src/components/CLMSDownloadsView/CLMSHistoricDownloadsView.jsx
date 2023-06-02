@@ -47,8 +47,8 @@ const CLMSDownloadsView = (props) => {
   const { formatMessage } = useIntl();
   const messages = defineMessages({
     CartDownloads: {
-      id: 'Downloads',
-      defaultMessage: 'Downloads',
+      id: 'Historic downloads',
+      defaultMessage: 'Historic downloads',
     },
   });
 
@@ -137,7 +137,7 @@ const CLMSDownloadsView = (props) => {
   }, [dispatch, downloadtool.delete_download_in_progress]);
 
   return (
-    <>
+    <div className="ccl-container ">
       <Helmet
         title={helmetTitle(formatMessage(messages.CartDownloads), content)}
       />
@@ -173,7 +173,7 @@ const CLMSDownloadsView = (props) => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
