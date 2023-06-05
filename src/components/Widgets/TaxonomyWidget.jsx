@@ -233,11 +233,16 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
                             ? onChange(id, [
                                 ...value,
                                 { title: child.original, token: child.value },
-                                value.filter((v) => v.token === option.value)
-                                  .length === 0 && {
-                                  title: option.original,
-                                  token: option.value,
-                                },
+                                ...(value.filter(
+                                  (v) => v.token === option.value,
+                                ).length === 0
+                                  ? [
+                                      {
+                                        title: option.original,
+                                        token: option.value,
+                                      },
+                                    ]
+                                  : []),
                               ])
                             : onChange(
                                 id,

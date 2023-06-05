@@ -78,7 +78,7 @@ const HeaderDropdown = ({ user }) => {
             to={`/${intl.locale}/all-downloads`}
             className="header-login-link"
           >
-            Historic Downloads
+            Historic downloads
           </Link>
         </li>
         <li>
