@@ -206,12 +206,12 @@ const CLMSCartContent = (props) => {
             <br />
             <span className="cart-bounding-boxes">
               <span className="cart-bounding-box-row">
-                <span>{`N: ${item.area.value[0].toFixed(1)}º `}</span>&nbsp;
-                <span>{`E: ${item.area.value[1].toFixed(1)}º `}</span>
+                <span>{`N: ${item.area.value[1].toFixed(1)}º `}</span>&nbsp;
+                <span>{`E: ${item.area.value[2].toFixed(1)}º `}</span>
               </span>
               <span className="cart-bounding-box-row">
-                <span>{`S: ${item.area.value[2].toFixed(1)}º `}</span>&nbsp;
-                <span>{`W: ${item.area.value[3].toFixed(1)}º `}</span>
+                <span>{`S: ${item.area.value[3].toFixed(1)}º `}</span>&nbsp;
+                <span>{`W: ${item.area.value[0].toFixed(1)}º `}</span>
               </span>
             </span>
           </>
