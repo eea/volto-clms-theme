@@ -4,6 +4,7 @@
  */
 
 import { datasetsByUidReducer } from './datasets_by_uid/datasets_by_uid';
+import { datasetTimeseriesReducer } from './dataset_timeseries/dataset_timeseries';
 import { downloadtoolReducer } from './downloadtool/downloadtool_reducer';
 import { extraBreadcrumbItemsReducer } from './extra_breadcrumbs/extra_breadcrumb_reducer';
 import { importGeonetworkReducer } from './geonetwork/import_geonetwork_reducer';
@@ -40,6 +41,7 @@ const reducers = {
   geonetwork_importation: importGeonetworkReducer,
   userschema: userschemaReducer,
   datasetsByUid: datasetsByUidReducer,
+  datasetTimeseries: datasetTimeseriesReducer,
   // subscribe_to_newsletter: newsletterReducer,
   newsletter_subscribers: newsletterSubscribersReducer,
   subscription: subscribeToReducer,

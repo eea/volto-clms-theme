@@ -22,6 +22,7 @@ import {
 } from './cartUtils';
 import { getAvailableConversion } from './conversion';
 import { toast } from 'react-toastify';
+import TimesliderWidget from '@eeacms/volto-arcgis-block/components/MapViewer/TimesliderWidget';
 
 import './cart-table.less';
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -41,6 +42,7 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.post_download_in_progress,
   );
   const downloadtool_state = useSelector((state) => state.downloadtool);
+  const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
 
   // component states
   const [openedModal, setOpenedModal] = useState(false);
@@ -437,6 +439,7 @@ const CLMSCartContent = (props) => {
                   <th>Format</th>
                   <th>Layer/Band</th>
                   <th>Projection</th>
+                  <th>Timeseries</th>
                   <th></th>
                   <th></th>
                 </tr>
@@ -527,6 +530,25 @@ const CLMSCartContent = (props) => {
                           />
                         ) : (
                           '-'
+                        )}
+                      </td>
+                      <td>
+                        {datasetTimeseries.datasets[item.dataset_uid]?.start ? (
+                          // <TimesliderWidget
+                          //   time={{
+                          //     start:
+                          //       datasetTimeseries.datasets[item.dataset_uid]
+                          //         .start,
+                          //     end:
+                          //       datasetTimeseries.datasets[item.dataset_uid]
+                          //         .end,
+                          //   }}
+                          //   layer={{ type:"feature",timeInfo: { fullTimeExtent: 'some' } }}
+                          //   hideCalendar={true}
+                          // />
+                          <>Timeseries</>
+                        ) : (
+                          <>No timeseries</>
                         )}
                       </td>
                       <td>
