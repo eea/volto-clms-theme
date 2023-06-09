@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ConditionalLink from '@plone/volto/components/manage/ConditionalLink/ConditionalLink';
-import { flattenToAppURL } from '@plone/volto/helpers';
-// import { ConditionalLink, UniversalLink } from '@plone/volto/components';
-import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { useSelector } from 'react-redux';
-import UniversalLink from '@plone/volto/components/manage/UniversalLink/UniversalLink';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { getVocabulary } from '@plone/volto/actions';
+import ConditionalLink from '@plone/volto/components/manage/ConditionalLink/ConditionalLink';
+import UniversalLink from '@plone/volto/components/manage/UniversalLink/UniversalLink';
+import { flattenToAppURL } from '@plone/volto/helpers';
+import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
+
+import PropTypes from 'prop-types';
 
 const CclListingCards = (props) => {
   const {
@@ -18,8 +19,14 @@ const CclListingCards = (props) => {
     variation = 'doc',
     showDates = true,
   } = props;
+  const dispatch = useDispatch();
   let link = null;
   let href = linkHref?.[0]?.['@id'] || '';
+  const CATEGORIZATION_VOCABULARY_NAME =
+    'collective.taxonomy.technical_library_categorization';
+  const vocabularies_state = useSelector(
+    (state) => state.vocabularies[CATEGORIZATION_VOCABULARY_NAME],
+  );
   const user = useSelector((state) => state.users.user);
   if (isInternalURL(href)) {
     link = (
@@ -36,6 +43,17 @@ const CclListingCards = (props) => {
   } else if (!['line', 'doc', 'globalSearch'].includes(variation)) {
     containerClass = 'card-container';
   }
+  const hasTL = items.find(
+    (i) => i?.taxonomy_technical_library_categorization.length > 0,
+  );
+  React.useEffect(() => {
+    if (hasTL && !vocabularies_state?.loaded) {
+      dispatch(
+        getVocabulary({ vocabNameOrURL: CATEGORIZATION_VOCABULARY_NAME }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasTL, dispatch]);
   return (
     <>
       <div className={containerClass}>
