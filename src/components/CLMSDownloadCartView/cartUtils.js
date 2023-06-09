@@ -48,6 +48,12 @@ export const getDownloadToolPostBody = (selectedItems) => {
       if (item.layer) {
         body_extras['Layer'] = item.layer;
       }
+      if (item.TemporalFilter) {
+        body_extras['TemporalFilter'] = {
+          StartDate: new Date(item.TemporalFilter?.StartDate).getTime(),
+          EndDate: new Date(item.TemporalFilter?.EndDate).getTime(),
+        };
+      }
     }
     return { DatasetID: item.dataset_uid, ...body_extras };
   });
@@ -203,4 +209,19 @@ export const concatRequestedCartItem = (
       }
     }
   });
+};
+
+export const isChecked = (cartSelectionCh, cartItemsCh) => {
+  return cartItemsCh.length > 0
+    ? cartItemsCh
+        .filter((item) => item.task_in_progress === false)
+        .map((item, key) => item.unique_id)
+        .every(function (val) {
+          return cartSelectionCh.indexOf(val) !== -1;
+        })
+    : false;
+};
+
+export const contentOrDash = (content) => {
+  return content || '-';
 };

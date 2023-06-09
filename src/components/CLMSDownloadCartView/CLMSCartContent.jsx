@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
 
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
-import removeSVG from '@plone/volto/icons/delete.svg';
 import addDocumentSVG from '@plone/volto/icons/add-document.svg';
+import removeSVG from '@plone/volto/icons/delete.svg';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
+import './cart-table.less';
 import {
   getDownloadToolPostBody,
-  formatNaming,
-  originalFormatNaming,
-  getCollectionByItem,
   duplicateCartItem,
   concatRequestedCartItem,
+  isChecked,
+  contentOrDash,
 } from './cartUtils';
-import { getAvailableConversion } from './conversion';
-import { toast } from 'react-toastify';
-import TimesliderWidget from '@eeacms/volto-arcgis-block/components/MapViewer/TimesliderWidget';
+import {
+  TypeNaming,
+  AreaNaming,
+  CollectionNaming,
+  FormatNaming,
+  LayerNaming,
+  TimeseriesPicker,
+} from '.';
 
-import './cart-table.less';
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
  * CLMSCartContent container.
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
-
 const CLMSCartContent = (props) => {
   const { localSessionCart } = props;
   const dispatch = useDispatch();
@@ -187,228 +191,10 @@ const CLMSCartContent = (props) => {
     setCartItems([...cartItems]);
   };
 
-  function isChecked(cartSelectionCh, cartItemsCh) {
-    return cartItemsCh.length > 0
-      ? cartItemsCh
-          .filter((item) => item.task_in_progress === false)
-          .map((item, key) => item.unique_id)
-          .every(function (val) {
-            return cartSelectionCh.indexOf(val) !== -1;
-          })
-      : false;
-  }
-
-  const AreaNaming = (areaProps) => {
-    const { item } = areaProps;
-    switch (item.area?.type) {
-      case 'polygon':
-        return (
-          <>
-            <span>Bounding Box</span>
-            <br />
-            <span className="cart-bounding-boxes">
-              <span className="cart-bounding-box-row">
-                <span>{`N: ${item.area.value[1].toFixed(1)}º `}</span>&nbsp;
-                <span>{`E: ${item.area.value[2].toFixed(1)}º `}</span>
-              </span>
-              <span className="cart-bounding-box-row">
-                <span>{`S: ${item.area.value[3].toFixed(1)}º `}</span>&nbsp;
-                <span>{`W: ${item.area.value[0].toFixed(1)}º `}</span>
-              </span>
-            </span>
-          </>
-        );
-      case 'nuts':
-        return 'NUTS: ' + (item.area.valueName || item.area.value);
-      case undefined:
-        return item.area || item.file || '-';
-      case typeof item.area === 'string':
-        return item.area || item.file || '-';
-      default:
-        return '-';
-    }
-  };
-
-  const TypeNaming = ({ item }) => {
-    const types_options =
-      item?.type_options?.length > 0
-        ? [...new Set(item.type_options.map((ddi) => ddi.name))]
-        : [];
-    if (item.file_id) {
-      return (
-        <span className={'tag tag-' + item?.type?.toLowerCase()}>
-          {contentOrDash(item.type)}
-        </span>
-      );
-    } else if (!item.type) {
-      return '-';
-    } else {
-      let defaultType = getCollectionByItem(item);
-      return types_options.length > 1 ? (
-        <Select
-          placeholder="Select type"
-          value={defaultType.name}
-          options={
-            types_options.length > 0
-              ? types_options.map((option) => {
-                  return {
-                    key: option,
-                    value: option,
-                    text: option,
-                  };
-                })
-              : []
-          }
-          onChange={(e, data) => {
-            const new_cartItems = [...cartItems];
-            const objIndex = new_cartItems.findIndex(
-              (obj) => obj.unique_id === item.unique_id,
-            );
-            const first_type_id = item.type_options.filter(
-              (t_o) => t_o.name === data.value,
-            )[0].id;
-            new_cartItems[objIndex].type = first_type_id;
-            const dataset = datasets_items
-              ? datasets_items.find((req) => req.UID === item.dataset_uid)
-              : false;
-            const format_item = dataset.dataset_download_information.items.find(
-              (item) => item['@id'] === first_type_id,
-            );
-            new_cartItems[objIndex].format = format_item.full_format;
-            setCartItems([...new_cartItems]);
-          }}
-        />
-      ) : (
-        defaultType.name
-      );
-    }
-  };
-
-  const CollectionNaming = ({ item }) => {
-    if (item.file_id) {
-      return '-';
-    } else if (!item.type) {
-      return '-';
-    }
-    const this_type_collections = item?.type_options.filter(
-      (o) =>
-        o.name === item?.type_options.find((t_o) => t_o.id === item.type).name,
-    );
-    return this_type_collections.length > 1 ? (
-      <Select
-        placeholder="Select type"
-        value={
-          item.type
-            ? item.type
-            : item.type_options.length > 0 && item.type_options[0].id
-        }
-        options={
-          item?.type_options?.length > 0 &&
-          this_type_collections.map((option) => {
-            return {
-              key: option.id,
-              value: option.id,
-              text: option.collection ?? '-',
-            };
-          })
-        }
-        onChange={(e, data) => {
-          const new_cartItems = [...cartItems];
-          const objIndex = new_cartItems.findIndex(
-            (obj) => obj.unique_id === item.unique_id,
-          );
-          new_cartItems[objIndex].type = data.value;
-          const dataset = datasets_items
-            ? datasets_items.find((req) => req.UID === item.dataset_uid)
-            : false;
-          const format_item = dataset.dataset_download_information.items.find(
-            (item) => item['@id'] === data.value,
-          );
-          new_cartItems[objIndex].format = format_item.full_format;
-          setCartItems([...new_cartItems]);
-        }}
-      />
-    ) : (
-      getCollectionByItem(item).collection ?? '-'
-    );
-  };
-  const FormatNaming = ({ item, formatConversionTable }) => {
-    const format_options = getAvailableConversion(
-      formatConversionTable,
-      originalFormatNaming(item),
-    );
-    const item_format_name = formatNaming(item);
-    return !item.file_id ? (
-      format_options.length > 1 ? (
-        <Select
-          placeholder="Select format"
-          value={item_format_name}
-          options={format_options}
-          onChange={(e, data) => {
-            const objIndex = cartItems.findIndex(
-              (obj) => obj.unique_id === item.unique_id,
-            );
-            cartItems[objIndex].format = data.value;
-            setCartItems([...cartItems]);
-          }}
-        />
-      ) : (
-        item_format_name
-      )
-    ) : (
-      item_format_name
-    );
-  };
-
-  const LayerNaming = ({ item }) => {
-    if (item.file_id) {
-      return '-';
-    } else if (!item.type) {
-      return '-';
-    }
-
-    const this_type_layers = item?.type_options.filter(
-      (o) =>
-        o.collection ===
-        item?.type_options.find((t_o) => t_o.id === item.type).collection,
-    );
-
-    return this_type_layers.length > 0 &&
-      this_type_layers[0].layers.length > 0 ? (
-      <Select
-        placeholder="Select layer"
-        value={
-          item.layer
-            ? item.layer
-            : this_type_layers[0].layers.length > 0 &&
-              this_type_layers[0].layers[0]
-        }
-        options={
-          this_type_layers[0]?.layers.length > 0 &&
-          this_type_layers[0].layers.map((option) => {
-            return {
-              key: option,
-              value: option,
-              text: option,
-            };
-          })
-        }
-        onChange={(e, data) => {
-          const new_cartItems = [...cartItems];
-          const objIndex = new_cartItems.findIndex(
-            (obj) => obj.unique_id === item.unique_id,
-          );
-          new_cartItems[objIndex].layer = data.value;
-          setCartItems([...new_cartItems]);
-        }}
-      />
-    ) : (
-      '-'
-    );
-  };
-
-  const contentOrDash = (content) => {
-    return content || '-';
+  const setTimeseriesValue = (unique_id, value) => {
+    const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
+    cartItems[objIndex].TemporalFilter = value;
+    setCartItems([...cartItems]);
   };
 
   return (
@@ -493,21 +279,37 @@ const CLMSCartContent = (props) => {
                         <AreaNaming item={item} />
                       </td>
                       <td>
-                        <TypeNaming item={item} />
+                        <TypeNaming
+                          item={item}
+                          datasets_items={datasets_items}
+                          cartItems={cartItems}
+                          setCartItems={setCartItems}
+                        />
                       </td>
                       <td>
-                        <CollectionNaming item={item} />
+                        <CollectionNaming
+                          item={item}
+                          datasets_items={datasets_items}
+                          cartItems={cartItems}
+                          setCartItems={setCartItems}
+                        />
                       </td>
                       <td className="table-td-format">
                         {formatConversionTable && item && (
                           <FormatNaming
                             item={item}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
                             formatConversionTable={formatConversionTable}
                           />
                         )}
                       </td>
                       <td className="table-td-format">
-                        <LayerNaming item={item} />
+                        <LayerNaming
+                          item={item}
+                          cartItems={cartItems}
+                          setCartItems={setCartItems}
+                        />
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
@@ -534,21 +336,18 @@ const CLMSCartContent = (props) => {
                       </td>
                       <td>
                         {datasetTimeseries.datasets[item.dataset_uid]?.start ? (
-                          // <TimesliderWidget
-                          //   time={{
-                          //     start:
-                          //       datasetTimeseries.datasets[item.dataset_uid]
-                          //         .start,
-                          //     end:
-                          //       datasetTimeseries.datasets[item.dataset_uid]
-                          //         .end,
-                          //   }}
-                          //   layer={{ type:"feature",timeInfo: { fullTimeExtent: 'some' } }}
-                          //   hideCalendar={true}
-                          // />
-                          <>Timeseries</>
+                          <TimeseriesPicker
+                            start={
+                              datasetTimeseries.datasets[item.dataset_uid].start
+                            }
+                            end={
+                              datasetTimeseries.datasets[item.dataset_uid].end
+                            }
+                            item={item}
+                            setTimeseriesValue={setTimeseriesValue}
+                          />
                         ) : (
-                          <>No timeseries</>
+                          <>-</>
                         )}
                       </td>
                       <td>

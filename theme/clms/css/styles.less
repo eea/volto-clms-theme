@@ -1250,7 +1250,6 @@ div#page-document h1.documentFirstHeading {
 
 /*Sitemap*/
 
-
 .section-portal-sitemap #page-document ul > ul {
   margin-left: 35px;
 }
@@ -1283,7 +1282,31 @@ div#page-document h1.documentFirstHeading {
   }
 }
 
+.datetime-picker {
+  label {
+    font-weight: bold;
+  }
+  input.datepicker {
+    padding: 0.3rem;
+    margin-bottom: 1rem;
+  }
 
+  button.ccl-button {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.react-datepicker {
+  .react-datepicker__day--in-selecting-range {
+    background-color: #7c8921;
+  }
+}
+
+.react-datepicker-popper {
+  z-index: 3;
+}
 
 .Toastify__toast--success {
   background-color: #fafbf3 !important;
