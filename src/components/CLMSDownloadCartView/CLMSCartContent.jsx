@@ -36,7 +36,7 @@ import {
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 const CLMSCartContent = (props) => {
-  const { localSessionCart } = props;
+  const { localSessionCart, getNutsIDList } = props;
   const dispatch = useDispatch();
   const { removeCartItem, /* removeCartItems, */ updateCart } = useCartState();
 
@@ -62,8 +62,7 @@ const CLMSCartContent = (props) => {
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
   );
-  const nutsnames = useSelector((state) => state.nutsnames.nutsnames);
-
+  const nutsnames = useSelector((state) => state.nutsnames);
   useEffect(() => {
     setCartItemInProgress(post_download_in_progress.unique_ids || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,10 +75,14 @@ const CLMSCartContent = (props) => {
       array_ids.includes(item.unique_id),
     );
     setCartItems(cleanDuplicatesEntries(newCart));
+    let localsessionNutsIDList = [...new Set(getNutsIDList(cart))];
+
     if (
       datasets_items?.length > 0 &&
       cart.length > 0 &&
-      cart.length !== newCart.length
+      cart.length !== newCart.length &&
+      ((localsessionNutsIDList.length > 0 && nutsnames.loaded) ||
+        !nutsnames.loading)
     ) {
       concatRequestedCartItem(
         cartItems,
@@ -87,10 +90,10 @@ const CLMSCartContent = (props) => {
         localSessionCart,
         datasets_items,
         projections,
-        nutsnames,
+        nutsnames.nutsnames,
       );
     }
-  }, [cart, datasets_items]);
+  }, [cart, datasets_items, nutsnames]);
 
   const selectAllCart = (checked) => {
     if (checked && cartItems.length > 0) {

@@ -89,7 +89,7 @@ export const getCartObjectFromMapviewer = (
   projections,
   nutsnames,
 ) => {
-  const area = local_cart_data.area;
+  let area = local_cart_data.area;
   const file = local_cart_data.file;
   if (area?.type === 'nuts' && Object.keys(nutsnames).includes(area.value)) {
     area.valueName = nutsnames[area.value];

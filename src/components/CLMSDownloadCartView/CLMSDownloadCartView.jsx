@@ -158,7 +158,10 @@ const CLMSDownloadCartView = (props) => {
                   </ul>
                 </div>
               </div>
-              <CLMSCartContent localSessionCart={cart} />
+              <CLMSCartContent
+                localSessionCart={cart}
+                getNutsIDList={getNutsIDList}
+              />
             </div>
           </>
         )}

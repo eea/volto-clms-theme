@@ -82,6 +82,13 @@ export const TimeseriesPicker = (props) => {
               showMonthDropdown
               showYearDropdown
             >
+              {(startValue || endValue) && (
+                <span>
+                  {cclDateFormat(startValue)} -{' '}
+                  {endValue && cclDateFormat(endValue)}
+                </span>
+              )}
+              <br />
               Click the start and end dates, and then apply
               <CclButton
                 isButton={true}
@@ -148,19 +155,6 @@ export const TimeseriesPicker = (props) => {
             />
           </Grid.Row> */}
           <Grid.Row>
-            {/* <CclButton
-              isButton={true}
-              mode={'filled'}
-              onClick={() => {
-                setTimeseriesValue(item.unique_id, {
-                  StartDate: startValue,
-                  EndDate: endValue,
-                });
-                setIsOpen(false);
-              }}
-            >
-              apply
-            </CclButton> */}
             <CclButton
               isButton={true}
               onClick={() => {
