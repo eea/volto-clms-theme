@@ -44,7 +44,7 @@ const CclListingCards = (props) => {
     containerClass = 'card-container';
   }
   const hasTL = items.find(
-    (i) => i?.taxonomy_technical_library_categorization.length > 0,
+    (i) => i?.taxonomy_technical_library_categorization?.length > 0,
   );
   React.useEffect(() => {
     if (hasTL && !vocabularies_state?.loaded) {
