@@ -59,6 +59,11 @@ export {
   getDatasetsByUid,
 } from './datasets_by_uid/datasets_by_uid';
 
+export {
+  DATASET_TIMESERIES,
+  getDatasetTimeseries,
+} from './dataset_timeseries/dataset_timeseries';
+
 export { GET_PROJECTIONS, getProjections } from './projections/get_projections';
 
 export { GET_REGISTRY, getRegistry } from './registry/registry';

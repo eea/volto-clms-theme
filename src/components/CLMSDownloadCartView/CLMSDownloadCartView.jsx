@@ -14,7 +14,11 @@ import {
   getExtraBreadcrumbItems,
   getNutsNames,
 } from '../../actions';
-import { getFormatConversionTable, getProjections } from '../../actions';
+import {
+  getFormatConversionTable,
+  getProjections,
+  getDatasetTimeseries,
+} from '../../actions';
 import CLMSCartContent from './CLMSCartContent';
 
 /**
@@ -27,6 +31,7 @@ const CLMSDownloadCartView = (props) => {
   const locale = useSelector((state) => state.intl?.locale);
   const cart = useSelector((state) => state.cart_items.items);
   const content = useSelector((state) => state.content.data);
+  const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
   const { isLoggedIn } = useCartState();
   const { formatMessage } = useIntl();
   const messages = defineMessages({
@@ -69,6 +74,14 @@ const CLMSDownloadCartView = (props) => {
     let uidsList = [...new Set(localsessionUidsList)];
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
+      uidsList.forEach((uid) => {
+        if (
+          !datasetTimeseries.loading &&
+          datasetTimeseries?.datasets[uid] === undefined
+        ) {
+          dispatch(getDatasetTimeseries(uid));
+        }
+      });
     }
     if (localsessionNutsIDList.length > 0) {
       dispatch(getNutsNames(localsessionNutsIDList));
@@ -133,7 +146,10 @@ const CLMSDownloadCartView = (props) => {
                   </ul>
                 </div>
               </div>
-              <CLMSCartContent localSessionCart={cart} />
+              <CLMSCartContent
+                localSessionCart={cart}
+                getNutsIDList={getNutsIDList}
+              />
             </div>
           </>
         )}
