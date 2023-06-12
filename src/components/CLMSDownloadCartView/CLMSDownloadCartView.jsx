@@ -74,22 +74,6 @@ const CLMSDownloadCartView = (props) => {
     let uidsList = [...new Set(localsessionUidsList)];
     if (uidsList.length > 0) {
       dispatch(getDatasetsByUid(uidsList));
-    }
-    if (localsessionNutsIDList.length > 0) {
-      dispatch(getNutsNames(localsessionNutsIDList));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart, dispatch]);
-
-  useEffect(() => {
-    let localsessionUidsList = [];
-    if (cart?.length !== 0) {
-      localsessionUidsList = [
-        ...new Set(cart.map((item) => item.UID || item.id)),
-      ];
-    }
-    let uidsList = [...new Set(localsessionUidsList)];
-    if (uidsList.length > 0) {
       uidsList.forEach((uid) => {
         if (
           !datasetTimeseries.loading &&
@@ -99,7 +83,11 @@ const CLMSDownloadCartView = (props) => {
         }
       });
     }
-  }, [cart]);
+    if (localsessionNutsIDList.length > 0) {
+      dispatch(getNutsNames(localsessionNutsIDList));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart, dispatch]);
 
   function getNutsIDList(cart_data) {
     const nuts_ids = [];
