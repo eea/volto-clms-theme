@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { Grid, Modal, Segment, Select, Popup } from 'semantic-ui-react';
+import { Grid, Popup } from 'semantic-ui-react';
 import calendarSVG from '@plone/volto/icons/calendar.svg';
 import { Icon } from '@plone/volto/components';
 
@@ -9,10 +9,17 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 export const TimeseriesPicker = (props) => {
   const { start, end, item, setTimeseriesValue } = props;
-  const [startValue, setStartValue] = useState(null);
-  const [endValue, setEndValue] = useState(null);
+  const [startValue, setStartValue] = useState(
+    item?.TemporalFilter?.StartDate
+      ? new Date(cclDateFormat(item.TemporalFilter.StartDate))
+      : null,
+  );
+  const [endValue, setEndValue] = useState(
+    item?.TemporalFilter?.EndDate
+      ? new Date(cclDateFormat(item.TemporalFilter.EndDate))
+      : null,
+  );
   const [isOpen, setIsOpen] = useState(false);
-  console.log('startValue', startValue);
   return (
     <>
       <Popup
@@ -49,10 +56,49 @@ export const TimeseriesPicker = (props) => {
           </span>
         }
         open={isOpen}
+        onClose={() => setIsOpen(false)}
         onOpen={() => setIsOpen(!isOpen)}
       >
         <Grid.Column className="datetime-picker">
           <Grid.Row>
+            <DatePicker
+              id="start_date"
+              inline
+              selectsRange
+              className="datepicker"
+              minDate={new Date(cclDateFormat(start))}
+              maxDate={new Date(cclDateFormat(end))}
+              startDate={startValue}
+              endDate={endValue}
+              // selectsStart
+              onChange={(e) => {
+                setStartValue(e[0]);
+                setEndValue(e[1]);
+              }}
+              dateFormat="dd.MM.yyyy"
+              calendarStartDay={1}
+              popperPlacement="top"
+              dropdownMode="select"
+              showMonthDropdown
+              showYearDropdown
+            >
+              Click the start and end dates, and then apply
+              <CclButton
+                isButton={true}
+                mode={'filled'}
+                onClick={() => {
+                  setTimeseriesValue(item.unique_id, {
+                    StartDate: startValue,
+                    EndDate: endValue,
+                  });
+                  setIsOpen(false);
+                }}
+              >
+                apply
+              </CclButton>
+            </DatePicker>
+          </Grid.Row>
+          {/* <Grid.Row>
             <label htmlFor="start_date">From</label>
             <DatePicker
               id="start_date"
@@ -74,7 +120,8 @@ export const TimeseriesPicker = (props) => {
               popperPlacement="top"
               dropdownMode="select"
             />
-          </Grid.Row>
+          </Grid.Row> */}
+          {/*
           <Grid.Row>
             <label htmlFor="end_date">To</label>
             <DatePicker
@@ -99,9 +146,9 @@ export const TimeseriesPicker = (props) => {
               popperPlacement="top"
               dropdownMode="select"
             />
-          </Grid.Row>
+          </Grid.Row> */}
           <Grid.Row>
-            <CclButton
+            {/* <CclButton
               isButton={true}
               mode={'filled'}
               onClick={() => {
@@ -113,7 +160,7 @@ export const TimeseriesPicker = (props) => {
               }}
             >
               apply
-            </CclButton>
+            </CclButton> */}
             <CclButton
               isButton={true}
               onClick={() => {

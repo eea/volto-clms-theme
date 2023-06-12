@@ -1282,10 +1282,11 @@ div#page-document h1.documentFirstHeading {
   }
 }
 
-.datetime-picker {
+div.datetime-picker {
   label {
     font-weight: bold;
   }
+
   input.datepicker {
     padding: 0.3rem;
     margin-bottom: 1rem;
@@ -1295,12 +1296,29 @@ div#page-document h1.documentFirstHeading {
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
+    margin-top: 0.5rem;
   }
-}
 
-.react-datepicker {
-  .react-datepicker__day--in-selecting-range {
-    background-color: #7c8921;
+  .react-datepicker {
+    .react-datepicker__day--in-range,
+    .react-datepicker__day--in-selecting-range {
+      background-color: #7c8921 !important;
+      color: white;
+    }
+
+    .react-datepicker__day--keyboard-selected {
+      background-color: initial;
+    }
+
+    .react-datepicker__day--in-range.react-datepicker__day--range-start,
+    .react-datepicker__day--in-range.react-datepicker__day--range-end {
+      background-color: #a0b12833 !important;
+      color: #212529;
+    }
+
+    .react-datepicker__navigation {
+      width: 32px !important;
+    }
   }
 }
 
