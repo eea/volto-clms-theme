@@ -1,22 +1,22 @@
-import './cards.less';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-// import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
-import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 import { Label } from 'semantic-ui-react';
-import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
-import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon } from 'semantic-ui-react';
+
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import { UniversalLink } from '@plone/volto/components';
-
+import penSVG from '@plone/volto/icons/pen.svg';
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getVocabulary } from '@plone/volto/actions';
+// import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
+import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
+import './cards.less';
+
+import PropTypes from 'prop-types';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -52,22 +52,11 @@ const CardLink = ({ url, children, className, condition = true }) => {
 };
 
 const DocCard = ({ card, url, showEditor, children }) => {
-  const dispatch = useDispatch();
   const CATEGORIZATION_VOCABULARY_NAME =
     'collective.taxonomy.technical_library_categorization';
-  useEffect(() => {
-    if (card?.taxonomy_technical_library_categorization.length > 0) {
-      dispatch(
-        getVocabulary({ vocabNameOrURL: CATEGORIZATION_VOCABULARY_NAME }),
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [card, dispatch]);
-
   const vocabularies_state = useSelector(
     (state) => state.vocabularies[CATEGORIZATION_VOCABULARY_NAME],
   );
-
   const vocabItems = vocabularies_state?.loaded
     ? vocabularies_state?.items
     : [];
@@ -97,12 +86,12 @@ const DocCard = ({ card, url, showEditor, children }) => {
     <>
       <div className="card-doc-header">
         <div className="card-doc-title">
-          {card?.Type === 'TechnicalLibrary' ? (
+          {card?.['@type'] === 'TechnicalLibrary' ? (
             <a href={`${card['@id']}/@@download/file`}>{card?.title}</a>
           ) : (
             <Link to={url}>{card?.title}</Link>
           )}
-          {card?.Type === 'TechnicalLibrary' && showEditor && (
+          {card?.['@type'] === 'TechnicalLibrary' && showEditor && (
             <Link to={`${url}/edit`} className="technical-library-edit-link">
               <VoltoIcon
                 name={penSVG}
@@ -113,16 +102,16 @@ const DocCard = ({ card, url, showEditor, children }) => {
             </Link>
           )}
         </div>
-        {card?.Type === 'TechnicalLibrary' && (
+        {card?.['@type'] === 'TechnicalLibrary' && (
           <div className="card-doc-size">{card.getObjSize || ''}</div>
         )}
       </div>
-      {card?.Type === 'TechnicalLibrary' &&
+      {card?.['@type'] === 'TechnicalLibrary' &&
         (card.publication_date ||
           card.version ||
           card.taxonomy_technical_library_categorization) && (
           <div className="card-doc-extrametadata">
-            {card?.Type === 'TechnicalLibrary' &&
+            {card?.['@type'] === 'TechnicalLibrary' &&
               vocabItemsDict &&
               card.taxonomy_technical_library_categorization && (
                 <TechnicalLibraryCategorization
@@ -133,14 +122,15 @@ const DocCard = ({ card, url, showEditor, children }) => {
               )}{' '}
             <br />
             <br />
-            {card?.Type === 'TechnicalLibrary' && card.publication_date && (
-              <>
-                <strong>Publication date: </strong>
-                <span>{cclDateFormat(card.publication_date)}</span>
-              </>
-            )}{' '}
+            {card?.['@type'] === 'TechnicalLibrary' &&
+              card.publication_date && (
+                <>
+                  <strong>Publication date: </strong>
+                  <span>{cclDateFormat(card.publication_date)}</span>
+                </>
+              )}{' '}
             &nbsp;
-            {card?.Type === 'TechnicalLibrary' && card.version && (
+            {card?.['@type'] === 'TechnicalLibrary' && card.version && (
               <>
                 <strong>Version: </strong> <span>{card.version}</span>
               </>

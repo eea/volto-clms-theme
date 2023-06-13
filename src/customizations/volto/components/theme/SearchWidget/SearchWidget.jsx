@@ -130,13 +130,7 @@ class SearchWidget extends Component {
           aria-label={this.props.intl.formatMessage(messages.search)}
           onClick={this.onSubmit}
         >
-          <span
-            className="ccl-icon-zoom"
-            role="button"
-            onClick={this.onSubmit}
-            onKeyDown={this.onSubmit}
-            tabIndex={0}
-          ></span>
+          <span className="ccl-icon-zoom"></span>
         </button>
       </Form>
     );

@@ -24,6 +24,13 @@ const store = mockStore({
       roles: ['Manager'],
     },
   },
+  vocabularies: {
+    'collective.taxonomy.technical_library_categorization': {
+      loaded: false,
+      loading: false,
+      items: [],
+    },
+  },
 });
 const internalLink = [{ '@id': '/news' }];
 const externalLink = [{ '@id': 'https://wwww.google.com' }];
