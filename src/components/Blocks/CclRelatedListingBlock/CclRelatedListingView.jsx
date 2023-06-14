@@ -102,7 +102,7 @@ const CclRelatedListingView = (props) => {
             metadata_fields: '_all',
             sort_on: sort_on,
             sort_order: sort_order,
-            sort_limit: 99999,
+            b_size: 99999,
           },
           id,
         ),
