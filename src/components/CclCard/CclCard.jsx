@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Label } from 'semantic-ui-react';
 import { Icon } from 'semantic-ui-react';
@@ -52,36 +51,6 @@ const CardLink = ({ url, children, className, condition = true }) => {
 };
 
 const DocCard = ({ card, url, showEditor, children }) => {
-  const CATEGORIZATION_VOCABULARY_NAME =
-    'collective.taxonomy.technical_library_categorization';
-  const vocabularies_state = useSelector(
-    (state) => state.vocabularies[CATEGORIZATION_VOCABULARY_NAME],
-  );
-  const vocabItems = vocabularies_state?.loaded
-    ? vocabularies_state?.items
-    : [];
-
-  const vocabItemsDict = vocabItems.reduce((obj, item) => {
-    return {
-      ...obj,
-      [item['value']]: item['label'].replace(/^[0-9][0-9]#/, ''),
-    };
-  }, {});
-
-  const TechnicalLibraryCategorization = ({ categorization }) => {
-    return vocabularies_state?.loaded && categorization ? (
-      <>
-        {categorization
-          .filter((item) => vocabItemsDict[item].split(' » ').length > 1)
-          .map((item, key) => (
-            <Label key={key}>
-              {vocabItemsDict[item].split(' » ').slice(-1)}
-            </Label>
-          ))}
-      </>
-    ) : null;
-  };
-
   return (
     <>
       <div className="card-doc-header">
@@ -107,21 +76,8 @@ const DocCard = ({ card, url, showEditor, children }) => {
         )}
       </div>
       {card?.['@type'] === 'TechnicalLibrary' &&
-        (card.publication_date ||
-          card.version ||
-          card.taxonomy_technical_library_categorization) && (
+        (card.publication_date || card.version) && (
           <div className="card-doc-extrametadata">
-            {card?.['@type'] === 'TechnicalLibrary' &&
-              vocabItemsDict &&
-              card.taxonomy_technical_library_categorization && (
-                <TechnicalLibraryCategorization
-                  categorization={
-                    card.taxonomy_technical_library_categorization
-                  }
-                />
-              )}{' '}
-            <br />
-            <br />
             {card?.['@type'] === 'TechnicalLibrary' &&
               card.publication_date && (
                 <>
