@@ -1084,9 +1084,9 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
   padding: 0.75rem 0.75rem 0.75rem 0;
 }
 
-.custom-table td:last-of-type {
-  padding: 0.75rem 0;
-}
+// .custom-table td:last-of-type {
+//   padding: 0.75rem 0;
+// }
 
 .custom-table tr:not(:last-of-type) td {
   border-bottom: solid 0.5px #a0b12833;
@@ -1113,6 +1113,13 @@ body:not(.contenttype-lrf:not(.section-cart):not(.section-profile))
 
 .custom-table .ui.active.selection.dropdown {
   border-bottom: solid 1px #a0b128;
+}
+
+.custom-table .ui.selection.dropdown.collection-selector:not(.multiple),
+.custom-table .ui.selection.dropdown.format-selector:not(.multiple),
+.custom-table .ui.selection.dropdown.layer-selector:not(.multiple) {
+  display: inline-flex;
+  margin-left: 0.5rem;
 }
 
 .custom-table .ui.selection.active.dropdown .menu:last-child {

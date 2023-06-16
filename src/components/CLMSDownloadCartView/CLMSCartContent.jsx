@@ -225,7 +225,6 @@ const CLMSCartContent = (props) => {
                   <Table.HeaderCell>Projection</Table.HeaderCell>
                   <Table.HeaderCell>Timeseries</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
-                  <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <tbody>
@@ -354,71 +353,72 @@ const CLMSCartContent = (props) => {
                         )}
                       </td>
                       <td>
-                        {item.task_in_progress ? (
-                          <FontAwesomeIcon icon="spinner" spin />
-                        ) : !item.file_id ? (
-                          <span
-                            className="info-icon"
-                            tooltip="Add a duplicated row below"
-                            direction="up"
-                          >
-                            <button
-                              onClick={() => {
-                                duplicateCartItem(
-                                  item.unique_id,
-                                  cartItems,
-                                  setCartItems,
-                                  updateCart,
-                                );
-                              }}
-                              style={{
-                                backgroundColor: 'transparent',
-                                color: 'inherit',
-                                border: 'none',
-                                padding: 0,
-                                font: 'inherit',
-                                cursor: 'pointer',
-                                outline: 'inherit',
-                              }}
+                        <div style={{ display: 'flex' }}>
+                          {item.task_in_progress ? (
+                            <FontAwesomeIcon icon="spinner" spin />
+                          ) : !item.file_id ? (
+                            <span
+                              className="info-icon"
+                              tooltip="Add a duplicated row below"
+                              direction="up"
                             >
-                              <Icon name={addDocumentSVG} size={25} />
-                            </button>
-                          </span>
-                        ) : (
-                          <></>
-                        )}
-                      </td>
-                      <td>
-                        {item.task_in_progress ? (
-                          <FontAwesomeIcon icon="spinner" spin />
-                        ) : (
-                          <span
-                            className="info-icon"
-                            tooltip="Remove this row from the cart"
-                            direction="up"
-                          >
-                            <button
-                              onClick={() => {
-                                removeCartItem(item.unique_id);
-                              }}
-                              style={{
-                                backgroundColor: 'transparent',
-                                color: 'inherit',
-                                border: 'none',
-                                padding: 0,
-                                font: 'inherit',
-                                cursor: 'pointer',
-                                outline: 'inherit',
-                              }}
+                              <button
+                                onClick={() => {
+                                  duplicateCartItem(
+                                    item.unique_id,
+                                    cartItems,
+                                    setCartItems,
+                                    updateCart,
+                                  );
+                                }}
+                                style={{
+                                  backgroundColor: 'transparent',
+                                  color: 'inherit',
+                                  border: 'none',
+                                  padding: 0,
+                                  font: 'inherit',
+                                  cursor: 'pointer',
+                                  outline: 'inherit',
+                                }}
+                              >
+                                <Icon name={addDocumentSVG} size={25} />
+                              </button>
+                            </span>
+                          ) : (
+                            <></>
+                          )}
+
+                          {item.task_in_progress ? (
+                            <FontAwesomeIcon icon="spinner" spin />
+                          ) : (
+                            <span
+                              className="info-icon"
+                              tooltip="Remove this row from the cart"
+                              direction="up"
                             >
-                              <Icon
-                                name={removeSVG}
-                                size={25}
-                                color="#e40166"
-                              />
-                            </button>
-                          </span>
-                        )}
+                              <button
+                                onClick={() => {
+                                  removeCartItem(item.unique_id);
+                                }}
+                                style={{
+                                  backgroundColor: 'transparent',
+                                  color: 'inherit',
+                                  border: 'none',
+                                  padding: 0,
+                                  font: 'inherit',
+                                  cursor: 'pointer',
+                                  outline: 'inherit',
+                                }}
+                              >
+                                <Icon
+                                  name={removeSVG}
+                                  size={25}
+                                  color="#e40166"
+                                />
+                              </button>
+                            </span>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}

@@ -20,6 +20,7 @@ export const CollectionNaming = ({
   return this_type_collections.length > 1 ? (
     <Select
       placeholder="Select type"
+      className="collection-selector"
       value={
         item.type
           ? item.type
