@@ -8,7 +8,7 @@ import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 export const TimeseriesPicker = (props) => {
-  const { start, end, item, setTimeseriesValue } = props;
+  const { start, end, period, item, setTimeseriesValue } = props;
   const [startValue, setStartValue] = useState(
     item?.TemporalFilter?.StartDate
       ? new Date(cclDateFormat(item.TemporalFilter.StartDate))
@@ -20,6 +20,23 @@ export const TimeseriesPicker = (props) => {
       : null,
   );
   const [isOpen, setIsOpen] = useState(false);
+  const getPeriodicity = (p) => {
+    if (p === 1 / 24 || p === 'PT1H') {
+      return 'hourly';
+    } else if (p === 1 || p === 'P1D') {
+      return 'daily';
+    } else if (p === 7 || p === 'P7D' || p === 'P1W') {
+      return 'weekly';
+    } else if (p === 10 || p === 'P10D') {
+      return '10-daily';
+    } else if ((p >= 28 && p <= 31) || p === 'P1M') {
+      return 'monthly';
+    } else if (p === 365 || p === 366 || p === 'P1Y') {
+      return 'yearly';
+    } else {
+      return 'not regular';
+    }
+  };
   return (
     <>
       <Popup
@@ -61,13 +78,15 @@ export const TimeseriesPicker = (props) => {
       >
         <Grid.Column className="datetime-picker">
           <Grid.Row>
+            The periodicity of this dataset is {getPeriodicity(period)}
+            <br />
             <DatePicker
               id="start_date"
               inline
               selectsRange
               className="datepicker"
-              minDate={new Date(cclDateFormat(start))}
-              maxDate={new Date(cclDateFormat(end))}
+              minDate={new Date(start)}
+              maxDate={new Date(end)}
               startDate={startValue}
               endDate={endValue}
               // selectsStart

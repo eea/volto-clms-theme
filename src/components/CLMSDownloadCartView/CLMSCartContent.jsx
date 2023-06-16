@@ -346,6 +346,10 @@ const CLMSCartContent = (props) => {
                             end={
                               datasetTimeseries.datasets[item.dataset_uid].end
                             }
+                            period={
+                              datasetTimeseries.datasets[item.dataset_uid]
+                                .period
+                            }
                             item={item}
                             setTimeseriesValue={setTimeseriesValue}
                           />
