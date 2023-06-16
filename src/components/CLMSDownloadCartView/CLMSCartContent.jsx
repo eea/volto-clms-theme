@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
+import { Checkbox, Modal, Segment, Select, Table } from 'semantic-ui-react';
 
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
@@ -206,11 +206,11 @@ const CLMSCartContent = (props) => {
         <div className="custom-table cart-table">
           <Segment basic loading={loadingTable}>
             <h2>My cart</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th className="table-th-warning"></th>
-                  <th className="table-th-checkbox">
+            <Table responsive>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell className="table-th-warning"></Table.HeaderCell>
+                  <Table.HeaderCell className="table-th-checkbox">
                     <div className="ccl-form">
                       <div className="ccl-form-group">
                         <Checkbox
@@ -219,20 +219,15 @@ const CLMSCartContent = (props) => {
                         />
                       </div>
                     </div>
-                  </th>
-                  <th>Name</th>
-                  <th>Source</th>
-                  <th>Area</th>
-                  <th>Type</th>
-                  <th>Collection</th>
-                  <th>Format</th>
-                  <th>Layer/Band</th>
-                  <th>Projection</th>
-                  <th>Timeseries</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
+                  </Table.HeaderCell>
+                  <Table.HeaderCell width={5}>Static info</Table.HeaderCell>
+                  <Table.HeaderCell width={5}>Configurable</Table.HeaderCell>
+                  <Table.HeaderCell>Projection</Table.HeaderCell>
+                  <Table.HeaderCell>Timeseries</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
               <tbody>
                 {cartItems.length > 0 &&
                   cartItems.map((item, key) => (
@@ -270,34 +265,35 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      {/* {item.title ? (
-                        <td>
-                          {item.title} ({contentOrDash(item.name)})
-                        </td>
-                      ) : ( */}
-                      <td>{contentOrDash(item.name)}</td>
-                      {/* )} */}
-                      <td>{contentOrDash(item.source)}</td>
-                      <td style={{ wordBreak: 'break-word' }}>
+                      <td>
+                        <strong>Name: </strong>
+                        {contentOrDash(item.name)}
+                        <br />
+                        <strong>Source: </strong>
+                        {contentOrDash(item.source)}
+                        <br />
+                        {/* <td style={{ wordBreak: 'break-word' }}> */}
+                        <strong>Area: </strong>
                         <AreaNaming item={item} />
                       </td>
                       <td>
+                        <strong>Type: </strong>
                         <TypeNaming
                           item={item}
                           datasets_items={datasets_items}
                           cartItems={cartItems}
                           setCartItems={setCartItems}
                         />
-                      </td>
-                      <td>
+                        <br />
+                        <strong>Collection: </strong>
                         <CollectionNaming
                           item={item}
                           datasets_items={datasets_items}
                           cartItems={cartItems}
                           setCartItems={setCartItems}
                         />
-                      </td>
-                      <td className="table-td-format">
+                        <br />
+                        <strong>Format: </strong>
                         {formatConversionTable && item && (
                           <FormatNaming
                             item={item}
@@ -306,8 +302,8 @@ const CLMSCartContent = (props) => {
                             formatConversionTable={formatConversionTable}
                           />
                         )}
-                      </td>
-                      <td className="table-td-format">
+                        <br />
+                        <strong>Layer/Band: </strong>
                         <LayerNaming
                           item={item}
                           cartItems={cartItems}
@@ -427,7 +423,7 @@ const CLMSCartContent = (props) => {
                     </tr>
                   ))}
               </tbody>
-            </table>
+            </Table>
           </Segment>
         </div>
       ) : (
