@@ -18,6 +18,7 @@ export const FormatNaming = ({
     format_options.length > 1 ? (
       <Select
         placeholder="Select format"
+        className="format-selector"
         value={item_format_name}
         options={format_options}
         onChange={(e, data) => {

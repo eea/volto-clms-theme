@@ -16,6 +16,7 @@ export const LayerNaming = ({ item, cartItems, setCartItems }) => {
     this_type_layers[0].layers.length > 0 ? (
     <Select
       placeholder="Select layer"
+      className="layer-selector"
       value={
         item.layer
           ? item.layer
