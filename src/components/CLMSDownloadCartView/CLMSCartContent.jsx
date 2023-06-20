@@ -221,7 +221,8 @@ const CLMSCartContent = (props) => {
                     </div>
                   </Table.HeaderCell>
                   <Table.HeaderCell width={5}>Static info</Table.HeaderCell>
-                  <Table.HeaderCell width={5}>Configurable</Table.HeaderCell>
+                  <Table.HeaderCell>Configurable</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
                   <Table.HeaderCell>Projection</Table.HeaderCell>
                   <Table.HeaderCell>Timeseries</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
@@ -265,49 +266,69 @@ const CLMSCartContent = (props) => {
                         </div>
                       </td>
                       <td>
-                        <strong>Name: </strong>
-                        {contentOrDash(item.name)}
-                        <br />
-                        <strong>Source: </strong>
-                        {contentOrDash(item.source)}
-                        <br />
+                        <div className="mb-2">
+                          <strong>Name: </strong>
+                          {contentOrDash(item.name)}
+                        </div>
+                        <div className="mb-2">
+                          <strong>Source: </strong>
+                          {contentOrDash(item.source)}
+                        </div>
+                        <div className="mb-2">
+                          <strong>Area: </strong>
+                          <AreaNaming item={item} />
+                        </div>
+
                         {/* <td style={{ wordBreak: 'break-word' }}> */}
-                        <strong>Area: </strong>
-                        <AreaNaming item={item} />
                       </td>
                       <td>
-                        <strong>Type: </strong>
-                        <TypeNaming
-                          item={item}
-                          datasets_items={datasets_items}
-                          cartItems={cartItems}
-                          setCartItems={setCartItems}
-                        />
-                        <br />
-                        <strong>Collection: </strong>
-                        <CollectionNaming
-                          item={item}
-                          datasets_items={datasets_items}
-                          cartItems={cartItems}
-                          setCartItems={setCartItems}
-                        />
-                        <br />
-                        <strong>Format: </strong>
-                        {formatConversionTable && item && (
-                          <FormatNaming
+                        <div className="mb-2">
+                          <strong>Type: </strong>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Collection: </strong>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Format: </strong>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Layer/Band: </strong>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="mb-2">
+                          <TypeNaming
+                            item={item}
+                            datasets_items={datasets_items}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          <CollectionNaming
+                            item={item}
+                            datasets_items={datasets_items}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          {formatConversionTable && item && (
+                            <FormatNaming
+                              item={item}
+                              cartItems={cartItems}
+                              setCartItems={setCartItems}
+                              formatConversionTable={formatConversionTable}
+                            />
+                          )}
+                        </div>
+                        <div className="mb-2">
+                          <LayerNaming
                             item={item}
                             cartItems={cartItems}
                             setCartItems={setCartItems}
-                            formatConversionTable={formatConversionTable}
                           />
-                        )}
-                        <br />
-                        <strong>Layer/Band: </strong>
-                        <LayerNaming
-                          item={item}
-                          cartItems={cartItems}
-                          setCartItems={setCartItems}
-                        />
+                        </div>
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
@@ -352,7 +373,7 @@ const CLMSCartContent = (props) => {
                           <>-</>
                         )}
                       </td>
-                      <td>
+                      <td className="text-end">
                         <div style={{ display: 'flex' }}>
                           {item.task_in_progress ? (
                             <FontAwesomeIcon icon="spinner" spin />
