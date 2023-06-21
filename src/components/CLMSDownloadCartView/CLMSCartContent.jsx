@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Checkbox, Modal, Segment, Select } from 'semantic-ui-react';
+import { Checkbox, Modal, Segment, Select, Table } from 'semantic-ui-react';
 
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
@@ -206,11 +206,11 @@ const CLMSCartContent = (props) => {
         <div className="custom-table cart-table">
           <Segment basic loading={loadingTable}>
             <h2>My cart</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th className="table-th-warning"></th>
-                  <th className="table-th-checkbox">
+            <Table responsive>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell className="table-th-warning"></Table.HeaderCell>
+                  <Table.HeaderCell className="table-th-checkbox">
                     <div className="ccl-form">
                       <div className="ccl-form-group">
                         <Checkbox
@@ -219,20 +219,15 @@ const CLMSCartContent = (props) => {
                         />
                       </div>
                     </div>
-                  </th>
-                  <th>Name</th>
-                  <th>Source</th>
-                  <th>Area</th>
-                  <th>Type</th>
-                  <th>Collection</th>
-                  <th>Format</th>
-                  <th>Layer/Band</th>
-                  <th>Projection</th>
-                  <th>Timeseries</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
+                  </Table.HeaderCell>
+                  <Table.HeaderCell width={5}>Static info</Table.HeaderCell>
+                  <Table.HeaderCell>Configurable</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                  <Table.HeaderCell>Projection</Table.HeaderCell>
+                  <Table.HeaderCell>Timeseries</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
               <tbody>
                 {cartItems.length > 0 &&
                   cartItems.map((item, key) => (
@@ -270,49 +265,70 @@ const CLMSCartContent = (props) => {
                           </div>
                         </div>
                       </td>
-                      {/* {item.title ? (
-                        <td>
-                          {item.title} ({contentOrDash(item.name)})
-                        </td>
-                      ) : ( */}
-                      <td>{contentOrDash(item.name)}</td>
-                      {/* )} */}
-                      <td>{contentOrDash(item.source)}</td>
-                      <td style={{ wordBreak: 'break-word' }}>
-                        <AreaNaming item={item} />
+                      <td>
+                        <div className="mb-2">
+                          <strong>Name: </strong>
+                          {contentOrDash(item.name)}
+                        </div>
+                        <div className="mb-2">
+                          <strong>Source: </strong>
+                          {contentOrDash(item.source)}
+                        </div>
+                        <div className="mb-2">
+                          <strong>Area: </strong>
+                          <AreaNaming item={item} />
+                        </div>
+
+                        {/* <td style={{ wordBreak: 'break-word' }}> */}
                       </td>
                       <td>
-                        <TypeNaming
-                          item={item}
-                          datasets_items={datasets_items}
-                          cartItems={cartItems}
-                          setCartItems={setCartItems}
-                        />
+                        <div className="mb-2">
+                          <strong>Type: </strong>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Collection: </strong>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Format: </strong>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Layer/Band: </strong>
+                        </div>
                       </td>
                       <td>
-                        <CollectionNaming
-                          item={item}
-                          datasets_items={datasets_items}
-                          cartItems={cartItems}
-                          setCartItems={setCartItems}
-                        />
-                      </td>
-                      <td className="table-td-format">
-                        {formatConversionTable && item && (
-                          <FormatNaming
+                        <div className="mb-2">
+                          <TypeNaming
+                            item={item}
+                            datasets_items={datasets_items}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          <CollectionNaming
+                            item={item}
+                            datasets_items={datasets_items}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          {formatConversionTable && item && (
+                            <FormatNaming
+                              item={item}
+                              cartItems={cartItems}
+                              setCartItems={setCartItems}
+                              formatConversionTable={formatConversionTable}
+                            />
+                          )}
+                        </div>
+                        <div className="mb-2">
+                          <LayerNaming
                             item={item}
                             cartItems={cartItems}
                             setCartItems={setCartItems}
-                            formatConversionTable={formatConversionTable}
                           />
-                        )}
-                      </td>
-                      <td className="table-td-format">
-                        <LayerNaming
-                          item={item}
-                          cartItems={cartItems}
-                          setCartItems={setCartItems}
-                        />
+                        </div>
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
@@ -357,77 +373,78 @@ const CLMSCartContent = (props) => {
                           <>-</>
                         )}
                       </td>
-                      <td>
-                        {item.task_in_progress ? (
-                          <FontAwesomeIcon icon="spinner" spin />
-                        ) : !item.file_id ? (
-                          <span
-                            className="info-icon"
-                            tooltip="Add a duplicated row below"
-                            direction="up"
-                          >
-                            <button
-                              onClick={() => {
-                                duplicateCartItem(
-                                  item.unique_id,
-                                  cartItems,
-                                  setCartItems,
-                                  updateCart,
-                                );
-                              }}
-                              style={{
-                                backgroundColor: 'transparent',
-                                color: 'inherit',
-                                border: 'none',
-                                padding: 0,
-                                font: 'inherit',
-                                cursor: 'pointer',
-                                outline: 'inherit',
-                              }}
+                      <td className="text-end">
+                        <div style={{ display: 'flex' }}>
+                          {item.task_in_progress ? (
+                            <FontAwesomeIcon icon="spinner" spin />
+                          ) : !item.file_id ? (
+                            <span
+                              className="info-icon"
+                              tooltip="Add a duplicated row below"
+                              direction="up"
                             >
-                              <Icon name={addDocumentSVG} size={25} />
-                            </button>
-                          </span>
-                        ) : (
-                          <></>
-                        )}
-                      </td>
-                      <td>
-                        {item.task_in_progress ? (
-                          <FontAwesomeIcon icon="spinner" spin />
-                        ) : (
-                          <span
-                            className="info-icon"
-                            tooltip="Remove this row from the cart"
-                            direction="up"
-                          >
-                            <button
-                              onClick={() => {
-                                removeCartItem(item.unique_id);
-                              }}
-                              style={{
-                                backgroundColor: 'transparent',
-                                color: 'inherit',
-                                border: 'none',
-                                padding: 0,
-                                font: 'inherit',
-                                cursor: 'pointer',
-                                outline: 'inherit',
-                              }}
+                              <button
+                                onClick={() => {
+                                  duplicateCartItem(
+                                    item.unique_id,
+                                    cartItems,
+                                    setCartItems,
+                                    updateCart,
+                                  );
+                                }}
+                                style={{
+                                  backgroundColor: 'transparent',
+                                  color: 'inherit',
+                                  border: 'none',
+                                  padding: 0,
+                                  font: 'inherit',
+                                  cursor: 'pointer',
+                                  outline: 'inherit',
+                                }}
+                              >
+                                <Icon name={addDocumentSVG} size={25} />
+                              </button>
+                            </span>
+                          ) : (
+                            <></>
+                          )}
+
+                          {item.task_in_progress ? (
+                            <FontAwesomeIcon icon="spinner" spin />
+                          ) : (
+                            <span
+                              className="info-icon"
+                              tooltip="Remove this row from the cart"
+                              direction="up"
                             >
-                              <Icon
-                                name={removeSVG}
-                                size={25}
-                                color="#e40166"
-                              />
-                            </button>
-                          </span>
-                        )}
+                              <button
+                                onClick={() => {
+                                  removeCartItem(item.unique_id);
+                                }}
+                                style={{
+                                  backgroundColor: 'transparent',
+                                  color: 'inherit',
+                                  border: 'none',
+                                  padding: 0,
+                                  font: 'inherit',
+                                  cursor: 'pointer',
+                                  outline: 'inherit',
+                                }}
+                              >
+                                <Icon
+                                  name={removeSVG}
+                                  size={25}
+                                  color="#e40166"
+                                />
+                              </button>
+                            </span>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
               </tbody>
-            </table>
+            </Table>
           </Segment>
         </div>
       ) : (
