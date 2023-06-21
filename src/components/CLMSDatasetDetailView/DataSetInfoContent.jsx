@@ -212,11 +212,13 @@ const DataSetInfoContent = (props) => {
                     </Grid>
                     <br></br>
                     <br></br>
-                    <MetadataPaginatedListing
-                      geonetwork_identifiers_items={
-                        geonetwork_identifiers.items
-                      }
-                    />
+                    {geonetwork_identifiers?.items?.length > 0 && (
+                      <MetadataPaginatedListing
+                        geonetwork_identifiers_items={
+                          geonetwork_identifiers.items
+                        }
+                      />
+                    )}
                   </AnimateHeight>
                 </Accordion.Content>
               </Accordion>
