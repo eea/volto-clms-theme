@@ -2,7 +2,7 @@ import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Accordion, Loader, Segment } from 'semantic-ui-react';
+import { Accordion, Loader, Segment, Grid } from 'semantic-ui-react';
 
 import { searchContent } from '@plone/volto/actions';
 import Icon from '@plone/volto/components/theme/Icon/Icon';
@@ -91,7 +91,136 @@ const DataSetInfoContent = (props) => {
         <div className="accordion-block">
           {renderAccordion(geonetwork_identifiers?.items, libraries) && (
             <Segment basic>
-              {geonetwork_identifiers?.items?.length > 0 && (
+              <Accordion fluid styled>
+                <Accordion.Title
+                  as={'h2'}
+                  onClick={() => handleClick({ index: 99 })}
+                  active={activeIndex === 99}
+                  index={99}
+                  className={'accordion-title align-arrow-right'}
+                >
+                  {activeIndex.includes(99) ? (
+                    <Icon
+                      name={iconName(data, titleIcons.opened)}
+                      size="24px"
+                    />
+                  ) : (
+                    <Icon
+                      name={iconName(data, titleIcons.closed)}
+                      size="24px"
+                    />
+                  )}
+                  <span>Characteristics</span>
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex.includes(99)}>
+                  <AnimateHeight animateOpacity duration={500} height={'auto'}>
+                    <Grid>
+                      <Grid.Row>
+                        <Grid.Column width={3}>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Type: </strong>
+                              {props?.characteristics_type?.token}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Release / Major version: </strong>
+                              {props?.characteristics_release_major_version}
+                            </Segment>
+                          </Grid.Row>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Spatial coverage: </strong>{' '}
+                              {props?.characteristics_spatial_coverage}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Spatial resolution: </strong>{' '}
+                              {props?.characteristics_spatial_resolution}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Spatial representation type: </strong>{' '}
+                              {
+                                props
+                                  ?.characteristics_spatial_representation_type
+                                  ?.token
+                              }
+                            </Segment>
+                          </Grid.Row>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Temporal extent: </strong>{' '}
+                              {props?.characteristics_temporal_extent}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Temporal usability: </strong>{' '}
+                              {props?.characteristics_temporal_usability?.token}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Update frequency: </strong>{' '}
+                              {props?.characteristics_update_frequency?.token}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Timeliness: </strong>{' '}
+                              {props?.characteristics_timeliness}
+                            </Segment>
+                          </Grid.Row>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Platform: </strong>{' '}
+                              {props?.characteristics_platform}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Sensor: </strong>{' '}
+                              {props?.characteristics_sensor}
+                            </Segment>
+                          </Grid.Row>
+                          <br></br>
+                          <br></br>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Thematic accuracy: </strong>{' '}
+                              {props?.characteristics_thematic_accuracy}
+                            </Segment>
+                          </Grid.Row>
+                          <Grid.Row>
+                            <Segment>
+                              <strong>Position accuracy: </strong>{' '}
+                              {props?.characteristics_position_accuracy}
+                            </Segment>
+                          </Grid.Row>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                    <br></br>
+                    <br></br>
+                    <MetadataPaginatedListing
+                      geonetwork_identifiers_items={
+                        geonetwork_identifiers.items
+                      }
+                    />
+                  </AnimateHeight>
+                </Accordion.Content>
+              </Accordion>
+              {/* {geonetwork_identifiers?.items?.length > 0 && (
                 <Accordion fluid styled>
                   <Accordion.Title
                     as={'h2'}
@@ -125,7 +254,7 @@ const DataSetInfoContent = (props) => {
                     </AnimateHeight>
                   </Accordion.Content>
                 </Accordion>
-              )}
+              )} */}
               {librariesPending && <Loader active inline="centered" />}
               {libraries?.length > 0 && (
                 <Accordion fluid styled>
