@@ -30,12 +30,12 @@ export const getDownloadToolPostBody = (selectedItems) => {
       if (item.area?.type === 'nuts') {
         body_extras['NUTS'] = item.area.value;
       }
-      if (item.timeExtent?.length > 0) {
-        body_extras['TemporalFilter'] = {
-          StartDate: item.timeExtent[0],
-          EndDate: item.timeExtent[1],
-        };
-      }
+      // if (item.timeExtent?.length > 0) {
+      //   body_extras['TemporalFilter'] = {
+      //     StartDate: item.timeExtent[0],
+      //     EndDate: item.timeExtent[1],
+      //   };
+      // }
       if (item.format) {
         body_extras['OutputFormat'] = formatNaming(item);
       }
