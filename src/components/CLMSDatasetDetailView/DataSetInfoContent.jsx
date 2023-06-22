@@ -2,7 +2,7 @@ import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Accordion, Loader, Segment } from 'semantic-ui-react';
+import { Accordion, Loader, Segment, Grid, Label } from 'semantic-ui-react';
 
 import { searchContent } from '@plone/volto/actions';
 import Icon from '@plone/volto/components/theme/Icon/Icon';
@@ -12,6 +12,8 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 import { MetadataPaginatedListing } from './MetadataPaginatedListing';
 import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
+
+import './datasetinfocontent.less';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
@@ -58,6 +60,19 @@ const DataSetInfoContent = (props) => {
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
   }
+
+  const CharacteristicsMetadata = ({ title, value, token = false }) => {
+    return (
+      value && (
+        <Grid.Row className="characteristic-row">
+          <strong>{title}: </strong>
+          <br />
+          <Label>{token ? value?.token : value}</Label>
+        </Grid.Row>
+      )
+    );
+  };
+
   return (
     <div>
       {validation?.data &&
@@ -91,41 +106,118 @@ const DataSetInfoContent = (props) => {
         <div className="accordion-block">
           {renderAccordion(geonetwork_identifiers?.items, libraries) && (
             <Segment basic>
-              {geonetwork_identifiers?.items?.length > 0 && (
-                <Accordion fluid styled>
-                  <Accordion.Title
-                    as={'h2'}
-                    onClick={() => handleClick({ index: 0 })}
-                    className={'accordion-title align-arrow-right'}
-                  >
-                    {activeIndex.includes(0) ? (
-                      <Icon
-                        name={iconName(data, titleIcons.opened)}
-                        size="24px"
-                      />
-                    ) : (
-                      <Icon
-                        name={iconName(data, titleIcons.closed)}
-                        size="24px"
-                      />
+              <Accordion fluid styled>
+                <Accordion.Title
+                  as={'h2'}
+                  onClick={() => handleClick({ index: 99 })}
+                  active={activeIndex === 99}
+                  index={99}
+                  className={'accordion-title align-arrow-right'}
+                >
+                  {activeIndex.includes(99) ? (
+                    <Icon
+                      name={iconName(data, titleIcons.opened)}
+                      size="24px"
+                    />
+                  ) : (
+                    <Icon
+                      name={iconName(data, titleIcons.closed)}
+                      size="24px"
+                    />
+                  )}
+                  <span>Characteristics</span>
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex.includes(99)}>
+                  <AnimateHeight animateOpacity duration={500} height={'auto'}>
+                    <Grid>
+                      <Grid.Row>
+                        <Grid.Column width={4}>
+                          <CharacteristicsMetadata
+                            title="Release / Major version"
+                            value={props?.characteristics_release_major_version}
+                          />
+                          <br />
+                          <br />
+                          <CharacteristicsMetadata
+                            title="Spatial coverage"
+                            value={props?.characteristics_spatial_coverage}
+                          />
+                          <CharacteristicsMetadata
+                            title="Spatial resolution"
+                            value={props?.characteristics_spatial_resolution}
+                          />
+
+                          <CharacteristicsMetadata
+                            title="Spatial representation type"
+                            value={
+                              props?.characteristics_spatial_representation_type
+                            }
+                            token={true}
+                          />
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                          <CharacteristicsMetadata
+                            title="Temporal extent"
+                            value={props?.characteristics_temporal_extent}
+                          />
+                          <CharacteristicsMetadata
+                            title="Temporal usability"
+                            value={props?.characteristics_temporal_usability}
+                            token={true}
+                          />
+
+                          <CharacteristicsMetadata
+                            title="Update frequency"
+                            value={props?.characteristics_update_frequency}
+                            token={true}
+                          />
+
+                          <CharacteristicsMetadata
+                            title="Timeliness"
+                            value={props?.characteristics_timeliness}
+                          />
+                        </Grid.Column>
+                        <Grid.Column width={2}>
+                          <CharacteristicsMetadata
+                            title="Type"
+                            value={props?.characteristics_type}
+                            token={true}
+                          />
+                          <CharacteristicsMetadata
+                            title="Platform"
+                            value={props?.characteristics_platform}
+                          />
+                          <CharacteristicsMetadata
+                            title="Sensor"
+                            value={props?.characteristics_sensor}
+                          />
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                          <CharacteristicsMetadata
+                            title="Position accuracy"
+                            value={props?.characteristics_position_accuracy}
+                          />
+                          <CharacteristicsMetadata
+                            title="Thematic accuracy"
+                            value={props?.characteristics_thematic_accuracy}
+                          />
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+
+                    {geonetwork_identifiers?.items?.length > 0 && (
+                      <>
+                        <h3>Access full metadata here</h3>
+                        <MetadataPaginatedListing
+                          geonetwork_identifiers_items={
+                            geonetwork_identifiers.items
+                          }
+                        />
+                      </>
                     )}
-                    <span>Metadata</span>
-                  </Accordion.Title>
-                  <Accordion.Content active={activeIndex.includes(0)}>
-                    <AnimateHeight
-                      animateOpacity
-                      duration={500}
-                      height={'auto'}
-                    >
-                      <MetadataPaginatedListing
-                        geonetwork_identifiers_items={
-                          geonetwork_identifiers.items
-                        }
-                      />
-                    </AnimateHeight>
-                  </Accordion.Content>
-                </Accordion>
-              )}
+                  </AnimateHeight>
+                </Accordion.Content>
+              </Accordion>
               {librariesPending && <Loader active inline="centered" />}
               {libraries?.length > 0 && (
                 <Accordion fluid styled>
