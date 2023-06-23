@@ -219,6 +219,8 @@ const DataSetInfoContent = (props) => {
 
                     {geonetwork_identifiers?.items?.length > 0 && (
                       <>
+                        <br />
+                        <br />
                         <h3>Access full metadata here</h3>
                         <MetadataPaginatedListing
                           geonetwork_identifiers_items={
