@@ -61,14 +61,27 @@ const DataSetInfoContent = (props) => {
       : iTitleIcons.leftPosition;
   }
 
-  const CharacteristicsMetadata = ({ title, value, token = false }) => {
+  const CharacteristicsMetadata = ({
+    title,
+    value,
+    token = false,
+    extraSpace = false,
+  }) => {
     return (
       value && (
-        <Grid.Row className="characteristic-row">
-          <strong>{title}: </strong>
-          <br />
-          <Label>{token ? value?.token : value}</Label>
-        </Grid.Row>
+        <>
+          <Grid.Row className="characteristic-row">
+            <strong>{title}: </strong>
+            <br />
+            <Label>{token ? value?.token : value}</Label>
+          </Grid.Row>
+          {extraSpace && (
+            <>
+              <br />
+              <br />
+            </>
+          )}
+        </>
       )
     );
   };
@@ -131,13 +144,12 @@ const DataSetInfoContent = (props) => {
                   <AnimateHeight animateOpacity duration={500} height={'auto'}>
                     <Grid>
                       <Grid.Row>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
                           <CharacteristicsMetadata
                             title="Release / Major version"
                             value={props?.characteristics_release_major_version}
+                            extraSpace={true}
                           />
-                          <br />
-                          <br />
                           <CharacteristicsMetadata
                             title="Spatial coverage"
                             value={props?.characteristics_spatial_coverage}
@@ -148,7 +160,7 @@ const DataSetInfoContent = (props) => {
                           />
 
                           <CharacteristicsMetadata
-                            title="Spatial representation type"
+                            title="Spatial representation"
                             value={
                               props?.characteristics_spatial_representation_type
                             }
@@ -177,7 +189,7 @@ const DataSetInfoContent = (props) => {
                             value={props?.characteristics_timeliness}
                           />
                         </Grid.Column>
-                        <Grid.Column width={2}>
+                        <Grid.Column width={3}>
                           <CharacteristicsMetadata
                             title="Type"
                             value={props?.characteristics_type}
@@ -207,6 +219,8 @@ const DataSetInfoContent = (props) => {
 
                     {geonetwork_identifiers?.items?.length > 0 && (
                       <>
+                        <br />
+                        <br />
                         <h3>Access full metadata here</h3>
                         <MetadataPaginatedListing
                           geonetwork_identifiers_items={
