@@ -144,7 +144,7 @@ const DataSetInfoContent = (props) => {
                   <AnimateHeight animateOpacity duration={500} height={'auto'}>
                     <Grid>
                       <Grid.Row>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={3}>
                           <CharacteristicsMetadata
                             title="Release / Major version"
                             value={props?.characteristics_release_major_version}
@@ -189,7 +189,7 @@ const DataSetInfoContent = (props) => {
                             value={props?.characteristics_timeliness}
                           />
                         </Grid.Column>
-                        <Grid.Column width={2}>
+                        <Grid.Column width={3}>
                           <CharacteristicsMetadata
                             title="Type"
                             value={props?.characteristics_type}
