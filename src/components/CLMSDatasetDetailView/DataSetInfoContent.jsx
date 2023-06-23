@@ -148,7 +148,7 @@ const DataSetInfoContent = (props) => {
                           />
 
                           <CharacteristicsMetadata
-                            title="Spatial representation type"
+                            title="Spatial representation"
                             value={
                               props?.characteristics_spatial_representation_type
                             }
