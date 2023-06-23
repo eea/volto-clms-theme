@@ -61,14 +61,27 @@ const DataSetInfoContent = (props) => {
       : iTitleIcons.leftPosition;
   }
 
-  const CharacteristicsMetadata = ({ title, value, token = false }) => {
+  const CharacteristicsMetadata = ({
+    title,
+    value,
+    token = false,
+    extraSpace = false,
+  }) => {
     return (
       value && (
-        <Grid.Row className="characteristic-row">
-          <strong>{title}: </strong>
-          <br />
-          <Label>{token ? value?.token : value}</Label>
-        </Grid.Row>
+        <>
+          <Grid.Row className="characteristic-row">
+            <strong>{title}: </strong>
+            <br />
+            <Label>{token ? value?.token : value}</Label>
+          </Grid.Row>
+          {extraSpace && (
+            <>
+              <br />
+              <br />
+            </>
+          )}
+        </>
       )
     );
   };
@@ -135,9 +148,8 @@ const DataSetInfoContent = (props) => {
                           <CharacteristicsMetadata
                             title="Release / Major version"
                             value={props?.characteristics_release_major_version}
+                            extraSpace={true}
                           />
-                          <br />
-                          <br />
                           <CharacteristicsMetadata
                             title="Spatial coverage"
                             value={props?.characteristics_spatial_coverage}
