@@ -200,6 +200,8 @@ const CLMSCartContent = (props) => {
     setCartItems([...cartItems]);
   };
 
+  const hascollection = (collection) => collection.value > 0;
+
   return (
     <>
       {cartItems?.length !== 0 ? (
@@ -285,15 +287,19 @@ const CLMSCartContent = (props) => {
                         <div className="mb-2">
                           <strong>Type: </strong>
                         </div>
-                        <div className="mb-2">
-                          <strong>Collection: </strong>
-                        </div>
+                        {item?.type_options?.some(hascollection) && (
+                          <div className="mb-2">
+                            <strong>Collection: </strong>
+                          </div>
+                        )}
                         <div className="mb-2">
                           <strong>Format: </strong>
                         </div>
-                        <div className="mb-2">
-                          <strong>Layer/Band: </strong>
-                        </div>
+                        {item?.layer !== null && (
+                          <div className="mb-2">
+                            <strong>Layer/Band: </strong>
+                          </div>
+                        )}
                       </td>
                       <td>
                         <div className="mb-2">
@@ -304,14 +310,16 @@ const CLMSCartContent = (props) => {
                             setCartItems={setCartItems}
                           />
                         </div>
-                        <div className="mb-2">
-                          <CollectionNaming
-                            item={item}
-                            datasets_items={datasets_items}
-                            cartItems={cartItems}
-                            setCartItems={setCartItems}
-                          />
-                        </div>
+                        {item?.type_options?.some(hascollection) && (
+                          <div className="mb-2">
+                            <CollectionNaming
+                              item={item}
+                              datasets_items={datasets_items}
+                              cartItems={cartItems}
+                              setCartItems={setCartItems}
+                            />
+                          </div>
+                        )}
                         <div className="mb-2">
                           {formatConversionTable && item && (
                             <FormatNaming
@@ -322,13 +330,15 @@ const CLMSCartContent = (props) => {
                             />
                           )}
                         </div>
-                        <div className="mb-2">
-                          <LayerNaming
-                            item={item}
-                            cartItems={cartItems}
-                            setCartItems={setCartItems}
-                          />
-                        </div>
+                        {item?.layer !== null && (
+                          <div className="mb-2">
+                            <LayerNaming
+                              item={item}
+                              cartItems={cartItems}
+                              setCartItems={setCartItems}
+                            />
+                          </div>
+                        )}
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
