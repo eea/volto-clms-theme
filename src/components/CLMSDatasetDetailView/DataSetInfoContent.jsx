@@ -223,6 +223,7 @@ const DataSetInfoContent = (props) => {
                         <br />
                         <h3>Access full metadata here</h3>
                         <MetadataPaginatedListing
+                          id={'metadata-access'}
                           geonetwork_identifiers_items={
                             geonetwork_identifiers.items
                           }
@@ -267,6 +268,13 @@ const DataSetInfoContent = (props) => {
                           content_type: 'TechnicalLibrary',
                         }}
                         associated_elements="dataset"
+                        searchParamsExecution={() => {
+                          const newIndex =
+                            activeIndex.indexOf(1) === -1
+                              ? [...activeIndex, 1]
+                              : activeIndex.filter((item) => item !== 1);
+                          setActiveIndex(newIndex);
+                        }}
                       />
                     </AnimateHeight>
                   </Accordion.Content>
