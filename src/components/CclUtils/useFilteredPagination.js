@@ -35,6 +35,9 @@ export const useFilteredPagination = (
     setSearch({});
   };
   useEffect(() => {
+    setDataList(originalDataList);
+  }, [originalDataList]);
+  useEffect(() => {
     let filtered_data_list = [...originalDataList];
     Object.entries(search).forEach((filter) => {
       const filter_key = filter[0];

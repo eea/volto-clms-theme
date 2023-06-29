@@ -183,7 +183,7 @@ export const concatRequestedCartItem = (
   nutsnames,
 ) => {
   let newCartItems = [...cartItems];
-  localSessionCart.forEach((localItem) => {
+  localSessionCart.reverse().forEach((localItem) => {
     const requestedItem = datasets_items
       ? datasets_items.find((req) => req.UID === localItem.UID)
       : false;
