@@ -52,6 +52,9 @@ import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
+//APPEXTRA
+import CustomMatomoAppExtra from '../../volto-clms-utils/src/matomo/customMatomoAppExtra';
+
 const applyConfig = (config) => {
   config.views = {
     ...config.views,
@@ -121,6 +124,10 @@ const applyConfig = (config) => {
       {
         match: '*',
         component: CookieBanner,
+      },
+      {
+        match: '',
+        component: CustomMatomoAppExtra,
       },
     ],
     nonContentRoutes: [
