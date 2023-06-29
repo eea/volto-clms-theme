@@ -36,7 +36,7 @@
   "dependencies": {
     "@eeacms/volto-accordion-block": "7.0.0",
     "@eeacms/volto-arcgis-block": "*",
-    "@eeacms/volto-clms-utils": "0.1.7",
+    "@eeacms/volto-clms-utils": "0.1.8",
     "@eeacms/volto-columns-block": "6.0.2",
     "@eeacms/volto-embed": "5.0.1",
     "@eeacms/volto-metadata-block": "5.0.1",
