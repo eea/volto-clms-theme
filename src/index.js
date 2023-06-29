@@ -53,7 +53,7 @@ import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
 //APPEXTRA
-import CustomMatomoAppExtra from '../../volto-clms-utils/src/matomo/customMatomoAppExtra';
+import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 
 const applyConfig = (config) => {
   config.views = {
@@ -173,6 +173,7 @@ const applyConfig = (config) => {
     },
     showTags: false,
     ownDomain: 'land.copernicus.eu',
+    track_search_paths: ['/en/global-search', '/en/dataset-catalog'],
   };
 
   config.settings.slate.toolbarButtons = [
