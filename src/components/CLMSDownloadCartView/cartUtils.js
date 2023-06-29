@@ -160,7 +160,7 @@ export const duplicateCartItem = (
 export const refreshCart = (cartItems, setCartItems, updateCart) => {
   setCartItems([...cartItems]);
   updateCart([
-    ...cartItems.map((c_i) => {
+    ...[...cartItems].reverse().map((c_i) => {
       const file_id = c_i.file_id ? { file_id: c_i.file_id } : {};
       const id = c_i.id ? { id: c_i.id } : {};
       return {
@@ -183,7 +183,7 @@ export const concatRequestedCartItem = (
   nutsnames,
 ) => {
   let newCartItems = [...cartItems];
-  localSessionCart.reverse().forEach((localItem) => {
+  [...localSessionCart].reverse().forEach((localItem) => {
     const requestedItem = datasets_items
       ? datasets_items.find((req) => req.UID === localItem.UID)
       : false;
