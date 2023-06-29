@@ -7,8 +7,12 @@ import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 
 import { useFilteredPagination } from '../CclUtils/useFilteredPagination';
 export const MetadataPaginatedListing = (props) => {
-  const { geonetwork_identifiers_items } = props;
-  const use_pagination = useFilteredPagination(geonetwork_identifiers_items);
+  const { geonetwork_identifiers_items, id } = props;
+  const use_pagination = useFilteredPagination(
+    geonetwork_identifiers_items,
+    10,
+    id,
+  );
   const p_functions = use_pagination.functions;
   const p_data = use_pagination.data;
   const { pagination, currentPage, paginationSize, dataList } = p_data;

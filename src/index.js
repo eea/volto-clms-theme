@@ -52,6 +52,9 @@ import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
+//APPEXTRA
+import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
+
 const applyConfig = (config) => {
   config.views = {
     ...config.views,
@@ -122,6 +125,10 @@ const applyConfig = (config) => {
         match: '*',
         component: CookieBanner,
       },
+      {
+        match: '',
+        component: CustomMatomoAppExtra,
+      },
     ],
     nonContentRoutes: [
       ...config.settings.nonContentRoutes,
@@ -166,6 +173,7 @@ const applyConfig = (config) => {
     },
     showTags: false,
     ownDomain: 'land.copernicus.eu',
+    track_search_paths: ['/en/global-search', '/en/dataset-catalog'],
   };
 
   config.settings.slate.toolbarButtons = [

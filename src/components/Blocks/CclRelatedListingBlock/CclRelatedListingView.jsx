@@ -17,8 +17,14 @@ const CclRelatedListingView = (props) => {
     properties,
     metadata,
     associated_elements = 'products',
+    searchParamsExecution = () => {},
   } = props;
-  const use_pagination = useFilteredPagination([]);
+  const use_pagination = useFilteredPagination(
+    [],
+    10,
+    id,
+    searchParamsExecution,
+  );
   const p_functions = use_pagination.functions;
   const p_data = use_pagination.data;
   const { pagination, currentPage, paginationSize, dataList } = p_data;

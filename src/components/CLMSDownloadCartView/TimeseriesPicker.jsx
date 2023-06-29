@@ -112,6 +112,9 @@ export const TimeseriesPicker = (props) => {
               <CclButton
                 isButton={true}
                 mode={'filled'}
+                disabled={
+                  startValue?.getTime() > endValue?.getTime() || !endValue
+                }
                 onClick={() => {
                   setTimeseriesValue(item.unique_id, {
                     StartDate: startValue,

@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Checkbox, Modal, Segment, Select, Table } from 'semantic-ui-react';
+import {
+  Checkbox,
+  Modal,
+  Segment,
+  Select,
+  Table,
+  Pagination,
+} from 'semantic-ui-react';
 
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
 import addDocumentSVG from '@plone/volto/icons/add-document.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
+import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
+import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
+import { useFilteredPagination } from '../CclUtils/useFilteredPagination';
 import './cart-table.less';
 import {
   getDownloadToolPostBody,
@@ -21,6 +31,7 @@ import {
   isChecked,
   contentOrDash,
 } from './cartUtils';
+
 import {
   TypeNaming,
   AreaNaming,
@@ -47,12 +58,6 @@ const CLMSCartContent = (props) => {
   );
   const downloadtool_state = useSelector((state) => state.downloadtool);
   const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
-
-  // component states
-  const [openedModal, setOpenedModal] = useState(false);
-  const [cartSelection, setCartSelection] = useState([]);
-  const [loadingTable, setLoadingTable] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
   const datasets_items = useSelector(
     (state) => state.datasetsByUid.datasets.items,
   );
@@ -63,11 +68,28 @@ const CLMSCartContent = (props) => {
     (state) => state.downloadtool.projections_in_progress,
   );
   const nutsnames = useSelector((state) => state.nutsnames);
+
+  // component states
+  const [openedModal, setOpenedModal] = useState(false);
+  const [cartSelection, setCartSelection] = useState([]);
+  const [loadingTable, setLoadingTable] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
   useEffect(() => {
     setCartItemInProgress(post_download_in_progress.unique_ids || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post_download_in_progress]);
 
+  const use_p = useFilteredPagination(cartItems);
+  const p_f = use_p.functions;
+  const p_data = use_p.data;
+  const { pagination, currentPage, paginationSize, dataList } = p_data;
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      p_f.setOriginalDataList(cartItems);
+    }
+  }, [cartItems]);
   useEffect(() => {
     const array_ids =
       cart.length > 0 ? cart?.map((item) => item.unique_id) : [];
@@ -200,10 +222,16 @@ const CLMSCartContent = (props) => {
     setCartItems([...cartItems]);
   };
 
+  const hascollection = (collection) => collection.value > 0;
+  const ref = React.useRef();
+
+  const handleScroll = (ref) => {
+    ref.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <>
-      {cartItems?.length !== 0 ? (
-        <div className="custom-table cart-table">
+      {pagination?.length !== 0 ? (
+        <div ref={ref} className="custom-table cart-table">
           <Segment basic loading={loadingTable}>
             <h2>My cart</h2>
             <Table responsive>
@@ -229,8 +257,8 @@ const CLMSCartContent = (props) => {
                 </Table.Row>
               </Table.Header>
               <tbody>
-                {cartItems.length > 0 &&
-                  cartItems.map((item, key) => (
+                {pagination.length > 0 &&
+                  pagination.map((item, key) => (
                     <tr
                       key={key}
                       style={
@@ -285,15 +313,19 @@ const CLMSCartContent = (props) => {
                         <div className="mb-2">
                           <strong>Type: </strong>
                         </div>
-                        <div className="mb-2">
-                          <strong>Collection: </strong>
-                        </div>
+                        {item?.type_options?.some(hascollection) && (
+                          <div className="mb-2">
+                            <strong>Collection: </strong>
+                          </div>
+                        )}
                         <div className="mb-2">
                           <strong>Format: </strong>
                         </div>
-                        <div className="mb-2">
-                          <strong>Layer/Band: </strong>
-                        </div>
+                        {item?.layer !== null && (
+                          <div className="mb-2">
+                            <strong>Layer/Band: </strong>
+                          </div>
+                        )}
                       </td>
                       <td>
                         <div className="mb-2">
@@ -304,14 +336,16 @@ const CLMSCartContent = (props) => {
                             setCartItems={setCartItems}
                           />
                         </div>
-                        <div className="mb-2">
-                          <CollectionNaming
-                            item={item}
-                            datasets_items={datasets_items}
-                            cartItems={cartItems}
-                            setCartItems={setCartItems}
-                          />
-                        </div>
+                        {item?.type_options?.some(hascollection) && (
+                          <div className="mb-2">
+                            <CollectionNaming
+                              item={item}
+                              datasets_items={datasets_items}
+                              cartItems={cartItems}
+                              setCartItems={setCartItems}
+                            />
+                          </div>
+                        )}
                         <div className="mb-2">
                           {formatConversionTable && item && (
                             <FormatNaming
@@ -322,13 +356,15 @@ const CLMSCartContent = (props) => {
                             />
                           )}
                         </div>
-                        <div className="mb-2">
-                          <LayerNaming
-                            item={item}
-                            cartItems={cartItems}
-                            setCartItems={setCartItems}
-                          />
-                        </div>
+                        {item?.layer !== null && (
+                          <div className="mb-2">
+                            <LayerNaming
+                              item={item}
+                              cartItems={cartItems}
+                              setCartItems={setCartItems}
+                            />
+                          </div>
+                        )}
                       </td>
                       <td className="table-td-projections">
                         {!item.file_id ? (
@@ -446,11 +482,41 @@ const CLMSCartContent = (props) => {
               </tbody>
             </Table>
           </Segment>
+          {dataList.length / paginationSize > 1 && (
+            <div className="pagination-wrapper">
+              <Pagination
+                activePage={currentPage}
+                totalPages={Math.ceil(dataList.length / paginationSize)}
+                onPageChange={(e, { activePage }) => {
+                  if (ref.current) handleScroll(ref.current);
+                  p_f.setCurrentPage(activePage);
+                }}
+                firstItem={null}
+                lastItem={null}
+                prevItem={{
+                  content: <Icon name={paginationLeftSVG} size="18px" />,
+                  icon: true,
+                  'aria-disabled': currentPage === 1,
+                  className: currentPage === 1 ? 'disabled' : null,
+                }}
+                nextItem={{
+                  content: <Icon name={paginationRightSVG} size="18px" />,
+                  icon: true,
+                  'aria-disabled':
+                    currentPage === Math.ceil(dataList.length / paginationSize),
+                  className:
+                    currentPage === Math.ceil(dataList.length / paginationSize)
+                      ? 'disabled'
+                      : null,
+                }}
+              ></Pagination>
+            </div>
+          )}
         </div>
       ) : (
         <h2 style={{ textAlign: 'center' }}>Empty cart</h2>
       )}
-      {cartItems?.length !== 0 && (
+      {pagination?.length !== 0 && (
         <CclButton
           onClick={() => downloadModal()}
           disabled={cartSelection.length === 0}
