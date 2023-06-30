@@ -15,6 +15,8 @@ module.exports = {
       '<rootDir>/src/addons/volto-clms-theme/src/$1',
     '@eeacms/volto-clms-utils/(.*)$':
       '<rootDir>/node_modules/@eeacms/volto-clms-utils/src/$1',
+    '@kitconcept/volto-blocks-grid/(.*)$':
+      '<rootDir>/node_modules/@kitconcept/volto-blocks-grid/src/$1',
     '@plone/volto-slate':
       '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src',
     '~/(.*)$': '<rootDir>/src/$1',

@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -18,6 +18,7 @@
     "url": "git@github.com:eea/volto-clms-theme.git"
   },
   "addons": [
+    "@kitconcept/volto-blocks-grid",
     "volto-dropdownmenu",
     "@eeacms/volto-arcgis-block",
     "@eeacms/volto-columns-block",
@@ -36,7 +37,7 @@
   "dependencies": {
     "@eeacms/volto-accordion-block": "7.0.0",
     "@eeacms/volto-arcgis-block": "*",
-    "@eeacms/volto-clms-utils": "0.1.7",
+    "@eeacms/volto-clms-utils": "0.1.8",
     "@eeacms/volto-columns-block": "6.0.2",
     "@eeacms/volto-embed": "5.0.1",
     "@eeacms/volto-metadata-block": "5.0.1",
@@ -50,6 +51,7 @@
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
     "@ginkgo-bioworks/react-json-schema-form-builder": "2.10.1",
+    "@kitconcept/volto-blocks-grid": "7.0.2",
     "connected-react-router": "6.8.0",
     "husky": "7.0.4",
     "lightgallery": "^2.4.0",

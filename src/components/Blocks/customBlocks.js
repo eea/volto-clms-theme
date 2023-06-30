@@ -86,6 +86,9 @@ import { default as CustomVideoView } from '@eeacms/volto-clms-theme/components/
 import { default as CustomVideoEdit } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VideoBlock/Edit';
 import { default as CustomHtmlView } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/HtmlBlock/View';
 import { default as CustomHtmlEdit } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/HtmlBlock/Edit';
+
+import { TeaserSchema } from '@kitconcept/volto-blocks-grid/components/Teaser/schema';
+
 export const customGroupBlocksOrder = [
   {
     id: 'ccl_blocks',
@@ -627,6 +630,15 @@ const customBlocks = (config) => ({
     security: {
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
       view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  teaser: {
+    ...config.blocks.blocksConfig.teaser,
+    blockSchema: (intl) => {
+      const schema = TeaserSchema(intl);
+      delete schema.properties.styles;
+      schema.fieldsets = schema.fieldsets.filter((s) => s.id === 'default');
+      return schema;
     },
   },
 });
