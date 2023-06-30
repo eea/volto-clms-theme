@@ -20,7 +20,7 @@ export const AreaNaming = (areaProps) => {
         </>
       );
     case 'nuts':
-      return 'NUTS: ' + (item.area.valueName || item.area.value);
+      return item.area.valueName || item.area.value;
     case undefined:
       return item.area || item.file || '-';
     case typeof item.area === 'string':
