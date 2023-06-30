@@ -45,6 +45,7 @@
     "@eeacms/volto-tableau": "1.3.0",
     "@eeacms/volto-tabs-block": "3.0.1",
     "@eeacms/volto-taxonomy": "3.0.1",
+    "@kitconcept/volto-blocks-grid": "7.0.2",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
