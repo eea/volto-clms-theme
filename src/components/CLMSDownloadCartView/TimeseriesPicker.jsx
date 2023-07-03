@@ -78,8 +78,6 @@ export const TimeseriesPicker = (props) => {
       >
         <Grid.Column className="datetime-picker">
           <Grid.Row>
-            The periodicity of this dataset is {getPeriodicity(period)}
-            <br />
             <DatePicker
               id="start_date"
               inline
