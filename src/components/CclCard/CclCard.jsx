@@ -60,7 +60,12 @@ const DocCard = ({ card, url, showEditor, children }) => {
             <Link to={url}>{card?.title}</Link>
           )}
           {card?.['@type'] === 'TechnicalLibrary' && showEditor && (
-            <Link to={`${url}/edit`} className="technical-library-edit-link">
+            <Link
+              to={`${url}/edit`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="technical-library-edit-link"
+            >
               <VoltoIcon
                 name={penSVG}
                 size="12px"
