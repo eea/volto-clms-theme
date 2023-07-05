@@ -3,8 +3,6 @@
  * @module components/theme/Footer/Footer
  */
 
-import '@eeacms/volto-clms-theme/../theme/clms/css/footer.css';
-
 import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 

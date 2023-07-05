@@ -1,5 +1,3 @@
-import './CclTabs.less';
-
 import React, { useState } from 'react';
 
 import CclTab from './CclTab';

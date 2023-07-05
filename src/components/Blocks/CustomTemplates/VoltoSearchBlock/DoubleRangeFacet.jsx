@@ -1,5 +1,4 @@
 import 'react-input-range/lib/css/index.css';
-import './range.css';
 
 import React from 'react';
 

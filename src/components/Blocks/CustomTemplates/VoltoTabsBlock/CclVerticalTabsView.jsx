@@ -60,7 +60,7 @@ const TabsComponent = (props) => {
                 <span>{title || defaultTitle}</span>
               ) : (
                 <NavLink
-                  to={'#' + tabHash}
+                  to={'?' + tabHash}
                   className="collapsed"
                   onClick={(e) => {
                     handleClick(

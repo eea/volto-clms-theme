@@ -13,7 +13,6 @@ import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
-import './cards.less';
 
 import PropTypes from 'prop-types';
 
@@ -61,7 +60,12 @@ const DocCard = ({ card, url, showEditor, children }) => {
             <Link to={url}>{card?.title}</Link>
           )}
           {card?.['@type'] === 'TechnicalLibrary' && showEditor && (
-            <Link to={`${url}/edit`} className="technical-library-edit-link">
+            <Link
+              to={`${url}/edit`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="technical-library-edit-link"
+            >
               <VoltoIcon
                 name={penSVG}
                 size="12px"

@@ -5,8 +5,6 @@
  * @module components/theme/Header/Header
  */
 
-import '@eeacms/volto-clms-theme/../theme/clms/css/header.css';
-
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import React, { Component, useEffect } from 'react';

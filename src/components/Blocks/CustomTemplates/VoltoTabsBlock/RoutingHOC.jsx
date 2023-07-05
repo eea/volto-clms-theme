@@ -24,12 +24,12 @@ const RoutingHOC = (TabView) =>
         return { title: t[1].title, id: t[0] };
       });
       if (
-        window.location.hash.match(/.*([&|#]tab=.*)/) &&
-        window.location.hash.match(/.*([&|#]tab=.*)/).length > 1
+        window.location.search.match(/.*([&|?|#]tab=.*)/) &&
+        window.location.search.match(/.*([&|?|#]tab=.*)/).length > 1
       ) {
-        const hashMatch = window.location.hash
-          .match(/.*([&|#]tab=.*)/)[1]
-          .replace(/[&|#]tab=/, '');
+        const hashMatch = window.location.search
+          .match(/.*([&|?|#]tab=.*)/)[1]
+          .replace(/[&|?|#]tab=/, '');
         const result = tabsDict.filter((t) => slugify(t.title) === hashMatch);
         if (result.length > 0) {
           return result[0].id;

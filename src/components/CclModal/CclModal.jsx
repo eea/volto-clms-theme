@@ -1,6 +1,5 @@
 import React from 'react';
 import { Segment, Modal } from 'semantic-ui-react';
-import './modal.less';
 import Draggable from 'react-draggable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGripHorizontal } from '@fortawesome/free-solid-svg-icons';

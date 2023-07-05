@@ -4,7 +4,6 @@ import { useSchema } from './SchemaCreatorWidget';
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder/dist/index';
 import CclButton from '../CclButton/CclButton';
 import { Segment, Loader, Header, Divider } from 'semantic-ui-react';
-import './DownloadableFilesTableWidget.less';
 
 const orderKeysBy = (array, data) => {
   if (data) {

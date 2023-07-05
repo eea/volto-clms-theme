@@ -20,7 +20,6 @@ import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 
-import './download-table.less';
 import { useSchema } from '../Widgets/SchemaCreatorWidget';
 
 import PropTypes from 'prop-types';
