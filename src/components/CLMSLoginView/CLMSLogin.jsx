@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
 import { UniversalLink } from '@plone/volto/components';
 import { toPublicURL } from '@plone/volto/helpers/Url/Url';
-import './CLMSLogin.css';
 import { toBase64 } from '../CclUtils';
 
 /**

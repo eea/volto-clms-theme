@@ -7,7 +7,6 @@ import config from '@plone/volto/registry';
 import { getRegistry } from '@eeacms/volto-clms-theme/actions';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 import { toBase64 } from '../CclUtils';
-import './ccl-login-modal.css';
 
 /**
  * Login Modal component doc.

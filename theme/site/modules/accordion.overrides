@@ -6,10 +6,10 @@
   align-items: center;
   padding: 1rem;
   margin: 0;
-  background: #a0b1280f !important;
+  background: fade(@clmsGreen, 5%) !important;
 
   color: #212529;
-  // background-color: #a0b1280f;
+  // background-color: fade(@clmsGreen, 5%);
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
@@ -17,7 +17,7 @@
 }
 
 .ui.styled.accordion .active.title {
-  background: #a0b1280f;
+  background: fade(@clmsGreen, 5%);
   color: #212529;
 }
 
@@ -27,7 +27,7 @@ h2.accordion-title span {
 
 .accordion-title .icon {
   min-width: 2rem;
-  color: #a0b128;
+  color: @clmsGreen;
   font-weight: bold;
 }
 

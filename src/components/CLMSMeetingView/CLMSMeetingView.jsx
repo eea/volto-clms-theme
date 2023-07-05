@@ -24,7 +24,6 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import { postMeetingRegister } from '../../actions';
 import { CLMSRelatedItems } from '../CLMSRelatedItems';
 import { LightGalleryListing } from './CclLightGallery';
-import './meetingstyles.less';
 import { RegisterButtonReasons } from './utils';
 
 import jwtDecode from 'jwt-decode';

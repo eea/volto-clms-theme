@@ -1,0 +1,26 @@
+.input-range__track--active,
+.input-range__slider {
+  border: @clmsGreen;
+  background: @clmsGreen;
+}
+
+/* first label, prevents overlapping CLMS-1459 */
+.input-range__track.input-range__track--background
+  span.input-range__slider-container:nth-child(2)
+  span.input-range__label.input-range__label--value {
+  width: 0;
+  direction: rtl;
+  white-space: nowrap;
+}
+
+/* second label, prevents overlapping when both labels are long CLMS-1459 */
+.input-range__track.input-range__track--background
+  span.input-range__slider-container:nth-child(3)
+  span.input-range__label.input-range__label--value {
+  width: 0;
+}
+
+.range-container {
+  padding-right: 15px;
+  padding-left: 15px;
+}

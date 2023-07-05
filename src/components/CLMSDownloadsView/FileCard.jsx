@@ -82,7 +82,7 @@ const FileCard = (props) => {
                   <Icon
                     name={pauseSVG}
                     size={50}
-                    color="#a0b128"
+                    color="olive"
                     title={'Queued'}
                   />
                 }
@@ -103,7 +103,7 @@ const FileCard = (props) => {
                   <Icon
                     name={packSVG}
                     size={50}
-                    color="#a0b128"
+                    color="olive"
                     title={'Finished correctly'}
                   />
                 }
@@ -117,7 +117,7 @@ const FileCard = (props) => {
                   <Icon
                     name={blockSVG}
                     size={50}
-                    color="#a0b128"
+                    color="olive"
                     title={'Cancelled'}
                   />
                 }

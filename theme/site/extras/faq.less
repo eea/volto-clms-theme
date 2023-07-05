@@ -1,0 +1,65 @@
+/* FAQs */
+#faq-listing {
+  .accordion-block:not(:last-of-type) {
+    margin-bottom: 3rem;
+  }
+
+  .accordion-title {
+    padding: 1rem;
+    border-left: solid 4px @clmsGreen;
+    color: #273b4b;
+    font-size: 1.125rem;
+  }
+
+  h2.accordion-title span {
+    display: flex;
+    font-size: 1.125rem;
+  }
+
+  .accordion-title .icon {
+    min-width: 2rem;
+    color: @clmsGreen;
+    font-weight: bold;
+  }
+
+  h2.accordion-title span::before {
+    margin-right: 1rem;
+    color: @clmsGreen;
+    content: 'Q';
+    float: left;
+    font-size: 1.75rem;
+    line-height: 1.125rem;
+  }
+
+  .accordion-block > .accordion {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .accordion-block > .accordion > .content > .rah-static > div {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .accordion .content {
+    padding: 1rem !important;
+    border-left: solid 4px #adb0b8;
+    line-height: 1.5rem;
+  }
+
+  .accordion .content > div {
+    // display: flex;
+    padding-left: 2.3rem;
+  }
+
+  .accordion .content > div::before {
+    margin-right: 1rem;
+    color: #adb0b8;
+    content: 'A';
+    float: left;
+    font-size: 1.75rem;
+    font-weight: bold;
+    position: absolute;
+    left: 1.5rem;
+  }
+}
