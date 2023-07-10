@@ -116,10 +116,7 @@ const CclFAQBlockView = (props) => {
                               <span>{item.title}</span>
                             </Accordion.Title>
                             <Accordion.Content
-                              active={
-                                activeIndex.includes(item.normalized_id) ||
-                                activeIndex.includes(item_key)
-                              }
+                              active={activeIndex.includes(item.normalized_id)}
                             >
                               <AnimateHeight
                                 animateOpacity
