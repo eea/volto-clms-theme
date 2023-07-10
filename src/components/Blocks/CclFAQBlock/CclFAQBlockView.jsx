@@ -45,10 +45,21 @@ const CclFAQBlockView = (props) => {
         )
       : [],
   );
-  const [activeIndex, setActiveIndex] = useState([0]);
+  const [activeIndex, setActiveIndex] = useState([]);
   React.useEffect(() => {
     dispatch(getContextNavigation(path.replace('/edit', '')));
   }, [path, dispatch]);
+  React.useEffect(() => {
+    let indexes = [];
+    // eslint-disable-next-line no-unused-expressions
+    contextNavigation?.[cn_key]?.data?.items.forEach((i) => {
+      if (i.items.length > 0) {
+        indexes.push(i.items[0].normalized_id);
+      }
+    });
+    setActiveIndex(indexes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contextNavigation?.[cn_key]?.data?.items]);
 
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
@@ -80,10 +91,12 @@ const CclFAQBlockView = (props) => {
                           <Accordion fluid styled key={item_key}>
                             <Accordion.Title
                               as={'h2'}
-                              onClick={() => handleClick({ index: item_key })}
+                              onClick={() =>
+                                handleClick({ index: item.normalized_id })
+                              }
                               className={'accordion-title align-arrow-right'}
                             >
-                              {activeIndex.includes(item_key) ? (
+                              {activeIndex.includes(item.normalized_id) ? (
                                 <Icon name={titleIcons.opened.rightPosition} />
                               ) : (
                                 <Icon name={titleIcons.closed.rightPosition} />
@@ -103,7 +116,10 @@ const CclFAQBlockView = (props) => {
                               <span>{item.title}</span>
                             </Accordion.Title>
                             <Accordion.Content
-                              active={activeIndex.includes(item_key)}
+                              active={
+                                activeIndex.includes(item.normalized_id) ||
+                                activeIndex.includes(item_key)
+                              }
                             >
                               <AnimateHeight
                                 animateOpacity
