@@ -47,6 +47,7 @@ const DataSetInfoContent = (props) => {
             path: location.pathname,
             b_size: 99999,
             metadata_fields: ['blocks', 'blocks_layout'],
+            sort_on: 'getObjPositionInParent',
           },
           'accordions',
         ),
