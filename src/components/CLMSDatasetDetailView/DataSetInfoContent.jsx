@@ -12,6 +12,8 @@ import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 import { MetadataPaginatedListing } from './MetadataPaginatedListing';
 import { CclInfoContainer, CclInfoDescription } from '../CclInfoDescription';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { hasBlocksData } from '@plone/volto/helpers';
 
 import './datasetinfocontent.less';
 
@@ -34,6 +36,19 @@ const DataSetInfoContent = (props) => {
             b_size: 99999,
           },
           id,
+        ),
+      );
+      dispatch(
+        searchContent(
+          '',
+          {
+            portal_type: 'DataSetAccordion',
+            review_state: 'published',
+            path: location.pathname,
+            b_size: 99999,
+            metadata_fields: ['blocks', 'blocks_layout'],
+          },
+          'accordions',
         ),
       );
     }
@@ -85,6 +100,8 @@ const DataSetInfoContent = (props) => {
       )
     );
   };
+
+  let accordionsState = searchSubrequests?.['accordions'] || {};
 
   return (
     <div>
@@ -234,18 +251,17 @@ const DataSetInfoContent = (props) => {
                 </Accordion.Content>
               </Accordion>
 
-              {props.jrc_algorithm?.data &&
-                props.jrc_algorithm?.data !== '<p><br/><p>' &&
-                props.jrc_algorithm?.data !== '<p></p>' && (
-                  <Accordion fluid styled>
+              {accordionsState?.loaded &&
+                accordionsState.items.map((item, key) => (
+                  <Accordion fluid styled key={key}>
                     <Accordion.Title
                       as={'h2'}
-                      onClick={() => handleClick({ index: 98 })}
-                      active={activeIndex === 98}
-                      index={98}
+                      onClick={() => handleClick({ index: key })}
+                      active={activeIndex === key}
+                      index={key}
                       className={'accordion-title align-arrow-right'}
                     >
-                      {activeIndex.includes(98) ? (
+                      {activeIndex.includes(key) ? (
                         <Icon
                           name={iconName(data, titleIcons.opened)}
                           size="24px"
@@ -256,95 +272,19 @@ const DataSetInfoContent = (props) => {
                           size="24px"
                         />
                       )}
-                      <span>Algorithm</span>
+                      <span>{item.title}</span>
                     </Accordion.Title>
-                    <Accordion.Content active={activeIndex.includes(98)}>
+                    <Accordion.Content active={activeIndex.includes(key)}>
                       <AnimateHeight
                         animateOpacity
                         duration={500}
                         height={'auto'}
                       >
-                        <StringToHTML
-                          string={props.jrc_algorithm?.data || ''}
-                        />
+                        {hasBlocksData(item) && <RenderBlocks content={item} />}
                       </AnimateHeight>
                     </Accordion.Content>
                   </Accordion>
-                )}
-
-              {props.jrc_quality?.data &&
-                props.jrc_quality?.data !== '<p><br/><p>' &&
-                props.jrc_quality?.data !== '<p></p>' && (
-                  <Accordion fluid styled>
-                    <Accordion.Title
-                      as={'h2'}
-                      onClick={() => handleClick({ index: 97 })}
-                      active={activeIndex === 97}
-                      index={97}
-                      className={'accordion-title align-arrow-right'}
-                    >
-                      {activeIndex.includes(97) ? (
-                        <Icon
-                          name={iconName(data, titleIcons.opened)}
-                          size="24px"
-                        />
-                      ) : (
-                        <Icon
-                          name={iconName(data, titleIcons.closed)}
-                          size="24px"
-                        />
-                      )}
-                      <span>Quality</span>
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex.includes(97)}>
-                      <AnimateHeight
-                        animateOpacity
-                        duration={500}
-                        height={'auto'}
-                      >
-                        <StringToHTML string={props.jrc_quality?.data || ''} />
-                      </AnimateHeight>
-                    </Accordion.Content>
-                  </Accordion>
-                )}
-
-              {props.jrc_datalayers?.data &&
-                props.jrc_datalayers?.data !== '<p><br/><p>' &&
-                props.jrc_datalayers?.data !== '<p></p>' && (
-                  <Accordion fluid styled>
-                    <Accordion.Title
-                      as={'h2'}
-                      onClick={() => handleClick({ index: 96 })}
-                      active={activeIndex === 96}
-                      index={96}
-                      className={'accordion-title align-arrow-right'}
-                    >
-                      {activeIndex.includes(96) ? (
-                        <Icon
-                          name={iconName(data, titleIcons.opened)}
-                          size="24px"
-                        />
-                      ) : (
-                        <Icon
-                          name={iconName(data, titleIcons.closed)}
-                          size="24px"
-                        />
-                      )}
-                      <span>Datalayers</span>
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex.includes(96)}>
-                      <AnimateHeight
-                        animateOpacity
-                        duration={500}
-                        height={'auto'}
-                      >
-                        <StringToHTML
-                          string={props.jrc_datalayers?.data || ''}
-                        />
-                      </AnimateHeight>
-                    </Accordion.Content>
-                  </Accordion>
-                )}
+                ))}
 
               {librariesPending && <Loader active inline="centered" />}
               {libraries?.length > 0 && (
