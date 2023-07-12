@@ -7,8 +7,9 @@
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import { Popup } from 'semantic-ui-react';
 
 import { BodyClass } from '@plone/volto/helpers';
 // IMPORT isnt nedded until translations are created
@@ -25,22 +26,44 @@ import jwtDecode from 'jwt-decode';
 
 const CartIconCounter = (props) => {
   const cart = useSelector((state) => state.cart_items.items);
+  const cart_ref = useRef(cart);
   const intl = useSelector((state) => state.intl);
   const user_id = useSelector((state) => state.users.user.id);
+  const [showPopup, setshowPopup] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
+  useEffect(() => {
+    if (cart.length > cart_ref.current.length) {
+      !showPopup && setshowPopup(true);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+      setTimeout(() => setshowPopup(false), 10000);
+    }
+    cart_ref.current = cart;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart]);
   return (
     cart && (
-      <Link to={`/${intl.locale}/cart`} className="header-login-link">
-        <FontAwesomeIcon
-          icon={['fas', 'shopping-cart']}
-          style={{ marginRight: '0.25rem', maxWidth: '1.5rem' }}
-        />
-        <strong>{cart?.length}</strong>
-      </Link>
+      <Popup
+        trigger={
+          <Link to={`/${intl.locale}/cart`} className="header-login-link">
+            <FontAwesomeIcon
+              icon={['fas', 'shopping-cart']}
+              style={{ marginRight: '0.25rem', maxWidth: '1.5rem' }}
+            />
+            <strong>{cart?.length}</strong>
+          </Link>
+        }
+        open={showPopup}
+        content="New item added to the cart"
+        position="bottom center"
+      />
     )
   );
 };
@@ -263,7 +286,7 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  {(this.props.user.id && (
+                  {(this.props.user.id && this.state.mobileMenuOpen && (
                     <>
                       <li className="header-dropdown">
                         <HeaderDropdown user={this.props.user} />
