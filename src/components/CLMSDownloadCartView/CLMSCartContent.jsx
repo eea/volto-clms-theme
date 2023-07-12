@@ -86,9 +86,7 @@ const CLMSCartContent = (props) => {
   const { pagination, currentPage, paginationSize, dataList } = p_data;
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      p_f.setOriginalDataList(cartItems);
-    }
+    p_f.setOriginalDataList(cartItems);
   }, [cartItems]);
   useEffect(() => {
     const array_ids =
@@ -455,6 +453,12 @@ const CLMSCartContent = (props) => {
                               <button
                                 onClick={() => {
                                   removeCartItem(item.unique_id);
+                                  if (
+                                    pagination.length === 1 &&
+                                    currentPage > 1
+                                  ) {
+                                    p_f.setCurrentPage(currentPage - 1);
+                                  }
                                 }}
                                 style={{
                                   backgroundColor: 'transparent',
