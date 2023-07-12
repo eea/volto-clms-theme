@@ -80,7 +80,7 @@ const CLMSCartContent = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post_download_in_progress]);
 
-  const use_p = useFilteredPagination(cartItems);
+  const use_p = useFilteredPagination(cartItems, 10, 'cart');
   const p_f = use_p.functions;
   const p_data = use_p.data;
   const { pagination, currentPage, paginationSize, dataList } = p_data;
