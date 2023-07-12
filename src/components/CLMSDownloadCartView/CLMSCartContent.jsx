@@ -222,7 +222,6 @@ const CLMSCartContent = (props) => {
     setCartItems([...cartItems]);
   };
 
-  const hascollection = (collection) => collection.value > 0;
   const ref = React.useRef();
 
   const handleScroll = (ref) => {
@@ -313,11 +312,11 @@ const CLMSCartContent = (props) => {
                         <div className="mb-2">
                           <strong>Type: </strong>
                         </div>
-                        {item?.type_options?.some(hascollection) && (
-                          <div className="mb-2">
-                            <strong>Collection: </strong>
-                          </div>
-                        )}
+
+                        <div className="mb-2">
+                          <strong>Collection: </strong>
+                        </div>
+
                         <div className="mb-2">
                           <strong>Format: </strong>
                         </div>
@@ -336,16 +335,16 @@ const CLMSCartContent = (props) => {
                             setCartItems={setCartItems}
                           />
                         </div>
-                        {item?.type_options?.some(hascollection) && (
-                          <div className="mb-2">
-                            <CollectionNaming
-                              item={item}
-                              datasets_items={datasets_items}
-                              cartItems={cartItems}
-                              setCartItems={setCartItems}
-                            />
-                          </div>
-                        )}
+
+                        <div className="mb-2">
+                          <CollectionNaming
+                            item={item}
+                            datasets_items={datasets_items}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                          />
+                        </div>
+
                         <div className="mb-2">
                           {formatConversionTable && item && (
                             <FormatNaming
