@@ -47,6 +47,7 @@ const DataSetInfoContent = (props) => {
             path: location.pathname,
             b_size: 99999,
             metadata_fields: ['blocks', 'blocks_layout'],
+            sort_on: 'getObjPositionInParent',
           },
           'accordions',
         ),
@@ -291,10 +292,10 @@ const DataSetInfoContent = (props) => {
                 <Accordion fluid styled>
                   <Accordion.Title
                     as={'h2'}
-                    onClick={() => handleClick({ index: 1 })}
+                    onClick={() => handleClick({ index: 98 })}
                     className={'accordion-title align-arrow-right'}
                   >
-                    {activeIndex.includes(1) ? (
+                    {activeIndex.includes(98) ? (
                       <Icon
                         name={iconName(data, titleIcons.opened)}
                         size="24px"
@@ -307,7 +308,7 @@ const DataSetInfoContent = (props) => {
                     )}
                     <span>Technical documents</span>
                   </Accordion.Title>
-                  <Accordion.Content active={activeIndex.includes(1)}>
+                  <Accordion.Content active={activeIndex.includes(98)}>
                     <AnimateHeight
                       animateOpacity
                       duration={500}
