@@ -44,6 +44,7 @@ const CLMSDownloadCartView = (props) => {
   useEffect(() => {
     dispatch(getProjections());
     dispatch(getFormatConversionTable());
+    return () => {};
   }, [dispatch]);
 
   useEffect(() => {
@@ -57,9 +58,7 @@ const CLMSDownloadCartView = (props) => {
     );
 
     // returned function will be called on component unmount
-    return () => {
-      dispatch(getExtraBreadcrumbItems([]));
-    };
+    return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.location.pathname]);
 
@@ -86,6 +85,7 @@ const CLMSDownloadCartView = (props) => {
     if (localsessionNutsIDList.length > 0) {
       dispatch(getNutsNames(localsessionNutsIDList));
     }
+    return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart, dispatch]);
 
