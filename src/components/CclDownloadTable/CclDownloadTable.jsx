@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import {
   Button,
   Checkbox,
@@ -10,7 +9,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-import { Icon, Toast } from '@plone/volto/components';
+import { Icon } from '@plone/volto/components';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
 import paginationRightSVG from '@plone/volto/icons/right-key.svg';
@@ -211,15 +210,7 @@ function CclDownloadTable(props) {
         file: item.file,
         unique_id: item.unique_id,
       }));
-    await addCartItem(selectedCartItems).then(() => {
-      toast.success(
-        <Toast
-          success
-          title={intl.formatMessage(messages.success)}
-          content={intl.formatMessage(messages.added_to_cart)}
-        />,
-      );
-    });
+    await addCartItem(selectedCartItems);
   };
 
   const clearSelection = () => {
