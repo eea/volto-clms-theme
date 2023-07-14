@@ -17,6 +17,8 @@ const CclRelatedListingView = (props) => {
     properties,
     metadata,
     associated_elements = 'products',
+    directQuery = {},
+    directRelation = false,
     searchParamsExecution = () => {},
   } = props;
   const use_pagination = useFilteredPagination(
@@ -34,10 +36,13 @@ const CclRelatedListingView = (props) => {
     (state) => state.search.subrequests?.[id],
   );
   const uid = metadata ? metadata['UID'] : properties['UID'];
-  const associated =
-    associated_elements === 'products'
-      ? { associated_products: uid }
-      : { associated_datasets: uid };
+
+  const associated = directRelation
+    ? directQuery
+    : associated_elements === 'products'
+    ? { associated_products: uid }
+    : { associated_datasets: uid };
+
   let libraries = searchSubrequests?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
