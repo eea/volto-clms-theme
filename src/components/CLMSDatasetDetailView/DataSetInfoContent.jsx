@@ -370,7 +370,11 @@ const DataSetInfoContent = (props) => {
                           variation: 'CclCardsdoc',
                           content_type: 'DataSet',
                         }}
-                        associated_elements="dataset"
+                        associated_elements="datasets"
+                        directRelation={true}
+                        directQuery={{
+                          UID: props.datasets.map((item) => item.token),
+                        }}
                         searchParamsExecution={() => {
                           const newIndex =
                             activeIndex.indexOf(1) === -1
