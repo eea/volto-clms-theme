@@ -312,8 +312,8 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                   url={'/' + locale + '/map-viewer?dataset=' + content.UID}
                 >
                   <FormattedMessage
-                    id="View in the map viewer"
-                    defaultMessage="View in the map viewer"
+                    id="View in the data viewer"
+                    defaultMessage="View in the data viewer"
                   />
                 </CclButton>
               </div>

@@ -23,7 +23,7 @@ const ItemSchema = {
     hide: {
       title: 'Hide layer?',
       description:
-        'Enter whether this layer should be hidden in the map viewer',
+        'Enter whether this layer should be hidden in the data viewer',
       type: 'boolean',
       default: false,
     },
