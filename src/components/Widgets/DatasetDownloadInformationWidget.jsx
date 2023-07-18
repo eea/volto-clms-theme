@@ -17,7 +17,7 @@ const ItemSchema = () => ({
     full_path: {
       title: 'Enter the path to the full dataset download file',
       description:
-        'This is used when requesting the download from the map viewer',
+        'This is used when requesting the download from the data viewer',
       type: 'string',
     },
     full_format: {
