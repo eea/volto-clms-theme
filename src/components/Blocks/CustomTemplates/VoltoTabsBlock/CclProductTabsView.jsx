@@ -31,8 +31,8 @@ const CclProductTabsView = (props) => {
               className="ccl-button ccl-button--default"
             >
               <FormattedMessage
-                id="View in the map viewer"
-                defaultMessage="View in the map viewer"
+                id="View in the data viewer"
+                defaultMessage="View in the data viewer"
               />
             </a>
           </div>
