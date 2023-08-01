@@ -45,13 +45,13 @@ const rewriteOptions = (name, choices) => {
     'Product',
     'DataSet',
     'TechnicalLibrary',
+    'FAQ',
     'UseCase',
     'News Item',
     'eea.meeting',
     'Tender',
     'WorkOpportunity',
     'Document',
-    'FAQ',
   ];
 
   const dataset_geographical_classification = [
