@@ -21,7 +21,7 @@ function CclTab(props) {
     currentLocation = '',
   } = props;
   const token = useSelector((state) => state.userSession?.token);
-  function onTabClick() {
+  function onTabClick(e) {
     onClick(tabId);
   }
   const [redirecting, setRedirecting] = React.useState(false);
