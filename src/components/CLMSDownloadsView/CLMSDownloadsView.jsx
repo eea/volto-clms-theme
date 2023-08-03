@@ -50,13 +50,19 @@ const CLMSDownloadsView = (props) => {
       id: 'Downloads',
       defaultMessage: 'Downloads',
     },
+    HistoricCartDownloads: {
+      id: 'Historic downloads',
+      defaultMessage: 'Historic downloads',
+    },
   });
 
   useEffect(() => {
     dispatch(
       getExtraBreadcrumbItems([
         {
-          title: formatMessage(messages.CartDownloads),
+          title: props.historicView
+            ? formatMessage(messages.HistoricCartDownloads)
+            : formatMessage(messages.CartDownloads),
           pathname: props.location.pathname,
         },
       ]),
@@ -69,7 +75,9 @@ const CLMSDownloadsView = (props) => {
     dispatch,
     formatMessage,
     messages.CartDownloads,
+    messages.HistoricCartDownloads,
     props.location.pathname,
+    props.historicView,
   ]);
 
   function getUIDList(download_data) {
@@ -137,9 +145,16 @@ const CLMSDownloadsView = (props) => {
   }, [dispatch, downloadtool.delete_download_in_progress]);
 
   return (
-    <>
+    <div div className="ccl-container ">
       <Helmet
-        title={helmetTitle(formatMessage(messages.CartDownloads), content)}
+        title={
+          props.historicView
+            ? helmetTitle(
+                formatMessage(messages.HistoricCartDownloads),
+                content,
+              )
+            : helmetTitle(formatMessage(messages.CartDownloads), content)
+        }
       />
       <div className="ui container">
         {!isLoggedIn && (
@@ -160,20 +175,22 @@ const CLMSDownloadsView = (props) => {
         {isLoggedIn && (
           <>
             <h1 className="page-title">
-              {formatMessage(messages.CartDownloads)}
+              {props.historicView
+                ? formatMessage(messages.HistoricCartDownloads)
+                : formatMessage(messages.CartDownloads)}
             </h1>
             <div className="ccl-container">
               <Segment
                 basic
                 loading={downloadtool.loading || datasetsByUid.loading}
               >
-                <CLMSDownloadTask />
+                <CLMSDownloadTask all={!props.historicView} />
               </Segment>
             </div>
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
