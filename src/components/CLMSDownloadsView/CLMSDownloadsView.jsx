@@ -145,7 +145,7 @@ const CLMSDownloadsView = (props) => {
   }, [dispatch, downloadtool.delete_download_in_progress]);
 
   return (
-    <div div className="ccl-container ">
+    <div className="ccl-container ">
       <Helmet
         title={
           props.historicView
