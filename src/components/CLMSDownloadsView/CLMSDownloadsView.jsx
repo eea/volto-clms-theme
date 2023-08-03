@@ -184,7 +184,7 @@ const CLMSDownloadsView = (props) => {
                 basic
                 loading={downloadtool.loading || datasetsByUid.loading}
               >
-                <CLMSDownloadTask all={!props.historicView} />
+                <CLMSDownloadTask all={props.historicView} />
               </Segment>
             </div>
           </>
