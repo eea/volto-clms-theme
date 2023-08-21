@@ -24,6 +24,7 @@ import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView
 import CLMSWorkOpportunityView from '@eeacms/volto-clms-theme/components/CLMSWorkOpportunityView/WorkOpportunityView';
 import CLMSUseCaseView from './components/CLMSUseCasesView/CLMSUseCasesView';
 import CLMSFAQView from './components/CLMSFAQView/CLMSFAQView';
+import CLMSDataSetAccordionView from './components/CLMSDataSetAccordionView/CLMSDataSetAccordionView';
 
 // WIDGET
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -55,6 +56,8 @@ import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 //APPEXTRA
 import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 
+import ImageView from '@plone/volto/components/theme/View/ImageView';
+
 const applyConfig = (config) => {
   config.views = {
     ...config.views,
@@ -72,6 +75,8 @@ const applyConfig = (config) => {
       WorkOpportunity: CLMSWorkOpportunityView,
       Tender: CLMSWorkOpportunityView,
       FAQ: CLMSFAQView,
+      Image: ImageView,
+      DataSetAccordion: CLMSDataSetAccordionView,
     },
   };
   config.blocks = {
