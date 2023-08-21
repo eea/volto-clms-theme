@@ -58,6 +58,7 @@ const RightModalFacets = (props) => {
   const { showSearchButton } = data;
   const isLive = !showSearchButton;
   const intl = useIntl();
+  // Should we generalize this to an external function?
   if (querystring?.sortable_indexes?.effective?.title) {
     querystring.sortable_indexes.effective.title = 'Publication date';
   }
@@ -67,6 +68,13 @@ const RightModalFacets = (props) => {
   if (querystring?.sortable_indexes?.modified?.title) {
     querystring.sortable_indexes.modified.title = 'Last edited';
   }
+  if (querystring?.sortable_indexes?.publication_date?.title) {
+    querystring.sortable_indexes.publication_date.title = 'Publication date';
+  }
+  if (querystring?.sortable_indexes?.version?.title) {
+    querystring.sortable_indexes.version.title = 'Version';
+  }
+
   return (
     <Grid className="searchBlock-facets right-column-facets" stackable>
       {data?.headline && (
