@@ -58,6 +58,7 @@ const ItemSchema = {
         'default_active',
         'hide',
         'static_legend_url',
+        'filter_static_legend_url',
         'fields',
       ],
     },
