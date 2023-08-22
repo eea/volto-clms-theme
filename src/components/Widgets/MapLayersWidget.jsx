@@ -34,6 +34,13 @@ const ItemSchema = {
       type: 'string',
       default: '',
     },
+    filter_static_legend_url: {
+      title: 'URL to static image legend used in filters',
+      description:
+        'If it is filled, the legend shown on the map when using filters will be the image behind the URL',
+      type: 'string',
+      default: '',
+    },
     fields: {
       title: 'Fields to be shown in the mapviewer',
       description: 'Enter the JSON representing the fields',
@@ -51,6 +58,7 @@ const ItemSchema = {
         'default_active',
         'hide',
         'static_legend_url',
+        'filter_static_legend_url',
         'fields',
       ],
     },
