@@ -13,6 +13,9 @@ describe('CclCard', () => {
       create: {},
       data: {},
     },
+    userSession: {
+      token: 'xxxxx',
+    },
     intl: {
       locale: 'en',
       messages: {},
