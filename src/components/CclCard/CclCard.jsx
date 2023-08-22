@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
@@ -346,26 +345,25 @@ function CclCard(props) {
               <div className="card-doc-extrametadata">
                 {card?.['@type'] === 'DataSet' && (
                   <>
-                    <CclButton
-                      url={'/' + locale + '/map-viewer?dataset=' + card.UID}
-                    >
+                    <br />
+                    <Link to={'/' + locale + '/map-viewer?dataset=' + card.UID}>
                       <FormattedMessage
                         id="View in the data viewer"
                         defaultMessage="View in the data viewer"
                       />
-                    </CclButton>
+                    </Link>
                     &nbsp; &nbsp; &nbsp;
                   </>
                 )}
 
                 {card?.['@type'] === 'DataSet' && isLoggedIn && (
                   <>
-                    <CclButton url={`${card['@id']}#download`}>
+                    <Link to={`${card['@id']}#download`}>
                       <FormattedMessage
                         id="Download"
                         defaultMessage="Download"
                       />
-                    </CclButton>
+                    </Link>
                     &nbsp; &nbsp; &nbsp;
                   </>
                 )}
@@ -376,12 +374,12 @@ function CclCard(props) {
                       otherPath={`${card['@id']}#download`}
                       triggerComponent={() => (
                         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                        <a style={{ cursor: 'pointer' }}>
+                        <Link>
                           <FormattedMessage
                             id="Download"
                             defaultMessage="Download"
                           />
-                        </a>
+                        </Link>
                       )}
                     />
                     &nbsp; &nbsp; &nbsp;
@@ -389,12 +387,12 @@ function CclCard(props) {
                 )}
 
                 {card?.['@type'] === 'DataSet' && (
-                  <CclButton url={card['@id']}>
+                  <Link to={card['@id']}>
                     <FormattedMessage
                       id="View more"
                       defaultMessage="View more"
                     />
-                  </CclButton>
+                  </Link>
                 )}
               </div>
             </div>
