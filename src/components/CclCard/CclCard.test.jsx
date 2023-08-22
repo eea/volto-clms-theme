@@ -83,11 +83,13 @@ describe('CclCard', () => {
   it('Check news card', () => {
     const cardtest = renderer
       .create(
-        <MemoryRouter>
-          <CclCard type="news" card={card}>
-            <p>News card test</p>
-          </CclCard>
-        </MemoryRouter>,
+        <Provider store={store}>
+          <MemoryRouter>
+            <CclCard type="news" card={card}>
+              <p>News card test</p>
+            </CclCard>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(cardtest).toBeDefined();
@@ -95,11 +97,13 @@ describe('CclCard', () => {
   it('Check three collumns card', () => {
     const cardtest = renderer
       .create(
-        <MemoryRouter>
-          <CclCard type="threeColumns" card={card}>
-            <p>threeColumns card test</p>
-          </CclCard>
-        </MemoryRouter>,
+        <Provider>
+          <MemoryRouter>
+            <CclCard type="threeColumns" card={card}>
+              <p>threeColumns card test</p>
+            </CclCard>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(cardtest).toBeDefined();
@@ -107,11 +111,13 @@ describe('CclCard', () => {
   it('Check block card', () => {
     const cardtest = renderer
       .create(
-        <MemoryRouter>
-          <CclCard type="block" card={card}>
-            <p>Block card test</p>
-          </CclCard>
-        </MemoryRouter>,
+        <Provider>
+          <MemoryRouter>
+            <CclCard type="block" card={card}>
+              <p>Block card test</p>
+            </CclCard>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(cardtest).toBeDefined();
@@ -119,11 +125,13 @@ describe('CclCard', () => {
   it('Check default card', () => {
     const cardtest = renderer
       .create(
-        <MemoryRouter>
-          <CclCard card={card}>
-            <p>Line card test</p>
-          </CclCard>
-        </MemoryRouter>,
+        <Provider>
+          <MemoryRouter>
+            <CclCard card={card}>
+              <p>Line card test</p>
+            </CclCard>
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(cardtest).toBeDefined();
@@ -131,9 +139,11 @@ describe('CclCard', () => {
   it('Check default values', () => {
     const card = renderer
       .create(
-        <MemoryRouter>
-          <CclCard />
-        </MemoryRouter>,
+        <Provider>
+          <MemoryRouter>
+            <CclCard />
+          </MemoryRouter>
+        </Provider>,
       )
       .toJSON();
     expect(card).toBeDefined();
