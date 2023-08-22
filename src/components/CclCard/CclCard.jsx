@@ -1,20 +1,21 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Label } from 'semantic-ui-react';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 
-import { Icon as VoltoIcon } from '@plone/volto/components';
-import { UniversalLink } from '@plone/volto/components';
-import penSVG from '@plone/volto/icons/pen.svg';
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { UniversalLink, Icon as VoltoIcon } from '@plone/volto/components';
+import penSVG from '@plone/volto/icons/pen.svg';
 // import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -147,6 +148,9 @@ function CclCard(props) {
       : type === 'line-no-description'
       ? 'line card-line-no-description'
       : type || 'line');
+
+  const locale = useSelector((state) => state.intl.locale);
+  const isLoggedIn = useSelector((state) => state.userSession?.token);
 
   return (
     <CardLink
@@ -338,6 +342,61 @@ function CclCard(props) {
                 <div className="card-description">{card?.description}</div>
               )}
               {children}
+
+              <div className="card-doc-extrametadata">
+                {card?.['@type'] === 'DataSet' && (
+                  <>
+                    <CclButton
+                      url={'/' + locale + '/map-viewer?dataset=' + card.UID}
+                    >
+                      <FormattedMessage
+                        id="View in the data viewer"
+                        defaultMessage="View in the data viewer"
+                      />
+                    </CclButton>
+                    &nbsp; &nbsp; &nbsp;
+                  </>
+                )}
+
+                {card?.['@type'] === 'DataSet' && isLoggedIn && (
+                  <>
+                    <CclButton url={`${card['@id']}#download`}>
+                      <FormattedMessage
+                        id="Download"
+                        defaultMessage="Download"
+                      />
+                    </CclButton>
+                    &nbsp; &nbsp; &nbsp;
+                  </>
+                )}
+
+                {card?.['@type'] === 'DataSet' && !isLoggedIn && (
+                  <>
+                    <CclLoginModal
+                      otherPath={`${card['@id']}#download`}
+                      triggerComponent={() => (
+                        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                        <a style={{ cursor: 'pointer' }}>
+                          <FormattedMessage
+                            id="Download"
+                            defaultMessage="Download"
+                          />
+                        </a>
+                      )}
+                    />
+                    &nbsp; &nbsp; &nbsp;
+                  </>
+                )}
+
+                {card?.['@type'] === 'DataSet' && (
+                  <CclButton url={card['@id']}>
+                    <FormattedMessage
+                      id="View more"
+                      defaultMessage="View more"
+                    />
+                  </CclButton>
+                )}
+              </div>
             </div>
           </>
         )}
