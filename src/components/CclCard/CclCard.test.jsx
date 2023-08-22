@@ -97,7 +97,7 @@ describe('CclCard', () => {
   it('Check three collumns card', () => {
     const cardtest = renderer
       .create(
-        <Provider>
+        <Provider store={store}>
           <MemoryRouter>
             <CclCard type="threeColumns" card={card}>
               <p>threeColumns card test</p>
@@ -111,7 +111,7 @@ describe('CclCard', () => {
   it('Check block card', () => {
     const cardtest = renderer
       .create(
-        <Provider>
+        <Provider store={store}>
           <MemoryRouter>
             <CclCard type="block" card={card}>
               <p>Block card test</p>
@@ -125,7 +125,7 @@ describe('CclCard', () => {
   it('Check default card', () => {
     const cardtest = renderer
       .create(
-        <Provider>
+        <Provider store={store}>
           <MemoryRouter>
             <CclCard card={card}>
               <p>Line card test</p>
@@ -139,7 +139,7 @@ describe('CclCard', () => {
   it('Check default values', () => {
     const card = renderer
       .create(
-        <Provider>
+        <Provider store={store}>
           <MemoryRouter>
             <CclCard />
           </MemoryRouter>
