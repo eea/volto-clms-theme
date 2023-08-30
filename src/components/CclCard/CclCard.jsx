@@ -15,6 +15,7 @@ import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock'
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -102,6 +103,76 @@ const DocCard = ({ card, url, showEditor, children }) => {
     </>
   );
 };
+
+const SearchResultExtras = (props) => {
+  const { content } = props;
+  const locale = useSelector((state) => state.intl.locale);
+  const isLoggedIn = useSelector((state) => state.userSession?.token);
+  const isAuxiliary = content?.mapviewer_viewservice
+    ? content?.mapviewer_viewservice
+        .toLowerCase()
+        .startsWith(
+          'https://trial.discomap.eea.europa.eu/arcgis/services/clms/worldcountries/mapserver/wmsserver',
+        )
+    : false;
+
+  return (
+    <div className="card-doc-extrametadata">
+      {content?.['@type'] === 'DataSet' && (
+        <>
+          <br />
+          <CclButton mode="small" url={content['@id']}>
+            <FormattedMessage id="View more" defaultMessage="View more" />
+          </CclButton>
+          &nbsp; &nbsp; &nbsp;
+        </>
+      )}
+
+      {content?.downloadable_dataset &&
+        content?.['@type'] === 'DataSet' &&
+        isLoggedIn && (
+          <>
+            <CclButton mode="small" url={`${content['@id']}#download`}>
+              <FormattedMessage id="Download" defaultMessage="Download" />
+            </CclButton>
+            &nbsp; &nbsp; &nbsp;
+          </>
+        )}
+
+      {content?.downloadable_dataset &&
+        content?.['@type'] === 'DataSet' &&
+        !isLoggedIn && (
+          <>
+            <CclLoginModal
+              otherPath={`${content['@id']}#download`}
+              triggerComponent={() => (
+                // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                <CclButton mode="small">
+                  <FormattedMessage id="Download" defaultMessage="Download" />
+                </CclButton>
+              )}
+            />
+            &nbsp; &nbsp; &nbsp;
+          </>
+        )}
+
+      {content?.mapviewer_viewservice?.length > 0 &&
+        !isAuxiliary &&
+        content?.['@type'] === 'DataSet' && (
+          <CclButton
+            mode="small"
+            url={'/' + locale + '/map-viewer?dataset=' + content.UID}
+          >
+            <FormattedMessage
+              id="View in the data viewer"
+              defaultMessage="View in the data viewer"
+            />
+          </CclButton>
+        )}
+    </div>
+  );
+};
+
 function CclCard(props) {
   const {
     type,
@@ -147,9 +218,6 @@ function CclCard(props) {
       : type === 'line-no-description'
       ? 'line card-line-no-description'
       : type || 'line');
-
-  const locale = useSelector((state) => state.intl.locale);
-  const isLoggedIn = useSelector((state) => state.userSession?.token);
 
   return (
     <CardLink
@@ -237,6 +305,8 @@ function CclCard(props) {
                 </Label>
                 <DocCard card={card} url={url} showEditor={showEditor}>
                   {children}
+
+                  <SearchResultExtras content={card} />
                 </DocCard>
               </>
             )}
@@ -342,59 +412,7 @@ function CclCard(props) {
               )}
               {children}
 
-              <div className="card-doc-extrametadata">
-                {card?.['@type'] === 'DataSet' && (
-                  <>
-                    <br />
-                    <Link to={'/' + locale + '/map-viewer?dataset=' + card.UID}>
-                      <FormattedMessage
-                        id="View in the data viewer"
-                        defaultMessage="View in the data viewer"
-                      />
-                    </Link>
-                    &nbsp; &nbsp; &nbsp;
-                  </>
-                )}
-
-                {card?.['@type'] === 'DataSet' && isLoggedIn && (
-                  <>
-                    <Link to={`${card['@id']}#download`}>
-                      <FormattedMessage
-                        id="Download"
-                        defaultMessage="Download"
-                      />
-                    </Link>
-                    &nbsp; &nbsp; &nbsp;
-                  </>
-                )}
-
-                {card?.['@type'] === 'DataSet' && !isLoggedIn && (
-                  <>
-                    <CclLoginModal
-                      otherPath={`${card['@id']}#download`}
-                      triggerComponent={() => (
-                        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                        <Link>
-                          <FormattedMessage
-                            id="Download"
-                            defaultMessage="Download"
-                          />
-                        </Link>
-                      )}
-                    />
-                    &nbsp; &nbsp; &nbsp;
-                  </>
-                )}
-
-                {card?.['@type'] === 'DataSet' && (
-                  <Link to={card['@id']}>
-                    <FormattedMessage
-                      id="View more"
-                      defaultMessage="View more"
-                    />
-                  </Link>
-                )}
-              </div>
+              <SearchResultExtras content={card} />
             </div>
           </>
         )}
