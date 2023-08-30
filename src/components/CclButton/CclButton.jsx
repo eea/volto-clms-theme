@@ -18,6 +18,7 @@ function CclButton(props) {
   let buttonClass = classNames('ccl-button', {
     'ccl-button-green': mode === 'filled',
     'ccl-button--default': mode === 'default',
+    'ccl-button-small': mode === 'small',
   });
 
   const flattern_url = flattenToAppURL(url);
