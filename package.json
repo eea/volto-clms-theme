@@ -79,14 +79,36 @@
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "3.1.3",
     "eslint-plugin-react-app": "^6.2.2",
-    "husky": "7.0.4",
+    "husky": "*",
     "jsconfig": "^0.2.0",
     "md5": "^2.3.0",
     "prettier": "2.0.5",
     "prettier-eslint": "^12.0.0",
     "stylelint": "^13.12.0",
     "stylelint-config-idiomatic-order": "8.1.0",
-    "stylelint-prettier": "1.1.2"
+    "stylelint-prettier": "1.1.2",
+    "lint-staged": "*"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "make lint-fix",
+      "make prettier-fix"
+    ],
+    "src/**/*.{jsx}": [
+      "make i18n"
+    ],
+    "theme/**/*.{css,less}": [
+      "make stylelint-fix"
+    ],
+    "src/**/*.{css,less}": [
+      "make stylelint-fix"
+    ],
+    "theme/**/*.overrides": [
+      "make stylelint-fix"
+    ],
+    "src/**/*.overrides": [
+      "make stylelint-fix"
+    ]
   },
   "scripts": {
     "release": "release-it",
@@ -105,6 +127,7 @@
     "cypress:open": "NODE_ENV=production CYPRESS_API=plone ../../../node_modules/cypress/bin/cypress open",
     "precommit": "yarn stylelint && yarn prettier && yarn lint",
     "husky": "husky install",
-    "test": "docker run -it --rm -v $(pwd):/opt/frontend/my-volto-project/src/addons/volto-clms-theme -e GIT_NAME=volto-clms-theme -e NAMESPACE=@eeacms plone/volto-addon-ci"
+    "test": "docker run -it --rm -v $(pwd):/opt/frontend/my-volto-project/src/addons/volto-clms-theme -e GIT_NAME=volto-clms-theme -e NAMESPACE=@eeacms plone/volto-addon-ci",
+    "prepare": "husky install"
   }
 }
