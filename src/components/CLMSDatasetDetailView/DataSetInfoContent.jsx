@@ -106,15 +106,6 @@ const DataSetInfoContent = (props) => {
 
   return (
     <div>
-      {validation?.data &&
-        validation?.data !== '<p><br/></p>' &&
-        validation?.data !== '<p></p>' && (
-          <CclCitation
-            title="Validation status"
-            marginBottom={true}
-            children={<StringToHTML string={validation.data} />}
-          ></CclCitation>
-        )}
       <CclInfoContainer>
         {props?.description ? (
           <CclInfoDescription
@@ -124,6 +115,15 @@ const DataSetInfoContent = (props) => {
           ''
         )}
       </CclInfoContainer>
+      {validation?.data &&
+        validation?.data !== '<p><br/></p>' &&
+        validation?.data !== '<p></p>' && (
+          <CclCitation
+            title="Validation status"
+            marginBottom={true}
+            children={<StringToHTML string={validation.data} />}
+          ></CclCitation>
+        )}
       {citation?.data &&
         citation?.data !== '<p><br/></p>' &&
         citation?.data !== '<p></p>' && (
