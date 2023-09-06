@@ -314,6 +314,17 @@ const DataSetInfoContent = (props) => {
                       duration={500}
                       height={'auto'}
                     >
+                      {props.technical_documents_accordion_text?.data &&
+                        props.technical_documents_accordion_text?.data !==
+                          '<p><br/></p>' &&
+                        props.technical_documents_accordion_text?.data !==
+                          '<p></p>' && (
+                          <StringToHTML
+                            string={
+                              props.technical_documents_accordion_text?.data
+                            }
+                          />
+                        )}
                       <CclRelatedListingView
                         id={'dataset-info-technicals'}
                         properties={{ ...props }}
