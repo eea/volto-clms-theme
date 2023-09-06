@@ -90,11 +90,11 @@ const CLMSCartContent = (props) => {
   }, [cartItems]);
   useEffect(() => {
     const array_ids =
-      cart.length > 0 ? cart?.map((item) => item.unique_id) : [];
+      cart.length > 0 ? cart?.map((item) => item?.unique_id) : [];
     const newCart = cartItems.filter((item) =>
-      array_ids.includes(item.unique_id),
+      array_ids.includes(item?.unique_id),
     );
-    setCartItems(cleanDuplicatesEntries(newCart));
+
     let localsessionNutsIDList = [...new Set(getNutsIDList(cart))];
 
     if (
@@ -112,6 +112,8 @@ const CLMSCartContent = (props) => {
         projections,
         nutsnames.nutsnames,
       );
+    } else {
+      setCartItems(cleanDuplicatesEntries(newCart));
     }
   }, [cart, datasets_items, nutsnames]);
 
@@ -119,8 +121,8 @@ const CLMSCartContent = (props) => {
     if (checked && cartItems.length > 0) {
       setCartSelection(
         cartItems
-          .filter((item) => item.task_in_progress === false)
-          .map((item, key) => item.unique_id),
+          .filter((item) => item?.task_in_progress === false)
+          .map((item, key) => item?.unique_id),
       );
     } else {
       setCartSelection([]);
@@ -134,7 +136,7 @@ const CLMSCartContent = (props) => {
 
   const getSelectedCartItems = () => {
     return cartItems.filter(
-      (item) => cartSelection.indexOf(item.unique_id) > -1,
+      (item) => cartSelection.indexOf(item?.unique_id) > -1,
     );
   };
 
@@ -190,7 +192,7 @@ const CLMSCartContent = (props) => {
     const body = getDownloadToolPostBody(selectedItems);
     const unique_ids =
       selectedItems.length > 0
-        ? selectedItems.map((item) => item.unique_id)
+        ? selectedItems.map((item) => item?.unique_id)
         : [];
     dispatch(postDownloadtool(body, unique_ids));
   };
@@ -198,9 +200,9 @@ const CLMSCartContent = (props) => {
   const downloadModal = () => {
     let selectedItems = getSelectedCartItems();
     const hasPrepackaged =
-      selectedItems.filter((item) => item.file_id).length > 0;
+      selectedItems.filter((item) => item?.file_id).length > 0;
     const hasMapSelection =
-      selectedItems.filter((item) => !item.file_id).length > 0;
+      selectedItems.filter((item) => !item?.file_id).length > 0;
     if (!(hasMapSelection && hasPrepackaged)) {
       startDownloading();
     } else {
@@ -259,16 +261,16 @@ const CLMSCartContent = (props) => {
                     <tr
                       key={key}
                       style={
-                        item.task_in_progress
+                        item?.task_in_progress
                           ? { opacity: 0.5, backgroundColor: '#f5f5f5' }
                           : {}
                       }
                     >
                       <td className="table-td-warning hidden-warning">
-                        {!!item.warning && (
+                        {!!item?.warning && (
                           <span
                             className="info-icon"
-                            tooltip={item.warning}
+                            tooltip={item?.warning}
                             direction="up"
                           >
                             <FontAwesomeIcon
@@ -282,10 +284,10 @@ const CLMSCartContent = (props) => {
                           <div className="ccl-form-group">
                             <Checkbox
                               onChange={(e, data) =>
-                                selectCart(item.unique_id, data.checked)
+                                selectCart(item?.unique_id, data.checked)
                               }
-                              checked={cartSelection.includes(item.unique_id)}
-                              disabled={item.task_in_progress}
+                              checked={cartSelection.includes(item?.unique_id)}
+                              disabled={item?.task_in_progress}
                             />
                           </div>
                         </div>
@@ -293,11 +295,11 @@ const CLMSCartContent = (props) => {
                       <td>
                         <div className="mb-2">
                           <strong>Name: </strong>
-                          {contentOrDash(item.name)}
+                          {contentOrDash(item?.name)}
                         </div>
                         <div className="mb-2">
                           <strong>Source: </strong>
-                          {contentOrDash(item.source)}
+                          {contentOrDash(item?.source)}
                         </div>
                         <div className="mb-2">
                           <strong>Area: </strong>
@@ -364,10 +366,10 @@ const CLMSCartContent = (props) => {
                         )}
                       </td>
                       <td className="table-td-projections">
-                        {!item.file_id ? (
+                        {!item?.file_id ? (
                           <Select
                             placeholder="Select projection"
-                            value={item.projection}
+                            value={item?.projection}
                             options={
                               projections.length > 0 &&
                               projections?.map((projection) => {
@@ -379,7 +381,7 @@ const CLMSCartContent = (props) => {
                               })
                             }
                             onChange={(e, data) => {
-                              setProjectionValue(item.unique_id, data.value);
+                              setProjectionValue(item?.unique_id, data.value);
                             }}
                           />
                         ) : (
@@ -387,16 +389,18 @@ const CLMSCartContent = (props) => {
                         )}
                       </td>
                       <td>
-                        {datasetTimeseries.datasets[item.dataset_uid]?.start ? (
+                        {datasetTimeseries.datasets[item?.dataset_uid]
+                          ?.start ? (
                           <TimeseriesPicker
                             start={
-                              datasetTimeseries.datasets[item.dataset_uid].start
+                              datasetTimeseries.datasets[item?.dataset_uid]
+                                .start
                             }
                             end={
-                              datasetTimeseries.datasets[item.dataset_uid].end
+                              datasetTimeseries.datasets[item?.dataset_uid].end
                             }
                             period={
-                              datasetTimeseries.datasets[item.dataset_uid]
+                              datasetTimeseries.datasets[item?.dataset_uid]
                                 .period
                             }
                             item={item}
@@ -408,9 +412,9 @@ const CLMSCartContent = (props) => {
                       </td>
                       <td className="text-end">
                         <div style={{ display: 'flex' }}>
-                          {item.task_in_progress ? (
+                          {item?.task_in_progress ? (
                             <FontAwesomeIcon icon="spinner" spin />
-                          ) : !item.file_id ? (
+                          ) : !item?.file_id ? (
                             <span
                               className="info-icon"
                               tooltip="Add a duplicated row below"
@@ -419,7 +423,7 @@ const CLMSCartContent = (props) => {
                               <button
                                 onClick={() => {
                                   duplicateCartItem(
-                                    item.unique_id,
+                                    item?.unique_id,
                                     cartItems,
                                     setCartItems,
                                     updateCart,
@@ -442,7 +446,7 @@ const CLMSCartContent = (props) => {
                             <></>
                           )}
 
-                          {item.task_in_progress ? (
+                          {item?.task_in_progress ? (
                             <FontAwesomeIcon icon="spinner" spin />
                           ) : (
                             <span
@@ -452,7 +456,7 @@ const CLMSCartContent = (props) => {
                             >
                               <button
                                 onClick={() => {
-                                  removeCartItem(item.unique_id);
+                                  removeCartItem(item?.unique_id);
                                   if (
                                     pagination.length === 1 &&
                                     currentPage > 1
@@ -559,8 +563,8 @@ const CLMSCartContent = (props) => {
                 {[
                   ...new Set(
                     getSelectedCartItems()
-                      .filter((item) => item.file_id)
-                      .map((item) => item.name),
+                      .filter((item) => item?.file_id)
+                      .map((item) => item?.name),
                   ),
                 ]
                   .sort()
@@ -574,8 +578,8 @@ const CLMSCartContent = (props) => {
                 {[
                   ...new Set(
                     getSelectedCartItems()
-                      .filter((item) => !item.file_id)
-                      .map((item) => item.name),
+                      .filter((item) => !item?.file_id)
+                      .map((item) => item?.name),
                   ),
                 ].map((item, key) => (
                   <li key={key}>{item}</li>

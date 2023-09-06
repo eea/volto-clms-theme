@@ -14,7 +14,7 @@ export const FormatNaming = ({
     originalFormatNaming(item),
   );
   const item_format_name = formatNaming(item);
-  return !item.file_id ? (
+  return !item?.file_id ? (
     format_options.length > 1 ? (
       <Select
         placeholder="Select format"
@@ -23,7 +23,7 @@ export const FormatNaming = ({
         options={format_options}
         onChange={(e, data) => {
           const objIndex = cartItems.findIndex(
-            (obj) => obj.unique_id === item.unique_id,
+            (obj) => obj.unique_id === item?.unique_id,
           );
           cartItems[objIndex].format = data.value;
           setCartItems([...cartItems]);
