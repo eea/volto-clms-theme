@@ -1,6 +1,9 @@
 export const getAvailableConversion = (conversionTable, defaultValue) => {
   if (conversionTable) {
-    if (conversionTable[defaultValue] === undefined) {
+    if (
+      conversionTable[defaultValue] === undefined ||
+      conversionTable[defaultValue] === null
+    ) {
       defaultValue = Object.keys(conversionTable)[0];
     }
     const keys = Object.keys(conversionTable[defaultValue]);
@@ -24,7 +27,10 @@ export const initializeIfNotCompatibleConversion = (
   conversionTable,
   defaultValue,
 ) => {
-  if (conversionTable[defaultValue] === undefined) {
+  if (
+    conversionTable[defaultValue] === undefined ||
+    conversionTable[defaultValue] === null
+  ) {
     defaultValue = Object.keys(conversionTable)[0];
   }
   return defaultValue;
