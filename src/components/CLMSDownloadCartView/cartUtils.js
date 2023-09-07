@@ -13,7 +13,7 @@ export const originalFormatNaming = (item) => {
 
 export const getCollectionByItem = (item) => {
   return item?.type_options
-    ? item.type_options.find((t_o) => t_o['id'] === item.type)
+    ? item?.type_options.find((t_o) => t_o['id'] === item?.type)
     : { id: '' };
 };
 
@@ -21,41 +21,41 @@ export const getDownloadToolPostBody = (selectedItems) => {
   const datasetList = selectedItems.map((item) => {
     let body_extras = {};
 
-    if (item.file_id) {
-      body_extras['FileID'] = item.file_id;
+    if (item?.file_id) {
+      body_extras['FileID'] = item?.file_id;
     } else {
-      if (item.area?.type === 'polygon') {
-        body_extras['BoundingBox'] = item.area.value;
+      if (item?.area?.type === 'polygon') {
+        body_extras['BoundingBox'] = item?.area.value;
       }
-      if (item.area?.type === 'nuts') {
-        body_extras['NUTS'] = item.area.value;
+      if (item?.area?.type === 'nuts') {
+        body_extras['NUTS'] = item?.area.value;
       }
-      // if (item.timeExtent?.length > 0) {
+      // if (item?.timeExtent?.length > 0) {
       //   body_extras['TemporalFilter'] = {
-      //     StartDate: item.timeExtent[0],
-      //     EndDate: item.timeExtent[1],
+      //     StartDate: item?.timeExtent[0],
+      //     EndDate: item?.timeExtent[1],
       //   };
       // }
-      if (item.format) {
+      if (item?.format) {
         body_extras['OutputFormat'] = formatNaming(item);
       }
-      if (item.projection) {
-        body_extras['OutputGCS'] = item.projection;
+      if (item?.projection) {
+        body_extras['OutputGCS'] = item?.projection;
       }
-      if (item.type) {
-        body_extras['DatasetDownloadInformationID'] = item.type;
+      if (item?.type) {
+        body_extras['DatasetDownloadInformationID'] = item?.type;
       }
-      if (item.layer) {
-        body_extras['Layer'] = item.layer;
+      if (item?.layer) {
+        body_extras['Layer'] = item?.layer;
       }
-      if (item.TemporalFilter) {
+      if (item?.TemporalFilter) {
         body_extras['TemporalFilter'] = {
-          StartDate: new Date(item.TemporalFilter?.StartDate).getTime(),
-          EndDate: new Date(item.TemporalFilter?.EndDate).getTime(),
+          StartDate: new Date(item?.TemporalFilter?.StartDate).getTime(),
+          EndDate: new Date(item?.TemporalFilter?.EndDate).getTime(),
         };
       }
     }
-    return { DatasetID: item.dataset_uid, ...body_extras };
+    return { DatasetID: item?.dataset_uid, ...body_extras };
   });
   return {
     Datasets: datasetList,
@@ -99,9 +99,9 @@ export const getCartObjectFromMapviewer = (
     dataset_data.dataset_download_information.items.forEach((item) => {
       type_options.push({
         id: item['@id'],
-        name: item.name,
-        full_format: item.full_format,
-        collection: item.collection,
+        name: item?.name,
+        full_format: item?.full_format,
+        collection: item?.collection,
         layers: item?.layers || [],
       });
     });
@@ -149,8 +149,8 @@ export const duplicateCartItem = (
         unique_id: cartItems[itemIndex].unique_id + '-copy',
       },
     );
-    while (cartItems.some((c_i) => c_i.unique_id === new_item.unique_id)) {
-      new_item['unique_id'] = new_item.unique_id + '-copy';
+    while (cartItems.some((c_i) => c_i.unique_id === new_item?.unique_id)) {
+      new_item['unique_id'] = new_item?.unique_id + '-copy';
     }
     cartItems.splice(itemIndex + 1, 0, new_item);
     refreshCart(cartItems, setCartItems, updateCart);
@@ -182,40 +182,43 @@ export const concatRequestedCartItem = (
   projections,
   nutsnames,
 ) => {
-  let newCartItems = [...cartItems];
-  [...localSessionCart].reverse().forEach((localItem) => {
-    const requestedItem = datasets_items
-      ? datasets_items.find((req) => req.UID === localItem.UID)
-      : false;
-    if (requestedItem) {
-      const file_data = requestedItem?.downloadable_files?.items.find(
-        (item) => item['@id'] === localItem.file_id,
-      );
-      if (file_data) {
-        newCartItems.push(
-          getCartObjectFromPrepackaged(file_data, requestedItem),
-        );
-        setCartItems(cleanDuplicatesEntries(newCartItems));
-      } else {
-        newCartItems.push(
-          getCartObjectFromMapviewer(
-            localItem,
-            requestedItem,
-            projections,
-            nutsnames,
-          ),
-        );
-        setCartItems(cleanDuplicatesEntries(newCartItems));
-      }
-    }
-  });
+  setCartItems(
+    cleanDuplicatesEntries(
+      [...localSessionCart]
+        .reverse()
+        .filter((localItem) => {
+          const requestedItem = datasets_items
+            ? datasets_items.find((req) => req.UID === localItem?.UID)
+            : false;
+          return requestedItem;
+        })
+        .map((localItem) => {
+          const requestedItem = datasets_items
+            ? datasets_items.find((req) => req.UID === localItem?.UID)
+            : false;
+          const file_data = requestedItem?.downloadable_files?.items.find(
+            (item) => item['@id'] === localItem?.file_id,
+          );
+          if (file_data) {
+            return getCartObjectFromPrepackaged(file_data, requestedItem);
+          } else {
+            return getCartObjectFromMapviewer(
+              localItem,
+              requestedItem,
+              projections,
+              nutsnames,
+            );
+          }
+        }),
+    ),
+  );
 };
 
 export const isChecked = (cartSelectionCh, cartItemsCh) => {
   return cartItemsCh.length > 0
     ? cartItemsCh
-        .filter((item) => item.task_in_progress === false)
-        .map((item, key) => item.unique_id)
+        .filter((item) => item?.task_in_progress === false)
+        .map((item, key) => item?.unique_id)
         .every(function (val) {
           return cartSelectionCh.indexOf(val) !== -1;
         })

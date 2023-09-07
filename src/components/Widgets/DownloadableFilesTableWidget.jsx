@@ -48,7 +48,16 @@ const DownloadableFilesTableWidget = (props) => {
   const { schema, uiSchema, ready } = data;
   const { setSchema, setUISchema, setSchemaHandler } = functions;
   const [edited, setEdited] = React.useState(false);
-
+  const table_value =
+    props.value?.items.length > 0
+      ? [
+          ...props.value?.items.map((i) =>
+            JSON.parse(orderKeysBy(['@id', ...uiSchema['ui:order']], i)),
+          ),
+        ]
+      : props.default?.items.length > 0
+      ? props.default?.items
+      : [];
   return (
     <>
       <div className="ui container">
@@ -137,15 +146,7 @@ const DownloadableFilesTableWidget = (props) => {
           schema={schema}
           csvexport={true}
           csvimport={true}
-          value={
-            [
-              ...props.value?.items.map((i) =>
-                JSON.parse(orderKeysBy(['@id', ...uiSchema['ui:order']], i)),
-              ),
-            ] ||
-            props.default?.items ||
-            []
-          }
+          value={table_value}
           onChange={(id, value) =>
             props.onChange(id, {
               ...props.value,
