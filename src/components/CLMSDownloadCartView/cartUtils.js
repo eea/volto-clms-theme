@@ -184,11 +184,18 @@ export const concatRequestedCartItem = (
 ) => {
   setCartItems(
     cleanDuplicatesEntries(
-      [...localSessionCart].reverse().map((localItem) => {
-        const requestedItem = datasets_items
-          ? datasets_items.find((req) => req.UID === localItem?.UID)
-          : false;
-        if (requestedItem) {
+      [...localSessionCart]
+        .reverse()
+        .filter((localItem) => {
+          const requestedItem = datasets_items
+            ? datasets_items.find((req) => req.UID === localItem?.UID)
+            : false;
+          return requestedItem;
+        })
+        .map((localItem) => {
+          const requestedItem = datasets_items
+            ? datasets_items.find((req) => req.UID === localItem?.UID)
+            : false;
           const file_data = requestedItem?.downloadable_files?.items.find(
             (item) => item['@id'] === localItem?.file_id,
           );
@@ -202,8 +209,7 @@ export const concatRequestedCartItem = (
               nutsnames,
             );
           }
-        }
-      }),
+        }),
     ),
   );
 };
