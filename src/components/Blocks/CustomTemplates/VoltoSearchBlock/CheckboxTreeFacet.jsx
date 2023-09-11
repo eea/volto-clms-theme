@@ -9,7 +9,7 @@ import {
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
 import { checkAllChildren } from './utils';
-import { expandedByDefault } from './utils.js';
+import { enhanceExpandedByDefault } from './utils.js';
 
 const hasAllChildrensSelected = (value, childrens) => {
   var result = true;
@@ -161,9 +161,7 @@ const CheckboxListParent = ({ option, key, onChange, value, id }) => {
   );
 };
 
-CheckboxTreeFacet.schemaEnhancer = ({ schema, formData }) => {
-  return expandedByDefault(schema);
-};
+CheckboxTreeFacet.schemaEnhancer = enhanceExpandedByDefault;
 CheckboxTreeFacet.stateToValue = selectFacetStateToValue;
 CheckboxTreeFacet.valueToQuery = selectFacetValueToQuery;
 export default CheckboxTreeFacet;

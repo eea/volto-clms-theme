@@ -8,26 +8,7 @@ import {
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
-import { expandedByDefault } from './utils.js';
-
-const doubleRangeFacetSchemaEnhancer = ({ schema, formData }) => {
-  // adds (enables) the 'multiple' field after the 'type' dropdown
-  let { fields } = schema.fieldsets[0];
-  const pos = fields.indexOf('type') + 1;
-  fields = [
-    ...fields.slice(0, pos),
-    'step',
-    'multiple',
-    ...fields.slice(pos, fields.length),
-  ];
-
-  schema.properties = {
-    ...schema.properties,
-    step: { title: 'Step', type: 'number', default: 1 },
-  };
-  schema.fieldsets[0].fields = fields;
-  return expandedByDefault(schema);
-};
+import { doubleRangeFacetSchemaEnhancer } from './utils.js';
 
 const DoubleRangeFacet = (props) => {
   const { facet, choices, onChange, value } = props;

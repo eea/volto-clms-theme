@@ -4,7 +4,7 @@ import {
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
-import { expandedByDefault } from './utils.js';
+import { enhanceExpandedByDefault } from './utils.js';
 
 const AccordionFacet = (props) => {
   const {
@@ -92,9 +92,7 @@ const AccordionFacet = (props) => {
   );
 };
 
-AccordionFacet.schemaEnhancer = ({ schema, formData }) => {
-  return expandedByDefault(schema);
-};
+AccordionFacet.schemaEnhancer = enhanceExpandedByDefault;
 AccordionFacet.stateToValue = selectFacetStateToValue;
 AccordionFacet.valueToQuery = selectFacetValueToQuery;
 export default AccordionFacet;
