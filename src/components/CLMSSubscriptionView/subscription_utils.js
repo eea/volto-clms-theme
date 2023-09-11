@@ -1,6 +1,6 @@
 export const AVAILABLE_SUBSCRIPTIONS = [
   {
-    title: 'Subscribe to the newsletter',
+    title: 'Subscribe to the CLMS updates',
     type: 'newsletter',
     back_url: 'newsletter',
   },
