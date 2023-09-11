@@ -1,10 +1,10 @@
 import { Checkbox, List } from 'semantic-ui-react';
 import React from 'react';
 import {
-  selectFacetSchemaEnhancer,
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
+import { expandedByDefault } from './utils.js';
 
 const AccordionFacet = (props) => {
   const {
@@ -17,7 +17,7 @@ const AccordionFacet = (props) => {
     typeName,
   } = props;
   const facetValue = value;
-  var [open, setOpen] = React.useState(false);
+  var [open, setOpen] = React.useState(facet.expandedByDefault ?? false);
   function isChoiceValue(isChecked, choiceValue) {
     return isChecked ? choiceValue : null;
   }
@@ -92,7 +92,9 @@ const AccordionFacet = (props) => {
   );
 };
 
-AccordionFacet.schemaEnhancer = selectFacetSchemaEnhancer;
+AccordionFacet.schemaEnhancer = ({ schema, formData }) => {
+  return expandedByDefault(schema);
+};
 AccordionFacet.stateToValue = selectFacetStateToValue;
 AccordionFacet.valueToQuery = selectFacetValueToQuery;
 export default AccordionFacet;

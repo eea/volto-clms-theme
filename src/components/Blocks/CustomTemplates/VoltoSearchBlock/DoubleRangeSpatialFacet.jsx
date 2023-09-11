@@ -8,6 +8,7 @@ import {
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
+import { expandedByDefault } from './utils.js';
 
 const doubleRangeSpatialFacetSchemaEnhancer = ({ schema, formData }) => {
   // adds (enables) the 'multiple' field after the 'type' dropdown
@@ -25,7 +26,7 @@ const doubleRangeSpatialFacetSchemaEnhancer = ({ schema, formData }) => {
     step: { title: 'Step', type: 'number', default: 1 },
   };
   schema.fieldsets[0].fields = fields;
-  return schema;
+  return expandedByDefault(schema);
 };
 
 const mToKm = (m) => {
@@ -82,7 +83,7 @@ const convertToRange = (values, step) => {
 const DoubleRangeSpatialFacet = (props) => {
   const { facet, choices, onChange, value } = props;
   const facetValue = value;
-  var [open, setOpen] = React.useState(false);
+  var [open, setOpen] = React.useState(facet.expandedByDefault ?? false);
 
   const startingValues = convertToRange(choices, facet?.step);
 

@@ -21,3 +21,16 @@ export const uncheckOptionAndChildren = (value, option) => {
       }
     });
 };
+
+export const expandedByDefault = (schema) => {
+  schema.properties = {
+    ...schema.properties,
+    expandedByDefault: {
+      title: 'Expanded by default',
+      type: 'boolean',
+      default: false,
+    },
+  };
+  schema.fieldsets[0].fields.push('expandedByDefault');
+  return schema;
+};
