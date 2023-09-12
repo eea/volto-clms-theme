@@ -2,28 +2,29 @@
  * Footer component.
  * @module components/theme/Footer/Footer
  */
-
 import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
+import { toast } from 'react-toastify';
+import { compose } from 'redux';
 
+import { Toast } from '@plone/volto/components';
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
-import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
-import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
 import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
-import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
-import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
-import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
 import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
 import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.svg';
-import { Link } from 'react-router-dom';
 import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
-import { ReactSVG } from 'react-svg';
 import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
-import { Toast } from '@plone/volto/components';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
+import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
+import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
+import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
+import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { subscribeTo } from '../../../../../actions';
-import { toast } from 'react-toastify';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import validator from 'validator';
 
 const messages = defineMessages({
@@ -370,7 +371,7 @@ class Footer extends Component {
             </CclFooterColumn>
             <div className="ccl-footer-col">
               <div className="ccl-footer-form-title">
-                Sign up to our newsletter
+                Sign up to CLMS updates
               </div>
               <form action="" className="ccl-footer-form">
                 <div className="ccl-footer-newsletter">
@@ -435,7 +436,7 @@ class Footer extends Component {
               </div>
               <div className="ccl-footer-social">
                 <a
-                  href="https://www.youtube.com/channel/UCpuwnbuwGG20enAdE50g6TA"
+                  href="https://www.youtube.com/playlist?list=PL1_QSyumTz7CZQEZ-1foOTeTOelKDQmxu"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Youtube"
@@ -458,8 +459,17 @@ class Footer extends Component {
                 >
                   <span className="ccl-icon-facebook"></span>
                 </a>
+                <a
+                  href="https://www.linkedin.com/showcase/copernicus-eea"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Linkedin"
+                >
+                  <FontAwesomeIcon icon={faLinkedin} />
+                </a>
               </div>
             </div>
+
             <CclFooterColumn title={'Implemented by'}>
               <div className="footer-implemented footer-implemented-eea">
                 <a
@@ -497,9 +507,17 @@ class Footer extends Component {
                     wrapper="div"
                   />
                 </a>
-                <span>
-                  {this.props.intl.formatMessage(messages.jointResearchCenter)}
-                </span>
+                <a
+                  href="https://joint-research-centre.ec.europa.eu/index_en"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span>
+                    {this.props.intl.formatMessage(
+                      messages.jointResearchCenter,
+                    )}
+                  </span>
+                </a>
               </div>
               {/* <div className="ccl-footer-col-title">
               {intl.formatMessage(messages.expertSupportProvidedBy)}

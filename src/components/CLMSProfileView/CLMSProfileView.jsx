@@ -69,7 +69,7 @@ class CLMSProfileView extends Component {
             </div>
             {(this.props.roles?.includes('Manager') ||
               this.props.roles?.includes('Site Administrator')) && (
-              <div tabTitle="Newsletter subscribers">
+              <div tabTitle="CLMS updates subscribers">
                 <CLMSNewsletterSubscriberView />
               </div>
             )}

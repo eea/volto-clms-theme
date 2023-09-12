@@ -8,25 +8,7 @@ import {
   selectFacetStateToValue,
   selectFacetValueToQuery,
 } from '@plone/volto/components/manage/Blocks/Search/components/base';
-
-const doubleRangeSpatialFacetSchemaEnhancer = ({ schema, formData }) => {
-  // adds (enables) the 'multiple' field after the 'type' dropdown
-  let { fields } = schema.fieldsets[0];
-  const pos = fields.indexOf('type') + 1;
-  fields = [
-    ...fields.slice(0, pos),
-    'step',
-    'multiple',
-    ...fields.slice(pos, fields.length),
-  ];
-
-  schema.properties = {
-    ...schema.properties,
-    step: { title: 'Step', type: 'number', default: 1 },
-  };
-  schema.fieldsets[0].fields = fields;
-  return schema;
-};
+import { doubleRangeFacetSchemaEnhancer } from './utils.js';
 
 const mToKm = (m) => {
   return m >= 1000 ? Math.round((m / 1000) * 10) / 10 + 'km' : m + 'm';
@@ -82,7 +64,7 @@ const convertToRange = (values, step) => {
 const DoubleRangeSpatialFacet = (props) => {
   const { facet, choices, onChange, value } = props;
   const facetValue = value;
-  var [open, setOpen] = React.useState(false);
+  var [open, setOpen] = React.useState(facet.expandedByDefault ?? false);
 
   const startingValues = convertToRange(choices, facet?.step);
 
@@ -156,7 +138,7 @@ const DoubleRangeSpatialFacet = (props) => {
   );
 };
 
-DoubleRangeSpatialFacet.schemaEnhancer = doubleRangeSpatialFacetSchemaEnhancer;
+DoubleRangeSpatialFacet.schemaEnhancer = doubleRangeFacetSchemaEnhancer;
 DoubleRangeSpatialFacet.stateToValue = selectFacetStateToValue;
 DoubleRangeSpatialFacet.valueToQuery = selectFacetValueToQuery;
 export default DoubleRangeSpatialFacet;

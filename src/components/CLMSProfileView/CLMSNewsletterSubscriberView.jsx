@@ -24,7 +24,7 @@ class CLMSNewsletterSubscriberView extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       download: false,
-      headers: [{ label: 'Newsletter subscribers', key: 'email' }],
+      headers: [{ label: 'CLMS updates subscribers', key: 'email' }],
     };
   }
   componentDidMount() {
@@ -45,10 +45,10 @@ class CLMSNewsletterSubscriberView extends Component {
       <Container>
         <div>
           <h1 className="page-title">
-            Download a list of newsletter subscribers
+            Download a list of CLMS updates subscribers
           </h1>
           <p>
-            Click in the button below to download a list of all the newsletter
+            Click in the button below to download a list of all the CLMS updates
             subscribers.
           </p>
           <CclButton mode={'filled'} onClick={this.handleClick}>

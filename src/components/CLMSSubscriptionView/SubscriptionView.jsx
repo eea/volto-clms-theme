@@ -275,7 +275,7 @@ class SubscriptionView extends Component {
                     this.props.type === 'events'
                       ? 'event'
                       : this.props.type === 'newsletter'
-                      ? 'the newsletter'
+                      ? 'the CLMS updates'
                       : this.props.type,
                 })}
               {this.props.isUnsubscribe === false &&
@@ -284,7 +284,7 @@ class SubscriptionView extends Component {
                     this.props.type === 'events'
                       ? 'event'
                       : this.props.type === 'newsletter'
-                      ? 'the newsletter'
+                      ? 'the CLMS updates'
                       : this.props.type,
                 })}{' '}
               {this.props.type !== 'newsletter' &&
@@ -320,7 +320,7 @@ class SubscriptionView extends Component {
                         {
                           type:
                             this.props.type === 'newsletter'
-                              ? 'the newsletter'
+                              ? 'the CLMS updates'
                               : this.props.type === 'events'
                               ? 'event'
                               : this.props.type,
@@ -420,7 +420,11 @@ class SubscriptionView extends Component {
                   }}
                 >
                   {'Click here if you would like to unsubscribe from our'}{' '}
-                  {this.props.type === 'events' ? 'event' : this.props.type}
+                  {this.props.type === 'events'
+                    ? 'event'
+                    : this.props.type === 'newsletter'
+                    ? 'CLMS updates'
+                    : this.props.type}
                   {this.props.type === 'newsletter' ? '' : ' notifications'}
                 </Link>
               </>
