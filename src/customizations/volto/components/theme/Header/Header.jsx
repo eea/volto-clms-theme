@@ -25,8 +25,22 @@ import { compose } from 'redux';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
+import {
+  getDatasetTimeseries,
+  getNutsNames,
+  getDatasetsByUid,
+} from '../../../../../actions';
+
+const onlyInLeft = (left, right, compareFunction) =>
+  left.filter(
+    (leftValue) =>
+      !right.some((rightValue) => compareFunction(leftValue, rightValue)),
+  );
 
 const CartIconCounter = (props) => {
+  const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
+  const nutsnames = useSelector((state) => state.nutsnames);
+  const datasetsByUid = useSelector((state) => state.datasetsByUid);
   const cartState = useSelector((state) => state.cart_items);
   const cartState_ref = useRef(cartState);
   const cart_icon_ref = React.useRef();
@@ -34,11 +48,51 @@ const CartIconCounter = (props) => {
   const user_id = useSelector((state) => state.users.user.id);
   const [showPopup, setshowPopup] = useState(false);
   const [cartDiff, setCartDiff] = useState(0);
+  const [cartDiffItems, setCartDiffItems] = useState([]);
+  const [hasTimeseries, setHasTimeseries] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCartItems(user_id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
+
+  useEffect(() => {
+    if (cartDiff > 0) {
+      cartDiffItems.forEach((newItem) => {
+        if (
+          !datasetTimeseries.loading &&
+          datasetTimeseries?.datasets[newItem.UID] === undefined
+        ) {
+          dispatch(getDatasetTimeseries(newItem.UID));
+        }
+        if (newItem.area?.type) {
+          dispatch(getNutsNames(newItem.area?.value));
+          dispatch(getDatasetsByUid(newItem.UID));
+        }
+      });
+    }
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartDiffItems]);
+
+  useEffect(() => {
+    let hasTS = false;
+    if (datasetTimeseries.datasets) {
+      cartDiffItems.forEach((diffItem) => {
+        if (
+          datasetTimeseries.datasets[diffItem.UID] &&
+          datasetTimeseries.datasets[diffItem.UID].start
+        ) {
+          hasTS = true;
+        }
+      });
+    }
+    setHasTimeseries(hasTS);
+
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datasetTimeseries.datasets, datasetTimeseries.loaded, cartDiffItems]);
+
   useEffect(() => {
     if (
       cartState_ref.current.set.loading &&
@@ -46,13 +100,23 @@ const CartIconCounter = (props) => {
       cartState.items.length >= cartState_ref.current.items.length
     ) {
       setCartDiff(cartState.items.length - cartState_ref.current.items.length);
+      setCartDiffItems(
+        onlyInLeft(
+          cartState.items,
+          cartState_ref.current.items,
+          (l, r) => l.unique_id === r.unique_id,
+        ),
+      );
+
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: 'smooth',
       });
       !showPopup && setTimeout(() => setshowPopup(true), 900);
-      setTimeout(() => setshowPopup(false), 11000);
+      setTimeout(() => {
+        setshowPopup(false);
+      }, 11000);
     }
     cartState_ref.current = cartState;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,6 +128,7 @@ const CartIconCounter = (props) => {
           context={cart_icon_ref}
           open={showPopup}
           position="bottom center"
+          flowing
         >
           <Segment
             attached="top"
@@ -81,7 +146,38 @@ const CartIconCounter = (props) => {
           </Divider>
           {cartDiff > 0 ? (
             <Message positive>
-              You added <strong>{cartDiff} new items</strong> to the cart
+              {cartDiffItems.some((cdi) => cdi.area === '') && (
+                <p>
+                  You added{' '}
+                  <strong>
+                    {cartDiff} new prepackaged item{cartDiff > 1 ? 's' : ''}
+                  </strong>{' '}
+                  to the cart.
+                </p>
+              )}
+              {cartDiffItems.length > 0 &&
+                datasetsByUid.loaded &&
+                nutsnames.loaded &&
+                cartDiffItems.map((cdi) => {
+                  const ddata = datasetsByUid.loaded
+                    ? datasetsByUid?.datasets?.items.find(
+                        (d) => d.UID === cdi.UID,
+                      )
+                    : {};
+                  return (
+                    <p>
+                      <strong>Name:</strong> {ddata?.title} <br />
+                      <strong>Area:</strong>{' '}
+                      {nutsnames?.nutsnames?.[cdi?.area?.value]}
+                    </p>
+                  );
+                })}
+              {hasTimeseries && (
+                <>
+                  <br />
+                  Click on Go to cart to select time interval.
+                </>
+              )}
             </Message>
           ) : (
             <Message warning>

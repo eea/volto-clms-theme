@@ -1,5 +1,5 @@
 export const getAvailableConversion = (conversionTable, defaultValue) => {
-  if (conversionTable) {
+  if (conversionTable && Object.keys(conversionTable).length > 0) {
     if (
       conversionTable[defaultValue] === undefined ||
       conversionTable[defaultValue] === null
