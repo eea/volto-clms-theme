@@ -1,6 +1,5 @@
 import { onlyInLeft, CartIconCounter } from './CartIconCounter';
-import * as reactRedux from 'react-redux';
-import Enzyme, { mount } from 'enzyme';
+import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
