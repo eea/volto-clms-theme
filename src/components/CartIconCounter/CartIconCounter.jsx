@@ -13,7 +13,7 @@ import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const onlyInLeft = (left, right, compareFunction) =>
+export const onlyInLeft = (left, right, compareFunction) =>
   left.filter(
     (leftValue) =>
       !right.some((rightValue) => compareFunction(leftValue, rightValue)),
