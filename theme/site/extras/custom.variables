@@ -1,0 +1,3 @@
+@listingCardPadding: 0;
+@imageMinWidth: 400px;
+@imageMaxHeight: 335px;

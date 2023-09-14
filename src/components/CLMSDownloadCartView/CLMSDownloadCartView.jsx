@@ -13,8 +13,6 @@ import {
   getDatasetsByUid,
   getExtraBreadcrumbItems,
   getNutsNames,
-} from '../../actions';
-import {
   getFormatConversionTable,
   getProjections,
   getDatasetTimeseries,

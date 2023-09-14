@@ -6,12 +6,9 @@
  */
 
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Logo, Navigation, SearchWidget, Icon } from '@plone/volto/components';
-import React, { Component, useEffect, useRef, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { Popup, Segment, Divider, Message } from 'semantic-ui-react';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import clearSVG from '@plone/volto/icons/clear.svg';
+import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
+import React, { Component } from 'react';
+import { connect, useSelector } from 'react-redux';
 
 import { BodyClass } from '@plone/volto/helpers';
 // IMPORT isnt nedded until translations are created
@@ -26,91 +23,7 @@ import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
 
-const CartIconCounter = (props) => {
-  const cartState = useSelector((state) => state.cart_items);
-  const cartState_ref = useRef(cartState);
-  const cart_icon_ref = React.useRef();
-  const intl = useSelector((state) => state.intl);
-  const user_id = useSelector((state) => state.users.user.id);
-  const [showPopup, setshowPopup] = useState(false);
-  const [cartDiff, setCartDiff] = useState(0);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCartItems(user_id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_id]);
-  useEffect(() => {
-    if (
-      cartState_ref.current.set.loading &&
-      cartState.set.loaded &&
-      cartState.items.length >= cartState_ref.current.items.length
-    ) {
-      setCartDiff(cartState.items.length - cartState_ref.current.items.length);
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth',
-      });
-      !showPopup && setTimeout(() => setshowPopup(true), 900);
-      setTimeout(() => setshowPopup(false), 11000);
-    }
-    cartState_ref.current = cartState;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartState]);
-  return (
-    cartState.items && (
-      <>
-        <Popup
-          context={cart_icon_ref}
-          open={showPopup}
-          position="bottom center"
-        >
-          <Segment
-            attached="top"
-            style={{ padding: 0, display: 'flex', justifyContent: 'flex-end' }}
-          >
-            <Icon
-              onClick={() => setshowPopup(false)}
-              name={clearSVG}
-              size={20}
-              style={{ cursor: 'pointer' }}
-            />
-          </Segment>
-          <Divider horizontal style={{ margin: 0 }}>
-            My cart
-          </Divider>
-          {cartDiff > 0 ? (
-            <Message positive>
-              You added <strong>{cartDiff} new items</strong> to the cart
-            </Message>
-          ) : (
-            <Message warning>
-              The items you tried to add were already added
-            </Message>
-          )}
-          <CclButton
-            mode="filled"
-            to={`/${intl.locale}/cart`}
-            style={{ width: '100%' }}
-          >
-            Go to cart
-          </CclButton>
-        </Popup>
-        <Link
-          to={`/${intl.locale}/cart`}
-          className="header-login-link"
-          ref={cart_icon_ref}
-        >
-          <FontAwesomeIcon
-            icon={['fas', 'shopping-cart']}
-            style={{ marginRight: '0.25rem', maxWidth: '1.5rem' }}
-          />
-          <strong>{cartState?.items?.length}</strong>
-        </Link>
-      </>
-    )
-  );
-};
+import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter/CartIconCounter';
 
 const HeaderDropdown = ({ user }) => {
   const intl = useSelector((state) => state.intl);
