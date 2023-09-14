@@ -89,7 +89,7 @@ export const CLMSDeleteProfileView = (props) => {
                     />
                   </h1>
                   This action will delete your profile and your subscription
-                  settings from the CLMS portal.
+                  settings from the CLMS website.
                   <br />
                   <br />
                 </div>
