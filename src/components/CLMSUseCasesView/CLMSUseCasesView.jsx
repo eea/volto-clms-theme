@@ -48,10 +48,10 @@ const CLMSUseCaseView = (props) => {
       <Grid>
         <Grid.Row columns={2}>
           <Grid.Column width={3}>
-            {content?.image?.scales?.mini?.download ? (
+            {content?.image?.scales?.preview?.download ? (
               <figure>
                 <Image
-                  src={content?.image?.scales?.mini?.download}
+                  src={content?.image?.scales?.preview?.download}
                   alt={
                     content?.image ? content?.image?.filename : 'Placeholder'
                   }
