@@ -2,7 +2,7 @@ import React from 'react';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclHomeImageEditor from './CclHomeImageEditor';
 import { toPublicURL } from '@plone/volto/helpers';
-import { HomeBgImg } from './utils';
+import { HomeBgImg } from './HomeBgImg';
 
 const CclWhiteBgView = (props) => {
   const { data, isEditMode } = props;

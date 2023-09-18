@@ -15,6 +15,9 @@ export const HomeBgImg = ({ url, alt }) => {
                 ${url}/@@images/image/teaser 600w,
                 `}
       alt={alt}
+      width={'100%'}
+      height={349}
+      fetchpriority="high"
     />
   );
 };
