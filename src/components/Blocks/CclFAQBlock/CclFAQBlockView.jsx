@@ -52,11 +52,12 @@ const CclFAQBlockView = (props) => {
   React.useEffect(() => {
     let indexes = [];
     // eslint-disable-next-line no-unused-expressions
-    contextNavigation?.[cn_key]?.data?.items.forEach((i) => {
-      if (i.items.length > 0) {
-        indexes.push(i.items[0].normalized_id);
-      }
-    });
+    contextNavigation?.[cn_key]?.data?.items &&
+      contextNavigation?.[cn_key]?.data?.items.forEach((i) => {
+        if (i.items.length > 0) {
+          indexes.push(i.items[0].normalized_id);
+        }
+      });
     setActiveIndex(indexes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contextNavigation?.[cn_key]?.data?.items]);
