@@ -56,6 +56,7 @@ const Logo = () => {
             alt={intl.formatMessage(messages.copernicuslogo)}
             title={intl.formatMessage(messages.copernicuslogo)}
             height={44}
+            width={212}
           />
         </a>
         <Link
@@ -68,6 +69,7 @@ const Logo = () => {
             alt={intl.formatMessage(messages.plonesite)}
             title={intl.formatMessage(messages.plonesite)}
             height={44}
+            width={215}
           />
         </Link>
       </div>

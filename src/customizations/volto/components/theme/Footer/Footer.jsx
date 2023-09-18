@@ -257,6 +257,8 @@ class Footer extends Component {
                 className="ccl-footer-logo-img"
                 src={CopernicusImage}
                 alt={'Copernicus'}
+                width={290}
+                height={70}
               />
             </a>
           </div>
