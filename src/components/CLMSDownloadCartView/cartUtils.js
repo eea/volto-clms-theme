@@ -116,7 +116,7 @@ export const getCartObjectFromMapviewer = (
       type_options.length > 0 ? type_options[0].full_format : null,
     resolution: dataset_data.resolution || '-',
     size: dataset_data.size || '-',
-    source: 'Map viewer',
+    source: 'Data viewer',
     type: type_options.length > 0 ? type_options[0].id : null,
     type_options: type_options,
     version: dataset_data.version || '-',
