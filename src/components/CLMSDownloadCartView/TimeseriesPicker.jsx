@@ -105,7 +105,7 @@ export const TimeseriesPicker = (props) => {
                   setIsOpen(false);
                 }}
               >
-                apply
+                Apply
               </CclButton>
             </DatePicker>
           </Grid.Row>
@@ -165,7 +165,7 @@ export const TimeseriesPicker = (props) => {
                 setIsOpen(false);
               }}
             >
-              cancel
+              Cancel
             </CclButton>
           </Grid.Row>
         </Grid.Column>
