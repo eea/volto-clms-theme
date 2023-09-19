@@ -40,7 +40,7 @@ export const CardBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'description', 'productUrl'],
+      fields: ['title', 'description', 'productUrl', 'lazyLoad'],
     },
   ],
   properties: {
@@ -60,6 +60,13 @@ export const CardBlockSchema = () => ({
       mode: 'link',
       selectedItemAttrs: ['description', 'image_field'],
       allowExternals: true,
+    },
+    lazyLoad: {
+      title: 'Lazy load',
+      description:
+        'Check it ONLY if the image is not going to be shown in the first load',
+      type: 'boolean',
+      default: false,
     },
   },
   required: ['product'],

@@ -47,59 +47,65 @@ const CclHomeUsersBlockView = (props) => {
       <div className="ccl-container">
         <h3>{data.title}</h3>
         <Slider className="ccl-list-carousel ccl-list-items" {...settings}>
-          {cards.map((card, index) => (
-            <div index={index} key={index}>
-              <div className="ccl-list-item ">
-                <div className="ccl-list-item-image">
-                  {card?.image?.url ? (
-                    <img
-                      src={`${card.image.url}/@@images/image`}
-                      alt={card.image.alt}
-                    />
-                  ) : card.productUrl &&
-                    card.productUrl.length > 0 &&
-                    card.productUrl[0].image_field ? (
-                    <img
-                      src={`${card.productUrl[0]['@id']}/@@images/${card.productUrl[0].image_field}/preview`}
-                      alt={card?.productUrl[0].title || 'Placeholder'}
-                    />
-                  ) : (
-                    <img
-                      src={
-                        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
-                      }
-                      alt={'placeholder'}
-                    />
-                  )}
+          {cards.map((card, index) => {
+            const loading = card.lazyLoad ? { loading: 'lazy' } : {};
+            return (
+              <div index={index} key={index}>
+                <div className="ccl-list-item ">
+                  <div className="ccl-list-item-image">
+                    {card?.image?.url ? (
+                      <img
+                        src={`${card.image.url}/@@images/image/teaser`}
+                        alt={card.image.alt}
+                        {...loading}
+                      />
+                    ) : card.productUrl &&
+                      card.productUrl.length > 0 &&
+                      card.productUrl[0].image_field ? (
+                      <img
+                        src={`${card.productUrl[0]['@id']}/@@images/${card.productUrl[0].image_field}/preview`}
+                        alt={card?.productUrl[0].title || 'Placeholder'}
+                        {...loading}
+                      />
+                    ) : (
+                      <img
+                        src={
+                          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg'
+                        }
+                        alt={'placeholder'}
+                        {...loading}
+                      />
+                    )}
+                  </div>
+                  <ConditionalLink
+                    condition={card.productUrl && card.productUrl.length > 0}
+                    item={
+                      card.productUrl && card.productUrl.length > 0
+                        ? card.productUrl[0]
+                        : {}
+                    }
+                  >
+                    <h4>
+                      {card.title
+                        ? card.title
+                        : card.productUrl &&
+                          card.productUrl.length > 0 &&
+                          card.productUrl[0]['@id'].indexOf('http') !== 0
+                        ? card.productUrl[0].title
+                        : card.title}
+                    </h4>
+                  </ConditionalLink>
+                  <p>
+                    {card.description
+                      ? card.description
+                      : card.productUrl && card.productUrl.length > 0
+                      ? card.productUrl[0].description
+                      : card.description}
+                  </p>
                 </div>
-                <ConditionalLink
-                  condition={card.productUrl && card.productUrl.length > 0}
-                  item={
-                    card.productUrl && card.productUrl.length > 0
-                      ? card.productUrl[0]
-                      : {}
-                  }
-                >
-                  <h4>
-                    {card.title
-                      ? card.title
-                      : card.productUrl &&
-                        card.productUrl.length > 0 &&
-                        card.productUrl[0]['@id'].indexOf('http') !== 0
-                      ? card.productUrl[0].title
-                      : card.title}
-                  </h4>
-                </ConditionalLink>
-                <p>
-                  {card.description
-                    ? card.description
-                    : card.productUrl && card.productUrl.length > 0
-                    ? card.productUrl[0].description
-                    : card.description}
-                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Slider>
         {data.moreLinkUrl && data.moreLinkText && (
           <CclButton url={data.moreLinkUrl[0]['@id']}>
