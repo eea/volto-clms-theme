@@ -72,7 +72,6 @@ const DataSetInfoContent = (props) => {
   };
 
   function iconName(iconData, iTitleIcons) {
-    console.log('iconData', iconData);
     return iconData?.right_arrows
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
