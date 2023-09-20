@@ -72,6 +72,7 @@ const DataSetInfoContent = (props) => {
   };
 
   function iconName(iconData, iTitleIcons) {
+    console.log('iconData', iconData);
     return iconData?.right_arrows
       ? iTitleIcons.rightPosition
       : iTitleIcons.leftPosition;
@@ -141,7 +142,7 @@ const DataSetInfoContent = (props) => {
                 <Accordion.Title
                   as={'h2'}
                   onClick={() => handleClick({ index: 99 })}
-                  active={activeIndex === 99}
+                  active={activeIndex.includes(99)}
                   index={99}
                   className={'accordion-title align-arrow-right'}
                 >
