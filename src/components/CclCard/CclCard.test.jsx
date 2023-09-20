@@ -6,6 +6,39 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
 
 const mockStore = configureStore();
+export const card = {
+  title: 'title example',
+  description: 'description example',
+  '@type': 'News Item',
+  start: 'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
+  end: 'Wed May 26 2024 12:49:04 GMT+0200 (hora de verano de Europa central)',
+  whole_day: false,
+  image: {
+    src:
+      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+    scales: {
+      mini: {
+        download:
+          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+      },
+      preview: {
+        download:
+          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+      },
+    },
+    download: 'false',
+    alt: 'Placeholder',
+  },
+  taxonomy_technical_library_categorization: ['1', '2', '3'],
+  file: {
+    'content-type': 'text/html',
+    src:
+      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+    download: 'true',
+  },
+  effective:
+    'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
+};
 
 describe('CclCard', () => {
   const store = mockStore({
@@ -31,40 +64,7 @@ describe('CclCard', () => {
     },
     taxonomy_technical_library_categorization: ['1', '2', '3'],
   });
-  const card = {
-    title: 'title example',
-    description: 'description example',
-    '@type': 'News Item',
-    start:
-      'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
-    end: 'Wed May 26 2024 12:49:04 GMT+0200 (hora de verano de Europa central)',
-    whole_day: false,
-    image: {
-      src:
-        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-      scales: {
-        mini: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-        preview: {
-          download:
-            'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-        },
-      },
-      download: 'false',
-      alt: 'Placeholder',
-    },
-    taxonomy_technical_library_categorization: ['1', '2', '3'],
-    file: {
-      'content-type': 'text/html',
-      src:
-        'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
-      download: 'true',
-    },
-    effective:
-      'Wed May 19 2021 12:49:04 GMT+0200 (hora de verano de Europa central)',
-  };
+
   it('Check doc card', () => {
     const cardtest = renderer
       .create(

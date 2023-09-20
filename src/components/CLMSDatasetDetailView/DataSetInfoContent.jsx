@@ -141,7 +141,7 @@ const DataSetInfoContent = (props) => {
                 <Accordion.Title
                   as={'h2'}
                   onClick={() => handleClick({ index: 99 })}
-                  active={activeIndex === 99}
+                  active={activeIndex.includes(99)}
                   index={99}
                   className={'accordion-title align-arrow-right'}
                 >

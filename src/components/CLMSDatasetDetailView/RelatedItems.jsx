@@ -6,21 +6,27 @@ import React from 'react';
 import { searchContent } from '@plone/volto/actions';
 import { useLocation } from 'react-router-dom';
 
-const RelatedNews = (props) => {
+const RelatedItems = (props) => {
   const dispatch = useDispatch();
-  const { UID, id } = props;
+  const { UID, id, type } = props;
+  let hash = '';
+  if (type === 'News Item') {
+    hash = '#News';
+  } else if (type === 'UseCase') {
+    hash = '#Use-cases';
+  }
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
   const location = useLocation();
   React.useEffect(() => {
-    if (location.hash === '#News' && UID) {
+    if (location.hash === hash && UID && hash) {
       dispatch(
         searchContent(
           '',
           {
             fullobjects: 1,
-            portal_type: 'News Item',
+            portal_type: type,
             path: '/',
             associated_datasets: UID,
           },
@@ -28,6 +34,7 @@ const RelatedNews = (props) => {
         ),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, UID, dispatch, location]);
 
   return (
@@ -48,4 +55,4 @@ const RelatedNews = (props) => {
   );
 };
 
-export default RelatedNews;
+export default RelatedItems;
