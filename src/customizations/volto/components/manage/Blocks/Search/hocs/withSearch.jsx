@@ -255,7 +255,28 @@ const withSearch = (options) => (WrappedComponent) => {
     const multiFacets = data.facets
       ?.filter((facet) => facet?.multiple)
       .map((facet) => facet?.field?.value);
-    const [facets, setFacets] = React.useState({});
+    const [facets, setFacets] = React.useState(
+      Object.assign(
+        {},
+        ...urlQuery.map(({ i, v }) => ({ [i]: v })), // TODO: the 'o' should be kept. This would be a major refactoring of the facets
+
+        // support for simple filters like ?Subject=something
+        // TODO: since the move to hash params this is no longer working.
+        // We'd have to treat the location.search and manage it just like the
+        // hash, to support it. We can read it, but we'd have to reset it as
+        // well, so at that point what's the difference to the hash?
+        ...configuredFacets.map((f) =>
+          locationSearchData[f]
+            ? {
+                [f]:
+                  multiFacets.indexOf(f) > -1
+                    ? [locationSearchData[f]]
+                    : locationSearchData[f],
+              }
+            : {},
+        ),
+      ),
+    );
     const previousUrlQuery = usePrevious(urlQuery);
 
     React.useEffect(() => {
@@ -298,9 +319,10 @@ const withSearch = (options) => (WrappedComponent) => {
       getInitialState(data, facets, urlSearchText, id),
     );
 
+    const deepFacets = JSON.stringify(facets);
     React.useEffect(() => {
       setSearchData(getInitialState(data, facets, urlSearchText, id));
-    }, [facets, data, urlSearchText, id]);
+    }, [deepFacets, facets, data, urlSearchText, id]);
 
     const timeoutRef = React.useRef();
     const facetSettings = data?.facets;
@@ -316,7 +338,7 @@ const withSearch = (options) => (WrappedComponent) => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(
           () => {
-            const searchData = normalizeState({
+            const newSearchData = normalizeState({
               id,
               query: data.query || {},
               facets: toSearchFacets || facets,
@@ -328,8 +350,8 @@ const withSearch = (options) => (WrappedComponent) => {
             if (toSearchFacets) setFacets(toSearchFacets);
             if (toSortOn) setSortOn(toSortOn);
             if (toSortOrder) setSortOrder(toSortOrder);
-            setSearchData(searchData);
-            setLocationSearchData(getSearchFields(searchData));
+            setSearchData(newSearchData);
+            setLocationSearchData(getSearchFields(newSearchData));
           },
           toSearchFacets ? inputDelay / 3 : inputDelay,
         );
