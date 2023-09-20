@@ -19,7 +19,7 @@ describe('RelatedNews', () => {
         messages: {},
       },
       search: {
-        subrequest: {
+        subrequests: {
           'related-news': { items: [card] },
         },
       },
@@ -34,7 +34,7 @@ describe('RelatedNews', () => {
       .create(
         <Provider store={store}>
           <MemoryRouter>
-            <RelatedNews props={props} />
+            <RelatedNews {...props} />
           </MemoryRouter>
         </Provider>,
       )
