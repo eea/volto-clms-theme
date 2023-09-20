@@ -349,13 +349,14 @@ const withSearch = (options) => (WrappedComponent) => {
     );
 
     const removeSearchQuery = () => {
-      searchData.query = searchData.query.reduce(
+      let newSearchData = { ...searchData };
+      newSearchData.query = searchData.query.reduce(
         // Remove SearchableText from query
         (acc, kvp) => (kvp.i === 'SearchableText' ? acc : [...acc, kvp]),
         [],
       );
-      setSearchData(searchData);
-      setLocationSearchData(getSearchFields(searchData));
+      setSearchData(newSearchData);
+      setLocationSearchData(getSearchFields(newSearchData));
     };
 
     const querystringResults = useSelector(
