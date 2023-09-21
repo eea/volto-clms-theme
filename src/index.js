@@ -135,6 +135,7 @@ const applyConfig = (config) => {
         component: CustomMatomoAppExtra,
       },
     ],
+    querystringSearchGet: true,
     nonContentRoutes: [
       ...config.settings.nonContentRoutes,
       '/profile',
