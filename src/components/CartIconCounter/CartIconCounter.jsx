@@ -126,7 +126,7 @@ export const CartIconCounter = () => {
           </Divider>
           {cartDiff > 0 ? (
             <Message positive>
-              {cartDiffItems.some((cdi) => cdi.area === '') && (
+              {cartDiffItems.some((cdi) => !cdi.area?.type) && (
                 <p>
                   You added{' '}
                   <strong>
