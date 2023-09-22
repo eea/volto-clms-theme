@@ -109,6 +109,7 @@ export const CartIconCounter = () => {
           open={showPopup}
           position="bottom center"
           flowing
+          style={{ maxWidth: '500px' }}
         >
           <Segment
             attached="top"
