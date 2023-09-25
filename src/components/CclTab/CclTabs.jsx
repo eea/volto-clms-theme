@@ -28,9 +28,9 @@ const CclTabs = (props) => {
   function onClickTabItem(tab) {
     setActiveTab(tab);
   }
-  const possible_hashes = children.map((child) =>
-    slugify(child?.props?.tabTitle),
-  );
+  const possible_hashes = children
+    .flat()
+    .map((child) => slugify(child?.props?.tabTitle));
   React.useEffect(() => {
     const hash = window.location.hash.substring(1) || '';
     const firstTab = children.filter((item) => !!item?.props?.tabTitle)[0];
