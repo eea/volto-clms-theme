@@ -28,6 +28,9 @@ const CclTabs = (props) => {
   function onClickTabItem(tab) {
     setActiveTab(tab);
   }
+  const possible_hashes = children
+    .flat()
+    .map((child) => slugify(child?.props?.tabTitle));
   React.useEffect(() => {
     const hash = window.location.hash.substring(1) || '';
     const firstTab = children.filter((item) => !!item?.props?.tabTitle)[0];
@@ -35,7 +38,7 @@ const CclTabs = (props) => {
       if (hash.startsWith('b_size')) {
         setActiveTab(slugify(firstTab.props?.tabTitle));
       } else if (hash) {
-        setActiveTab(hash);
+        if (possible_hashes.includes(hash)) setActiveTab(hash);
       } else if (
         children.filter((item) => !!item?.props?.tabTitle).length > 1 &&
         firstTab.props?.parent
@@ -50,6 +53,7 @@ const CclTabs = (props) => {
         setActiveTab(slugify(firstTab.props?.tabTitle));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [children, routing]);
 
   return (
