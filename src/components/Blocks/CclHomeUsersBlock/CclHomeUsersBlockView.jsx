@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './styles.less';
 import { ConditionalLink } from '@plone/volto/components';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 const CclHomeUsersBlockView = (props) => {
   const settings = {
@@ -55,7 +56,9 @@ const CclHomeUsersBlockView = (props) => {
                   <div className="ccl-list-item-image">
                     {card?.image?.url ? (
                       <img
-                        src={`${card.image.url}/@@images/image/teaser`}
+                        src={flattenToAppURL(
+                          `${card.image.url}/@@images/image/teaser`,
+                        )}
                         alt={card.image.alt}
                         {...loading}
                       />
@@ -63,7 +66,9 @@ const CclHomeUsersBlockView = (props) => {
                       card.productUrl.length > 0 &&
                       card.productUrl[0].image_field ? (
                       <img
-                        src={`${card.productUrl[0]['@id']}/@@images/${card.productUrl[0].image_field}/preview`}
+                        src={flattenToAppURL(
+                          `${card.productUrl[0]['@id']}/@@images/${card.productUrl[0].image_field}/preview`,
+                        )}
                         alt={card?.productUrl[0].title || 'Placeholder'}
                         {...loading}
                       />
