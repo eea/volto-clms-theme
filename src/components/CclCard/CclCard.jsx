@@ -16,15 +16,21 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
     <img
-      src={`${card.getURL}/@@images/${card?.image_field}/${size}`}
+      src={`${flattenToAppURL(card.getURL)}/@@images/${
+        card?.image_field
+      }/${size}`}
       alt={card?.image?.alt || 'Placeholder'}
     />
   ) : isCustomCard && card?.image?.url ? (
-    <img src={`${card.image.url}/@@images/image`} alt={card.image.alt} />
+    <img
+      src={`${flattenToAppURL(card.image.url)}/@@images/image`}
+      alt={card.image.alt}
+    />
   ) : (
     <img src={PlaceHolder} alt={card?.image?.alt || 'Placeholder'} />
   );
