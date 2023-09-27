@@ -110,6 +110,12 @@ class Header extends Component {
           }),
         );
       auth_token?.sub && this.props.getUser(auth_token.sub);
+      query.delete('access_token');
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}?${query}`,
+      );
     } catch (error) {
       this.props.getUser(this.props.token);
     }
