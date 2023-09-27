@@ -96,7 +96,6 @@ class Header extends Component {
   };
 
   componentDidMount() {
-    this.props.getUser(this.props.token);
     const cookies = new Cookies();
     const query = new URLSearchParams(window.location.search);
     const token = query.get('access_token');
@@ -110,7 +109,10 @@ class Header extends Component {
             expires: new Date(jwtDecode(token).exp * 1000),
           }),
         );
-    } catch (error) {}
+      auth_token?.sub && this.props.getUser(auth_token.sub);
+    } catch (error) {
+      this.props.getUser(this.props.token);
+    }
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.token !== this.props.token) {
@@ -288,7 +290,6 @@ class Header extends Component {
 
 export default compose(
   injectIntl,
-  withCookies,
   connect(
     (state) => ({
       locale: state.intl.locale,
