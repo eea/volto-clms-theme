@@ -28,12 +28,18 @@ const PAQO = 'plone.app.querystring.operation';
  * @function getInitialState
  *
  */
-function getInitialState(data, facets, urlSearchText, id) {
+function getInitialState(
+  data,
+  facets,
+  urlSearchText,
+  id,
+  sortOnParam,
+  sortOrderParam,
+) {
   const {
     types: facetWidgetTypes,
   } = config.blocks.blocksConfig.search.extensions.facetWidgets;
   const facetSettings = data?.facets || [];
-
   return {
     query: [
       ...(data.query?.query || []),
@@ -63,8 +69,8 @@ function getInitialState(data, facets, urlSearchText, id) {
           ]
         : []),
     ],
-    sort_on: data.query?.sort_on,
-    sort_order: data.query?.sort_order,
+    sort_on: sortOnParam || data.query?.sort_on,
+    sort_order: sortOrderParam || data.query?.sort_order,
     b_size: data.query?.b_size,
     limit: data.query?.limit,
     block: id,
@@ -321,8 +327,10 @@ const withSearch = (options) => (WrappedComponent) => {
 
     const deepFacets = JSON.stringify(facets);
     React.useEffect(() => {
-      setSearchData(getInitialState(data, facets, urlSearchText, id));
-    }, [deepFacets, facets, data, urlSearchText, id]);
+      setSearchData(
+        getInitialState(data, facets, urlSearchText, id, sortOn, sortOrder),
+      );
+    }, [deepFacets, facets, data, urlSearchText, id, sortOn, sortOrder]);
 
     const timeoutRef = React.useRef();
     const facetSettings = data?.facets;

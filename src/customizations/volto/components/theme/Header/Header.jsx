@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
-import { getUser } from '@plone/volto/actions';
+import { getUser, loginRenew } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 
@@ -110,6 +110,13 @@ class Header extends Component {
           }),
         );
       auth_token?.sub && this.props.getUser(auth_token.sub);
+      query.delete('access_token');
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}?${query}`,
+      );
+      this.props.loginRenew();
     } catch (error) {
       this.props.getUser(this.props.token);
     }
@@ -300,6 +307,6 @@ export default compose(
         : '',
       rawtoken: state.userSession.token,
     }),
-    { getUser, getCartItems },
+    { getUser, getCartItems, loginRenew },
   ),
 )(Header);
