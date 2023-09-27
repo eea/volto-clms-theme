@@ -10,7 +10,7 @@ import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import React, { Component } from 'react';
 import { connect, useSelector } from 'react-redux';
 
-import { BodyClass } from '@plone/volto/helpers';
+import { BodyClass, getCookieOptions } from '@plone/volto/helpers';
 // IMPORT isnt nedded until translations are created
 // import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
@@ -22,6 +22,7 @@ import { compose } from 'redux';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
+import Cookies from 'universal-cookie';
 
 import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter/CartIconCounter';
 
@@ -95,7 +96,23 @@ class Header extends Component {
   };
 
   componentDidMount() {
-    this.props.getUser(this.props.token);
+    const cookies = new Cookies();
+    const query = new URLSearchParams(window.location.search);
+    const token = query.get('access_token');
+    try {
+      const auth_token = token ? jwtDecode(token) : {};
+      auth_token?.sub &&
+        cookies.set(
+          'auth_token',
+          token,
+          getCookieOptions({
+            expires: new Date(jwtDecode(token).exp * 1000),
+          }),
+        );
+      auth_token?.sub && this.props.getUser(auth_token.sub);
+    } catch (error) {
+      this.props.getUser(this.props.token);
+    }
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.token !== this.props.token) {
