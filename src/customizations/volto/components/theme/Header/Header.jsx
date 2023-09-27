@@ -22,7 +22,7 @@ import { compose } from 'redux';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
-import { withCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
 
 import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter/CartIconCounter';
 
@@ -97,12 +97,19 @@ class Header extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.token);
-    const { cookies } = this.props;
+    const cookies = new Cookies();
     const query = new URLSearchParams(window.location.search);
     const token = query.get('access_token');
     try {
       const auth_token = token ? jwtDecode(token) : {};
-      auth_token?.sub && cookies.set('auth_token', token, getCookieOptions());
+      auth_token?.sub &&
+        cookies.set(
+          'auth_token',
+          token,
+          getCookieOptions({
+            expires: new Date(jwtDecode(token).exp * 1000),
+          }),
+        );
     } catch (error) {}
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
