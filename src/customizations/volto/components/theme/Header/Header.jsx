@@ -10,7 +10,7 @@ import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import React, { Component } from 'react';
 import { connect, useSelector } from 'react-redux';
 
-import { BodyClass } from '@plone/volto/helpers';
+import { BodyClass, getCookieOptions } from '@plone/volto/helpers';
 // IMPORT isnt nedded until translations are created
 // import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
@@ -22,6 +22,7 @@ import { compose } from 'redux';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { getUser } from '@plone/volto/actions';
 import jwtDecode from 'jwt-decode';
+import { withCookies } from 'react-cookie';
 
 import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter/CartIconCounter';
 
@@ -96,6 +97,13 @@ class Header extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.token);
+    const { cookies } = this.props;
+    const query = new URLSearchParams(window.location.search);
+    const token = query.get('auth_token');
+    try {
+      const auth_token = token ? jwtDecode(token) : {};
+      auth_token?.sub && cookies.set('auth_token', token, getCookieOptions());
+    } catch (error) {}
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.token !== this.props.token) {
@@ -273,6 +281,7 @@ class Header extends Component {
 
 export default compose(
   injectIntl,
+  withCookies,
   connect(
     (state) => ({
       locale: state.intl.locale,
