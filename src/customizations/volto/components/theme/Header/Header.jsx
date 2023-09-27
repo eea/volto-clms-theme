@@ -99,7 +99,7 @@ class Header extends Component {
     this.props.getUser(this.props.token);
     const { cookies } = this.props;
     const query = new URLSearchParams(window.location.search);
-    const token = query.get('auth_token');
+    const token = query.get('access_token');
     try {
       const auth_token = token ? jwtDecode(token) : {};
       auth_token?.sub && cookies.set('auth_token', token, getCookieOptions());
