@@ -99,25 +99,26 @@ class Header extends Component {
     const cookies = new Cookies();
     const query = new URLSearchParams(window.location.search);
     const token = query.get('access_token');
-    try {
-      const auth_token = token ? jwtDecode(token) : {};
-      auth_token?.sub &&
-        cookies.set(
-          'auth_token',
-          token,
-          getCookieOptions({
-            expires: new Date(jwtDecode(token).exp * 1000),
-          }),
-        );
-      auth_token?.sub && this.props.getUser(auth_token.sub);
+    const auth_token = token ? jwtDecode(token) : null;
+    if (auth_token?.sub) {
+      cookies.set(
+        'auth_token',
+        token,
+        getCookieOptions({
+          expires: new Date(jwtDecode(token).exp * 1000),
+        }),
+      );
+      this.props.getUser(auth_token.sub);
       query.delete('access_token');
       window.history.replaceState(
         {},
         '',
-        `${window.location.pathname}?${query}`,
+        query.size > 0
+          ? `${window.location.pathname}?${query}`
+          : window.location.pathname,
       );
       this.props.loginRenew();
-    } catch (error) {
+    } else {
       this.props.getUser(this.props.token);
     }
   }
