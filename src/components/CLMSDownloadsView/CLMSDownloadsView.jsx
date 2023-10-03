@@ -184,6 +184,14 @@ const CLMSDownloadsView = (props) => {
                 basic
                 loading={downloadtool.loading || datasetsByUid.loading}
               >
+                <p>
+                  Due to the successful launch of the new CLMS website, we are
+                  experiencing a high load in our download process. Queue times
+                  can be longer than expected, but please don't cancel your
+                  download and try again because you will lose your position in
+                  the download processing queue.
+                </p>
+
                 <CLMSDownloadTask all={props.historicView} />
               </Segment>
             </div>
