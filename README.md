@@ -14,12 +14,12 @@
 [![Bugs](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-clms-theme-develop&metric=bugs)](https://sonarqube.eea.europa.eu/dashboard?id=volto-clms-theme-develop)
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-clms-theme-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-clms-theme-develop)
 
-
 [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-Demo GIF
+- Theme
+- Custom components
 
 ## Getting started
 
@@ -42,25 +42,25 @@ Go to http://localhost:3000
 
 1. Start Volto frontend
 
-* If you already have a volto project, just update `package.json`:
+- If you already have a volto project, just update `package.json`:
 
-   ```JSON
-   "addons": [
-       "@eeacms/volto-clms-theme"
-   ],
+  ```JSON
+  "addons": [
+      "@eeacms/volto-clms-theme"
+  ],
 
-   "dependencies": {
-       "@eeacms/volto-clms-theme": "*"
-   }
-   ```
+  "dependencies": {
+      "@eeacms/volto-clms-theme": "*"
+  }
+  ```
 
-* If not, create one:
+- If not, create one:
 
-   ```
-   npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-clms-theme
-   cd my-volto-project
-   ```
+  ```
+  npm install -g yo @plone/generator-volto
+  yo @plone/volto my-volto-project --canary --addon @eeacms/volto-clms-theme
+  cd my-volto-project
+  ```
 
 1. Install new add-ons and restart Volto:
 
