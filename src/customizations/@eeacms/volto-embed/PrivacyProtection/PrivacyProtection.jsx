@@ -21,10 +21,10 @@ import {
   getFilteredURL,
 } from '@eeacms/volto-datablocks/helpers';
 
-import { createImageUrl } from './helpers';
-import { ProtectionSchema } from './schema';
+import { createImageUrl } from '@eeacms/volto-embed/PrivacyProtection/helpers';
+import { ProtectionSchema } from '@eeacms/volto-embed/PrivacyProtection/schema';
 
-import './styles.less';
+import '@eeacms/volto-embed/PrivacyProtection/styles.less';
 
 const messages = defineMessages({
   success: {
@@ -191,7 +191,7 @@ const PrivacyProtection = (props) => {
                       backgroundImage: `url(${image})`,
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'cover',
-                      backgroundPosition: 'center -70px',
+                      backgroundPosition: 'center 0',
                     }
                   : {}
               }
