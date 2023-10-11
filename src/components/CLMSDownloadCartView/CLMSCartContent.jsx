@@ -227,6 +227,9 @@ const CLMSCartContent = (props) => {
   const handleScroll = (ref) => {
     ref.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const { tooManyInQueue } = props;
+
   return (
     <>
       {pagination?.length !== 0 ? (
@@ -524,13 +527,22 @@ const CLMSCartContent = (props) => {
         <h2 style={{ textAlign: 'center' }}>Empty cart</h2>
       )}
       {pagination?.length !== 0 && (
-        <CclButton
-          onClick={() => downloadModal()}
-          disabled={cartSelection.length === 0}
-        >
-          Start downloading
-        </CclButton>
+        <>
+          {tooManyInQueue && (
+            <strong>
+              You have 5 items in the download queue. Wait until the queue is
+              reduced before requesting more.
+            </strong>
+          )}
+          <CclButton
+            onClick={() => downloadModal()}
+            disabled={cartSelection.length === 0 || tooManyInQueue}
+          >
+            Start downloading
+          </CclButton>
+        </>
       )}
+
       <Modal
         // onClose={() => closeModal()}
         // onOpen={() => openModal()}

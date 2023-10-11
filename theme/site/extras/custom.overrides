@@ -19,3 +19,4 @@
 @import 'ccl-tabs';
 @import 'meeting';
 @import 'downloadable-files-table-widget';
+@import 'video';

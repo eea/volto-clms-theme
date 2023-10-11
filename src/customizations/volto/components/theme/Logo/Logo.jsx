@@ -2,15 +2,15 @@
  * Logo component.
  * @module components/theme/Logo/Logo
  */
-
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
-import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import config from '@plone/volto/registry';
+import { Link } from 'react-router-dom';
+import { Image } from 'semantic-ui-react';
+
+import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land-text-2.svg';
 import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/EU-Cop-logo.svg';
-import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land-text.svg';
+import config from '@plone/volto/registry';
 
 const messages = defineMessages({
   site: {
@@ -69,7 +69,7 @@ const Logo = () => {
             alt={intl.formatMessage(messages.plonesite)}
             title={intl.formatMessage(messages.plonesite)}
             height={44}
-            width={215}
+            width={256}
           />
         </Link>
       </div>

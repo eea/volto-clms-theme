@@ -16,6 +16,7 @@ import {
   getFormatConversionTable,
   getProjections,
   getDatasetTimeseries,
+  getDownloadtool,
 } from '../../actions';
 import CLMSCartContent from './CLMSCartContent';
 
@@ -96,6 +97,16 @@ const CLMSDownloadCartView = (props) => {
     return nuts_ids;
   }
 
+  useEffect(() => {
+    dispatch(getDownloadtool());
+  }, [dispatch]);
+
+  const downloadtool = useSelector((state) => state.downloadtool);
+  const tooManyInQueue =
+    Object.keys(downloadtool?.download_queued).length +
+      Object.keys(downloadtool?.download_in_progress).length >=
+    5;
+
   return (
     <>
       <Helmet title={helmetTitle(formatMessage(messages.Cart), content)} />
@@ -141,12 +152,21 @@ const CLMSDownloadCartView = (props) => {
                       </Link>{' '}
                       to check the status of your downloads.
                     </li>
+                    {tooManyInQueue && (
+                      <li>
+                        <strong>
+                          You have 5 items in the download queue. Wait until the
+                          queue is reduced before requesting more.
+                        </strong>
+                      </li>
+                    )}
                   </ul>
                 </div>
               </div>
               <CLMSCartContent
                 localSessionCart={cart}
                 getNutsIDList={getNutsIDList}
+                tooManyInQueue={tooManyInQueue}
               />
             </div>
           </>

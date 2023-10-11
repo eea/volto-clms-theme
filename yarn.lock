@@ -1766,13 +1766,12 @@ __metadata:
     "@eeacms/volto-arcgis-block": "*"
     "@eeacms/volto-clms-utils": 0.1.12
     "@eeacms/volto-columns-block": 6.0.2
-    "@eeacms/volto-embed": 5.0.1
+    "@eeacms/volto-embed": 6.0.0
     "@eeacms/volto-metadata-block": 5.0.1
     "@eeacms/volto-react-table-widget": 0.1.3
     "@eeacms/volto-resize-helper": 1.0.1
     "@eeacms/volto-tableau": 1.3.0
     "@eeacms/volto-tabs-block": 3.0.1
-    "@eeacms/volto-taxonomy": 3.0.1
     "@fortawesome/fontawesome-svg-core": 1.2.35
     "@fortawesome/free-brands-svg-icons": 6.4.2
     "@fortawesome/free-regular-svg-icons": 5.15.3
@@ -1878,14 +1877,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eeacms/volto-embed@npm:5.0.1":
-  version: 5.0.1
-  resolution: "@eeacms/volto-embed@npm:5.0.1"
+"@eeacms/volto-embed@npm:6.0.0":
+  version: 6.0.0
+  resolution: "@eeacms/volto-embed@npm:6.0.0"
   dependencies:
     "@eeacms/volto-corsproxy": "*"
     "@eeacms/volto-datablocks": "*"
     react-visibility-sensor: 5.1.1
-  checksum: e7d12d5e641ef81d33e74ee69a92b16a5bad828867b51b74833123f9585e38d71c3499006f231532ea1ec530d3b3b3c8ddcee96ad23fbe7ee430047a519eaca7
+  checksum: c91f95eee71d354ad677c4aef77cc26932f48b54c0adacea8399e28154cbe0a6dadcee8efa2cbdb0de184dd6f8016320c8ba8ae8dd0ed79339593340c1fe4d75
   languageName: node
   linkType: hard
 
@@ -1974,13 +1973,6 @@ __metadata:
     react-slick: ^0.24.0
     slick-carousel: ^1.8.1
   checksum: 9195e032ee54f6f4e8db086e77fa6e6818b2ef6be3e4f5d2f0a77cb606cbb692b46cec4e4225433d5b6bd980c7087fa32fb15be210e8a12b5ae93d3ad9eeb677
-  languageName: node
-  linkType: hard
-
-"@eeacms/volto-taxonomy@npm:3.0.1":
-  version: 3.0.1
-  resolution: "@eeacms/volto-taxonomy@npm:3.0.1"
-  checksum: 877406173bf44bba90ccb4bb25e0bf374a5f2f15d815dc8b38d4da3d633effc5a954c9d3b713f08032531815212fb963e5711c76c52f477b190f145f2bcb733b
   languageName: node
   linkType: hard
 
