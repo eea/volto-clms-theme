@@ -158,7 +158,7 @@ class Footer extends Component {
   handleBlur(event) {
     const input =
       typeof window !== 'undefined' &&
-        document.getElementById('footer-email') !== null
+      document.getElementById('footer-email') !== null
         ? document.getElementById('footer-email')
         : '';
     if (!validator.isEmail(event.target.value)) {
@@ -389,7 +389,7 @@ class Footer extends Component {
                   <button
                     disabled={
                       this.state.inputValue === true &&
-                        validator.isEmail(this.state.value) === true
+                      validator.isEmail(this.state.value) === true
                         ? false
                         : true
                     }
@@ -397,7 +397,7 @@ class Footer extends Component {
                     className="ccl-button ccl-button--default"
                     onClick={
                       validator.isEmail(this.state.value) &&
-                        this.state.inputValue === true
+                      this.state.inputValue === true
                         ? this.onSubmit
                         : this.invalidEmailErrorToast
                     }
