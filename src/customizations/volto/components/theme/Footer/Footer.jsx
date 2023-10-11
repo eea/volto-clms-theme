@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { toast } from 'react-toastify';
 import { compose } from 'redux';
+import validator from 'validator';
 
-import { Toast } from '@plone/volto/components';
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
 import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
 import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
@@ -22,10 +22,10 @@ import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.s
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
 import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { subscribeTo } from '../../../../../actions';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import validator from 'validator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Toast } from '@plone/volto/components';
+import { subscribeTo } from '../../../../../actions';
 
 const messages = defineMessages({
   copernicusServices: {
@@ -74,7 +74,7 @@ const messages = defineMessages({
   },
   jointResearchCenter: {
     id: 'jointResearchCenter',
-    defaultMessage: 'DG Joint Research Center',
+    defaultMessage: 'DG Joint Research Centre',
   },
   expertSupportProvidedBy: {
     id: 'expertSupportProvidedBy',
@@ -158,7 +158,7 @@ class Footer extends Component {
   handleBlur(event) {
     const input =
       typeof window !== 'undefined' &&
-      document.getElementById('footer-email') !== null
+        document.getElementById('footer-email') !== null
         ? document.getElementById('footer-email')
         : '';
     if (!validator.isEmail(event.target.value)) {
@@ -389,7 +389,7 @@ class Footer extends Component {
                   <button
                     disabled={
                       this.state.inputValue === true &&
-                      validator.isEmail(this.state.value) === true
+                        validator.isEmail(this.state.value) === true
                         ? false
                         : true
                     }
@@ -397,7 +397,7 @@ class Footer extends Component {
                     className="ccl-button ccl-button--default"
                     onClick={
                       validator.isEmail(this.state.value) &&
-                      this.state.inputValue === true
+                        this.state.inputValue === true
                         ? this.onSubmit
                         : this.invalidEmailErrorToast
                     }
@@ -493,7 +493,7 @@ class Footer extends Component {
               </div>
               <div className="footer-implemented footer-implemented-ec">
                 <a
-                  href="https://ec.europa.eu/"
+                  href="https://joint-research-centre.ec.europa.eu/index_en"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -508,12 +508,6 @@ class Footer extends Component {
                     className="ccl-ec-svg-wrapper"
                     wrapper="div"
                   />
-                </a>
-                <a
-                  href="https://joint-research-centre.ec.europa.eu/index_en"
-                  target="_blank"
-                  rel="noreferrer"
-                >
                   <span>
                     {this.props.intl.formatMessage(
                       messages.jointResearchCenter,
