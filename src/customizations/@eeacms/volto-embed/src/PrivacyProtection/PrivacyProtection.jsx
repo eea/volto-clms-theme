@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { withCookies } from 'react-cookie';
-import { defineMessages, injectIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import VisibilitySensor from 'react-visibility-sensor';
 import { compose } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import VisibilitySensor from 'react-visibility-sensor';
 import {
   Placeholder,
   Dimmer,
@@ -12,17 +9,21 @@ import {
   Button,
   Checkbox,
 } from 'semantic-ui-react';
-
+import { withCookies } from 'react-cookie';
+import { serializeNodes } from '@plone/volto-slate/editor/render';
+import { defineMessages, injectIntl } from 'react-intl';
+import { toast } from 'react-toastify';
+import config from '@plone/volto/registry';
+import { getBaseUrl } from '@plone/volto/helpers';
+import { Toast } from '@plone/volto/components';
 import {
   getConnectedDataParametersForContext,
   getFilteredURL,
 } from '@eeacms/volto-datablocks/helpers';
-import { serializeNodes } from '@plone/volto-slate/editor/render';
-import { Toast } from '@plone/volto/components';
-import { getBaseUrl } from '@plone/volto/helpers';
-import config from '@plone/volto/registry';
+
 import { createImageUrl } from './helpers';
 import { ProtectionSchema } from './schema';
+
 import './styles.less';
 
 const messages = defineMessages({
