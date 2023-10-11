@@ -29,7 +29,6 @@
     "@eeacms/volto-clms-utils",
     "@eeacms/volto-react-table-widget",
     "volto-form-block",
-    "@eeacms/volto-taxonomy",
     "volto-cookie-banner",
     "@eeacms/volto-tableau",
     "@eeacms/volto-embed"
