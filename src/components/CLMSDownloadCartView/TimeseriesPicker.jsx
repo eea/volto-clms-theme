@@ -20,6 +20,28 @@ export const TimeseriesPicker = (props) => {
       : null,
   );
   const [isOpen, setIsOpen] = useState(false);
+  const daysrestriction = item.name.includes('10-daily')
+    ? 'month'
+    : item.name.includes('daily')
+    ? 'week'
+    : 'year';
+
+  const validDaysDifference = (value) => {
+    const periocity = item.name.includes('10-daily')
+      ? 30
+      : item.name.includes('daily')
+      ? 7
+      : 360;
+    let validValue = false;
+    const diffTime = Math.abs(
+      new Date(value['EndDate']) - new Date(value['StartDate']),
+    );
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays < periocity) {
+      validValue = true;
+    }
+    return validValue;
+  };
 
   return (
     <>
@@ -91,11 +113,30 @@ export const TimeseriesPicker = (props) => {
               )}
               <br />
               Click the start and end dates, and then apply
+              <br />
+              {(!startValue ||
+                !endValue ||
+                !validDaysDifference({
+                  StartDate: startValue,
+                  EndDate: endValue,
+                })) && (
+                <span style={{ color: 'red' }}>
+                  {' '}
+                  Please note that you can only order a maximum of 1{' '}
+                  {daysrestriction} from the start date{' '}
+                </span>
+              )}
               <CclButton
                 isButton={true}
                 mode={'filled'}
                 disabled={
-                  startValue?.getTime() > endValue?.getTime() || !endValue
+                  startValue?.getTime() > endValue?.getTime() ||
+                  !startValue ||
+                  !endValue ||
+                  !validDaysDifference({
+                    StartDate: startValue,
+                    EndDate: endValue,
+                  })
                 }
                 onClick={() => {
                   setTimeseriesValue(item.unique_id, {
