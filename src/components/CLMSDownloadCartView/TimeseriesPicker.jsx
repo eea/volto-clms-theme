@@ -112,19 +112,14 @@ export const TimeseriesPicker = (props) => {
                 </span>
               )}
               <br />
-              Click the start and end dates, and then apply
-              <br />
+              Click the start and end dates, and then apply.
               {(!startValue ||
                 !endValue ||
                 !validDaysDifference({
                   StartDate: startValue,
                   EndDate: endValue,
                 })) && (
-                <span style={{ color: 'red' }}>
-                  {' '}
-                  Please note that you can only order a maximum of 1{' '}
-                  {daysrestriction} from the start date{' '}
-                </span>
+                <span> Allowed time range of 1 {daysrestriction}. </span>
               )}
               <CclButton
                 isButton={true}
