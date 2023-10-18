@@ -228,7 +228,24 @@ const CLMSCartContent = (props) => {
     ref.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const { tooManyInQueue } = props;
+  const { tooManyInQueue, howManyInQueue, maxInQueue } = props;
+
+  const tooManySelected = () => {
+    let selectedItems = getSelectedCartItems();
+    const hasPrepackaged =
+      selectedItems.filter((item) => item?.file_id).length > 0;
+    const hasMapSelection =
+      selectedItems.filter((item) => !item?.file_id).length > 0;
+    let count = 0;
+    if (hasPrepackaged) {
+      count = count + 1;
+    }
+    if (hasMapSelection) {
+      count = count + 1;
+    }
+
+    return howManyInQueue + count > maxInQueue;
+  };
 
   return (
     <>
@@ -530,13 +547,22 @@ const CLMSCartContent = (props) => {
         <>
           {tooManyInQueue && (
             <strong>
-              You have 5 items in the download queue. Wait until the queue is
-              reduced before requesting more.
+              You have {maxInQueue} items in the download queue. Wait until the
+              queue is reduced before requesting more.
+            </strong>
+          )}
+          {tooManySelected() && (
+            <strong>
+              With the selection that you have made, you will have {maxInQueue}{' '}
+              or more items in the download queue. Please change your selection
+              in order to request a download.
             </strong>
           )}
           <CclButton
             onClick={() => downloadModal()}
-            disabled={cartSelection.length === 0 || tooManyInQueue}
+            disabled={
+              cartSelection.length === 0 || tooManyInQueue || tooManySelected()
+            }
           >
             Start downloading
           </CclButton>

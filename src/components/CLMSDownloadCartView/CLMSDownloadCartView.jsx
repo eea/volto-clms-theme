@@ -102,11 +102,11 @@ const CLMSDownloadCartView = (props) => {
   }, [dispatch]);
 
   const downloadtool = useSelector((state) => state.downloadtool);
-  const tooManyInQueue =
+  const maxInQueue = 5;
+  const howManyInQueue =
     Object.keys(downloadtool?.download_queued).length +
-      Object.keys(downloadtool?.download_in_progress).length >=
-    5;
-
+    Object.keys(downloadtool?.download_in_progress).length;
+  const tooManyInQueue = howManyInQueue >= maxInQueue;
   return (
     <>
       <Helmet title={helmetTitle(formatMessage(messages.Cart), content)} />
@@ -167,6 +167,8 @@ const CLMSDownloadCartView = (props) => {
                 localSessionCart={cart}
                 getNutsIDList={getNutsIDList}
                 tooManyInQueue={tooManyInQueue}
+                howManyInQueue={howManyInQueue}
+                maxInQueue={maxInQueue}
               />
             </div>
           </>
