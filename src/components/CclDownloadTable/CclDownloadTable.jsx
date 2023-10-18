@@ -295,7 +295,10 @@ function CclDownloadTable(props) {
                     <div className="image-modal">
                       <img
                         src={
-                          prepackage_grid_image
+                          props.dataset.download_grid_image_for_prepackages
+                            ? props.dataset.download_grid_image_for_prepackages
+                                .download
+                            : prepackage_grid_image
                             ? prepackage_grid_image
                             : PlaceHolder
                         }
