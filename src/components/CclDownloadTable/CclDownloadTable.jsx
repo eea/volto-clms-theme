@@ -102,20 +102,17 @@ function CclDownloadTable(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartSelection, currentPage]);
 
+  const hasText = (item, text) => {
+    /* A function to search over all attributes in an object, except given ones */
+    let { path, name, UID, unique_id, ...rest } = item;
+    return Object.values(rest).find((value) => {
+      return value && value.toLowerCase().includes(text.toLocaleLowerCase());
+    });
+  };
+
   React.useEffect(() => {
-    let fItems = prePackagedCollection.filter(
-      (item) =>
-        item?.title?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.file?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.area?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.year?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.version?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.resolution
-          ?.toLowerCase()
-          .includes(filterText.toLocaleLowerCase()) ||
-        item?.type?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.format?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.size?.toLowerCase().includes(filterText.toLocaleLowerCase()),
+    let fItems = prePackagedCollection.filter((item) =>
+      hasText(item, filterText),
     );
     if (filterText) {
       setCurrentPageItems(fItems.slice(0, 10));
