@@ -102,20 +102,17 @@ function CclDownloadTable(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartSelection, currentPage]);
 
+  const hasText = (item, text) => {
+    /* A function to search over all attributes in an object, except given ones */
+    let { path, name, UID, unique_id, ...rest } = item;
+    return Object.values(rest).find((value) => {
+      return value && value.toLowerCase().includes(text.toLocaleLowerCase());
+    });
+  };
+
   React.useEffect(() => {
-    let fItems = prePackagedCollection.filter(
-      (item) =>
-        item?.title?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.file?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.area?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.year?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.version?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.resolution
-          ?.toLowerCase()
-          .includes(filterText.toLocaleLowerCase()) ||
-        item?.type?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.format?.toLowerCase().includes(filterText.toLocaleLowerCase()) ||
-        item?.size?.toLowerCase().includes(filterText.toLocaleLowerCase()),
+    let fItems = prePackagedCollection.filter((item) =>
+      hasText(item, filterText),
     );
     if (filterText) {
       setCurrentPageItems(fItems.slice(0, 10));
@@ -331,25 +328,6 @@ function CclDownloadTable(props) {
                 {columns.map((column, key) => (
                   <th key={key}>{schema?.properties[column]?.title}</th>
                 ))}
-                {/* {columns.map((column) => {
-                  return (
-                    column !== '@id' &&
-                    column !== 'UID' &&
-                    column !== 'unique_id' &&
-                    column !== '' && <th>{column}</th>
-                  );
-                })} */}
-                {/* {columns.includes('title') && <th>Title</th>}
-                {columns.includes('file') && <th>File name</th>}
-                {columns.includes('area') && (
-                  <th>{dataset.download_table_area_of_interest_title}</th>
-                )}
-                {columns.includes('year') && <th>Year</th>}
-                {columns.includes('version') && <th>Version</th>}
-                {columns.includes('resolution') && <th>Resolution</th>}
-                {columns.includes('type') && <th>Type</th>}
-                {columns.includes('format') && <th>Format</th>}
-                {columns.includes('size') && <th>Size</th>} */}
               </tr>
             </thead>
             <tbody>
@@ -390,42 +368,6 @@ function CclDownloadTable(props) {
                             </td>
                           );
                         })}
-                        {/* {columns.includes('title') && (
-                          <td>{contentOrDash(dataset_file?.title)}</td>
-                        )}
-                        {columns.includes('file') && (
-                          <td>{contentOrDash(dataset_file?.file)}</td>
-                        )}
-                        {columns.includes('area') && (
-                          <td>{contentOrDash(dataset_file?.area)}</td>
-                        )}
-                        {columns.includes('year') && (
-                          <td>{contentOrDash(dataset_file?.year)}</td>
-                        )}
-                        {columns.includes('version') && (
-                          <td>{contentOrDash(dataset_file?.version)}</td>
-                        )}
-                        {columns.includes('resolution') && (
-                          <td>{contentOrDash(dataset_file?.resolution)}</td>
-                        )}
-                        {columns.includes('type') && (
-                          <td>
-                            <span
-                              className={
-                                'tag tag-' +
-                                (dataset_file?.type?.toLowerCase() || 'raster')
-                              }
-                            >
-                              {contentOrDash(dataset_file?.type)}
-                            </span>
-                          </td>
-                        )}
-                        {columns.includes('format') && (
-                          <td>{contentOrDash(dataset_file?.format)}</td>
-                        )}
-                        {columns.includes('size') && (
-                          <td>{contentOrDash(dataset_file?.size)}</td>
-                        )} */}
                       </tr>
                     );
                   })
