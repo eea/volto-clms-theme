@@ -26,19 +26,74 @@ export const TimeseriesPicker = (props) => {
     ? 'week'
     : 'year';
 
+  const monthDiff = (d1, d2) => {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+  };
+
+  const isLeptYear = (year) => {
+    return year % 400 === 0 ? true : year % 100 === 0 ? false : year % 4 === 0;
+  };
+
   const validDaysDifference = (value) => {
     const periocity = item.name.includes('10-daily')
-      ? 30
+      ? 1
       : item.name.includes('daily')
       ? 7
-      : 360;
+      : 1;
     let validValue = false;
     const diffTime = Math.abs(
       new Date(value['EndDate']) - new Date(value['StartDate']),
     );
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays < periocity) {
+    const diffMonths = monthDiff(
+      new Date(value['StartDate']),
+      new Date(value['EndDate']),
+    );
+    const diffYears =
+      new Date(value['EndDate']).getFullYear() -
+      new Date(value['StartDate']).getFullYear();
+    if (daysrestriction === 'week' && diffDays < periocity) {
       validValue = true;
+    } else if (daysrestriction === 'month' && diffMonths <= periocity) {
+      const startDate = new Date(value['StartDate']);
+      const startDateMonth = startDate.getMonth();
+      if (
+        (startDateMonth === 3 ||
+          startDateMonth === 5 ||
+          startDateMonth === 8 ||
+          startDateMonth === 10) &&
+        diffDays <= 30
+      )
+        validValue = true;
+      else if (
+        startDateMonth === 1 &&
+        isLeptYear(startDate.getFullYear()) &&
+        diffDays <= 29
+      )
+        validValue = true;
+      else if (startDateMonth === 1 && diffDays <= 28) validValue = true;
+      else if (
+        startDateMonth !== 1 &&
+        startDateMonth !== 3 &&
+        startDateMonth !== 5 &&
+        startDateMonth !== 8 &&
+        startDateMonth !== 10 &&
+        diffDays <= 31
+      )
+        validValue = true;
+    } else if (daysrestriction === 'year' && diffYears <= periocity) {
+      const startDate = new Date(value['StartDate']);
+      if (
+        isLeptYear(startDate.getFullYear()) &&
+        startDate.getMonth() < 2 &&
+        diffDays <= 366
+      )
+        validValue = true;
+      else if (diffDays <= 365) validValue = true;
     }
     return validValue;
   };
