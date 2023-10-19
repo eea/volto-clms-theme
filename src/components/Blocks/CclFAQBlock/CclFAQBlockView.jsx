@@ -57,6 +57,13 @@ const CclFAQBlockView = (props) => {
         if (i.items.length > 0) {
           indexes.push(i.items[0].normalized_id);
         }
+        if (i.type === 'document') {
+          i.items.forEach((i_i) => {
+            if (i_i.items.length > 0) {
+              indexes.push(i_i.items[0].normalized_id);
+            }
+          });
+        }
       });
     setActiveIndex(indexes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
