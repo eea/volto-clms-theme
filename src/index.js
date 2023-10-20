@@ -25,6 +25,7 @@ import CLMSWorkOpportunityView from '@eeacms/volto-clms-theme/components/CLMSWor
 import CLMSUseCaseView from './components/CLMSUseCasesView/CLMSUseCasesView';
 import CLMSFAQView from './components/CLMSFAQView/CLMSFAQView';
 import CLMSDataSetAccordionView from './components/CLMSDataSetAccordionView/CLMSDataSetAccordionView';
+import CLMSTechnicalLibraryView from './components/CLMSTechnicalLibraryView/CLMSTechnicalLibraryView';
 
 // WIDGET
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -77,6 +78,7 @@ const applyConfig = (config) => {
       FAQ: CLMSFAQView,
       Image: ImageView,
       DataSetAccordion: CLMSDataSetAccordionView,
+      TechnicalLibrary: CLMSTechnicalLibraryView,
     },
   };
   config.blocks = {
