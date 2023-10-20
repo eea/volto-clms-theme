@@ -1,8 +1,4 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-
-import { UniversalLink } from '@plone/volto/components';
 import CclButton from '../CclButton/CclButton';
 
 const CLMSTechnicalLibraryView = (props) => {
