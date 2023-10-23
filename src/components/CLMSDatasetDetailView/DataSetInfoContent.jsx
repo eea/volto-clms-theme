@@ -166,7 +166,10 @@ const DataSetInfoContent = (props) => {
                           <CharacteristicsMetadata
                             title="Release / Major version"
                             value={props?.characteristics_release_major_version}
-                            extraSpace={true}
+                          />
+                          <CharacteristicsMetadata
+                            title="Projection"
+                            value={props?.characteristics_projection}
                           />
                           <CharacteristicsMetadata
                             title="Spatial coverage"
