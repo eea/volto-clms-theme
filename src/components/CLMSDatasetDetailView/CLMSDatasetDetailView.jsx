@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal, Segment, Grid, Label, Icon } from 'semantic-ui-react';
+import { Modal, Segment, Grid, Input, Icon, Label } from 'semantic-ui-react';
 import copySVG from '@plone/volto/icons/copy.svg';
 import { toast } from 'react-toastify';
 import { Toast } from '@plone/volto/components';
@@ -74,21 +74,25 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         <Grid.Row className="characteristic-row">
           <strong>{title}: </strong>
           <br />
-          <Label>{url} </Label>
-          <Icon
-            name={copySVG}
-            onClick={() => {
-              navigator.clipboard.writeText(url);
-              toast.success(
-                <Toast
-                  success
-                  autoClose={5000}
-                  title={'URL copied to clipboard'}
-                  content={`The ${title} URL has been successfully copied to clipboard`}
-                />,
-              );
-            }}
-          />
+          <Label basic size="large">
+            {url}
+            <Icon
+              name="copy"
+              size="large"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                navigator.clipboard.writeText(url);
+                toast.success(
+                  <Toast
+                    success
+                    autoClose={5000}
+                    title={'URL copied to clipboard'}
+                    content={`The ${title} URL has been successfully copied to clipboard`}
+                  />,
+                );
+              }}
+            ></Icon>
+          </Label>
         </Grid.Row>
       )
     );
