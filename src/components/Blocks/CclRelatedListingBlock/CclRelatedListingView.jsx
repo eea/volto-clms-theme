@@ -46,30 +46,25 @@ const CclRelatedListingView = (props) => {
   let libraries = searchSubrequests?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
-  let TemplateView = '';
+  let TemplateView = <></>;
   let template_id = '';
-  var defaultVariation = variationsConfig.filter(
+  var defaultVariation = variationsConfig.find(
     (configVar) => configVar.isDefault,
-  )[0];
+  );
 
-  if (!data?.variation) {
-    TemplateView = defaultVariation.template;
-    template_id = defaultVariation.id;
-    data.variation = template_id;
-  } else {
-    var variation = variationsConfig.filter(
+  if (variationsConfig.some((configVar1) => configVar1.id === data.variation)) {
+    var variation = variationsConfig.find(
       (configVar1) => configVar1.id === data.variation,
-    )[0];
+    );
     TemplateView = variation.template;
     template_id = variation.id;
     data.variation = template_id;
-  }
-
-  if (template_id === '') {
+  } else {
     TemplateView = defaultVariation.template;
     template_id = defaultVariation.id;
     data.variation = template_id;
   }
+
   if (!data.content_type) {
     data.content_type = 'News Item';
   }
