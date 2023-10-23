@@ -182,6 +182,20 @@ const applyConfig = (config) => {
     showTags: false,
     ownDomain: 'land.copernicus.eu',
     track_search_paths: ['/en/global-search', '/en/dataset-catalog'],
+    apiExpanders: [
+      ...config.settings.apiExpanders,
+      {
+        match: '',
+        GET_CONTENT: ['breadcrumbs', 'actions', 'types', 'translations'],
+      },
+      {
+        match: '',
+        GET_CONTENT: ['navigation'],
+        querystring: (config) => ({
+          'expand.navigation.depth': config.settings.navDepth,
+        }),
+      },
+    ],
   };
 
   config.settings.slate.toolbarButtons = [
