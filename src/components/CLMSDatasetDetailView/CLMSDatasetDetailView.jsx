@@ -3,8 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal, Segment, Grid, Input, Icon, Label } from 'semantic-ui-react';
-import copySVG from '@plone/volto/icons/copy.svg';
+import { Modal, Segment, Grid, Icon, Label } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import { Toast } from '@plone/volto/components';
 
