@@ -62,7 +62,11 @@ const DocCard = ({ card, url, showEditor, children }) => {
       <div className="card-doc-header">
         <div className="card-doc-title">
           {card?.['@type'] === 'TechnicalLibrary' ? (
-            <a href={`${card['@id']}/@@download/file`}>{card?.title}</a>
+            card?.ondemand ? (
+              <a href={`${card['@id']}`}>{card?.title}</a>
+            ) : (
+              <a href={`${card['@id']}/@@download/file`}>{card?.title}</a>
+            )
           ) : (
             <Link to={url}>{card?.title}</Link>
           )}
