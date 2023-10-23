@@ -22,6 +22,8 @@ import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 
+import './styles.less';
+
 /**
  * Full view component.
  * @module components/theme/View/CLMSDatasetDetailView
