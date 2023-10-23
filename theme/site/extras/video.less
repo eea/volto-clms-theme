@@ -1,23 +1,66 @@
-@media (min-width: 992px) {
-    .block.video.align.left  .privacy-protection-wrapper{
-        width:50% !important;
-        float:left !important;
-        margin-right:1rem;
-        .video-inner {
-            width: 100% !important;
+@media (max-width: 992px) {
+  .block.video.align.right .privacy-protection-wrapper,
+  .block.video.align.left .privacy-protection-wrapper {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    float: none;
+  }
+  .block.align.left.video .video-inner,
+  .block.align.right.video .video-inner {
+    width: 100%;
+  }
+  .block.align.left.maps iframe,
+  .block.align.left.video .video-inner,
+  .block.align.left img {
+    margin-right: 0 !important;
+    float: none;
+    margin-bottom: 0;
+  }
+  .block.align.right.maps iframe,
+  .block.align.right.video .video-inner,
+  .block.align.right img {
+    margin-left: 0 !important;
+    float: none;
+    margin-bottom: 0;
+  }
+}
 
-        }
+@media (min-width: 992px) {
+  .block.video.align.left .privacy-protection-wrapper {
+    width: 50% !important;
+    float: left !important;
+    margin-right: 1rem;
+    .video-inner {
+      width: 100% !important;
     }
-    .block.video.align.right  .privacy-protection-wrapper{
-        width:50% !important;
-        float:right !important;
-        margin-left:1rem;
-        .video-inner {
-            width: 100% !important;
-        }
+  }
+  .block.video.align.right .privacy-protection-wrapper {
+    width: 50% !important;
+    float: right !important;
+    margin-left: 1rem;
+    .video-inner {
+      width: 100% !important;
     }
-    .block.align.right.video .video-inner img {
-        max-width: 100%;
-        margin-left: 0 !important;
-    }
+  }
+  .block.align.right.maps iframe,
+  .block.align.right.video .video-inner,
+  .block.align.right img {
+    margin-bottom: 1em;
+    margin-left: 1em !important;
+    float: right;
+  }
+  .block.align.left.maps iframe,
+  .block.align.left.video .video-inner,
+  .block.align.left img {
+    margin-right: 1em !important;
+    margin-bottom: 1em;
+    float: left;
+  }
+  .block.align.right.video .video-inner img,
+  .block.align.left.video .video-inner img {
+    max-width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
