@@ -1,0 +1,38 @@
+{
+  "extends": [
+    "stylelint-config-prettier",
+    "stylelint-config-idiomatic-order"
+  ],
+  "plugins": [
+    "stylelint-prettier"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.less"
+      ],
+      "customSyntax": "postcss-less"
+    },
+    {
+      "files": [
+        "**/*.overrides"
+      ],
+      "customSyntax": "postcss-less"
+    }
+  ],
+  "rules": {
+    "prettier/prettier": true,
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "except": [
+          "first-nested"
+        ],
+        "ignore": [
+          "after-comment"
+        ]
+      }
+    ]
+  },
+  "ignoreFiles": "theme/themes/default/**/*.overrides"
+}
