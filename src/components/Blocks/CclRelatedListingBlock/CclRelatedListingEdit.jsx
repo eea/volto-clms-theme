@@ -16,27 +16,22 @@ const CclRelatedListingEdit = (props) => {
   let libraries = searchSubrequests?.[props.id]?.items || [];
   const variationsConfig =
     config.blocks.blocksConfig['relatedListing'].variations;
-  let TemplateView = '';
+  let TemplateView = <></>;
   let template_id = '';
-  for (let variation in variationsConfig) {
-    if (!data?.variation && variationsConfig[variation].isDefault) {
-      TemplateView = variationsConfig[variation].template;
-      template_id = variationsConfig[variation].id;
-      data.variation = template_id;
-    }
-    if (variationsConfig[variation].id === data?.variation) {
-      TemplateView = variationsConfig[variation].template;
-      template_id = variationsConfig[variation].id;
-    }
-  }
-  if (template_id === '') {
-    for (let variation in variationsConfig) {
-      if (variationsConfig[variation].isDefault) {
-        TemplateView = variationsConfig[variation].template;
-        template_id = variationsConfig[variation].id;
-        data.variation = template_id;
-      }
-    }
+
+  var defaultVariation = variationsConfig.find(
+    (configVar) => configVar.isDefault,
+  );
+  if (variationsConfig.some((variation) => variation.id === data.variation)) {
+    const theVariation = variationsConfig.find(
+      (variation) => variation.id === data.variation,
+    );
+    TemplateView = theVariation?.template;
+    template_id = theVariation.templateId;
+  } else {
+    TemplateView = defaultVariation.template;
+    template_id = defaultVariation.id;
+    data.variation = template_id;
   }
   if (!data.content_type) {
     data.content_type = 'News Item';
@@ -45,7 +40,7 @@ const CclRelatedListingEdit = (props) => {
     <>
       <div className="technical-libraries">
         <h2>Related Listings</h2>
-        {libraries.length > 0 ? (
+        {libraries.length > 0 && template_id ? (
           <TemplateView items={libraries} variation={template_id} />
         ) : (
           <p>There are no related {data.content_type} items.</p>

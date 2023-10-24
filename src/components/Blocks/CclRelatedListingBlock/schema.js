@@ -25,7 +25,6 @@ const Schema = (props) => {
       },
       variation: {
         title: 'Variation',
-        type: 'array',
         choices: [...variations],
       },
     },
