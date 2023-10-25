@@ -20,7 +20,7 @@ const CclTabsView = (props) => {
             <div
               key={index}
               className={cx('panel', tab === activeTab && 'panel-selected')}
-              id="news_panel"
+              id={`tab-${index}`}
               role="tabpanel"
               aria-hidden="false"
             >
@@ -56,7 +56,7 @@ const CclTabsView = (props) => {
               key={index}
               id={tabIndex}
               role="tab"
-              aria-controls={title || defaultTitle}
+              aria-controls={`tab-${index}`}
               aria-selected={tab === activeTab}
               active={(tab === activeTab).toString()}
               /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatuz nahikoa da */
