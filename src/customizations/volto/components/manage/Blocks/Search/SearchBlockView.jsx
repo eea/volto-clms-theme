@@ -5,7 +5,10 @@ import { withBlockExtensions } from '@plone/volto/helpers';
 
 import config from '@plone/volto/registry';
 
-import { withSearch, withQueryString } from './hocs';
+import {
+  withSearch,
+  withQueryString,
+} from '@plone/volto/components/manage/Blocks/Search/hocs';
 import { compose } from 'redux';
 import { useSelector } from 'react-redux';
 import { isEqual, isFunction } from 'lodash';
@@ -48,10 +51,13 @@ const applyDefaults = (data, root) => {
       v: root || '/',
     },
   ];
+  const sort_on = data?.sort_on ? { sort_on: data?.sort_on } : {};
+  const sort_order = data?.sort_order ? { sort_order: data?.sort_order } : {};
+
   return {
     ...data,
-    sort_on: data?.sort_on || 'effective',
-    sort_order: data?.sort_order || 'descending',
+    ...sort_on,
+    ...sort_order,
     query: data?.query?.length ? data.query : defaultQuery,
   };
 };
@@ -104,4 +110,6 @@ export const SearchBlockViewComponent = compose(
   (Component) => React.memo(Component, blockPropsAreChanged),
 )(SearchBlockView);
 
-export default compose(withQueryString, withSearch())(SearchBlockViewComponent);
+export default compose(withSearch())(
+  compose(withQueryString)(SearchBlockViewComponent),
+);
