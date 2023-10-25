@@ -98,25 +98,27 @@ const PanelsComponent = (props) => {
   const { metadata = {}, tabsList = [], activeTab = null, tabs = {} } = props;
   return (
     <div className="right-content cont-w-75">
-      {tabsList.map((tab, index) => {
-        const title = tabs[tab].title;
-        const tabHash = `tab=${slugify(title)}`;
-        return (
-          <Route key={index} to={'#' + tabHash}>
-            <div
-              className={cx('panel', tab === activeTab && 'panel-selected')}
-              role="tabpanel"
-              aria-hidden="false"
-            >
-              <RenderBlocks
-                {...props}
-                metadata={metadata}
-                content={tabs[tab]}
-              />
-            </div>
-          </Route>
-        );
-      })}
+      {tabsList
+        .filter((tab) => tab === activeTab)
+        .map((tab, index) => {
+          const title = tabs[tab].title;
+          const tabHash = `tab=${slugify(title)}`;
+          return (
+            <Route key={index} to={'#' + tabHash}>
+              <div
+                className={cx('panel', tab === activeTab && 'panel-selected')}
+                role="tabpanel"
+                aria-hidden="false"
+              >
+                <RenderBlocks
+                  {...props}
+                  metadata={metadata}
+                  content={tabs[tab]}
+                />
+              </div>
+            </Route>
+          );
+        })}
     </div>
   );
 };
