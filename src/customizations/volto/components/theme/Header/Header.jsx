@@ -165,6 +165,7 @@ class Header extends Component {
             <div className="ccl-container">
               <div
                 className="ccl-main-menu-collapse-button"
+                aria-label="Toggle main menu"
                 onClick={() =>
                   this.setState({
                     mobileMenuOpen: !this.state.mobileMenuOpen,
@@ -188,6 +189,7 @@ class Header extends Component {
               </div>
               <div
                 className="ccl-search-collapse-button"
+                aria-label="Toggle search menu"
                 onClick={() =>
                   this.setState({
                     mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,

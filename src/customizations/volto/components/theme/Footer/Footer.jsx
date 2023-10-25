@@ -478,6 +478,7 @@ class Footer extends Component {
                   href="https://www.eea.europa.eu/"
                   target="_blank"
                   rel="noreferrer"
+                  title="European Environment Agency"
                 >
                   <ReactSVG
                     src={ECImage}
@@ -495,6 +496,7 @@ class Footer extends Component {
                 <a
                   href="https://joint-research-centre.ec.europa.eu/index_en"
                   target="_blank"
+                  title="Joint Research Centre"
                   rel="noreferrer"
                 >
                   <ReactSVG
@@ -515,10 +517,6 @@ class Footer extends Component {
                   </span>
                 </a>
               </div>
-              {/* <div className="ccl-footer-col-title">
-              {intl.formatMessage(messages.expertSupportProvidedBy)}
-            </div>
-            <p>{intl.formatMessage(messages.EIONETActionGroup)}</p> */}
             </CclFooterColumn>
           </div>
         </div>
