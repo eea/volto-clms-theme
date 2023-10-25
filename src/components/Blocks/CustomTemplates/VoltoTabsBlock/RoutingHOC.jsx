@@ -30,9 +30,9 @@ const RoutingHOC = (TabView) =>
         const hashMatch = window.location.search
           .match(/.*([&|?|#]tab=.*)/)[1]
           .replace(/[&|?|#]tab=/, '');
-        const result = tabsDict.filter((t) => slugify(t.title) === hashMatch);
-        if (result.length > 0) {
-          return result[0].id;
+        const tab = tabsDict.find((t) => slugify(t.title) === hashMatch);
+        if (tab) {
+          return tab.id;
         }
       }
       return decideTabSubtab(rTabs, rTabsList[0], rTabsList[1]);
@@ -50,7 +50,6 @@ const RoutingHOC = (TabView) =>
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTabIndex, location]);
-
     return <TabView {...props} />;
   };
 

@@ -9,29 +9,36 @@ import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CclTabsView = (props) => {
-  const { metadata = {}, tabsList = [], setActiveTab } = props;
+  const {
+    metadata = {},
+    tabsList = [],
+    setActiveTab,
+    activeTab = null,
+    tabs = {},
+  } = props;
 
   const PanelsComponent = () => {
     return (
       <div className="panels">
-        {tabsList.map((tab, index) => {
-          const { activeTab = null, tabs = {} } = props;
-          return (
-            <div
-              key={index}
-              className={cx('panel', tab === activeTab && 'panel-selected')}
-              id={`tab-${index}`}
-              role="tabpanel"
-              aria-hidden="false"
-            >
-              <RenderBlocks
-                {...props}
-                metadata={metadata}
-                content={tabs[tab]}
-              />
-            </div>
-          );
-        })}
+        {tabsList
+          .filter((tab) => tab === activeTab)
+          .map((tab, index) => {
+            return (
+              <div
+                key={index}
+                className={cx('panel', tab === activeTab && 'panel-selected')}
+                id={`tab-${index}`}
+                role="tabpanel"
+                aria-hidden="false"
+              >
+                <RenderBlocks
+                  {...props}
+                  metadata={metadata}
+                  content={tabs[tab]}
+                />
+              </div>
+            );
+          })}
       </div>
     );
   };
