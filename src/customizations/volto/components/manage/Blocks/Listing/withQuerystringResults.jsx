@@ -85,6 +85,7 @@ export default function withQuerystringResults(WrappedComponent) {
       (!data.variation && data.template === 'imageGallery') ||
       data.variation === 'imageGallery';
 
+    const deepAdaptedQuery = JSON.stringify(adaptedQuery);
     useDeepCompareEffect(() => {
       if (hasQuery) {
         dispatch(
@@ -122,7 +123,7 @@ export default function withQuerystringResults(WrappedComponent) {
     }, [
       subrequestID,
       isImageGallery,
-      adaptedQuery,
+      deepAdaptedQuery,
       hasQuery,
       initialPath,
       dispatch,
