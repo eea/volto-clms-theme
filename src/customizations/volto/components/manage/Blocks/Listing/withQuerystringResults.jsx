@@ -120,6 +120,7 @@ export default function withQuerystringResults(WrappedComponent) {
       }
       adaptedQueryRef.current = adaptedQuery;
       currentPageRef.current = currentPage;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       subrequestID,
       isImageGallery,
