@@ -9,7 +9,7 @@ pipeline {
     SONARQUBE_TAGS = "clms.land.copernicus.eu,volto.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,land.copernicus.eu"
     DEPENDENCIES = ""
     BACKEND_PROFILES = "eea.kitkat:testing"
-    BACKEND_ADDONS = ""
+    BACKEND_ADDONS = "clms.addon,clms.types,clms.downloadtool,clms.statstool"
     VOLTO = "16.24.0"
     IMAGE_NAME = BUILD_TAG.toLowerCase()
   }
@@ -77,7 +77,7 @@ pipeline {
             sh '''docker build --build-arg="VOLTO_VERSION=$VOLTO" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend'''
           }
         }
-        
+
         stage('Fix code') {
           when {
               environment name: 'CHANGE_ID', value: ''
@@ -125,7 +125,7 @@ pipeline {
 
         stage('Coverage Tests') {
           parallel {
-            
+
             stage('Unit tests') {
               steps {
                 script {
@@ -153,7 +153,7 @@ pipeline {
                 }
               }
             }
-            
+
             stage('Integration tests') {
               steps {
                 script {
