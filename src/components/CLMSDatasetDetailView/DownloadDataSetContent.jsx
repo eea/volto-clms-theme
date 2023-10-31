@@ -62,7 +62,8 @@ const DownloadDataSetContent = (data, token) => {
         </div>
       )}
 
-      {data.download_by_area_extra_text?.data &&
+      {data?.downloadable_full_dataset &&
+        data.download_by_area_extra_text?.data &&
         data.download_by_area_extra_text?.data !== '<p><br/><p>' &&
         data.download_by_area_extra_text?.data !== '<p></p>' && (
           <div className="dataset-download-area">

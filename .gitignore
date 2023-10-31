@@ -11,8 +11,9 @@ node_modules
 build
 dist
 screenshots
-cypress/videos
-cypress/reports
+cypress/videos/*.mp4
+cypress/screenshots
+cypress/reports/*.xml
 .env.local
 .env.development.local
 .env.test.local
