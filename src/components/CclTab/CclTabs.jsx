@@ -22,7 +22,10 @@ import { slugify } from '../Blocks/utils';
 const CclTabs = (props) => {
   let { children, routing = false } = props;
   let [activeTab, setActiveTab] = useState(
-    props.children[0].props.tabId || slugify(props.children[0].props.tabTitle),
+    props?.children?.length > 0
+      ? props.children[0].props.tabId ||
+          slugify(props.children[0].props.tabTitle)
+      : '',
   );
 
   function onClickTabItem(tab) {
