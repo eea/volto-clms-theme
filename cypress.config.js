@@ -4,7 +4,7 @@ module.exports = defineConfig({
   viewportWidth: 1280,
   defaultCommandTimeout: 15000,
   reporter: 'junit',
-  video: true,
+  video: false,
   reporterOptions: {
     mochaFile: 'cypress/reports/cypress-[hash].xml',
     jenkinsMode: true,
