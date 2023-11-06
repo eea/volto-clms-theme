@@ -186,7 +186,13 @@ const applyConfig = (config) => {
       ...config.settings.apiExpanders,
       {
         match: '',
-        GET_CONTENT: ['breadcrumbs', 'actions', 'types', 'translations'],
+        GET_CONTENT: [
+          'breadcrumbs',
+          'actions',
+          'types',
+          'translations',
+          'navroot',
+        ],
       },
       {
         match: '',
