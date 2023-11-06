@@ -22,9 +22,8 @@ import { slugify } from '../Blocks/utils';
 const CclTabs = (props) => {
   let { children, routing = false } = props;
   let [activeTab, setActiveTab] = useState(
-    props?.children?.length > 0
-      ? props.children[0].props.tabId ||
-          slugify(props.children[0].props.tabTitle)
+    children?.length > 0
+      ? children[0].props.tabId || slugify(children[0].props.tabTitle)
       : '',
   );
 
@@ -53,7 +52,7 @@ const CclTabs = (props) => {
           ),
         );
       } else {
-        setActiveTab(slugify(firstTab.props?.tabTitle));
+        if (firstTab) setActiveTab(slugify(firstTab.props?.tabTitle));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
