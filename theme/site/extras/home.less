@@ -402,9 +402,32 @@
 .home-map-container > .ccl-container {
   position: absolute;
   bottom: 4rem;
+  display: flex;
   width: 100%;
   max-width: 1400px;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 0 2rem;
+  gap: 1rem;
+}
+
+@media (max-width: 990px) {
+  .home-map-container img {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-dataset-banner,
+  .home-map-banner {
+    min-width: 320px;
+  }
+
+  .home-map-container > .ccl-container {
+    bottom: 0;
+    height: 100%;
+    padding: 1rem 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -413,6 +436,8 @@
   }
 
   .home-map-container > .ccl-container {
+    bottom: 4rem;
+    height: auto;
     padding: 0;
   }
 }
@@ -430,8 +455,21 @@
   .home-map-banner {
     width: 40%;
   }
+
+  .home-dataset-banner {
+    width: 40%;
+  }
 }
 
+.home-dataset-banner {
+  max-width: 100%;
+  padding: 1.5rem;
+  background-color: fade(@white, 70%);
+}
+
+.home-dataset-banner h4 {
+  margin-bottom: 1rem;
+}
 /* Meet band */
 .home-meet-container {
   padding: 3rem 1rem;

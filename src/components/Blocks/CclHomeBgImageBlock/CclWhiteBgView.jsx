@@ -38,6 +38,41 @@ const CclWhiteBgView = (props) => {
             </CclButton>
           )}
         </div>
+        {data?.dataset_title ||
+          data?.dataset_subtitle ||
+          (data?.dataset_description && (
+            <div className="home-dataset-banner">
+              {data.dataset_title && <h1>{data?.dataset_title}</h1>}
+              {data.dataset_subtitle && <h2>{data?.dataset_subtitle}</h2>}
+              {data.dataset_description && (
+                <h3>{data?.dataset_description} </h3>
+              )}
+              {data?.hasDatasetButton === true && (
+                <CclButton
+                  url={
+                    data?.download &&
+                    data?.dataset_href?.[0]?.['@type'] === 'File'
+                      ? data?.dataset_href?.[0]?.['@id'] + '/@@download/file'
+                      : data?.dataset_href?.[0]?.['@id']
+                  }
+                  disabled={data?.dataset_disabled}
+                  download={
+                    data?.download ||
+                    data?.dataset_href?.[0]?.['@type'] === 'File'
+                  }
+                  target={
+                    data?.target ||
+                    (data?.download &&
+                      data?.dataset_href[0]['@type'] === 'File' &&
+                      '_blank')
+                  }
+                  mode={data?.dataset_style}
+                >
+                  {data?.dataset_buttonTitle}
+                </CclButton>
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );
