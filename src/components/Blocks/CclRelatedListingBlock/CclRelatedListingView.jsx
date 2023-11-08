@@ -96,7 +96,7 @@ const CclRelatedListingView = (props) => {
     }
 
     uid &&
-    id &&
+      id &&
       !searchSubrequests?.loading &&
       !searchSubrequests?.loaded &&
       !searchSubrequests?.error &&
@@ -114,7 +114,7 @@ const CclRelatedListingView = (props) => {
           `${id}-${uid}`,
         ),
       );
-    return ()=>{};
+    return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id, uid, dispatch]);
 
