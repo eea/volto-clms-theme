@@ -9,6 +9,7 @@ export const portal_types_labels = {
   TechnicalLibrary: 'Product documentation',
   Document: 'Other content',
   FAQ: 'FAQ',
+  File: 'Files',
 };
 
 export const category_labels = {
@@ -52,6 +53,7 @@ const rewriteOptions = (name, choices) => {
     'Tender',
     'WorkOpportunity',
     'Document',
+    'File',
   ];
 
   const dataset_geographical_classification = [
