@@ -63,7 +63,7 @@ const View = (props) => {
     );
   };
 
-  const ArrowsGroup = (arrowProps) => {
+  /*   const ArrowsGroup = (arrowProps) => {
     return (
       <div className={'slick-arrows'}>
         <button
@@ -87,7 +87,7 @@ const View = (props) => {
         ></button>
       </div>
     );
-  };
+  }; */
 
   const [showInfo, setShowInfo] = React.useState(false);
   const panes = tabsList.map((tab, index) => {
@@ -113,7 +113,7 @@ const View = (props) => {
       <Slider {...settings} ref={slider} className="home-carousel">
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
-      <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} />
+      {/* <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} /> */}
       <Dots
         dotActiveTab={activeTab}
         dotTabsList={tabsList}

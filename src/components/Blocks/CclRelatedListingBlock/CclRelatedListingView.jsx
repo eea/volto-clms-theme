@@ -32,10 +32,10 @@ const CclRelatedListingView = (props) => {
   const { pagination, currentPage, paginationSize, dataList } = p_data;
 
   const dispatch = useDispatch();
-  const searchSubrequests = useSelector(
-    (state) => state.search.subrequests?.[id],
-  );
   const uid = metadata ? metadata['UID'] : properties['UID'];
+  const searchSubrequests = useSelector(
+    (state) => state.search.subrequests?.[`${id}-${uid}`],
+  );
 
   const associated = directRelation
     ? directQuery
@@ -96,6 +96,7 @@ const CclRelatedListingView = (props) => {
     }
 
     uid &&
+      id &&
       !searchSubrequests?.loading &&
       !searchSubrequests?.loaded &&
       !searchSubrequests?.error &&
@@ -110,11 +111,12 @@ const CclRelatedListingView = (props) => {
             sort_order: sort_order,
             b_size: 99999,
           },
-          id,
+          `${id}-${uid}`,
         ),
       );
+    return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, id, uid, dispatch, searchSubrequests]);
+  }, [data, id, uid, dispatch]);
 
   return (
     <>

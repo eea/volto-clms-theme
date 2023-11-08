@@ -44,6 +44,7 @@ const CclHomeBgImageBlockEdit = (props) => {
             config,
             data.hasButton,
             data.hasLocationInfo,
+            data.hasDatasetButton,
           )}
           title="Carousel Div block"
           onChangeField={(id, value) => {
