@@ -7,7 +7,7 @@ import React from 'react';
 import { RenderBlocks } from '@plone/volto/components';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import cx from 'classnames';
+// import cx from 'classnames';
 import loadable from '@loadable/component';
 import { withRouter } from 'react-router';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
@@ -17,7 +17,7 @@ const Slider = loadable(() => import('react-slick'));
 const View = (props) => {
   const slider = React.useRef(null);
   const {
-    activeTab = null,
+    // activeTab = null,
     metadata = {},
     tabsList = [],
     tabs = {},
@@ -38,7 +38,7 @@ const View = (props) => {
     },
   };
 
-  const Dots = (dotProps) => {
+  /* const Dots = (dotProps) => {
     const { dotActiveTab = null, dotTabsList = [], dotSlider = {} } = dotProps;
     return dotTabsList.length > 1 ? (
       <ul className={cx('slick-dots', dotProps.uiContainer)} role={'tablist'}>
@@ -62,7 +62,7 @@ const View = (props) => {
       ''
     );
   };
-
+ */
   /*   const ArrowsGroup = (arrowProps) => {
     return (
       <div className={'slick-arrows'}>
@@ -114,11 +114,11 @@ const View = (props) => {
         {panes.length ? panes.map((pane) => pane.renderItem) : ''}
       </Slider>
       {/* <ArrowsGroup activeTab={activeTab} tabsList={tabsList} slider={slider} /> */}
-      <Dots
+      {/* <Dots
         dotActiveTab={activeTab}
         dotTabsList={tabsList}
         dotSlider={slider}
-      />
+      /> */}
     </>
   );
 };
