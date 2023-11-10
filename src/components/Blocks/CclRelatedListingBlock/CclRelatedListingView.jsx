@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Segment, Input, Pagination } from 'semantic-ui-react';
+import { Loader, Segment, Input, Pagination } from 'semantic-ui-react';
+import { FormattedMessage } from 'react-intl';
 
 import { searchContent } from '@plone/volto/actions';
 import { Icon } from '@plone/volto/components';
@@ -33,9 +34,10 @@ const CclRelatedListingView = (props) => {
 
   const dispatch = useDispatch();
   const uid = metadata ? metadata['UID'] : properties['UID'];
-  const searchSubrequests = useSelector(
-    (state) => state.search.subrequests?.[`${id}-${uid}`],
-  );
+  const allSearchSubrequests = useSelector((state) => state.search.subrequests);
+  const searchSubrequests = allSearchSubrequests?.[`${id}-${uid}`];
+  const sLoaded = searchSubrequests?.loaded;
+  const sLoading = searchSubrequests?.loading;
 
   const associated = directRelation
     ? directQuery
@@ -90,15 +92,10 @@ const CclRelatedListingView = (props) => {
   };
 
   React.useEffect(() => {
-    if (searchSubrequests?.loaded) {
-      p_functions.setOriginalDataList([...searchSubrequests.items]);
-      p_functions.setDataList([...searchSubrequests.items]);
-    }
-
     uid &&
       id &&
       !searchSubrequests?.loading &&
-      !searchSubrequests?.loaded &&
+      !sLoaded &&
       !searchSubrequests?.error &&
       dispatch(
         searchContent(
@@ -118,9 +115,17 @@ const CclRelatedListingView = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id, uid, dispatch]);
 
+  React.useEffect(() => {
+    if (sLoaded) {
+      p_functions.setOriginalDataList([...searchSubrequests.items]);
+      p_functions.setDataList([...searchSubrequests.items]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sLoaded]);
+
   return (
     <>
-      {searchSubrequests?.loaded && libraries.length > 0 ? (
+      {sLoaded && libraries.length > 0 ? (
         <div ref={ref}>
           {paginationSize < libraries.length && (
             <div className="block search">
@@ -171,6 +176,10 @@ const CclRelatedListingView = (props) => {
             </div>
           )}
         </div>
+      ) : sLoading ? (
+        <Loader active inline="centered">
+          <FormattedMessage id="Loading..." defaultMessage="Loading..." />
+        </Loader>
       ) : (
         <p>There are no related items.</p>
       )}
