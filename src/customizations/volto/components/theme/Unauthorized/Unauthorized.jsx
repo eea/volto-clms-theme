@@ -32,12 +32,12 @@ const Unauthorized = () => {
             login: (
               <CclLoginModal
                 triggerComponent={() => (
-                  <Link to={'#'}>
+                  <span className="unauthorized-login-link">
                     <FormattedMessage
                       id="register-login"
                       defaultMessage="Register / Login"
                     />
-                  </Link>
+                  </span>
                 )}
               />
             ),
