@@ -114,8 +114,12 @@ class Header extends Component {
         {},
         '',
         query.size > 0
-          ? `${window.location.pathname}?${query}`
-          : window.location.pathname,
+          ? `${window.location.pathname}?${query}${
+              window.location.hash && `${window.location.hash}`
+            }`
+          : `${window.location.pathname}${
+              window.location.hash && `${window.location.hash}`
+            }`,
       );
       this.props.loginRenew();
     } else {
