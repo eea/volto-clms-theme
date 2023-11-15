@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal, Segment, Grid, Icon, Label } from 'semantic-ui-react';
+import { Modal, Segment, Grid, Icon } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import { Toast } from '@plone/volto/components';
 
@@ -71,27 +71,26 @@ const CLMSDatasetDetailView = ({ content, token }) => {
     return (
       url && (
         <Grid.Row className="characteristic-row">
-          <strong>{title}: </strong>
-          <br />
-          <Label basic size="large">
-            {url}
-            <Icon
-              name="copy"
-              size="large"
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                navigator.clipboard.writeText(url);
-                toast.success(
-                  <Toast
-                    success
-                    autoClose={5000}
-                    title={'URL copied to clipboard'}
-                    content={`The ${title} URL has been successfully copied to clipboard`}
-                  />,
-                );
-              }}
-            ></Icon>
-          </Label>
+          <a href={url} rel="noreferrer" target="_blank">
+            {title}
+          </a>
+          <Icon
+            color={'olive'}
+            name="copy"
+            size="large"
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              navigator.clipboard.writeText(url);
+              toast.success(
+                <Toast
+                  success
+                  autoClose={5000}
+                  title={'URL copied to clipboard'}
+                  content={`The ${title} URL has been successfully copied to clipboard`}
+                />,
+              );
+            }}
+          ></Icon>
         </Grid.Row>
       )
     );
@@ -358,7 +357,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
               content?.metadata_rest_api_url) && (
               <div className="url-container">
                 <div className="citation-title">Services</div>
-
                 <ClickableUrl title="WMS" url={content.metadata_wms_url} />
                 <ClickableUrl title="WMTS" url={content.metadata_wmts_url} />
                 <ClickableUrl

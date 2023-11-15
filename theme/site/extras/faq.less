@@ -53,13 +53,17 @@
   }
 
   .accordion .content > div::before {
+    position: absolute;
+    left: 1.5rem;
     margin-right: 1rem;
     color: #adb0b8;
     content: 'A';
     float: left;
     font-size: 1.75rem;
     font-weight: bold;
-    position: absolute;
-    left: 1.5rem;
+  }
+
+  .accordion.ui.fluid.styled > .content.active ul {
+    padding: 0 !important;
   }
 }

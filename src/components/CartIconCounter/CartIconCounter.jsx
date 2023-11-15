@@ -102,7 +102,8 @@ export const CartIconCounter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartState]);
   return (
-    cartState.items && (
+    cartState.items &&
+    !window.location.pathname.endsWith('cart') && (
       <>
         <Popup
           context={cart_icon_ref}
