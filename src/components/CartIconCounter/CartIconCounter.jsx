@@ -101,9 +101,9 @@ export const CartIconCounter = () => {
     cartState_ref.current = cartState;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartState]);
+
   return (
-    cartState.items &&
-    !window.location.pathname.endsWith('cart') && (
+    cartState.items && (
       <>
         <Popup
           context={cart_icon_ref}
@@ -169,6 +169,7 @@ export const CartIconCounter = () => {
             mode="filled"
             to={`/${intl.locale}/cart`}
             style={{ width: '100%' }}
+            onClick={() => setshowPopup(false)}
           >
             Go to cart
           </CclButton>
