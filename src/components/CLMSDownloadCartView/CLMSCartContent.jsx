@@ -408,7 +408,7 @@ const CLMSCartContent = (props) => {
                           '-'
                         )}
                       </td>
-                      <td>
+                      <td className="table-td-timeseries">
                         {datasetTimeseries.datasets[item?.dataset_uid]
                           ?.start ? (
                           <TimeseriesPicker
