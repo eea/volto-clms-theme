@@ -17,6 +17,7 @@ import { FormattedMessage } from 'react-intl';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import { CLMSTechnicalLibraryAdminInfo } from '../CLMSTechnicalLibraryAdminInfo';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (
@@ -108,6 +109,7 @@ const DocCard = ({ card, url, showEditor, children }) => {
             )}
           </div>
         )}
+      <CLMSTechnicalLibraryAdminInfo uid={card.UID} id={card['@id']} />
       <div className="card-doc-description">{card?.description}</div>
       {children}
     </>
