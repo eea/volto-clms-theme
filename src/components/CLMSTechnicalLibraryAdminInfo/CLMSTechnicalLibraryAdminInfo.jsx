@@ -19,35 +19,32 @@ const CLMSTechnicalLibraryAdminInfo = (props) => {
     !queryItem?.loaded &&
     dispatch(getContent(id, null, uid));
 
-  return (
-    isLoggedIn &&
-    isManager && (
-      <>
-        {showThis[`${uid}`] && item ? (
-          <>
-            <br />
-            <Button onClick={() => setShowThis({ ...showThis, [uid]: false })}>
-              Hide
-            </Button>
-            <br />
-            <strong>Categorization</strong>
-            <ul>
-              {item?.taxonomy_technical_library_categorization.map((item) => (
-                <li>{item.title}</li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <>
-            <br />
-            <Button onClick={() => setShowThis({ ...showThis, [uid]: true })}>
-              Show extra data
-            </Button>
-          </>
-        )}
-      </>
-    )
-  );
+  return isLoggedIn && isManager ? (
+    <>
+      {showThis[`${uid}`] && item ? (
+        <>
+          <br />
+          <Button onClick={() => setShowThis({ ...showThis, [uid]: false })}>
+            Hide
+          </Button>
+          <br />
+          <strong>Categorization</strong>
+          <ul>
+            {item?.taxonomy_technical_library_categorization.map((item) => (
+              <li>{item.title}</li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <br />
+          <Button onClick={() => setShowThis({ ...showThis, [uid]: true })}>
+            Show extra data
+          </Button>
+        </>
+      )}
+    </>
+  ) : null;
 };
 
 export { CLMSTechnicalLibraryAdminInfo };
