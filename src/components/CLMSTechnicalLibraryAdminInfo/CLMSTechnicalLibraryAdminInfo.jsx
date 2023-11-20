@@ -13,34 +13,39 @@ const CLMSTechnicalLibraryAdminInfo = (props) => {
   const contents = useSelector((state) => state.content?.subrequests);
   const queryItem = contents?.[`${uid}`];
   const item = queryItem?.data;
-  const show = isLoggedIn && isManager && item && showThis[`${uid}`];
 
   showThis?.[`${uid}`] &&
     !queryItem?.loading &&
     !queryItem?.loaded &&
     dispatch(getContent(id, null, uid));
 
-  return show ? (
+  return isLoggedIn && isManager ? (
     <>
-      <br />
-      <Button onClick={() => setShowThis({ ...showThis, [uid]: false })}>
-        Hide
-      </Button>
-      <br />
-      <strong>Categorization</strong>
-      <ul>
-        {item?.taxonomy_technical_library_categorization.map((item) => (
-          <li>{item.title}</li>
-        ))}
-      </ul>
+      {showThis[`${uid}`] && item ? (
+        <>
+          <br />
+          <Button onClick={() => setShowThis({ ...showThis, [uid]: false })}>
+            Hide
+          </Button>
+          <br />
+          <strong>Categorization</strong>
+          <ul>
+            {item?.taxonomy_technical_library_categorization.map((item) => (
+              <li>{item.title}</li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <br />
+          <Button onClick={() => setShowThis({ ...showThis, [uid]: true })}>
+            Show extra data
+          </Button>
+        </>
+      )}
     </>
   ) : (
-    <>
-      <br />
-      <Button onClick={() => setShowThis({ ...showThis, [uid]: true })}>
-        Show extra data
-      </Button>
-    </>
+    ''
   );
 };
 
