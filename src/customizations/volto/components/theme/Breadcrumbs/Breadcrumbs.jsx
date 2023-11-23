@@ -1,18 +1,13 @@
-/**
- * Breadcrumbs components.
- * @module components/theme/Breadcrumbs/Breadcrumbs
- */
-
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { defineMessages, injectIntl } from 'react-intl';
 
 import { getBreadcrumbs } from '@plone/volto/actions';
 import { getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
+
+import PropTypes from 'prop-types';
 
 const messages = defineMessages({
   home: {
@@ -25,113 +20,78 @@ const messages = defineMessages({
   },
 });
 
-/**
- * Breadcrumbs container class.
- */
-export class BreadcrumbsComponent extends Component {
-  /**
-   * Property types.
-   * @property {Object} propTypes Property types.
-   * @static
-   */
-  static propTypes = {
-    getBreadcrumbs: PropTypes.func.isRequired,
-    pathname: PropTypes.string.isRequired,
-    root: PropTypes.string,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        url: PropTypes.string,
-      }),
-    ).isRequired,
-    extraItems: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        url: PropTypes.string,
-      }),
-    ),
-  };
+const BreadcrumbsComponent = ({ pathname }) => {
+  const intl = useIntl();
+  const dispatch = useDispatch();
+  const { pathname: realPath } = useLocation();
+  const noBreadCrumbsItems = [];
 
-  componentDidMount() {
-    if (!hasApiExpander('breadcrumbs', getBaseUrl(this.props.pathname))) {
-      this.props.getBreadcrumbs(getBaseUrl(this.props.pathname));
+  const items = useSelector(
+    (state) =>
+      realPath.endsWith('/cart') ||
+      realPath.endsWith('profile') ||
+      realPath.endsWith('cart-downloads') ||
+      realPath.endsWith('all-downloads')
+        ? noBreadCrumbsItems
+        : state.breadcrumbs.items,
+    shallowEqual,
+  );
+  const root = useSelector((state) => state.breadcrumbs.root);
+
+  useEffect(() => {
+    if (!hasApiExpander('breadcrumbs', getBaseUrl(pathname))) {
+      dispatch(getBreadcrumbs(getBaseUrl(pathname)));
     }
-  }
+  }, [dispatch, items, pathname]);
 
-  /**
-   * Component will receive props
-   * @method componentWillReceiveProps
-   * @param {Object} nextProps Next properties
-   * @returns {undefined}
-   */
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.pathname !== this.props.pathname) {
-      if (!hasApiExpander('breadcrumbs', getBaseUrl(this.props.pathname))) {
-        this.props.getBreadcrumbs(getBaseUrl(nextProps.pathname));
-      }
-    }
-  }
-
-  /**
-   * Render method.
-   * @method render
-   * @returns {string} Markup for the component.
-   */
-  render() {
-    return (
-      <>
-        {this.props.items.length > 0 && (
-          <nav
-            aria-label={this.props.intl.formatMessage(messages.breadcrumbs)}
-            className="ccl-breadcrumb"
-          >
-            <Container>
-              <span className="ccl-u-sr-only">You are here:</span>
-              <ol className="ccl-breadcrumb__segments-wrapper">
-                <li className="ccl-breadcrumb__segment ccl-breadcrumb__segment--first">
-                  <Link
-                    to={this.props.root || '/'}
-                    className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
-                    title={this.props.intl.formatMessage(messages.home)}
-                  >
-                    {this.props.intl.formatMessage(messages.home)}
-                  </Link>
-                </li>
-                {this?.props?.items?.map((item, index, items) => [
-                  index < items.length - 1 ? (
-                    <li key={index} className="ccl-breadcrumb__segment">
-                      <Link
-                        to={item.url}
-                        className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  ) : (
-                    <li
-                      key={index}
-                      className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last"
+  return (
+    <>
+      {items.length > 0 && (
+        <nav
+          aria-label={intl.formatMessage(messages.breadcrumbs)}
+          className="ccl-breadcrumb"
+        >
+          <Container>
+            <span className="ccl-u-sr-only">You are here:</span>
+            <ol className="ccl-breadcrumb__segments-wrapper">
+              <li className="ccl-breadcrumb__segment ccl-breadcrumb__segment--first">
+                <Link
+                  to={root || '/'}
+                  className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
+                  title={intl.formatMessage(messages.home)}
+                >
+                  {intl.formatMessage(messages.home)}
+                </Link>
+              </li>
+              {items?.map((item, index, items) => [
+                index < items.length - 1 ? (
+                  <li key={index} className="ccl-breadcrumb__segment">
+                    <Link
+                      to={item.url}
+                      className="ccl-link ccl-link--inverted ccl-link--standalone ccl-breadcrumb__link"
                     >
-                      <span>{item.title}</span>
-                    </li>
-                  ),
-                ])}
-              </ol>
-            </Container>
-          </nav>
-        )}
-      </>
-    );
-  }
-}
+                      {item.title}
+                    </Link>
+                  </li>
+                ) : (
+                  <li
+                    key={index}
+                    className="ccl-breadcrumb__segment ccl-breadcrumb__segment--last"
+                  >
+                    <span>{item.title}</span>
+                  </li>
+                ),
+              ])}
+            </ol>
+          </Container>
+        </nav>
+      )}
+    </>
+  );
+};
 
-export default compose(
-  injectIntl,
-  connect(
-    (state) => ({
-      items: state.breadcrumbs.items,
-      root: state.breadcrumbs.root,
-    }),
-    { getBreadcrumbs },
-  ),
-)(BreadcrumbsComponent);
+BreadcrumbsComponent.propTypes = {
+  pathname: PropTypes.string.isRequired,
+};
+
+export default BreadcrumbsComponent;
