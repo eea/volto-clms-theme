@@ -19,18 +19,18 @@ const CclHomeProductsBlockView = (props) => {
           }
           tabIndex={0}
           onClick={() => {
-            window.location.href = isUrl(product?.linkSelector)
-              ? product.linkSelector
+            isUrl(product?.linkSelector)
+              ? window.location.assign(product.linkSelector)
               : isUrl('http://' + product?.linkSelector)
-              ? 'http://' + product.linkSelector
-              : '#';
+              ? window.location.assign('http://' + product.linkSelector)
+              : window.location.replace(window.location + '#');
           }}
           onKeyDown={() => {
-            window.location.href = isUrl(product?.linkSelector)
-              ? product.linkSelector
+            isUrl(product?.linkSelector)
+              ? window.location.assign(product.linkSelector)
               : isUrl('http://' + product?.linkSelector)
-              ? 'http://' + product.linkSelector
-              : '#';
+              ? window.location.assign('http://' + product.linkSelector)
+              : window.location.replace(window.location + '#');
           }}
           id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
