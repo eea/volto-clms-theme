@@ -1,64 +1,36 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
-
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import qs from 'query-string';
 import { logout, purgeMessages } from '@plone/volto/actions';
 
-import PropTypes from 'prop-types';
-import qs from 'query-string';
+const Logout = ({ location }) => {
+  const token = useSelector((state) => state.userSession.token, shallowEqual);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-/**
- * Login container.
- * @module components/theme/Logout/Logout
- */
+  const returnUrl = useMemo(
+    () =>
+      qs.parse(location.search).return_url ||
+      location.pathname
+        .replace(/\/login\/?$/, '')
+        .replace(/\/logout\/?$/, '') ||
+      '/',
+    [location],
+  );
 
-/**
- * Logout class.
- * @class Logout
- * @extends Component
- */
-class CclLogout extends Component {
-  /**
-   * Property types.
-   * @property {Object} propTypes Property types.
-   * @static
-   */
-  static propTypes = {
-    logout: PropTypes.func.isRequired,
-    purgeMessages: PropTypes.func.isRequired,
-    query: PropTypes.shape({
-      return_url: PropTypes.string,
-    }),
-  };
+  useEffect(() => {
+    dispatch(logout());
+    dispatch(purgeMessages());
+  }, [dispatch]);
 
-  /**
-   * Default properties.
-   * @property {Object} defaultProps Default properties.
-   * @static
-   */
-  static defaultProps = {
-    query: null,
-  };
+  useEffect(() => {
+    if (!token) {
+      window.location.href = '/';
+    }
+  }, [history, returnUrl, token]);
 
-  componentDidMount() {
-    // eslint-disable-next-line no-restricted-globals
-    this.props.logout();
-    window.location.href = '/';
-    this.props.purgeMessages();
-  }
+  return '';
+};
 
-  /**
-   * Render method.
-   * @method render
-   * @returns {string} Markup for the component.
-   */
-  render() {
-    return '';
-  }
-}
-
-export default connect(
-  (state, props) => ({
-    query: qs.parse(props.location.search),
-  }),
-  { logout, purgeMessages },
-)(CclLogout);
+export default Logout;
