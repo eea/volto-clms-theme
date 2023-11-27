@@ -14,7 +14,7 @@ import config from '@plone/volto/registry';
 
 /* Style */
 import 'volto-form-block/components/FormView.css';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+// import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 const messages = defineMessages({
   default_submit_label: {
@@ -172,7 +172,7 @@ const FormView = ({
                 )}
                 <Grid.Row centered className="row-padded-top">
                   <Grid.Column textAlign="center">
-                    <CclButton
+                    <Button
                       className="ccl-button ccl-button-green"
                       type="submit"
                       disabled={formState.loading}
@@ -189,7 +189,7 @@ const FormView = ({
                           color="grey"
                         />
                       )}
-                    </CclButton>
+                    </Button>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
