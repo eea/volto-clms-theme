@@ -4,13 +4,13 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
 <div
   className="home-products-container"
 >
-  <div
+  <a
     className="home-product"
+    href="/example"
     id="home-product"
     onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
+    target={null}
+    title={null}
   >
     <div
       className="home-product-title"
@@ -20,14 +20,14 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
     <div
       className="home-product-description"
     />
-  </div>
-  <div
+  </a>
+  <a
     className="home-product"
+    href="/example"
     id="home-product"
     onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
+    target={null}
+    title={null}
   >
     <div
       className="home-product-title"
@@ -37,7 +37,7 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
     <div
       className="home-product-description"
     />
-  </div>
+  </a>
 </div>
 `;
 
@@ -45,29 +45,29 @@ exports[`renders a CclHomeProductsBlockView component iconless style 1`] = `
 <div
   className="home-products-container"
 >
-  <div
+  <a
     className="home-product home-product-main"
+    href="/example"
     id=""
     onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
+    target={null}
+    title={null}
   >
     <h3>
       example title1
     </h3>
-  </div>
-  <div
+  </a>
+  <a
     className="home-product home-product-main"
+    href="/example"
     id=""
     onClick={[Function]}
-    onKeyDown={[Function]}
-    role="button"
-    tabIndex={0}
+    target={null}
+    title={null}
   >
     <h3>
       example title2
     </h3>
-  </div>
+  </a>
 </div>
 `;

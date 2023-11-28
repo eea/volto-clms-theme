@@ -1,7 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import CclHomeProductsBlockView from './CclHomeProductsBlockView';
+import { Provider } from 'react-intl-redux';
+import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
 
+const mockStore = configureStore();
+const store = mockStore({
+  intl: {
+    locale: 'en',
+    messages: {},
+  },
+});
 describe('renders a CclHomeProductsBlockView component', () => {
   it('iconless style', () => {
     const data = {
@@ -24,7 +34,13 @@ describe('renders a CclHomeProductsBlockView component', () => {
       },
     };
 
-    const component = renderer.create(<CclHomeProductsBlockView data={data} />);
+    const component = renderer.create(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CclHomeProductsBlockView data={data} />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(component).toMatchSnapshot();
   });
   it('home-product style', () => {
@@ -48,7 +64,13 @@ describe('renders a CclHomeProductsBlockView component', () => {
       },
     };
 
-    const component = renderer.create(<CclHomeProductsBlockView data={data} />);
+    const component = renderer.create(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CclHomeProductsBlockView data={data} />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(component).toMatchSnapshot();
   });
 });

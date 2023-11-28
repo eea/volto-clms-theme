@@ -1,5 +1,5 @@
 import React from 'react';
-import { isUrl } from '@plone/volto/helpers';
+import { UniversalLink } from '@plone/volto/components';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
@@ -9,31 +9,49 @@ const CclHomeProductsBlockView = (props) => {
   return (
     <div className="home-products-container">
       {products?.map((product, index) => (
-        <div
+        <UniversalLink
           key={index}
-          role="button"
+          href={product?.linkSelector}
+          openLinkInNewTab={false}
+          // {
+          //   isUrl(product?.linkSelector)
+          //     ? flattenToAppURL(product.linkSelector)
+          //     : isUrl('http://' + product?.linkSelector)
+          //     ? flattenToAppURL('http://' + product.linkSelector)
+          //     : flattenToAppURL(window.location + '#')
+          // }
           className={
             product.productIcon === 'iconless'
               ? 'home-product home-product-main'
               : 'home-product'
           }
-          tabIndex={0}
-          onClick={() => {
-            isUrl(product?.linkSelector)
-              ? window.location.assign(product.linkSelector)
-              : isUrl('http://' + product?.linkSelector)
-              ? window.location.assign('http://' + product.linkSelector)
-              : window.location.replace(window.location + '#');
-          }}
-          onKeyDown={() => {
-            isUrl(product?.linkSelector)
-              ? window.location.assign(product.linkSelector)
-              : isUrl('http://' + product?.linkSelector)
-              ? window.location.assign('http://' + product.linkSelector)
-              : window.location.replace(window.location + '#');
-          }}
           id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
+          {/* <div
+            key={index}
+            role="button"
+            className={
+              product.productIcon === 'iconless'
+                ? 'home-product home-product-main'
+                : 'home-product'
+            }
+            tabIndex={0}
+            onClick={() => {
+              isUrl(product?.linkSelector)
+                ? window.location.assign(product.linkSelector)
+                : isUrl('http://' + product?.linkSelector)
+                ? window.location.assign('http://' + product.linkSelector)
+                : window.location.replace(window.location + '#');
+            }}
+            onKeyDown={() => {
+              isUrl(product?.linkSelector)
+                ? window.location.assign(product.linkSelector)
+                : isUrl('http://' + product?.linkSelector)
+                ? window.location.assign('http://' + product.linkSelector)
+                : window.location.replace(window.location + '#');
+            }}
+            id={product.productIcon === 'iconless' ? '' : product.productIcon}
+          > */}
           {product.productIcon === 'iconless' ? (
             <h3>{product.title}</h3>
           ) : (
@@ -44,7 +62,8 @@ const CclHomeProductsBlockView = (props) => {
               </div>
             </>
           )}
-        </div>
+          {/* </div> */}
+        </UniversalLink>
       ))}
     </div>
   );
