@@ -74,7 +74,7 @@ class SearchWidget extends Component {
   onSubmit(event) {
     const section = this.state.section ? `&path=${this.props.pathname}` : '';
     this.props.history.push(
-      `/${this.props.locale}/global-search?SearchableText=${this.state.text}${section}`,
+      `/${this.props.locale}/global-search?query=%5B%7B"i"%3A"SearchableText"%2C"o"%3A"paqo.string.contains"%2C"v"%3A"${this.state.text}${section}"%7D%5D`,
     );
     event.preventDefault();
   }

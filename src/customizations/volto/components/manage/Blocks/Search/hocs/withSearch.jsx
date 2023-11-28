@@ -284,6 +284,11 @@ const withSearch = (options) => (WrappedComponent) => {
       ),
     );
     const previousUrlQuery = usePrevious(urlQuery);
+    const previousUrlSearchText = usePrevious(urlSearchText);
+
+    React.useEffect(() => {
+      if (urlSearchText !== previousUrlSearchText) setSearchText(urlSearchText);
+    }, [previousUrlSearchText, urlSearchText]);
 
     React.useEffect(() => {
       if (!isEqual(urlQuery, previousUrlQuery)) {
