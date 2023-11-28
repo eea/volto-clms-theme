@@ -88,6 +88,8 @@ const CLMSCartContent = (props) => {
   useEffect(() => {
     p_f.setOriginalDataList(cartItems);
   }, [cartItems]);
+
+  const nutsnamesDeepCompare = JSON.stringify(nutsnames.nutsnames);
   useEffect(() => {
     const array_ids =
       cart.length > 0 ? cart?.map((item) => item?.unique_id) : [];
@@ -115,7 +117,7 @@ const CLMSCartContent = (props) => {
     } else {
       setCartItems(cleanDuplicatesEntries(newCart));
     }
-  }, [cart, datasets_items, nutsnames]);
+  }, [cart, datasets_items, nutsnamesDeepCompare]);
 
   const selectAllCart = (checked) => {
     if (checked && cartItems.length > 0) {
