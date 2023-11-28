@@ -1,5 +1,5 @@
 import React from 'react';
-import UniversalLink from '../../../customizations/volto/components/manage/UniversalLink/UniversalLink';
+import { UniversalLink } from '@plone/volto/components';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
