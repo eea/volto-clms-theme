@@ -1,7 +1,5 @@
 import React from 'react';
-import { isUrl } from '@plone/volto/helpers';
-import { HashLink as Link } from 'react-router-hash-link';
-import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import UniversalLink from '../../../customizations/volto/components/manage/UniversalLink/UniversalLink';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
@@ -11,15 +9,17 @@ const CclHomeProductsBlockView = (props) => {
   return (
     <div className="home-products-container">
       {products?.map((product, index) => (
-        <Link
+        <UniversalLink
           key={index}
-          to={
-            isUrl(product?.linkSelector)
-              ? flattenToAppURL(product.linkSelector)
-              : isUrl('http://' + product?.linkSelector)
-              ? flattenToAppURL('http://' + product.linkSelector)
-              : flattenToAppURL(window.location + '#')
-          }
+          href={product?.linkSelector}
+          openLinkInNewTab={false}
+          // {
+          //   isUrl(product?.linkSelector)
+          //     ? flattenToAppURL(product.linkSelector)
+          //     : isUrl('http://' + product?.linkSelector)
+          //     ? flattenToAppURL('http://' + product.linkSelector)
+          //     : flattenToAppURL(window.location + '#')
+          // }
           className={
             product.productIcon === 'iconless'
               ? 'home-product home-product-main'
@@ -63,7 +63,7 @@ const CclHomeProductsBlockView = (props) => {
             </>
           )}
           {/* </div> */}
-        </Link>
+        </UniversalLink>
       ))}
     </div>
   );
