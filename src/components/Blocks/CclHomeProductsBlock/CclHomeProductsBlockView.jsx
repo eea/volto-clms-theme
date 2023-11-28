@@ -20,43 +20,49 @@ const CclHomeProductsBlockView = (props) => {
               ? flattenToAppURL('http://' + product.linkSelector)
               : flattenToAppURL(window.location + '#')
           }
+          className={
+            product.productIcon === 'iconless'
+              ? 'home-product home-product-main'
+              : 'home-product'
+          }
+          id={product.productIcon === 'iconless' ? '' : product.productIcon}
         >
-          <div
-            // key={index}
-            // role="button"
+          {/* <div
+            key={index}
+            role="button"
             className={
               product.productIcon === 'iconless'
                 ? 'home-product home-product-main'
                 : 'home-product'
             }
-            // tabIndex={0}
-            // onClick={() => {
-            //   isUrl(product?.linkSelector)
-            //     ? window.location.assign(product.linkSelector)
-            //     : isUrl('http://' + product?.linkSelector)
-            //     ? window.location.assign('http://' + product.linkSelector)
-            //     : window.location.replace(window.location + '#');
-            // }}
-            // onKeyDown={() => {
-            //   isUrl(product?.linkSelector)
-            //     ? window.location.assign(product.linkSelector)
-            //     : isUrl('http://' + product?.linkSelector)
-            //     ? window.location.assign('http://' + product.linkSelector)
-            //     : window.location.replace(window.location + '#');
-            // }}
+            tabIndex={0}
+            onClick={() => {
+              isUrl(product?.linkSelector)
+                ? window.location.assign(product.linkSelector)
+                : isUrl('http://' + product?.linkSelector)
+                ? window.location.assign('http://' + product.linkSelector)
+                : window.location.replace(window.location + '#');
+            }}
+            onKeyDown={() => {
+              isUrl(product?.linkSelector)
+                ? window.location.assign(product.linkSelector)
+                : isUrl('http://' + product?.linkSelector)
+                ? window.location.assign('http://' + product.linkSelector)
+                : window.location.replace(window.location + '#');
+            }}
             id={product.productIcon === 'iconless' ? '' : product.productIcon}
-          >
-            {product.productIcon === 'iconless' ? (
-              <h3>{product.title}</h3>
-            ) : (
-              <>
-                <div className="home-product-title">{product.title}</div>
-                <div className="home-product-description">
-                  {product.description}
-                </div>
-              </>
-            )}
-          </div>
+          > */}
+          {product.productIcon === 'iconless' ? (
+            <h3>{product.title}</h3>
+          ) : (
+            <>
+              <div className="home-product-title">{product.title}</div>
+              <div className="home-product-description">
+                {product.description}
+              </div>
+            </>
+          )}
+          {/* </div> */}
         </Link>
       ))}
     </div>
