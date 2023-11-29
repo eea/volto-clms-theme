@@ -50,6 +50,7 @@ function CclModal(props) {
         </Draggable>
       )}
       <Segment
+        className="modal-trigger"
         basic
         compact
         onClick={() => {
