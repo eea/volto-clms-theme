@@ -61,6 +61,7 @@
     "react-native-mime-types": "2.3.0",
     "react-slick": "0.28.1",
     "react-svg": "14.0.4",
+    "react-zoom-pan-pinch": "3.3.0",
     "slick-carousel": "1.8.1",
     "validator": "13.7.0",
     "volto-cookie-banner": "2.1.0",
