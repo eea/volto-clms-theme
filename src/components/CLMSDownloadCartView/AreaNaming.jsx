@@ -15,8 +15,8 @@ export const AreaNaming = (areaProps) => {
           >
             <div className="image-modal">
               <img src={LatLonImg} alt={'Lat Lon World'} />
-              <span className="modal-cart-bounding-boxes">
-                <span className="cart-bounding-box-row">
+              <span className="cart-bounding-boxes">
+                <span className="cart-bounding-box-row floating-modal-row">
                   <Label>{`N: ${item?.area.value[1].toFixed(1)}º`}</Label>&nbsp;
                   <Label>{`E: ${item?.area.value[2].toFixed(1)}º`}</Label>&nbsp;
                   {/* </span>
