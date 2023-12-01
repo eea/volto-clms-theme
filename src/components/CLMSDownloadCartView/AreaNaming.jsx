@@ -1,9 +1,6 @@
-import React from 'react';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { Label } from 'semantic-ui-react';
-
-import LatLonImg from '@eeacms/volto-clms-theme/../theme/clms/img/lat_lon.png';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+import LatLonImg from '@eeacms/volto-clms-theme/../theme/clms/img/lat_lon.png';
 
 export const AreaNaming = (areaProps) => {
   const { item } = areaProps;
@@ -17,35 +14,7 @@ export const AreaNaming = (areaProps) => {
             size={'medium'}
           >
             <div className="image-modal">
-              <TransformWrapper>
-                {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
-                  <React.Fragment>
-                    <div className="tools">
-                      <button
-                        className="ccl-button ccl-button--default"
-                        onClick={() => zoomIn()}
-                      >
-                        Zoom in
-                      </button>
-                      <button
-                        className="ccl-button ccl-button--default"
-                        onClick={() => zoomOut()}
-                      >
-                        Zoom out
-                      </button>
-                      <button
-                        className="ccl-button ccl-button--default"
-                        onClick={() => resetTransform()}
-                      >
-                        Reset zoom
-                      </button>
-                    </div>
-                    <TransformComponent>
-                      <img src={LatLonImg} alt={'Lat Lon World'} />
-                    </TransformComponent>
-                  </React.Fragment>
-                )}
-              </TransformWrapper>
+              <img src={LatLonImg} alt={'Lat Lon World'} />
               <span className="modal-cart-bounding-boxes">
                 <span className="cart-bounding-box-row">
                   <Label>{`N: ${item?.area.value[1].toFixed(1)}º`}</Label>&nbsp;
