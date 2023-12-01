@@ -28,9 +28,7 @@ const CLMSTechnicalLibraryAdminInfo = (props) => {
             Hide
           </Button>
           <br />
-          {item?.taxonomy_technical_library_categorization && (
-            <strong>Categorization</strong>
-          )}{' '}
+          <strong>Categorization</strong>
           <ul>
             {item?.taxonomy_technical_library_categorization?.map((item) => (
               <li>{item.title}</li>
