@@ -102,6 +102,7 @@ const CLMSCartContent = (props) => {
     if (
       datasets_items?.length > 0 &&
       cart.length > 0 &&
+      cart.length !== newCart.length &&
       ((localsessionNutsIDList.length > 0 && nutsnames.loaded) ||
         !nutsnames.loading)
     ) {
