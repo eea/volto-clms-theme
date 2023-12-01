@@ -323,7 +323,7 @@ const CLMSCartContent = (props) => {
                           <strong>Source: </strong>
                           {contentOrDash(item?.source)}
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-2 cart-area">
                           <strong>Area: </strong>
                           <AreaNaming item={item} />
                         </div>
