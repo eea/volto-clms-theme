@@ -10,7 +10,7 @@ export const AreaNaming = (areaProps) => {
         <>
           <CclModal
             draggable={true}
-            trigger={<span className="cart-modal-trigger">Bounding Box</span>}
+            trigger={<span>Bounding Box</span>}
             size={'medium'}
           >
             <div className="image-modal">
@@ -27,6 +27,8 @@ export const AreaNaming = (areaProps) => {
               </span>
             </div>
           </CclModal>
+
+          <br />
           <span className="cart-bounding-boxes">
             <span className="cart-bounding-box-row">
               <Label>{`N: ${item?.area.value[1].toFixed(1)}º`}</Label>&nbsp;
