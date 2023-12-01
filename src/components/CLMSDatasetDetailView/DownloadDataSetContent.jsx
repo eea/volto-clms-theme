@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
@@ -9,9 +8,8 @@ import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/Ccl
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DownloadDataSetContent = (data, token) => {
-  const location = useLocation();
-
   const user = useSelector((state) => state?.users?.user);
+  const locale = useSelector((state) => state?.intl?.locale);
 
   return (
     <div>
@@ -36,11 +34,15 @@ const DownloadDataSetContent = (data, token) => {
           )}
           {user?.['@id'] ? (
             data.mapviewer_istimeseries === true ? (
-              <CclButton url={location.pathname + '/download-by-area'}>
+              <CclButton
+                url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
+              >
                 Go to download by area and time
               </CclButton>
             ) : (
-              <CclButton url={location.pathname + '/download-by-area'}>
+              <CclButton
+                url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
+              >
                 Go to download by area
               </CclButton>
             )
