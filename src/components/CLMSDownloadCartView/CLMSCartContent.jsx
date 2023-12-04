@@ -102,7 +102,6 @@ const CLMSCartContent = (props) => {
     if (
       datasets_items?.length > 0 &&
       cart.length > 0 &&
-      cart.length !== newCart.length &&
       ((localsessionNutsIDList.length > 0 && nutsnames.loaded) ||
         !nutsnames.loading)
     ) {
@@ -323,8 +322,8 @@ const CLMSCartContent = (props) => {
                           <strong>Source: </strong>
                           {contentOrDash(item?.source)}
                         </div>
-                        <div className="mb-2">
-                          <strong>Area: </strong>
+                        <div className="mb-2 cart-area">
+                          <strong className="cart-area-text">Area: </strong>
                           <AreaNaming item={item} />
                         </div>
 
