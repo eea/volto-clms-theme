@@ -49,7 +49,7 @@ import {
 const CLMSCartContent = (props) => {
   const { localSessionCart, getNutsIDList } = props;
   const dispatch = useDispatch();
-  const { removeCartItem, /* removeCartItems, */ updateCart } = useCartState();
+  const { removeCartItem, removeCartItems, updateCart } = useCartState();
 
   // state connections
   const cart = useSelector((state) => state.cart_items.items);
@@ -143,17 +143,17 @@ const CLMSCartContent = (props) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setCartItemInProgress = (in_progress_unique_ids) => {
-    // let started_processing_items =
-    //   cartItems.length > 0
-    //     ? cartItems.filter((r) =>
-    //         in_progress_unique_ids.includes(r['unique_id']),
-    //       )
-    //     : [];
-    // var items_to_remove =
-    //   started_processing_items.length > 0
-    //     ? started_processing_items.map((item) => item.unique_id)
-    //     : [];
-    // removeCartItems(items_to_remove);
+    let started_processing_items =
+      cartItems.length > 0
+        ? cartItems.filter((r) =>
+            in_progress_unique_ids.includes(r['unique_id']),
+          )
+        : [];
+    var items_to_remove =
+      started_processing_items.length > 0
+        ? started_processing_items.map((item) => item.unique_id)
+        : [];
+    removeCartItems(items_to_remove);
     dispatch(getDownloadtool());
   };
 
@@ -196,6 +196,7 @@ const CLMSCartContent = (props) => {
         ? selectedItems.map((item) => item?.unique_id)
         : [];
     dispatch(postDownloadtool(body, unique_ids));
+    removeCartItem(unique_ids);
   };
 
   const downloadModal = () => {
