@@ -285,7 +285,11 @@ const CLMSCartContent = (props) => {
                         <a href="#">
                           <Popup
                             content="Explore EPSG details and coordinate systems with a click."
-                            trigger={<FontAwesomeIcon icon="question-circle" />}
+                            trigger={
+                              <FontAwesomeIcon
+                                icon={['far', 'question-circle']}
+                              />
+                            }
                           />
                         </a>
                       }
@@ -364,7 +368,31 @@ const CLMSCartContent = (props) => {
                         </div>
 
                         <div className="mb-2">
-                          <strong>Format: </strong>
+                          <strong>Format: </strong>{' '}
+                          <CclModal
+                            draggable={false}
+                            trigger={
+                              <a href="#">
+                                <Popup
+                                  content="Explore Formats details and coordinate systems with a click."
+                                  trigger={
+                                    <FontAwesomeIcon
+                                      color="#000000"
+                                      icon={['far', 'question-circle']}
+                                    />
+                                  }
+                                />
+                              </a>
+                            }
+                            size={'small'}
+                          >
+                            <div className="image-modal">
+                              Explore format-related details in our{' '}
+                              <UniversalLink href="/faq">
+                                FAQ page
+                              </UniversalLink>
+                            </div>
+                          </CclModal>
                         </div>
                         {item?.layer !== null && (
                           <div className="mb-2">
