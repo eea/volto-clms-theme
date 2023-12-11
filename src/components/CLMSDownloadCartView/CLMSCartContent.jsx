@@ -280,6 +280,7 @@ const CLMSCartContent = (props) => {
                     <CclModal
                       draggable={false}
                       trigger={
+                        /* eslint-disable jsx-a11y/anchor-is-valid */
                         <a href="#">
                           <Popup
                             content="Explore EPSG details and coordinate systems with a click."
@@ -370,6 +371,7 @@ const CLMSCartContent = (props) => {
                           <CclModal
                             draggable={false}
                             trigger={
+                              /* eslint-disable jsx-a11y/anchor-is-valid */
                               <a href="#">
                                 <Popup
                                   content="Explore Formats details and coordinate systems with a click."
