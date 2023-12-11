@@ -8,10 +8,12 @@ import {
   Select,
   Table,
   Pagination,
+  Popup,
 } from 'semantic-ui-react';
 
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
+import { UniversalLink } from '@plone/volto/components';
 import addDocumentSVG from '@plone/volto/icons/add-document.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
@@ -20,6 +22,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
 import { useFilteredPagination } from '../CclUtils/useFilteredPagination';
@@ -40,6 +43,8 @@ import {
   LayerNaming,
   TimeseriesPicker,
 } from '.';
+
+import infoSVG from '@plone/volto/icons/info.svg';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
@@ -272,7 +277,26 @@ const CLMSCartContent = (props) => {
                   <Table.HeaderCell width={5}>Static info</Table.HeaderCell>
                   <Table.HeaderCell>Configurable</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
-                  <Table.HeaderCell>Projection</Table.HeaderCell>
+                  <Table.HeaderCell>
+                    Projection{' '}
+                    <CclModal
+                      draggable={false}
+                      trigger={
+                        <a href="#">
+                          <Popup
+                            content="Explore EPSG details and coordinate systems with a click."
+                            trigger={<FontAwesomeIcon icon="question-circle" />}
+                          />
+                        </a>
+                      }
+                      size={'small'}
+                    >
+                      <div className="image-modal">
+                        Explore EPSG-related details in our{' '}
+                        <UniversalLink href="/faq">FAQ page</UniversalLink>
+                      </div>
+                    </CclModal>
+                  </Table.HeaderCell>
                   <Table.HeaderCell>Timeseries</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
