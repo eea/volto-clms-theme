@@ -44,8 +44,6 @@ import {
   TimeseriesPicker,
 } from '.';
 
-import infoSVG from '@plone/volto/icons/info.svg';
-
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
  * CLMSCartContent container.
