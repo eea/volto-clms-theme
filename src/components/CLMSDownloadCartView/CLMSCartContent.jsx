@@ -8,10 +8,12 @@ import {
   Select,
   Table,
   Pagination,
+  Popup,
 } from 'semantic-ui-react';
 
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
+import { UniversalLink } from '@plone/volto/components';
 import addDocumentSVG from '@plone/volto/icons/add-document.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
 import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
@@ -20,6 +22,7 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
 import { useFilteredPagination } from '../CclUtils/useFilteredPagination';
@@ -49,7 +52,7 @@ import {
 const CLMSCartContent = (props) => {
   const { localSessionCart, getNutsIDList } = props;
   const dispatch = useDispatch();
-  const { removeCartItem, /* removeCartItems, */ updateCart } = useCartState();
+  const { removeCartItem, removeCartItems, updateCart } = useCartState();
 
   // state connections
   const cart = useSelector((state) => state.cart_items.items);
@@ -143,17 +146,17 @@ const CLMSCartContent = (props) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setCartItemInProgress = (in_progress_unique_ids) => {
-    // let started_processing_items =
-    //   cartItems.length > 0
-    //     ? cartItems.filter((r) =>
-    //         in_progress_unique_ids.includes(r['unique_id']),
-    //       )
-    //     : [];
-    // var items_to_remove =
-    //   started_processing_items.length > 0
-    //     ? started_processing_items.map((item) => item.unique_id)
-    //     : [];
-    // removeCartItems(items_to_remove);
+    let started_processing_items =
+      cartItems.length > 0
+        ? cartItems.filter((r) =>
+            in_progress_unique_ids.includes(r['unique_id']),
+          )
+        : [];
+    var items_to_remove =
+      started_processing_items.length > 0
+        ? started_processing_items.map((item) => item.unique_id)
+        : [];
+    removeCartItems(items_to_remove);
     dispatch(getDownloadtool());
   };
 
@@ -196,6 +199,7 @@ const CLMSCartContent = (props) => {
         ? selectedItems.map((item) => item?.unique_id)
         : [];
     dispatch(postDownloadtool(body, unique_ids));
+    removeCartItem(unique_ids);
   };
 
   const downloadModal = () => {
@@ -271,7 +275,31 @@ const CLMSCartContent = (props) => {
                   <Table.HeaderCell width={5}>Static info</Table.HeaderCell>
                   <Table.HeaderCell>Configurable</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
-                  <Table.HeaderCell>Projection</Table.HeaderCell>
+                  <Table.HeaderCell>
+                    Projection{' '}
+                    <CclModal
+                      draggable={false}
+                      trigger={
+                        /* eslint-disable jsx-a11y/anchor-is-valid */
+                        <a href="#">
+                          <Popup
+                            content="Explore EPSG details and coordinate systems with a click."
+                            trigger={
+                              <FontAwesomeIcon
+                                icon={['far', 'question-circle']}
+                              />
+                            }
+                          />
+                        </a>
+                      }
+                      size={'small'}
+                    >
+                      <div className="image-modal">
+                        Explore EPSG-related details in our{' '}
+                        <UniversalLink href="/faq">FAQ page</UniversalLink>
+                      </div>
+                    </CclModal>
+                  </Table.HeaderCell>
                   <Table.HeaderCell>Timeseries</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
@@ -339,7 +367,32 @@ const CLMSCartContent = (props) => {
                         </div>
 
                         <div className="mb-2">
-                          <strong>Format: </strong>
+                          <strong>Format: </strong>{' '}
+                          <CclModal
+                            draggable={false}
+                            trigger={
+                              /* eslint-disable jsx-a11y/anchor-is-valid */
+                              <a href="#">
+                                <Popup
+                                  content="Explore Formats details and coordinate systems with a click."
+                                  trigger={
+                                    <FontAwesomeIcon
+                                      color="#000000"
+                                      icon={['far', 'question-circle']}
+                                    />
+                                  }
+                                />
+                              </a>
+                            }
+                            size={'small'}
+                          >
+                            <div className="image-modal">
+                              Explore format-related details in our{' '}
+                              <UniversalLink href="/faq">
+                                FAQ page
+                              </UniversalLink>
+                            </div>
+                          </CclModal>
                         </div>
                         {item?.layer !== null && (
                           <div className="mb-2">

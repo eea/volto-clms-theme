@@ -3,6 +3,11 @@ import CclButton from '../CclButton/CclButton';
 
 const CLMSTechnicalLibraryView = (props) => {
   const { content } = props;
+
+  const textToForm = encodeURIComponent(
+    `I want the following document ${content.title} ${content['@id']}`,
+  );
+
   return (
     <div className="ccl-container">
       <>
@@ -16,13 +21,12 @@ const CLMSTechnicalLibraryView = (props) => {
           {content.ondemand ? (
             <>
               <p>
-                You are requesting an on-demand document. Please contact the
-                service desk to obtain it.
+                You are requesting an on-demand document. Please contact the{' '}
+                <a href={`/en/contact-service-helpdesk?text=${textToForm}`}>
+                  service desk
+                </a>{' '}
+                to obtain it.
               </p>
-
-              <CclButton to={`/en/contact-service-helpdesk`}>
-                Helpdesk
-              </CclButton>
             </>
           ) : (
             <>

@@ -323,6 +323,8 @@ const applyConfig = (config) => {
     ...reducers,
   };
 
+  config.experimental.addBlockButton.enabled = true;
+
   return config;
 };
 export default applyConfig;
