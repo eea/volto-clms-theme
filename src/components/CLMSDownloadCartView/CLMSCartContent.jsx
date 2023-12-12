@@ -296,7 +296,7 @@ const CLMSCartContent = (props) => {
                     >
                       <div className="image-modal">
                         Explore EPSG-related details in our{' '}
-                        <UniversalLink href="/faq">FAQ page</UniversalLink>
+                        <UniversalLink href="/en/faq">FAQ page</UniversalLink>
                       </div>
                     </CclModal>
                   </Table.HeaderCell>
@@ -388,7 +388,7 @@ const CLMSCartContent = (props) => {
                           >
                             <div className="image-modal">
                               Explore format-related details in our{' '}
-                              <UniversalLink href="/faq">
+                              <UniversalLink href="/en/faq">
                                 FAQ page
                               </UniversalLink>
                             </div>
