@@ -156,6 +156,7 @@ const FileCard = (props) => {
             width={['In_progress', 'Queued'].includes(item?.Status) ? 8 : 10}
           >
             <Header as="h3">{`Task ID: ${item?.TaskID}`}</Header>
+            <Header.Subheader as="h4">{`Job ID: ${item?.FMETaskId}`}</Header.Subheader>
             <Segment basic className="file-datetimes">
               {item?.RegistrationDateTime && (
                 <>
