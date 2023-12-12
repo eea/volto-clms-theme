@@ -8,8 +8,9 @@ const TextareaWithRequestData = (props) => {
   const { search } = useLocation();
 
   const hashMatch = decodeURIComponent(
-    search.includes('text') &&
-      search.match(/.*(\?text=.*)/)[1].replace(/\?text=/, ''),
+    search.includes('text')
+      ? search.match(/.*(\?text=.*)/)[1].replace(/\?text=/, '')
+      : '',
   );
 
   return <TextareaWidget {...props} value={hashMatch} />;
