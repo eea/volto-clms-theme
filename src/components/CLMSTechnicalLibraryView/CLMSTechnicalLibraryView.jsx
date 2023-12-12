@@ -1,7 +1,5 @@
 import React from 'react';
 import CclButton from '../CclButton/CclButton';
-import { UniversalLink } from '@plone/volto/components';
-import { HashLink as Link } from 'react-router-hash-link';
 
 const CLMSTechnicalLibraryView = (props) => {
   const { content } = props;
