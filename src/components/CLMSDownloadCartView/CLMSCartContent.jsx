@@ -277,28 +277,14 @@ const CLMSCartContent = (props) => {
                   <Table.HeaderCell></Table.HeaderCell>
                   <Table.HeaderCell>
                     Projection{' '}
-                    <CclModal
-                      draggable={false}
-                      trigger={
-                        /* eslint-disable jsx-a11y/anchor-is-valid */
-                        <a href="#">
-                          <Popup
-                            content="Explore EPSG details and coordinate systems with a click."
-                            trigger={
-                              <FontAwesomeIcon
-                                icon={['far', 'question-circle']}
-                              />
-                            }
-                          />
-                        </a>
-                      }
-                      size={'small'}
-                    >
-                      <div className="image-modal">
-                        Explore EPSG-related details in our{' '}
-                        <UniversalLink href="/en/faq">FAQ page</UniversalLink>
-                      </div>
-                    </CclModal>
+                    <UniversalLink href="/en/faq/download/how-to-find-your-epsg-code">
+                      <Popup
+                        content="Explore EPSG details and coordinate systems with a click."
+                        trigger={
+                          <FontAwesomeIcon icon={['far', 'question-circle']} />
+                        }
+                      />
+                    </UniversalLink>
                   </Table.HeaderCell>
                   <Table.HeaderCell>Timeseries</Table.HeaderCell>
                   <Table.HeaderCell></Table.HeaderCell>
@@ -368,31 +354,17 @@ const CLMSCartContent = (props) => {
 
                         <div className="mb-2">
                           <strong>Format: </strong>{' '}
-                          <CclModal
-                            draggable={false}
-                            trigger={
-                              /* eslint-disable jsx-a11y/anchor-is-valid */
-                              <a href="#">
-                                <Popup
-                                  content="Explore Formats details and coordinate systems with a click."
-                                  trigger={
-                                    <FontAwesomeIcon
-                                      color="#000000"
-                                      icon={['far', 'question-circle']}
-                                    />
-                                  }
+                          <UniversalLink href="/en/faq/download/need-information-about-the-file-formats">
+                            <Popup
+                              content="Explore Formats details and coordinate systems with a click."
+                              trigger={
+                                <FontAwesomeIcon
+                                  color="#000000"
+                                  icon={['far', 'question-circle']}
                                 />
-                              </a>
-                            }
-                            size={'small'}
-                          >
-                            <div className="image-modal">
-                              Explore format-related details in our{' '}
-                              <UniversalLink href="/en/faq">
-                                FAQ page
-                              </UniversalLink>
-                            </div>
-                          </CclModal>
+                              }
+                            />
+                          </UniversalLink>
                         </div>
                         {item?.layer !== null && (
                           <div className="mb-2">
