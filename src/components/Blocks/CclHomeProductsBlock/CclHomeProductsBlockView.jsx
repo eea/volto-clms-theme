@@ -1,5 +1,13 @@
 import React from 'react';
 import { UniversalLink } from '@plone/volto/components';
+import { ReactSVG } from 'react-svg';
+
+import LandCoverImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_landcover.svg';
+import BioGeoPhysicalImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_biogeophysical.svg';
+import GroundMotionImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_groundmotion.svg';
+import PriorityAreaImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_priorityarea.svg';
+import ReferenceAndValidationImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_referenceandvalidation.svg';
+import SatelliteImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_satellite.svg';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
@@ -56,6 +64,23 @@ const CclHomeProductsBlockView = (props) => {
             <h3>{product.title}</h3>
           ) : (
             <>
+              <div className="home-product-image">
+                {product.productIcon === 'Landscape' ? (
+                  <ReactSVG src={LandCoverImage} />
+                ) : product.productIcon === 'Warning' ? (
+                  <ReactSVG src={PriorityAreaImage} />
+                ) : product.productIcon === 'Leaf' ? (
+                  <ReactSVG src={BioGeoPhysicalImage} />
+                ) : product.productIcon === 'Computer' ? (
+                  <ReactSVG src={GroundMotionImage} />
+                ) : product.productIcon === ' Database' ? (
+                  <ReactSVG src={SatelliteImage} />
+                ) : product.productIcon === 'Satellite' ? (
+                  <ReactSVG src={ReferenceAndValidationImage} />
+                ) : (
+                  ''
+                )}
+              </div>
               <div className="home-product-title">{product.title}</div>
               <div className="home-product-description">
                 {product.description}
