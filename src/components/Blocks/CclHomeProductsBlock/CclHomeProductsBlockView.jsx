@@ -73,10 +73,10 @@ const CclHomeProductsBlockView = (props) => {
                   <ReactSVG src={BioGeoPhysicalImage} />
                 ) : product.productIcon === 'Computer' ? (
                   <ReactSVG src={GroundMotionImage} />
-                ) : product.productIcon === ' Database' ? (
-                  <ReactSVG src={SatelliteImage} />
-                ) : product.productIcon === 'Satellite' ? (
+                ) : product.productIcon === 'Database' ? (
                   <ReactSVG src={ReferenceAndValidationImage} />
+                ) : product.productIcon === 'Satellite' ? (
+                  <ReactSVG src={SatelliteImage} />
                 ) : (
                   ''
                 )}
