@@ -27,6 +27,7 @@ export const CartIconCounter = () => {
   const cartState_ref = useRef(cartState);
   const cart_icon_ref = React.useRef();
   const intl = useSelector((state) => state.intl);
+  const isDownload = useSelector((state) => state.downloadtool.loading);
   const user_id = useSelector((state) => state.users.user.id);
   const [showPopup, setshowPopup] = useState(false);
   const [cartDiff, setCartDiff] = useState(0);
@@ -77,7 +78,8 @@ export const CartIconCounter = () => {
     if (
       cartState_ref.current.set.loading &&
       cartState.set.loaded &&
-      cartState.items.length >= cartState_ref.current.items.length
+      cartState.items.length >= cartState_ref.current.items.length &&
+      !isDownload
     ) {
       setCartDiff(cartState.items.length - cartState_ref.current.items.length);
       setCartDiffItems(
