@@ -189,132 +189,7 @@
   margin-right: 0.5rem;
 }
 
-/* Products band */
-.home-products-container {
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.home-product {
-  display: flex;
-  width: 33.3333%;
-  height: 14vw;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 2rem;
-  border: 1px solid @clmsGreen;
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  color: @clmsGreen;
-  cursor: pointer;
-  font-weight: bold;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-.home-product:hover {
-  background-size: auto 120%;
-}
-
-.home-product-main {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: fade(@clmsGreen, 5%);
-  cursor: auto;
-}
-
-.home-product-main h3 {
-  margin: 0;
-}
-
-.home-product-title {
-  width: 75%;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.home-product-description {
-  width: 75%;
-  font-weight: normal;
-  text-align: center;
-}
-@media (min-width: 2000px) {
-  .home-product {
-    width: 16.6666%;
-    height: 16rem;
-    font-size: 1.2rem;
-  }
-}
-@media (max-width: 1200px) {
-  .home-product-title {
-    width: 100%;
-  }
-
-  .home-product-description {
-    width: 100%;
-  }
-}
-@media (max-width: 950px) {
-  .home-product {
-    height: 20vw;
-  }
-}
-@media (max-width: 860px) {
-  .home-product {
-    width: 50%;
-    height: 25vw;
-  }
-}
-@media (max-width: 1200px) {
-  .home-products-container {
-    margin-top: 1.6rem;
-  }
-}
-@media (max-width: 640px) {
-  .home-product {
-    width: 100%;
-    height: 30vw;
-  }
-}
-@media (max-width: 420px) {
-  .home-products-container {
-    margin-top: 3.6rem;
-  }
-}
-@media (max-width: 480px) {
-  .home-product {
-    width: 100%;
-    height: 35vw;
-  }
-}
-
-//NEW HOME PRODUCTS BLOCK
-// #home_product_1 {
-//   background-image: url('../../clms/img/home_product_1.png');
-// }
-
-// #home_product_2 {
-//   background-image: url('../../clms/img/home_product_2.png');
-// }
-
-// #home_product_3 {
-//   background-image: url('../../clms/img/home_product_3.png');
-// }
-
-// #home_product_4 {
-//   background-image: url('../../clms/img/home_product_4.png');
-// }
-
-// #home_product_5 {
-//   background-image: url('../../clms/img/home_product_5.png');
-// }
-
-// #home_product_6 {
-//   background-image: url('../../clms/img/home_product_6.png');
-// }
 
 /* Datasets band */
 .home-datasets-container {
@@ -447,6 +322,7 @@
   max-width: 100%;
   padding: 1.5rem;
   background-color: fade(@white, 70%);
+  text-align:center;
 }
 
 .home-map-banner h4 {
@@ -454,23 +330,24 @@
 }
 @media (min-width: 768px) {
   .home-map-banner {
-    width: 40%;
-  }
-
-  .home-dataset-banner {
-    width: 40%;
+    width: 25%;
   }
 }
 
-.home-dataset-banner {
-  max-width: 100%;
-  padding: 1.5rem;
-  background-color: fade(@white, 70%);
-}
+//@media (min-width: 768px) {
+  // .home-dataset-banner {
+  //   width: 40%;
+  // }
+//}
+// .home-dataset-banner {
+//   max-width: 100%;
+//   padding: 1.5rem;
+//   background-color: fade(@white, 70%);
+// }
 
-.home-dataset-banner h4 {
-  margin-bottom: 1rem;
-}
+// .home-dataset-banner h4 {
+//   margin-bottom: 1rem;
+// }
 /* Meet band */
 .home-meet-container {
   padding: 3rem 1rem;

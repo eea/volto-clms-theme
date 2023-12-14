@@ -15,7 +15,7 @@ const CclHomeProductsBlockView = (props) => {
     (uid) => data.products.blocks[uid],
   );
   return (
-    <div className="home-products-container">
+    <div className="home-products-container ccl-container">
       {products?.map((product, index) => (
         <UniversalLink
           key={index}
@@ -81,9 +81,11 @@ const CclHomeProductsBlockView = (props) => {
                   ''
                 )}
               </div>
-              <div className="home-product-title">{product.title}</div>
-              <div className="home-product-description">
-                {product.description}
+              <div>
+                <div className="home-product-title">{product.title}</div>
+                <div className="home-product-description">
+                  {product.description}
+                </div>
               </div>
             </>
           )}
