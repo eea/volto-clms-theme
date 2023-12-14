@@ -22,7 +22,6 @@ import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
 import { useFilteredPagination } from '../CclUtils/useFilteredPagination';
