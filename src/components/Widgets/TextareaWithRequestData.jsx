@@ -13,7 +13,7 @@ const TextareaWithRequestData = (props) => {
       : '',
   );
 
-  return <TextareaWidget {...props} value={hashMatch} />;
+  return <TextareaWidget {...props} defaultValue={hashMatch} />;
 };
 
 export default TextareaWithRequestData;

@@ -2,7 +2,7 @@
 
 exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
 <div
-  className="home-products-container"
+  className="home-products-container ccl-container"
 >
   <a
     className="home-product"
@@ -13,13 +13,20 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
     title={null}
   >
     <div
-      className="home-product-title"
+      className="home-product-image"
     >
-      example title1
+      
     </div>
-    <div
-      className="home-product-description"
-    />
+    <div>
+      <div
+        className="home-product-title"
+      >
+        example title1
+      </div>
+      <div
+        className="home-product-description"
+      />
+    </div>
   </a>
   <a
     className="home-product"
@@ -30,20 +37,27 @@ exports[`renders a CclHomeProductsBlockView component home-product style 1`] = `
     title={null}
   >
     <div
-      className="home-product-title"
+      className="home-product-image"
     >
-      example title2
+      
     </div>
-    <div
-      className="home-product-description"
-    />
+    <div>
+      <div
+        className="home-product-title"
+      >
+        example title2
+      </div>
+      <div
+        className="home-product-description"
+      />
+    </div>
   </a>
 </div>
 `;
 
 exports[`renders a CclHomeProductsBlockView component iconless style 1`] = `
 <div
-  className="home-products-container"
+  className="home-products-container ccl-container"
 >
   <a
     className="home-product home-product-main"

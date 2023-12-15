@@ -44,12 +44,12 @@ export const ProductSchema = () => ({
       title: 'Product icon',
       choices: [
         ['iconless', 'Without icon'],
-        ['home_product_1', 'Landscape'],
-        ['home_product_2', 'Warning'],
-        ['home_product_3', 'Leaf'],
-        ['home_product_4', 'Computer'],
-        ['home_product_5', 'Database'],
-        ['home_product_6', 'Satellite'],
+        ['Landscape', 'Landscape'],
+        ['Warning', 'Warning'],
+        ['Leaf', 'Leaf'],
+        ['Computer', 'Computer'],
+        ['Database', 'Database'],
+        ['Satellite', 'Satellite'],
       ],
     },
     linkSelector: {

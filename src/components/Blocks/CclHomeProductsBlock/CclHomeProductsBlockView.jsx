@@ -1,5 +1,13 @@
 import React from 'react';
+import { ReactSVG } from 'react-svg';
+
 import { UniversalLink } from '@plone/volto/components';
+import BioGeoPhysicalImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_biogeophysical.svg';
+import GroundMotionImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_groundmotion.svg';
+import LandCoverImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_landcover.svg';
+import PriorityAreaImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_priorityarea.svg';
+import ReferenceAndValidationImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_referenceandvalidation.svg';
+import SatelliteImage from '@eeacms/volto-clms-theme/../theme/clms/img/i_satellite.svg';
 
 const CclHomeProductsBlockView = (props) => {
   const { data } = props;
@@ -7,7 +15,7 @@ const CclHomeProductsBlockView = (props) => {
     (uid) => data.products.blocks[uid],
   );
   return (
-    <div className="home-products-container">
+    <div className="home-products-container ccl-container">
       {products?.map((product, index) => (
         <UniversalLink
           key={index}
@@ -56,9 +64,28 @@ const CclHomeProductsBlockView = (props) => {
             <h3>{product.title}</h3>
           ) : (
             <>
-              <div className="home-product-title">{product.title}</div>
-              <div className="home-product-description">
-                {product.description}
+              <div className="home-product-image">
+                {product.productIcon === 'Landscape' ? (
+                  <ReactSVG src={LandCoverImage} />
+                ) : product.productIcon === 'Warning' ? (
+                  <ReactSVG src={PriorityAreaImage} />
+                ) : product.productIcon === 'Leaf' ? (
+                  <ReactSVG src={BioGeoPhysicalImage} />
+                ) : product.productIcon === 'Computer' ? (
+                  <ReactSVG src={GroundMotionImage} />
+                ) : product.productIcon === 'Database' ? (
+                  <ReactSVG src={ReferenceAndValidationImage} />
+                ) : product.productIcon === 'Satellite' ? (
+                  <ReactSVG src={SatelliteImage} />
+                ) : (
+                  ''
+                )}
+              </div>
+              <div>
+                <div className="home-product-title">{product.title}</div>
+                <div className="home-product-description">
+                  {product.description}
+                </div>
               </div>
             </>
           )}
