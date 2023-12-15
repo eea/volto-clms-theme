@@ -8,7 +8,13 @@ import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 export const TimeseriesPicker = (props) => {
-  const { start, end, item, setTimeseriesValue } = props;
+  const {
+    start,
+    end,
+    item,
+    download_limit_temporal_extent,
+    setTimeseriesValue,
+  } = props;
   const [startValue, setStartValue] = useState(
     item?.TemporalFilter?.StartDate
       ? new Date(cclDateFormat(item.TemporalFilter.StartDate))
@@ -20,82 +26,12 @@ export const TimeseriesPicker = (props) => {
       : null,
   );
   const [isOpen, setIsOpen] = useState(false);
-  const daysrestriction = item.name.includes('10-daily')
-    ? 'month'
-    : item.name.includes('daily')
-    ? 'week'
-    : 'year';
 
-  const monthDiff = (d1, d2) => {
-    var months;
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    months -= d1.getMonth();
-    months += d2.getMonth();
-    return months <= 0 ? 0 : months;
-  };
-
-  const isLeptYear = (year) => {
-    return year % 400 === 0 ? true : year % 100 === 0 ? false : year % 4 === 0;
-  };
-
-  const validDaysDifference = (value) => {
-    const periocity = item.name.includes('10-daily')
-      ? 1
-      : item.name.includes('daily')
-      ? 7
-      : 1;
-    let validValue = false;
-    const diffTime = Math.abs(
-      new Date(value['EndDate']) - new Date(value['StartDate']),
-    );
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const diffMonths = monthDiff(
-      new Date(value['StartDate']),
-      new Date(value['EndDate']),
-    );
-    const diffYears =
-      new Date(value['EndDate']).getFullYear() -
-      new Date(value['StartDate']).getFullYear();
-    if (daysrestriction === 'week' && diffDays < periocity) {
-      validValue = true;
-    } else if (daysrestriction === 'month' && diffMonths <= periocity) {
-      const startDate = new Date(value['StartDate']);
-      const startDateMonth = startDate.getMonth();
-      if (
-        (startDateMonth === 3 ||
-          startDateMonth === 5 ||
-          startDateMonth === 8 ||
-          startDateMonth === 10) &&
-        diffDays <= 30
-      )
-        validValue = true;
-      else if (
-        startDateMonth === 1 &&
-        isLeptYear(startDate.getFullYear()) &&
-        diffDays <= 29
-      )
-        validValue = true;
-      else if (startDateMonth === 1 && diffDays <= 28) validValue = true;
-      else if (
-        startDateMonth !== 1 &&
-        startDateMonth !== 3 &&
-        startDateMonth !== 5 &&
-        startDateMonth !== 8 &&
-        startDateMonth !== 10 &&
-        diffDays <= 31
-      )
-        validValue = true;
-    } else if (daysrestriction === 'year' && diffYears <= periocity) {
-      const startDate = new Date(value['StartDate']);
-      if (
-        isLeptYear(startDate.getFullYear()) &&
-        startDate.getMonth() < 2 &&
-        diffDays <= 366
-      )
-        validValue = true;
-      else if (diffDays <= 365) validValue = true;
-    }
-    return validValue;
+  const isValidDateRange = ({ start, end, limit }) => {
+    /* Calculate if the difference in days is smaller than the allowed limit */
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const diffDays = Math.round(Math.abs((start - end) / oneDay));
+    return diffDays <= limit;
   };
 
   return (
@@ -170,11 +106,17 @@ export const TimeseriesPicker = (props) => {
               Click the start and end dates, and then apply.
               {(!startValue ||
                 !endValue ||
-                !validDaysDifference({
-                  StartDate: startValue,
-                  EndDate: endValue,
+                !isValidDateRange({
+                  start: startValue,
+                  end: endValue,
+                  limit: download_limit_temporal_extent,
                 })) && (
-                <span> Allowed time range of 1 {daysrestriction}. </span>
+                <span>
+                  {' '}
+                  Allowed time range of {
+                    download_limit_temporal_extent
+                  } days.{' '}
+                </span>
               )}
               <CclButton
                 isButton={true}
@@ -183,9 +125,10 @@ export const TimeseriesPicker = (props) => {
                   startValue?.getTime() > endValue?.getTime() ||
                   !startValue ||
                   !endValue ||
-                  !validDaysDifference({
-                    StartDate: startValue,
-                    EndDate: endValue,
+                  !isValidDateRange({
+                    start: startValue,
+                    end: endValue,
+                    limit: download_limit_temporal_extent,
                   })
                 }
                 onClick={() => {
