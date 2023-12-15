@@ -13,8 +13,6 @@ const TextareaWithRequestData = (props) => {
       : '',
   );
 
-  console.log('hashMatch', hashMatch);
-
   return <TextareaWidget {...props} defaultValue={hashMatch} />;
 };
 
