@@ -13,7 +13,9 @@ const TextareaWithRequestData = (props) => {
       : '',
   );
 
-  return <TextareaWidget {...props} value={hashMatch} />;
+  console.log('hashMatch', hashMatch);
+
+  return <TextareaWidget {...props} defaultValue={hashMatch} />;
 };
 
 export default TextareaWithRequestData;
