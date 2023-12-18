@@ -355,7 +355,7 @@ const CLMSCartContent = (props) => {
                           <strong>Format: </strong>{' '}
                           <UniversalLink href="/en/faq/download/need-information-about-the-file-formats">
                             <Popup
-                              content="Explore Formats details and coordinate systems with a click."
+                              content="Explore Formats details with a click."
                               trigger={
                                 <FontAwesomeIcon
                                   color="#000000"
