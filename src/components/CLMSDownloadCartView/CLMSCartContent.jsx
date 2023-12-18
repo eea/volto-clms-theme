@@ -593,7 +593,7 @@ const CLMSCartContent = (props) => {
               cartSelection.length === 0 || tooManyInQueue || tooManySelected()
             }
           >
-            Start downloading
+            Process Download Request
           </CclButton>
         </>
       )}
