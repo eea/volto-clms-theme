@@ -22,19 +22,19 @@ export const AreaNaming = (areaProps) => {
                   <React.Fragment>
                     <div className="tools">
                       <button
-                        className="ccl-button ccl-button--default"
+                        className="tool-button ccl-button ccl-button--default"
                         onClick={() => zoomIn()}
                       >
                         Zoom in
                       </button>
                       <button
-                        className="ccl-button ccl-button--default"
+                        className="tool-button ccl-button ccl-button--default"
                         onClick={() => zoomOut()}
                       >
                         Zoom out
                       </button>
                       <button
-                        className="ccl-button ccl-button--default"
+                        className="tool-button ccl-button ccl-button--default"
                         onClick={() => resetTransform()}
                       >
                         Reset zoom
