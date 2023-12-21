@@ -2,7 +2,7 @@ import React from 'react';
 import { Segment, Modal } from 'semantic-ui-react';
 import Draggable from 'react-draggable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 
 function CclModal(props) {
   let {
@@ -42,7 +42,7 @@ function CclModal(props) {
               ></span>
             </div>
             <Segment compact className="handle">
-              <FontAwesomeIcon icon={faGripHorizontal} size="lg" />
+              <FontAwesomeIcon icon={faArrowsAlt} size="lg" />
             </Segment>
 
             {children}
