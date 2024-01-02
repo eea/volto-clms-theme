@@ -1,13 +1,17 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import qs from 'query-string';
+
 import { logout, purgeMessages } from '@plone/volto/actions';
+
+import qs from 'query-string';
+import Cookies from 'universal-cookie';
 
 const Logout = ({ location }) => {
   const token = useSelector((state) => state.userSession.token, shallowEqual);
   const history = useHistory();
   const dispatch = useDispatch();
+  const cookies = new Cookies();
 
   const returnUrl = useMemo(
     () =>
@@ -22,6 +26,8 @@ const Logout = ({ location }) => {
   useEffect(() => {
     dispatch(logout());
     dispatch(purgeMessages());
+    cookies.remove('auth_token', { path: '/' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
