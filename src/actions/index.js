@@ -98,6 +98,11 @@ export {
   postImportWMSFields,
 } from './import_wms_fields/import_wms_fields';
 
+export {
+  POST_IMPORT_API_LAYERS,
+  postImportAPILayers,
+} from './import_api_layers/import_api_layers';
+
 export { DELETE_PROFILE, delProfile } from './profile/delete_profile';
 
 export { GET_NAVROOT } from './navroot/navroot';

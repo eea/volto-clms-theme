@@ -17,6 +17,7 @@ import { subscribeToReducer } from './subscription/subscription_reducer';
 import tokens from './tokens/tokens';
 import { userschemaReducer } from './userschema/userschema';
 import { importWMSLayersReducer } from './import_wms_layers/import_wms_layers_reducer';
+import { importAPILayersReducer } from './import_api_layers/import_api_layers_reducer';
 import { importWMSFieldsReducer } from './import_wms_fields/import_wms_fields_reducer';
 import { deleteProfileReducer } from './profile/delete_profile_reducer';
 import navroot from './navroot/navroot';
@@ -46,6 +47,7 @@ const reducers = {
   newsletter_subscribers: newsletterSubscribersReducer,
   subscription: subscribeToReducer,
   importWMSLayers: importWMSLayersReducer,
+  importAPILayers: importAPILayersReducer,
   importWMSFields: importWMSFieldsReducer,
   profile_delete: deleteProfileReducer,
   navroot,

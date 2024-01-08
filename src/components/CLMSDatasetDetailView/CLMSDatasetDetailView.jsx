@@ -15,7 +15,11 @@ import {
   DownloadDataSetContent,
 } from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
 
-import { postImportWMSLayers, postImportWMSFields } from '../../actions';
+import {
+  postImportWMSLayers,
+  postImportWMSFields,
+  postImportAPILayers,
+} from '../../actions';
 import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';
 
 import jwtDecode from 'jwt-decode';
@@ -39,6 +43,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   const dispatch = useDispatch();
 
   const wms_layers_importation = useSelector((state) => state.importWMSLayers);
+  const api_layers_importation = useSelector((state) => state.importAPILayers);
   const wms_fields_importation = useSelector((state) => state.importWMSFields);
   const user = useSelector((state) => state.users?.user);
 
@@ -50,6 +55,10 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
   function handleWMSImport() {
     dispatch(postImportWMSLayers(location.pathname));
+  }
+
+  function handleAPIImport() {
+    dispatch(postImportAPILayers(location.pathname));
   }
 
   function handleWMSFieldimport() {
@@ -111,7 +120,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
         <>
           <h2>MapLayers importation options:</h2>
           <Segment basic>
-            <Grid columns={2} compact horizontal>
+            <Grid columns={3} compact horizontal>
               <Grid.Column>
                 <Segment
                   padded={'very'}
@@ -135,8 +144,8 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                     trigger={
                       <CclButton>
                         <FormattedMessage
-                          id="Import WMS Layers"
-                          defaultMessage="Import WMS Layers"
+                          id="Import WMS Layers from GeoNetwork"
+                          defaultMessage="Import WMS Layers from GeoNetwork"
                         />
                       </CclButton>
                     }
@@ -161,8 +170,8 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                         <div className="modal-login-text">
                           <h1>
                             <FormattedMessage
-                              id="Import WMS Layers"
-                              defaultMessage="Import WMS Layers"
+                              id="Import WMS Layers from GeoNetwork"
+                              defaultMessage="Import WMS Layers from GeoNetwork"
                             />
                           </h1>
                           This action will import the WMS Layers from the view
@@ -212,6 +221,105 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                   )}
                 </Segment>
               </Grid.Column>
+              <Grid.Column>
+                <Segment
+                  padded={'very'}
+                  color={'olive'}
+                  key={'api-layers-import'}
+                  loading={api_layers_importation?.loading}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Modal
+                    onClose={() => {
+                      setOpen({ ...open, 'api-layers-import': false });
+                    }}
+                    onOpen={() => {
+                      setOpen({ ...open, 'api-layers-import': true });
+                    }}
+                    open={open['api-layers-import']}
+                    trigger={
+                      <CclButton>
+                        <FormattedMessage
+                          id="Import WMS Layers from REST API"
+                          defaultMessage="Import WMS Layers from REST API"
+                        />
+                      </CclButton>
+                    }
+                    className={'modal-clms'}
+                  >
+                    <div className={'modal-clms-background'}>
+                      <div className={'modal-clms-container'}>
+                        <div className={'modal-close modal-clms-close'}>
+                          <span
+                            className="ccl-icon-close"
+                            aria-label="Close"
+                            onClick={() => {
+                              setOpen({ ...open, 'api-layers-import': false });
+                            }}
+                            onKeyDown={() => {
+                              setOpen({ ...open, 'api-layers-import': false });
+                            }}
+                            tabIndex="0"
+                            role="button"
+                          ></span>
+                        </div>
+                        <div className="modal-login-text">
+                          <h1>
+                            <FormattedMessage
+                              id="Import WMS Layers from REST API"
+                              defaultMessage="Import WMS Layers from REST API"
+                            />
+                          </h1>
+                          This action will import the WMS Layers from the
+                          Metadata REST API endpoint defined in the dataset
+                          <br />
+                          <br />
+                        </div>
+                        <CclButton
+                          onClick={() => {
+                            handleAPIImport();
+                            setOpen({ ...open, 'api-layers-import': false });
+                          }}
+                          mode="filled"
+                        >
+                          <FormattedMessage
+                            id="Import data"
+                            defaultMessage="Import data"
+                          />
+                        </CclButton>
+                      </div>
+                    </div>
+                  </Modal>
+                  {api_layers_importation?.imported_api_layers?.status && (
+                    <p>
+                      {api_layers_importation?.loaded &&
+                        api_layers_importation?.error === null && (
+                          <strong>
+                            {' '}
+                            {
+                              api_layers_importation?.imported_api_layers
+                                ?.message
+                            }
+                          </strong>
+                        )}
+                    </p>
+                  )}
+                  {api_layers_importation?.imported_api_layers?.status ===
+                    'error' && (
+                    <p>
+                      <strong>
+                        {' '}
+                        {api_layers_importation?.imported_api_layers?.message}
+                      </strong>
+                    </p>
+                  )}
+                </Segment>
+              </Grid.Column>
+
               <Grid.Column>
                 <Segment
                   padded={'very'}
