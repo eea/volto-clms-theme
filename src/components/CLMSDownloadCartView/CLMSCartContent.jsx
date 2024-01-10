@@ -421,7 +421,15 @@ const CLMSCartContent = (props) => {
                                 return {
                                   key: projection,
                                   value: projection,
-                                  text: projection,
+                                  text:
+                                    projection === item?.original_projection
+                                      ? projection +
+                                        ' (Source system of the dataset)'
+                                      : projection,
+                                  className:
+                                    projection === item?.original_projection
+                                      ? 'original_projection'
+                                      : 'projection',
                                 };
                               })
                             }
