@@ -126,6 +126,7 @@ export const getCartObjectFromMapviewer = (
     dataset_uid: dataset_data.UID,
     task_in_progress: false,
     projection: dataset_data.projection || projections[0],
+    original_projection: dataset_data.original_projection || '',
     timeExtent: local_cart_data.timeExtent || [],
     layer:
       type_options.length > 0 && type_options[0].layers.length > 0
