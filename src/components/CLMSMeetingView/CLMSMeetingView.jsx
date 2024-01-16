@@ -13,21 +13,22 @@ import {
   Recurrence,
   // When,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
-import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
-
+import { expandToBackendURL } from '@plone/volto/helpers';
+import calendarSVG from '@plone/volto/icons/calendar.svg';
 import checkSVG from '@plone/volto/icons/check.svg';
 import config from '@plone/volto/registry';
 import CclListingCards from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock/CclListingCards';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 
 import { postMeetingRegister } from '../../actions';
+import CclCard from '../CclCard/CclCard';
 import { CLMSRelatedItems } from '../CLMSRelatedItems';
 import { LightGalleryListing } from './CclLightGallery';
 import { RegisterButtonReasons } from './utils';
 
 import jwtDecode from 'jwt-decode';
-import CclCard from '../CclCard/CclCard';
 
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
@@ -112,6 +113,10 @@ export const CLMSMeetingView = (props) => {
     agreePrivacyPolicyLinkText: {
       id: 'agreePrivacyPolicyLinkText',
       defaultMessage: 'privacy policy.',
+    },
+    downloadEvent: {
+      id: 'Download Event',
+      defineMessages: 'Download Event',
     },
   });
 
@@ -262,7 +267,12 @@ export const CLMSMeetingView = (props) => {
           (content.allow_register && content.subscribers_link)) && (
           <Segment.Group compact horizontal>
             {content.allow_anonymous_registration && (
-              <Segment padded={'very'} color={'olive'} circular>
+              <Segment
+                className={'event-segment'}
+                padded={'very'}
+                color={'olive'}
+                circular
+              >
                 <strong>
                   <FormattedMessage
                     id="Anonymous registration form"
@@ -305,10 +315,26 @@ export const CLMSMeetingView = (props) => {
                       ></Message>
                     </p>
                   )}
+                <div className="download-event">
+                  <Icon name={calendarSVG} />
+                  <a
+                    className="ics-download"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`${expandToBackendURL(content['@id'])}/ics_view`}
+                  >
+                    {intl.formatMessage(messages.downloadEvent)}
+                  </a>
+                </div>
               </Segment>
             )}
             {content.allow_register && content.subscribers_link && (
-              <Segment padded={'very'} color={'olive'} circular>
+              <Segment
+                className={'event-segment'}
+                padded={'very'}
+                color={'olive'}
+                circular
+              >
                 <strong>
                   <FormattedMessage
                     id="Meeting register information"
@@ -335,12 +361,24 @@ export const CLMSMeetingView = (props) => {
                     defaultMessage="Mail archive"
                   />
                 </CclButton>
+                <div className="download-event">
+                  <Icon name={calendarSVG} />
+                  <a
+                    className="ics-download"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`${expandToBackendURL(content['@id'])}/ics_view`}
+                  >
+                    {intl.formatMessage(messages.downloadEvent)}
+                  </a>
+                </div>
               </Segment>
             )}
           </Segment.Group>
         )}
       {content.description}
       <Segment
+        className={'event-segment'}
         compact
         padded={'small'}
         color={'olive'}
@@ -355,7 +393,7 @@ export const CLMSMeetingView = (props) => {
             {content.whole_day ? (
               <When
                 start={content.start}
-                end={content.start}
+                end={content.end}
                 whole_day={content.whole_day}
                 br_in_timezone={true}
               />
@@ -476,6 +514,17 @@ export const CLMSMeetingView = (props) => {
             </div>
           </div>
         )}
+        <div className="download-event">
+          <Icon name={calendarSVG} />
+          <a
+            className="ics-download"
+            target="_blank"
+            rel="noreferrer"
+            href={`${expandToBackendURL(content['@id'])}/ics_view`}
+          >
+            {intl.formatMessage(messages.downloadEvent)}
+          </a>
+        </div>
       </Segment>
       <Segment basic>
         {content?.image && (
