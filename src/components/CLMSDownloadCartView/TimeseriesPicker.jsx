@@ -31,7 +31,7 @@ export const TimeseriesPicker = (props) => {
     /* Calculate if the difference in days is smaller than the allowed limit */
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const diffDays = Math.round(Math.abs((start - end) / oneDay));
-    return diffDays <= limit;
+    return diffDays < limit;
   };
 
   return (
