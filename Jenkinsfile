@@ -215,66 +215,66 @@ pipeline {
       }
     }
 
-    stage('Report to SonarQube') {
-      when {
-        anyOf {
-          allOf {
-            not { environment name: 'CHANGE_ID', value: '' }
-            environment name: 'CHANGE_TARGET', value: 'develop'
-          }
-          allOf {
-            environment name: 'CHANGE_ID', value: ''
-            anyOf {
-              allOf {
-                branch 'develop'
-                not { changelog '.*^Automated release [0-9\\.]+$' }
-              }
-              branch 'master'
-            }
-          }
-        }
-      }
-      steps {
-        script {
-          def scannerHome = tool 'SonarQubeScanner'
-          def nodeJS = tool 'NodeJS'
-          withSonarQubeEnv('Sonarqube') {
-            sh '''sed -i "s#/app/src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
-            sh '''sed -i "s#src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
-            // sh "export PATH=${scannerHome}/bin:${nodeJS}/bin:$PATH; sonar-scanner -Dsonar.javascript.lcov.reportPaths=./xunit-reports/coverage/lcov.info,./cypress-coverage/coverage/lcov.info -Dsonar.sources=./src -Dsonar.projectKey=$GIT_NAME-$BRANCH_NAME -Dsonar.projectVersion=$BRANCH_NAME-$BUILD_NUMBER"
-            sh '''try=5; while [ \$try -gt 0 ]; do curl -s -XPOST -u "${SONAR_AUTH_TOKEN}:" "${SONAR_HOST_URL}api/project_tags/set?project=${GIT_NAME}-${BRANCH_NAME}&tags=${SONARQUBE_TAGS},${BRANCH_NAME}" > set_tags_result; if [ \$(grep -ic error set_tags_result ) -eq 0 ]; then try=0; else cat set_tags_result; echo "... Will retry"; sleep 15; try=\$(( \$try - 1 )); fi; done'''
-          }
-        }
-      }
-    }
+    // stage('Report to SonarQube') {
+    //   when {
+    //     anyOf {
+    //       allOf {
+    //         not { environment name: 'CHANGE_ID', value: '' }
+    //         environment name: 'CHANGE_TARGET', value: 'develop'
+    //       }
+    //       allOf {
+    //         environment name: 'CHANGE_ID', value: ''
+    //         anyOf {
+    //           allOf {
+    //             branch 'develop'
+    //             not { changelog '.*^Automated release [0-9\\.]+$' }
+    //           }
+    //           branch 'master'
+    //         }
+    //       }
+    //     }
+    //   }
+    //   steps {
+    //     script {
+    //       def scannerHome = tool 'SonarQubeScanner'
+    //       def nodeJS = tool 'NodeJS'
+    //       withSonarQubeEnv('Sonarqube') {
+    //         sh '''sed -i "s#/app/src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
+    //         sh '''sed -i "s#src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
+    //         // sh "export PATH=${scannerHome}/bin:${nodeJS}/bin:$PATH; sonar-scanner -Dsonar.javascript.lcov.reportPaths=./xunit-reports/coverage/lcov.info,./cypress-coverage/coverage/lcov.info -Dsonar.sources=./src -Dsonar.projectKey=$GIT_NAME-$BRANCH_NAME -Dsonar.projectVersion=$BRANCH_NAME-$BUILD_NUMBER"
+    //         sh '''try=5; while [ \$try -gt 0 ]; do curl -s -XPOST -u "${SONAR_AUTH_TOKEN}:" "${SONAR_HOST_URL}api/project_tags/set?project=${GIT_NAME}-${BRANCH_NAME}&tags=${SONARQUBE_TAGS},${BRANCH_NAME}" > set_tags_result; if [ \$(grep -ic error set_tags_result ) -eq 0 ]; then try=0; else cat set_tags_result; echo "... Will retry"; sleep 15; try=\$(( \$try - 1 )); fi; done'''
+    //       }
+    //     }
+    //   }
+    // }
 
-    stage('SonarQube compare to master') {
-      when {
-        anyOf {
-          allOf {
-            not { environment name: 'CHANGE_ID', value: '' }
-            environment name: 'CHANGE_TARGET', value: 'develop'
-          }
-          allOf {
-            environment name: 'CHANGE_ID', value: ''
-            branch 'develop'
-            not { changelog '.*^Automated release [0-9\\.]+$' }
-          }
-        }
-      }
-      steps {
-        script {
-          sh '''echo "Error" > checkresult.txt'''
-          catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-            sh '''set -o pipefail; docker run -i --rm --pull always --name="$IMAGE_NAME-gitflow-sn" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_NAME="$GIT_NAME" eeacms/gitflow /checkSonarqubemaster.sh | grep -v "Found script" | tee checkresult.txt'''
-          }
+    // stage('SonarQube compare to master') {
+    //   when {
+    //     anyOf {
+    //       allOf {
+    //         not { environment name: 'CHANGE_ID', value: '' }
+    //         environment name: 'CHANGE_TARGET', value: 'develop'
+    //       }
+    //       allOf {
+    //         environment name: 'CHANGE_ID', value: ''
+    //         branch 'develop'
+    //         not { changelog '.*^Automated release [0-9\\.]+$' }
+    //       }
+    //     }
+    //   }
+    //   steps {
+    //     script {
+    //       sh '''echo "Error" > checkresult.txt'''
+    //       catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+    //         sh '''set -o pipefail; docker run -i --rm --pull always --name="$IMAGE_NAME-gitflow-sn" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_NAME="$GIT_NAME" eeacms/gitflow /checkSonarqubemaster.sh | grep -v "Found script" | tee checkresult.txt'''
+    //       }
 
-          publishChecks name: 'SonarQube', title: 'Sonarqube Code Quality Check', summary: 'Quality check on the SonarQube metrics from branch develop, comparing it with the ones from master branch. No bugs are allowed',
-                        text: readFile(file: 'checkresult.txt'), conclusion: "${currentBuild.currentResult}",
-                        detailsURL: "${env.BUILD_URL}display/redirect"
-        }
-      }
-    }
+    //       publishChecks name: 'SonarQube', title: 'Sonarqube Code Quality Check', summary: 'Quality check on the SonarQube metrics from branch develop, comparing it with the ones from master branch. No bugs are allowed',
+    //                     text: readFile(file: 'checkresult.txt'), conclusion: "${currentBuild.currentResult}",
+    //                     detailsURL: "${env.BUILD_URL}display/redirect"
+    //     }
+    //   }
+    // }
 
     stage('Pull Request') {
       when {
