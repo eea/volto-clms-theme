@@ -1,8 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useIntl, defineMessages } from 'react-intl';
 
 import WysiwygWidget from '@plone/volto/components/manage/Widgets/WysiwygWidget';
+import config from '@plone/volto/registry';
+
+/* Style */
+import 'volto-form-block/components/Field.css';
 import {
   EmailWidget,
   FileWidget,
@@ -14,10 +17,8 @@ import {
   CheckboxListWidget,
   RadioWidget,
 } from 'volto-form-block/components/Widget';
-import config from '@plone/volto/registry';
 
-/* Style */
-import 'volto-form-block/components/Field.css';
+import PropTypes from 'prop-types';
 
 const messages = defineMessages({
   select_a_value: {
@@ -82,6 +83,7 @@ const Field = ({
           isDisabled={disabled}
           invalid={isInvalid().toString()}
           {...(isInvalid() ? { className: 'is-invalid' } : {})}
+          {...rest}
         />
       )}
       {field_type === 'select' && (
