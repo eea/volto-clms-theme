@@ -421,15 +421,31 @@ const CLMSCartContent = (props) => {
                                 return {
                                   key: projection,
                                   value: projection,
-                                  text:
-                                    projection === item?.original_projection
-                                      ? projection +
-                                        ' (Source system of the dataset)'
-                                      : projection,
-                                  className:
-                                    projection === item?.original_projection
-                                      ? 'original_projection'
-                                      : 'projection',
+                                  text: item?.original_projection
+                                    .replaceAll(
+                                      '/ ',
+                                      ' ' +
+                                        projection.substring(
+                                          0,
+                                          projection.indexOf(':') + 1,
+                                        ),
+                                    )
+                                    .includes(projection)
+                                    ? projection +
+                                      ' (Source system of the dataset)'
+                                    : projection,
+                                  className: item?.original_projection
+                                    .replaceAll(
+                                      '/ ',
+                                      ' ' +
+                                        projection.substring(
+                                          0,
+                                          projection.indexOf(':') + 1,
+                                        ),
+                                    )
+                                    .includes(projection)
+                                    ? 'original_projection'
+                                    : 'projection',
                                 };
                               })
                             }
