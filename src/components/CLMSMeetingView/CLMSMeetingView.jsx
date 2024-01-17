@@ -114,9 +114,9 @@ export const CLMSMeetingView = (props) => {
       id: 'agreePrivacyPolicyLinkText',
       defaultMessage: 'privacy policy.',
     },
-    downloadEvent: {
-      id: 'Download Event',
-      defineMessages: 'Download Event',
+    addEventToCalendar: {
+      id: 'Add event to calendar',
+      defineMessages: 'Add event to calendar',
     },
   });
 
@@ -323,7 +323,7 @@ export const CLMSMeetingView = (props) => {
                     rel="noreferrer"
                     href={`${expandToBackendURL(content['@id'])}/ics_view`}
                   >
-                    {intl.formatMessage(messages.downloadEvent)}
+                    {intl.formatMessage(messages.addEventToCalendar)}
                   </a>
                 </div>
               </Segment>
@@ -369,7 +369,7 @@ export const CLMSMeetingView = (props) => {
                     rel="noreferrer"
                     href={`${expandToBackendURL(content['@id'])}/ics_view`}
                   >
-                    {intl.formatMessage(messages.downloadEvent)}
+                    {intl.formatMessage(messages.addEventToCalendar)}
                   </a>
                 </div>
               </Segment>
@@ -522,7 +522,7 @@ export const CLMSMeetingView = (props) => {
             rel="noreferrer"
             href={`${expandToBackendURL(content['@id'])}/ics_view`}
           >
-            {intl.formatMessage(messages.downloadEvent)}
+            {intl.formatMessage(messages.addEventToCalendar)}
           </a>
         </div>
       </Segment>
