@@ -2,13 +2,13 @@
  * TextareaWidget component.
  * @module components/manage/Widgets/TextareaWidget
  */
-
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { Label, TextArea } from 'semantic-ui-react';
 
-import { injectIntl } from 'react-intl';
 import { FormFieldWrapper } from '@plone/volto/components';
+
+import PropTypes from 'prop-types';
 
 /**
  * TextareaWidget, a widget for multiple lines text
@@ -40,9 +40,18 @@ const TextareaWidget = (props) => {
     onChange(id, value);
   };
 
-  let values = {};
+  const simulateWrite = () => {
+    // Simulate user typing a white space on component first load
+    // to trigger validation and display error message if necessary
+    if (!value && defaultValue) {
+      onhandleChange(id, defaultValue + ' ');
+    }
+  };
 
-  if (defaultValue) {
+  let values = {};
+  if (defaultValue && value === null) {
+    values['value'] = defaultValue;
+  } else if (defaultValue) {
     values['defaultValue'] = defaultValue;
   } else {
     values['value'] = value || '';
@@ -58,6 +67,7 @@ const TextareaWidget = (props) => {
         onChange={({ target }) =>
           onhandleChange(id, target.value === '' ? undefined : target.value)
         }
+        ref={simulateWrite}
         {...values}
       />
       {lengthError.length > 0 && (
