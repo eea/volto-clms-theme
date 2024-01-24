@@ -1,18 +1,22 @@
-import { CardBlockSchema, CardContainerSchema } from './CardContainerSchema';
 import React, { useState } from 'react';
-import { emptyCard, getPanels } from '../utils';
-
-import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
-import { SidebarPortal, BlockDataForm } from '@plone/volto/components'; // BlocksForm, Icon,
-import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
-import { compose } from 'redux';
 import { injectIntl } from 'react-intl';
-import { isEmpty } from 'lodash';
-import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
-import CclImageEditor from '@eeacms/volto-clms-theme/components/CclImageEditor/CclImageEditor';
 import { defineMessages } from 'react-intl';
+import { compose } from 'redux';
+
+import { SidebarPortal, BlockDataForm } from '@plone/volto/components'; // BlocksForm, Icon,
+import withObjectBrowser from '@plone/volto/components/manage/Sidebar/ObjectBrowser';
+import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
 import config from '@plone/volto/registry';
+import CclHomeImageEditor from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor';
+import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';
+import CclCard from '@eeacms/volto-clms-theme/components/CclCard/CclCard';
+import CclImageEditor from '@eeacms/volto-clms-theme/components/CclImageEditor/CclImageEditor';
+
+import { emptyCard, getPanels } from '../utils';
+import { CardBlockSchema, CardContainerSchema } from './CardContainerSchema';
 import getListingBodyVariation from './utils.js';
+
+import { isEmpty } from 'lodash';
 
 const messages = defineMessages({
   template: {
@@ -64,7 +68,9 @@ const CclCardContainerBlockEdit = ({
 
   const variation = getListingBodyVariation(data);
   let containerClass = '';
-  if (['news', 'event'].includes(variation.templateID)) {
+  if (data.variation === 'cardWithBgImage') {
+    containerClass = 'home-map-container';
+  } else if (['news', 'event'].includes(variation.templateID)) {
     containerClass = 'ccl-container';
   } else if (!['line', 'doc', 'globalSearch'].includes(variation.templateID)) {
     containerClass = 'card-container';
@@ -83,32 +89,62 @@ const CclCardContainerBlockEdit = ({
         {data.title || 'Card container'}
       </div>
       <div className={containerClass}>
-        {panels.map(([uid, panel], index) => (
-          <CclCard
-            key={index}
-            type={variation?.templateID || 'doc'}
-            card={panel}
-            onClickImage={() => {
-              setSelectedCardBlock(uid);
-            }}
-            isCustomCard={true}
-            CclImageEditor={
-              <CclImageEditor
-                block={block}
-                data={data}
-                editable={editable}
-                imageUrl={panel?.image?.url}
-                onChangeBlock={onChangeBlock}
-                openObjectBrowser={openObjectBrowser}
-                pathname={pathname}
-                selected={selected}
-                selectedCardBlock={selectedCardBlock}
-                setSelectedCardBlock={setSelectedCardBlock}
-                uid={uid}
+        {variation?.id === 'cardWithBgImage' ? (
+          <>
+            <CclHomeImageEditor
+              data={data}
+              openObjectBrowser={openObjectBrowser}
+              selected={selected}
+              block={block}
+              editable={editable}
+              pathname={pathname}
+              onChangeBlock={onChangeBlock}
+            />
+            <HomeBgImg url={data?.image?.url} alt={data?.image?.alt} />
+            <div className="ccl-container">
+              {panels.map(([uid, panel], index) => (
+                <CclCard
+                  key={index}
+                  type={variation?.templateID || 'doc'}
+                  card={panel}
+                  onClickImage={() => {
+                    setSelectedCardBlock(uid);
+                  }}
+                  isCustomCard={true}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            {panels.map(([uid, panel], index) => (
+              <CclCard
+                key={index}
+                type={variation?.templateID || 'doc'}
+                card={panel}
+                onClickImage={() => {
+                  setSelectedCardBlock(uid);
+                }}
+                isCustomCard={true}
+                CclImageEditor={
+                  <CclImageEditor
+                    block={block}
+                    data={data}
+                    editable={editable}
+                    imageUrl={panel?.image?.url}
+                    onChangeBlock={onChangeBlock}
+                    openObjectBrowser={openObjectBrowser}
+                    pathname={pathname}
+                    selected={selected}
+                    selectedCardBlock={selectedCardBlock}
+                    setSelectedCardBlock={setSelectedCardBlock}
+                    uid={uid}
+                  />
+                }
               />
-            }
-          />
-        ))}
+            ))}
+          </>
+        )}
       </div>
       <SidebarPortal selected={selected && selectedCardBlock === -1}>
         <BlockDataForm

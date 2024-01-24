@@ -165,6 +165,12 @@ const availableVariations = [
     true,
   ),
   listingVariation('CclGlobalSearch', false, 'Global search', 'globalSearch'),
+  listingVariation(
+    'cardWithBgImage',
+    false,
+    'cardWithBgImage',
+    'cardWithBgImage',
+  ),
 ];
 
 const customBlocks = (config) => ({
