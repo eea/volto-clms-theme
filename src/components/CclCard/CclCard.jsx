@@ -11,7 +11,7 @@ import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
-import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';
+// import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';
 
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
