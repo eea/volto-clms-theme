@@ -11,6 +11,7 @@ import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
+// import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';
 
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -218,6 +219,7 @@ function CclCard(props) {
     'file',
     'downloadFile',
     'fileWithoutDates',
+    'cardWithBgImage',
   ];
   const wrapperClass =
     'card-' +
@@ -229,6 +231,8 @@ function CclCard(props) {
       ? 'file card-file-aligned'
       : type === 'line-no-description'
       ? 'line card-line-no-description'
+      : type === 'cardWithBgImage'
+      ? 'home-map-banner'
       : type || 'line');
 
   return (
@@ -398,6 +402,35 @@ function CclCard(props) {
                   )}
                   <p className="card-event-description">{card?.description}</p>
                 </div>
+              </>
+            )}
+            {type === 'cardWithBgImage' && (
+              <>
+                {card.title && <h1>{card?.title}</h1>}
+                {card.subtitle && <h2>{card?.subtitle}</h2>}
+                {card.description && <h3>{card?.description} </h3>}
+                {card?.hasButton === true && (
+                  <CclButton
+                    url={
+                      card?.download && card?.href?.[0]?.['@type'] === 'File'
+                        ? card?.href?.[0]?.['@id'] + '/@@download/file'
+                        : card?.href?.[0]?.['@id']
+                    }
+                    disabled={card?.disabled}
+                    download={
+                      card?.download || card?.href?.[0]?.['@type'] === 'File'
+                    }
+                    target={
+                      card?.target ||
+                      (card?.download &&
+                        card?.href[0]['@type'] === 'File' &&
+                        '_blank')
+                    }
+                    mode={card?.style}
+                  >
+                    {card?.buttonTitle}
+                  </CclButton>
+                )}
               </>
             )}
           </>
