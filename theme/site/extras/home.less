@@ -293,6 +293,7 @@
 
 @media (max-width: 700px) {
   .home-dataset-banner,
+  .card-home-map-banner,
   .home-map-banner {
     min-width: 320px;
   }
@@ -313,6 +314,22 @@
     bottom: 4rem;
     height: auto;
     padding: 0;
+  }
+}
+
+.card-home-map-banner {
+  max-width: 100%;
+  padding: 1.5rem;
+  background-color: fade(@white, 70%);
+  text-align: center;
+}
+
+.card-home-map-banner h4 {
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .card-home-map-banner {
+    width: 25%;
   }
 }
 

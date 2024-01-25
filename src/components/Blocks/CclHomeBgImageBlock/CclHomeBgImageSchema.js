@@ -1,9 +1,4 @@
-export const HomeBgImageSchema = (
-  config,
-  hasButton,
-  hasLocationInfo,
-  hasDatasetButton,
-) => {
+export const HomeBgImageSchema = (config, hasButton, hasLocationInfo) => {
   const variationsConfig = config.blocks.blocksConfig['homeBgImage'].variations;
   const variations = Object.keys(variationsConfig).map((variation) => [
     variationsConfig[variation].id,
@@ -15,20 +10,6 @@ export const HomeBgImageSchema = (
           id: 'buttonStyle',
           title: 'Button style',
           fields: ['buttonTitle', 'href', 'style', 'disabled'],
-        },
-      ]
-    : [];
-  const hasDatasetButtonFieldset = hasDatasetButton
-    ? [
-        {
-          id: 'datasetButtonStyle',
-          title: 'Dataset button style',
-          fields: [
-            'dataset_buttonTitle',
-            'dataset_href',
-            'dataset_style',
-            'dataset_disabled',
-          ],
         },
       ]
     : [];
@@ -55,15 +36,10 @@ export const HomeBgImageSchema = (
           'location',
           'hasLocationInfo',
           'hasButton',
-          'dataset_title',
-          'dataset_subtitle',
-          'dataset_description',
-          'hasDatasetButton',
         ],
       },
       ...hasLocationFieldset,
       ...hasButtonFieldset,
-      ...hasDatasetButtonFieldset,
     ],
     properties: {
       title: {
@@ -142,52 +118,6 @@ export const HomeBgImageSchema = (
         default: 'default',
       },
       disabled: {
-        title: 'Disabled',
-        type: 'boolean',
-        default: false,
-      },
-      dataset_title: {
-        title: 'Dataset title',
-        description: 'Dataset div title',
-        type: 'string',
-      },
-      dataset_subtitle: {
-        title: 'Dataset subTitle',
-        description: 'Dataset div Subtitle',
-        type: 'string',
-      },
-      dataset_description: {
-        title: 'Dataset description',
-        description: 'Dataset div description',
-        type: 'string',
-      },
-      hasDatasetButton: {
-        title: 'Dataset button',
-        type: 'boolean',
-        default: false,
-      },
-      dataset_buttonTitle: {
-        title: 'Title',
-        description: 'Add button text',
-        type: 'string',
-      },
-      dataset_href: {
-        title: 'URL',
-        description: 'Select site content or paste external url',
-        widget: 'object_browser',
-        mode: 'link',
-        selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
-        allowExternals: true,
-      },
-      dataset_style: {
-        title: 'Button style',
-        choices: [
-          ['default', 'Default'],
-          ['filled', 'Filled'],
-        ],
-        default: 'default',
-      },
-      dataset_disabled: {
         title: 'Disabled',
         type: 'boolean',
         default: false,

@@ -349,7 +349,7 @@ const DataSetInfoContent = (props) => {
                 </Accordion>
               )}
 
-              {props.jrc_show_related_datasets && (
+              {props.jrc_show_related_datasets && props.datasets.length > 0 && (
                 <Accordion fluid styled>
                   <Accordion.Title
                     as={'h2'}

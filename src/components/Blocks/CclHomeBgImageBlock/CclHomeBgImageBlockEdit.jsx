@@ -31,6 +31,7 @@ const CclHomeBgImageBlockEdit = (props) => {
     });
     /* eslint-disable-next-line */
   }, []);
+
   return (
     <>
       <BodyTemplate
@@ -44,7 +45,6 @@ const CclHomeBgImageBlockEdit = (props) => {
             config,
             data.hasButton,
             data.hasLocationInfo,
-            data.hasDatasetButton,
           )}
           title="Carousel Div block"
           onChangeField={(id, value) => {
