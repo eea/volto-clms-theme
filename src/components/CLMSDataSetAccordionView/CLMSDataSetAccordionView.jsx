@@ -6,7 +6,7 @@ import { flattenToAppURL } from '@plone/volto/helpers';
 
 const CLMSDataSetAccordionView = (props) => {
   const { content } = props;
-  const parent_url = content?.parent?.['@id'];
+  // const parent_url = content?.parent?.['@id'];
   const userSession = useSelector((state) => state.userSession);
   const isLoggedIn = userSession?.token;
 
