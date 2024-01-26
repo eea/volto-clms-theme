@@ -76,7 +76,7 @@ const CclCardContainerBlockEdit = ({
     containerClass = 'card-container';
   }
 
-  let hasExtras = data.variation === 'cardWithBgImage' ? true : false;
+  let hasButton = data.variation === 'cardWithBgImage' ? true : false;
 
   return (
     <>
@@ -167,10 +167,7 @@ const CclCardContainerBlockEdit = ({
         }
       >
         <BlockDataForm
-          schema={CardBlockSchema(
-            hasExtras,
-            data?.customCards?.blocks?.[selectedCardBlock]?.hasButton,
-          )}
+          schema={CardBlockSchema(hasButton)}
           title="Card block"
           onChangeField={(id, value) => {
             onChangeBlock(block, {
