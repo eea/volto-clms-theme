@@ -54,11 +54,11 @@ export const CardBlockSchema = (hasButton) => {
         title: 'Card image',
       },
       description: {
-        title: 'Product description',
+        title: 'Description',
         type: 'string',
       },
       url: {
-        title: 'url',
+        title: 'URL',
         widget: 'object_browser',
         mode: 'link',
         allowExternals: true,

@@ -235,6 +235,8 @@ function CclCard(props) {
       ? 'home-map-banner'
       : type || 'line');
 
+  console.log('url', url);
+
   return (
     <CardLink
       url={url}
@@ -411,7 +413,7 @@ function CclCard(props) {
                 {card.description && <h3>{card?.description} </h3>}
                 {card?.buttonTitle && (
                   <CclButton
-                    url={url}
+                    url={url === '/' ? '#' : url}
                     disabled={card?.disabled}
                     download={
                       card?.download || card?.href?.[0]?.['@type'] === 'File'
