@@ -5,22 +5,57 @@ import { useSelector } from 'react-redux';
 import { slugify } from '@plone/volto/helpers/Utils/Utils';
 
 /**
+ * @function numberOfPaginatedBlocks
+ * @description A function to search blocks with pagination, return the number of blocks with pagination possibility.
+ * @returns {string} Example: 2
+ */
+
+const numberOfPaginatedBlocks = (blocks, blocksLayout) => {
+  const blockTypesWithPagination = ['search', 'listing'];
+  const total = blocksLayout.reduce((acc, blockId) => {
+    if (blockTypesWithPagination.includes(blocks[blockId]['@type'])) {
+      return 1 + acc;
+    } else if (
+      'tabs_block' === blocks[blockId]['@type'] &&
+      blocks[blockId].data?.blocks &&
+      blocks[blockId].data?.blocks_layout?.items
+    ) {
+      const tab_items = blocks[blockId].data?.blocks_layout?.items;
+      const tab_blocks = blocks[blockId].data?.blocks;
+      const tab_paginations = tab_items.reduce((acc, blockId) => {
+        return (
+          acc +
+          numberOfPaginatedBlocks(
+            tab_blocks[blockId].blocks,
+            tab_blocks[blockId].blocks_layout?.items,
+          )
+        );
+      }, 0);
+      return (
+        tab_paginations +
+        numberOfPaginatedBlocks(
+          blocks[blockId].data?.blocks,
+          blocks[blockId].data?.blocks_layout?.items,
+        ) +
+        acc
+      );
+    } // else if (/* TODO: add the support for other container blocks. fe: accordion */){}
+    return acc;
+  }, 0);
+  return total;
+};
+
+/**
  * @function useCreatePageQueryStringKey
  * @description A hook that creates a key with an id if there are multiple blocks with pagination.
  * @returns {string} Example: page || page_012345678
  */
 const useCreatePageQueryStringKey = (id) => {
-  const blockTypesWithPagination = ['search', 'listing'];
   const blocks = useSelector((state) => state?.content?.data?.blocks) || [];
   const blocksLayout =
     useSelector((state) => state?.content?.data?.blocks_layout?.items) || [];
-  const displayedBlocks = blocksLayout?.map((item) => blocks[item]);
-  const hasMultiplePaginations =
-    displayedBlocks.filter((item) =>
-      blockTypesWithPagination.includes(item['@type']),
-    ).length > 1 || false;
-
-  return hasMultiplePaginations ? slugify(`page-${id}`) : 'page';
+  const paginatedBlocks = numberOfPaginatedBlocks(blocks, blocksLayout);
+  return paginatedBlocks > 1 ? slugify(`page-${id}`) : 'page';
 };
 
 const useGetBlockType = (id) => {
