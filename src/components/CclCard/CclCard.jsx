@@ -235,8 +235,6 @@ function CclCard(props) {
       ? 'home-map-banner'
       : type || 'line');
 
-  console.log('url', url);
-
   return (
     <CardLink
       url={url}
