@@ -22,22 +22,13 @@ export const CardContainerSchema = () => ({
   required: ['variation', 'cardOrigin'],
 });
 
-export const CardBlockSchema = (hasExtras, hasButton) => {
-  const hasExtrasFieldset = hasExtras
-    ? [
-        {
-          id: 'extraFields',
-          title: 'Extra fields',
-          fields: ['subtitle', 'hasButton'],
-        },
-      ]
-    : [];
+export const CardBlockSchema = (hasButton) => {
   const hasButtonFieldset = hasButton
     ? [
         {
           id: 'buttonStyle',
           title: 'Button style',
-          fields: ['buttonTitle', 'href', 'style', 'disabled'],
+          fields: ['buttonTitle', 'style', 'disabled'],
         },
       ]
     : [];
@@ -50,7 +41,6 @@ export const CardBlockSchema = (hasExtras, hasButton) => {
         title: 'Default',
         fields: ['title', 'description', 'url'],
       },
-      ...hasExtrasFieldset,
       ...hasButtonFieldset,
     ],
     properties: {
@@ -64,37 +54,24 @@ export const CardBlockSchema = (hasExtras, hasButton) => {
         title: 'Card image',
       },
       description: {
-        title: 'Product description',
+        title: 'Description',
         type: 'string',
       },
       url: {
-        title: 'url',
+        title: 'URL',
         widget: 'object_browser',
         mode: 'link',
         allowExternals: true,
       },
-      subtitle: {
-        title: 'SubTitle',
-        description: 'Div Subtitle',
-        type: 'string',
-      },
-      hasButton: {
-        title: 'Button',
-        type: 'boolean',
-        default: false,
-      },
+      // hasButton: {
+      //   title: 'Button',
+      //   type: 'boolean',
+      //   default: false,
+      // },
       buttonTitle: {
         title: 'Title',
         description: 'Add button text',
         type: 'string',
-      },
-      href: {
-        title: 'URL',
-        description: 'Select site content or paste external url',
-        widget: 'object_browser',
-        mode: 'link',
-        selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
-        allowExternals: true,
       },
       style: {
         title: 'Button style',

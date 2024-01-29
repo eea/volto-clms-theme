@@ -168,7 +168,7 @@ const availableVariations = [
   listingVariation(
     'cardWithBgImage',
     false,
-    'cardWithBgImage',
+    'Card with background image',
     'cardWithBgImage',
   ),
 ];

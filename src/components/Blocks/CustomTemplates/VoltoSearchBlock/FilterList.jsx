@@ -58,24 +58,34 @@ const FilterList = (props) => {
   // if (choices?.length > 0) {
   //   options = structure_taxonomy_terms(choices);
   // }
-  let currentFiltersToCount = {};
-  Object.keys(currentFilters).forEach((filterKey) => {
-    if (typeof currentFilters[filterKey] === 'object') {
-      currentFiltersToCount[filterKey] =
-        (baseFacets.filter((facet) => facet.field.value === filterKey).length >
-          0 &&
-          baseFacets.filter((facet) => facet.field.value === filterKey)[0]
-            .type === 'doubleRangeFacet') ||
-        (baseFacets.filter((facet) => facet.field.value === filterKey).length >
-          0 &&
-          baseFacets.filter((facet) => facet.field.value === filterKey)[0]
-            .type === 'doubleRangeSpatialFacet')
-          ? ['placeholder']
-          : currentFilters[filterKey].filter((filter) => {
+  const rangeFacets = ['doubleRangeFacet', 'doubleRangeSpatialFacet'];
+  const currentFiltersToCount = Object.keys(currentFilters).reduce((acc, f) => {
+    if (typeof currentFilters[f] === 'object') {
+      const queryDefinedFilter =
+        data?.query?.query?.length > 0
+          ? data?.query?.query.find((q) => q.i === f)
+          : null;
+      if (
+        !isEditMode &&
+        queryDefinedFilter?.v &&
+        currentFilters[f] &&
+        queryDefinedFilter.v.sort().toString() ===
+          currentFilters[f].sort().toString()
+      ) {
+        return acc;
+      }
+      acc[f] =
+        baseFacets.find((facet) => facet.field.value === f) &&
+        rangeFacets.includes(
+          baseFacets.filter((facet) => facet.field.value === f)[0].type,
+        )
+          ? ['rangeFacet']
+          : currentFilters[f].filter((filter) => {
               return !filtersToAvoidSet.has(filter);
             });
     }
-  });
+    return acc;
+  }, {});
   // const totalFilters = [].concat.apply([], Object.values(currentFilters))
   //   .length;
 

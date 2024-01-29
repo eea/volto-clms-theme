@@ -41,6 +41,11 @@ const Facets = (props) => {
           const field = facetSettings?.field?.value;
           const index = querystring.indexes[field] || {};
           const { values = {} } = index;
+          const isQueryDefined =
+            data.query?.query?.length > 0 &&
+            data.query?.query.find((q) => q.i === field)
+              ? true
+              : false;
 
           let choices = Object.keys(values)
             .map((name) => ({
@@ -75,14 +80,15 @@ const Facets = (props) => {
           const {
             rewriteOptions = (name, options) => options,
           } = search.extensions.facetWidgets;
-
           return FacetWrapper && (isEditMode || showFacet(index)) ? (
             <FacetWrapper key={facetSettings['@id']}>
               <FacetWidget
                 facet={facetSettings}
                 choices={rewriteOptions(facetSettings?.field?.value, choices)}
                 isMulti={isMulti}
-                value={value}
+                value={
+                  value.length < choices.length || !isQueryDefined ? value : []
+                }
                 isEditMode={isEditMode}
                 onChange={(id, value) => {
                   !isEditMode && setFacets({ ...facets, [id]: value });

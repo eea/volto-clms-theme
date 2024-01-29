@@ -409,13 +409,9 @@ function CclCard(props) {
                 {card.title && <h1>{card?.title}</h1>}
                 {card.subtitle && <h2>{card?.subtitle}</h2>}
                 {card.description && <h3>{card?.description} </h3>}
-                {card?.hasButton === true && (
+                {card?.buttonTitle && (
                   <CclButton
-                    url={
-                      card?.download && card?.href?.[0]?.['@type'] === 'File'
-                        ? card?.href?.[0]?.['@id'] + '/@@download/file'
-                        : card?.href?.[0]?.['@id']
-                    }
+                    url={url === '/' ? '#' : url}
                     disabled={card?.disabled}
                     download={
                       card?.download || card?.href?.[0]?.['@type'] === 'File'
