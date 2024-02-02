@@ -69,6 +69,7 @@ const CLMSCartContent = (props) => {
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
   );
+
   const nutsnames = useSelector((state) => state.nutsnames);
 
   // component states
@@ -417,7 +418,7 @@ const CLMSCartContent = (props) => {
                             value={item?.projection}
                             options={
                               projections.length > 0 &&
-                              projections?.map((projection) => {
+                              projections?.sort()?.map((projection) => {
                                 return {
                                   key: projection,
                                   value: projection,
