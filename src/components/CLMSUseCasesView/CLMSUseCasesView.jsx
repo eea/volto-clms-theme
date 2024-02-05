@@ -80,14 +80,14 @@ const CLMSUseCaseView = (props) => {
                 content?.submittingProducionYear) && (
                 <List celled horizontal className="usecase-other-values-list">
                   {content?.submittingProducionYear && (
-                    <List.Item>
+                    <List.Item className="usecase-list-item">
                       <span className="usecase-year">
                         {content?.submittingProducionYear}
                       </span>
                     </List.Item>
                   )}
                   {content?.taxonomy_use_case_spatial_coverage.length > 0 && (
-                    <List.Item>
+                    <List.Item className="usecase-list-item">
                       {content?.taxonomy_use_case_spatial_coverage
                         .map(
                           (taxonomy_use_case_spatial_coverage) =>
@@ -98,7 +98,7 @@ const CLMSUseCaseView = (props) => {
                     </List.Item>
                   )}
                   {content?.responsibleOrganization && (
-                    <List.Item>
+                    <List.Item className="usecase-list-item">
                       <span className="usecase-detail-item">
                         {content?.responsibleOrganization}
                       </span>
