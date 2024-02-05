@@ -151,7 +151,9 @@ export const CartIconCounter = () => {
                     <p key={key}>
                       <strong>Name:</strong> {ddata?.title} <br />
                       <strong>Area:</strong>{' '}
-                      {nutsnames?.nutsnames?.[cdi?.area?.value]}
+                      {nutsnames?.nutsnames?.[cdi?.area?.value] === 'polygon'
+                        ? 'Bounding Box'
+                        : nutsnames?.nutsnames?.[cdi?.area?.value]}
                     </p>
                   );
                 })}
