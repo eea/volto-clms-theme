@@ -147,11 +147,12 @@ export const CartIconCounter = () => {
                         (d) => d.UID === cdi.UID,
                       )
                     : {};
+
                   return (
                     <p key={key}>
                       <strong>Name:</strong> {ddata?.title} <br />
                       <strong>Area:</strong>{' '}
-                      {nutsnames?.nutsnames?.[cdi?.area?.value] === 'polygon'
+                      {nutsnames?.nutsnames?.[cdi?.area?.value] === undefined
                         ? 'Bounding Box'
                         : nutsnames?.nutsnames?.[cdi?.area?.value]}
                     </p>

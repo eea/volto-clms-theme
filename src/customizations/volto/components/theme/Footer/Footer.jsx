@@ -379,7 +379,7 @@ class Footer extends Component {
                 <div className="ccl-footer-newsletter">
                   <input
                     maxLength="8000"
-                    placeholder="Enter an email adress"
+                    placeholder="Enter an email address"
                     type="text"
                     id="footer-email"
                     value={this.state.value}
