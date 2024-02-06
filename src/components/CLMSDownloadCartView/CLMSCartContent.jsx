@@ -418,37 +418,48 @@ const CLMSCartContent = (props) => {
                             value={item?.projection}
                             options={
                               projections.length > 0 &&
-                              projections?.sort()?.map((projection) => {
-                                return {
-                                  key: projection,
-                                  value: projection,
-                                  text: item?.original_projection
-                                    .replaceAll(
-                                      '/ ',
-                                      ' ' +
-                                        projection.substring(
-                                          0,
-                                          projection.indexOf(':') + 1,
-                                        ),
-                                    )
-                                    .includes(projection)
-                                    ? projection +
-                                      ' (Source system of the dataset)'
-                                    : projection,
-                                  className: item?.original_projection
-                                    .replaceAll(
-                                      '/ ',
-                                      ' ' +
-                                        projection.substring(
-                                          0,
-                                          projection.indexOf(':') + 1,
-                                        ),
-                                    )
-                                    .includes(projection)
-                                    ? 'original_projection'
-                                    : 'projection',
-                                };
-                              })
+                              projections
+                                ?.sort((a, b) => {
+                                  if (
+                                    Number(a.split(':')[1]) >
+                                    Number(b.split(':')[1])
+                                  ) {
+                                    return 1;
+                                  } else {
+                                    return -1;
+                                  }
+                                })
+                                ?.map((projection) => {
+                                  return {
+                                    key: projection,
+                                    value: projection,
+                                    text: item?.original_projection
+                                      .replaceAll(
+                                        '/ ',
+                                        ' ' +
+                                          projection.substring(
+                                            0,
+                                            projection.indexOf(':') + 1,
+                                          ),
+                                      )
+                                      .includes(projection)
+                                      ? projection +
+                                        ' (Source system of the dataset)'
+                                      : projection,
+                                    className: item?.original_projection
+                                      .replaceAll(
+                                        '/ ',
+                                        ' ' +
+                                          projection.substring(
+                                            0,
+                                            projection.indexOf(':') + 1,
+                                          ),
+                                      )
+                                      .includes(projection)
+                                      ? 'original_projection'
+                                      : 'projection',
+                                  };
+                                })
                             }
                             onChange={(e, data) => {
                               setProjectionValue(item?.unique_id, data.value);
