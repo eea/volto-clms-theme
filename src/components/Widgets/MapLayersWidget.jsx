@@ -43,7 +43,8 @@ const ItemSchema = {
     },
     fields: {
       title: 'Fields to be shown in the mapviewer',
-      description: 'Enter the JSON representing the fields',
+      description:
+        'List of fields to appear in the Layer info widget in JSON format. This info can be imported from the dataset page "import WMS Fields"',
       type: 'text',
       default: '',
     },
