@@ -43,6 +43,8 @@ import {
   TimeseriesPicker,
 } from '.';
 
+import { getProjectionsUID } from '../../actions';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
  * CLMSCartContent container.
@@ -68,6 +70,10 @@ const CLMSCartContent = (props) => {
   );
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
+  );
+
+  const projections_uid = useSelector(
+    (state) => state.downloadtool.projections_in_progress_uid,
   );
 
   const nutsnames = useSelector((state) => state.nutsnames);
@@ -119,6 +125,9 @@ const CLMSCartContent = (props) => {
     } else {
       setCartItems(cleanDuplicatesEntries(newCart));
     }
+
+    datasets_items &&
+      datasets_items.map((item) => dispatch(getProjectionsUID(item.UID)));
   }, [cart, datasets_items, nutsnamesDeepCompare]);
 
   const selectAllCart = (checked) => {
@@ -417,8 +426,9 @@ const CLMSCartContent = (props) => {
                             placeholder="Select projection"
                             value={item?.projection}
                             options={
-                              projections.length > 0 &&
-                              projections
+                              projections_uid?.[item.dataset_uid] &&
+                              projections_uid[item.dataset_uid].length > 0 &&
+                              projections_uid[item.dataset_uid]
                                 ?.sort((a, b) => {
                                   if (
                                     Number(a.split(':')[1]) >
