@@ -25,6 +25,7 @@ describe('downloadtoolReducer', () => {
       post_download_in_progress: {},
       format_conversion_table_in_progress: {},
       projections_in_progress: {},
+      projections_in_progress_uid: {},
     });
   });
   //jest test to GET_DOWNLOADTOOL_SUCCESS
@@ -89,6 +90,7 @@ describe('downloadtoolReducer', () => {
       post_download_in_progress: {},
       format_conversion_table_in_progress: {},
       projections_in_progress: {},
+      projections_in_progress_uid: {},
     });
   });
   //jest test to downloadtoolReducer -fail
@@ -141,6 +143,7 @@ describe('downloadtoolReducer', () => {
           post_download_in_progress: {},
           format_conversion_table_in_progress: {},
           projections_in_progress: {},
+          projections_in_progress_uid: {},
         },
         {
           type: `${POST_DOWNLOADTOOL}_SUCCESS`,
@@ -173,6 +176,7 @@ describe('downloadtoolReducer', () => {
       post_download_in_progress: {},
       format_conversion_table_in_progress: {},
       projections_in_progress: {},
+      projections_in_progress_uid: {},
     });
   });
   //jest test to downloadtoolReducer -fail
