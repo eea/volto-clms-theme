@@ -90,7 +90,6 @@ describe('downloadtoolReducer', () => {
       post_download_in_progress: {},
       format_conversion_table_in_progress: {},
       projections_in_progress: {},
-      projections_in_progress_uid: {},
     });
   });
   //jest test to downloadtoolReducer -fail
