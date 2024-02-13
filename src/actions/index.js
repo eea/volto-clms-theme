@@ -64,7 +64,12 @@ export {
   getDatasetTimeseries,
 } from './dataset_timeseries/dataset_timeseries';
 
-export { GET_PROJECTIONS, getProjections } from './projections/get_projections';
+export {
+  GET_PROJECTIONS,
+  GET_PROJECTIONS_UID,
+  getProjections,
+  getProjectionsUID,
+} from './projections/get_projections';
 
 export { GET_REGISTRY, getRegistry } from './registry/registry';
 

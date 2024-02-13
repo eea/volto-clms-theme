@@ -8,6 +8,7 @@ import {
   GET_DOWNLOADTOOL,
   GET_FORMATCONVERSIONTABLE,
   GET_PROJECTIONS,
+  GET_PROJECTIONS_UID,
   POST_DOWNLOADTOOL,
 } from '../../actions';
 
@@ -26,6 +27,7 @@ const getInitialState = {
   post_download_in_progress: {},
   format_conversion_table_in_progress: {},
   projections_in_progress: {},
+  projections_in_progress_uid: {},
 };
 
 export const downloadtoolReducer = (state = getInitialState, action = {}) => {
@@ -35,6 +37,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
     case `${DELETE_DOWNLOADTOOL}_PENDING`:
     case `${GET_FORMATCONVERSIONTABLE}_PENDING`:
     case `${GET_PROJECTIONS}_PENDING`:
+    case `${GET_PROJECTIONS_UID}_PENDING`:
       return {
         ...state,
         error: null,
@@ -46,6 +49,7 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
     case `${DELETE_DOWNLOADTOOL}_FAIL`:
     case `${GET_FORMATCONVERSIONTABLE}_FAIL`:
     case `${GET_PROJECTIONS}_FAIL`:
+    case `${GET_PROJECTIONS_UID}_FAIL`:
       return {
         ...state,
         error: action.error,
@@ -123,6 +127,17 @@ export const downloadtoolReducer = (state = getInitialState, action = {}) => {
         loaded: true,
         loading: false,
         projections_in_progress: action.result,
+      };
+    case `${GET_PROJECTIONS_UID}_SUCCESS`:
+      return {
+        ...state,
+        error: null,
+        loaded: true,
+        loading: false,
+        projections_in_progress_uid: {
+          ...state.projections_in_progress_uid,
+          [action.uid]: action.result,
+        },
       };
 
     default:
