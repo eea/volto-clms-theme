@@ -446,7 +446,7 @@ export const CLMSMeetingView = (props) => {
                 <Header>{intl.formatMessage(messages.contactName)}</Header>
               </div>
               <div className="dataset-field-description">
-                <a href={`mailto:${content.contact_name}`}>
+                <a href={`mailto:${content.contact_email}`}>
                   {content.contact_name}
                 </a>
               </div>
