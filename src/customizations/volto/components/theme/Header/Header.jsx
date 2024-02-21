@@ -216,7 +216,7 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  {(this.props.user?.id && (
+                  {(this.props.token && this.props.user?.id && (
                     <>
                       <li className="header-dropdown">
                         <HeaderDropdown user={this.props.user} />
