@@ -1,30 +1,30 @@
+import React, { Component } from 'react';
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
 /**
  * Header component.
  * @module components/theme/Header/Header
  */
-
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
-import React, { Component } from 'react';
 import { connect, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { compose } from 'redux';
 
+import { getUser, loginRenew } from '@plone/volto/actions';
+import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import { BodyClass, getCookieOptions } from '@plone/volto/helpers';
+import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter/CartIconCounter';
 // IMPORT isnt nedded until translations are created
 // import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
-import { getUser, loginRenew } from '@plone/volto/actions';
-import jwtDecode from 'jwt-decode';
-import Cookies from 'universal-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter/CartIconCounter';
+import jwtDecode from 'jwt-decode';
+import PropTypes from 'prop-types';
+import Cookies from 'universal-cookie';
 
 const HeaderDropdown = ({ user }) => {
   const intl = useSelector((state) => state.intl);
@@ -160,144 +160,156 @@ class Header extends Component {
    */
   render() {
     return (
-      <div>
-        <header className="ccl-header">
-          {/* Body class depending on sections */}
-          <BodyClass className="ccl-style ccl-color_land" />
+      <>
+        {(this.props.user?.affiliation === null ||
+          this.props.user?.country === null ||
+          this.props.user?.sector_of_activity === null ||
+          this.props.user?.thematic_activity === null) && (
+          <Redirect
+            to={{
+              pathname: '/en/profile',
+            }}
+          />
+        )}
+        <div>
+          <header className="ccl-header">
+            {/* Body class depending on sections */}
+            <BodyClass className="ccl-style ccl-color_land" />
 
-          <div className="ccl-header-tools">
-            <div className="ccl-container">
-              <div
-                className="ccl-main-menu-collapse-button"
-                aria-label="Toggle main menu"
-                onClick={() =>
-                  this.setState({
-                    mobileMenuOpen: !this.state.mobileMenuOpen,
-                  })
-                }
-                onKeyDown={() =>
-                  this.setState({
-                    mobileMenuOpen: !this.state.mobileMenuOpen,
-                  })
-                }
-                tabIndex="0"
-                role="button"
-              >
-                <span
+            <div className="ccl-header-tools">
+              <div className="ccl-container">
+                <div
+                  className="ccl-main-menu-collapse-button"
+                  aria-label="Toggle main menu"
+                  onClick={() =>
+                    this.setState({
+                      mobileMenuOpen: !this.state.mobileMenuOpen,
+                    })
+                  }
+                  onKeyDown={() =>
+                    this.setState({
+                      mobileMenuOpen: !this.state.mobileMenuOpen,
+                    })
+                  }
+                  tabIndex="0"
+                  role="button"
+                >
+                  <span
+                    className={
+                      this.state.mobileMenuOpen
+                        ? 'ccl-icon-close'
+                        : 'ccl-icon-menu'
+                    }
+                  ></span>
+                </div>
+                <div
+                  className="ccl-search-collapse-button"
+                  aria-label="Toggle search menu"
+                  onClick={() =>
+                    this.setState({
+                      mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,
+                    })
+                  }
+                  onKeyDown={() =>
+                    this.setState({
+                      mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,
+                    })
+                  }
+                  tabIndex="0"
+                  role="button"
+                >
+                  <span className="ccl-icon-zoom"></span>
+                </div>
+
+                <div className="ccl-header-tools-container">
+                  <ul className="ccl-header-menu-tools">
+                    <CclTopMainMenu></CclTopMainMenu>
+                    <li className="header-vertical-line">
+                      <div>|</div>
+                    </li>
+                    {(this.props.token && this.props.user?.id && (
+                      <>
+                        <li className="header-dropdown">
+                          <HeaderDropdown user={this.props.user} />
+                        </li>
+                        <li>
+                          <CartIconCounter />
+                        </li>
+                      </>
+                    )) || (
+                      <li>
+                        <CclLoginModal />
+                      </li>
+                    )}
+                    <li className="header-vertical-line">
+                      <div>|</div>
+                    </li>
+                  </ul>
+                  <div
+                    className={
+                      this.state.mobileSearchBoxOpen
+                        ? 'ccl-header-search-show'
+                        : 'ccl-header-search-hidden'
+                    }
+                  >
+                    <SearchWidget
+                      pathname={this.props.pathname}
+                      setHeaderState={(p) => {
+                        this.setState(p);
+                      }}
+                    />
+                  </div>
+                  {/* Language selector wont be shown until translations are completed */}
+                  {/* <CclLanguageSelector /> */}
+                </div>
+              </div>
+            </div>
+            <div className="ccl-header-nav ">
+              <div className="ccl-container">
+                <Logo />
+                <nav
                   className={
                     this.state.mobileMenuOpen
-                      ? 'ccl-icon-close'
-                      : 'ccl-icon-menu'
-                  }
-                ></span>
-              </div>
-              <div
-                className="ccl-search-collapse-button"
-                aria-label="Toggle search menu"
-                onClick={() =>
-                  this.setState({
-                    mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,
-                  })
-                }
-                onKeyDown={() =>
-                  this.setState({
-                    mobileSearchBoxOpen: !this.state.mobileSearchBoxOpen,
-                  })
-                }
-                tabIndex="0"
-                role="button"
-              >
-                <span className="ccl-icon-zoom"></span>
-              </div>
-
-              <div className="ccl-header-tools-container">
-                <ul className="ccl-header-menu-tools">
-                  <CclTopMainMenu></CclTopMainMenu>
-                  <li className="header-vertical-line">
-                    <div>|</div>
-                  </li>
-                  {(this.props.token && this.props.user?.id && (
-                    <>
-                      <li className="header-dropdown">
-                        <HeaderDropdown user={this.props.user} />
-                      </li>
-                      <li>
-                        <CartIconCounter />
-                      </li>
-                    </>
-                  )) || (
-                    <li>
-                      <CclLoginModal />
-                    </li>
-                  )}
-                  <li className="header-vertical-line">
-                    <div>|</div>
-                  </li>
-                </ul>
-                <div
-                  className={
-                    this.state.mobileSearchBoxOpen
-                      ? 'ccl-header-search-show'
-                      : 'ccl-header-search-hidden'
+                      ? 'ccl-main-menu ccl-collapsible-open'
+                      : 'ccl-main-menu'
                   }
                 >
-                  <SearchWidget
+                  <Navigation
                     pathname={this.props.pathname}
                     setHeaderState={(p) => {
                       this.setState(p);
                     }}
                   />
-                </div>
-                {/* Language selector wont be shown until translations are completed */}
-                {/* <CclLanguageSelector /> */}
+                  <ul className="ccl-header-menu-tools ccl-collapsible-toolmenu">
+                    <CclTopMainMenu></CclTopMainMenu>
+                    <li className="header-vertical-line">
+                      <div>|</div>
+                    </li>
+                    {(this.props.user.id && this.state.mobileMenuOpen && (
+                      <>
+                        <li className="header-dropdown">
+                          <HeaderDropdown user={this.props.user} />
+                        </li>
+                        <li>
+                          <CartIconCounter />
+                        </li>
+                      </>
+                    )) || (
+                      <li>
+                        <CclLoginModal />
+                      </li>
+                    )}
+                    <li className="header-vertical-line">
+                      <div>|</div>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
-          </div>
-          <div className="ccl-header-nav ">
-            <div className="ccl-container">
-              <Logo />
-              <nav
-                className={
-                  this.state.mobileMenuOpen
-                    ? 'ccl-main-menu ccl-collapsible-open'
-                    : 'ccl-main-menu'
-                }
-              >
-                <Navigation
-                  pathname={this.props.pathname}
-                  setHeaderState={(p) => {
-                    this.setState(p);
-                  }}
-                />
-                <ul className="ccl-header-menu-tools ccl-collapsible-toolmenu">
-                  <CclTopMainMenu></CclTopMainMenu>
-                  <li className="header-vertical-line">
-                    <div>|</div>
-                  </li>
-                  {(this.props.user.id && this.state.mobileMenuOpen && (
-                    <>
-                      <li className="header-dropdown">
-                        <HeaderDropdown user={this.props.user} />
-                      </li>
-                      <li>
-                        <CartIconCounter />
-                      </li>
-                    </>
-                  )) || (
-                    <li>
-                      <CclLoginModal />
-                    </li>
-                  )}
-                  <li className="header-vertical-line">
-                    <div>|</div>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-          <hr />
-        </header>
-      </div>
+            <hr />
+          </header>
+        </div>
+      </>
     );
   }
 }

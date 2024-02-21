@@ -19,7 +19,6 @@ import PropTypes from 'prop-types';
  * CLMSProfileView container.
  * @module components/CLMSProfileView/CLMSProfileView
  */
-
 const messages = defineMessages({
   UserProfile: {
     id: 'UserProfile',
@@ -72,6 +71,10 @@ const messages = defineMessages({
     id: 'Success',
     defaultMessage: 'Success',
   },
+  missingData: {
+    id: 'Missing data',
+    defaultMessage: 'Please fill all required data',
+  },
 });
 
 /**
@@ -116,6 +119,30 @@ class CLMSUserProfileView extends Component {
   componentDidMount() {
     this.props.getUser(this.props.userId);
     this.props.getUserSchema();
+    (this.props.user?.affiliation === null ||
+      this.props.user?.country === null ||
+      this.props.user?.sector_of_activity === null ||
+      this.props.user?.thematic_activity === null) &&
+      window.location.assign('/en/profile');
+    (this.props.user?.affiliation === null ||
+      this.props.user?.country === null ||
+      this.props.user?.sector_of_activity === null ||
+      this.props.user?.thematic_activity === null) &&
+      toast.error(
+        <Toast
+          error
+          title={this.props.intl.formatMessage(messages.missingData)}
+          // content={this.props.intl.formatMessage(messages.saved)}
+        />,
+      );
+  }
+
+  componentWillUnmount() {
+    (this.props.user?.affiliation === null ||
+      this.props.user?.country === null ||
+      this.props.user?.sector_of_activity === null ||
+      this.props.user?.thematic_activity === null) &&
+      window.location.assign('/en/profile');
   }
 
   /**
@@ -158,6 +185,7 @@ class CLMSUserProfileView extends Component {
     }
 
     const loggedIn = !!this.props.userId;
+
     return (
       <>
         {loggedIn && (
@@ -166,6 +194,18 @@ class CLMSUserProfileView extends Component {
               <h1 className="page-title">
                 {this.props.intl.formatMessage(messages.UserProfile)}
               </h1>
+              {(this.props.user?.affiliation === null ||
+                this.props.user?.country === null ||
+                this.props.user?.sector_of_activity === null ||
+                this.props.user?.thematic_activity === null) && (
+                <Segment
+                  className="profile-segment"
+                  textAlign={'center'}
+                  color={'red'}
+                >
+                  Please fill all required data
+                </Segment>
+              )}
               <p>
                 Use this form to update your profile details. Be aware that if
                 you want to change your name and e-mail address, you have to do
