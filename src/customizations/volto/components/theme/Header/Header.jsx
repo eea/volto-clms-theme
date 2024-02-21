@@ -159,6 +159,7 @@ class Header extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    console.log('this.props', this.props);
     return (
       <div>
         <header className="ccl-header">
@@ -216,7 +217,7 @@ class Header extends Component {
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
-                  {(this.props.user?.id && (
+                  {(this.props.token && this.props.user?.id && (
                     <>
                       <li className="header-dropdown">
                         <HeaderDropdown user={this.props.user} />
