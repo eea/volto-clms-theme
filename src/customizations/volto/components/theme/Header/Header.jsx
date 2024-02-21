@@ -159,7 +159,6 @@ class Header extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    console.log('this.props', this.props);
     return (
       <div>
         <header className="ccl-header">
