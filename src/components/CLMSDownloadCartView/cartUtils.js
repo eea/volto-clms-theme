@@ -150,6 +150,7 @@ export const duplicateCartItem = (
         unique_id: cartItems[itemIndex].unique_id + '-copy',
       },
     );
+    delete new_item.TemporalFilter;
     while (cartItems.some((c_i) => c_i.unique_id === new_item?.unique_id)) {
       new_item['unique_id'] = new_item?.unique_id + '-copy';
     }
