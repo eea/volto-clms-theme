@@ -123,11 +123,13 @@ class CLMSUserProfileView extends Component {
       this.props.user?.country === null ||
       this.props.user?.sector_of_activity === null ||
       this.props.user?.thematic_activity === null) &&
+      !this.props.user.roles.includes('Manager') &&
       window.location.assign('/en/profile');
     (this.props.user?.affiliation === null ||
       this.props.user?.country === null ||
       this.props.user?.sector_of_activity === null ||
       this.props.user?.thematic_activity === null) &&
+      !this.props.user.roles.includes('Manager') &&
       toast.error(
         <Toast
           error
@@ -142,6 +144,7 @@ class CLMSUserProfileView extends Component {
       this.props.user?.country === null ||
       this.props.user?.sector_of_activity === null ||
       this.props.user?.thematic_activity === null) &&
+      !this.props.user.roles.includes('Manager') &&
       window.location.assign('/en/profile');
   }
 
@@ -197,15 +200,16 @@ class CLMSUserProfileView extends Component {
               {(this.props.user?.affiliation === null ||
                 this.props.user?.country === null ||
                 this.props.user?.sector_of_activity === null ||
-                this.props.user?.thematic_activity === null) && (
-                <Segment
-                  className="profile-segment"
-                  textAlign={'center'}
-                  color={'red'}
-                >
-                  Please fill all required data
-                </Segment>
-              )}
+                this.props.user?.thematic_activity === null) &&
+                !this.props.user.roles.includes('Manager') && (
+                  <Segment
+                    className="profile-segment"
+                    textAlign={'center'}
+                    color={'red'}
+                  >
+                    Please fill all required data
+                  </Segment>
+                )}
               <p>
                 Use this form to update your profile details. Be aware that if
                 you want to change your name and e-mail address, you have to do
