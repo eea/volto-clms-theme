@@ -73,7 +73,7 @@ const messages = defineMessages({
   },
   missingData: {
     id: 'Missing data',
-    defaultMessage: 'Please fill all required data',
+    defaultMessage: 'Please fill in all required data',
   },
 });
 
@@ -207,7 +207,7 @@ class CLMSUserProfileView extends Component {
                     textAlign={'center'}
                     color={'red'}
                   >
-                    Please fill all required data
+                    Please fill in all required data
                   </Segment>
                 )}
               <p>
