@@ -164,13 +164,14 @@ class Header extends Component {
         {(this.props.user?.affiliation === null ||
           this.props.user?.country === null ||
           this.props.user?.sector_of_activity === null ||
-          this.props.user?.thematic_activity === null) && (
-          <Redirect
-            to={{
-              pathname: '/en/profile',
-            }}
-          />
-        )}
+          this.props.user?.thematic_activity === null) &&
+          !this.props.user.roles.includes('Manager') && (
+            <Redirect
+              to={{
+                pathname: '/en/profile',
+              }}
+            />
+          )}
         <div>
           <header className="ccl-header">
             {/* Body class depending on sections */}
