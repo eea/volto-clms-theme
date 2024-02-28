@@ -158,7 +158,6 @@ class CLMSUserProfileView extends Component {
     // We don't want the user to change his login name/username or the roles
     // from this form
     // Backend will complain anyways, but we clean the data here before it does
-    console.log('data', data);
     delete data.id;
     delete data.username;
     delete data.roles;
