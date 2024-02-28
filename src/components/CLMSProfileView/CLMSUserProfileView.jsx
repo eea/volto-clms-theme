@@ -178,6 +178,7 @@ class CLMSUserProfileView extends Component {
    */
   render() {
     let userschema = {};
+
     if (this.props.userschema?.loaded) {
       userschema = JSON.parse(
         JSON.stringify(this.props?.userschema?.userschema),
@@ -185,6 +186,12 @@ class CLMSUserProfileView extends Component {
       userschema.fieldsets[0]['fields'] = userschema.fieldsets[0][
         'fields'
       ].filter((item) => !item.includes('email') && !item.includes('fullname'));
+
+      userschema.required = userschema.required.filter(
+        (item) => item !== 'email' && item !== 'fullname',
+      );
+      delete userschema.properties.email;
+      delete userschema.properties.fullname;
     }
 
     const loggedIn = !!this.props.userId;
