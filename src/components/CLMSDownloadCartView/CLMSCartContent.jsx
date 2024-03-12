@@ -195,7 +195,7 @@ const CLMSCartContent = (props) => {
         />,
       );
     }
-  }, [downloadtool_state]);
+  }, [downloadtool_state.requested, downloadtool_state.error]);
 
   const startDownloading = () => {
     setLoadingTable(true);

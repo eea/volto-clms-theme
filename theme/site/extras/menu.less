@@ -276,9 +276,9 @@
 
 .block.search .search-wrapper .ui.input > input {
   height: 2.5rem;
+  padding: 0.5rem 1rem !important;
   border: 1px solid #dadada;
   border-radius: 0;
-  padding: 0.5rem 1rem !important;
 }
 
 .block.search .search-wrapper .ui.input > input:focus-visible {
@@ -356,14 +356,15 @@
 
 .search-filters {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 @media (max-width: 576px) {
   .search-filters {
     flex-direction: column;
   }
+
   .block.search .search-results-count-sort .search-details {
     width: 100%;
   }
@@ -413,25 +414,25 @@
 
 /* Filters modal */
 .modal-filters {
-  display: none;
   position: fixed;
+  z-index: 10000;
   top: 0;
   bottom: 0;
+  display: none;
   width: 100%;
-  z-index: 10000;
 }
 
 .modal-filters-background {
-  height: 100vh;
   display: flex;
-  justify-content: flex-end;
   overflow: auto;
+  height: 100vh;
+  justify-content: flex-end;
 }
 
 .modal-filters-container {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  flex-direction: column;
   background: white;
 }
 @media (min-width: 576px) {
@@ -452,8 +453,8 @@
 
 .modal-filters-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem;
   border-bottom: solid 1px @clmsGreen;
 }
@@ -469,13 +470,13 @@
 }
 
 .modal-filters-clear {
-  text-decoration: underline;
-  font-size: 0.85rem;
   padding-right: 1rem;
-  margin-right: 1rem;
   border-right: solid 1px #273b4b;
-  line-height: 1.5rem;
+  margin-right: 1rem;
   cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.5rem;
+  text-decoration: underline;
 }
 
 .modal-filters-close {
@@ -509,29 +510,29 @@
 }
 
 .modal-filters-dropdown .ccl-expandable__button {
-  background-color: white;
-  color: #212529;
-  border-bottom: solid 1px @clmsGreen;
+  position: relative;
   display: -webkit-flex;
   display: flex;
   align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: solid 1px @clmsGreen;
+  margin: 0;
+  background-color: white;
+  color: #212529;
+  cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
-  position: relative;
   text-decoration: none;
-  margin: 0;
-  padding: 1rem 1.5rem;
-  cursor: pointer;
 }
 
 .modal-filters-dropdown .ccl-expandable__button::after {
-  font-family: 'ccl-icons';
-  color: @clmsGreen;
-  margin-right: 1.5rem;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
   position: absolute;
   right: 0;
+  margin-right: 1.5rem;
+  color: @clmsGreen;
+  font-family: 'ccl-icons';
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -579,13 +580,13 @@
   .ccl-expandable__button
   + .ccl-form
   .ccl-expandable__button {
-  background-color: transparent;
-  margin: 0;
   padding: 0;
-  font-weight: normal;
   border: none;
-  font-size: 1rem;
+  margin: 0;
   margin-top: 1.66rem;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: normal;
 }
 
 .modal-filters-dropdown
@@ -607,11 +608,11 @@
 }
 
 .modal-filters-dropdown .filters-tag-container {
-  padding: 0.5rem 1.5rem 1rem 1.5rem;
   display: grid;
+  align-items: center;
+  padding: 0.5rem 1.5rem 1rem 1.5rem;
   grid-gap: 0.5rem;
   grid-template-columns: auto auto auto;
-  align-items: center;
 }
 
 .modal-filters-dropdown .filters-tag input {
@@ -623,8 +624,8 @@
 }
 
 .modal-filters-dropdown .filters-tag .checkbox input:checked + label {
-  color: white;
   background: @clmsGreen;
+  color: white;
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
@@ -645,23 +646,26 @@
 }
 
 .modal-filters-dropdown .filters-tag .checkbox label:hover {
-  color: white;
   background: @clmsGreen;
+  color: white;
 }
 
 .modal-filters-dropdown .filters-tag .ui.checkbox label:before,
 .modal-filters-dropdown .filters-tag .ui.checkbox input:checked ~ label:after {
   content: none;
 }
+
 .modal-filters-dropdown .ui.checkbox label:before {
   border: 1px solid #404040;
   border-radius: 2px;
   box-shadow: none;
 }
+
 .modal-filters-dropdown .ui.checkbox input:checked ~ label:after,
 .modal-filters-dropdown .ui.checkbox input:checked:focus ~ label:after {
   color: @clmsGreen;
 }
+
 .modal-filters-dropdown .ui.checkbox input:checked ~ label:before,
 .modal-filters-dropdown .ui.checkbox input:checked:focus ~ label:before {
   border: 1px solid @clmsGreen;
@@ -750,3 +754,19 @@ main .search-form button {
   background-color: #212529;
   color: white;
 }
+
+//tab block z-index
+.tabs-block > .styled > .tabs > .ui.grid > .column > .ui.menu.right,
+.tabs-block > .styled > .tabs > .ui.menu.right,
+.tabs-block > .tabs > .ui.grid > .column > .ui.menu.right,
+.tabs-block > .tabs > .ui.menu.right {
+  margin-bottom: 1.5rem;
+}
+
+.tabs-block .block-toolbar {
+  margin-top: -4rem;
+}
+
+// .text-slate-editor-inner {
+//   z-index: 2 !important;
+// }
