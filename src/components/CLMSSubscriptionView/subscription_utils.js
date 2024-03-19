@@ -16,7 +16,7 @@ export const AVAILABLE_SUBSCRIPTIONS = [
   },
   {
     title: 'Subscribe to production updates',
-    type: 'production updates',
+    type: 'productionupdates',
     back_url: 'productionupdates',
   },
 ];
