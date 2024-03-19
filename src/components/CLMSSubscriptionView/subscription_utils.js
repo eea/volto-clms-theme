@@ -14,6 +14,11 @@ export const AVAILABLE_SUBSCRIPTIONS = [
     type: 'events',
     back_url: 'event',
   },
+  {
+    title: 'Subscribe to production updates',
+    type: 'production updates',
+    back_url: 'productionupdates',
+  },
 ];
 export const getSubscriptionConfig = (type) => {
   return AVAILABLE_SUBSCRIPTIONS.find(
