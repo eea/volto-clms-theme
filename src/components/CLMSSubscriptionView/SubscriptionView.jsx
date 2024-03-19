@@ -271,21 +271,11 @@ class SubscriptionView extends Component {
             <h1 className="page-title">
               {this.props.isUnsubscribe &&
                 this.props.intl.formatMessage(messages.unsubscribeFromThe, {
-                  type:
-                    this.props.type === 'events'
-                      ? 'event'
-                      : this.props.type === 'newsletter'
-                      ? 'the CLMS updates'
-                      : this.props.type,
+                  type: this.state.type_conf.subscription_name,
                 })}
               {this.props.isUnsubscribe === false &&
                 this.props.intl.formatMessage(messages.subscribeToThe, {
-                  type:
-                    this.props.type === 'events'
-                      ? 'event'
-                      : this.props.type === 'newsletter'
-                      ? 'the CLMS updates'
-                      : this.props.type,
+                  type: this.state.type_conf.subscription_name,
                 })}{' '}
               {this.props.type !== 'newsletter' &&
                 this.props.intl.formatMessage(messages.notifications)}
@@ -318,12 +308,7 @@ class SubscriptionView extends Component {
                       {this.props.intl.formatMessage(
                         messages.emailDescription,
                         {
-                          type:
-                            this.props.type === 'newsletter'
-                              ? 'the CLMS updates'
-                              : this.props.type === 'events'
-                              ? 'event'
-                              : this.props.type,
+                          type: this.state.type_conf.subscription_name,
                         },
                       )}
                       {this.props.type !== 'newsletter' &&
@@ -420,11 +405,7 @@ class SubscriptionView extends Component {
                   }}
                 >
                   {'Click here if you would like to unsubscribe from our'}{' '}
-                  {this.props.type === 'events'
-                    ? 'event'
-                    : this.props.type === 'newsletter'
-                    ? 'CLMS updates'
-                    : this.props.type}
+                  {this.state.type_conf.subscription_name}
                   {this.props.type === 'newsletter' ? '' : ' notifications'}
                 </Link>
               </>
