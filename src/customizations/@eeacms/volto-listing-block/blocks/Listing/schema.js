@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import * as original from '@eeacms/volto-listing-block/blocks/Listing/schema';
 
 const CallToActionSchema = ({ formData }) => {
