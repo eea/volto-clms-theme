@@ -14,6 +14,7 @@ export const SubscriptionSchema = () => ({
         ['news', 'news'],
         ['events', 'events'],
         ['newsletter', 'newsletter'],
+        ['productionupdates', 'productionupdates'],
       ],
     },
     title: {
