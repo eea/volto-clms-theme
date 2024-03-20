@@ -20,7 +20,7 @@ const SubscriptionBlockEdit = (props) => {
       <SidebarPortal selected={selected}>
         <InlineForm
           schema={SubscriptionSchema()}
-          title="Product card block"
+          title="Subscription button block"
           onChangeField={(id, value) => {
             onChangeBlock(block, {
               ...data,
