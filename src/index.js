@@ -26,6 +26,7 @@ import CLMSUseCaseView from './components/CLMSUseCasesView/CLMSUseCasesView';
 import CLMSFAQView from './components/CLMSFAQView/CLMSFAQView';
 import CLMSDataSetAccordionView from './components/CLMSDataSetAccordionView/CLMSDataSetAccordionView';
 import CLMSTechnicalLibraryView from './components/CLMSTechnicalLibraryView/CLMSTechnicalLibraryView';
+import CLMSProductionUpdatesView from './components/CLMSProductionUpdatesView/CLMSProductionUpdatesView';
 
 // WIDGET
 import BoundingWidget from './components/Widgets/BoundingWidget';
@@ -79,6 +80,7 @@ const applyConfig = (config) => {
       Image: ImageView,
       DataSetAccordion: CLMSDataSetAccordionView,
       TechnicalLibrary: CLMSTechnicalLibraryView,
+      ProductionUpdates: CLMSProductionUpdatesView,
     },
   };
   config.blocks = {

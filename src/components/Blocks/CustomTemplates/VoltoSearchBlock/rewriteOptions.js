@@ -7,6 +7,7 @@ export const portal_types_labels = {
   WorkOpportunity: 'Vacancy',
   Tender: 'Tender',
   TechnicalLibrary: 'Product documentation',
+  ProductionUpdates: 'Production updates',
   Document: 'Other content',
   FAQ: 'FAQ',
   File: 'Files',
@@ -54,6 +55,7 @@ const rewriteOptions = (name, choices) => {
     'WorkOpportunity',
     'Document',
     'File',
+    'ProductionUpdates',
   ];
 
   const dataset_geographical_classification = [

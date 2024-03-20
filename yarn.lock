@@ -1792,7 +1792,7 @@ __metadata:
     husky: 7.0.4
     jsconfig: ^0.2.0
     lightgallery: ^2.4.0
-    lint-staged: "*"
+    lint-staged: ^14.0.1
     md5: ^2.3.0
     prettier: 2.0.5
     prettier-eslint: ^12.0.0
@@ -1803,6 +1803,7 @@ __metadata:
     react-native-mime-types: 2.3.0
     react-slick: 0.28.1
     react-svg: 14.0.4
+    react-zoom-pan-pinch: 3.3.0
     slick-carousel: 1.8.1
     stylelint: ^13.12.0
     stylelint-config-idiomatic-order: 8.1.0
@@ -12197,7 +12198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:*":
+"lint-staged@npm:^14.0.1":
   version: 14.0.1
   resolution: "lint-staged@npm:14.0.1"
   dependencies:
@@ -16475,6 +16476,16 @@ __metadata:
     react: ">=16.0.0"
     react-dom: ">=16.0.0"
   checksum: ebce7bc743071930a2dd333a041c4a99aac24d5059c47a52eff25a8d81ab9307fadc87b8a6655ebb3154f5c1ceafcc309ae04ee07a7d5fad2949a6903d15acd5
+  languageName: node
+  linkType: hard
+
+"react-zoom-pan-pinch@npm:3.3.0":
+  version: 3.3.0
+  resolution: "react-zoom-pan-pinch@npm:3.3.0"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: a68af3237d73ef2fd08927a6ba94dbfb62952056fda7b68c26eae032e8ad40cf1a7613f81a7bda3c09be144f9e9a7e440817e85be44ef283bcd8ebf4abb3d113
   languageName: node
   linkType: hard
 

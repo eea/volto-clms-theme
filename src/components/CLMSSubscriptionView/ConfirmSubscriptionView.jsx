@@ -116,7 +116,8 @@ class ConfirmSubscriptionView extends Component {
             <h1 className="page-title">
               {this.props.intl.formatMessage(messages.suscriptionConfirm, {
                 type:
-                  this.props.type[0].toUpperCase() + this.props.type.slice(1),
+                  this.state.type_conf.name[0].toUpperCase() +
+                  this.state.type_conf.name.slice(1),
                 subscribe_or_unsubscribe: this.props.isUnsubscribe
                   ? 'unsubscription'
                   : 'subscription',

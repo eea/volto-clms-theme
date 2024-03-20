@@ -1,5 +1,14 @@
 @import url('../../clms/lib/ccl/css/fonts.css');
 
+each(range(10), {
+  .max-@{value}-lines {
+    --max-lines: @value;
+  }
+  .title-max-@{value}-lines {
+    --title-max-lines: @value;
+  }
+});
+
 html {
   font-size: 16px !important;
 }
@@ -1444,3 +1453,7 @@ main {
 .accordion-block-toolbar {
   margin-top: -5rem !important;
 }
+
+// .ui.card.u-card .description {
+//   -webkit-line-clamp: var(--max-lines, 5);
+// }
