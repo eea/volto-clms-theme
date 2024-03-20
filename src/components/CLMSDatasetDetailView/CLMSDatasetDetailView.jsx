@@ -1,13 +1,24 @@
 import React from 'react';
+import {
+  CardMeta,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  Card,
+  Icon,
+  Image,
+  Segment,
+} from 'semantic-ui-react';
+
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal, Segment, Grid, Icon } from 'semantic-ui-react';
+import { Modal, Grid } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import { Toast } from '@plone/volto/components';
 
-import { getUser } from '@plone/volto/actions';
+import { getUser, searchContent } from '@plone/volto/actions';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import {
@@ -17,6 +28,8 @@ import {
 
 import { postImportWMSLayers, postImportWMSFields } from '../../actions';
 import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';
+import { UniversalLink } from '@plone/volto/components';
+import { cclDateTimeFormat } from '../CclUtils/dateFormats';
 
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
@@ -95,6 +108,32 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       )
     );
   };
+  const allSearchSubrequests = useSelector((state) => state.search.subrequests);
+  const searchSubrequests = allSearchSubrequests?.[`related-${content.UID}`];
+  const sLoaded = searchSubrequests?.loaded;
+  const sLoading = searchSubrequests?.loading;
+  const libraries = searchSubrequests?.items || [];
+
+  React.useEffect(() => {
+    !searchSubrequests?.loading &&
+      !searchSubrequests?.loaded &&
+      !searchSubrequests?.error &&
+      dispatch(
+        searchContent(
+          '/',
+          {
+            portal_type: 'ProductionUpdate',
+            associated_datasets: content.UID,
+            status: 'active',
+            metadata_fields: '_all',
+            sort_on: 'effective',
+            sort_order: 'reverse',
+            b_size: 99999,
+          },
+          `${'related'}-${content.UID}`,
+        ),
+      );
+  }, []);
 
   return (
     <div className="ccl-container ">
@@ -351,7 +390,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                 </CclButton>
               </div>
             )}
-
             {(content?.metadata_wms_url ||
               content?.metadata_wmts_url ||
               content?.metadata_rest_api_url) && (
@@ -364,6 +402,27 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                   url={content.metadata_rest_api_url}
                 />
               </div>
+            )}
+
+            {libraries && libraries.length > 0 && (
+              <>
+                <Segment>
+                  <h3>Production updates</h3>
+
+                  {libraries.map((item) => {
+                    const show_dt = cclDateTimeFormat(item.effective);
+                    return (
+                      <Segment basic>
+                        {show_dt} <br />
+                        <UniversalLink item={item}>{item.title}</UniversalLink>
+                      </Segment>
+                    );
+                  })}
+                  <UniversalLink href="/en/production-updates">
+                    See all or subscribe to production updates
+                  </UniversalLink>
+                </Segment>
+              </>
             )}
           </nav>
         </div>
