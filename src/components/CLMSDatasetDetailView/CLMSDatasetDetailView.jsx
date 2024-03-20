@@ -1,20 +1,9 @@
 import React from 'react';
-import {
-  CardMeta,
-  CardHeader,
-  CardDescription,
-  CardContent,
-  Card,
-  Icon,
-  Image,
-  Segment,
-} from 'semantic-ui-react';
-
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal, Grid } from 'semantic-ui-react';
+import { Modal, Segment, Grid, Icon } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import { Toast } from '@plone/volto/components';
 
