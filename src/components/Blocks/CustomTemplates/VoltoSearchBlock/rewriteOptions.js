@@ -137,6 +137,19 @@ const rewriteOptions = (name, choices) => {
     });
   }
 
+  if (name === 'dataset_characteristics_projections') {
+    result = choices.sort((a, b) => {
+      let a_number_str = a.label.split(':');
+      let b_number_str = b.label.split(':');
+      if (a_number_str.length > 1 && b_number_str.length > 1) {
+        let a_number = parseInt(a_number_str[1]);
+        let b_number = parseInt(b_number_str[1]);
+        return a_number - b_number;
+      }
+      return 0;
+    });
+  }
+
   return result;
 };
 
