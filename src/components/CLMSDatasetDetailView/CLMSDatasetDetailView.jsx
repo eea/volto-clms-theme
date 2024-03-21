@@ -99,8 +99,6 @@ const CLMSDatasetDetailView = ({ content, token }) => {
   };
   const allSearchSubrequests = useSelector((state) => state.search.subrequests);
   const searchSubrequests = allSearchSubrequests?.[`related-${content.UID}`];
-  const sLoaded = searchSubrequests?.loaded;
-  const sLoading = searchSubrequests?.loading;
   const libraries = searchSubrequests?.items || [];
 
   React.useEffect(() => {
@@ -122,6 +120,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
           `${'related'}-${content.UID}`,
         ),
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
