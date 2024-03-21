@@ -51,11 +51,11 @@ const rewriteOptions = (name, choices) => {
     'UseCase',
     'News Item',
     'eea.meeting',
+    'ProductionUpdate',
     'Tender',
     'WorkOpportunity',
     'Document',
     'File',
-    'ProductionUpdate',
   ];
 
   const dataset_geographical_classification = [
