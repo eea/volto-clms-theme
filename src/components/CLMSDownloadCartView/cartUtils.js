@@ -88,6 +88,7 @@ export const getCartObjectFromMapviewer = (
   dataset_data,
   projections,
   nutsnames,
+  cartRequestedItem,
 ) => {
   let area = local_cart_data.area;
   const file = local_cart_data.file;
@@ -109,15 +110,24 @@ export const getCartObjectFromMapviewer = (
 
   return {
     name: dataset_data.title || '-',
+    TemporalFilter: cartRequestedItem?.TemporalFilter || null,
     area: area || '-',
     file: file || '-',
-    format: type_options.length > 0 ? type_options[0].full_format : null,
+    format: cartRequestedItem?.format
+      ? cartRequestedItem?.format
+      : type_options.length > 0
+      ? type_options[0].full_format
+      : null,
     original_format:
       type_options.length > 0 ? type_options[0].full_format : null,
     resolution: dataset_data.resolution || '-',
     size: dataset_data.size || '-',
     source: 'Data viewer',
-    type: type_options.length > 0 ? type_options[0].id : null,
+    type: cartRequestedItem?.type
+      ? cartRequestedItem?.type
+      : type_options.length > 0
+      ? type_options[0].id
+      : null,
     type_options: type_options,
     version: dataset_data.version || '-',
     year: dataset_data.year || '-',
@@ -125,7 +135,10 @@ export const getCartObjectFromMapviewer = (
     unique_id: local_cart_data.unique_id,
     dataset_uid: dataset_data.UID,
     task_in_progress: false,
-    projection: dataset_data.projection || projections[0],
+    projection:
+      cartRequestedItem?.projection ||
+      dataset_data.projection ||
+      projections[0],
     original_projection: dataset_data.original_projection || '',
     timeExtent: local_cart_data.timeExtent || [],
     layer:
@@ -150,9 +163,14 @@ export const duplicateCartItem = (
         unique_id: cartItems[itemIndex].unique_id + '-copy',
       },
     );
-    delete new_item.TemporalFilter;
     while (cartItems.some((c_i) => c_i.unique_id === new_item?.unique_id)) {
       new_item['unique_id'] = new_item?.unique_id + '-copy';
+    }
+    new_item['projection'] = null;
+    new_item['type'] = null;
+    new_item['format'] = null;
+    if (new_item['TemporalFilter']) {
+      new_item['TemporalFilter'] = null;
     }
     cartItems.splice(itemIndex + 1, 0, new_item);
     refreshCart(cartItems, setCartItems, updateCart);
@@ -198,6 +216,9 @@ export const concatRequestedCartItem = (
           const requestedItem = datasets_items
             ? datasets_items.find((req) => req.UID === localItem?.UID)
             : false;
+          const cartRequestedItem = cartItems
+            ? cartItems.find((req) => req.unique_id === localItem?.unique_id)
+            : false;
           const file_data = requestedItem?.downloadable_files?.items.find(
             (item) => item['@id'] === localItem?.file_id,
           );
@@ -209,6 +230,7 @@ export const concatRequestedCartItem = (
               requestedItem,
               projections,
               nutsnames,
+              cartRequestedItem,
             );
           }
         }),
