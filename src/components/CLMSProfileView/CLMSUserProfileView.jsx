@@ -145,6 +145,7 @@ class CLMSUserProfileView extends Component {
       this.props.user?.sector_of_activity === null ||
       this.props.user?.thematic_activity === null) &&
       !this.props.user.roles.includes('Manager') &&
+      !window.location.href.includes('logout') &&
       window.location.assign('/en/profile');
   }
 
