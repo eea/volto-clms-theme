@@ -63,6 +63,8 @@ import SubscriptionBlockView from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import SubscriptionBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionEdit';
 import CclFAQBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclFAQBlock/CclFAQBlockEdit';
 import CclFAQBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclFAQBlock/CclFAQBlockView';
+import CclHelpdeskDocBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHelpdeskDocBlock/CclHelpdeskDocBlockEdit';
+import CclHelpdeskDocBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHelpdeskDocBlock/CclHelpdeskDocBlockView';
 import containerSVG from '@plone/volto/icons/apps.svg';
 import {
   customIdFieldSchema,
@@ -76,6 +78,8 @@ import linkSVG from '@plone/volto/icons/link.svg';
 import navSVG from '@plone/volto/icons/nav.svg';
 import codeSVG from '@plone/volto/icons/code.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
+import infoSVG from '@plone/volto/icons/info.svg';
+
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
 import AttachmentWithSizeLimit from '@eeacms/volto-clms-theme/components/Widgets/AttachmentWithSizeLimit';
 import TextareaWithRequestData from '@eeacms/volto-clms-theme/components/Widgets/TextareaWithRequestData';
@@ -635,6 +639,22 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclFAQBlockView, // The view mode component
     edit: CclFAQBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  cclHelpdeskDoc: {
+    id: 'cclHelpdeskDoc', // The name (id) of the block
+    title: 'Helpdesk Documentation block', // The display name of the block
+    icon: infoSVG, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclHelpdeskDocBlockView, // The view mode component
+    edit: CclHelpdeskDocBlockEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
