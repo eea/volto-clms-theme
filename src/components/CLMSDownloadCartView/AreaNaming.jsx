@@ -13,7 +13,7 @@ export const AreaNaming = (areaProps) => {
         <>
           <CclModal
             draggable={true}
-            trigger={<span className="cart-modal-trigger">Bounding Box</span>}
+            trigger={<span className="cart-modal-trigger">Bounding box</span>}
             size={'medium'}
           >
             <div className="image-modal">

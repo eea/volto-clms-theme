@@ -344,7 +344,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       )}
 
       <CclTabs routing={true}>
-        <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
+        <div tabTitle="General info">{DataSetInfoContent(content)}</div>
 
         {content?.downloadable_dataset && (
           <div
