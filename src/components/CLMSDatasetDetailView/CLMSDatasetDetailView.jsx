@@ -19,7 +19,6 @@ import { postImportWMSLayers, postImportWMSFields } from '../../actions';
 import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';
 import { UniversalLink } from '@plone/volto/components';
 import { cclDateTimeFormat } from '../CclUtils/dateFormats';
-
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 
@@ -344,7 +343,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
       )}
 
       <CclTabs routing={true}>
-        <div tabTitle="General Info">{DataSetInfoContent(content)}</div>
+        <div tabTitle="General info">{DataSetInfoContent(content)}</div>
 
         {content?.downloadable_dataset && (
           <div
@@ -392,24 +391,42 @@ const CLMSDatasetDetailView = ({ content, token }) => {
               </div>
             )}
 
-            {libraries && libraries.length > 0 && (
-              <>
-                <Segment>
-                  <h3>Production updates</h3>
+            <strong>{content.production_updates_show}</strong>
 
-                  {libraries.map((item) => {
+            {(content.production_updates_show ||
+              (libraries && libraries.length > 0)) && (
+              <>
+                <div class="citation-title">Production updates</div>
+
+                {content.production_updates_show && (
+                  <>
+                    <div
+                      className="validation-citation-container"
+                      dangerouslySetInnerHTML={{
+                        __html: content.production_updates_text.data,
+                      }}
+                    />
+                  </>
+                )}
+
+                {!content.production_updates_show &&
+                  libraries.map((item) => {
                     const show_dt = cclDateTimeFormat(item.effective);
                     return (
-                      <Segment basic>
-                        {show_dt} <br />
-                        <UniversalLink item={item}>{item.title}</UniversalLink>
-                      </Segment>
+                      <div className="validation-citation-container">
+                        <p>
+                          {show_dt} <br />
+                          <UniversalLink item={item}>
+                            {item.title}
+                          </UniversalLink>
+                        </p>
+                      </div>
                     );
                   })}
-                  <UniversalLink href="/en/production-updates">
-                    See all or subscribe to production updates
-                  </UniversalLink>
-                </Segment>
+
+                <UniversalLink href="/en/production-updates">
+                  See all or subscribe to production updates
+                </UniversalLink>
               </>
             )}
           </nav>
