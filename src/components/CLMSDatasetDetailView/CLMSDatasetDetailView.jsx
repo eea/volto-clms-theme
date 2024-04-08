@@ -19,7 +19,6 @@ import { postImportWMSLayers, postImportWMSFields } from '../../actions';
 import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';
 import { UniversalLink } from '@plone/volto/components';
 import { cclDateTimeFormat } from '../CclUtils/dateFormats';
-import StringToHTML from '../CclUtils/StringToHTML';
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 
