@@ -35,6 +35,7 @@ const CLMSTechnicalLibraryView = (props) => {
                 url={`${content['@id']}/@@download/file`}
                 download={true}
                 target="_blank"
+                rel="noreferrer"
               >
                 Download File
               </CclButton>

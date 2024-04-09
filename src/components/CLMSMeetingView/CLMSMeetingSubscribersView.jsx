@@ -234,6 +234,7 @@ export const CLMSMeetingSubscribersView = (props) => {
                     className="ccl-button ccl-button--default"
                     filename={content.id + '.csv'}
                     target="_blank"
+                    rel="noreferrer"
                   >
                     {intl.formatMessage(messages.download_selected)}
                   </CSVLink>
