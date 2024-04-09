@@ -18,7 +18,7 @@ import {
 import { postImportWMSLayers, postImportWMSFields } from '../../actions';
 import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';
 import { UniversalLink } from '@plone/volto/components';
-import { cclDateTimeFormat } from '../CclUtils/dateFormats';
+import { cclDateFormat } from '../CclUtils/dateFormats';
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 
@@ -396,6 +396,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             {(content.production_updates_show ||
               (libraries && libraries.length > 0)) && (
               <>
+                <br />
                 <div class="citation-title">Production updates</div>
 
                 {content.production_updates_show && (
@@ -411,7 +412,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
 
                 {!content.production_updates_show &&
                   libraries.map((item) => {
-                    const show_dt = cclDateTimeFormat(item.effective);
+                    const show_dt = cclDateFormat(item.effective);
                     return (
                       <div className="validation-citation-container">
                         <p>

@@ -424,7 +424,7 @@ const CLMSCartContent = (props) => {
                         {!item?.file_id ? (
                           <Select
                             placeholder="Select projection"
-                            value={item?.projection}
+                            value={item?.original_projection.split('/')[0]}
                             options={
                               projections_uid?.[item.dataset_uid] &&
                               projections_uid[item.dataset_uid].length > 0 &&
@@ -440,32 +440,16 @@ const CLMSCartContent = (props) => {
                                   }
                                 })
                                 ?.map((projection) => {
+                                  const re = new RegExp(
+                                    projection.split(':')[1],
+                                  );
                                   return {
                                     key: projection,
                                     value: projection,
-                                    text: item?.original_projection
-                                      .replaceAll(
-                                        '/ ',
-                                        ' ' +
-                                          projection.substring(
-                                            0,
-                                            projection.indexOf(':') + 1,
-                                          ),
-                                      )
-                                      .includes(projection)
-                                      ? projection +
-                                        ' (Source system of the dataset)'
+                                    text: re.test(item.original_projection)
+                                      ? `${projection} (Source system of the dataset)`
                                       : projection,
-                                    className: item?.original_projection
-                                      .replaceAll(
-                                        '/ ',
-                                        ' ' +
-                                          projection.substring(
-                                            0,
-                                            projection.indexOf(':') + 1,
-                                          ),
-                                      )
-                                      .includes(projection)
+                                    className: re.test(item.original_projection)
                                       ? 'original_projection'
                                       : 'projection',
                                   };
