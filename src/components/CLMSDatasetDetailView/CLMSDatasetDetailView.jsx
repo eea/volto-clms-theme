@@ -396,6 +396,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
             {(content.production_updates_show ||
               (libraries && libraries.length > 0)) && (
               <>
+                <br />
                 <div class="citation-title">Production updates</div>
 
                 {content.production_updates_show && (
