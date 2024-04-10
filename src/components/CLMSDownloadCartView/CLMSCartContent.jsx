@@ -424,7 +424,8 @@ const CLMSCartContent = (props) => {
                         {!item?.file_id ? (
                           <Select
                             placeholder="Select projection"
-                            value={item?.original_projection.split('/')[0]}
+                            // value={item?.projection}
+                            defaultValue={item?.original_projection}
                             options={
                               projections_uid?.[item.dataset_uid] &&
                               projections_uid[item.dataset_uid].length > 0 &&
