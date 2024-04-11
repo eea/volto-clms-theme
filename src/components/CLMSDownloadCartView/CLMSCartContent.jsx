@@ -5,7 +5,6 @@ import {
   Checkbox,
   Modal,
   Segment,
-  Select,
   Table,
   Pagination,
   Popup,
@@ -41,6 +40,7 @@ import {
   FormatNaming,
   LayerNaming,
   TimeseriesPicker,
+  ProjectionNaming,
 } from '.';
 
 import { getProjectionsUID } from '../../actions';
@@ -70,10 +70,6 @@ const CLMSCartContent = (props) => {
   );
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
-  );
-
-  const projections_uid = useSelector(
-    (state) => state.downloadtool.projections_in_progress_uid,
   );
 
   const nutsnames = useSelector((state) => state.nutsnames);
@@ -222,12 +218,6 @@ const CLMSCartContent = (props) => {
     } else {
       setOpenedModal(true);
     }
-  };
-
-  const setProjectionValue = (unique_id, value) => {
-    const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
-    cartItems[objIndex].projection = value;
-    setCartItems([...cartItems]);
   };
 
   const setTimeseriesValue = (unique_id, value) => {
@@ -421,50 +411,11 @@ const CLMSCartContent = (props) => {
                         )}
                       </td>
                       <td className="table-td-projections">
-                        {!item?.file_id ? (
-                          <Select
-                            placeholder="Select projection"
-                            // value={item?.projection}
-                            defaultValue={
-                              item?.original_projection.split('/')[0]
-                            }
-                            options={
-                              projections_uid?.[item.dataset_uid] &&
-                              projections_uid[item.dataset_uid].length > 0 &&
-                              projections_uid[item.dataset_uid]
-                                ?.sort((a, b) => {
-                                  if (
-                                    Number(a.split(':')[1]) >
-                                    Number(b.split(':')[1])
-                                  ) {
-                                    return 1;
-                                  } else {
-                                    return -1;
-                                  }
-                                })
-                                ?.map((projection) => {
-                                  const re = new RegExp(
-                                    projection.split(':')[1],
-                                  );
-                                  return {
-                                    key: projection,
-                                    value: projection,
-                                    text: re.test(item.original_projection)
-                                      ? `${projection} (Source system of the dataset)`
-                                      : projection,
-                                    className: re.test(item.original_projection)
-                                      ? 'original_projection'
-                                      : 'projection',
-                                  };
-                                })
-                            }
-                            onChange={(e, data) => {
-                              setProjectionValue(item?.unique_id, data.value);
-                            }}
-                          />
-                        ) : (
-                          '-'
-                        )}
+                        <ProjectionNaming
+                          item={item}
+                          cartItems={cartItems}
+                          setCartItems={setCartItems}
+                        />
                       </td>
                       <td className="table-td-timeseries">
                         {datasetTimeseries.datasets[item?.dataset_uid]

@@ -1,6 +1,7 @@
-export { TypeNaming } from './TypeNaming';
-export { AreaNaming } from './AreaNaming';
-export { CollectionNaming } from './CollectionNaming';
-export { FormatNaming } from './FormatNaming';
-export { LayerNaming } from './LayerNaming';
-export { TimeseriesPicker } from './TimeseriesPicker';
+export { TypeNaming } from './Fields/TypeNaming';
+export { AreaNaming } from './Fields/AreaNaming';
+export { CollectionNaming } from './Fields/CollectionNaming';
+export { FormatNaming } from './Fields/FormatNaming';
+export { LayerNaming } from './Fields/LayerNaming';
+export { ProjectionNaming } from './Fields/ProjectionNaming';
+export { TimeseriesPicker } from './Fields/TimeseriesPicker';

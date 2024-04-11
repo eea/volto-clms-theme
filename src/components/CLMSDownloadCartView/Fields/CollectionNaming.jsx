@@ -1,6 +1,6 @@
 import { Select } from 'semantic-ui-react';
 
-import { getCollectionByItem } from './cartUtils';
+import { getCollectionByItem } from '../cartUtils';
 
 export const CollectionNaming = ({
   item,

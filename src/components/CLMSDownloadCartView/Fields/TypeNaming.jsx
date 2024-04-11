@@ -1,6 +1,6 @@
 import { Select } from 'semantic-ui-react';
 
-import { getCollectionByItem, contentOrDash } from './cartUtils';
+import { getCollectionByItem, contentOrDash } from '../cartUtils';
 
 export const TypeNaming = ({
   item,
