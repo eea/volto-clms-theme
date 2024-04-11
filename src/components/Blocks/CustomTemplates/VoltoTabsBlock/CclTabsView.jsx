@@ -9,15 +9,7 @@ import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TabsComponent = (props) => {
-  const {
-    tabsList = [],
-    ExtraComponent = () => {
-      return '';
-    },
-    activeTab = null,
-    tabs = {},
-    setActiveTab,
-  } = props;
+  const { tabsList = [], setActiveTab } = props;
   function handleAction(activeTab, tab) {
     if (activeTab !== tab) {
       setActiveTab(tab);
