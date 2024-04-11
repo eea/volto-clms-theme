@@ -8,93 +8,84 @@ import './fontawesome';
 import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const CclTabsView = (props) => {
-  const {
-    metadata = {},
-    tabsList = [],
-    setActiveTab,
-    activeTab = null,
-    tabs = {},
-  } = props;
-
-  const PanelsComponent = () => {
-    return (
-      <div className="panels">
-        {tabsList
-          .filter((tab) => tab === activeTab)
-          .map((tab, index) => {
-            return (
-              <div
-                key={index}
-                className={cx('panel', tab === activeTab && 'panel-selected')}
-                id={`tab-${index}`}
-                role="tabpanel"
-                aria-hidden="false"
-              >
-                <RenderBlocks
-                  {...props}
-                  metadata={metadata}
-                  content={tabs[tab]}
-                />
-              </div>
-            );
-          })}
-      </div>
-    );
-  };
-
+const TabsComponent = (props) => {
+  const { tabsList = [], setActiveTab } = props;
   function handleAction(activeTab, tab) {
     if (activeTab !== tab) {
       setActiveTab(tab);
     }
   }
-
-  const TabsComponent = () => {
-    return (
-      <div className="tabs" role="tablist">
-        {tabsList.map((tab, index) => {
-          const { activeTab = null, tabs = {} } = props;
-          const title = tabs[tab].title;
-          const tabIndex = index + 1;
-          const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
-          const defaultTitle = `Tab ${tabIndex}`;
+  return (
+    <div className="tabs" role="tablist">
+      {tabsList.map((tab, index) => {
+        const { activeTab = null, tabs = {} } = props;
+        const title = tabs[tab].title;
+        const tabIndex = index + 1;
+        const fa_icon = tabs[tab]?.icon?.fontAwesome || null;
+        const defaultTitle = `Tab ${tabIndex}`;
+        return (
+          <span
+            key={index}
+            id={tabIndex}
+            role="tab"
+            aria-controls={`tab-${index}`}
+            aria-selected={tab === activeTab}
+            active={(tab === activeTab).toString()}
+            /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatuz nahikoa da */
+            className={cx('tab', tab === activeTab && 'tab-selected')}
+            onClick={() => {
+              handleAction(activeTab, tab);
+            }}
+            onKeyDown={() => {
+              handleAction(activeTab, tab);
+            }}
+            tabIndex="0"
+          >
+            {fa_icon && (
+              <FontAwesomeIcon
+                icon={['far', fa_icon]}
+                style={{ marginRight: '1rem' }}
+              />
+            )}
+            {title || defaultTitle}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+const PanelsComponent = (props) => {
+  const { metadata = {}, tabsList = [], activeTab = null, tabs = {} } = props;
+  return (
+    <div className="panels">
+      {tabsList
+        .filter((tab) => tab === activeTab)
+        .map((tab, index) => {
           return (
-            <span
+            <div
               key={index}
-              id={tabIndex}
-              role="tab"
-              aria-controls={`tab-${index}`}
-              aria-selected={tab === activeTab}
-              active={(tab === activeTab).toString()}
-              /* classname hontan estiloa aldatu behar bada "===" "!==" gatik aldatuz nahikoa da */
-              className={cx('tab', tab === activeTab && 'tab-selected')}
-              onClick={() => {
-                handleAction(activeTab, tab);
-              }}
-              onKeyDown={() => {
-                handleAction(activeTab, tab);
-              }}
-              tabIndex="0"
+              className={cx('panel', tab === activeTab && 'panel-selected')}
+              id={`tab-${index}`}
+              role="tabpanel"
+              aria-hidden="false"
             >
-              {fa_icon && (
-                <FontAwesomeIcon
-                  icon={['far', fa_icon]}
-                  style={{ marginRight: '1rem' }}
-                />
-              )}
-              {title || defaultTitle}
-            </span>
+              <RenderBlocks
+                {...props}
+                metadata={metadata}
+                content={tabs[tab]}
+              />
+            </div>
           );
         })}
-      </div>
-    );
-  };
-
+    </div>
+  );
+};
+const CclTabsView = (props) => {
   return (
     <div className="home-news-events-block">
       <div className="ccl-container tab-container">
-        <TabsComponent />
-        <PanelsComponent />
+        <TabsComponent {...props} />
+        <PanelsComponent {...props} />
       </div>
     </div>
   );

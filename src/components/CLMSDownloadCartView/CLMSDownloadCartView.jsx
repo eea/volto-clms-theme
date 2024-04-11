@@ -143,7 +143,7 @@ const CLMSDownloadCartView = (props) => {
                   <ul>
                     <li>
                       Select the files you want to download and click the button
-                      'Start downloading' to start the download process.
+                      'Process download request' to start the download process.
                     </li>
                     <li>
                       You can visit the{' '}

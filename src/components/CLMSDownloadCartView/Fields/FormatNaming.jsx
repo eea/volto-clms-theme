@@ -1,7 +1,7 @@
 import { Select } from 'semantic-ui-react';
 
-import { formatNaming, originalFormatNaming } from './cartUtils';
-import { getAvailableConversion } from './conversion';
+import { formatNaming, originalFormatNaming } from '../cartUtils';
+import { getAvailableConversion } from '../conversion';
 
 export const FormatNaming = ({
   item,
