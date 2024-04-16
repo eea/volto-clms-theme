@@ -14,7 +14,7 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
   useEffect(() => {
     setProjectionValue(
       item?.unique_id,
-      item?.original_projection.split('/')[0],
+      item?.original_projection?.split('/')[0],
     );
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
