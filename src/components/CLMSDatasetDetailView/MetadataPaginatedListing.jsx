@@ -43,7 +43,7 @@ export const MetadataPaginatedListing = (props) => {
               href={
                 geonetwork.type === 'EEA'
                   ? `https://sdi.eea.europa.eu/catalogue/srv/api/records/${geonetwork.id}/formatters/xsl-view?output=pdf&language=eng&approved=true`
-                  : `https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xsl-view?root=div&output=pdf`
+                  : `https://globalland.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xsl-view?root=div&output=pdf`
               }
               rel="noreferrer"
               target="_blank"
@@ -55,7 +55,7 @@ export const MetadataPaginatedListing = (props) => {
               href={
                 geonetwork.type === 'EEA'
                   ? `https://sdi.eea.europa.eu/catalogue/srv/api/records/${geonetwork.id}/formatters/xml?approved=true`
-                  : `https://land.copernicus.vgt.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xml?attachment=true`
+                  : `https://globalland.vito.be/geonetwork/srv/api/records/${geonetwork.id}/formatters/xml?attachment=true`
               }
               rel="noreferrer"
               target="_blank"
