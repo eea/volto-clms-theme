@@ -15,7 +15,8 @@ const DownloadDataSetContent = (data, token) => {
     <div>
       {data?.downloadable_full_dataset && (
         <div className="dataset-download-area">
-          {data.mapviewer_istimeseries ? (
+          {data.mapviewer_istimeseries ||
+          data.download_show_auxiliary_calendar ? (
             <>
               <h2>Download by area and time</h2>
               <p>
@@ -33,7 +34,8 @@ const DownloadDataSetContent = (data, token) => {
             </>
           )}
           {user?.['@id'] ? (
-            data.mapviewer_istimeseries === true ? (
+            data.mapviewer_istimeseries ||
+            data.download_show_auxiliary_calendar ? (
               <CclButton
                 url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
               >
