@@ -234,7 +234,7 @@ function CclCard(props) {
       ? 'line card-line-no-description'
       : type === 'cardWithBgImage'
       ? 'home-map-banner'
-      : 'threeColumnsDates'
+      : type === 'threeColumnsDates'
       ? 'threeColumns'
       : type || 'line');
 
