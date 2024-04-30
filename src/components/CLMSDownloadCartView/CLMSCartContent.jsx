@@ -31,6 +31,7 @@ import {
   concatRequestedCartItem,
   isChecked,
   contentOrDash,
+  getNutsIDList,
 } from './cartUtils';
 
 import {
@@ -51,7 +52,12 @@ import { getProjectionsUID } from '../../actions';
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 const CLMSCartContent = (props) => {
-  const { localSessionCart, getNutsIDList } = props;
+  const {
+    localSessionCart,
+    tooManyInQueue,
+    howManyInQueue,
+    maxInQueue,
+  } = props;
   const dispatch = useDispatch();
   const { removeCartItem, removeCartItems, updateCart } = useCartState();
 
@@ -70,6 +76,9 @@ const CLMSCartContent = (props) => {
   );
   const projections = useSelector(
     (state) => state.downloadtool.projections_in_progress,
+  );
+  const projectionsUID = useSelector(
+    (state) => state.downloadtool.projections_in_progress_uid,
   );
 
   const nutsnames = useSelector((state) => state.nutsnames);
@@ -123,8 +132,14 @@ const CLMSCartContent = (props) => {
     }
 
     datasets_items &&
-      datasets_items.map((item) => dispatch(getProjectionsUID(item.UID)));
-  }, [cart, datasets_items, nutsnamesDeepCompare]);
+      datasets_items.forEach((item) => {
+        if (projectionsUID) {
+          if (!projectionsUID[item.UID]) dispatch(getProjectionsUID(item.UID));
+        } else {
+          dispatch(getProjectionsUID(item.UID));
+        }
+      });
+  }, [datasets_items, nutsnamesDeepCompare]);
 
   const selectAllCart = (checked) => {
     if (checked && cartItems.length > 0) {
@@ -232,8 +247,6 @@ const CLMSCartContent = (props) => {
     ref.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const { tooManyInQueue, howManyInQueue, maxInQueue } = props;
-
   const tooManySelected = () => {
     let selectedItems = getSelectedCartItems();
     const hasPrepackaged =
@@ -257,7 +270,7 @@ const CLMSCartContent = (props) => {
         <div ref={ref} className="custom-table cart-table">
           <Segment basic loading={loadingTable}>
             <h2>My cart</h2>
-            <Table responsive>
+            <Table responsive="true">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell className="table-th-warning"></Table.HeaderCell>
