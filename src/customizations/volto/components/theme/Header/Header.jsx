@@ -130,9 +130,9 @@ class Header extends Component {
     if (nextProps.token !== this.props.token) {
       this.props.getUser(nextProps.token);
     }
-    if (nextProps.user.id !== this.props.user.id) {
-      this.props.getCartItems(this.props?.user?.id);
-    }
+    // if (nextProps.user.id !== this.props.user.id) {
+    //   this.props.getCartItems(this.props?.user?.id);
+    // }
   }
 
   /**
