@@ -1,86 +1,99 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Select } from 'semantic-ui-react';
+import { Select, Loader } from 'semantic-ui-react';
 import { baseSources, utm, nutsBB } from '../../../constants/utmProjections';
+import { getUtm } from './utils';
 
 export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
+  const [loading, setLoading] = useState(true);
   const projections_uid = useSelector(
     (state) => state.downloadtool.projections_in_progress_uid,
   );
-  const setProjectionValue = (unique_id, value) => {
-    const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
-    cartItems[objIndex].projection = value;
-    setCartItems([...cartItems]);
+  const setProjectionValue = (unique_id, value, cI) => {
+    const new_cartItems = [...cI];
+    const objIndex = cI.findIndex((obj) => obj.unique_id === unique_id);
+    if (new_cartItems[objIndex]) new_cartItems[objIndex].projection = value;
+    setCartItems([...new_cartItems]);
   };
-  let availableProjections = projections_uid?.[item.dataset_uid]?.sort(
-    (a, b) => {
-      if (Number(a.split(':')[1]) > Number(b.split(':')[1])) {
-        return 1;
-      } else {
-        return -1;
-      }
-    },
-  );
-  let defaultValue = availableProjections[0];
-  let filtered = [];
-  filtered = utm
-    .filter((d) => {
-      return item.area.type === 'polygon'
-        ? d.bb[0] < item.area.value[0] &&
-            d.bb[1] < item.area.value[1] &&
-            d.bb[2] > item.area.value[2] &&
-            d.bb[3] > item.area.value[3]
-        : d.bb[0] < nutsBB[item.area.value][0] &&
-            d.bb[1] < nutsBB[item.area.value][1] &&
-            d.bb[2] > nutsBB[item.area.value][2] &&
-            d.bb[3] > nutsBB[item.area.value][3];
-    })
-    .map((u) => u.source);
+  const utm = getUtm(item);
 
-  if (filtered.length > 0) {
-    defaultValue = item.original_projection
-      .replace('EPSG:', '')
-      .split('/')
-      .map((op) => op.trim())
-      .includes(filtered[0].replace('EPSG:', ''))
-      ? filtered[0]
-      : availableProjections[0];
-  }
-  availableProjections = availableProjections.filter(
-    (p) => filtered.includes(p) || baseSources.includes(p),
-  );
+  let [choices, setChoices] = useState([]);
 
   useEffect(() => {
-    setProjectionValue(
-      item?.unique_id,
-      item?.original_projection?.split('/')[0],
-    );
+    if (
+      projections_uid?.[item.dataset_uid] &&
+      projections_uid?.[item.dataset_uid].length > 0
+    ) {
+      setLoading(true);
+      setChoices(
+        projections_uid?.[item.dataset_uid]
+          ?.sort((a, b) => {
+            if (Number(a.split(':')[1]) > Number(b.split(':')[1])) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
+          .filter((p) => utm.includes(p) || baseSources.includes(p))
+          .map((p) => {
+            const re = new RegExp(p.split(':')[1]);
+            return {
+              key: p,
+              value: p,
+              text: re.test(item.original_projection)
+                ? `${p} (Source system of the dataset)`
+                : p,
+              className: re.test(item.original_projection)
+                ? 'original_projection'
+                : 'projection',
+            };
+          }),
+      );
+      setTimeout(() => {
+        choices.length > 0 &&
+          setProjectionValue(
+            item?.unique_id,
+            item?.projection
+              ? item.projection
+              : utm.length > 0
+              ? utm[0]
+              : choices[0].key,
+            cartItems,
+          );
+        setTimeout(() => {
+          setLoading(false);
+        }, 200);
+      }, 200);
+    } else {
+      setLoading(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(projections_uid?.[item.dataset_uid]), item.unique_id]);
+
+  useEffect(() => {
+    !item.projection && choices.length > 0
+      ? setProjectionValue(item?.unique_id, choices[0].key, cartItems)
+      : !item.projection && choices.length === 0
+      ? setLoading(true)
+      : setProjectionValue(item?.unique_id, item.projection, cartItems);
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return !item?.file_id ? (
-    <Select
-      placeholder="Select projection"
-      // value={item?.projection}
-      defaultValue={defaultValue}
-      options={availableProjections?.map((projection) => {
-        const re = new RegExp(projection.split(':')[1]);
-        return {
-          key: projection,
-          value: projection,
-          text: re.test(item.original_projection)
-            ? `${projection} (Source system of the dataset)`
-            : projection,
-          className: re.test(item.original_projection)
-            ? 'original_projection'
-            : 'projection',
-        };
-      })}
-      onChange={(e, data) => {
-        setProjectionValue(item?.unique_id, data.value);
-      }}
-    />
+    loading ? (
+      <Loader active inline />
+    ) : (
+      <Select
+        placeholder="Select projection"
+        value={item?.projection ?? choices[0].key}
+        options={choices}
+        onChange={(e, data) => {
+          setProjectionValue(item?.unique_id, data.value, cartItems);
+        }}
+      />
+    )
   ) : (
     '-'
   );
