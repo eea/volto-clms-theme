@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Select, Loader } from 'semantic-ui-react';
-import { baseSources, utm, nutsBB } from '../../../constants/utmProjections';
+import { baseSources } from '../../../constants/utmProjections';
 import { getUtm } from './utils';
 
 export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
