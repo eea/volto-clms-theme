@@ -145,6 +145,8 @@ export const getCartObjectFromMapviewer = (
       type_options.length > 0 && type_options[0].layers.length > 0
         ? type_options[0].layers[0]
         : null,
+    download_show_auxiliary_calendar:
+      dataset_data.download_show_auxiliary_calendar,
   };
 };
 
