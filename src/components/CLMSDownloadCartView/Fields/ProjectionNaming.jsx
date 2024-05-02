@@ -40,6 +40,7 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
             return {
               key: p,
               value: p,
+              default: re.test(item.original_projection) ? true : false,
               text: re.test(item.original_projection)
                 ? `${p} (Source system of the dataset)`
                 : p,
@@ -55,14 +56,14 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
             item?.unique_id,
             item?.projection
               ? item.projection
-              : utm.length > 0
-              ? utm[0]
+              : choices.find((ch) => ch.default)
+              ? choices.find((ch) => ch.default).key
               : choices[0].key,
             cartItems,
           );
         setTimeout(() => {
           setLoading(false);
-        }, 200);
+        }, 100);
       }, 200);
     } else {
       setLoading(true);
