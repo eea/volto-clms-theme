@@ -91,7 +91,7 @@ function CclLoginModal(props) {
           </p>
           <p>
             If you have other questions, please contact our
-            <UniversalLink openLinkInNewTab href="/en/service-desk">
+            <UniversalLink openLinkInNewTab href="/en/contact-service-helpdesk">
               {' '}
               Service desk
             </UniversalLink>
