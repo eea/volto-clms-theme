@@ -431,23 +431,23 @@ const CLMSCartContent = (props) => {
                         />
                       </td>
                       <td className="table-td-timeseries">
-                        {datasetTimeseries.datasets[item?.dataset_uid]
-                          ?.start ? (
+                        {datasetTimeseries.datasets[item?.dataset_uid]?.start ||
+                        item.download_show_auxiliary_calendar ? (
                           <TimeseriesPicker
                             start={
                               datasetTimeseries.datasets[item?.dataset_uid]
-                                .start
+                                ?.start
                             }
                             end={
-                              datasetTimeseries.datasets[item?.dataset_uid].end
+                              datasetTimeseries.datasets[item?.dataset_uid]?.end
                             }
                             period={
                               datasetTimeseries.datasets[item?.dataset_uid]
-                                .period
+                                ?.period
                             }
                             download_limit_temporal_extent={
                               datasetTimeseries.datasets[item?.dataset_uid]
-                                .download_limit_temporal_extent
+                                ?.download_limit_temporal_extent
                             }
                             item={item}
                             setTimeseriesValue={setTimeseriesValue}
