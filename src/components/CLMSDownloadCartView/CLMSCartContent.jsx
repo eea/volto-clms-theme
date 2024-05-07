@@ -59,10 +59,9 @@ const CLMSCartContent = (props) => {
     maxInQueue,
   } = props;
   const dispatch = useDispatch();
-  const { removeCartItem, removeCartItems, updateCart } = useCartState();
+  const { removeCartItem, removeCartItems, updateCart, cart } = useCartState();
 
   // state connections
-  const cart = useSelector((state) => state.cart_items.items);
   const post_download_in_progress = useSelector(
     (state) => state.downloadtool.post_download_in_progress,
   );
@@ -158,10 +157,8 @@ const CLMSCartContent = (props) => {
     else setCartSelection(cartSelection.filter((arr_id) => arr_id !== id));
   };
 
-  const getSelectedCartItems = () => {
-    return cartItems.filter(
-      (item) => cartSelection.indexOf(item?.unique_id) > -1,
-    );
+  const getSelectedCartItems = (ci, cs) => {
+    return ci.filter((item) => cs.indexOf(item?.unique_id) > -1);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -208,11 +205,11 @@ const CLMSCartContent = (props) => {
     }
   }, [downloadtool_state.requested, downloadtool_state.error]);
 
-  const startDownloading = () => {
+  const startDownloading = (ci, cs) => {
     setLoadingTable(true);
     window.scrollTo(0, 0);
 
-    let selectedItems = getSelectedCartItems();
+    let selectedItems = getSelectedCartItems(ci, cs);
     const body = getDownloadToolPostBody(selectedItems);
     const unique_ids =
       selectedItems.length > 0
@@ -220,16 +217,16 @@ const CLMSCartContent = (props) => {
         : [];
     dispatch(postDownloadtool(body, unique_ids));
     removeCartItems(unique_ids);
+    setCartItems(cartItems.filter((i) => !unique_ids.includes(i.unique_id)));
   };
-
-  const downloadModal = () => {
-    let selectedItems = getSelectedCartItems();
+  const downloadModal = (ci, cs) => {
+    let selectedItems = getSelectedCartItems(ci, cs);
     const hasPrepackaged =
       selectedItems.filter((item) => item?.file_id).length > 0;
     const hasMapSelection =
       selectedItems.filter((item) => !item?.file_id).length > 0;
     if (!(hasMapSelection && hasPrepackaged)) {
-      startDownloading();
+      startDownloading(ci, cs);
     } else {
       setOpenedModal(true);
     }
@@ -248,7 +245,7 @@ const CLMSCartContent = (props) => {
   };
 
   const tooManySelected = () => {
-    let selectedItems = getSelectedCartItems();
+    let selectedItems = getSelectedCartItems(cartItems, cartSelection);
     const hasPrepackaged =
       selectedItems.filter((item) => item?.file_id).length > 0;
     const hasMapSelection =
@@ -585,7 +582,7 @@ const CLMSCartContent = (props) => {
             </strong>
           )}
           <CclButton
-            onClick={() => downloadModal()}
+            onClick={() => downloadModal(cartItems, cartSelection)}
             disabled={
               cartSelection.length === 0 || tooManyInQueue || tooManySelected()
             }
@@ -626,7 +623,7 @@ const CLMSCartContent = (props) => {
               <ul>
                 {[
                   ...new Set(
-                    getSelectedCartItems()
+                    getSelectedCartItems(cartItems, cartSelection)
                       .filter((item) => item?.file_id)
                       .map((item) => item?.name),
                   ),
@@ -641,7 +638,7 @@ const CLMSCartContent = (props) => {
               <ul>
                 {[
                   ...new Set(
-                    getSelectedCartItems()
+                    getSelectedCartItems(cartItems, cartSelection)
                       .filter((item) => !item?.file_id)
                       .map((item) => item?.name),
                   ),

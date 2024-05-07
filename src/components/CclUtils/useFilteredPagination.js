@@ -55,12 +55,14 @@ export const useFilteredPagination = (
   }, [search]);
 
   useEffect(() => {
-    setPagination(
-      dataList.slice(
-        (currentPage - 1) * paginationSize,
-        (currentPage - 1) * paginationSize + paginationSize,
-      ),
-    );
+    dataList.length > 0 &&
+      setPagination(
+        dataList.slice(
+          (currentPage - 1) * paginationSize,
+          (currentPage - 1) * paginationSize + paginationSize,
+        ),
+      );
+    dataList.length === 0 && setPagination([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataList, currentPage, paginationSize]);
   useEffect(() => {
