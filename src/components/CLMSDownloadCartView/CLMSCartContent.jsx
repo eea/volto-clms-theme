@@ -219,7 +219,7 @@ const CLMSCartContent = (props) => {
         ? selectedItems.map((item) => item?.unique_id)
         : [];
     dispatch(postDownloadtool(body, unique_ids));
-    removeCartItem(unique_ids);
+    removeCartItems(unique_ids);
   };
 
   const downloadModal = () => {
@@ -385,7 +385,7 @@ const CLMSCartContent = (props) => {
                         )}
                       </td>
                       <td>
-                        <div className="mb-2">
+                        <div className="mb-2 type-container">
                           <TypeNaming
                             item={item}
                             datasets_items={datasets_items}
@@ -394,7 +394,7 @@ const CLMSCartContent = (props) => {
                           />
                         </div>
 
-                        <div className="mb-2">
+                        <div className="mb-2 collection-container">
                           <CollectionNaming
                             item={item}
                             datasets_items={datasets_items}
@@ -403,7 +403,7 @@ const CLMSCartContent = (props) => {
                           />
                         </div>
 
-                        <div className="mb-2">
+                        <div className="mb-2 format-container">
                           {formatConversionTable && item && (
                             <FormatNaming
                               item={item}
@@ -414,7 +414,7 @@ const CLMSCartContent = (props) => {
                           )}
                         </div>
                         {item?.layer !== null && (
-                          <div className="mb-2">
+                          <div className="mb-2 layer-container">
                             <LayerNaming
                               item={item}
                               cartItems={cartItems}

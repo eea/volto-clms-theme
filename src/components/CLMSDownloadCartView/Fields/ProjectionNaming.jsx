@@ -63,7 +63,7 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
           );
         setTimeout(() => {
           setLoading(false);
-        }, 100);
+        }, 200);
       }, 200);
     } else {
       setLoading(true);
@@ -73,8 +73,12 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
   }, [JSON.stringify(projections_uid?.[item.dataset_uid]), item.unique_id]);
 
   useEffect(() => {
-    !item.projection && choices.length > 0
-      ? setProjectionValue(item?.unique_id, choices[0].key, cartItems)
+    !item.projection && choices.length > 0 && choices.find((ch) => ch.default)
+      ? setProjectionValue(
+          item?.unique_id,
+          choices.find((ch) => ch.default).key,
+          cartItems,
+        )
       : !item.projection && choices.length === 0
       ? setLoading(true)
       : setProjectionValue(item?.unique_id, item.projection, cartItems);
@@ -88,7 +92,11 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
     ) : (
       <Select
         placeholder="Select projection"
-        value={item?.projection ?? choices[0].key}
+        value={
+          item?.projection ??
+          choices.find((ch) => ch.default)?.key ??
+          choices[0].key
+        }
         options={choices}
         onChange={(e, data) => {
           setProjectionValue(item?.unique_id, data.value, cartItems);

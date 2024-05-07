@@ -25,6 +25,7 @@ export const TypeNaming = ({
     return types_options.length > 1 ? (
       <Select
         placeholder="Select type"
+        className="type-selector"
         value={defaultType.name}
         options={
           types_options.length > 0
