@@ -135,10 +135,7 @@ export const getCartObjectFromMapviewer = (
     unique_id: local_cart_data.unique_id,
     dataset_uid: dataset_data.UID,
     task_in_progress: false,
-    projection:
-      cartRequestedItem?.projection ||
-      dataset_data.projection ||
-      projections[0],
+    projection: cartRequestedItem?.projection,
     original_projection: dataset_data.original_projection || '',
     timeExtent: local_cart_data.timeExtent || [],
     layer:
@@ -168,8 +165,8 @@ export const duplicateCartItem = (
     while (cartItems.some((c_i) => c_i.unique_id === new_item?.unique_id)) {
       new_item['unique_id'] = new_item?.unique_id + '-copy';
     }
-    new_item['projection'] = null;
-    new_item['type'] = null;
+    // new_item['projection'] = null;
+    // new_item['type'] = null;
     new_item['format'] = null;
     if (new_item['TemporalFilter']) {
       new_item['TemporalFilter'] = null;
@@ -253,4 +250,13 @@ export const isChecked = (cartSelectionCh, cartItemsCh) => {
 
 export const contentOrDash = (content) => {
   return content || '-';
+};
+
+export const getNutsIDList = (cart_data) => {
+  const nuts_ids = [];
+  cart_data?.length > 0 &&
+    cart_data.forEach((cart_item) => {
+      cart_item.area?.type === 'nuts' && nuts_ids.push(cart_item.area.value);
+    });
+  return nuts_ids;
 };

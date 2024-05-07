@@ -29,13 +29,17 @@ export const CartIconCounter = () => {
   const intl = useSelector((state) => state.intl);
   const isDownload = useSelector((state) => state?.downloadtool?.loading);
   const user_id = useSelector((state) => state.users.user.id);
+  const user_id_ref = useRef();
   const [showPopup, setshowPopup] = useState(false);
   const [cartDiff, setCartDiff] = useState(0);
   const [cartDiffItems, setCartDiffItems] = useState([]);
   const [hasTimeseries, setHasTimeseries] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCartItems(user_id));
+    user_id &&
+      user_id !== user_id_ref.current &&
+      dispatch(getCartItems(user_id));
+    user_id_ref.current = user_id;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
 

@@ -8,6 +8,7 @@ import { Helmet } from '@plone/volto/helpers';
 import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getNutsIDList } from './cartUtils';
 
 import {
   getDatasetsByUid,
@@ -31,6 +32,8 @@ const CLMSDownloadCartView = (props) => {
   const cart = useSelector((state) => state.cart_items.items);
   const content = useSelector((state) => state.content.data);
   const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
+  const nutsnames = useSelector((state) => state.nutsnames);
+
   const { isLoggedIn } = useCartState();
   const { formatMessage } = useIntl();
   const messages = defineMessages({
@@ -82,20 +85,20 @@ const CLMSDownloadCartView = (props) => {
       });
     }
     if (localsessionNutsIDList.length > 0) {
-      dispatch(getNutsNames(localsessionNutsIDList));
+      if (nutsnames.nutsnames) {
+        const missingnn = localsessionNutsIDList.filter(
+          (nid) => !nutsnames.nutsnames[nid],
+        );
+        if (missingnn.length > 0)
+          dispatch(getNutsNames(localsessionNutsIDList));
+      } else {
+        dispatch(getNutsNames(localsessionNutsIDList));
+      }
     }
+
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart, dispatch]);
-
-  function getNutsIDList(cart_data) {
-    const nuts_ids = [];
-    cart_data?.length > 0 &&
-      cart_data.forEach((cart_item) => {
-        cart_item.area?.type === 'nuts' && nuts_ids.push(cart_item.area.value);
-      });
-    return nuts_ids;
-  }
 
   useEffect(() => {
     dispatch(getDownloadtool());
@@ -165,7 +168,6 @@ const CLMSDownloadCartView = (props) => {
               </div>
               <CLMSCartContent
                 localSessionCart={cart}
-                getNutsIDList={getNutsIDList}
                 tooManyInQueue={tooManyInQueue}
                 howManyInQueue={howManyInQueue}
                 maxInQueue={maxInQueue}
