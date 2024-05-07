@@ -1,34 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Select } from 'semantic-ui-react';
+import { Select, Loader } from 'semantic-ui-react';
+import { baseSources } from '../../../constants/utmProjections';
+import { getUtm } from './utils';
 
 export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
+  const [loading, setLoading] = useState(true);
   const projections_uid = useSelector(
     (state) => state.downloadtool.projections_in_progress_uid,
   );
-  const setProjectionValue = (unique_id, value) => {
-    const objIndex = cartItems.findIndex((obj) => obj.unique_id === unique_id);
-    cartItems[objIndex].projection = value;
-    setCartItems([...cartItems]);
+  const setProjectionValue = (unique_id, value, cI) => {
+    const new_cartItems = [...cI];
+    const objIndex = cI.findIndex((obj) => obj.unique_id === unique_id);
+    if (new_cartItems[objIndex]) new_cartItems[objIndex].projection = value;
+    setCartItems([...new_cartItems]);
   };
-  useEffect(() => {
-    setProjectionValue(
-      item?.unique_id,
-      item?.original_projection?.split('/')[0],
-    );
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const utm = getUtm(item);
 
-  return !item?.file_id ? (
-    <Select
-      placeholder="Select projection"
-      // value={item?.projection}
-      defaultValue={item?.original_projection.split('/')[0]}
-      options={
-        projections_uid?.[item.dataset_uid] &&
-        projections_uid[item.dataset_uid].length > 0 &&
-        projections_uid[item.dataset_uid]
+  let [choices, setChoices] = useState([]);
+
+  useEffect(() => {
+    if (
+      projections_uid?.[item.dataset_uid] &&
+      projections_uid?.[item.dataset_uid].length > 0
+    ) {
+      setLoading(true);
+      setChoices(
+        projections_uid?.[item.dataset_uid]
           ?.sort((a, b) => {
             if (Number(a.split(':')[1]) > Number(b.split(':')[1])) {
               return 1;
@@ -36,24 +34,75 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
               return -1;
             }
           })
-          ?.map((projection) => {
-            const re = new RegExp(projection.split(':')[1]);
+          .filter((p) => utm.includes(p) || baseSources.includes(p))
+          .map((p) => {
+            const re = new RegExp(p.split(':')[1]);
             return {
-              key: projection,
-              value: projection,
+              key: p,
+              value: p,
+              default: re.test(item.original_projection) ? true : false,
               text: re.test(item.original_projection)
-                ? `${projection} (Source system of the dataset)`
-                : projection,
+                ? `${p} (Source system of the dataset)`
+                : p,
               className: re.test(item.original_projection)
                 ? 'original_projection'
                 : 'projection',
             };
-          })
-      }
-      onChange={(e, data) => {
-        setProjectionValue(item?.unique_id, data.value);
-      }}
-    />
+          }),
+      );
+      setTimeout(() => {
+        choices.length > 0 &&
+          setProjectionValue(
+            item?.unique_id,
+            item?.projection
+              ? item.projection
+              : choices.find((ch) => ch.default)
+              ? choices.find((ch) => ch.default).key
+              : choices[0].key,
+            cartItems,
+          );
+        setTimeout(() => {
+          setLoading(false);
+        }, 200);
+      }, 200);
+    } else {
+      setLoading(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(projections_uid?.[item.dataset_uid]), item.unique_id]);
+
+  useEffect(() => {
+    !item.projection && choices.length > 0 && choices.find((ch) => ch.default)
+      ? setProjectionValue(
+          item?.unique_id,
+          choices.find((ch) => ch.default).key,
+          cartItems,
+        )
+      : !item.projection && choices.length === 0
+      ? setLoading(true)
+      : setProjectionValue(item?.unique_id, item.projection, cartItems);
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return !item?.file_id ? (
+    loading ? (
+      <Loader active inline />
+    ) : (
+      <Select
+        placeholder="Select projection"
+        value={
+          item?.projection ??
+          choices.find((ch) => ch.default)?.key ??
+          choices[0].key
+        }
+        options={choices}
+        onChange={(e, data) => {
+          setProjectionValue(item?.unique_id, data.value, cartItems);
+        }}
+      />
+    )
   ) : (
     '-'
   );
