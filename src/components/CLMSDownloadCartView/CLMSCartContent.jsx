@@ -500,6 +500,12 @@ const CLMSCartContent = (props) => {
                               <button
                                 onClick={() => {
                                   removeCartItem(item?.unique_id);
+                                  setCartItems(
+                                    cartItems.filter(
+                                      (i) => item?.unique_id !== i.unique_id,
+                                    ),
+                                  );
+
                                   if (
                                     pagination.length === 1 &&
                                     currentPage > 1
