@@ -85,15 +85,16 @@ const CLMSDownloadCartView = (props) => {
       });
     }
     if (localsessionNutsIDList.length > 0) {
-      if (nutsnames.nutsnames) {
-        const missingnn = localsessionNutsIDList.filter(
-          (nid) => !nutsnames.nutsnames[nid],
-        );
-        if (missingnn.length > 0)
-          dispatch(getNutsNames(localsessionNutsIDList));
-      } else {
-        dispatch(getNutsNames(localsessionNutsIDList));
-      }
+      dispatch(getNutsNames(localsessionNutsIDList));
+      // if (nutsnames.nutsnames) {
+      //   const missingnn = localsessionNutsIDList.filter(
+      //     (nid) => !nutsnames.nutsnames[nid],
+      //   );
+      //   if (missingnn.length > 0)
+      //     dispatch(getNutsNames(localsessionNutsIDList));
+      // } else {
+      //   dispatch(getNutsNames(localsessionNutsIDList));
+      // }
     }
 
     return () => {};
