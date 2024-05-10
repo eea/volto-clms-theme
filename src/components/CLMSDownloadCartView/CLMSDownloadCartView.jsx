@@ -32,7 +32,7 @@ const CLMSDownloadCartView = (props) => {
   const cart = useSelector((state) => state.cart_items.items);
   const content = useSelector((state) => state.content.data);
   const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
-  const nutsnames = useSelector((state) => state.nutsnames);
+  // const nutsnames = useSelector((state) => state.nutsnames);
 
   const { isLoggedIn } = useCartState();
   const { formatMessage } = useIntl();
