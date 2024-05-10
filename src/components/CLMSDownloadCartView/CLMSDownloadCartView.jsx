@@ -32,7 +32,7 @@ const CLMSDownloadCartView = (props) => {
   const cart = useSelector((state) => state.cart_items.items);
   const content = useSelector((state) => state.content.data);
   const datasetTimeseries = useSelector((state) => state.datasetTimeseries);
-  const nutsnames = useSelector((state) => state.nutsnames);
+  // const nutsnames = useSelector((state) => state.nutsnames);
 
   const { isLoggedIn } = useCartState();
   const { formatMessage } = useIntl();
@@ -85,15 +85,16 @@ const CLMSDownloadCartView = (props) => {
       });
     }
     if (localsessionNutsIDList.length > 0) {
-      if (nutsnames.nutsnames) {
-        const missingnn = localsessionNutsIDList.filter(
-          (nid) => !nutsnames.nutsnames[nid],
-        );
-        if (missingnn.length > 0)
-          dispatch(getNutsNames(localsessionNutsIDList));
-      } else {
-        dispatch(getNutsNames(localsessionNutsIDList));
-      }
+      dispatch(getNutsNames(localsessionNutsIDList));
+      // if (nutsnames.nutsnames) {
+      //   const missingnn = localsessionNutsIDList.filter(
+      //     (nid) => !nutsnames.nutsnames[nid],
+      //   );
+      //   if (missingnn.length > 0)
+      //     dispatch(getNutsNames(localsessionNutsIDList));
+      // } else {
+      //   dispatch(getNutsNames(localsessionNutsIDList));
+      // }
     }
 
     return () => {};

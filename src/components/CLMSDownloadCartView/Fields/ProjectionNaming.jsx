@@ -20,6 +20,23 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
   let [choices, setChoices] = useState([]);
 
   useEffect(() => {
+    choices.length > 0 &&
+      setProjectionValue(
+        item?.unique_id,
+        item?.projection
+          ? item.projection
+          : choices.find((ch) => ch.default)
+          ? choices.find((ch) => ch.default).key
+          : choices[0].key,
+        cartItems,
+      );
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choices]);
+
+  useEffect(() => {
     if (
       projections_uid?.[item.dataset_uid] &&
       projections_uid?.[item.dataset_uid].length > 0
@@ -50,24 +67,10 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
             };
           }),
       );
-      setTimeout(() => {
-        choices.length > 0 &&
-          setProjectionValue(
-            item?.unique_id,
-            item?.projection
-              ? item.projection
-              : choices.find((ch) => ch.default)
-              ? choices.find((ch) => ch.default).key
-              : choices[0].key,
-            cartItems,
-          );
-        setTimeout(() => {
-          setLoading(false);
-        }, 200);
-      }, 200);
     } else {
       setLoading(true);
     }
+    return () => {};
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(projections_uid?.[item.dataset_uid]), item.unique_id]);
