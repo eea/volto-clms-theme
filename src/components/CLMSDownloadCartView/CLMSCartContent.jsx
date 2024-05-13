@@ -433,10 +433,11 @@ const CLMSCartContent = (props) => {
                           <TimeseriesPicker
                             start={
                               datasetTimeseries.datasets[item?.dataset_uid]
-                                ?.start
+                                ?.start || new Date(0)
                             }
                             end={
-                              datasetTimeseries.datasets[item?.dataset_uid]?.end
+                              datasetTimeseries.datasets[item?.dataset_uid]
+                                ?.end || new Date()
                             }
                             period={
                               datasetTimeseries.datasets[item?.dataset_uid]
