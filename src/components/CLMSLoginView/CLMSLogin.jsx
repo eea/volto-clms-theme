@@ -21,6 +21,7 @@ function CLMSLoginView(props) {
 
   useEffect(() => {
     dispatch(getRegistry(registry_key));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
