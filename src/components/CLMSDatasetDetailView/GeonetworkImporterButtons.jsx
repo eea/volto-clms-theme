@@ -28,6 +28,11 @@ export const GeonetworkImporterButtons = (props) => {
     dispatch(postImportGeonetwork(location.pathname, id, type));
   };
 
+  const TYPE_NAMING = {
+    VITO: 'Global Land collection catalog - VITO NV',
+    EEA: 'EEA',
+  };
+
   return (
     <Segment basic>
       <h2>Geonetwork importation options:</h2>
@@ -106,8 +111,11 @@ export const GeonetworkImporterButtons = (props) => {
                               />
                             </h1>
                             This action will import the data from{' '}
-                            <strong>{item.title}</strong> (from {item.type})
-                            into this dataset.
+                            <strong>{item.title}</strong> (from{' '}
+                            {TYPE_NAMING[item.type]
+                              ? TYPE_NAMING[item.type]
+                              : item.type}
+                            ) into this dataset.
                             <br />
                             <br />
                             <a
@@ -117,7 +125,7 @@ export const GeonetworkImporterButtons = (props) => {
                                 item.type === 'EEA'
                                   ? 'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
                                     item.id
-                                  : 'https://land.copernicus.vgt.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
+                                  : 'https://globalland.vito.be/geonetwork/srv/spa/catalog.search#/home' +
                                     item.id
                               }
                             >

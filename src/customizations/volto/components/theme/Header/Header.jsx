@@ -21,6 +21,7 @@ import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/Ccl
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { UniversalLink } from '@plone/volto/components';
 
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
@@ -239,7 +240,13 @@ class Header extends Component {
                       </>
                     )) || (
                       <li>
-                        <CclLoginModal />
+                        {this.props.apiStatusCode === 401 ? (
+                          <UniversalLink href="/en/login">
+                            Register/Login
+                          </UniversalLink>
+                        ) : (
+                          <CclLoginModal />
+                        )}
                       </li>
                     )}
                     <li className="header-vertical-line">
@@ -297,7 +304,13 @@ class Header extends Component {
                       </>
                     )) || (
                       <li>
-                        <CclLoginModal />
+                        {this.props.apiStatusCode === 401 ? (
+                          <UniversalLink href="/en/login">
+                            Register/Login
+                          </UniversalLink>
+                        ) : (
+                          <CclLoginModal />
+                        )}
                       </li>
                     )}
                     <li className="header-vertical-line">
@@ -326,6 +339,7 @@ export default compose(
         ? jwtDecode(state.userSession.token).sub
         : '',
       rawtoken: state.userSession.token,
+      apiStatusCode: state.apierror?.statusCode?.statusCode,
     }),
     { getUser, getCartItems, loginRenew },
   ),
