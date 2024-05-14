@@ -27,7 +27,7 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
           ? item.projection
           : choices.find((ch) => ch.default)
           ? choices.find((ch) => ch.default).key
-          : choices[0].key,
+          : choices[0]?.key,
         cartItems,
       );
     setTimeout(() => {
@@ -98,7 +98,7 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
         value={
           item?.projection ??
           choices.find((ch) => ch.default)?.key ??
-          choices[0].key
+          choices[0]?.key
         }
         options={choices}
         onChange={(e, data) => {
