@@ -7,22 +7,21 @@ import TextareaWidget from '@plone/volto/components/manage/Widgets/TextareaWidge
 const TextareaWithRequestData = (props) => {
   const { onChange, id } = props;
   const { search } = useLocation();
-
-  const hashMatch = decodeURIComponent(
-    search.includes('text')
-      ? search.match(/.*(\?text=.*)/)[1].replace(/\?text=/, '')
-      : '',
-  );
+  let params = new URLSearchParams(search);
 
   useEffect(() => {
-    if (hashMatch) {
-      onChange(id, hashMatch);
+    if (params.get('text')) {
+      onChange(id, params.get('text'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hashMatch]);
+  }, [params.get('text')]);
 
   return (
-    <TextareaWidget {...props} defaultValue={hashMatch} formHasErrors={false} />
+    <TextareaWidget
+      {...props}
+      defaultValue={params.get('text')}
+      formHasErrors={false}
+    />
   );
 };
 
