@@ -181,13 +181,18 @@ class SelectWidget extends Component {
       id,
       choices,
       value,
+      defaultValue,
       intl,
       onChange,
       required,
       invalid,
       title,
     } = this.props;
-    const normalizedValue = normalizeValue(choices, value, intl);
+    const normalizedValue = normalizeValue(
+      choices,
+      value ?? defaultValue,
+      intl,
+    );
     // Make sure that both disabled and isDisabled (from the DX layout feat work)
     const disabled = this.props.disabled || this.props.isDisabled;
     const Select = this.props.reactSelect.default;
@@ -240,6 +245,7 @@ class SelectWidget extends Component {
           classNamePrefix="react-select"
           isMulti={isMulti}
           options={options}
+          defaultValue={defaultValue}
           {...attributes}
           styles={customSelectStyles}
           theme={selectTheme}

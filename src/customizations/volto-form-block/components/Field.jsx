@@ -235,6 +235,7 @@ const Field = ({
               isDisabled={disabled}
               formHasErrors={formHasErrors}
               invalid={isInvalid().toString()}
+              choices={[...(input_values?.map((v) => [v, v]) ?? [])]}
               {...(isInvalid() ? { className: 'is-invalid' } : {})}
               {...rest}
             />,
