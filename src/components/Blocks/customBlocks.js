@@ -66,6 +66,7 @@ import CclFAQBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclFAQBl
 import CclHelpdeskDocBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclHelpdeskDocBlock/CclHelpdeskDocBlockEdit';
 import CclHelpdeskDocBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclHelpdeskDocBlock/CclHelpdeskDocBlockView';
 import containerSVG from '@plone/volto/icons/apps.svg';
+import { SelectionSchemaExtender } from 'volto-form-block/components/FieldTypeSchemaExtenders';
 import {
   customIdFieldSchema,
   CheckboxSchemaExtender,
@@ -83,6 +84,7 @@ import infoSVG from '@plone/volto/icons/info.svg';
 import ImageWidget from '@eeacms/volto-clms-theme/components/Widgets/ImageWidget';
 import AttachmentWithSizeLimit from '@eeacms/volto-clms-theme/components/Widgets/AttachmentWithSizeLimit';
 import TextareaWithRequestData from '@eeacms/volto-clms-theme/components/Widgets/TextareaWithRequestData';
+import SelectWithRequestWidget from '@eeacms/volto-clms-theme/components/Widgets/SelectWithRequestWidget';
 import TextWidget from '@plone/volto/components/manage/Widgets/TextWidget';
 import TextareaWidget from '@plone/volto/components/manage/Widgets/TextareaWidget';
 import EmailWidget from '@plone/volto/components/manage/Widgets/EmailWidget';
@@ -559,6 +561,7 @@ const customBlocks = (config) => ({
     fieldTypeSchemaExtenders: {
       ...config.blocks.blocksConfig.form.fieldTypeSchemaExtenders,
       checkbox_html: CheckboxSchemaExtender,
+      select_with_request_data: SelectionSchemaExtender,
     },
     additionalFields: [
       {
@@ -625,6 +628,11 @@ const customBlocks = (config) => ({
         id: 'text_area_with_request_data',
         label: 'CCL Text Area with Request Data',
         component: TextareaWithRequestData,
+      },
+      {
+        id: 'select_with_request_data',
+        label: 'CCL List with Request Data',
+        component: SelectWithRequestWidget,
       },
     ],
   },

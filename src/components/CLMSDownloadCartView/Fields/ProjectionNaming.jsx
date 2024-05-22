@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Select, Loader } from 'semantic-ui-react';
+import { Select, Loader, Popup } from 'semantic-ui-react';
 import { baseSources } from '../../../constants/utmProjections';
 import { getUtm } from './utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
   const [loading, setLoading] = useState(true);
@@ -93,18 +94,32 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
     loading ? (
       <Loader active inline />
     ) : (
-      <Select
-        placeholder="Select projection"
-        value={
-          item?.projection ??
-          choices.find((ch) => ch.default)?.key ??
-          choices[0]?.key
-        }
-        options={choices}
-        onChange={(e, data) => {
-          setProjectionValue(item?.unique_id, data.value, cartItems);
-        }}
-      />
+      <>
+        <Select
+          placeholder="Select projection"
+          value={
+            item?.projection ??
+            choices.find((ch) => ch.default)?.key ??
+            choices[0]?.key
+          }
+          options={choices}
+          onChange={(e, data) => {
+            setProjectionValue(item?.unique_id, data.value, cartItems);
+          }}
+          style={{ marginRight: '15%' }}
+        />
+        {!choices.find((ch) => ch.default) && choices.length === 4 && (
+          <Popup
+            content="You have selected an area that covers more that one EPSG code. For this we only offer to reproject the data to a EPSG code that includes the whole area selected by you"
+            trigger={
+              <FontAwesomeIcon
+                color="#000000"
+                icon={['fas', 'exclamation-circle']}
+              />
+            }
+          />
+        )}
+      </>
     )
   ) : (
     '-'
