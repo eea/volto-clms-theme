@@ -10,10 +10,12 @@ export const getUtm = (item) => {
             d.bb[1] < item.area.value[1] &&
             d.bb[2] > item.area.value[2] &&
             d.bb[3] > item.area.value[3]
-        : d.bb[0] < nutsBB[item.area.value][0] &&
-            d.bb[1] < nutsBB[item.area.value][1] &&
-            d.bb[2] > nutsBB[item.area.value][2] &&
-            d.bb[3] > nutsBB[item.area.value][3];
+        : nutsBB[item.area.value] !== undefined
+        ? d.bb[0] < nutsBB[item.area.value][0] &&
+          d.bb[1] < nutsBB[item.area.value][1] &&
+          d.bb[2] > nutsBB[item.area.value][2] &&
+          d.bb[3] > nutsBB[item.area.value][3]
+        : false;
     })
     .map((u) => u.source);
 };

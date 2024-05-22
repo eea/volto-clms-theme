@@ -125,7 +125,7 @@ export const GeonetworkImporterButtons = (props) => {
                                 item.type === 'EEA'
                                   ? 'https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/' +
                                     item.id
-                                  : 'https://globalland.vito.be/geonetwork/srv/spa/catalog.search#/home' +
+                                  : 'https://globalland.vito.be/geonetwork/srv/eng/catalog.search#/metadata/' +
                                     item.id
                               }
                             >
