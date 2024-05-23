@@ -16,7 +16,7 @@ import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { hasBlocksData } from '@plone/volto/helpers';
 
 import './datasetinfocontent.less';
-import { isEmpty } from '../CclUtils';
+import { sanitizedHTML } from '../CclUtils';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
@@ -25,10 +25,10 @@ const DataSetInfoContent = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
-  let validationClearHTMLTags = isEmpty(validation?.data);
-  let citationClearHTMLTags = isEmpty(citation?.data);
-  let technical_documents_accordion_text = isEmpty(
-    props.technical_documents_accordion_text.data,
+  let validationClearHTMLTags = sanitizedHTML(validation?.data);
+  let citationClearHTMLTags = sanitizedHTML(citation?.data);
+  let technical_documents_accordion_text = sanitizedHTML(
+    props.technical_documents_accordion_text?.data,
   );
 
   React.useEffect(() => {

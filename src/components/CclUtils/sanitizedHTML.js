@@ -1,6 +1,6 @@
-export const isEmpty = (strToSanitize) => {
+export const sanitizedHTML = (strToSanitize) => {
   if (strToSanitize === undefined) {
-    return true;
+    return '';
   }
   const parser = new DOMParser();
   let myHTML = parser.parseFromString(strToSanitize, 'text/html');

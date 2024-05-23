@@ -7,19 +7,19 @@ import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTab
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import {
   StringToHTML,
-  isEmpty,
+  sanitizedHTML,
 } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DownloadDataSetContent = (data, token) => {
   const user = useSelector((state) => state?.users?.user);
   const locale = useSelector((state) => state?.intl?.locale);
-  let download_other_ways_access_dataset = isEmpty(
+  let download_other_ways_access_dataset = sanitizedHTML(
     data.download_other_ways_access_dataset.data,
   );
-  let download_full_dataset_text = isEmpty(
+  let download_full_dataset_text = sanitizedHTML(
     data.download_full_dataset_text.data,
   );
-  let download_by_area_extra_text = isEmpty(
+  let download_by_area_extra_text = sanitizedHTML(
     data.download_by_area_extra_text.data,
   );
 

@@ -11,4 +11,4 @@ export {
   cclTimeFormat,
 } from './dateFormats';
 export { helmetTitle } from './helmetTitle';
-export { isEmpty } from './isEmpty';
+export { sanitizedHTML } from './sanitizedHTML';
