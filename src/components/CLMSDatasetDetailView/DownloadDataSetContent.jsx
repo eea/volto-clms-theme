@@ -78,39 +78,31 @@ const DownloadDataSetContent = (data, token) => {
         </div>
       )}
 
-      {data?.downloadable_full_dataset &&
-        data.download_by_area_extra_text?.data &&
-        download_by_area_extra_text !== '' && (
-          <div className="dataset-download-area">
-            <StringToHTML
-              string={data.download_by_area_extra_text?.data || ''}
-            />
-          </div>
-        )}
+      {data?.downloadable_full_dataset && download_by_area_extra_text !== '' && (
+        <div className="dataset-download-area">
+          <StringToHTML string={data.download_by_area_extra_text?.data || ''} />
+        </div>
+      )}
 
-      {data.download_full_dataset_text?.data &&
-        download_full_dataset_text !== '' && (
-          <div className="dataset-download-area">
-            <h2>Download full dataset</h2>
-            <StringToHTML
-              string={data.download_full_dataset_text?.data || ''}
-            />
-          </div>
-        )}
+      {download_full_dataset_text !== '' && (
+        <div className="dataset-download-area">
+          <h2>Download full dataset</h2>
+          <StringToHTML string={data.download_full_dataset_text?.data || ''} />
+        </div>
+      )}
 
       {data.downloadable_files?.items?.length > 0 && (
         <CclDownloadTable dataset={data}></CclDownloadTable>
       )}
 
-      {data?.download_other_ways_access_dataset?.data &&
-        download_other_ways_access_dataset !== '' && (
-          <div className="dataset-access-container">
-            <h2>You can also access this dataset</h2>
-            <StringToHTML
-              string={data?.download_other_ways_access_dataset?.data || ''}
-            />
-          </div>
-        )}
+      {download_other_ways_access_dataset !== '' && (
+        <div className="dataset-access-container">
+          <h2>You can also access this dataset</h2>
+          <StringToHTML
+            string={data?.download_other_ways_access_dataset?.data || ''}
+          />
+        </div>
+      )}
     </div>
   );
 };

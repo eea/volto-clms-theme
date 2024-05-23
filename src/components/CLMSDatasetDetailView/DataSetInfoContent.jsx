@@ -122,14 +122,14 @@ const DataSetInfoContent = (props) => {
           ''
         )}
       </CclInfoContainer>
-      {validation?.data && validationClearHTMLTags !== '' && (
+      {validationClearHTMLTags !== '' && (
         <CclCitation
           title="Validation status"
           marginBottom={true}
           children={<StringToHTML string={validation.data} />}
         ></CclCitation>
       )}
-      {citation?.data && citationClearHTMLTags !== '' && (
+      {citationClearHTMLTags !== '' && (
         <CclCitation
           title="Dataset citation"
           marginBottom={true}
@@ -320,14 +320,13 @@ const DataSetInfoContent = (props) => {
                       duration={500}
                       height={'auto'}
                     >
-                      {props.technical_documents_accordion_text?.data &&
-                        technical_documents_accordion_text !== '' && (
-                          <StringToHTML
-                            string={
-                              props.technical_documents_accordion_text?.data
-                            }
-                          />
-                        )}
+                      {technical_documents_accordion_text !== '' && (
+                        <StringToHTML
+                          string={
+                            props.technical_documents_accordion_text?.data
+                          }
+                        />
+                      )}
                       <CclRelatedListingView
                         id={'dataset-info-technicals'}
                         properties={{ ...props }}
