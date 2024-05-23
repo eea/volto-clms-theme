@@ -14,13 +14,13 @@ const DownloadDataSetContent = (data, token) => {
   const user = useSelector((state) => state?.users?.user);
   const locale = useSelector((state) => state?.intl?.locale);
   let download_other_ways_access_dataset = sanitizedHTML(
-    data.download_other_ways_access_dataset.data,
+    data.download_other_ways_access_dataset?.data,
   );
   let download_full_dataset_text = sanitizedHTML(
-    data.download_full_dataset_text.data,
+    data.download_full_dataset_text?.data,
   );
   let download_by_area_extra_text = sanitizedHTML(
-    data.download_by_area_extra_text.data,
+    data.download_by_area_extra_text?.data,
   );
 
   return (
