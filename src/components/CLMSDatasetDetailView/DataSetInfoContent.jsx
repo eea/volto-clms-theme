@@ -25,8 +25,8 @@ const DataSetInfoContent = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
-  let validationClearHTMLTags = isEmpty(validation.data);
-  let citationClearHTMLTags = isEmpty(citation.data);
+  let validationClearHTMLTags = isEmpty(validation?.data);
+  let citationClearHTMLTags = isEmpty(citation?.data);
   let technical_documents_accordion_text = isEmpty(
     props.technical_documents_accordion_text.data,
   );
