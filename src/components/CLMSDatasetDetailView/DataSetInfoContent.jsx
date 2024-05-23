@@ -16,6 +16,7 @@ import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { hasBlocksData } from '@plone/volto/helpers';
 
 import './datasetinfocontent.less';
+import { sanitizedHTML } from '../CclUtils';
 
 const DataSetInfoContent = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +25,12 @@ const DataSetInfoContent = (props) => {
   const searchSubrequests = useSelector((state) => state.search.subrequests);
   let libraries = searchSubrequests?.[id]?.items || [];
   let librariesPending = searchSubrequests?.[id]?.loading;
+  let validationClearHTMLTags = sanitizedHTML(validation?.data);
+  let citationClearHTMLTags = sanitizedHTML(citation?.data);
+  let technical_documents_accordion_text = sanitizedHTML(
+    props.technical_documents_accordion_text?.data,
+  );
+
   React.useEffect(() => {
     if (UID) {
       dispatch(
@@ -115,24 +122,20 @@ const DataSetInfoContent = (props) => {
           ''
         )}
       </CclInfoContainer>
-      {validation?.data &&
-        validation?.data !== '<p><br/></p>' &&
-        validation?.data !== '<p></p>' && (
-          <CclCitation
-            title="Validation status"
-            marginBottom={true}
-            children={<StringToHTML string={validation.data} />}
-          ></CclCitation>
-        )}
-      {citation?.data &&
-        citation?.data !== '<p><br/></p>' &&
-        citation?.data !== '<p></p>' && (
-          <CclCitation
-            title="Dataset citation"
-            marginBottom={true}
-            children={<StringToHTML string={citation?.data} />}
-          ></CclCitation>
-        )}
+      {validationClearHTMLTags !== '' && (
+        <CclCitation
+          title="Validation status"
+          marginBottom={true}
+          children={<StringToHTML string={validation.data} />}
+        ></CclCitation>
+      )}
+      {citationClearHTMLTags !== '' && (
+        <CclCitation
+          title="Dataset citation"
+          marginBottom={true}
+          children={<StringToHTML string={citation?.data} />}
+        ></CclCitation>
+      )}
       <div className="dataset-info-documents dropdown">
         <div className="accordion-block">
           {renderAccordion(geonetwork_identifiers?.items, libraries) && (
@@ -317,17 +320,13 @@ const DataSetInfoContent = (props) => {
                       duration={500}
                       height={'auto'}
                     >
-                      {props.technical_documents_accordion_text?.data &&
-                        props.technical_documents_accordion_text?.data !==
-                          '<p><br/></p>' &&
-                        props.technical_documents_accordion_text?.data !==
-                          '<p></p>' && (
-                          <StringToHTML
-                            string={
-                              props.technical_documents_accordion_text?.data
-                            }
-                          />
-                        )}
+                      {technical_documents_accordion_text !== '' && (
+                        <StringToHTML
+                          string={
+                            props.technical_documents_accordion_text?.data
+                          }
+                        />
+                      )}
                       <CclRelatedListingView
                         id={'dataset-info-technicals'}
                         properties={{ ...props }}

@@ -7,6 +7,9 @@ const CLMSTechnicalLibraryView = (props) => {
   const textToForm = encodeURIComponent(
     `I want the following document ${content.title} ${content['@id']}`,
   );
+  const subjectToForm = encodeURIComponent(
+    'I want to ask for an on-demand document',
+  );
 
   return (
     <div className="ccl-container">
@@ -22,7 +25,9 @@ const CLMSTechnicalLibraryView = (props) => {
             <>
               <p>
                 You are requesting an on-demand document. Please contact the{' '}
-                <a href={`/en/contact-service-helpdesk?text=${textToForm}`}>
+                <a
+                  href={`/en/contact-service-helpdesk?text=${textToForm}&subject=${subjectToForm}`}
+                >
                   service desk
                 </a>{' '}
                 to obtain it.
