@@ -46,7 +46,7 @@ const messages = defineMessages({
   description: {
     id: 'descripton',
     defaultMessage:
-      'API tokens are used for machine-to-machine communication with the CLMS website API. You need to create a new API token for each application in wich you need to use the CLMS website API. In this screen you can create a new API token, check the list of your tokens and also delete those tokens.',
+      'API tokens are used for machine-to-machine communication with the CLMS website API. You need to create a new API token for each application in which you need to use the CLMS website API. In this screen you can create a new API token, check the list of your tokens and also delete those tokens.',
   },
   createTitle: {
     id: 'create title',
