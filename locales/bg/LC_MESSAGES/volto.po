@@ -11,654 +11,961 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-  #: components/Blocks/CclUseCaseList/CclUseCaseListEdit
+#: components/Blocks/CclUseCaseList/CclUseCaseListEdit
 #: components/Blocks/CclUseCaseList/CclUseCaseListView
+# defaultMessage:  use cases
 msgid " use cases"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Add"
+#: components/Blocks/CustomTemplates/HtmlBlock/Edit
+# defaultMessage: <p>Add some HTML here</p>
+msgid "<p>Add some HTML here</p>"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: undefined
+msgid "Add event to calendar"
+msgstr ""
+
+#: components/CclDownloadTable/CclDownloadTable
+# defaultMessage: Added to cart
+msgid "Added to cart"
 msgstr ""
 
 #: components/CLMSSubscriptionView/ConfirmSubscriptionView
 #: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: An error has occured. Please try again
 msgid "An error has occured. Please try again"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Anonymous registration form
+msgid "Anonymous registration form"
+msgstr ""
+
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: API tokens
 msgid "ApiTokens"
 msgstr ""
 
-#: components/CclFiltersModal/CclFiltersModal
-msgid "Apply filters"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Back"
-msgstr ""
-
-#: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
-msgid "Breadcrumbs"
+#: components/CLMSDownloadsView/CLMSDownloadTasks
+# defaultMessage: Cancelled
+msgid "Cancelled"
 msgstr ""
 
 #: components/CLMSDownloadCartView/CLMSDownloadCartView
+# defaultMessage: Cart
 msgid "Cart"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSNewsletterView
 #: components/CLMSProfileView/CLMSUserProfileView
 #: components/CLMSSubscriptionView/ConfirmSubscriptionView
 #: components/CLMSSubscriptionView/SubscriptionView
-#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Changes saved
 msgid "Changes saved"
 msgstr ""
 
+#: components/Widgets/AttachmentWithSizeLimit
+# defaultMessage: Choose a file
+msgid "Choose a file"
+msgstr ""
+
+#: components/Widgets/ImageWidget
+# defaultMessage: Choose an image
+msgid "Choose an image"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/HtmlBlock/Edit
+# defaultMessage: Clear
+msgid "Clear"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoSearchBlock/FilterList
 #: components/CclFiltersModal/CclFiltersModal
+# defaultMessage: Clear filters
 msgid "Clear filters"
 msgstr ""
 
 #: components/CLMSSubscriptionView/ConfirmSubscriptionView
-msgid "Click on the button bellow to confirm your {subscribe_or_unsubscribe}"
+# defaultMessage: Click on the button below to confirm your {subscribe_or_unsubscribe}
+msgid "Click on the button below to confirm your {subscribe_or_unsubscribe}"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Collection"
+#: components/CclDownloadTable/CclDownloadTable
+# defaultMessage: Click to open pre-packages location map
+msgid "Click to open pre-packages location map"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Contents"
+#: components/CclFiltersModal/CclFiltersModal
+# defaultMessage: Close
+msgid "Close"
 msgstr ""
 
-#: customizations/volto/components/theme/Logo/Logo
-msgid "Copernicus Land Logo"
+#: components/Blocks/CustomTemplates/HtmlBlock/Edit
+# defaultMessage: Code
+msgid "Code"
 msgstr ""
 
-#: customizations/volto/components/theme/Logo/Logo
-msgid "Copernicus Logo"
-msgstr ""
-
-#: customizations/volto/components/theme/Logo/Logo
-msgid "Copernicus Site"
+#: components/CLMSDownloadsView/CLMSDownloadTasks
+# defaultMessage: Completed
+msgid "Completed"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Copy to clipboard
 msgid "Copy created token button"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
-msgid "Create registration form"
+# defaultMessage: Create form
+msgid "Create form"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Create
 msgid "Create token"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Use this form to create a new token and name it in a way that you can recognize it.
 msgid "Create token description"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
-msgid "Create token name"
-msgstr ""
-
-#: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: This is your new token. Please note its value, because it will only be shown one. If you lose access to this token, you will need to delete it and create a new one
 msgid "Created token description"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: The token has been created successfuly
 msgid "Created token name"
 msgstr ""
 
+#: components/Blocks/CustomTemplates/VoltoSearchBlock/FilterList
+# defaultMessage: Current filters applied
+msgid "Current filters applied"
+msgstr ""
+
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Default
 msgid "Default"
 msgstr ""
 
+#: components/CLMSProfileView/CLMSDeleteProfileView
+# defaultMessage: Delete my account
+msgid "Delete my account"
+msgstr ""
+
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Delete
 msgid "Delete the token"
 msgstr ""
 
+#: components/CLMSProfileView/CLMSDeleteProfileView
+# defaultMessage: Delete your profile
+msgid "Delete your profile"
+msgstr ""
+
+#: components/CclCard/CclCard
+# defaultMessage: Download
+msgid "Download"
+msgstr ""
+
+#: components/CLMSDownloadsView/FileCard
+# defaultMessage: Download file
+msgid "Download file"
+msgstr ""
+
 #: components/CLMSMapViewerView/CLMSMapViewerView
+# defaultMessage: Download by area
 msgid "DownloadByArea"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSNewsletterView
+#: components/CLMSDownloadsView/CLMSDownloadsView
+# defaultMessage: Downloads
+msgid "Downloads"
+msgstr ""
+
+#: components/Widgets/AttachmentWithSizeLimit
+# defaultMessage: Drop file here to replace the existing file
+msgid "Drop file here to replace the existing file"
+msgstr ""
+
+#: components/Widgets/AttachmentWithSizeLimit
+# defaultMessage: Drop file here to upload a new file
+msgid "Drop file here to upload a new file"
+msgstr ""
+
+#: components/Widgets/AttachmentWithSizeLimit
+# defaultMessage: Drop files here ...
+msgid "Drop files here ..."
+msgstr ""
+
+#: components/Widgets/ImageWidget
+# defaultMessage: Drop image here to replace the existing image
+msgid "Drop image here to replace the existing image"
+msgstr ""
+
+#: components/Widgets/ImageWidget
+# defaultMessage: Drop image here to upload a new image
+msgid "Drop image here to upload a new image"
+msgstr ""
+
+#: components/Widgets/ImageWidget
+# defaultMessage: Drop images here ...
+msgid "Drop images here ..."
+msgstr ""
+
 #: components/CLMSProfileView/CLMSUserProfileView
 #: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: E-mail
 msgid "E-mail"
 msgstr ""
 
-#: components/CLMSDatasetDetailView/CLMSDatasetDetailView
+#: components/CLMSDatasetDetailView/GeonetworkImporterButtons
+# defaultMessage: EEA Geonetwork element
 msgid "EEA Geonetwork element"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
-msgid "EIONETActionGroup"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Edit"
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Edit form
+msgid "Edit form"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
-#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+#: components/CclImageEditor/CclImageEditor
+# defaultMessage: Edit
 msgid "Edit image"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
+# defaultMessage: Edit or remove image
 msgid "Edit or remove image"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
-msgid "Edit registration form"
+# defaultMessage: Email field field_custom_id parameter is not "email"
+msgid "Email field field_custom_id parameter is not "email""
 msgstr ""
 
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Enter full name, e.g. John Smith.
 msgid "Enter full name, e.g. John Smith."
 msgstr ""
 
 #: components/CLMSSubscriptionView/ConfirmSubscriptionView
 #: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: Error
 msgid "Error"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "File"
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Form is not published
+msgid "Form is not published"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Full name
 msgid "Full Name"
 msgstr ""
 
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Full name field field_custom_id parameter is not "fullname"
+msgid "Full name field field_custom_id parameter is not "fullname""
+msgstr ""
+
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Go back to the token list
 msgid "Go back button"
 msgstr ""
 
-#: customizations/volto/components/theme/Breadcrumbs/Breadcrumbs
-msgid "Home"
+#: components/CLMSDownloadsView/CLMSDownloadsView
+# defaultMessage: Historic downloads
+msgid "Historic downloads"
 msgstr ""
 
 #: components/CLMSDatasetDetailView/CLMSDatasetDetailView
+# defaultMessage: Import WMS Fields
+msgid "Import WMS Fields"
+msgstr ""
+
+#: components/CLMSDatasetDetailView/CLMSDatasetDetailView
+# defaultMessage: Import WMS Layers
+msgid "Import WMS Layers"
+msgstr ""
+
+#: components/CLMSDatasetDetailView/CLMSDatasetDetailView
+#: components/CLMSDatasetDetailView/GeonetworkImporterButtons
+# defaultMessage: Import data
 msgid "Import data"
 msgstr ""
 
-#: components/CLMSDatasetDetailView/CLMSDatasetDetailView
+#: components/CLMSDatasetDetailView/GeonetworkImporterButtons
+# defaultMessage: Import from GeoNetwork
 msgid "Import from GeoNetwork"
 msgstr ""
 
-#: customizations/volto/components/theme/Logo/Logo
-msgid "Land Monitoring Service Site"
+#: components/CLMSDownloadsView/CLMSDownloadTasks
+# defaultMessage: In progress
+msgid "In progress"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Link"
+#: components/Widgets/ImageSizeWidget
+# defaultMessage: Large
+msgid "Large"
+msgstr ""
+
+#: components/Blocks/CclRelatedListingBlock/CclRelatedListingView
+# defaultMessage: Loading...
+msgid "Loading..."
 msgstr ""
 
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Location
 msgid "Location"
 msgstr ""
 
-#: components/CLMSDownloadCartView/CLMSDownloadCartView
-msgid "Lorem"
-msgstr ""
-
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Mail archive
 msgid "Mail archive"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "More"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "News Item"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Page"
+#: components/Widgets/ImageSizeWidget
+# defaultMessage: Medium
+msgid "Medium"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
-msgid "Participants"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Personal Information"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Personal Preferences"
-msgstr ""
-
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Personal tools"
+# defaultMessage: Meeting register information
+msgid "Meeting register information"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Please fill in all required data
+msgid "Missing data"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/NoResultsComponent
+# defaultMessage: No results found.
+msgid "No results found."
+msgstr ""
+
+#: components/CLMSProfileView/CLMSDeleteProfileView
+# defaultMessage: No, I want to keep my account
+msgid "No, I want to keep my account"
+msgstr ""
+
+#: components/CLMSDownloadCartView/CLMSDownloadCartView
+# defaultMessage: Note:
+msgid "Note:"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Participants
+msgid "Participants"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Portrait
 msgid "Portrait"
 msgstr ""
 
+#: components/CLMSDownloadsView/FileCard
+# defaultMessage: Pre-packaged
+msgid "Pre-packaged"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/HtmlBlock/Edit
+# defaultMessage: Prettify your code
+msgid "Prettify your code"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/HtmlBlock/Edit
+# defaultMessage: Preview
+msgid "Preview"
+msgstr ""
+
 #: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+#: components/CLMSWorkOpportunityView/WorkOpportunityView
+# defaultMessage: Procurement No:
 msgid "ProcurementNo"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+#: components/CLMSWorkOpportunityView/WorkOpportunityView
+# defaultMessage: Reference No:
 msgid "ReferenceNo"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
-msgid "Register to this meeting"
+# defaultMessage: Register
+msgid "Register"
+msgstr ""
+
+#: components/CLMSDownloadsView/CLMSDownloadTasks
+# defaultMessage: Rejected
+msgid "Rejected"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
-#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+#: components/CclImageEditor/CclImageEditor
+# defaultMessage: Remove
 msgid "Remove image"
 msgstr ""
 
+#: components/Widgets/AttachmentWithSizeLimit
+# defaultMessage: Replace existing file
+msgid "Replace existing file"
+msgstr ""
+
+#: components/Widgets/ImageWidget
+# defaultMessage: Replace existing image
+msgid "Replace existing image"
+msgstr ""
+
 #: components/Blocks/CustomTemplates/VoltoSearchBlock/RightModalFacets
-#: customizations/volto/components/theme/SearchWidget/SearchWidget
-#: customizations/volto/components/theme/View/ListingView
+#: components/Blocks/CustomTemplates/VoltoSearchBlock/SearchInput
+# defaultMessage: Search
 msgid "Search"
 msgstr ""
 
-#: customizations/volto/components/theme/SearchWidget/SearchWidget
-msgid "Search Site"
-msgstr ""
-
-#: customizations/volto/components/theme/View/ListingView
-msgid "Search datasets"
-msgstr ""
-
 #: components/CclLanguageSelector/CclLanguageSelector
+# defaultMessage: Select your language
 msgid "Select your language"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Shrink toolbar"
+#: components/Widgets/ImageSizeWidget
+# defaultMessage: Small
+msgid "Small"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Some anonymous registration form parameters are not ready to go
+msgid "Some anonymous registration form parameters are not ready to go"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/HtmlBlock/Edit
+# defaultMessage: Source
+msgid "Source"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VideoBlock/Edit
+# defaultMessage: Specify a youtube video or playlist url
+msgid "Specify a youtube video or playlist url"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoListingBlock/CclListingWorkOpportunities
+#: components/CLMSWorkOpportunityView/WorkOpportunityView
+# defaultMessage: Submission deadline:
 msgid "SubmissionDeadline"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSNewsletterView
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: Subscribe
+msgid "Subscribe"
+msgstr ""
+
+#: components/CclDownloadTable/CclDownloadTable
 #: components/CLMSProfileView/CLMSUserProfileView
 #: components/CLMSSubscriptionView/ConfirmSubscriptionView
 #: components/CLMSSubscriptionView/SubscriptionView
-#: customizations/volto/components/theme/Footer/Footer
+# defaultMessage: Success
 msgid "Success"
 msgstr ""
 
+#: components/CclLanguageSelector/CclLanguageSelector
+# defaultMessage: Switch to
+msgid "Switch to"
+msgstr ""
+
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: You must agree privacy policy and enter a valid email address
+msgid "The entered email address is not valid"
+msgstr ""
+
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: The entered email address is not valid
+msgid "The entered mail address is not valid"
+msgstr ""
+
+#: components/Widgets/ImageWidget
+# defaultMessage: The uploaded file must be an image.
+msgid "The uploaded file is not valid"
+msgstr ""
+
+#: components/Widgets/AttachmentWithSizeLimit
+#: components/Widgets/ImageWidget
+# defaultMessage: The uploaded file size must be at most 10 MB.
+msgid "The uploaded file size is too big"
+msgstr ""
+
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: The user portrait/avatar
 msgid "The user portrait/avatar"
 msgstr ""
 
-#: customizations/volto/components/manage/Toolbar/Toolbar
-msgid "Unlock"
+#: components/CLMSDownloadsView/CLMSDownloadTasks
+# defaultMessage: There are no tasks
+msgid "There are no tasks"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VideoBlock/Edit
+# defaultMessage: Type a Video (YouTube, Vimeo or mp4) URL
+msgid "Type a Video (YouTube, Vimeo or mp4) URL"
+msgstr ""
+
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: Unsubscribe
+msgid "Unsubscribe"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
-#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+#: components/CclImageEditor/CclImageEditor
+# defaultMessage: Upload or select an image
 msgid "Upload image"
 msgstr ""
 
 #: components/Blocks/CclHomeBgImageBlock/CclHomeImageEditor
-#: components/Blocks/CclHomeUsersBlock/CclHomeUsersBlockEdit
+#: components/CclImageEditor/CclImageEditor
+# defaultMessage: Uploading file
 msgid "Uploading file"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSNewsletterView
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: User profile
 msgid "UserProfile"
 msgstr ""
 
-#: components/CLMSDatasetDetailView/CLMSDatasetDetailView
+#: components/CLMSDatasetDetailView/GeonetworkImporterButtons
+# defaultMessage: VITO Geonetwork element
 msgid "VITO Geonetwork element"
 msgstr ""
 
+#: components/Blocks/CclCardContainerBlock/CclCardContainerBlockEdit
+# defaultMessage: Variation
+msgid "Variation"
+msgstr ""
+
 #: components/Blocks/CustomTemplates/VoltoTabsBlock/CclProductTabsView
+#: components/CclCard/CclCard
 #: components/CLMSDatasetDetailView/CLMSDatasetDetailView
-msgid "View in the map viewer"
+# defaultMessage: View in the data viewer
+msgid "View in the data viewer"
+msgstr ""
+
+#: components/CclCard/CclCard
+# defaultMessage: View more
+msgid "View more"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: We will use this address if you need to recover your password
 msgid "We will use this address if you need to recover your password"
 msgstr ""
 
-#: components/CLMSProfileView/CLMSNewsletterView
-msgid "We will use this address to send you the newsletter"
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: We will use this e-mail address to send you {type}
+msgid "We will use this e-mail address to send you the {type}"
 msgstr ""
 
 #: components/CLMSSubscriptionView/SubscriptionView
-msgid "We will use this address to send you the {type}"
+# defaultMessage: Write your email in the field
+msgid "Write your email in the field"
+msgstr ""
+
+#: components/CLMSProfileView/CLMSDeleteProfileView
+# defaultMessage: Yes, I want to delete my account
+msgid "Yes, I want to delete my account"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
-msgid "Web manager section"
-msgstr ""
-
-#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: You are already registered
 msgid "You are already registered"
 msgstr ""
 
 #: components/CLMSSubscriptionView/SubscriptionView
-msgid "You will receive an email confirmation to"
+# defaultMessage: You will receive a confirmation email in {email} to confirm your subscription to receive these messages.
+msgid "You will receive a confirmation email in {email} to confirm your subscription to receive these messages."
+msgstr ""
+
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages
+msgid "You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSUserProfileView
+# defaultMessage: Your location - either city and country - or in a company setting, where your office is located.
 msgid "Your location - either city and country - or in a company setting, where your office is located."
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
+#: components/CLMSSubscriptionView/ConfirmSubscriptionView
+# defaultMessage: Your {subscribe_or_unsubscribe} request was processed correctly
+msgid "Your {subscribe_or_unsubscribe} request was processed correctly"
+msgstr ""
+
+#: components/CLMSMeetingView/CLMSMeetingView
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: I agree to the
 msgid "agreePrivacyPolicy"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
+#: components/CLMSMeetingView/CLMSMeetingView
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: privacy policy.
 msgid "agreePrivacyPolicyLinkText"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: All
 msgid "all"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
+# defaultMessage: Approve selected
 msgid "approve_selected"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Body
 msgid "body"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: CC
 msgid "cc"
-msgstr ""
-
-#: customizations/volto/components/theme/Footer/Footer
-msgid "copernicusServices"
 msgstr ""
 
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
+# defaultMessage: More than {count} datasets in our
 msgid "countText"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: CREATE NEW TOKEN
 msgid "create title"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: NEW TOKEN CREATED
 msgid "created title"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
+# defaultMessage: Delete selected
 msgid "delete_selected"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: API tokens are used for machine-to-machine communication with the CLMS website API. You need to create a new API token for each application in which you need to use the CLMS website API. In this screen you can create a new API token, check the list of your tokens and also delete those tokens.
 msgid "descripton"
 msgstr ""
 
+#: components/CLMSDatasetDetailView/DownloadDataSetContent
+# defaultMessage: Go to download by area
+msgid "downloadByArea"
+msgstr ""
+
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
+# defaultMessage: Download selected as CSV
 msgid "download_selected"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
 #: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: Email
 msgid "email"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: All dates
 msgid "event_alldates"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Attendees
 msgid "event_attendees"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Contact name
 msgid "event_contactname"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Contact phone
 msgid "event_contactphone"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Website
 msgid "event_website"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: What
 msgid "event_what"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: When
 msgid "event_when"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Where
 msgid "event_where"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Existing tokens
 msgid "existing tokens"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: These are your avaliable tokens
 msgid "existing tokens description"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
-msgid "expertSupportProvidedBy"
+#: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: undefined
+msgid "field_custom_id"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
-msgid "followUs"
+#: components/Blocks/CustomTemplates/VoltoFormBlock/CheckboxSchemaExtender
+# defaultMessage: HTML formatted description
+msgid "field_html_description"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
-msgid "footerAtmosphere"
-msgstr ""
-
-#: customizations/volto/components/theme/Footer/Footer
-msgid "footerClimateChange"
-msgstr ""
-
-#: customizations/volto/components/theme/Footer/Footer
-msgid "footerEmergency"
-msgstr ""
-
-#: customizations/volto/components/theme/Footer/Footer
-msgid "footerLand"
-msgstr ""
-
-#: customizations/volto/components/theme/Footer/Footer
-msgid "footerMarine"
-msgstr ""
-
-#: customizations/volto/components/theme/Footer/Footer
-msgid "footerSecurity"
+#: components/Blocks/CustomTemplates/VoltoFormBlock/View
+# defaultMessage: Form successfully submitted
+msgid "formSubmitted"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
-msgid "form_customId"
-msgstr ""
-
-#: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Description
 msgid "form_field_description"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
-msgid "form_field_input_values"
-msgstr ""
-
-#: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Label
 msgid "form_field_label"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Required
 msgid "form_field_required"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Field type
 msgid "form_field_type"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Attachment
 msgid "form_field_type_attachment"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Any attachments can be emailed, but will not be saved.
 msgid "form_field_type_attachment_info_text"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Checkbox
 msgid "form_field_type_checkbox"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Date
 msgid "form_field_type_date"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: E-mail
 msgid "form_field_type_from"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Multiple choice
 msgid "form_field_type_multiple_choice"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: List
 msgid "form_field_type_select"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Single choice
 msgid "form_field_type_single_choice"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Static text
 msgid "form_field_type_static_text"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Text
 msgid "form_field_type_text"
 msgstr ""
 
 #: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
+# defaultMessage: Textarea
 msgid "form_field_type_textarea"
 msgstr ""
 
-#: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
-msgid "form_useAsReplyTo"
-msgstr ""
-
-#: components/Blocks/CustomTemplates/VoltoFormBlock/customIdFieldSchema
-msgid "form_useAsReplyTo_description"
+#: components/Blocks/CustomTemplates/VoltoFormBlock/VocabularyWidget
+# defaultMessage: Select a value
+msgid "form_select_a_value"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: From
 msgid "from"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Hosting organisation
 msgid "hosting_organisation"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
-msgid "jointResearchCenter"
-msgstr ""
-
 #: components/CclLoginModal/CclLoginModal
+# defaultMessage: Register/Login
 msgid "loginRegister"
 msgstr ""
 
-#: customizations/volto/components/theme/Header/Header
-msgid "logout"
-msgstr ""
-
 #: components/CLMSMeetingView/CLMSMeetingView
-msgid "meetinglevel"
-msgstr ""
-
-#: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Type
 msgid "meetingtype"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Modified
 msgid "modified"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
 #: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: Name
 msgid "name"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/noResultsSchema
+# defaultMessage: No results component
+msgid "noResultsConfiguration"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/noResultsSchema
+# defaultMessage: The text to show when there are no results.
+msgid "noResultsDescription"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/noResultsSchema
+# defaultMessage: No results component text.
+msgid "noResultsTitle"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
+# defaultMessage: There is no results
 msgid "no_results"
+msgstr ""
+
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: notifications
+msgid "notifications"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
 #: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: Organisation
 msgid "organisation"
+msgstr ""
+
+#: components/Blocks/CustomTemplates/VoltoListingBlock/noResultsSchema
+# defaultMessage: Query
+msgid "querystringConfiguration"
+msgstr ""
+
+#: components/CLMSDownloadsView/CLMSDownloadTasks
+# defaultMessage: Queued
+msgid "queued"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Recipients
 msgid "recipients"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
+# defaultMessage: Reject selected
 msgid "reject_selected"
 msgstr ""
 
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockEdit
 #: components/Blocks/CclHomeSearchBlock/CclHomeSearchBlockView
+# defaultMessage: Search datasets
 msgid "searchDatasetsPlaceholder"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
 #: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: State
 msgid "state"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Subject
 msgid "subject"
 msgstr ""
 
-#: customizations/volto/components/theme/Footer/Footer
-msgid "subscribe"
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: Subscribe to {type}
+msgid "subscribe to receive the {type}"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: API token management
 msgid "title"
 msgstr ""
 
 #: components/CLMSProfileView/CLMSApiTokensView
+# defaultMessage: Token title
 msgid "tokenTitleLabel"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingEmailsView
 #: components/CLMSMeetingView/CLMSMeetingEmailView
+# defaultMessage: Type
 msgid "type"
+msgstr ""
+
+#: components/CLMSSubscriptionView/SubscriptionView
+# defaultMessage: Unsubscribe from {type}
+msgid "unsubscribe from the {type}"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingSubscribersView
 #: components/CLMSMeetingView/CLMSMeetingSubscriberView
+# defaultMessage: User Name
 msgid "user_name"
 msgstr ""
 
 #: components/CLMSMeetingView/CLMSMeetingView
+# defaultMessage: Visit external website
 msgid "visit_external_website"
 msgstr ""
 
-#: components/CLMSSubscriptionView/SubscriptionView
-msgid "{subscribe_or_unsubscribe} to the {type}"
-msgstr ""
-
 #: components/CLMSSubscriptionView/ConfirmSubscriptionView
-msgid "{type} {subscribe_or_unsubscribe} confirm"
+# defaultMessage: {type} {subscribe_or_unsubscribe} confirmation
+msgid "{type} {subscribe_or_unsubscribe} confirmation"
 msgstr ""
