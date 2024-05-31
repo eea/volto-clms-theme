@@ -27,6 +27,7 @@ function SurveyModal(props) {
       </ModalContent>
       <ModalActions>
         <Button
+          style={{ borderRadius: '0', border: '1px solid #E0E1E2' }}
           className="ccl-button ccl-button--default"
           onClick={() => {
             markSurveyAsDone();
