@@ -163,12 +163,12 @@ const CLMSCartContent = (props) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setCartItemInProgress = (in_progress_unique_ids) => {
-    let started_processing_items =
-      cartItems.length > 0
-        ? cartItems.filter((r) =>
-            in_progress_unique_ids.includes(r['unique_id']),
-          )
-        : [];
+    let started_processing_items = [];
+    if (cartItems.length > 0) {
+      started_processing_items = cartItems.filter((r) =>
+        in_progress_unique_ids.includes(r['unique_id']),
+      );
+    }
     var items_to_remove =
       started_processing_items.length > 0
         ? started_processing_items.map((item) => item.unique_id)
@@ -215,9 +215,18 @@ const CLMSCartContent = (props) => {
       selectedItems.length > 0
         ? selectedItems.map((item) => item?.unique_id)
         : [];
-    dispatch(postDownloadtool(body, unique_ids));
-    removeCartItems(unique_ids);
-    setCartItems(cartItems.filter((i) => !unique_ids.includes(i.unique_id)));
+    const action = postDownloadtool(body, unique_ids);
+    dispatch(action)
+      .then(() => {
+        removeCartItems(unique_ids);
+        setCartItems(
+          cartItems.filter((i) => !unique_ids.includes(i.unique_id)),
+        );
+      })
+      .catch((e) => {
+        // eslint-disable-next-line no-console
+        console.log('Error in action', e);
+      });
   };
   const downloadModal = (ci, cs) => {
     let selectedItems = getSelectedCartItems(ci, cs);
