@@ -124,7 +124,9 @@ class Header extends Component {
       );
       this.props.loginRenew();
     } else {
-      this.props.getUser(this.props.token);
+      if (this.props.token) {
+        this.props.getUser(this.props.token);
+      }
     }
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
