@@ -21,6 +21,8 @@ import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter
 
 import usePrevious from '@eeacms/volto-clms-theme/helpers/usePrevious';
 
+import { Loader } from 'semantic-ui-react';
+
 // IMPORT isnt nedded until translations are created
 // import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 
@@ -71,10 +73,13 @@ const HeaderDropdown = ({ user }) => {
 export default function Header({ pathname }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
+  const userRequest = useSelector((state) => state.users.get);
+  console.log(userRequest);
   const token = useSelector((state) => {
     const jwtToken = state.userSession.token;
     return jwtToken ? jwtDecode(jwtToken).sub : '';
   });
+  const isLoadingUser = userRequest?.loading === true;
 
   const prevToken = usePrevious(token);
 
@@ -82,7 +87,7 @@ export default function Header({ pathname }) {
   const prevUserId = usePrevious(userId);
 
   React.useEffect(() => {
-    if (prevToken && prevToken !== token) {
+    if (token && prevToken !== token) {
       dispatch(getUser(token));
     }
     if (prevUserId !== userId) {
@@ -197,6 +202,8 @@ export default function Header({ pathname }) {
                         <UniversalLink href="/en/login">
                           Register/Login
                         </UniversalLink>
+                      ) : isLoadingUser ? (
+                        <Loader active inline size="mini" />
                       ) : (
                         <CclLoginModal />
                       )}
@@ -261,6 +268,8 @@ export default function Header({ pathname }) {
                         <UniversalLink href="/en/login">
                           Register/Login
                         </UniversalLink>
+                      ) : isLoadingUser ? (
+                        <Loader active inline size="mini" />
                       ) : (
                         <CclLoginModal />
                       )}
@@ -279,16 +288,3 @@ export default function Header({ pathname }) {
     </>
   );
 }
-
-Header.propTypes = {
-  token: PropTypes.string,
-  pathname: PropTypes.string.isRequired,
-  user: PropTypes.shape({
-    fullname: PropTypes.string,
-    email: PropTypes.string,
-    home_page: PropTypes.string,
-    location: PropTypes.string,
-    roles: PropTypes.array,
-  }).isRequired,
-  getUser: PropTypes.func.isRequired,
-};
