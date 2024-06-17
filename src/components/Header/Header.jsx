@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
-import PropTypes from 'prop-types';
 
 import Cookies from 'universal-cookie';
 
@@ -74,7 +73,7 @@ export default function Header({ pathname }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const userRequest = useSelector((state) => state.users.get);
-  console.log(userRequest);
+
   const token = useSelector((state) => {
     const jwtToken = state.userSession.token;
     return jwtToken ? jwtDecode(jwtToken).sub : '';
