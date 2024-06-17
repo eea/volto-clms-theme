@@ -125,7 +125,7 @@ export const CartIconCounter = () => {
             <Icon
               onClick={() => setshowPopup(false)}
               name={clearSVG}
-              size={20}
+              size="20px"
               style={{ cursor: 'pointer' }}
             />
           </Segment>
