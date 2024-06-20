@@ -355,7 +355,9 @@ const CLMSCartContent = (props) => {
     selectedCartItems.filter(
       (item) =>
         datasetTimeseriesUids.includes(item.dataset_uid) &&
-        !item.TemporalFilter,
+        !item.TemporalFilter &&
+        (datasetTimeseries.datasets[item?.dataset_uid]?.start ||
+          item.download_show_auxiliary_calendar),
     ).length > 0;
 
   return (
