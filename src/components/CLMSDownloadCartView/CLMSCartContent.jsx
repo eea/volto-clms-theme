@@ -46,6 +46,87 @@ import {
 
 import { getProjectionsUID } from '../../actions';
 
+const DownloadModal = ({
+  openedModal,
+  onConfirm,
+  onCancel,
+  cartItems,
+  cartSelection,
+}) => {
+  return (
+    <Modal
+      // onClose={() => closeModal()}
+      // onOpen={() => openModal()}
+      open={openedModal}
+      // trigger={trigger}
+      className={'modal-clms'}
+      size={'tiny'}
+    >
+      <Modal.Content>
+        <div className={'modal-clms-background'}>
+          <div>
+            <div className={'modal-close modal-clms-close'}>
+              <span
+                className="ccl-icon-close"
+                aria-label="Close"
+                onClick={onCancel}
+                onKeyDown={onCancel}
+                tabIndex="0"
+                role="button"
+              ></span>
+            </div>
+            <p>Download processing</p>
+            {
+              'Data download will be made available in separate files for pre-packaged files and custom data selection.'
+            }
+            <br />
+            <br />
+            <strong>Selected pre-packaged files from:</strong>
+            <ul>
+              {[
+                ...new Set(
+                  getSelectedCartItems(cartItems, cartSelection)
+                    .filter((item) => item?.file_id)
+                    .map((item) => item?.name),
+                ),
+              ]
+                .sort()
+                .map((item, key) => (
+                  <li key={key}>{item}</li>
+                ))}
+            </ul>
+            <br />
+            <strong>Custom data selection from:</strong>
+            <ul>
+              {[
+                ...new Set(
+                  getSelectedCartItems(cartItems, cartSelection)
+                    .filter((item) => !item?.file_id)
+                    .map((item) => item?.name),
+                ),
+              ].map((item, key) => (
+                <li key={key}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Modal.Content>
+      <Modal.Actions>
+        <div className="modal-buttons">
+          <CclButton mode={'filled'} onClick={onConfirm}>
+            Accept
+          </CclButton>
+          <CclButton onClick={onCancel}>Cancel</CclButton>
+        </div>
+      </Modal.Actions>
+    </Modal>
+  );
+};
+
+const getSelectedCartItems = (ci, cs) => {
+  return ci.filter((item) => cs.indexOf(item?.unique_id) > -1);
+};
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /**
  * CLMSCartContent container.
@@ -157,10 +238,6 @@ const CLMSCartContent = (props) => {
     else setCartSelection(cartSelection.filter((arr_id) => arr_id !== id));
   };
 
-  const getSelectedCartItems = (ci, cs) => {
-    return ci.filter((item) => cs.indexOf(item?.unique_id) > -1);
-  };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setCartItemInProgress = (in_progress_unique_ids) => {
     let started_processing_items = [];
@@ -228,6 +305,7 @@ const CLMSCartContent = (props) => {
         console.log('Error in action', e);
       });
   };
+
   const downloadModal = (ci, cs) => {
     let selectedItems = getSelectedCartItems(ci, cs);
     const hasPrepackaged =
@@ -269,6 +347,18 @@ const CLMSCartContent = (props) => {
 
     return howManyInQueue + count > maxInQueue;
   };
+
+  const selectedCartItems = getSelectedCartItems(cartItems, cartSelection);
+
+  const datasetTimeseriesUids = Object.keys(datasetTimeseries?.datasets || {});
+  const needDateSelected =
+    selectedCartItems.filter(
+      (item) =>
+        datasetTimeseriesUids.includes(item.dataset_uid) &&
+        !item.TemporalFilter &&
+        (datasetTimeseries.datasets[item?.dataset_uid]?.start ||
+          item.download_show_auxiliary_calendar),
+    ).length > 0;
 
   return (
     <>
@@ -590,6 +680,13 @@ const CLMSCartContent = (props) => {
               queue is reduced before requesting more.
             </strong>
           )}
+
+          {needDateSelected && (
+            <strong>
+              You need to select the dates interval for some of your download
+              items.
+            </strong>
+          )}
           {tooManySelected() && (
             <strong>
               With the selection that you have made, you will have {maxInQueue}{' '}
@@ -600,7 +697,10 @@ const CLMSCartContent = (props) => {
           <CclButton
             onClick={() => downloadModal(cartItems, cartSelection)}
             disabled={
-              cartSelection.length === 0 || tooManyInQueue || tooManySelected()
+              cartSelection.length === 0 ||
+              tooManyInQueue ||
+              tooManySelected() ||
+              needDateSelected
             }
           >
             Process download request
@@ -608,78 +708,17 @@ const CLMSCartContent = (props) => {
         </>
       )}
 
-      <Modal
-        // onClose={() => closeModal()}
-        // onOpen={() => openModal()}
-        open={openedModal}
-        // trigger={trigger}
-        className={'modal-clms'}
-        size={'tiny'}
-      >
-        <Modal.Content>
-          <div className={'modal-clms-background'}>
-            <div>
-              <div className={'modal-close modal-clms-close'}>
-                <span
-                  className="ccl-icon-close"
-                  aria-label="Close"
-                  onClick={() => setOpenedModal(false)}
-                  onKeyDown={() => setOpenedModal(false)}
-                  tabIndex="0"
-                  role="button"
-                ></span>
-              </div>
-              <p>Download processing</p>
-              {
-                'Data download will be made available in separate files for pre-packaged files and custom data selection.'
-              }
-              <br />
-              <br />
-              <strong>Selected pre-packaged files from:</strong>
-              <ul>
-                {[
-                  ...new Set(
-                    getSelectedCartItems(cartItems, cartSelection)
-                      .filter((item) => item?.file_id)
-                      .map((item) => item?.name),
-                  ),
-                ]
-                  .sort()
-                  .map((item, key) => (
-                    <li key={key}>{item}</li>
-                  ))}
-              </ul>
-              <br />
-              <strong>Custom data selection from:</strong>
-              <ul>
-                {[
-                  ...new Set(
-                    getSelectedCartItems(cartItems, cartSelection)
-                      .filter((item) => !item?.file_id)
-                      .map((item) => item?.name),
-                  ),
-                ].map((item, key) => (
-                  <li key={key}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Modal.Content>
-        <Modal.Actions>
-          <div className="modal-buttons">
-            <CclButton
-              mode={'filled'}
-              onClick={() => {
-                setOpenedModal(false);
-                startDownloading();
-              }}
-            >
-              Accept
-            </CclButton>
-            <CclButton onClick={() => setOpenedModal(false)}>Cancel</CclButton>
-          </div>
-        </Modal.Actions>
-      </Modal>
+      <DownloadModal
+        openedModal={openedModal}
+        setOpenedModal={setOpenedModal}
+        cartItems={cartItems}
+        cartSelection={cartSelection}
+        onConfirm={() => {
+          setOpenedModal(false);
+          startDownloading();
+        }}
+        onCancel={() => setOpenedModal(false)}
+      />
     </>
   );
 };
