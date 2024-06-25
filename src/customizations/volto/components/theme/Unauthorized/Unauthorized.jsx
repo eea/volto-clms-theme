@@ -31,7 +31,7 @@ const Unauthorized = (props) => {
           id="You are trying to access a protected resource, please {login} first."
           defaultMessage="You are trying to access a protected resource, please {login} first."
           values={{
-            login: <CclLoginModal otherPath={location.pathname} />,
+            login: <CclLoginModal otherPath={location?.pathname} />,
           }}
         />
       </p>
