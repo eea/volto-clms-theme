@@ -115,8 +115,8 @@ export const CLMSMeetingView = (props) => {
       defaultMessage: 'privacy policy.',
     },
     addEventToCalendar: {
-      id: 'Add event to calendar',
-      defineMessages: 'Add event to calendar',
+      id: 'addEventToCalendar',
+      defaultMessage: 'Add event to calendar',
     },
   });
 

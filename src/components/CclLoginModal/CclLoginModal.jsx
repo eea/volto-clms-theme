@@ -15,7 +15,7 @@ import { toBase64 } from '../CclUtils';
  *
  */
 function CclLoginModal(props) {
-  let {
+  const {
     classname = 'header-login-link',
     triggerComponent = () => (
       <span className={classname}>
