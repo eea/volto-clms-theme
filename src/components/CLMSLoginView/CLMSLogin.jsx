@@ -73,7 +73,10 @@ function CLMSLoginView(props) {
                 </p>
                 <p>
                   If you have othe questions, please contact our
-                  <UniversalLink openLinkInNewTab href="/en/service-desk">
+                  <UniversalLink
+                    openLinkInNewTab
+                    href="/en/contact-service-helpdesk"
+                  >
                     {' '}
                     Service desk
                   </UniversalLink>
