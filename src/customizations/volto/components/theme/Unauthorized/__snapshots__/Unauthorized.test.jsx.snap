@@ -2,7 +2,7 @@
 
 exports[`Unauthorized renders a not found component 1`] = `
 <div
-  className="ui container view-wrapper"
+  className="ui container view-wrapper unauthorized-page"
 >
   <h1>
     Unauthorized
@@ -14,16 +14,17 @@ exports[`Unauthorized renders a not found component 1`] = `
     className="description"
   >
     You are trying to access a protected resource, please 
-    <a
-      className={null}
-      href="/en/login"
+    <span
+      className="header-login-link"
+      onBlur={[Function]}
       onClick={[Function]}
-      target={null}
-      title={null}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
     >
       Register/Login
-    </a>
-     first.
+    </span>
+    first.
   </p>
   <p>
     If you are certain you have the correct web address but are encountering an error, please contact the 
