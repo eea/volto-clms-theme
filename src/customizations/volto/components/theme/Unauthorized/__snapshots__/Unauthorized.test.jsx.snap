@@ -24,7 +24,7 @@ exports[`Unauthorized renders a not found component 1`] = `
     >
       Register/Login
     </span>
-   first.
+     first.
   </p>
   <p>
     If you are certain you have the correct web address but are encountering an error, please contact the 
