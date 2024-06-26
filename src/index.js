@@ -224,6 +224,11 @@ const applyConfig = (config) => {
     'footnote',
   ];
 
+  // Insert scripts on Error pages
+  if (config.settings?.serverConfig?.extractScripts) {
+    config.settings.serverConfig.extractScripts.errorPages = true;
+  }
+
   config = installLinkEditor(config);
 
   config.addonRoutes = [
