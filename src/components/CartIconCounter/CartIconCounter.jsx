@@ -66,7 +66,7 @@ export const CartIconCounter = () => {
       cartDiffItems.forEach((diffItem) => {
         if (
           datasetTimeseries.datasets[diffItem.UID] &&
-          datasetTimeseries.datasets[diffItem.UID].start
+          datasetTimeseries.datasets[diffItem.UID]?.mapviewer_istimeseries
         ) {
           hasTS = true;
         }
