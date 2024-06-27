@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 
 import { Forbidden, Unauthorized } from '@plone/volto/components';
 import { Helmet } from '@plone/volto/helpers';
+
 import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
 import { getNutsIDList } from './cartUtils';
 
 import {

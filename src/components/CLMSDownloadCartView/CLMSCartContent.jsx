@@ -13,18 +13,13 @@ import {
 import { Icon } from '@plone/volto/components';
 import { Toast } from '@plone/volto/components';
 import { UniversalLink } from '@plone/volto/components';
-import addDocumentSVG from '@plone/volto/icons/add-document.svg';
-import removeSVG from '@plone/volto/icons/delete.svg';
-import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
-import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
 
 import { getDownloadtool, postDownloadtool } from '../../actions';
 import { useFilteredPagination } from '../CclUtils/useFilteredPagination';
-import './cart-table.less';
 import {
   getDownloadToolPostBody,
   duplicateCartItem,
@@ -45,6 +40,13 @@ import {
 } from '.';
 
 import { getProjectionsUID } from '../../actions';
+
+import addDocumentSVG from '@plone/volto/icons/add-document.svg';
+import removeSVG from '@plone/volto/icons/delete.svg';
+import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
+import paginationRightSVG from '@plone/volto/icons/right-key.svg';
+
+import './cart-table.less';
 
 const DownloadModal = ({
   openedModal,

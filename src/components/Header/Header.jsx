@@ -9,7 +9,7 @@ import Cookies from 'universal-cookie';
 import { getUser } from '@plone/volto/actions';
 import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import { BodyClass, getCookieOptions } from '@plone/volto/helpers';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
 import { UniversalLink } from '@plone/volto/components';
 
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';

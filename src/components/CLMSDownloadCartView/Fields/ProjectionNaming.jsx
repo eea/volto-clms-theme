@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Select, Loader, Popup } from 'semantic-ui-react';
 import { baseSources } from '../../../constants/utmProjections';
 import { getUtm } from './utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
 
 export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
   const [loading, setLoading] = useState(true);
