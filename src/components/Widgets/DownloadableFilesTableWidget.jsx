@@ -1,9 +1,12 @@
 import React from 'react';
 import { ReactTableWidget } from '@eeacms/volto-react-table-widget';
 import { useSchema } from './SchemaCreatorWidget';
-import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder/dist/index';
 import CclButton from '../CclButton/CclButton';
 import { Segment, Loader, Header, Divider } from 'semantic-ui-react';
+// import loadable from 'loadables/component';
+import { injectLazyLibs } from '@plone/volto/helpers/Loadable';
+
+// import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder/dist/index';
 
 const orderKeysBy = (array, data) => {
   if (data) {
@@ -41,6 +44,8 @@ const fixSchema = (schema) => {
 };
 
 const DownloadableFilesTableWidget = (props) => {
+  const lib = props['react-json-schema-form-builder'];
+  const { FormBuilder } = lib;
   const { functions, data } = useSchema(
     props?.value?.schema,
     props?.value?.uiSchema,
@@ -56,8 +61,8 @@ const DownloadableFilesTableWidget = (props) => {
           ),
         ]
       : props.default?.items.length > 0
-      ? props.default?.items
-      : [];
+        ? props.default?.items
+        : [];
   return (
     <>
       <div className="ui container">
@@ -82,9 +87,8 @@ const DownloadableFilesTableWidget = (props) => {
         onChange={(newSchema, newUiSchema) => {
           setEdited(true);
           let parsed_newSchema = JSON.parse(newSchema);
-          parsed_newSchema.fieldsets[0].fields = JSON.parse(newUiSchema)[
-            'ui:order'
-          ];
+          parsed_newSchema.fieldsets[0].fields =
+            JSON.parse(newUiSchema)['ui:order'];
           setSchema(parsed_newSchema);
           setUISchema(JSON.parse(newUiSchema));
         }}
@@ -162,4 +166,6 @@ const DownloadableFilesTableWidget = (props) => {
   );
 };
 
-export default DownloadableFilesTableWidget;
+export default injectLazyLibs('react-json-schema-form-builder')(
+  DownloadableFilesTableWidget,
+);
