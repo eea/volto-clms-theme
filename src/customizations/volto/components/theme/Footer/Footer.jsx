@@ -14,7 +14,7 @@ import validator from 'validator';
 import { Toast } from '@plone/volto/components';
 
 // TODO: this import needs to be lazy loaded
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import faLinkedin from '@fortawesome/free-brands-svg-icons/faLinkedin';
 import { subscribeTo } from '../../../../../actions';
 
 import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';

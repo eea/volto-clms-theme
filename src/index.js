@@ -43,7 +43,6 @@ import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
 import ImageSizeWidget from './components/Widgets/ImageSizeWidget';
 import { CLMSDateWidget } from './components/Widgets/CLMSDateWidget';
-// import { DateWidget } from '@eeacms/volto-widgets-view/components';
 import { getWidgetView } from '@eeacms/volto-widgets-view/helpers';
 
 // CUSTOM REDUCERS IMPORT
@@ -52,7 +51,6 @@ import TextLinkWidget from './components/Widgets/TextLinkWidget';
 import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
-// import Login from '@plone/volto/components/Login';
 
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
@@ -62,7 +60,6 @@ import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
 
 import ImageView from '@plone/volto/components/theme/View/ImageView';
-import { fontAwesomeSchema } from './components/Blocks/CustomTemplates/VoltoTabsBlock/fontAwesomeSchema';
 
 const applyConfig = (config) => {
   config.views = {
