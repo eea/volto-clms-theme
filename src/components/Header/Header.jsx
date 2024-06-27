@@ -127,7 +127,7 @@ export default function Header({ pathname }) {
               window.location.hash && `${window.location.hash}`
             }`,
       );
-      dispatch(loginRenew());
+      window.location.reload();
     } else {
       if (token) {
         dispatch(getUser(token));
