@@ -341,8 +341,10 @@ const applyConfig = (config) => {
 
   // some complain from prettier
   // eslint-disable-next-line
-  config.settings.loadables['react-json-schema-form-builder'] = loadable.lib(
-    () => import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+  config.settings.loadables[
+    'react-json-schema-form-builder'
+  ] = loadable.lib(() =>
+    import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
   );
 
   return config;
