@@ -62,6 +62,7 @@ import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
 
 import ImageView from '@plone/volto/components/theme/View/ImageView';
+import { fontAwesomeSchema } from './components/Blocks/CustomTemplates/VoltoTabsBlock/fontAwesomeSchema';
 
 const applyConfig = (config) => {
   config.views = {
@@ -341,11 +342,23 @@ const applyConfig = (config) => {
 
   // some complain from prettier
   // eslint-disable-next-line
-  config.settings.loadables[
-    'react-json-schema-form-builder'
-  ] = loadable.lib(() =>
-    import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
-  );
+  config.settings.loadables = {
+    'react-json-schema-form-builder': loadable.lib(() =>
+      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    ),
+    fontAwesome: loadable.lib(() => import('@fortawesome/react-fontawesome')),
+    fontAwesomeLibrary: loadable.lib(() =>
+      import('@fortawesome/fontawesome-svg-core'),
+    ),
+    fontAwesomeSolid: loadable.lib(() =>
+      import('@fortawesome/free-solid-svg-icons'),
+    ),
+    fontAwesomeRegular: loadable.lib(() =>
+      import('@fortawesome/free-regular-svg-icons'),
+    ),
+
+    ...config.settings.loadables,
+  };
 
   return config;
 };
