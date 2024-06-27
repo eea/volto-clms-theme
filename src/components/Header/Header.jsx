@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 
 import Cookies from 'universal-cookie';
 
-import { getUser, loginRenew } from '@plone/volto/actions';
+import { getUser } from '@plone/volto/actions';
 import { Logo, Navigation, SearchWidget } from '@plone/volto/components';
 import { BodyClass, getCookieOptions } from '@plone/volto/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -127,7 +127,7 @@ export default function Header({ pathname }) {
               window.location.hash && `${window.location.hash}`
             }`,
       );
-      dispatch(loginRenew());
+      window.location.reload();
     } else {
       if (token) {
         dispatch(getUser(token));
