@@ -356,7 +356,8 @@ const CLMSCartContent = (props) => {
       (item) =>
         datasetTimeseriesUids.includes(item.dataset_uid) &&
         !item.TemporalFilter &&
-        (datasetTimeseries.datasets[item?.dataset_uid]?.start ||
+        (datasetTimeseries.datasets[item?.dataset_uid]
+          ?.mapviewer_istimeseries ||
           item.download_show_auxiliary_calendar),
     ).length > 0;
 
@@ -527,7 +528,8 @@ const CLMSCartContent = (props) => {
                         />
                       </td>
                       <td className="table-td-timeseries">
-                        {datasetTimeseries.datasets[item?.dataset_uid]?.start ||
+                        {datasetTimeseries.datasets[item?.dataset_uid]
+                          ?.mapviewer_istimeseries ||
                         item.download_show_auxiliary_calendar ? (
                           <TimeseriesPicker
                             start={
