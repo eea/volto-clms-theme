@@ -1,3 +1,4 @@
+import loadable from '@loadable/component';
 import customBlocks, {
   customGroupBlocksOrder,
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
@@ -334,6 +335,12 @@ const applyConfig = (config) => {
   };
 
   config.experimental.addBlockButton.enabled = true;
+
+  config.settings.loadables = {
+    'react-json-schema-form-builder': loadable.lib(() =>
+      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    ),
+  };
 
   return config;
 };
