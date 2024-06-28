@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Select, Loader, Popup } from 'semantic-ui-react';
-import { baseSources } from '../../../constants/utmProjections';
+// import { baseSources } from '../../../constants/utmProjections';
 import { getUtm } from './utils';
 import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { injectLazyLibs } from '@plone/volto/helpers/Loadable';
 
-export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
+const _ProjectionNaming = ({
+  item,
+  cartItems,
+  setCartItems,
+  utmProjections,
+}) => {
+  const { baseSources } = utmProjections;
   const [loading, setLoading] = useState(true);
   const projections_uid = useSelector(
     (state) => state.downloadtool.projections_in_progress_uid,
@@ -16,7 +23,7 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
     if (new_cartItems[objIndex]) new_cartItems[objIndex].projection = value;
     setCartItems([...new_cartItems]);
   };
-  const utm = getUtm(item);
+  const utm = getUtm(item, utmProjections);
 
   let [choices, setChoices] = useState([]);
 
@@ -125,3 +132,6 @@ export const ProjectionNaming = ({ item, cartItems, setCartItems }) => {
     '-'
   );
 };
+export const ProjectionNaming = injectLazyLibs(['utmProjections'])(
+  _ProjectionNaming,
+);
