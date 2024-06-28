@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
-import { withFontAwesomeLibs } from '@eeacms/volto-clms-theme/helpers/withFontAwesomeLibs';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
 /**
  * CclInfoDescription component doc.

@@ -11,8 +11,8 @@ import { Grid, Header, Loader, Popup, Segment } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
-import { withFontAwesomeLibs } from '@eeacms/volto-clms-theme/helpers/withFontAwesomeLibs';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
 import pauseSVG from '@plone/volto/icons/pause.svg';
 import errorSVG from '@plone/volto/icons/error.svg';
@@ -22,9 +22,6 @@ import removeSVG from '@plone/volto/icons/delete.svg';
 import blockSVG from '@plone/volto/icons/block.svg';
 
 import './filecard.less';
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const prettyBytes = require('pretty-bytes');
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { Segment, Modal } from 'semantic-ui-react';
 import Draggable from 'react-draggable';
 
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
-import { withFontAwesomeLibs } from '@eeacms/volto-clms-theme/helpers/withFontAwesomeLibs';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
 function CclModal(props) {
   let {

@@ -11,7 +11,7 @@ import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnai
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 // import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 // import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';

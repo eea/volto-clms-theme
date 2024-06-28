@@ -11,7 +11,7 @@ import {
 } from '@eeacms/volto-clms-theme/actions';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { Link } from 'react-router-dom';
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 export const onlyInLeft = (left, right, compareFunction) =>
   left.filter(

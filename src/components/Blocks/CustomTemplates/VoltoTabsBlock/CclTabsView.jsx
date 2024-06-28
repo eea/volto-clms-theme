@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 const TabsComponent = (props) => {
   const { tabsList = [], setActiveTab } = props;

@@ -8,7 +8,7 @@ import { Helmet } from '@plone/volto/helpers';
 
 import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 import { getNutsIDList } from './cartUtils';
 
 import {

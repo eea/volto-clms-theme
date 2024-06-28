@@ -17,8 +17,8 @@ import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { fontAwesomeSchema } from './fontAwesomeSchema';
 import { subTabSchema } from './subTabSchema';
 
-import { withFontAwesomeLibs } from '@eeacms/volto-clms-theme/helpers/withFontAwesomeLibs';
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 import clearSVG from '@plone/volto/icons/clear.svg';
 import dragSVG from '@plone/volto/icons/drag.svg';

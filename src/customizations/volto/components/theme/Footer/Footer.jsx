@@ -13,12 +13,11 @@ import validator from 'validator';
 
 import { Toast } from '@plone/volto/components';
 
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+
 // TODO: this import needs to be lazy loaded
 import faLinkedin from '@fortawesome/free-brands-svg-icons/faLinkedin';
 import { subscribeTo } from '../../../../../actions';
-
-import FontAwesomeIcon from '@eeacms/volto-clms-theme/components/FontAwesomeIcon';
-// import { withFontAwesomeLibs } from '@eeacms/volto-clms-theme/helpers/withFontAwesomeLibs';
 
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
 import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
