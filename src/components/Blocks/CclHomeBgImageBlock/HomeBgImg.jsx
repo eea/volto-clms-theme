@@ -1,4 +1,8 @@
+import { flattenToAppURL } from '@plone/volto/helpers';
+
 export const HomeBgImg = ({ url, alt }) => {
+  url = url ? flattenToAppURL(url) : url;
+
   return (
     <img
       src={
