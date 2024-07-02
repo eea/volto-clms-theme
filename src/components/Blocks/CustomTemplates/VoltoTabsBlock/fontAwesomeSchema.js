@@ -1,11 +1,12 @@
 import { getFontAwesomeIconList } from './fontawesome';
-import { far } from '@fortawesome/free-regular-svg-icons';
 
-export const fontAwesomeSchema = () => {
-  const choices = getFontAwesomeIconList([far]).map((item) => [
-    item.iconName,
-    item.iconName,
-  ]);
+export const fontAwesomeSchema = (props) => {
+  const { fontAwesomeRegular } = props;
+
+  const choices = getFontAwesomeIconList([
+    fontAwesomeRegular.far,
+  ]).map((item) => [item.iconName, item.iconName]);
+
   return {
     title: 'Font Awesome icons',
     fieldsets: [

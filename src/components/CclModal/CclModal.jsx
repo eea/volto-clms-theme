@@ -1,8 +1,9 @@
 import React from 'react';
 import { Segment, Modal } from 'semantic-ui-react';
 import Draggable from 'react-draggable';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
 function CclModal(props) {
   let {
@@ -12,6 +13,7 @@ function CclModal(props) {
     modalStatus = () => {},
     onCloseExtra = () => {},
     draggable = false,
+    fontAwesomeSolid,
   } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -42,7 +44,7 @@ function CclModal(props) {
               ></span>
             </div>
             <Segment compact className="handle">
-              <FontAwesomeIcon icon={faArrowsAlt} size="lg" />
+              <FontAwesomeIcon icon={fontAwesomeSolid.faArrowsAlt} size="lg" />
             </Segment>
 
             {children}
@@ -84,4 +86,4 @@ function CclModal(props) {
   );
 }
 
-export default CclModal;
+export default withFontAwesomeLibs(CclModal);

@@ -72,12 +72,8 @@ function CLMSLoginView(props) {
                   to create it.
                 </p>
                 <p>
-                  If you have othe questions, please contact our
-                  <UniversalLink
-                    openLinkInNewTab
-                    href="/en/contact-service-helpdesk"
-                  >
-                    {' '}
+                  If you have othe questions, please contact our{' '}
+                  <UniversalLink openLinkInNewTab href="/en/service-desk">
                     Service desk
                   </UniversalLink>
                   .

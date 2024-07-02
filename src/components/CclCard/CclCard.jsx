@@ -1,24 +1,26 @@
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Icon, Label } from 'semantic-ui-react';
 
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import { UniversalLink, Icon as VoltoIcon } from '@plone/volto/components';
+
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
-import { UniversalLink, Icon as VoltoIcon } from '@plone/volto/components';
-import penSVG from '@plone/volto/icons/pen.svg';
 // import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { When } from '@eeacms/volto-clms-theme/components/CclWhen/CclWhen';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 // import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';
 
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
-import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 import { CLMSTechnicalLibraryAdminInfo } from '../CLMSTechnicalLibraryAdminInfo';
+
+import penSVG from '@plone/volto/icons/pen.svg';
 
 const CardImage = ({ card, size = 'preview', isCustomCard }) => {
   return card?.image_field ? (

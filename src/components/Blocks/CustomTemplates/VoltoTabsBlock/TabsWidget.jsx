@@ -1,4 +1,6 @@
-import './fontawesome';
+import React from 'react';
+import move from 'lodash-move';
+import { v4 as uuid } from 'uuid';
 
 import {
   DragDropList,
@@ -7,25 +9,25 @@ import {
   SidebarPopup,
 } from '@plone/volto/components';
 import { Grid, Header } from 'semantic-ui-react';
-import { faExternalLinkAlt, faIcons } from '@fortawesome/free-solid-svg-icons';
 import { omit, without } from 'lodash';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import React from 'react';
 import { StyleWrapperEdit } from '@eeacms/volto-block-style/StyleWrapper';
-import clearSVG from '@plone/volto/icons/clear.svg';
-import dragSVG from '@plone/volto/icons/drag.svg';
 import { emptyTab } from '@eeacms/volto-tabs-block/helpers';
 import { fontAwesomeSchema } from './fontAwesomeSchema';
-import leftMenuSVG from '@plone/volto/icons/nav.svg';
-import move from 'lodash-move';
+import { subTabSchema } from './subTabSchema';
+
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+
+import clearSVG from '@plone/volto/icons/clear.svg';
+import dragSVG from '@plone/volto/icons/drag.svg';
 import plusSVG from '@plone/volto/icons/circle-plus.svg';
 import rightSVG from '@plone/volto/icons/right-key.svg';
-import { subTabSchema } from './subTabSchema';
 import themeSVG from '@plone/volto/icons/theme.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
-import { v4 as uuid } from 'uuid';
+import leftMenuSVG from '@plone/volto/icons/nav.svg';
+// import { faExternalLinkAlt, faIcons } from '@fortawesome/free-solid-svg-icons';
 
 export function moveColumn(formData, source, destination) {
   return {
@@ -46,13 +48,18 @@ const TabsWidget = (props) => {
   const [activeFontAwesomePopup, setActiveFontAwesomePopup] = React.useState(0);
   const [activeSubTabPopup, setActiveSubTabPopup] = React.useState(0);
 
-  const { value = {}, id, onChange } = props;
+  const { value = {}, id, onChange, fontAwesomeSolid } = props;
+  const { faExternalLinkAlt, faIcons } = fontAwesomeSolid;
+
   const { blocks = {} } = value;
   const tabsList = (value.blocks_layout?.items || []).map((tabId) => [
     tabId,
     blocks[tabId],
   ]);
   const activeTabData = blocks[activeTabId] || {};
+  const schema = fontAwesomeSchema(props);
+  const subSchema = subTabSchema();
+
   return (
     <FormFieldWrapper
       {...props}
@@ -128,10 +135,10 @@ const TabsWidget = (props) => {
 
                     <SidebarPopup open={activeFontAwesomePopup}>
                       <InlineForm
-                        schema={fontAwesomeSchema()}
+                        schema={schema}
                         title={
                           <>
-                            {fontAwesomeSchema().title}
+                            {schema.title}
                             <button
                               onClick={() => {
                                 setActiveFontAwesomePopup(false);
@@ -221,10 +228,10 @@ const TabsWidget = (props) => {
                     </button>
                     <SidebarPopup open={activeSubTabPopup}>
                       <InlineForm
-                        schema={subTabSchema()}
+                        schema={subSchema}
                         title={
                           <>
-                            {subTabSchema().title}
+                            {subSchema.title}
                             <button
                               onClick={() => {
                                 setActiveSubTabPopup(false);
@@ -342,4 +349,4 @@ const TabsWidget = (props) => {
   );
 };
 
-export default TabsWidget;
+export default withFontAwesomeLibs(TabsWidget);

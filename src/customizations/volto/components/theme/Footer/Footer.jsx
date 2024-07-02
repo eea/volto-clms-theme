@@ -11,6 +11,14 @@ import { toast } from 'react-toastify';
 import { compose } from 'redux';
 import validator from 'validator';
 
+import { Toast } from '@plone/volto/components';
+
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+
+// TODO: this import needs to be lazy loaded
+import faLinkedin from '@fortawesome/free-brands-svg-icons/faLinkedin';
+import { subscribeTo } from '../../../../../actions';
+
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
 import ClimateImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-climate.svg';
 import EmergencyImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-emergency.svg';
@@ -22,10 +30,6 @@ import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.s
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
 import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Toast } from '@plone/volto/components';
-import { subscribeTo } from '../../../../../actions';
 
 const messages = defineMessages({
   copernicusServices: {

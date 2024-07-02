@@ -11,7 +11,7 @@ import {
 } from '@eeacms/volto-clms-theme/actions';
 import { getCartItems } from '@eeacms/volto-clms-utils/actions';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 export const onlyInLeft = (left, right, compareFunction) =>
   left.filter(
@@ -34,7 +34,9 @@ export const CartIconCounter = () => {
   const [cartDiff, setCartDiff] = useState(0);
   const [cartDiffItems, setCartDiffItems] = useState([]);
   const [hasTimeseries, setHasTimeseries] = useState(false);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     user_id &&
       user_id !== user_id_ref.current &&

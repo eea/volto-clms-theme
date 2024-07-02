@@ -1,7 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
 /**
  * CclInfoDescription component doc.
@@ -16,14 +17,14 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
       </CclInfoDescription>
  *
  */
-function CclInfoDescription({ title, description, tooltip }) {
+function CclInfoDescription({ title, description, tooltip, fontAwesomeSolid }) {
   return (
     <div className="dataset-info-field">
       <div className="dataset-field-title">
         {title && <h3>{title}</h3>}
         {tooltip && (
           <span className="info-icon" tooltip={tooltip} direction="up">
-            <FontAwesomeIcon icon={faInfoCircle} />
+            <FontAwesomeIcon icon={fontAwesomeSolid.faInfoCircle} />
           </span>
         )}
       </div>
@@ -36,4 +37,4 @@ CclInfoDescription.propTypes = {
   title: PropTypes.string,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
-export default CclInfoDescription;
+export default withFontAwesomeLibs(CclInfoDescription);
