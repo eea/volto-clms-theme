@@ -3,12 +3,37 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
 import { MemoryRouter } from 'react-router-dom';
+import loadable from '@loadable/component';
+import config from '@plone/volto/registry';
 
 import Unauthorized from './Unauthorized';
 
 const mockStore = configureStore();
 
+// this doesnt work => loadables does not contain fontAwesome, fontAwesomeLibrary, fontAwesomeSolid, fontAwesomeRegular
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(
+  async () =>
+    await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables(),
+);
+
 describe('Unauthorized', () => {
+  // for some reason this does not work, it does not set the loadables in the config
+  config.settings.loadables = {
+    fontAwesome: loadable.lib(() => import('@fortawesome/react-fontawesome')),
+    fontAwesomeLibrary: loadable.lib(() =>
+      import('@fortawesome/fontawesome-svg-core'),
+    ),
+    fontAwesomeSolid: loadable.lib(() =>
+      import('@fortawesome/free-solid-svg-icons'),
+    ),
+    fontAwesomeRegular: loadable.lib(() =>
+      import('@fortawesome/free-regular-svg-icons'),
+    ),
+
+    ...config.settings.loadables,
+  };
+
   it('renders a not found component', () => {
     const store = mockStore({
       intl: {
@@ -19,6 +44,7 @@ describe('Unauthorized', () => {
         message: 'You are not authorized to access this resource',
       },
     });
+
     const component = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
