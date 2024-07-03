@@ -341,6 +341,7 @@ const applyConfig = (config) => {
       import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
+    ...config.settings.loadables,
   };
 
   return config;
