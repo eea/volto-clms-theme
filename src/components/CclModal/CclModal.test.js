@@ -4,23 +4,42 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import CclModal from './CclModal';
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-intl-redux';
 
 Enzyme.configure({ adapter: new Adapter() });
+const mockStore = configureStore();
+
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(async () => {
+  await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
+});
 
 describe('CclModal', () => {
+  const store = mockStore({
+    intl: {
+      locale: 'en',
+      messages: {},
+    },
+    apierror: {
+      message: 'You are not authorized to access this resource',
+    },
+  });
   it('Check external link', () => {
     const component = renderer
       .create(
-        <CclModal
-          trigger={
-            <div className="header-lang-icon">
-              <i className="ccl-icon-language"></i>
-              <span className="header-lang-code">EN</span>
-            </div>
-          }
-        >
-          <p>Hello test!</p>
-        </CclModal>,
+        <Provider store={store}>
+          <CclModal
+            trigger={
+              <div className="header-lang-icon">
+                <i className="ccl-icon-language"></i>
+                <span className="header-lang-code">EN</span>
+              </div>
+            }
+          >
+            <p>Hello test!</p>
+          </CclModal>
+        </Provider>,
       )
       .toJSON();
     expect(component).toBeDefined();

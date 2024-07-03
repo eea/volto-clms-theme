@@ -7,6 +7,11 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { IntlProvider } from 'react-intl';
 
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(async () => {
+  await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
+});
+
 const mockStore = configureStore();
 let store = mockStore({
   intl: {

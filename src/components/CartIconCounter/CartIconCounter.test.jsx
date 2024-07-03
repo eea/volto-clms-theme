@@ -7,6 +7,11 @@ import { Provider } from 'react-intl-redux';
 import configureStore from 'redux-mock-store';
 Enzyme.configure({ adapter: new Adapter() });
 
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(async () => {
+  await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
+});
+
 describe('onlyInLeft', () => {
   // Returns an array with items that are only in the left array, based on a compare function
   it('should return an array with items that are only in the left array', () => {
@@ -136,6 +141,6 @@ describe('CartIconCounter', () => {
 
     // Expect the component toBeDefined
     expect(component).toBeDefined();
-    expect(component.toJSON().children[0].children[0]).toEqual('3');
+    expect(component.toJSON().children[1].children[0]).toEqual('3');
   });
 });
