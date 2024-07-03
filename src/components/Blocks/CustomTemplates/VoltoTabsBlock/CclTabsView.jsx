@@ -1,12 +1,12 @@
+import cx from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import './fontawesome';
-import cx from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 
 const TabsComponent = (props) => {
   const { tabsList = [], setActiveTab } = props;
@@ -54,6 +54,7 @@ const TabsComponent = (props) => {
     </div>
   );
 };
+
 const PanelsComponent = (props) => {
   const { metadata = {}, tabsList = [], activeTab = null, tabs = {} } = props;
   return (
@@ -80,6 +81,7 @@ const PanelsComponent = (props) => {
     </div>
   );
 };
+
 const CclTabsView = (props) => {
   return (
     <div className="home-news-events-block">

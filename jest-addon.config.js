@@ -41,4 +41,6 @@ module.exports = {
       statements: 5,
     },
   },
+
+  setupFilesAfterEnv: ['<rootDir>/src/addons/volto-clms-theme/jest.setup.js'],
 };

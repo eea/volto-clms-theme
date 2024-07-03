@@ -3,22 +3,25 @@
  * @module components/CLMSDownloadsView/FileCard
  */
 
-import './filecard.less';
-
-import { Grid, Header, Loader, Popup, Segment } from 'semantic-ui-react';
+import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Grid, Header, Loader, Popup, Segment } from 'semantic-ui-react';
+
 import { Icon } from '@plone/volto/components';
-import React from 'react';
+import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+
+import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
+
 import pauseSVG from '@plone/volto/icons/pause.svg';
 import errorSVG from '@plone/volto/icons/error.svg';
 import warningSVG from '@plone/volto/icons/warning.svg';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import packSVG from '@plone/volto/icons/pack.svg';
 import removeSVG from '@plone/volto/icons/delete.svg';
 import blockSVG from '@plone/volto/icons/block.svg';
-import { cclDateTimeFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+
+import './filecard.less';
 
 const prettyBytes = require('pretty-bytes');
 
@@ -52,7 +55,12 @@ const DatasetNaming = (props) => {
 };
 
 const FileCard = (props) => {
-  const { item, showDeleteTaskLoading, deleteTaskInProgress } = props;
+  const {
+    item,
+    showDeleteTaskLoading,
+    deleteTaskInProgress,
+    fontAwesomeSolid,
+  } = props;
   const { formatMessage } = useIntl();
   if (item?.FinalizationDateTime) {
     var FinalizationDate = new Date(Date.parse(item?.FinalizationDateTime));
@@ -166,7 +174,7 @@ const FileCard = (props) => {
                     tooltip="Dates and times are in UTC"
                     direction="up"
                   >
-                    <FontAwesomeIcon icon={faInfoCircle} />
+                    <FontAwesomeIcon icon={fontAwesomeSolid.faInfoCircle} />
                   </span>
                   <br />
                 </>
@@ -179,7 +187,7 @@ const FileCard = (props) => {
                     tooltip="Dates and times are in UTC"
                     direction="up"
                   >
-                    <FontAwesomeIcon icon={faInfoCircle} />
+                    <FontAwesomeIcon icon={fontAwesomeSolid.faInfoCircle} />
                   </span>
                 </>
               )}
@@ -265,4 +273,4 @@ const FileCard = (props) => {
   );
 };
 
-export default FileCard;
+export default withFontAwesomeLibs(FileCard);

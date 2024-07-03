@@ -1,5 +1,7 @@
-import { baseSources, utm, nutsBB } from '../../../constants/utmProjections';
-export const getUtm = (item) => {
+// import { baseSources, utm, nutsBB } from '../../../constants/utmProjections';
+
+export const getUtm = (item, utmProjections) => {
+  const { utm, nutsBB } = utmProjections;
   return utm
     .filter((d) => {
       if (!item?.area?.value) {
@@ -20,7 +22,9 @@ export const getUtm = (item) => {
     .map((u) => u.source);
 };
 
-export const getChoices = (projections, item) => {
+// NOTE: TODO: this is unused. Where is it used?
+export const getChoices = (projections, item, utmProjections) => {
+  const { utm, baseSources } = utmProjections;
   return projections
     ?.sort((a, b) => {
       if (Number(a.split(':')[1]) > Number(b.split(':')[1])) {
