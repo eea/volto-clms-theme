@@ -13,6 +13,11 @@ import renderer from 'react-test-renderer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(async () => {
+  await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
+});
+
 beforeAll(() => {
   config.settings.supportedLanguages = ['es'];
 });
