@@ -8,6 +8,11 @@ import Unauthorized from './Unauthorized';
 
 const mockStore = configureStore();
 
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(async () => {
+  await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
+});
+
 describe('Unauthorized', () => {
   it('renders a not found component', () => {
     const store = mockStore({
@@ -19,6 +24,7 @@ describe('Unauthorized', () => {
         message: 'You are not authorized to access this resource',
       },
     });
+
     const component = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
