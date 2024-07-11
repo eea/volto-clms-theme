@@ -16,8 +16,10 @@ import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 import PlaceHolder from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-thumbnail-placeholder.jpg';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
+import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 import useCartState from '@eeacms/volto-clms-utils/cart/useCartState';
+import { useLocation } from 'react-router-dom';
 
 import { useSchema } from '../Widgets/SchemaCreatorWidget';
 
@@ -30,6 +32,7 @@ import PropTypes from 'prop-types';
  */
 
 function CclDownloadTable(props) {
+  const location = useLocation();
   const intl = useIntl();
   const locale = useSelector((state) => state.intl?.locale);
   const { dataset } = props;
@@ -264,62 +267,83 @@ function CclDownloadTable(props) {
               </div>
             </div>
           )}
-          {isLoggedIn && (
-            <>
-              <strong>{` ${cartSelection.length} selected file(s)`}</strong>
-              {cartSelection.length > 0 && (
-                <>
-                  {' - '}
-                  <Button basic color="olive" onClick={clearSelection}>
-                    Clear selection <Icon name={clearSVG} size={'20px'}></Icon>
-                  </Button>
-                </>
-              )}
-              {props.dataset.show_legend_on_prepackages && (
-                <>
-                  <CclModal
-                    draggable={true}
-                    trigger={
-                      <CclButton
-                        className="ccl-button ccl-button--default show_legend_on_prepackages"
-                        to="#download"
-                      >
-                        {intl.formatMessage(messages.prePackages_location_map)}
-                      </CclButton>
-                    }
-                    size={'medium'}
-                  >
-                    <div className="image-modal">
-                      <img
-                        src={
-                          props.dataset.download_grid_image_for_prepackages
-                            ? props.dataset.download_grid_image_for_prepackages
-                                .download
-                            : prepackage_grid_image
-                            ? prepackage_grid_image
-                            : PlaceHolder
-                        }
-                        alt={'Placeholder'}
-                      />
-                    </div>
-                  </CclModal>
-                </>
-              )}
-              {cartSelection.length !== prePackagedCollection.length && (
-                <>
-                  <br />
+          <>
+            <strong>{` ${cartSelection.length} selected file(s)`}</strong>
+            {cartSelection.length > 0 && (
+              <>
+                {' - '}
+                <Button basic color="olive" onClick={clearSelection}>
+                  Clear selection <Icon name={clearSVG} size={'20px'}></Icon>
+                </Button>
+              </>
+            )}
+            {props.dataset.show_legend_on_prepackages && (
+              <>
+                <CclModal
+                  draggable={true}
+                  trigger={
+                    <CclButton
+                      className="ccl-button ccl-button--default show_legend_on_prepackages"
+                      to="#download"
+                    >
+                      {intl.formatMessage(messages.prePackages_location_map)}
+                    </CclButton>
+                  }
+                  size={'medium'}
+                >
+                  <div className="image-modal">
+                    <img
+                      src={
+                        props.dataset.download_grid_image_for_prepackages
+                          ? props.dataset.download_grid_image_for_prepackages
+                              .download
+                          : prepackage_grid_image
+                          ? prepackage_grid_image
+                          : PlaceHolder
+                      }
+                      alt={'Placeholder'}
+                    />
+                  </div>
+                </CclModal>
+              </>
+            )}
+            {cartSelection.length !== prePackagedCollection.length && (
+              <>
+                <br />
+
+                {!isLoggedIn && (
+                  <CclLoginModal
+                    otherPath={location.pathname}
+                    triggerComponent={() => (
+                      <Button basic color="olive">
+                        Select all
+                      </Button>
+                    )}
+                  />
+                )}
+                {isLoggedIn && (
                   <Button basic color="olive" onClick={selectAllPagesCart}>
                     Select all
                   </Button>
-                </>
-              )}
-            </>
-          )}
+                )}
+              </>
+            )}
+          </>
         </Segment>
         <div className="custom-table dataset-table">
           <table>
             <thead>
               <tr>
+                {!isLoggedIn && (
+                  <CclLoginModal
+                    otherPath={location.pathname}
+                    triggerComponent={() => (
+                      <th>
+                        <HeaderCheckbox />{' '}
+                      </th>
+                    )}
+                  />
+                )}
                 {isLoggedIn && (
                   <th>
                     <HeaderCheckbox />{' '}
@@ -335,12 +359,25 @@ function CclDownloadTable(props) {
                 ? currentPageItems.map((dataset_file, key) => {
                     return (
                       <tr key={key}>
+                        {!isLoggedIn && (
+                          <CclLoginModal
+                            otherPath={location.pathname}
+                            triggerComponent={() => (
+                              <td>
+                                <Checkbox />
+                              </td>
+                            )}
+                          />
+                        )}
                         {isLoggedIn && (
                           <td>
                             <Checkbox
-                              onChange={(e, data) =>
-                                selectCart(dataset_file.unique_id, data.checked)
-                              }
+                              onChange={(e, data) => {
+                                selectCart(
+                                  dataset_file.unique_id,
+                                  data.checked,
+                                );
+                              }}
                               checked={cartSelection.includes(
                                 dataset_file.unique_id,
                               )}

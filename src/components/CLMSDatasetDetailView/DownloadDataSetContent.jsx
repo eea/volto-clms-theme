@@ -1,17 +1,14 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclDownloadTable from '@eeacms/volto-clms-theme/components/CclDownloadTable/CclDownloadTable';
-import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import {
   StringToHTML,
   sanitizedHTML,
 } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const DownloadDataSetContent = (data, token) => {
-  const user = useSelector((state) => state?.users?.user);
   const locale = useSelector((state) => state?.intl?.locale);
   let download_other_ways_access_dataset = sanitizedHTML(
     data.download_other_ways_access_dataset?.data,
@@ -45,35 +42,15 @@ const DownloadDataSetContent = (data, token) => {
               </p>
             </>
           )}
-          {user?.['@id'] ? (
-            data.mapviewer_istimeseries ||
-            data.download_show_auxiliary_calendar ? (
-              <CclButton
-                url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
-              >
-                Go to download by area and time
-              </CclButton>
-            ) : (
-              <CclButton
-                url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
-              >
-                Go to download by area
-              </CclButton>
-            )
+          {data.mapviewer_istimeseries ||
+          data.download_show_auxiliary_calendar ? (
+            <CclButton url={'/' + locale + '/map-viewer?dataset=' + data?.UID}>
+              Go to download by area and time
+            </CclButton>
           ) : (
-            <CclLoginModal
-              triggerComponent={() => (
-                <CclButton
-                  isButton={true}
-                  className={'ccl-button ccl-button--default'}
-                >
-                  <FormattedMessage
-                    id="downloadByArea"
-                    defaultMessage="Go to download by area"
-                  />
-                </CclButton>
-              )}
-            />
+            <CclButton url={'/' + locale + '/map-viewer?dataset=' + data?.UID}>
+              Go to download by area
+            </CclButton>
           )}
         </div>
       )}
