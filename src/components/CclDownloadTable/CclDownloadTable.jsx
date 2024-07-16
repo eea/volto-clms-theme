@@ -310,22 +310,9 @@ function CclDownloadTable(props) {
             {cartSelection.length !== prePackagedCollection.length && (
               <>
                 <br />
-
-                {!isLoggedIn && (
-                  <CclLoginModal
-                    otherPath={location.pathname}
-                    triggerComponent={() => (
-                      <Button basic color="olive">
-                        Select all
-                      </Button>
-                    )}
-                  />
-                )}
-                {isLoggedIn && (
-                  <Button basic color="olive" onClick={selectAllPagesCart}>
-                    Select all
-                  </Button>
-                )}
+                <Button basic color="olive" onClick={selectAllPagesCart}>
+                  Select all
+                </Button>
               </>
             )}
           </>
@@ -334,21 +321,9 @@ function CclDownloadTable(props) {
           <table>
             <thead>
               <tr>
-                {!isLoggedIn && (
-                  <CclLoginModal
-                    otherPath={location.pathname}
-                    triggerComponent={() => (
-                      <th>
-                        <HeaderCheckbox />{' '}
-                      </th>
-                    )}
-                  />
-                )}
-                {isLoggedIn && (
-                  <th>
-                    <HeaderCheckbox />{' '}
-                  </th>
-                )}
+                <th>
+                  <HeaderCheckbox />{' '}
+                </th>
                 {columns.map((column, key) => (
                   <th key={key}>{schema?.properties[column]?.title}</th>
                 ))}
@@ -359,32 +334,17 @@ function CclDownloadTable(props) {
                 ? currentPageItems.map((dataset_file, key) => {
                     return (
                       <tr key={key}>
-                        {!isLoggedIn && (
-                          <CclLoginModal
-                            otherPath={location.pathname}
-                            triggerComponent={() => (
-                              <td>
-                                <Checkbox />
-                              </td>
+                        <td>
+                          <Checkbox
+                            onChange={(e, data) => {
+                              selectCart(dataset_file.unique_id, data.checked);
+                            }}
+                            checked={cartSelection.includes(
+                              dataset_file.unique_id,
                             )}
+                            className="ccl-checkbox ccl-form-check-input"
                           />
-                        )}
-                        {isLoggedIn && (
-                          <td>
-                            <Checkbox
-                              onChange={(e, data) => {
-                                selectCart(
-                                  dataset_file.unique_id,
-                                  data.checked,
-                                );
-                              }}
-                              checked={cartSelection.includes(
-                                dataset_file.unique_id,
-                              )}
-                              className="ccl-checkbox ccl-form-check-input"
-                            />
-                          </td>
-                        )}
+                        </td>
                         {columns.map((column, i) => {
                           let data = dataset_file?.[`${column}`];
                           return (
@@ -437,15 +397,35 @@ function CclDownloadTable(props) {
             </div>
           )}
         </div>
-        <CclButton
-          isButton={true}
-          onClick={() => addToCard()}
-          disabled={!isLoggedIn || cartSelection.length === 0}
-        >
-          Add to cart
-        </CclButton>
+        {!isLoggedIn && (
+          <CclLoginModal
+            otherPath={`${location.pathname}#download`}
+            triggerComponent={() => (
+              <CclButton isButton={true} disabled={cartSelection.length === 0}>
+                Add to cart
+              </CclButton>
+            )}
+          />
+        )}
+        {isLoggedIn && (
+          <CclButton
+            isButton={true}
+            onClick={() => addToCard()}
+            disabled={cartSelection.length === 0}
+          >
+            Add to cart
+          </CclButton>
+        )}
         &nbsp;&nbsp;&nbsp;
         {isLoggedIn && <CclButton url={`/${locale}/cart`}>Show cart</CclButton>}
+        {!isLoggedIn && (
+          <CclLoginModal
+            otherPath={`/${locale}/cart`}
+            triggerComponent={() => (
+              <CclButton isButton={true}>Show cart</CclButton>
+            )}
+          />
+        )}
         <br></br>
       </div>
     )
