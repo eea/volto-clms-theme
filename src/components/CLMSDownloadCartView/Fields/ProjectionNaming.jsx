@@ -46,11 +46,12 @@ const _ProjectionNaming = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choices]);
 
+  const datasetProjections = JSON.stringify(
+    projections_uid?.[item.dataset_uid],
+  );
+
   useEffect(() => {
-    if (
-      projections_uid?.[item.dataset_uid] &&
-      projections_uid?.[item.dataset_uid].length > 0
-    ) {
+    if (datasetProjections && datasetProjections.length > 0) {
       setLoading(true);
       const newBaseSources = ['EPSG:4326'];
       const sortedProjections = projections_uid[item.dataset_uid].sort((a, b) =>
@@ -91,11 +92,7 @@ const _ProjectionNaming = ({
     return () => {};
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    JSON.stringify(projections_uid?.[item.dataset_uid]),
-    item.unique_id,
-    item.format,
-  ]);
+  }, [datasetProjections, item.unique_id, item.format]);
 
   useEffect(() => {
     !item.projection && choices.length > 0 && choices.find((ch) => ch.default)
