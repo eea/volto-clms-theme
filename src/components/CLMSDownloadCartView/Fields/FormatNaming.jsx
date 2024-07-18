@@ -26,6 +26,7 @@ export const FormatNaming = ({
             (obj) => obj.unique_id === item?.unique_id,
           );
           cartItems[objIndex].format = data.value;
+          //debugger;
           setCartItems([...cartItems]);
         }}
       />
