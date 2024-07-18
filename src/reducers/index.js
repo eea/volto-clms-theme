@@ -20,6 +20,7 @@ import { importWMSLayersReducer } from './import_wms_layers/import_wms_layers_re
 import { importWMSFieldsReducer } from './import_wms_fields/import_wms_fields_reducer';
 import { deleteProfileReducer } from './profile/delete_profile_reducer';
 import navroot from './navroot/navroot';
+import customUserSession from './userSession';
 
 /**
  * Root reducer.
@@ -49,6 +50,7 @@ const reducers = {
   importWMSFields: importWMSFieldsReducer,
   profile_delete: deleteProfileReducer,
   navroot,
+  customUserSession,
 };
 
 export default reducers;

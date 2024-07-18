@@ -59,6 +59,7 @@ import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
 
 import ImageView from '@plone/volto/components/theme/View/ImageView';
+import userSessionResetMiddleware from './store/userSessionResetMiddleware';
 
 const applyConfig = (config) => {
   config.views = {
@@ -343,6 +344,16 @@ const applyConfig = (config) => {
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,
   };
+
+  config.settings.storeExtenders.push((middlewareStack) => {
+    const index = middlewareStack.findIndex((f) => f.name === 'protectLoadEnd');
+    const stack = [
+      ...middlewareStack.slice(0, index - 1),
+      userSessionResetMiddleware,
+      ...middlewareStack.slice(index - 1),
+    ];
+    return stack;
+  });
 
   return config;
 };
