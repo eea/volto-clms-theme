@@ -59,9 +59,9 @@ const _ProjectionNaming = ({
       );
 
       const filteredProjections =
-        item.format === 'Netcdf' ||
-        item.format.token === 'Netcdf' ||
-        item.format.title === 'Netcdf'
+        item?.format === 'Netcdf' ||
+        item?.format?.token === 'Netcdf' ||
+        item?.format?.title === 'Netcdf'
           ? sortedProjections.filter(
               (p) => utm.includes(p) || newBaseSources.includes(p),
             )
