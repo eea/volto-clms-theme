@@ -47,20 +47,20 @@ const _ProjectionNaming = ({
   }, [choices]);
 
   useEffect(() => {
-    const projections = JSON.stringify(projections_uid?.[item.dataset_uid]);
-
     if (
       projections_uid?.[item.dataset_uid] &&
       projections_uid?.[item.dataset_uid].length > 0
     ) {
       setLoading(true);
-      const newBaseSources = ['EPSG:4258'];
+      const newBaseSources = ['EPSG:4326'];
       const sortedProjections = projections_uid[item.dataset_uid].sort((a, b) =>
         Number(a.split(':')[1]) > Number(b.split(':')[1]) ? 1 : -1,
       );
 
       const filteredProjections =
-        item.format.title === 'GDB'
+        item.format === 'Netcdf' ||
+        item.format.token === 'Netcdf' ||
+        item.format.title === 'Netcdf'
           ? sortedProjections.filter(
               (p) => utm.includes(p) || newBaseSources.includes(p),
             )
@@ -84,13 +84,18 @@ const _ProjectionNaming = ({
       });
 
       setChoices(choices);
+      setLoading(false);
     } else {
       setLoading(true);
     }
     return () => {};
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projections, item.unique_id, item.format]);
+  }, [
+    JSON.stringify(projections_uid?.[item.dataset_uid]),
+    item.unique_id,
+    item.format,
+  ]);
 
   useEffect(() => {
     !item.projection && choices.length > 0 && choices.find((ch) => ch.default)
@@ -104,7 +109,7 @@ const _ProjectionNaming = ({
       : setProjectionValue(item?.unique_id, item.projection, cartItems);
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [choices, item.projection, item.unique_id, cartItems]);
+  }, []);
 
   return !item?.file_id ? (
     loading ? (
