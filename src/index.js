@@ -355,6 +355,11 @@ const applyConfig = (config) => {
     return stack;
   });
 
+  config.settings.initialReducersBlacklist = [
+    ...config.settings.initialReducersBlacklist,
+    'dropdownMenuNavItems',
+  ];
+
   return config;
 };
 export default applyConfig;
