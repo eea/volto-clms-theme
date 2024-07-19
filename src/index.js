@@ -360,7 +360,7 @@ const applyConfig = (config) => {
     'dropdownMenuNavItems',
     'reduxAsyncConnect',
     'intl',
-    'content',
+    // 'content',
   ];
 
   return config;
