@@ -719,7 +719,7 @@ const CLMSCartContent = (props) => {
         cartSelection={cartSelection}
         onConfirm={() => {
           setOpenedModal(false);
-          startDownloading();
+          startDownloading(cartItems, cartSelection);
         }}
         onCancel={() => setOpenedModal(false)}
       />
