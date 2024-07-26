@@ -16,7 +16,6 @@ import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 import { portal_types_labels } from '../Blocks/CustomTemplates/VoltoSearchBlock';
 // import { HomeBgImg } from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/HomeBgImg';
 
-import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import { CLMSTechnicalLibraryAdminInfo } from '../CLMSTechnicalLibraryAdminInfo';
 
@@ -122,7 +121,6 @@ const DocCard = ({ card, url, showEditor, children }) => {
 const SearchResultExtras = (props) => {
   const { content } = props;
   const locale = useSelector((state) => state.intl.locale);
-  const isLoggedIn = useSelector((state) => state.userSession?.token);
   const isAuxiliary = content?.mapviewer_viewservice
     ? content?.mapviewer_viewservice
         .toLowerCase()
@@ -143,33 +141,14 @@ const SearchResultExtras = (props) => {
         </>
       )}
 
-      {content?.downloadable_dataset &&
-        content?.['@type'] === 'DataSet' &&
-        isLoggedIn && (
-          <>
-            <CclButton mode="small" url={`${content['@id']}#download`}>
-              <FormattedMessage id="Download" defaultMessage="Download" />
-            </CclButton>
-            &nbsp; &nbsp; &nbsp;
-          </>
-        )}
-
-      {content?.downloadable_dataset &&
-        content?.['@type'] === 'DataSet' &&
-        !isLoggedIn && (
-          <>
-            <CclLoginModal
-              otherPath={`${content['@id']}#download`}
-              triggerComponent={() => (
-                // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                <CclButton mode="small">
-                  <FormattedMessage id="Download" defaultMessage="Download" />
-                </CclButton>
-              )}
-            />
-            &nbsp; &nbsp; &nbsp;
-          </>
-        )}
+      {content?.downloadable_dataset && content?.['@type'] === 'DataSet' && (
+        <>
+          <CclButton mode="small" url={`${content['@id']}#download`}>
+            <FormattedMessage id="Download" defaultMessage="Download" />
+          </CclButton>
+          &nbsp; &nbsp; &nbsp;
+        </>
+      )}
 
       {content?.mapviewer_viewservice?.length > 0 &&
         !isAuxiliary &&
