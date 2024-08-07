@@ -355,6 +355,14 @@ const applyConfig = (config) => {
     return stack;
   });
 
+  config.settings.initialReducersBlacklist = [
+    ...config.settings.initialReducersBlacklist,
+    'dropdownMenuNavItems',
+    'reduxAsyncConnect',
+    'intl',
+    // 'content',
+  ];
+
   return config;
 };
 export default applyConfig;
