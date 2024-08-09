@@ -13,7 +13,7 @@ const CclTopMainMenu = () => {
   const dropdownMenuNavItems = useSelector(
     (state) => state.dropdownMenuNavItems?.result,
   );
-  // console.log('dropdownMenuNavItems', dropdownMenuNavItems);
+
   const menu = getItemsByPath(dropdownMenuNavItems, pathname);
   return (
     <>
