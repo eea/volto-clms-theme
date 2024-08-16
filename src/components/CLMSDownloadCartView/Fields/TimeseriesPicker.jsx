@@ -82,10 +82,14 @@ export const TimeseriesPicker = (props) => {
               className="datepicker"
               minDate={new Date(start)}
               maxDate={new Date(end)}
-              startDate={startValue}
-              endDate={endValue}
+              startDate={item?.TemporalFilter?.StartDate}
+              endDate={item?.TemporalFilter?.EndDate}
               // selectsStart
               onChange={(e) => {
+                item.TemporalFilter = {
+                  StartDate: e[0],
+                  EndDate: e[1],
+                };
                 setStartValue(e[0]);
                 setEndValue(e[1]);
               }}
