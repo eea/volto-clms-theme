@@ -1,21 +1,27 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import CclModal from './CclModal';
+import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
-import React from 'react';
-import { createStore } from 'redux';
-import { combineReducers } from 'redux';
 
-const rootReducer = combineReducers({
-  intl: (state = { locale: 'en', messages: {} }, action) => state,
-  apierror: (
-    state = { message: 'You are not authorized to access this resource' },
-    action,
-  ) => state,
+const mockStore = configureStore();
+
+jest.mock('@plone/volto/helpers/Loadable/Loadable');
+beforeAll(async () => {
+  await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
 });
 
-const store = createStore(rootReducer);
-
 describe('CclModal', () => {
+  const store = mockStore({
+    intl: {
+      locale: 'en',
+      messages: {},
+    },
+    apierror: {
+      message: 'You are not authorized to access this resource',
+    },
+  });
+
   it('Check external link', () => {
     const { asFragment } = render(
       <Provider store={store}>
@@ -36,7 +42,6 @@ describe('CclModal', () => {
 
   it('Check if clicks work', () => {
     const mockCallBack = jest.fn();
-
     render(
       <Provider store={store}>
         <CclModal
@@ -56,13 +61,16 @@ describe('CclModal', () => {
       </Provider>,
     );
 
+    // Simulate click on login link
     const loginLink = screen.getByText('Login/Register');
     fireEvent.click(loginLink);
 
+    // Simulate click and keydown on close button
     const closeModalButton = screen.getByRole('button', { name: /close/i });
     fireEvent.click(closeModalButton);
-    fireEvent.keyDown(closeModalButton, { key: 'Escape', code: 'Escape' });
+    fireEvent.keyDown(closeModalButton, { key: 'Enter', code: 'Enter' });
 
+    // Check if callback was called
     expect(mockCallBack).toHaveBeenCalledTimes(1);
   });
 });
