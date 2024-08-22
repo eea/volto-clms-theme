@@ -2,21 +2,20 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import CclModal from './CclModal';
 import { Provider } from 'react-intl-redux';
 import React from 'react';
-import configureStore from 'redux-mock-store';
+import { createStore } from 'redux';
+import { combineReducers } from 'redux';
 
-const mockStore = configureStore();
+const rootReducer = combineReducers({
+  intl: (state = { locale: 'en', messages: {} }, action) => state,
+  apierror: (
+    state = { message: 'You are not authorized to access this resource' },
+    action,
+  ) => state,
+});
+
+const store = createStore(rootReducer);
 
 describe('CclModal', () => {
-  const store = mockStore({
-    intl: {
-      locale: 'en',
-      messages: {},
-    },
-    apierror: {
-      message: 'You are not authorized to access this resource',
-    },
-  });
-
   it('Check external link', () => {
     const { asFragment } = render(
       <Provider store={store}>
