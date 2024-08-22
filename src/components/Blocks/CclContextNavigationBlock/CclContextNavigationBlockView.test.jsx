@@ -21,7 +21,7 @@ describe('CclContextNavigationBlockView', () => {
     });
     const pathname = '/example';
 
-    const { container, getByText } = render(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclContextNavigationBlockView pathname={pathname}>
@@ -31,11 +31,13 @@ describe('CclContextNavigationBlockView', () => {
       </Provider>,
     );
 
-    expect(getByText('Search block edit test')).not.toBeNull();
-
     const contextNavigationBlock = container.querySelector(
       '.ccl-context-navigation-block',
     );
     expect(contextNavigationBlock).not.toBeNull();
+
+    const paragraph = container.querySelector('p');
+    expect(paragraph).not.toBeNull();
+    expect(paragraph.textContent).toBe('Search block edit test');
   });
 });
