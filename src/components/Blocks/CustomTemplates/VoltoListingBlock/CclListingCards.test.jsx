@@ -39,8 +39,7 @@ describe('CclListingCards', () => {
       title: 'Card Title',
       description: 'Card description',
       image: {
-        download:
-          'https://localhost:3000/news/new/@@images/image/filename.jpg',
+        download: 'https://localhost:3000/news/new/@@images/image/filename.jpg',
       },
     },
   ];
