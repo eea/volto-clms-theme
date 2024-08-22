@@ -2068,11 +2068,7 @@ class Contents extends Component {
                                   </Menu>
                                 </Popup>
                               </Table.HeaderCell>
-                              <Table.HeaderCell
-                                width={Math.ceil(
-                                  16 / this.state.index.selectedCount,
-                                )}
-                              >
+                              <Table.HeaderCell width={6}>
                                 <FormattedMessage
                                   id="Title"
                                   defaultMessage="Title"
