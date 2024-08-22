@@ -202,6 +202,19 @@ const applyConfig = (config) => {
         ],
       },
       {
+        match: '/en/faq',
+        exact: false,
+        GET_CONTENT: [
+          'contextnavigation',
+          // 'breadcrumbs',
+          // 'actions',
+          // 'types',
+          // 'translations',
+          // 'navroot',
+        ],
+      },
+
+      {
         match: '',
         GET_CONTENT: ['navigation'],
         querystring: (config) => ({
@@ -338,8 +351,9 @@ const applyConfig = (config) => {
   config.experimental.addBlockButton.enabled = true;
 
   config.settings.loadables = {
-    'react-json-schema-form-builder': loadable.lib(() =>
-      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    'react-json-schema-form-builder': loadable.lib(
+      () =>
+        import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,
