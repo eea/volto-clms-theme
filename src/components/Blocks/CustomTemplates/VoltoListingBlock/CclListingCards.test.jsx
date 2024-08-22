@@ -1,11 +1,10 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import CclListingCards from './CclListingCards';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-intl-redux';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 
-// Setup mock Redux store
 const mockStore = configureStore();
 const store = mockStore({
   content: {
@@ -45,8 +44,8 @@ describe('CclListingCards', () => {
     },
   ];
 
-  it('renders News listing card with internal link', () => {
-    const { container } = render(
+  it('renders a news listing card with an internal link', () => {
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
@@ -59,11 +58,12 @@ describe('CclListingCards', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(container).toBeInTheDocument();
+
+    expect(screen.getByText('Card Title')).toBeDefined();
   });
 
-  it('renders Line-color listing card with external link', () => {
-    const { container } = render(
+  it('renders a line-color listing card with an external link', () => {
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
@@ -76,11 +76,12 @@ describe('CclListingCards', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(container).toBeInTheDocument();
+
+    expect(screen.getByText('Card Title')).toBeDefined();
   });
 
-  it('renders Line listing card with external link', () => {
-    const { container } = render(
+  it('renders a line listing card with an external link', () => {
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
@@ -93,11 +94,12 @@ describe('CclListingCards', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(container).toBeInTheDocument();
+
+    expect(screen.getByText('Card Title')).toBeDefined();
   });
 
-  it('renders card without linkHref', () => {
-    const { container } = render(
+  it('renders a card without a linkHref', () => {
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
@@ -108,11 +110,12 @@ describe('CclListingCards', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(container).toBeInTheDocument();
+
+    expect(screen.getByText('Card Title')).toBeDefined();
   });
 
-  it('renders internal link card without linkTitle', () => {
-    const { container } = render(
+  it('renders a card with an internal link but without a linkTitle', () => {
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
@@ -124,11 +127,12 @@ describe('CclListingCards', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(container).toBeInTheDocument();
+
+    expect(screen.getByText('Card Title')).toBeDefined();
   });
 
-  it('renders external link card without linkTitle', () => {
-    const { container } = render(
+  it('renders a card with an external link but without a linkTitle', () => {
+    render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
@@ -140,6 +144,7 @@ describe('CclListingCards', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(container).toBeInTheDocument();
+
+    expect(screen.getByText('Card Title')).toBeDefined();
   });
 });
