@@ -204,14 +204,7 @@ const applyConfig = (config) => {
       {
         match: '/en/faq',
         exact: false,
-        GET_CONTENT: [
-          'contextnavigation',
-          // 'breadcrumbs',
-          // 'actions',
-          // 'types',
-          // 'translations',
-          // 'navroot',
-        ],
+        GET_CONTENT: ['contextnavigation'],
       },
 
       {
