@@ -27,17 +27,26 @@ const CclFAQBlockView = (props) => {
     setActiveIndex(newIndex);
   };
 
+  // acc.push(curr);
+  // if (curr.items.filter((i) => i.type === 'document').length > 0) {
+  //   curr.items
+  //     .filter((i) => i.type === 'document')
+  //     .forEach((i_i) => acc.push({ ...i_i, isSubtab: true }));
+  // }
+  // return acc;
+
   const flattenCN = (cn_items) => {
-    return cn_items.reduce((prev, curr) => {
-      prev.push(curr);
-      if (curr.items.filter((i) => i.type === 'document').length > 0) {
-        curr.items
+    return cn_items.reduce((acc, curr) => {
+      return [
+        ...acc,
+        curr,
+        ...curr.items
           .filter((i) => i.type === 'document')
-          .forEach((i_i) => prev.push({ ...i_i, isSubtab: true }));
-      }
-      return prev;
+          .map((item) => ({ ...item, isSubtab: true })),
+      ];
     }, []);
   };
+
   const flatCN = flattenCN(
     contextNavigation?.[cn_key]?.data?.items
       ? contextNavigation?.[cn_key]?.data?.items.filter(
