@@ -1,14 +1,11 @@
-import Enzyme, { mount } from 'enzyme';
-
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { render } from '@testing-library/react';
 import CclListingCards from './CclListingCards';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-intl-redux';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 
-Enzyme.configure({ adapter: new Adapter() });
-
+// Setup mock Redux store
 const mockStore = configureStore();
 const store = mockStore({
   content: {
@@ -32,175 +29,117 @@ const store = mockStore({
     },
   },
 });
+
 const internalLink = [{ '@id': '/news' }];
-const externalLink = [{ '@id': 'https://wwww.google.com' }];
+const externalLink = [{ '@id': 'https://www.google.com' }];
 
 describe('CclListingCards', () => {
-  it('News listing card internal link', () => {
-    const items = [
-      {
-        title: 'Card Title',
-        description: 'Card description',
-        image: {
-          download:
-            'https://localhost:3000/news/new/@@images/image/filename.jpg',
-        },
+  const items = [
+    {
+      title: 'Card Title',
+      description: 'Card description',
+      image: {
+        download:
+          'https://localhost:3000/news/new/@@images/image/filename.jpg',
       },
-    ];
-    const linkTitle = 'More news';
-    const isEditMode = true;
-    const variation = 'CclCardsnews';
-    const component = mount(
+    },
+  ];
+
+  it('renders News listing card with internal link', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
             items={items}
             linkHref={internalLink}
-            linkTitle={linkTitle}
-            isEditMode={isEditMode}
-            variation={variation}
-          ></CclListingCards>
+            linkTitle="More news"
+            isEditMode={true}
+            variation="CclCardsnews"
+          />
         </MemoryRouter>
       </Provider>,
     );
-    expect(component).toBeDefined();
+    expect(container).toBeInTheDocument();
   });
-  it('Line-color listing card external link', () => {
-    const items = [
-      {
-        title: 'Card Title',
-        description: 'Card description',
-        image: {
-          download:
-            'https://localhost:3000/news/new/@@images/image/filename.jpg',
-        },
-      },
-    ];
-    const linkTitle = 'More line-color';
-    const isEditMode = true;
-    const variation = 'CclCardsline-color';
-    const component = mount(
+
+  it('renders Line-color listing card with external link', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
             items={items}
             linkHref={externalLink}
-            linkTitle={linkTitle}
-            isEditMode={isEditMode}
-            variation={variation}
-          ></CclListingCards>
+            linkTitle="More line-color"
+            isEditMode={true}
+            variation="CclCardsline-color"
+          />
         </MemoryRouter>
       </Provider>,
     );
-    expect(component).toBeDefined();
+    expect(container).toBeInTheDocument();
   });
-  it('line listing card external link', () => {
-    const items = [
-      {
-        title: 'Card Title',
-        description: 'Card description',
-        image: {
-          download:
-            'https://localhost:3000/news/new/@@images/image/filename.jpg',
-        },
-      },
-    ];
-    const linkTitle = 'More line';
-    const isEditMode = true;
-    const variation = 'CclCardsline';
-    const component = mount(
+
+  it('renders Line listing card with external link', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
             items={items}
             linkHref={externalLink}
-            linkTitle={linkTitle}
-            isEditMode={isEditMode}
-            variation={variation}
-          ></CclListingCards>
+            linkTitle="More line"
+            isEditMode={true}
+            variation="CclCardsline"
+          />
         </MemoryRouter>
       </Provider>,
     );
-    expect(component).toBeDefined();
+    expect(container).toBeInTheDocument();
   });
-  it('without linkHref', () => {
-    const items = [
-      {
-        title: 'Card Title',
-        description: 'Card description',
-        image: {
-          download:
-            'https://localhost:3000/news/new/@@images/image/filename.jpg',
-        },
-      },
-    ];
-    const isEditMode = true;
-    const variation = 'CclCardsnews';
-    const component = mount(
+
+  it('renders card without linkHref', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
             items={items}
-            isEditMode={isEditMode}
-            variation={variation}
-          ></CclListingCards>
+            isEditMode={true}
+            variation="CclCardsnews"
+          />
         </MemoryRouter>
       </Provider>,
     );
-    expect(component).toBeDefined();
+    expect(container).toBeInTheDocument();
   });
-  it('internal link without linkTitle', () => {
-    const items = [
-      {
-        title: 'Card Title',
-        description: 'Card description',
-        image: {
-          download:
-            'https://localhost:3000/news/new/@@images/image/filename.jpg',
-        },
-      },
-    ];
-    const isEditMode = true;
-    const variation = 'CclCardsnews';
-    const component = mount(
+
+  it('renders internal link card without linkTitle', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
             items={items}
             linkHref={internalLink}
-            isEditMode={isEditMode}
-            variation={variation}
-          ></CclListingCards>
+            isEditMode={true}
+            variation="CclCardsnews"
+          />
         </MemoryRouter>
       </Provider>,
     );
-    expect(component).toBeDefined();
+    expect(container).toBeInTheDocument();
   });
-  it('External link without linkTitle', () => {
-    const items = [
-      {
-        title: 'Card Title',
-        description: 'Card description',
-        image: {
-          download:
-            'https://localhost:3000/news/new/@@images/image/filename.jpg',
-        },
-      },
-    ];
-    const isEditMode = true;
-    const variation = 'CclCardsnews';
-    const component = mount(
+
+  it('renders external link card without linkTitle', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclListingCards
             items={items}
             linkHref={externalLink}
-            isEditMode={isEditMode}
-            variation={variation}
-          ></CclListingCards>
+            isEditMode={true}
+            variation="CclCardsnews"
+          />
         </MemoryRouter>
       </Provider>,
     );
-    expect(component).toBeDefined();
+    expect(container).toBeInTheDocument();
   });
 });
