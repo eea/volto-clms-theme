@@ -6,18 +6,24 @@ import { Accordion, Segment } from 'semantic-ui-react';
 import { getContextNavigation } from '@plone/volto/actions';
 import { Icon, UniversalLink } from '@plone/volto/components';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
-import { hasBlocksData } from '@plone/volto/helpers';
+import { hasBlocksData, getBaseUrl } from '@plone/volto/helpers';
+
+import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
+
 import penSVG from '@plone/volto/icons/pen.svg';
 import config from '@plone/volto/registry';
-import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
-// import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
 
 const CclFAQBlockView = (props) => {
   const { isEditMode } = props;
+  const pathname = getBaseUrl(props.pathname || props.path);
+  const cn_key = `${pathname}/@contextnavigation`;
+
+  // this are the accordions that are opened
+  const [activeIndex, setActiveIndex] = useState([]);
+
   const dispatch = useDispatch();
-  const path = useSelector((state) => state.router.location.pathname);
   const contextNavigation = useSelector((state) => state.contextNavigation);
-  const cn_key = `${path.replace('/edit', '')}/@contextnavigation`;
+
   const handleClick = ({ index }) => {
     const newIndex =
       activeIndex.indexOf(index) === -1
@@ -27,58 +33,48 @@ const CclFAQBlockView = (props) => {
     setActiveIndex(newIndex);
   };
 
-  // acc.push(curr);
-  // if (curr.items.filter((i) => i.type === 'document').length > 0) {
-  //   curr.items
-  //     .filter((i) => i.type === 'document')
-  //     .forEach((i_i) => acc.push({ ...i_i, isSubtab: true }));
-  // }
-  // return acc;
-
-  const flattenCN = (cn_items) => {
-    return cn_items.reduce((acc, curr) => {
-      return [
+  const flattenCN = (cn_items) =>
+    cn_items.reduce(
+      (acc, curr) => [
         ...acc,
         curr,
         ...curr.items
           .filter((i) => i.type === 'document')
           .map((item) => ({ ...item, isSubtab: true })),
-      ];
-    }, []);
-  };
+      ],
+      [],
+    );
 
   const flatCN = flattenCN(
-    contextNavigation?.[cn_key]?.data?.items
-      ? contextNavigation?.[cn_key]?.data?.items.filter(
-          (i) => i.type === 'document',
-        )
-      : [],
+    contextNavigation?.[cn_key]?.data?.items?.filter(
+      (i) => i.type === 'document',
+    ) || [],
   );
-  const [activeIndex, setActiveIndex] = useState([]);
+
   React.useEffect(() => {
-    dispatch(getContextNavigation(path.replace('/edit', '')));
-  }, [path, dispatch]);
+    dispatch(getContextNavigation(pathname));
+  }, [pathname, dispatch]);
+
+  const contextNavigationItems = contextNavigation?.[cn_key]?.data?.items;
+
   React.useEffect(() => {
-    let indexes = [];
-    // eslint-disable-next-line no-unused-expressions
-    contextNavigation?.[cn_key]?.data?.items &&
-      contextNavigation?.[cn_key]?.data?.items.forEach((i) => {
-        if (i.items.length > 0) {
-          indexes.push(i.items[0].normalized_id);
-        }
-        if (i.type === 'document') {
-          i.items.forEach((i_i) => {
-            if (i_i.items.length > 0) {
-              indexes.push(i_i.items[0].normalized_id);
-            }
-          });
-        }
-      });
+    let indexes = (contextNavigationItems || []).reduce(
+      (acc, cur) => [
+        ...acc,
+        ...(cur.items?.length ? [cur.items[0].normalized_id] : []),
+        ...cur.items
+          ?.map((item) => item.items?.[0]?.normalized_id)
+          .filter((id) => !!id),
+      ],
+      [],
+    );
     setActiveIndex(indexes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contextNavigation?.[cn_key]?.data?.items]);
+  }, [contextNavigationItems]);
 
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
+
+  // console.log('indexes', activeIndex);
+  // console.log(flatCN);
 
   return (
     <div id="faq-listing" className="ccl-container tab-container">
@@ -140,9 +136,6 @@ const CclFAQBlockView = (props) => {
                                 duration={500}
                                 height={'auto'}
                               >
-                                {/* <StringToHTML
-                                  string={item.text ? item.text.data : ''}
-                                /> */}
                                 {hasBlocksData(item) && (
                                   <RenderBlocks content={item} />
                                 )}
