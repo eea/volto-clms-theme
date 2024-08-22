@@ -43,7 +43,7 @@ describe('CclButtonBlockEdit', () => {
 
     const legend = container.querySelector('.ccl-block-editor-header legend');
     fireEvent.click(legend);
-    expect(legend).toBeDefined();
+    expect(legend).not.toBeNull();
   });
 
   it('renders a CclButtonBlockEdit block component', () => {
@@ -63,7 +63,7 @@ describe('CclButtonBlockEdit', () => {
       disabled: true,
     };
 
-    const { asFragment } = render(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclButtonBlockEdit
@@ -79,7 +79,10 @@ describe('CclButtonBlockEdit', () => {
       </Provider>,
     );
 
-    expect(asFragment()).toMatchSnapshot();
+    const button = container.querySelector('.ccl-button.ccl-button--default');
+    expect(button).not.toBeNull();
+    expect(button.getAttribute('href')).toBe('/');
+    expect(button.classList.contains('ccl-button--default')).toBe(true);
   });
 
   it('CclButtonBlockEdit onChangeBlock', () => {
@@ -117,5 +120,6 @@ describe('CclButtonBlockEdit', () => {
 
     const legend = container.querySelector('.ccl-block-editor-header legend');
     fireEvent.click(legend);
+    expect(legend).not.toBeNull();
   });
 });
