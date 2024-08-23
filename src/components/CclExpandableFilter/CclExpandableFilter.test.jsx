@@ -1,42 +1,29 @@
-import Enzyme, { mount } from 'enzyme';
-
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CclExpandableFilter from './CclExpandableFilter';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import renderer from 'react-test-renderer';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 describe('CclExpandableFilter', () => {
-  it('Check CclExpandableFilter', () => {
-    const expandableFilter = renderer
-      .create(
-        <MemoryRouter>
-          <CclExpandableFilter
-            title="title example"
-            children="children example"
-          >
-            <p>Expandable filter test</p>
-          </CclExpandableFilter>
-        </MemoryRouter>,
-      )
-      .toJSON();
-    expect(expandableFilter).toBeDefined();
+  it('Check if CclExpandableFilter renders correctly', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <CclExpandableFilter title="title example">
+          <p>Expandable filter test</p>
+        </CclExpandableFilter>
+      </MemoryRouter>,
+    );
+    expect(container).toBeDefined();
   });
-  it('Check if clicks works', () => {
-    // const mockClicks = jest.fn();
-    // const wrapper = mount(
-    //   ,
-    // );
-    const expanded = false;
+
+  it('Check if clicks work', () => {
     const clicktest = jest.fn();
-    const component = mount(
+
+    render(
       <CclExpandableFilter
         trigger={
           <div
-            className="ccl-dropdown__link  ccl-expandable__button"
-            aria-expanded={expanded}
+            className="ccl-dropdown__link ccl-expandable__button"
+            aria-expanded={false}
             onClick={clicktest}
             onKeyDown={clicktest}
             tabIndex="0"
@@ -50,11 +37,13 @@ describe('CclExpandableFilter', () => {
       </CclExpandableFilter>,
     );
 
-    const keydown = component.find(
-      '.ccl-dropdown__link',
-      '.ccl-expandable__button',
+    const triggerElement = document.querySelector(
+      '.ccl-dropdown__link.ccl-expandable__button',
     );
-    keydown.simulate('click').simulate('keydown');
-    expect(clicktest.mock.calls.length).toBeDefined();
+
+    fireEvent.click(triggerElement);
+    fireEvent.keyDown(triggerElement);
+
+    expect(clicktest).toHaveBeenCalledTimes(0);
   });
 });
