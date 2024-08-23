@@ -1,14 +1,11 @@
+import { render } from '@testing-library/react';
 import ContactComponent from './ContactComponent';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 
-import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-Enzyme.configure({ adapter: new Adapter() });
-//jest test for ContactComponent
+// Jest test for ContactComponent
 describe('ContactComponent', () => {
-  //test for ContactComponent rendering
+  // Test for ContactComponent rendering
   it('Check if ContactComponent is rendered', () => {
     const contact = {
       organisationName: 'Test',
@@ -22,13 +19,13 @@ describe('ContactComponent', () => {
       urlTitle: 'Test',
       roleCode: 'Test',
     };
-    const contactComponent = renderer
-      .create(
-        <MemoryRouter>
-          <ContactComponent contact={contact} />
-        </MemoryRouter>,
-      )
-      .toJSON();
-    expect(contactComponent).toBeDefined();
+
+    const { container } = render(
+      <MemoryRouter>
+        <ContactComponent contact={contact} />
+      </MemoryRouter>,
+    );
+
+    expect(container).toBeDefined();
   });
 });
