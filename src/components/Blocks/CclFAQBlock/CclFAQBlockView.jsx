@@ -26,6 +26,12 @@ const flattenCN = (cn_items) =>
     [],
   );
 
+// this is just to highlight that the way CclTabs is working is misleading
+// It reads random properties from <div> children, which is unexpected
+function Tab(props) {
+  return <div {...props} />;
+}
+
 const CclFAQBlockView = (props) => {
   const { isEditMode, content } = props;
   const pathname = getBaseUrl(props.pathname || props.path);
@@ -40,8 +46,8 @@ const CclFAQBlockView = (props) => {
       state.contextNavigation?.[cn_key]?.data?.items ||
       content['@components']?.['contextnavigation']?.items;
 
-    console.log('content', content);
-    console.log('res', res);
+    // console.log('content', content);
+    // console.log('res', res);
     return res;
   });
 
@@ -59,8 +65,7 @@ const CclFAQBlockView = (props) => {
   );
 
   React.useEffect(() => {
-    // isEditMode &&
-    // dispatch(getContextNavigation(pathname));
+    isEditMode && dispatch(getContextNavigation(pathname));
   }, [pathname, dispatch, isEditMode]);
 
   React.useEffect(() => {
@@ -80,17 +85,18 @@ const CclFAQBlockView = (props) => {
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
   // console.log('indexes', activeIndex);
-  console.log(flatCN);
+  // console.log(flatCN);
 
   return (
     <div id="faq-listing" className="ccl-container tab-container">
       {contextNavigationItems?.length > 0 ? (
         <CclTabs routing={true}>
           {flatCN.map((cn, key) => (
-            <div
+            <Tab
               key={key}
               tabTitle={cn.title}
               className={cx({ subcard: cn.isSubtab })}
+              isParent={!!cn.items.filter((i) => i.type === 'document').length}
             >
               <div className="accordion-block">
                 {cn.items
@@ -139,7 +145,7 @@ const CclFAQBlockView = (props) => {
                     </Accordion>
                   ))}
               </div>
-            </div>
+            </Tab>
           ))}
         </CclTabs>
       ) : (
