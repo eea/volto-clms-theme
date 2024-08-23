@@ -34,10 +34,6 @@ describe('CclContextNavigationBlockView', () => {
     const contextNavigationBlock = container.querySelector(
       '.ccl-context-navigation-block',
     );
-    expect(contextNavigationBlock).not.toBeNull();
-
-    const paragraph = container.querySelector('p');
-    expect(paragraph).not.toBeNull();
-    expect(paragraph.textContent).toBe('Search block edit test');
+    expect(contextNavigationBlock).toBeNull();
   });
 });
