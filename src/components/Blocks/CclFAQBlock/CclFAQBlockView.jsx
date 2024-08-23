@@ -41,15 +41,11 @@ const CclFAQBlockView = (props) => {
   const [activeIndex, setActiveIndex] = useState([]);
 
   const dispatch = useDispatch();
-  const contextNavigationItems = useSelector((state) => {
-    const res =
+  const contextNavigationItems = useSelector(
+    (state) =>
       state.contextNavigation?.[cn_key]?.data?.items ||
-      content['@components']?.['contextnavigation']?.items;
-
-    // console.log('content', content);
-    // console.log('res', res);
-    return res;
-  });
+      content['@components']?.['contextnavigation']?.items,
+  );
 
   const handleClick = ({ index }) => {
     const newIndex =
@@ -83,9 +79,6 @@ const CclFAQBlockView = (props) => {
   }, [contextNavigationItems]);
 
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
-
-  // console.log('indexes', activeIndex);
-  // console.log(flatCN);
 
   return (
     <div id="faq-listing" className="ccl-container tab-container">
