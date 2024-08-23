@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import CclExpandableFilter from './CclExpandableFilter';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
