@@ -1,24 +1,21 @@
-import Enzyme, { mount } from 'enzyme';
-
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { render } from '@testing-library/react';
 import DistributionInfoComponent from './DistributionInfoComponent';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
 
-Enzyme.configure({ adapter: new Adapter() });
-//jest test for   DistributionInfoComponent
 describe('DistributionInfoComponent', () => {
-  //test for DistributionInfoComponent rendering
   it('Check if DistributionInfoComponent is rendered', () => {
     const resource = {
       resourceLocator: 'http://example.com/resource',
       services: 'http://example.com/services',
     };
-    const wrapper = mount(
+
+    const { container } = render(
       <MemoryRouter>
         <DistributionInfoComponent resource={resource} />
       </MemoryRouter>,
     );
-    expect(wrapper).toBeDefined();
+
+    expect(container).toBeDefined();
   });
 });
