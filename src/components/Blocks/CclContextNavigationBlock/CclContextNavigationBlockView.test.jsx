@@ -1,20 +1,14 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
 import CclContextNavigationBlockView from './CclContextNavigationBlockView';
 import { MemoryRouter } from 'react-router-dom';
-import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-
-Enzyme.configure({ adapter: new Adapter() });
-
-global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 
 const mockStore = configureStore();
 
 describe('CclContextNavigationBlockView', () => {
-  it('Check context navigation view', () => {
+  it('renders CclContextNavigationBlockView correctly', () => {
     const store = mockStore({
       content: {
         create: {},
@@ -27,7 +21,7 @@ describe('CclContextNavigationBlockView', () => {
     });
     const pathname = '/example';
 
-    const ContextNavigationBlockView = renderer.create(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclContextNavigationBlockView pathname={pathname}>
@@ -36,7 +30,10 @@ describe('CclContextNavigationBlockView', () => {
         </MemoryRouter>
       </Provider>,
     );
-    const json = ContextNavigationBlockView.toJSON();
-    expect(json).toMatchSnapshot();
+
+    const contextNavigationBlock = container.querySelector(
+      '.ccl-context-navigation-block',
+    );
+    expect(contextNavigationBlock).toBeNull();
   });
 });

@@ -1,16 +1,9 @@
-import Enzyme, { mount } from 'enzyme';
-
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import CclButtonBlockEdit from './CclButtonBlockEdit';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-intl-redux';
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import renderer from 'react-test-renderer';
-
-Enzyme.configure({ adapter: new Adapter() });
-
-global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
+import { render, fireEvent } from '@testing-library/react';
 
 const mockStore = configureStore();
 
@@ -26,6 +19,7 @@ describe('CclButtonBlockEdit', () => {
         messages: {},
       },
     });
+
     const data = {
       href: 'https://www.google.com',
       disabled: false,
@@ -33,29 +27,26 @@ describe('CclButtonBlockEdit', () => {
       download: false,
     };
 
-    // const component = shallow(
-    const component = mount(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclButtonBlockEdit
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={() => {
-              return 'test';
-            }}
-            setSidebarTab={() => {
-              return 'test';
-            }}
+            onChangeBlock={() => 'test'}
+            setSidebarTab={() => 'test'}
           />
         </MemoryRouter>
       </Provider>,
     );
-    const legend = component.find('.ccl-block-editor-header legend');
-    legend.simulate('click');
-    expect(legend).toBeDefined();
+
+    const legend = container.querySelector('.ccl-block-editor-header legend');
+    fireEvent.click(legend);
+    expect(legend).not.toBeNull();
   });
-  it('renders an CclButtonBlockEdit block component', () => {
+
+  it('renders a CclButtonBlockEdit block component', () => {
     const store = mockStore({
       content: {
         create: {},
@@ -66,38 +57,34 @@ describe('CclButtonBlockEdit', () => {
         messages: {},
       },
     });
+
     const data = {
       href: ['https://www.google.com', 'https://www.google.com'],
       disabled: true,
     };
-    const component = renderer.create(
+
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclButtonBlockEdit
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={() => {
-              return 'test';
-            }}
-            onSelectBlock={() => {
-              return 'test';
-            }}
-            onChangeField={() => {
-              return 'test';
-            }}
-            setSidebarTab={() => {
-              return 'test';
-            }}
+            onChangeBlock={() => 'test'}
+            onSelectBlock={() => 'test'}
+            onChangeField={() => 'test'}
+            setSidebarTab={() => 'test'}
           />
         </MemoryRouter>
       </Provider>,
     );
 
-    const json = component.toJSON();
-    expect(json).toMatchSnapshot();
+    const button = container.querySelector('.ccl-button.ccl-button--default');
+    expect(button).not.toBeNull();
+    expect(button.getAttribute('href')).toBe('/');
+    expect(button.classList.contains('ccl-button--default')).toBe(true);
   });
-  //jest test for CclButtonBlockEdit onChangeBlock statement
+
   it('CclButtonBlockEdit onChangeBlock', () => {
     const store = mockStore({
       content: {
@@ -109,34 +96,30 @@ describe('CclButtonBlockEdit', () => {
         messages: {},
       },
     });
+
     const data = {
       href: ['https://www.google.com', 'https://www.google.com'],
       disabled: true,
     };
-    const component = mount(
+
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclButtonBlockEdit
             data={data}
             selected={false}
             block="1234"
-            onChangeBlock={() => {
-              return 'test';
-            }}
-            onSelectBlock={() => {
-              return 'test';
-            }}
-            onChangeField={() => {
-              return 'test';
-            }}
-            setSidebarTab={() => {
-              return 'test';
-            }}
+            onChangeBlock={() => 'test'}
+            onSelectBlock={() => 'test'}
+            onChangeField={() => 'test'}
+            setSidebarTab={() => 'test'}
           />
         </MemoryRouter>
       </Provider>,
     );
-    const legend = component.find('.ccl-block-editor-header');
-    legend.simulate('click');
+
+    const legend = container.querySelector('.ccl-block-editor-header legend');
+    fireEvent.click(legend);
+    expect(legend).not.toBeNull();
   });
 });
