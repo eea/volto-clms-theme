@@ -20,7 +20,7 @@ let store = mockStore({
   },
   search: {
     subrequest: {
-      '123': { items: [] },
+      123: { items: [] },
     },
   },
   users: {
@@ -60,8 +60,7 @@ describe('CLMSDatasetDetailView', () => {
       },
       dataResourceLocator: 'Resource locator',
       image: {
-        src:
-          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        src: 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
         alt: 'Placeholder',
       },
       downloadable_dataset: true,
@@ -97,6 +96,7 @@ describe('CLMSDatasetDetailView', () => {
       .toJSON();
     expect(DatasetDetailView).toBeDefined();
   });
+
   it('Check metadata view without downloadable files', () => {
     const content = {
       title: 'Test title!',
@@ -115,8 +115,7 @@ describe('CLMSDatasetDetailView', () => {
       },
       dataResourceLocator: 'Resource locator',
       image: {
-        src:
-          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        src: 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
         alt: 'Placeholder',
       },
       downloadable_dataset: true,
@@ -139,6 +138,7 @@ describe('CLMSDatasetDetailView', () => {
       .toJSON();
     expect(DatasetDetailView).toBeDefined();
   });
+
   it('Check metadata view with geonetwork_identifiers items lenght > 0 user roles exists and user roles includes manager', () => {
     const content = {
       geonetwork_identifiers: [
