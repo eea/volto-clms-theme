@@ -1,18 +1,17 @@
-import Enzyme, { mount } from 'enzyme';
-
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import CclTab from './CclTab';
-import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
-Enzyme.configure({ adapter: new Adapter() });
+import CclTab from './CclTab';
+
 const mockStore = configureStore();
 
 describe('CclTab', () => {
-  it('Check if onTabClick function is called when tab is clicked', () => {
+  it('Check if onTabClick function is called when tab is clicked', async () => {
     const store = mockStore({
       userSession: {
         token:
@@ -20,7 +19,7 @@ describe('CclTab', () => {
       },
     });
     const onTabClick = jest.fn();
-    const wrapper = mount(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <CclTab
@@ -32,9 +31,17 @@ describe('CclTab', () => {
         </MemoryRouter>
       </Provider>,
     );
-    wrapper.find('a').simulate('click');
-    expect(onTabClick).toHaveBeenCalled();
+
+    await waitFor(() => {
+      const link = container.querySelector('a');
+
+      expect(link).toBeInTheDocument();
+      fireEvent.click(link);
+
+      expect(onTabClick).toHaveBeenCalled();
+    });
   });
+
   it('Check if tab title is rendered with routing = true', () => {
     const store = mockStore({
       userSession: {
@@ -63,6 +70,7 @@ describe('CclTab', () => {
       .toJSON();
     expect(tabView).toBeDefined();
   });
+
   it('Check if tab title is rendered with routing = false', () => {
     const store = mockStore({
       userSession: {

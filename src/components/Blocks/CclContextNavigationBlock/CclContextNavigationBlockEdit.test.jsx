@@ -4,10 +4,6 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
 import CclContextNavigationBlockEdit from './CclContextNavigationBlockEdit';
 import { MemoryRouter } from 'react-router-dom';
-import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 global.__SERVER__ = true; // eslint-disable-line no-underscore-dangle
 
