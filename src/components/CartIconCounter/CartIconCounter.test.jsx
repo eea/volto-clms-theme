@@ -1,11 +1,8 @@
 import { onlyInLeft, CartIconCounter } from './CartIconCounter';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-intl-redux';
 import configureStore from 'redux-mock-store';
-Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock('@plone/volto/helpers/Loadable/Loadable');
 beforeAll(async () => {

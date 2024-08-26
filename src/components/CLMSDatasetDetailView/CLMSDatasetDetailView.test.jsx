@@ -20,7 +20,7 @@ let store = mockStore({
   },
   search: {
     subrequest: {
-      '123': { items: [] },
+      123: { items: [] },
     },
   },
   users: {
@@ -97,6 +97,7 @@ describe('CLMSDatasetDetailView', () => {
       .toJSON();
     expect(DatasetDetailView).toBeDefined();
   });
+
   it('Check metadata view without downloadable files', () => {
     const content = {
       title: 'Test title!',
@@ -139,6 +140,7 @@ describe('CLMSDatasetDetailView', () => {
       .toJSON();
     expect(DatasetDetailView).toBeDefined();
   });
+
   it('Check metadata view with geonetwork_identifiers items lenght > 0 user roles exists and user roles includes manager', () => {
     const content = {
       geonetwork_identifiers: [

@@ -1,17 +1,14 @@
-import Enzyme, { mount } from 'enzyme';
-
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import CclLanguageSelector from './CclLanguageSelector';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-intl-redux';
-import React from 'react';
 import config from '@plone/volto/registry';
-import configureStore from 'redux-mock-store';
+import React from 'react';
+import { Provider } from 'react-intl-redux';
+import { MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-// import { shallow } from 'enzyme';
+import '@testing-library/jest-dom';
 
-Enzyme.configure({ adapter: new Adapter() });
+import CclLanguageSelector from './CclLanguageSelector';
 
 jest.mock('@plone/volto/helpers/Loadable/Loadable');
 beforeAll(async () => {
@@ -57,6 +54,7 @@ describe('CclLanguageSelector', () => {
     const json = component.toJSON();
     expect(json).toMatchSnapshot();
   });
+
   it('Renders Multilingual', () => {
     config.settings.isMultilingual = true;
     const store = mockStore({
@@ -89,7 +87,8 @@ describe('CclLanguageSelector', () => {
     const json = component.toJSON();
     expect(json).toMatchSnapshot();
   });
-  it('Test click event', () => {
+
+  it('Test click event', async () => {
     config.settings.isMultilingual = true;
     const store = mockStore({
       intl: {
@@ -106,27 +105,25 @@ describe('CclLanguageSelector', () => {
         },
       },
     });
-    const wrapper = mount(
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
-          <CclLanguageSelector></CclLanguageSelector>
+          <CclLanguageSelector />
         </MemoryRouter>
       </Provider>,
     );
-    const mobileSel = wrapper.find('div.header-lang-icon');
-    mobileSel.simulate('click');
 
-    const mobileLang = wrapper.find('.language-link a');
-    mobileLang.simulate('click');
+    await waitFor(() => {
+      const headerDiv = container.querySelector('div.header-lang-icon');
+      expect(headerDiv).toBeInTheDocument();
+      fireEvent.click(headerDiv);
 
-    // mobileSel.simulate('click');
+      const mobileLangLink = screen.getByLabelText('Switch to español');
+      expect(mobileLangLink).toBeInTheDocument();
 
-    const deskSel = wrapper.find('.header-lang-text span');
-    deskSel.simulate('click');
-
-    const deskLang = wrapper.find('.header-lang-text .language-link a');
-    deskLang.simulate('click');
-
-    expect(1).toEqual(1);
+      const deskSel = container.querySelector('.header-lang-text span');
+      expect(deskSel).toBeInTheDocument();
+      fireEvent.click(deskSel);
+    });
   });
 });
