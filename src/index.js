@@ -202,6 +202,12 @@ const applyConfig = (config) => {
         ],
       },
       {
+        match: '/en/faq',
+        exact: false,
+        GET_CONTENT: ['contextnavigation'],
+      },
+
+      {
         match: '',
         GET_CONTENT: ['navigation'],
         querystring: (config) => ({
