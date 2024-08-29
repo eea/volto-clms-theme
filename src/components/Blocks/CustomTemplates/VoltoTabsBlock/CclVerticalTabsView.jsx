@@ -7,6 +7,7 @@ import { compose } from 'redux';
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 import { useLocation } from 'react-router-dom';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 import { slugify } from '../../utils';
 import './fontawesome';
@@ -53,6 +54,7 @@ const TabsComponent = (props) => {
         {tabsList.map((tab, index) => {
           const title = tabs[tab].title;
           const subTab = tabs[tab]?.subTab?.subtab || false;
+          const redirectURL = tabs[tab]?.subTab?.redirectURL || false;
           const tabIndex = index + 1;
           const nextSubTab = tabs[tabsList[tabIndex]]?.subTab?.subtab || false;
           const defaultTitle = `Tab ${tabIndex}`;
@@ -71,7 +73,9 @@ const TabsComponent = (props) => {
                 <span>{title || defaultTitle}</span>
               ) : (
                 <NavLink
-                  to={'?' + tabHash}
+                  to={`${
+                    redirectURL ? flattenToAppURL(redirectURL) : '?' + tabHash
+                  }`}
                   className="collapsed"
                   onClick={(e) => {
                     handleClick(
