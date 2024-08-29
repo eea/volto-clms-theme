@@ -92,6 +92,7 @@ import sortUpSVG from '@plone/volto/icons/sort-up.svg';
 import downKeySVG from '@plone/volto/icons/down-key.svg';
 import moreSVG from '@plone/volto/icons/more.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
+import cx from 'classnames';
 
 const messages = defineMessages({
   back: {
@@ -1187,6 +1188,13 @@ class Contents extends Component {
     const Container =
       config.getComponent({ name: 'Container' }).component || SemanticContainer;
 
+    const columnCountClass = cx({
+      'many-columns': this.state.index.selectedCount > 4,
+      'three-columns': this.state.index.selectedCount === 4,
+      'two-columns': this.state.index.selectedCount === 3,
+      'one-column': this.state.index.selectedCount === 2,
+    });
+
     return this.props.token && this.props.objectActions?.length > 0 ? (
       <>
         {folderContentsAction ? (
@@ -1879,7 +1887,13 @@ class Contents extends Component {
                         </Dropdown>
                       </Segment>
                       <div className="contents-table-wrapper">
-                        <Table selectable compact singleLine attached>
+                        <Table
+                          selectable
+                          compact
+                          singleLine
+                          attached
+                          className={columnCountClass}
+                        >
                           <Table.Header>
                             <Table.Row>
                               <Table.HeaderCell>
@@ -2069,8 +2083,11 @@ class Contents extends Component {
                                 </Popup>
                               </Table.HeaderCell>
                               <Table.HeaderCell
-                                width={Math.ceil(
-                                  16 / this.state.index.selectedCount,
+                                width={Math.max(
+                                  4,
+                                  Math.ceil(
+                                    10 - this.state.index.selectedCount - 1,
+                                  ),
                                 )}
                               >
                                 <FormattedMessage
@@ -2084,9 +2101,7 @@ class Contents extends Component {
                                   this.state.index.values[index].selected && (
                                     <ContentsIndexHeader
                                       key={index}
-                                      width={Math.ceil(
-                                        16 / this.state.index.selectedCount,
-                                      )}
+                                      width={2}
                                       label={
                                         this.state.index.values[index].label
                                       }
