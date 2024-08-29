@@ -43,7 +43,7 @@ const CclTabs = (props) => {
         if (possible_hashes.includes(hash)) setActiveTab(hash);
       } else if (
         children.filter((item) => !!item?.props?.tabTitle).length > 1 &&
-        firstTab.props?.isParent
+        firstTab.props?.parent
       ) {
         setActiveTab(
           slugify(
@@ -72,7 +72,7 @@ const CclTabs = (props) => {
               const currentTab = children.filter(
                 (item) => slugify(item?.props?.tabTitle) === tabId,
               )[0];
-              if (currentTab?.props?.isParent) {
+              if (currentTab?.props?.parent) {
                 hasSubtab = true;
               }
               return (
