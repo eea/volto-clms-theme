@@ -4,7 +4,7 @@ export const subTabSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['subtab'],
+      fields: ['subtab', 'redirectURL'],
     },
   ],
   properties: {
@@ -13,6 +13,11 @@ export const subTabSchema = () => ({
       description: 'Define if this tab is a subTab',
       type: 'boolean',
       default: false,
+    },
+    redirectURL: {
+      title: 'Redirect URL',
+      description: 'Redirect URL',
+      widget: 'url',
     },
   },
   required: [],

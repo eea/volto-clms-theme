@@ -161,16 +161,17 @@ export const ContentsItemComponent = ({
                 title={item['Type'] || item['@type']}
               />
               <span title={item.title} className="content-title-force-one-line">
+                {item.ExpirationDate !== 'None' &&
+                  new Date(item.ExpirationDate).getTime() <
+                    new Date().getTime() && (
+                    <Button className="button-margin" size="mini">
+                      <FormattedMessage id="Expired" defaultMessage="Expired" />
+                    </Button>
+                  )}
                 {item.title}
               </span>
             </div>
-            {item.ExpirationDate !== 'None' &&
-              new Date(item.ExpirationDate).getTime() <
-                new Date().getTime() && (
-                <Button className="button-margin" size="mini">
-                  <FormattedMessage id="Expired" defaultMessage="Expired" />
-                </Button>
-              )}
+
             {item.EffectiveDate !== 'None' &&
               new Date(item.EffectiveDate).getTime() > new Date().getTime() && (
                 <Button className="button-margin effective-future" size="mini">
