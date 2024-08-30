@@ -204,9 +204,18 @@ const applyConfig = (config) => {
       {
         match: '',
         GET_CONTENT: ['navigation'],
-        querystring: (config) => ({
-          'expand.navigation.depth': config.settings.navDepth,
-        }),
+        // TODO: this doesn't do anything as the querystring is not a callable
+        // querystring: (config) => ({
+        //   'expand.navigation.depth': config.settings.navDepth,
+        // }),
+      },
+      {
+        match: '/en/faq',
+        exact: false,
+        GET_CONTENT: ['contextnavigation'],
+        querystring: {
+          'expand.contextnavigation.bottomLevel': 2,
+        },
       },
     ],
   };
@@ -338,8 +347,9 @@ const applyConfig = (config) => {
   config.experimental.addBlockButton.enabled = true;
 
   config.settings.loadables = {
-    'react-json-schema-form-builder': loadable.lib(() =>
-      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    'react-json-schema-form-builder': loadable.lib(
+      () =>
+        import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,
