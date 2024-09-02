@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import React, { useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,18 +7,46 @@ import { Accordion, Segment } from 'semantic-ui-react';
 import { getContextNavigation } from '@plone/volto/actions';
 import { Icon, UniversalLink } from '@plone/volto/components';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
-import { hasBlocksData } from '@plone/volto/helpers';
+import { hasBlocksData, getBaseUrl } from '@plone/volto/helpers';
+
+import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
+
 import penSVG from '@plone/volto/icons/pen.svg';
 import config from '@plone/volto/registry';
-import { CclTabs } from '@eeacms/volto-clms-theme/components/CclTab';
-// import { StringToHTML } from '@eeacms/volto-clms-theme/components/CclUtils';
+
+const flattenCN = (cn_items) =>
+  cn_items.reduce(
+    (acc, curr) => [
+      ...acc,
+      curr,
+      ...curr.items
+        .filter((i) => i.type === 'document')
+        .map((item) => ({ ...item, isSubtab: true })),
+    ],
+    [],
+  );
+
+// this is just to highlight that the way CclTabs is working is misleading
+// It reads random properties from <div> children, which is unexpected
+function Tab(props) {
+  return <div {...props} />;
+}
 
 const CclFAQBlockView = (props) => {
-  const { isEditMode } = props;
+  const { isEditMode, content } = props;
+  const pathname = getBaseUrl(props.pathname || props.path);
+  const cn_key = `${pathname}/@contextnavigation`;
+
+  // this are the accordions that are opened
+  const [activeIndex, setActiveIndex] = useState([]);
+
   const dispatch = useDispatch();
-  const path = useSelector((state) => state.router.location.pathname);
-  const contextNavigation = useSelector((state) => state.contextNavigation);
-  const cn_key = `${path.replace('/edit', '')}/@contextnavigation`;
+  const contextNavigationItems = useSelector(
+    (state) =>
+      state.contextNavigation?.[cn_key]?.data?.items ||
+      content['@components']?.['contextnavigation']?.items,
+  );
+
   const handleClick = ({ index }) => {
     const newIndex =
       activeIndex.indexOf(index) === -1
@@ -27,128 +56,93 @@ const CclFAQBlockView = (props) => {
     setActiveIndex(newIndex);
   };
 
-  const flattenCN = (cn_items) => {
-    return cn_items.reduce((prev, curr) => {
-      prev.push(curr);
-      if (curr.items.filter((i) => i.type === 'document').length > 0) {
-        curr.items
-          .filter((i) => i.type === 'document')
-          .forEach((i_i) => prev.push({ ...i_i, isSubtab: true }));
-      }
-      return prev;
-    }, []);
-  };
   const flatCN = flattenCN(
-    contextNavigation?.[cn_key]?.data?.items
-      ? contextNavigation?.[cn_key]?.data?.items.filter(
-          (i) => i.type === 'document',
-        )
-      : [],
+    contextNavigationItems?.filter((i) => i.type === 'document') || [],
   );
-  const [activeIndex, setActiveIndex] = useState([]);
+
   React.useEffect(() => {
-    dispatch(getContextNavigation(path.replace('/edit', '')));
-  }, [path, dispatch]);
+    isEditMode && dispatch(getContextNavigation(pathname));
+  }, [pathname, dispatch, isEditMode]);
+
   React.useEffect(() => {
-    let indexes = [];
-    // eslint-disable-next-line no-unused-expressions
-    contextNavigation?.[cn_key]?.data?.items &&
-      contextNavigation?.[cn_key]?.data?.items.forEach((i) => {
-        if (i.items.length > 0) {
-          indexes.push(i.items[0].normalized_id);
-        }
-        if (i.type === 'document') {
-          i.items.forEach((i_i) => {
-            if (i_i.items.length > 0) {
-              indexes.push(i_i.items[0].normalized_id);
-            }
-          });
-        }
-      });
+    let indexes = (contextNavigationItems || []).reduce(
+      (acc, cur) => [
+        ...acc,
+        ...(cur.items?.length ? [cur.items[0].normalized_id] : []),
+        ...cur.items
+          ?.map((item) => item.items?.[0]?.normalized_id)
+          .filter((id) => !!id),
+      ],
+      [],
+    );
     setActiveIndex(indexes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contextNavigation?.[cn_key]?.data?.items]);
+  }, [contextNavigationItems]);
 
   const titleIcons = config.blocks?.blocksConfig?.accordion?.titleIcons;
 
   return (
     <div id="faq-listing" className="ccl-container tab-container">
-      {contextNavigation?.[cn_key]?.loaded ? (
-        contextNavigation?.[cn_key]?.data?.items?.length > 0 && (
-          <CclTabs routing={true}>
-            {flatCN
-              .filter((cn) => cn.type === 'document')
-              .map((cn, key) => (
-                <div
-                  key={key}
-                  tabTitle={cn.title}
-                  className={
-                    cn.isSubtab
-                      ? 'subcard'
-                      : cn.items.filter((i) => i.type === 'document').length > 0
-                  }
-                  parent={
-                    cn.items.filter((i) => i.type === 'document').length > 0
-                  }
-                >
-                  <div className="accordion-block">
-                    {cn.items
-                      .filter((item) => item.type === 'faq')
-                      .map((item, item_key) => {
-                        return (
-                          <Accordion fluid styled key={item_key}>
-                            <Accordion.Title
-                              as={'h2'}
-                              onClick={() =>
-                                handleClick({ index: item.normalized_id })
-                              }
-                              className={'accordion-title align-arrow-right'}
-                            >
-                              {activeIndex.includes(item.normalized_id) ? (
-                                <Icon name={titleIcons.opened.rightPosition} />
-                              ) : (
-                                <Icon name={titleIcons.closed.rightPosition} />
-                              )}
-                              {isEditMode && (
-                                <UniversalLink
-                                  openLinkInNewTab={true}
-                                  href={`${item['@id']}/edit`}
-                                >
-                                  <Icon
-                                    name={penSVG}
-                                    className="circled"
-                                    title={'Edit'}
-                                  />
-                                </UniversalLink>
-                              )}
-                              <span>{item.title}</span>
-                            </Accordion.Title>
-                            <Accordion.Content
-                              active={activeIndex.includes(item.normalized_id)}
-                            >
-                              <AnimateHeight
-                                animateOpacity
-                                duration={500}
-                                height={'auto'}
-                              >
-                                {/* <StringToHTML
-                                  string={item.text ? item.text.data : ''}
-                                /> */}
-                                {hasBlocksData(item) && (
-                                  <RenderBlocks content={item} />
-                                )}
-                              </AnimateHeight>
-                            </Accordion.Content>
-                          </Accordion>
-                        );
-                      })}
-                  </div>
-                </div>
-              ))}
-          </CclTabs>
-        )
+      {contextNavigationItems?.length > 0 ? (
+        <CclTabs routing={true}>
+          {flatCN.map((cn, key) => (
+            <Tab
+              key={key}
+              tabTitle={cn.title}
+              className={cx({ subcard: cn.isSubtab })}
+              isParent={!!cn.items.filter((i) => i.type === 'document').length}
+            >
+              <div className="accordion-block">
+                {cn.items
+                  .filter((item) => item.type === 'faq')
+                  .map((item, item_key) => (
+                    <Accordion fluid styled key={item_key}>
+                      <Accordion.Title
+                        as={'h2'}
+                        onClick={() =>
+                          handleClick({ index: item.normalized_id })
+                        }
+                        className={'accordion-title align-arrow-right'}
+                      >
+                        {activeIndex.includes(item.normalized_id) ? (
+                          <Icon name={titleIcons.opened.rightPosition} />
+                        ) : (
+                          <Icon name={titleIcons.closed.rightPosition} />
+                        )}
+                        {isEditMode && (
+                          <UniversalLink
+                            openLinkInNewTab={true}
+                            href={`${item['@id']}/edit`}
+                          >
+                            <Icon
+                              name={penSVG}
+                              className="circled"
+                              title={'Edit'}
+                            />
+                          </UniversalLink>
+                        )}
+                        <span>{item.title}</span>
+                      </Accordion.Title>
+                      <Accordion.Content
+                        active={activeIndex.includes(item.normalized_id)}
+                      >
+                        <AnimateHeight
+                          animateOpacity
+                          duration={500}
+                          height={'auto'}
+                        >
+                          {hasBlocksData(item) && (
+                            <RenderBlocks content={item} />
+                          )}
+                        </AnimateHeight>
+                      </Accordion.Content>
+                    </Accordion>
+                  ))}
+              </div>
+            </Tab>
+          ))}
+        </CclTabs>
       ) : (
-        <Segment loading={contextNavigation?.[cn_key]?.loading}></Segment>
+        <Segment loading={true}></Segment>
       )}
     </div>
   );
