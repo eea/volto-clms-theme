@@ -204,9 +204,18 @@ const applyConfig = (config) => {
       {
         match: '',
         GET_CONTENT: ['navigation'],
-        querystring: (config) => ({
-          'expand.navigation.depth': config.settings.navDepth,
-        }),
+        // TODO: this doesn't do anything as the querystring is not a callable
+        // querystring: (config) => ({
+        //   'expand.navigation.depth': config.settings.navDepth,
+        // }),
+      },
+      {
+        match: '/en/faq',
+        exact: false,
+        GET_CONTENT: ['contextnavigation'],
+        querystring: {
+          'expand.contextnavigation.bottomLevel': 2,
+        },
       },
     ],
   };
