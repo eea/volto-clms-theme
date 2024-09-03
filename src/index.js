@@ -349,9 +349,8 @@ const applyConfig = (config) => {
   config.experimental.addBlockButton.enabled = true;
 
   config.settings.loadables = {
-    'react-json-schema-form-builder': loadable.lib(
-      () =>
-        import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    'react-json-schema-form-builder': loadable.lib(() =>
+      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,
