@@ -214,7 +214,9 @@ const applyConfig = (config) => {
         exact: false,
         GET_CONTENT: ['contextnavigation'],
         querystring: {
-          'expand.contextnavigation.bottomLevel': 2,
+          'expand.contextnavigation.bottomLevel': '6',
+          'expand.contextnavigation.topLevel': '0',
+          'expand.contextnavigation.root_path': '/en/faq',
         },
       },
     ],
