@@ -214,7 +214,9 @@ const applyConfig = (config) => {
         exact: false,
         GET_CONTENT: ['contextnavigation'],
         querystring: {
-          'expand.contextnavigation.bottomLevel': 2,
+          'expand.contextnavigation.bottomLevel': '6',
+          'expand.contextnavigation.topLevel': '0',
+          'expand.contextnavigation.root_path': '/en/faq',
         },
       },
     ],
@@ -347,8 +349,9 @@ const applyConfig = (config) => {
   config.experimental.addBlockButton.enabled = true;
 
   config.settings.loadables = {
-    'react-json-schema-form-builder': loadable.lib(() =>
-      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    'react-json-schema-form-builder': loadable.lib(
+      () =>
+        import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,
