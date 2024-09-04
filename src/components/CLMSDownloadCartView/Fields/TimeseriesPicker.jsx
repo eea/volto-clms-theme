@@ -100,10 +100,12 @@ export const TimeseriesPicker = (props) => {
               showMonthDropdown
               showYearDropdown
             >
-              {(startValue || endValue) && (
+              {(item?.TemporalFilter?.StartDate ||
+                item?.TemporalFilter?.EndDate) && (
                 <span>
-                  {cclDateFormat(startValue)} -{' '}
-                  {endValue && cclDateFormat(endValue)}
+                  {cclDateFormat(item?.TemporalFilter?.StartDate)} -{' '}
+                  {item?.TemporalFilter?.EndDate &&
+                    cclDateFormat(item?.TemporalFilter?.EndDate)}
                 </span>
               )}
               <br />
