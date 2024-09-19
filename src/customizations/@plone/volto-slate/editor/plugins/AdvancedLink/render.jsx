@@ -20,7 +20,6 @@ export const LinkElement = ({ attributes, children, element, mode }) => {
 
   const { title } = element?.data || {};
 
-  console.log('AAAAAAAAAAAAAAAAa');
   return mode === 'view' ? (
     <>
       <UniversalLink
