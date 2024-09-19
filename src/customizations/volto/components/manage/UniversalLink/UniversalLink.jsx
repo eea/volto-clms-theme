@@ -21,6 +21,7 @@ const UniversalLink = ({
   item = null,
   openLinkInNewTab,
   download = false,
+  isFileDownload = false,
   children,
   className = null,
   title = null,
@@ -29,6 +30,11 @@ const UniversalLink = ({
   const token = useSelector((state) => state.userSession?.token);
 
   let url = href;
+
+  if (!token && isFileDownload) {
+    url = `${url}/@@download/file`;
+  }
+
   if (!href && item) {
     if (!item['@id']) {
       // eslint-disable-next-line no-console
