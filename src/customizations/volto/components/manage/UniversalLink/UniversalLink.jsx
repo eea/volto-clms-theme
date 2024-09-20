@@ -31,7 +31,7 @@ const UniversalLink = ({
 
   let url = href;
 
-  if (!token && isFileDownload) {
+  if (isFileDownload) {
     url = `${url}/@@download/file`;
   }
 
