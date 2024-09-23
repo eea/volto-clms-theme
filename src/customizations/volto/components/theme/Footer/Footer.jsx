@@ -14,9 +14,8 @@ import validator from 'validator';
 import { Toast } from '@plone/volto/components';
 
 import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
+import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
-// TODO: this import needs to be lazy loaded
-import faLinkedin from '@fortawesome/free-brands-svg-icons/faLinkedin';
 import { subscribeTo } from '../../../../../actions';
 
 import AtmosphereImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-atmosphere.svg';
@@ -442,6 +441,22 @@ class Footer extends Component {
               </div>
               <div className="ccl-footer-social">
                 <a
+                  href="https://www.linkedin.com/showcase/copernicus-eea"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Linkedin"
+                >
+                  <FontAwesomeIcon icon={['fab', 'linkedin']} />
+                </a>
+                <a
+                  href="https://twitter.com/CopernicusLand"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Twitter"
+                >
+                  <FontAwesomeIcon icon={['fab', 'x-twitter']} />
+                </a>
+                <a
                   href="https://www.youtube.com/playlist?list=PL1_QSyumTz7CZQEZ-1foOTeTOelKDQmxu"
                   target="_blank"
                   rel="noreferrer"
@@ -450,28 +465,12 @@ class Footer extends Component {
                   <span className="ccl-icon-youtube"></span>
                 </a>
                 <a
-                  href="https://twitter.com/CopernicusLand"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Twitter"
-                >
-                  <span className="ccl-icon-twitter"></span>
-                </a>
-                <a
                   href="https://www.facebook.com/CopernicusEU"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Facebook"
                 >
                   <span className="ccl-icon-facebook"></span>
-                </a>
-                <a
-                  href="https://www.linkedin.com/showcase/copernicus-eea"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Linkedin"
-                >
-                  <FontAwesomeIcon icon={faLinkedin} />
                 </a>
               </div>
             </div>
@@ -535,6 +534,7 @@ class Footer extends Component {
 }
 
 export default compose(
+  withFontAwesomeLibs,
   injectIntl,
   connect(
     (state) => ({

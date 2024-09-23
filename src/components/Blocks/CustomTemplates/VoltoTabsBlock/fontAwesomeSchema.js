@@ -1,10 +1,11 @@
 import { getFontAwesomeIconList } from './fontawesome';
 
 export const fontAwesomeSchema = (props) => {
-  const { fontAwesomeRegular } = props;
+  const { fontAwesomeRegular, fontAwesomeBrands } = props;
 
   const choices = getFontAwesomeIconList([
     fontAwesomeRegular.far,
+    fontAwesomeBrands.fab,
   ]).map((item) => [item.iconName, item.iconName]);
 
   return {
