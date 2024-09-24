@@ -14,6 +14,8 @@ config.settings.loadables = {
   fontAwesomeRegular: loadable.lib(() =>
     import('@fortawesome/free-regular-svg-icons'),
   ),
-
+  fontAwesomeBrands: loadable.lib(() =>
+    import('@fortawesome/free-brands-svg-icons'),
+  ),
   ...config.settings.loadables,
 };
