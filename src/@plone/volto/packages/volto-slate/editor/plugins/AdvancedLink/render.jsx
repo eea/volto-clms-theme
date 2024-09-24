@@ -24,7 +24,7 @@ export const LinkElement = ({ attributes, children, element, mode }) => {
     <>
       <UniversalLink
         href={href || '#'}
-        openLinkInNewTab={link?.external?.target === '_blank'}
+        openLinkInNewTab={isDownload || link?.external?.target === '_blank'}
         title={title}
         download={isDownload}
       >
