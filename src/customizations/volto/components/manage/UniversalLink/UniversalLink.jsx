@@ -25,14 +25,16 @@ const UniversalLink = ({
   children,
   className = null,
   title = null,
+  file_field = 'file',
   ...props
 }) => {
   const token = useSelector((state) => state.userSession?.token);
 
   let url = href;
 
-  if (isFileDownload && !url.includes('@@download/file')) {
-    url = `${url}/@@download/file`;
+  // fixing url, just in case it's a download and it doesn't have the @@download in URL
+  if (isFileDownload && !url.includes('@@download/')) {
+    url = `${url}/@@download/${file_field}`;
   }
 
   if (!href && item) {
@@ -57,14 +59,14 @@ const UniversalLink = ({
 
       //case: item of type 'File'
       if (config.settings.downloadableObjects.includes(item['@type'])) {
-        url = `${url}/@@download/file`;
+        url = `${url}/@@download/${file_field}`;
       }
 
       if (
         !token &&
         config.settings.viewableInBrowserObjects.includes(item['@type'])
       ) {
-        url = `${url}/@@display-file/file`;
+        url = `${url}/@@display-file/${file_field}`;
       }
     }
   }
@@ -86,10 +88,11 @@ const UniversalLink = ({
 
   url = checkedURL.url;
 
+  openLinkInNewTab = openLinkInNewTab ?? false;
   let tag = (
     <Link
       to={flattenToAppURL(url)}
-      target={openLinkInNewTab ?? false ? '_blank' : null}
+      target={openLinkInNewTab ? '_blank' : null}
       title={title}
       className={className}
       {...props}
@@ -124,6 +127,7 @@ const UniversalLink = ({
         download={true}
         title={title}
         className={className}
+        target={openLinkInNewTab ? '_blank' : null}
         {...props}
       >
         {children}

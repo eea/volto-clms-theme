@@ -9,6 +9,7 @@ export const LinkElement = ({ attributes, children, element, mode }) => {
 
   const internal_link = link?.internal?.internal_link?.[0]?.['@id'];
   const isDownload = link?.internal?.internal_link?.[0]?.['download'];
+  const file_field = link?.internal?.internal_link?.[0]?.['file_field'];
   const external_link = link?.external?.external_link;
   const email = link?.email;
 
@@ -24,9 +25,10 @@ export const LinkElement = ({ attributes, children, element, mode }) => {
     <>
       <UniversalLink
         href={href || '#'}
-        openLinkInNewTab={link?.external?.target === '_blank'}
+        openLinkInNewTab={isDownload || link?.external?.target === '_blank'}
         title={title}
         isFileDownload={isDownload}
+        file_field={file_field}
       >
         {children}
       </UniversalLink>
