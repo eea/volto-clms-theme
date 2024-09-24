@@ -111,7 +111,7 @@ const UniversalLink = ({
           !checkedURL.isTelephone &&
           !(openLinkInNewTab === false)
             ? '_blank'
-            : null
+            : undefined
         }
         rel="noopener noreferrer"
         className={className}
@@ -127,7 +127,7 @@ const UniversalLink = ({
         download={true}
         title={title}
         className={className}
-        target={openLinkInNewTab ? '_blank' : null}
+        target={openLinkInNewTab ? '_blank' : undefined}
         {...props}
       >
         {children}
