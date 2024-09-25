@@ -5,7 +5,6 @@ exports[`UniversalLink check UniversalLink does not break with error in item 1`]
   className={null}
   href="/"
   onClick={[Function]}
-  target={null}
   title={null}
 >
   <h1>
@@ -47,7 +46,6 @@ exports[`UniversalLink renders a UniversalLink component with internal link 1`] 
   className={null}
   href="/en/welcome-to-volto"
   onClick={[Function]}
-  target={null}
   title={null}
 >
   <h1>

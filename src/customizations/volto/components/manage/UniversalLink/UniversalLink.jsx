@@ -88,7 +88,13 @@ const UniversalLink = ({
 
   url = checkedURL.url;
 
-  openLinkInNewTab = openLinkInNewTab ?? false;
+  openLinkInNewTab =
+    typeof openLinkInNewTab !== 'undefined'
+      ? openLinkInNewTab
+      : checkedURL.isMail || checkedURL.isTelephone || isExternal;
+
+  // console.log({ openLinkInNewTab, isExternal, checkedURL });
+
   let tag = (
     <Link
       to={flattenToAppURL(url)}
@@ -106,13 +112,7 @@ const UniversalLink = ({
       <a
         href={url}
         title={title}
-        target={
-          !checkedURL.isMail &&
-          !checkedURL.isTelephone &&
-          !(openLinkInNewTab === false)
-            ? '_blank'
-            : undefined
-        }
+        target={openLinkInNewTab ? '_blank' : undefined}
         rel="noopener noreferrer"
         className={className}
         {...props}
