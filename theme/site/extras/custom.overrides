@@ -1,6 +1,7 @@
 @import 'header';
 @import 'footer';
 
+@import 'edit';
 @import 'carousel';
 @import 'home';
 @import 'menu';
