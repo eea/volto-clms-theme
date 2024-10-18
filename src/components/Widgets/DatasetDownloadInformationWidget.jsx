@@ -35,7 +35,7 @@ const ItemSchema = () => ({
       ],
     },
     full_source: {
-      title: 'Enter the source of the full dataset file',
+      title: 'Enter the data source',
       description: '',
       choices: [
         ['WEKEO', 'WEKEO'],
@@ -44,6 +44,8 @@ const ItemSchema = () => ({
         ['LEGACY', 'LEGACY'],
         ['HOTSPOTS', 'HOTSPOTS'],
         ['VITO_geotiff', 'VITO_geotiff'],
+        ['VITO_Geotiff_LandCover', 'VITO_Geotiff_LandCover'],
+        ['VITO_Geotiff_LSP', 'VITO_Geotiff_LSP'],
       ],
     },
     wekeo_choices: {
