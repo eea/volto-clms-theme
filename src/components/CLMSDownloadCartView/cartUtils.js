@@ -1,10 +1,22 @@
 import { cleanDuplicatesEntries } from '@eeacms/volto-clms-utils/utils';
 
 export const formatNaming = (item) => {
+  if (
+    item.id === '0517fd1b7d944d8197a2eb5c13470db8' ||
+    item.id === '7df9bdf94fe94cb5919c11c9ef5cac65'
+  ) {
+    return 'Geotiff';
+  }
   return item?.format?.token || item?.format;
 };
 
 export const originalFormatNaming = (item) => {
+  if (
+    item.id === '0517fd1b7d944d8197a2eb5c13470db8' ||
+    item.id === '7df9bdf94fe94cb5919c11c9ef5cac65'
+  ) {
+    return 'Geotiff';
+  }
   const original = item?.original_format?.token || item?.original_format;
   const collection = getCollectionByItem(item);
   const format = collection?.full_format?.token || collection?.full_format;
