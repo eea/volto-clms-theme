@@ -46,6 +46,7 @@ import { getWidgetView } from '@eeacms/volto-widgets-view/helpers';
 
 // CUSTOM REDUCERS IMPORT
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
+import { CheckboxHtmlWidget } from './components/Blocks/CustomTemplates/VoltoFormBlock';
 
 import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
@@ -93,6 +94,7 @@ const applyConfig = (config) => {
     ],
   };
 
+  config.widgets.type.checkbox_html = CheckboxHtmlWidget;
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget = {
     ...config.widgets.widget,
