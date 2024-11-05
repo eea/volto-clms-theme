@@ -13,6 +13,7 @@
 @import 'styles';
 @import 'volto-block-style-override';
 @import 'contents';
+@import 'inline';
 
 @import 'range';
 @import 'cards';
