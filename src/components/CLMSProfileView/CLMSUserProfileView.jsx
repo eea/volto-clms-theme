@@ -197,8 +197,7 @@ class CLMSUserProfileView extends Component {
       userschema.properties.privacy_policy = {
         ...userschema.properties.privacy_policy,
         html_description: {
-          data:
-            'Read our <a href="personal-data-protection" target="_blank" rel="noreferrer">Privacy policy</a>',
+          data: `Read our <a href="/${this.props.intl.locale}/personal-data-protection" target="_blank" rel="noreferrer">Privacy policy</a>`,
         },
         title: 'I agree to the Privacy policy',
         type: 'checkbox_html',
