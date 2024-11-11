@@ -14,6 +14,7 @@ export const TimeseriesPicker = (props) => {
     item,
     download_limit_temporal_extent,
     setTimeseriesValue,
+    data_arrays,
   } = props;
   const [startValue, setStartValue] = useState(
     item?.TemporalFilter?.StartDate
@@ -33,7 +34,7 @@ export const TimeseriesPicker = (props) => {
     const diffDays = Math.round(Math.abs((start - end) / oneDay));
     return diffDays < limit;
   };
-
+  const dates_array = data_arrays.map((e) => new Date(e));
   return (
     <>
       <Popup
@@ -99,6 +100,8 @@ export const TimeseriesPicker = (props) => {
               dropdownMode="select"
               showMonthDropdown
               showYearDropdown
+              includeDates={dates_array}
+              disabledKeyboardNavigation
             >
               {(item?.TemporalFilter?.StartDate ||
                 item?.TemporalFilter?.EndDate) && (
