@@ -550,6 +550,10 @@ const CLMSCartContent = (props) => {
                               datasetTimeseries.datasets[item?.dataset_uid]
                                 ?.download_limit_temporal_extent
                             }
+                            data_arrays={
+                              datasetTimeseries.datasets[item?.dataset_uid]
+                                ?.data_arrays
+                            }
                             item={item}
                             setTimeseriesValue={setTimeseriesValue}
                           />
