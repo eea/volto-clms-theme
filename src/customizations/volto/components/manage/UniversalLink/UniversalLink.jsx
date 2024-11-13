@@ -128,6 +128,7 @@ const UniversalLink = ({
         title={title}
         className={className}
         target={openLinkInNewTab ? '_blank' : undefined}
+        rel={openLinkInNewTab ? 'noopener noreferrer' : undefined}
         {...props}
       >
         {children}
