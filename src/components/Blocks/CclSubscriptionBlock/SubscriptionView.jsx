@@ -1,18 +1,17 @@
-import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
-import CclModal from '@eeacms/volto-clms-theme/components/CclModal/CclModal';
-import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
+import { UniversalLink } from '@plone/volto/components';
 
 const SubscriptionBlockView = (props) => {
   const { data } = props;
 
   return (
-    <CclModal
-      trigger={
-        <CclButton mode={'filled'}>{data.title || 'Text example...'}</CclButton>
+    <UniversalLink
+      href={
+        'https://subscriptions.copernicus-land.eea.europa.eu/copernicus-land-monitoring-service-subscription'
       }
+      className="ccl-button ccl-button-green"
     >
-      <SubscriptionView type={data.type || 'events'} />
-    </CclModal>
+      {data.title || 'Text example...'}
+    </UniversalLink>
   );
 };
 
