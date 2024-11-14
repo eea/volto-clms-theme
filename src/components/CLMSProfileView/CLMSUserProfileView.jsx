@@ -260,6 +260,19 @@ class CLMSUserProfileView extends Component {
                   />
                 )}
               </div>
+
+              <p className="callout" style={{ backgroundColor: '#ebefc6' }}>
+                If you are interested in receiving news and other updates from
+                the Copernicus Land Monitoring Service, please subscribe{' '}
+                <UniversalLink
+                  href={
+                    'https://subscriptions.copernicus-land.eea.europa.eu/copernicus-land-monitoring-service-subscription'
+                  }
+                >
+                  here
+                </UniversalLink>
+                .
+              </p>
             </div>
           </Container>
         )}
