@@ -9,14 +9,9 @@ import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
 import {
   CLMSApiTokensView,
-  CLMSNewsletterSubscriberView,
   CLMSUserProfileView,
   CLMSDeleteProfileView,
 } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
-import {
-  AVAILABLE_SUBSCRIPTIONS,
-  SubscriptionView,
-} from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView';
 
 import { getExtraBreadcrumbItems } from '../../actions';
 
@@ -67,17 +62,6 @@ class CLMSProfileView extends Component {
             <div tabTitle="API tokens">
               <CLMSApiTokensView />
             </div>
-            {(this.props.roles?.includes('Manager') ||
-              this.props.roles?.includes('Site Administrator')) && (
-              <div tabTitle="CLMS updates subscribers">
-                <CLMSNewsletterSubscriberView />
-              </div>
-            )}
-            {AVAILABLE_SUBSCRIPTIONS.map((subscription) => (
-              <div tabTitle={subscription?.title} key={subscription?.title}>
-                <SubscriptionView type={subscription?.type} />
-              </div>
-            ))}
             <div tabTitle="Delete profile">
               <CLMSDeleteProfileView />
             </div>

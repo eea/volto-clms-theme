@@ -5,13 +5,9 @@
 import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { UniversalLink } from '@plone/volto/components';
 import { ReactSVG } from 'react-svg';
-import { toast } from 'react-toastify';
 import { compose } from 'redux';
-import validator from 'validator';
-
-import { Toast } from '@plone/volto/components';
 
 import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
@@ -126,126 +122,6 @@ const messages = defineMessages({
  */
 
 class Footer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      value: '',
-      inputValue: false,
-      lang: 'en',
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      value: '',
-      inputValue: this.state.inputValue,
-      lang: this.props.intl.locale,
-    });
-  }
-
-  handleInputChange() {
-    this.setState({
-      inputValue: !this.state.inputValue,
-    });
-  }
-
-  handleChange(event) {
-    this.setState({
-      value: event.target.value,
-    });
-  }
-  handleBlur(event) {
-    const input =
-      typeof window !== 'undefined' &&
-      document.getElementById('footer-email') !== null
-        ? document.getElementById('footer-email')
-        : '';
-    if (!validator.isEmail(event.target.value)) {
-      input.setCustomValidity(
-        this.props.intl.formatMessage(messages.invalid_mail),
-      );
-      input.reportValidity();
-    } else {
-      input.setCustomValidity('');
-      input.reportValidity();
-    }
-  }
-
-  emptyFieldErrorToast = () => {
-    toast.error(
-      <Toast error title={'Error'} content={'Write your email in the field'} />,
-    );
-  };
-
-  invalidEmailErrorToast = () => {
-    toast.error(<Toast error title={'Error'} content={'Invalid email'} />);
-  };
-
-  /**
-   * Submit handler
-   * @method onSubmit
-   * @param {object} data Form data.
-   * @returns {undefined}
-   */
-  onSubmit(event) {
-    event.preventDefault();
-    if (
-      validator.isEmail(this.state.value) === true &&
-      this.state.inputValue === true &&
-      this.state.value !== ''
-    ) {
-      this.props
-        .subscribeTo('newsletter', this.state.value)
-        .then(() => {
-          this.props.subscribe_loaded &&
-            toast.success(
-              <Toast
-                success
-                title={this.props.intl.formatMessage(messages.success)}
-                content={this.props.intl.formatMessage(messages.saved)}
-              />,
-            );
-        })
-        .catch(() => {
-          this.props.subscribe_error &&
-            toast.error(
-              <Toast
-                error
-                title={this.props.intl.formatMessage(messages.error)}
-                content={
-                  this.props.subscribe_error_message ||
-                  this.props.intl.formatMessage(messages.errorMessage)
-                }
-              />,
-            );
-        });
-    } else if (
-      this.state.inputValue === true &&
-      validator.isEmail(this.state.value) === false
-    ) {
-      this.invalidEmailErrorToast();
-    } else if (
-      this.state.inputValue === false &&
-      validator.isEmail(this.state.value) === true
-    ) {
-      toast.error(
-        <Toast
-          error
-          title={this.props.intl.formatMessage(messages.error)}
-          content={this.props.intl.formatMessage(
-            messages.agreePrivacyPolicyCheck,
-          )}
-        />,
-      );
-    } else {
-      this.emptyFieldErrorToast();
-    }
-  }
-
   render() {
     return (
       <footer className="ccl-footer">
@@ -379,60 +255,14 @@ class Footer extends Component {
                 Sign up to CLMS updates
               </div>
               <form action="" className="ccl-footer-form">
-                <div className="ccl-footer-newsletter">
-                  <input
-                    maxLength="8000"
-                    placeholder="Enter an email address"
-                    type="text"
-                    id="footer-email"
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                  />
-                  <button
-                    disabled={
-                      this.state.inputValue === true &&
-                      validator.isEmail(this.state.value) === true
-                        ? false
-                        : true
-                    }
-                    type="submit"
-                    className="ccl-button ccl-button--default"
-                    onClick={
-                      validator.isEmail(this.state.value) &&
-                      this.state.inputValue === true
-                        ? this.onSubmit
-                        : this.invalidEmailErrorToast
-                    }
+                <div className="ccl-footer-newsletter ">
+                  <UniversalLink
+                    href="https://subscriptions.copernicus-land.eea.europa.eu/copernicus-land-monitoring-service-subscription"
+                    className="ccl-button ccl-button--default footer-clms-updates"
+                    target="_blank"
                   >
                     {this.props.intl.formatMessage(messages.subscribe)}
-                  </button>
-                </div>
-                <div className="ccl-form footer-privacy-check">
-                  <div className="ccl-form-group">
-                    <input
-                      type="checkbox"
-                      id="footer_privacy"
-                      name="footerPrivacy"
-                      value={this.state.inputValue}
-                      onClick={this.handleInputChange}
-                      className="ccl-checkbox ccl-form-check-input"
-                      required={true}
-                    />
-                    <label
-                      className="ccl-form-check-label"
-                      htmlFor="footer_privacy"
-                    >
-                      {this.props.intl.formatMessage(
-                        messages.agreePrivacyPolicy,
-                      )}
-                      <Link to={`/${this.state.lang}/personal-data-protection`}>
-                        {this.props.intl.formatMessage(
-                          messages.agreePrivacyPolicyLinkText,
-                        )}
-                      </Link>
-                    </label>
-                  </div>
+                  </UniversalLink>
                 </div>
               </form>
 
