@@ -603,6 +603,7 @@ const customBlocks = (config) => ({
         id: 'checkbox_html',
         label: 'Checkbox with html',
         component: CheckboxHtmlWidget,
+        isValid: (formData, name) => formData[name]?.value,
       },
       {
         id: 'text_widget',
