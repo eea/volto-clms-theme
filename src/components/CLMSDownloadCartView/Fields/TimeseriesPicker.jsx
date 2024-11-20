@@ -100,7 +100,9 @@ export const TimeseriesPicker = (props) => {
               dropdownMode="select"
               showMonthDropdown
               showYearDropdown
-              includeDates={dates_array}
+              includeDates={
+                download_limit_temporal_extent < 180 ? dates_array : null
+              }
               disabledKeyboardNavigation
             >
               {(item?.TemporalFilter?.StartDate ||
