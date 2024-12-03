@@ -48,6 +48,8 @@ import paginationRightSVG from '@plone/volto/icons/right-key.svg';
 
 import './cart-table.less';
 
+const MAX_PREPACKAGED = 100;
+
 const DownloadModal = ({
   openedModal,
   onConfirm,
@@ -127,6 +129,30 @@ const DownloadModal = ({
 
 const getSelectedCartItems = (ci, cs) => {
   return ci.filter((item) => cs.indexOf(item?.unique_id) > -1);
+};
+
+const tooManySelected = ({ selectedCartItems, howManyInQueue, maxInQueue }) => {
+  const hasPrepackaged =
+    selectedCartItems.filter((item) => item?.file_id).length > 0;
+  const hasMapSelection =
+    selectedCartItems.filter((item) => !item?.file_id).length > 0;
+  let count = 0;
+  if (hasPrepackaged) {
+    count = count + 1;
+  }
+  if (hasMapSelection) {
+    count = count + 1;
+  }
+
+  return howManyInQueue + count > maxInQueue;
+};
+
+const tooManyPrepackaged = ({ selectedCartItems }) => {
+  const prepackageCount = selectedCartItems.filter(
+    (item) => item?.source === 'Pre-packaged', // see utils.js getCartObjectFromPrepackaged
+  ).length;
+
+  return prepackageCount > MAX_PREPACKAGED;
 };
 
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -333,23 +359,6 @@ const CLMSCartContent = (props) => {
     ref.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const tooManySelected = () => {
-    let selectedItems = getSelectedCartItems(cartItems, cartSelection);
-    const hasPrepackaged =
-      selectedItems.filter((item) => item?.file_id).length > 0;
-    const hasMapSelection =
-      selectedItems.filter((item) => !item?.file_id).length > 0;
-    let count = 0;
-    if (hasPrepackaged) {
-      count = count + 1;
-    }
-    if (hasMapSelection) {
-      count = count + 1;
-    }
-
-    return howManyInQueue + count > maxInQueue;
-  };
-
   const selectedCartItems = getSelectedCartItems(cartItems, cartSelection);
 
   const datasetTimeseriesUids = Object.keys(datasetTimeseries?.datasets || {});
@@ -362,6 +371,14 @@ const CLMSCartContent = (props) => {
           ?.mapviewer_istimeseries ||
           item.download_show_auxiliary_calendar),
     ).length > 0;
+
+  const _tooManySelected = tooManySelected({
+    selectedCartItems,
+    howManyInQueue,
+    maxInQueue,
+  });
+
+  const _tooManyPrepackaged = tooManyPrepackaged({ selectedCartItems });
 
   return (
     <>
@@ -695,11 +712,18 @@ const CLMSCartContent = (props) => {
               items.
             </strong>
           )}
-          {tooManySelected() && (
+          {_tooManySelected && (
             <strong>
               With the selection that you have made, you will have {maxInQueue}{' '}
               or more items in the download queue. Please change your selection
               in order to request a download.
+            </strong>
+          )}
+          {_tooManyPrepackaged && (
+            <strong>
+              No more than {MAX_PREPACKAGED} prepackage downloads are allowed in
+              the same request. <br />
+              Please change your selection in order to request a download.
             </strong>
           )}
           <CclButton
@@ -707,7 +731,8 @@ const CLMSCartContent = (props) => {
             disabled={
               cartSelection.length === 0 ||
               tooManyInQueue ||
-              tooManySelected() ||
+              _tooManySelected ||
+              _tooManyPrepackaged ||
               needDateSelected
             }
           >
