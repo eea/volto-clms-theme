@@ -30,6 +30,7 @@ import CLMSTechnicalLibraryView from './components/CLMSTechnicalLibraryView/CLMS
 import CLMSProductionUpdatesView from './components/CLMSProductionUpdatesView/CLMSProductionUpdatesView';
 
 // WIDGET
+import OrderDocumentsWidget from './components/Widgets/OrderDocumentsWidget';
 import BoundingWidget from './components/Widgets/BoundingWidget';
 import ContactWidget from './components/Widgets/ContactWidget';
 import DatasetDownloadInformationWidget from './components/Widgets/DatasetDownloadInformationWidget';
@@ -98,6 +99,7 @@ const applyConfig = (config) => {
   config.widgets.type.tabs = TabsWidget;
   config.widgets.widget = {
     ...config.widgets.widget,
+    order_docs_widget: OrderDocumentsWidget,
     bounding_widget: BoundingWidget,
     layer_widget: MapLayersWidget,
     downloadable_files_widget: DownloadableFilesTableWidget,
