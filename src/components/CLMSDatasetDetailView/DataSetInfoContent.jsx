@@ -35,10 +35,10 @@ const DataSetInfoContent = (props) => {
     if (UID) {
       dispatch(
         searchContent(
-          '',
+          'en/technical-library',
           {
             portal_type: 'TechnicalLibrary',
-            path: '/',
+            path: 'en/technical-library',
             associated_datasets: UID,
             b_size: 99999,
           },
