@@ -116,12 +116,30 @@ const CclRelatedListingView = (props) => {
   }, [data, id, uid, dispatch]);
 
   React.useEffect(() => {
-    if (sLoaded) {
-      p_functions.setOriginalDataList([...searchSubrequests.items]);
-      p_functions.setDataList([...searchSubrequests.items]);
+    if (sLoaded && properties?.technical_documents_order) {
+      const orderMap = new Map(
+        properties?.technical_documents_order.items?.map((item, index) => [
+          item.id,
+          index,
+        ]) || [],
+      );
+
+      // Sort libraries based on the technical_documents_order
+      const sorted = [...libraries].sort(
+        (a, b) =>
+          (orderMap.get(a['@id']) ?? Infinity) -
+          (orderMap.get(b['@id']) ?? Infinity),
+      );
+
+      p_functions.setOriginalDataList([...sorted]);
+      p_functions.setDataList([...sorted]);
+    }
+    if (sLoaded && !properties?.technical_documents_order) {
+      p_functions.setOriginalDataList([...libraries]);
+      p_functions.setDataList([...libraries]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sLoaded]);
+  }, [sLoaded, properties.technical_documents_order, libraries]);
 
   return (
     <>
