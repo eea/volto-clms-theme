@@ -198,9 +198,7 @@ export default function Header({ pathname }) {
                   )) || (
                     <li>
                       {apiStatusCode === 401 ? (
-                        <UniversalLink href="/en/login">
-                          Register/Login
-                        </UniversalLink>
+                        <CclLoginModal />
                       ) : isLoadingUser ? (
                         <Loader active inline size="mini" />
                       ) : (
