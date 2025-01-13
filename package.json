@@ -67,7 +67,7 @@
     "validator": "13.7.0",
     "volto-cookie-banner": "2.1.0",
     "volto-dropdownmenu": "4.0.0",
-    "volto-form-block": "3.0.1"
+    "volto-form-block": "3.1.0"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.5",
