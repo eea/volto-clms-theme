@@ -13,7 +13,7 @@ const FriendlyCaptcha = (props) => {
   const [message, setMessage] = useState('');
 
   const doneCallback = (solution) => {
-    setMessage(solution);
+    // setMessage(solution);
     captchaToken.current = solution;
   };
 
