@@ -55,7 +55,7 @@ describe('OrderDocumentsWidget', () => {
           <MemoryRouter>
             <OrderDocumentsWidget
               id="testId"
-              formData={{ UID: 'someUID' }}
+              formData={{ UID: 'someUID', '@type': 'DataSet' }}
               onChange={mockOnChange}
               value={{ items: [] }}
             />
@@ -80,7 +80,7 @@ describe('OrderDocumentsWidget', () => {
               id="testId"
               formData={{ UID: 'someUID' }}
               onChange={mockOnChange}
-              value={{ items: [] }}
+              value={{ items: [], '@type': 'DataSet' }}
             />
           </MemoryRouter>
         </Provider>,
@@ -96,7 +96,7 @@ describe('OrderDocumentsWidget', () => {
         <MemoryRouter>
           <OrderDocumentsWidget
             id="testId"
-            formData={{ UID: 'someUID' }}
+            formData={{ UID: 'someUID', '@type': 'DataSet' }}
             onChange={mockOnChange}
             value={{
               items: [
@@ -151,7 +151,7 @@ describe('OrderDocumentsWidget', () => {
         <MemoryRouter>
           <OrderDocumentsWidget
             id="testId"
-            formData={{ UID: 'someUID' }}
+            formData={{ UID: 'someUID', '@type': 'DataSet' }}
             onChange={mockOnChange}
             value={{ items: [] }}
           />
@@ -190,7 +190,7 @@ describe('OrderDocumentsWidget', () => {
           <MemoryRouter>
             <OrderDocumentsWidget
               id="testId"
-              formData={{ UID: 'someUID' }}
+              formData={{ UID: 'someUID', '@type': 'DataSet' }}
               onChange={mockOnChange}
               value={{ items: [] }}
             />
@@ -205,5 +205,36 @@ describe('OrderDocumentsWidget', () => {
     expect(screen.getByText('Document 2')).toBeInTheDocument();
     expect(screen.getByText('Document 3')).toBeInTheDocument();
     expect(screen.getByText('Document 4')).toBeInTheDocument();
+  });
+
+  it('renders the widget with documents', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <MemoryRouter>
+            <OrderDocumentsWidget
+              id="testId"
+              formData={{ UID: 'someUID', '@type': 'Product' }}
+              onChange={mockOnChange}
+              value={{ items: [] }}
+            />
+          </MemoryRouter>
+        </Provider>,
+      );
+    });
+    await Promise.resolve();
+
+    expect(screen.getByText('Show')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Show'));
+
+    expect(screen.getByText('Technical Document Title')).toBeInTheDocument();
+    expect(screen.getByText('Document 1')).toBeInTheDocument();
+    expect(screen.getByText('Document 2')).toBeInTheDocument();
+    expect(screen.getByText('Document 3')).toBeInTheDocument();
+
+    expect(screen.getByText('Hide')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Hide'));
+
+    expect(screen.getByText('Technical Document Title')).toBeInTheDocument();
   });
 });
