@@ -41,7 +41,7 @@ const DocumentItem = React.memo(({ item, provided }) => (
 const OrderDocumentsWidget = (props) => {
   const { id, formData, onChange, value } = props;
   const UID = formData?.UID;
-  const contentType = formData['@type'] || undefined;
+  const contentType = formData?.['@type'] || undefined;
   const location = useLocation();
   const dispatch = useDispatch();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
