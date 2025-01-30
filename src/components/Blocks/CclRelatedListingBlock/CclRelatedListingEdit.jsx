@@ -27,7 +27,7 @@ const CclRelatedListingEdit = (props) => {
       (variation) => variation.id === data.variation,
     );
     TemplateView = theVariation?.template;
-    template_id = theVariation.templateId;
+    template_id = theVariation.templateID;
   } else {
     TemplateView = defaultVariation.template;
     template_id = defaultVariation.id;
