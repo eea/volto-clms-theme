@@ -1,7 +1,7 @@
 .order-documents-area {
   width: 100%;
   max-width: 800px;
-  margin: 16px auto;
+  margin: 16px 0;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
@@ -41,6 +41,7 @@
     background-color: #ffffff;
     transition: background-color 0.2s ease;
     cursor: grab;
+    box-shadow: none;
   }
 
   .document-item:last-child {
@@ -63,5 +64,27 @@
   .document-item[aria-grabbed='true'] {
     background-color: #f0f8ff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .document-item {
+    .ui.basic.icon.button[aria-label='Drag handle'] {
+      box-shadow: none;
+    }
+  }
+}
+
+.field-wrapper-technical_documents_order {
+  .ui.basic.button.order-docs-button {
+    display: inline-block;
+    padding: 7px 10px;
+    border: 2px solid #007eb1;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: #007eb1 !important;
+    cursor: pointer;
+    opacity: 0.8;
+    box-shadow: none;
+    max-width: 200px;
+    text-align: center;
   }
 }

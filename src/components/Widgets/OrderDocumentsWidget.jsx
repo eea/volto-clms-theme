@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,34 +41,39 @@ const DocumentItem = React.memo(({ item, provided }) => (
 const OrderDocumentsWidget = (props) => {
   const { id, formData, onChange, value } = props;
   const UID = formData?.UID;
+  const contentType = formData?.['@type'] || undefined;
   const location = useLocation();
   const dispatch = useDispatch();
   const searchSubrequests = useSelector((state) => state.search.subrequests);
-  const [documentsList, setDocumentsList] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [documentsList, setDocumentsList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const fetchDocuments = useCallback(() => {
-    if (UID) {
-      const sort_on = ['documentation_sorting', 'sortable_title'];
-      const sort_order = ['ascending', 'ascending'];
+    const sort_on = ['documentation_sorting', 'sortable_title'];
+    const sort_order = ['ascending', 'ascending'];
 
+    if (UID) {
       setIsLoading(true);
+      const searchParams = {
+        portal_type: 'TechnicalLibrary',
+        path: 'en/technical-library',
+        sort_on: sort_on,
+        sort_order: sort_order,
+        b_size: 99999,
+      };
+
+      if (contentType === 'DataSet') {
+        searchParams.associated_datasets = UID;
+      } else if (contentType === 'Product') {
+        searchParams.associated_products = UID;
+      }
+
       dispatch(
-        searchContent(
-          'en/technical-library',
-          {
-            portal_type: 'TechnicalLibrary',
-            path: 'en/technical-library',
-            associated_datasets: UID,
-            sort_on: sort_on,
-            sort_order: sort_order,
-            b_size: 99999,
-          },
-          id,
-        ),
+        searchContent('en/technical-library', searchParams, id),
       ).finally(() => setIsLoading(false));
     }
-  }, [id, UID, dispatch]);
+  }, [id, UID, contentType, dispatch]);
 
   const handleDragEnd = useCallback(
     (result) => {
@@ -86,8 +91,8 @@ const OrderDocumentsWidget = (props) => {
     [documentsList, onChange, id],
   );
 
-  const memoizedList = useMemo(
-    () => (
+  const memoizedList = useMemo(() => {
+    return (
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="documents">
           {(provided) => (
@@ -110,9 +115,8 @@ const OrderDocumentsWidget = (props) => {
           )}
         </Droppable>
       </DragDropContext>
-    ),
-    [documentsList, handleDragEnd],
-  );
+    );
+  }, [documentsList, handleDragEnd]);
 
   useEffect(() => {
     fetchDocuments();
@@ -130,9 +134,9 @@ const OrderDocumentsWidget = (props) => {
         const newItems = receivedDocumentsList.filter(
           (item) => !value.items.some((item2) => item2.id === item.id),
         );
-        setDocumentsList([...value.items, ...newItems]);
+        setDocumentsList([...value?.items, ...newItems]);
       } else {
-        setDocumentsList(value.items);
+        setDocumentsList(value?.items);
       }
     }
   }, [searchSubrequests, id, value]);
@@ -143,6 +147,18 @@ const OrderDocumentsWidget = (props) => {
       draggable={true}
       className="drag-drop-list-widget"
     >
+      {contentType === 'Product' && (
+        <Button
+          basic
+          size="small"
+          type="button"
+          onClick={() => setIsVisible((prev) => !prev)}
+          aria-label="Toggle document list visibility"
+          className="order-docs-button"
+        >
+          {isVisible ? 'Hide' : 'Show'}
+        </Button>
+      )}
       <div className="order-documents-area">
         <div className="documents-list-header">
           <div>Technical Document Title</div>
@@ -150,7 +166,7 @@ const OrderDocumentsWidget = (props) => {
         {isLoading ? (
           <div className="loading-documents">Loading documents...</div>
         ) : (
-          memoizedList
+          (contentType === 'DataSet' || isVisible) && memoizedList
         )}
       </div>
     </FormFieldWrapper>
