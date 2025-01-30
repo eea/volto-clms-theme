@@ -73,7 +73,7 @@ const OrderDocumentsWidget = (props) => {
         searchContent('en/technical-library', searchParams, id),
       ).finally(() => setIsLoading(false));
     }
-  }, [id, UID, dispatch]);
+  }, [id, UID, contentType, dispatch]);
 
   const handleDragEnd = useCallback(
     (result) => {
