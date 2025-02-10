@@ -79,7 +79,7 @@ export const TimeseriesPicker = (props) => {
             <DatePicker
               id="start_date"
               inline
-              selectsRange
+              selectsRange={download_limit_temporal_extent < 360 ? true : false}
               className="datepicker"
               minDate={new Date(start)}
               maxDate={new Date(end)}
@@ -87,14 +87,38 @@ export const TimeseriesPicker = (props) => {
               endDate={item?.TemporalFilter?.EndDate}
               // selectsStart
               onChange={(e) => {
-                item.TemporalFilter = {
-                  StartDate: e[0],
-                  EndDate: e[1],
-                };
-                setStartValue(e[0]);
-                setEndValue(e[1]);
+                if (download_limit_temporal_extent < 360) {
+                  if (download_limit_temporal_extent > 180 && e[1]) {
+                    e[1].setMonth(e[1].getMonth() + 1);
+                    e[1].setDate(e[1].getDate() - 1);
+                  }
+                  item.TemporalFilter = {
+                    StartDate: e[0],
+                    EndDate: e[1],
+                  };
+                  setStartValue(e[0]);
+                  setEndValue(e[1]);
+                } else {
+                  let e2 = new Date(e);
+                  e2.setDate(e2.getDate() + 364);
+                  item.TemporalFilter = {
+                    StartDate: e,
+                    EndDate: e2,
+                  };
+                  setStartValue(e);
+                  setEndValue(e2);
+                }
               }}
               dateFormat="dd.MM.yyyy"
+              showMonthYearPicker={
+                download_limit_temporal_extent > 180 &&
+                download_limit_temporal_extent < 360
+                  ? true
+                  : false
+              }
+              showYearPicker={
+                download_limit_temporal_extent >= 360 ? true : false
+              }
               calendarStartDay={1}
               popperPlacement="top"
               dropdownMode="select"
@@ -114,21 +138,52 @@ export const TimeseriesPicker = (props) => {
                 </span>
               )}
               <br />
-              Click the start and end dates, and then apply.
+              {download_limit_temporal_extent < 180 && (
+                <span>Click the start and end dates, and then apply.</span>
+              )}
+              {download_limit_temporal_extent > 180 &&
+                download_limit_temporal_extent < 360 && (
+                  <span>Click the start and end months, and then apply.</span>
+                )}
+              {download_limit_temporal_extent > 360 && (
+                <span>Click the year, and then apply.</span>
+              )}
               {(!startValue ||
                 !endValue ||
                 !isValidDateRange({
                   start: startValue,
                   end: endValue,
                   limit: download_limit_temporal_extent,
-                })) && (
-                <span>
-                  {' '}
-                  Allowed time range of {
-                    download_limit_temporal_extent
-                  } days.{' '}
-                </span>
-              )}
+                })) &&
+                download_limit_temporal_extent < 180 && (
+                  <span>
+                    {' '}
+                    Allowed time range of {
+                      download_limit_temporal_extent
+                    } days.{' '}
+                  </span>
+                )}
+              {(!startValue ||
+                !endValue ||
+                !isValidDateRange({
+                  start: startValue,
+                  end: endValue,
+                  limit: download_limit_temporal_extent,
+                })) &&
+                download_limit_temporal_extent > 180 &&
+                download_limit_temporal_extent < 360 && (
+                  <span> Allowed time range of 6 months. </span>
+                )}
+              {(!startValue ||
+                !endValue ||
+                !isValidDateRange({
+                  start: startValue,
+                  end: endValue,
+                  limit: download_limit_temporal_extent,
+                })) &&
+                download_limit_temporal_extent > 360 && (
+                  <span> Allowed time range of 1 year. </span>
+                )}
               <CclButton
                 isButton={true}
                 mode={'filled'}
