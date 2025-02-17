@@ -438,3 +438,45 @@
 .card-work-line h2 {
   margin-top: 0 !important;
 }
+
+.card-product-family {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid transparent;
+
+  .card-icon {
+    width: auto;
+    color: black;
+    font-size: 0.7rem;
+    font-weight: bold;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: solid 1px fade(@clmsGreen, 20%);
+  }
+}
+
+.card-product-family:hover {
+  background-color: fade(@clmsGreen, 5%);
+  border-color: @clmsGreen;
+
+  .card-product-familiy-title {
+    color: @clmsGreen;
+  }
+}
+
+.card-product-familiy-title {
+  margin-bottom: 0.5rem;
+  color: #404040;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.card-product-familiy-description {
+  color: #404040;
+  font-size: 14px;
+}
