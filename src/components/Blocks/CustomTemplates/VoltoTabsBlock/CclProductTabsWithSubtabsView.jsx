@@ -4,8 +4,9 @@ import cx from 'classnames';
 import { RenderBlocks } from '@plone/volto/components';
 import { slugify } from '../../utils';
 import './fontawesome';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { compose } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
@@ -194,9 +195,46 @@ const TabsComponent = ({
 };
 
 const CclProductTabsWithSubtabsView = (props) => {
+  const locale = useSelector((state) => state.intl.locale);
+  const ExtraComponent = () => (
+    <div className="left-menu-detail">
+      <div className="menu-detail-image">
+        {props.metadata?.image ? (
+          <img
+            src={props.metadata?.image?.scales?.preview?.download}
+            alt={props.metadata?.title || 'Product map preview'}
+          />
+        ) : (
+          <img
+            src="https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg"
+            alt="Product map preview"
+            style={{ opacity: 0.5 }}
+          />
+        )}
+      </div>
+      {props.metadata?.show_in_mapviewer_link && (
+        <>
+          <div className="menu-detail-button">
+            <a
+              href={
+                '/' + locale + '/map-viewer?product=' + props.metadata['UID']
+              }
+              className="ccl-button ccl-button--default"
+            >
+              <FormattedMessage
+                id="View in the data viewer"
+                defaultMessage="View in the data viewer"
+              />
+            </a>
+          </div>
+        </>
+      )}
+    </div>
+  );
+
   return (
     <div className="ccl-container ccl-container-flex tab-container">
-      <TabsComponent {...props} />
+      <TabsComponent {...props} ExtraComponent={ExtraComponent} />
     </div>
   );
 };
