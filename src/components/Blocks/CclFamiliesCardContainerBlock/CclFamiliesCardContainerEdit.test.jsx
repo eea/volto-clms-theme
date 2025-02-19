@@ -29,7 +29,18 @@ jest.mock('../utils', () => ({
 jest.mock('./FamilyCard', () => {
   return function MockFamilyCard({ onClickImage }) {
     return (
-      <div data-testid="family-card" onClick={onClickImage}>
+      <div
+        data-testid="family-card"
+        onClick={onClickImage}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onClickImage(e);
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Family Card"
+      >
         Family Card
       </div>
     );

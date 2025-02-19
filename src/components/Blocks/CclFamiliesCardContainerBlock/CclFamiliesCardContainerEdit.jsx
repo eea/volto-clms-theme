@@ -6,7 +6,7 @@ import { emptyCard, getPanels } from '../utils';
 import FamilyCard from './FamilyCard';
 
 const CclFamiliesListingEdit = (props) => {
-  const { block, data, onChangeBlock, selected, setSidebarTab, intl } = props;
+  const { block, data, onChangeBlock, selected, setSidebarTab } = props;
   const [selectedCardBlock, setSelectedCardBlock] = useState(-1);
 
   let schema = CardContainerSchema();
