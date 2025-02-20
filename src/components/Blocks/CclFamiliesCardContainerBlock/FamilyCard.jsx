@@ -39,8 +39,22 @@ const FamilyCard = (props) => {
       href={hasLink ? url : null}
       to={hasLink ? url : null}
       className={'card-product-family'}
-      onClick={() => onClickImage()}
-      onKeyDown={() => onClickImage()}
+      onClick={() => {
+        onClickImage();
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }}
+      onKeyDown={() => {
+        onClickImage();
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }}
     >
       <div className="card-text">
         <div className="card-product-familiy-title">{card?.title}</div>
