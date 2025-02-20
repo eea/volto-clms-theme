@@ -339,7 +339,18 @@ class Toolbar extends Component {
     });
     const { expanded } = this.state;
 
-    if (this.props.roles && this.props.roles?.includes('Manager')) {
+    if (
+      this.props.roles &&
+      this.props.roles.some((role) =>
+        [
+          'Manager',
+          'Site Administrator',
+          'Editor',
+          'Reviewer',
+          'Contributor',
+        ].includes(role),
+      )
+    ) {
       return (
         this.props.token && (
           <>
