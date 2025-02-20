@@ -144,19 +144,10 @@ describe('CclProductTabsWithSubtabsView', () => {
     expect(screen.queryByText('Subtab 1')).not.toBeInTheDocument();
   });
 
-  it('renders ExtraComponent when provided', () => {
-    const ExtraComponent = () => (
-      <div data-testid="extra-component">Extra Content</div>
-    );
+  it('renders ExtraComponent', () => {
+    renderWithRouter(<CclProductTabsWithSubtabsView {...defaultProps} />);
 
-    renderWithRouter(
-      <CclProductTabsWithSubtabsView
-        {...defaultProps}
-        ExtraComponent={ExtraComponent}
-      />,
-    );
-
-    expect(screen.getByTestId('extra-component')).toBeInTheDocument();
+    expect(screen.getByAltText('Product map preview')).toBeInTheDocument();
   });
 
   it('handles empty tabsList', () => {
