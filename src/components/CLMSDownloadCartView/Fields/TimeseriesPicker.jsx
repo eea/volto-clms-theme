@@ -27,12 +27,13 @@ export const TimeseriesPicker = (props) => {
       : null,
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [datesApplied, setDatesApplied] = useState(false);
 
   const isValidDateRange = ({ start, end, limit }) => {
     /* Calculate if the difference in days is smaller than the allowed limit */
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const diffDays = Math.round(Math.abs((start - end) / oneDay));
-    return diffDays < limit;
+    return diffDays <= limit;
   };
   const dates_array = data_arrays?.map((e) => new Date(e));
   return (
@@ -61,7 +62,7 @@ export const TimeseriesPicker = (props) => {
               <Icon name={calendarSVG} size={25} />
               <br />
               <span>
-                {item.TemporalFilter
+                {item.TemporalFilter && datesApplied
                   ? `${cclDateFormat(
                       item.TemporalFilter.StartDate,
                     )}-${cclDateFormat(item.TemporalFilter.EndDate)}`
@@ -202,6 +203,7 @@ export const TimeseriesPicker = (props) => {
                     StartDate: startValue,
                     EndDate: endValue,
                   });
+                  setDatesApplied(true);
                   setIsOpen(false);
                 }}
               >
