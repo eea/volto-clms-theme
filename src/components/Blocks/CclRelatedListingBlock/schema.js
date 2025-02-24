@@ -15,7 +15,7 @@ const Schema = (props) => {
       {
         id: 'default',
         title: 'Default',
-        fields: ['content_type', 'variation'],
+        fields: ['content_type', 'variation', 'item_batch_size'],
       },
     ],
     properties: {
@@ -26,6 +26,13 @@ const Schema = (props) => {
       variation: {
         title: 'Variation',
         choices: [...variations],
+      },
+      item_batch_size: {
+        title: 'Item batch size',
+        type: 'number',
+        minimum: 0,
+        maximum: 10000,
+        default: 20,
       },
     },
     required: [],
