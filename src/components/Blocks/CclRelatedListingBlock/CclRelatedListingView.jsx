@@ -22,9 +22,11 @@ const CclRelatedListingView = (props) => {
     directRelation = false,
     searchParamsExecution = () => {},
   } = props;
+
+  const items_per_page = data.item_batch_size || 20;
   const use_pagination = useFilteredPagination(
     [],
-    10,
+    items_per_page,
     id,
     searchParamsExecution,
   );
