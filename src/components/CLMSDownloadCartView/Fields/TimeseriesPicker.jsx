@@ -109,6 +109,7 @@ export const TimeseriesPicker = (props) => {
                   setStartValue(e);
                   setEndValue(e2);
                 }
+                setDatesApplied(false);
               }}
               dateFormat="dd.MM.yyyy"
               showMonthYearPicker={
