@@ -41,10 +41,12 @@ const CclFAQBlockView = (props) => {
   const [activeIndex, setActiveIndex] = useState([]);
 
   const dispatch = useDispatch();
+
   const contextNavigationItems = useSelector(
     (state) =>
       state.contextNavigation?.[cn_key]?.data?.items ||
-      content['@components']?.['contextnavigation']?.items,
+      content?.['@components']?.['contextnavigation']?.items ||
+      [],
   );
 
   const handleClick = ({ index }) => {
