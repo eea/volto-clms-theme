@@ -1,11 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+
+const scrollToFirstTabContent = () => {
+  const firstTabContent = document.querySelector('.tab-content');
+  if (firstTabContent) {
+    firstTabContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
 
 function CclTab(props) {
   let {
@@ -22,9 +30,15 @@ function CclTab(props) {
   } = props;
   const token = useSelector((state) => state.userSession?.token);
   function onTabClick(e) {
+    scrollToFirstTabContent();
     onClick(tabId);
   }
   const [redirecting, setRedirecting] = React.useState(false);
+
+  useEffect(() => {
+    scrollToFirstTabContent();
+  }, [activeTab]);
+
   return (
     <div
       className={cx('card ' + className, activeTab === tabId ? 'active ' : '')}
