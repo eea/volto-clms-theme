@@ -27,7 +27,6 @@ export const TimeseriesPicker = (props) => {
       : null,
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [datesApplied, setDatesApplied] = useState(false);
 
   const isValidDateRange = ({ start, end, limit }) => {
     /* Calculate if the difference in days is smaller than the allowed limit */
@@ -62,7 +61,7 @@ export const TimeseriesPicker = (props) => {
               <Icon name={calendarSVG} size={25} />
               <br />
               <span>
-                {item.TemporalFilter && datesApplied
+                {item.TemporalFilter
                   ? `${cclDateFormat(
                       item.TemporalFilter.StartDate,
                     )}-${cclDateFormat(item.TemporalFilter.EndDate)}`
@@ -84,8 +83,8 @@ export const TimeseriesPicker = (props) => {
               className="datepicker"
               minDate={new Date(start)}
               maxDate={new Date(end)}
-              startDate={item?.TemporalFilter?.StartDate}
-              endDate={item?.TemporalFilter?.EndDate}
+              startDate={startValue}
+              endDate={endValue}
               // selectsStart
               onChange={(e) => {
                 if (download_limit_temporal_extent < 360) {
@@ -93,23 +92,15 @@ export const TimeseriesPicker = (props) => {
                     e[1].setMonth(e[1].getMonth() + 1);
                     e[1].setDate(e[1].getDate() - 1);
                   }
-                  item.TemporalFilter = {
-                    StartDate: e[0],
-                    EndDate: e[1],
-                  };
                   setStartValue(e[0]);
                   setEndValue(e[1]);
                 } else {
                   let e2 = new Date(e);
                   e2.setDate(e2.getDate() + 364);
-                  item.TemporalFilter = {
-                    StartDate: e,
-                    EndDate: e2,
-                  };
                   setStartValue(e);
                   setEndValue(e2);
                 }
-                setDatesApplied(false);
+                item.TemporalFilter = null;
               }}
               dateFormat="dd.MM.yyyy"
               showMonthYearPicker={
@@ -200,11 +191,14 @@ export const TimeseriesPicker = (props) => {
                   })
                 }
                 onClick={() => {
+                  item.TemporalFilter = {
+                    StartDate: startValue,
+                    EndDate: endValue,
+                  };
                   setTimeseriesValue(item.unique_id, {
                     StartDate: startValue,
                     EndDate: endValue,
                   });
-                  setDatesApplied(true);
                   setIsOpen(false);
                 }}
               >
