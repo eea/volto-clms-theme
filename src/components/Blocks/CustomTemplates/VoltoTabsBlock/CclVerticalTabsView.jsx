@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink, Route } from 'react-router-dom';
 import { compose } from 'redux';
+import { useEffect } from 'react';
 
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
@@ -14,7 +15,16 @@ import './fontawesome';
 
 import cx from 'classnames';
 
+const scrollToContentSection = () => {
+  const contentSection = document.querySelector('.right-content');
+  if (contentSection) {
+    contentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 const handleClick = (e, tab, activeTab, setActiveTab, location, tabHash) => {
+  scrollToContentSection();
+
   if (activeTab !== tab) {
     location.hash = `#${tabHash}`;
     setActiveTab(tab);
@@ -47,6 +57,11 @@ const TabsComponent = (props) => {
     document.querySelector('#loader').style.display = 'block';
   }
   const location = useLocation();
+
+  useEffect(() => {
+    scrollToContentSection();
+  }, [activeTab]);
+
   return (
     <div className="left-content cont-w-25">
       {<ExtraComponent />}
