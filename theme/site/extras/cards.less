@@ -480,3 +480,56 @@
   color: #404040;
   font-size: 14px;
 }
+
+.card-cardWithRoundImage {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 1rem 0;
+
+  .card-round-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 1rem;
+    border-radius: 50%;
+
+    .ui.image.edit-image-container {
+      width: 100px;
+    }
+
+    .ui.image.edit-image-container img,
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .card-text {
+    width: 100%;
+  }
+
+  .card-title {
+    text-align: left;
+    margin-bottom: 1rem;
+    color: @clmsGreen;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .card-description {
+    line-height: 1.5rem;
+  }
+}
+
+.block-editor-cardContainer .cardWithRoundImage.block {
+  .card-image {
+    width: 100px;
+
+    .ui.image.edit-image-container {
+      height: 100px;
+    }
+  }
+}

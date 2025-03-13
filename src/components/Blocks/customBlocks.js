@@ -16,8 +16,11 @@ import {
   CclTabsView,
   CclVerticalFaqTabsView,
   CclVerticalTabsView,
+  CclVerticalTabsProductOverviewView,
+  CclProductToggleView,
   FixTemplates,
   RoutingHOC,
+  tabsSchemaWithIcon,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTabsBlock';
 import {
   CclListingCards,
@@ -26,6 +29,10 @@ import {
   NoResultsComponent,
   noResultsSchema,
 } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoListingBlock';
+import {
+  CclProductCardColumnView,
+  CclProductCardColumnEdit,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoColumnsBlock';
 import {
   DefaultEdit,
   TabsEdit,
@@ -55,6 +62,12 @@ import CclRelatedListingEdit from '@eeacms/volto-clms-theme/components/Blocks/Cc
 import CclRelatedListingView from '@eeacms/volto-clms-theme/components/Blocks/CclRelatedListingBlock/CclRelatedListingView';
 import CclFamiliesCardContainerView from '@eeacms/volto-clms-theme/components/Blocks/CclFamiliesCardContainerBlock/CclFamiliesCardContainerView';
 import CclFamiliesCardContainerEdit from '@eeacms/volto-clms-theme/components/Blocks/CclFamiliesCardContainerBlock/CclFamiliesCardContainerEdit';
+import CclProductLinksView from '@eeacms/volto-clms-theme/components/Blocks/CclProductLinksBlock/CclProductLinksView';
+import CclProductLinksEdit from '@eeacms/volto-clms-theme/components/Blocks/CclProductLinksBlock/CclProductLinksEdit';
+import {
+  TableBlockView,
+  TableBlockEdit,
+} from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoTableBlock';
 import CclUseCaseListEdit from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListEdit';
 import CclUseCaseListView from '@eeacms/volto-clms-theme/components/Blocks/CclUseCaseList/CclUseCaseListView';
 import CclWhiteBgView from '@eeacms/volto-clms-theme/components/Blocks/CclHomeBgImageBlock/CclWhiteBgView';
@@ -180,6 +193,12 @@ const availableVariations = [
     'Card with background image',
     'cardWithBgImage',
   ),
+  listingVariation(
+    'cardWithRoundImage',
+    false,
+    'Image card with round corners',
+    'cardWithRoundImage',
+  ),
 ];
 
 const customBlocks = (config) => ({
@@ -235,6 +254,18 @@ const customBlocks = (config) => ({
         title: 'Horizontal Tabs',
         edit: DefaultEdit,
         view: CclTabsView,
+        schema: defaultSchema,
+      },
+      CCLTabsProductViewToggle: {
+        title: 'TabsProductViewToggle',
+        edit: DefaultEdit,
+        view: CclProductToggleView,
+        schema: tabsSchemaWithIcon,
+      },
+      CCLHorizontalTabsProductOverview: {
+        title: 'Horizontal Tabs (Product Overview)',
+        edit: DefaultEdit,
+        view: RoutingHOC(CclVerticalTabsProductOverviewView),
         schema: defaultSchema,
       },
       CCLVerticalTabs: {
@@ -342,6 +373,54 @@ const customBlocks = (config) => ({
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  productLinksContainer: {
+    id: 'productLinksContainer', // The name (id) of the block
+    title: 'Product links container', // The display name of the block
+    icon: containerSVG, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclProductLinksView, // The view mode component
+    edit: CclProductLinksEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  productCardColumn: {
+    id: 'productCardColumn', // The name (id) of the block
+    title: 'Product card column', // The display name of the block
+    icon: containerSVG, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: CclProductCardColumnView, // The view mode component
+    edit: CclProductCardColumnEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: true, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  clmsTable: {
+    id: 'clmsTable', // The name (id) of the block
+    title: 'CLMS Table', // The display name of the block
+    icon: containerSVG, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: TableBlockView, // The view mode component
+    edit: TableBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: true, // Set this to true if the block manages its own focus
     sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
     security: {
       addPermission: [], // Future proof (not implemented yet) add user permission role(s)
