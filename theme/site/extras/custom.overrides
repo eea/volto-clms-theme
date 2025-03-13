@@ -24,3 +24,6 @@
 @import 'downloadable-files-table-widget';
 @import 'video';
 @import 'order-documents-widget';
+@import 'column-product-card';
+@import 'product-tab-toggle';
+@import 'clms-table';

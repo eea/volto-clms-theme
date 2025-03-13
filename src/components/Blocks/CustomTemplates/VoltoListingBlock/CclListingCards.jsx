@@ -40,7 +40,9 @@ const CclListingCards = (props) => {
   let containerClass = '';
   if (['news', 'event'].includes(variation)) {
     containerClass = 'ccl-container';
-  } else if (!['line', 'doc', 'globalSearch'].includes(variation)) {
+  } else if (
+    !['line', 'doc', 'globalSearch', 'cardWithRoundImage'].includes(variation)
+  ) {
     containerClass = 'card-container';
   }
   const hasTL = items.find(
