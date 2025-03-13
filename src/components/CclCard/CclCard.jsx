@@ -201,6 +201,7 @@ function CclCard(props) {
     'downloadFile',
     'fileWithoutDates',
     'cardWithBgImage',
+    'cardWithRoundImage',
   ];
   const wrapperClass =
     'card-' +
@@ -408,6 +409,26 @@ function CclCard(props) {
                     {card?.buttonTitle}
                   </CclButton>
                 )}
+              </>
+            )}
+            {type === 'cardWithRoundImage' && (
+              <>
+                <div className="card-image card-round-image">
+                  {isCustomCard && CclImageEditor ? (
+                    CclImageEditor
+                  ) : (
+                    <CardImage
+                      isCustomCard={isCustomCard}
+                      card={card}
+                      size={'preview'}
+                    />
+                  )}
+                </div>
+                <div className="card-text">
+                  <div className="card-title">{card?.title}</div>
+                  <div className="card-description">{card?.description}</div>
+                  {children}
+                </div>
               </>
             )}
           </>

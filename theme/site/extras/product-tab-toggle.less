@@ -1,0 +1,50 @@
+.CCLTabsProductViewToggle .product-tab-view {
+  .container {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #c4ce79;
+    color: @clmsGreen;
+    cursor: pointer;
+    transition: all 0.5s ease;
+
+    .injected-svg {
+      display: flex;
+      align-items: center;
+      margin-right: 0.5rem;
+    }
+
+    .product-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #273b4b;
+    }
+  }
+  .product-description {
+    font-size: 16px;
+    margin-top: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+.button-group {
+  display: flex;
+  margin-left: auto;
+}
+
+.product-tab-button {
+  padding: 0.5rem 0.6rem !important;
+  border: 1px solid @clmsGreen;
+  background-color: transparent;
+  color: @clmsGreen;
+  cursor: pointer;
+
+  > svg {
+    margin-left: 0.5rem;
+  }
+}
+
+.product-tab-button.tab-selected {
+  background-color: @clmsGreen;
+  color: white;
+}
