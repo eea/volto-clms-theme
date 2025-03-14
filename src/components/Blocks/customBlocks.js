@@ -170,6 +170,12 @@ const availableVariations = [
     '3 Column Cards list',
     'threeColumns',
   ),
+  listingVariation(
+    'CclCardsthreeColumnsDates',
+    false,
+    '3 Column Cards list (with dates)',
+    'threeColumnsDates',
+  ),
   listingVariation('CclCardsnews', false, 'News Line list', 'news'),
   listingVariation('CclCardsevent', false, 'Events Line list', 'event'),
   listingVariation(
