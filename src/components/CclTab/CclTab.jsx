@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import CclLoginModal from '@eeacms/volto-clms-theme/components/CclLoginModal/CclLoginModal';
@@ -29,6 +29,8 @@ function CclTab(props) {
     currentLocation = '',
   } = props;
   const token = useSelector((state) => state.userSession?.token);
+  const location = useLocation();
+
   function onTabClick(e) {
     scrollToFirstTabContent();
     onClick(tabId);
@@ -36,8 +38,14 @@ function CclTab(props) {
   const [redirecting, setRedirecting] = React.useState(false);
 
   useEffect(() => {
-    scrollToFirstTabContent();
-  }, [activeTab]);
+    const urlParams = new URLSearchParams(location.search);
+    const hasHash = location.hash.length > 1;
+    const hasQueryTab = urlParams.has('tab');
+
+    if (hasHash || hasQueryTab) {
+      scrollToFirstTabContent();
+    }
+  }, [activeTab, location.hash.length, location.search]);
 
   return (
     <div

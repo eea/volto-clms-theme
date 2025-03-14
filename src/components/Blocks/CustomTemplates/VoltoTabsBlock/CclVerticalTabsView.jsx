@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, useLocation } from 'react-router-dom';
 import { compose } from 'redux';
 import { useEffect } from 'react';
 
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { useLocation } from 'react-router-dom';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 import { slugify } from '../../utils';
@@ -59,8 +58,14 @@ const TabsComponent = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-    scrollToContentSection();
-  }, [activeTab]);
+    const urlParams = new URLSearchParams(location.search);
+    const hasHash = location.hash.length > 1;
+    const hasQueryTab = urlParams.has('tab');
+
+    if (hasHash || hasQueryTab) {
+      scrollToContentSection();
+    }
+  }, [activeTab, location.hash.length, location.search]);
 
   return (
     <div className="left-content cont-w-25">

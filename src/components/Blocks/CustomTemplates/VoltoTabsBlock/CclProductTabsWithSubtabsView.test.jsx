@@ -44,6 +44,7 @@ describe('CclProductTabsWithSubtabsView', () => {
   };
 
   beforeEach(() => {
+    Element.prototype.scrollIntoView = jest.fn();
     history.push('/');
   });
 

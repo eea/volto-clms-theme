@@ -10,6 +10,13 @@ import { FormattedMessage } from 'react-intl';
 
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
 
+const scrollToContentSection = () => {
+  const contentSection = document.querySelector('.right-content');
+  if (contentSection) {
+    contentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 const TabsComponent = ({
   tabsList = [],
   tabs = {},
@@ -113,6 +120,16 @@ const TabsComponent = ({
       }
     }
   }, [activeTab, expandedTab, groupedTabs]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const hasHash = location.hash.length > 1;
+    const hasQueryTab = urlParams.has('tab');
+
+    if (hasHash || hasQueryTab) {
+      scrollToContentSection();
+    }
+  }, [activeTab, location.hash.length, location.search]);
 
   return (
     <>
