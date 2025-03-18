@@ -104,13 +104,13 @@ describe('CclProductTabsWithSubtabsView', () => {
 
     fireEvent.click(screen.getByText('Second Tab'));
 
-    expect(history.location.hash).toBe('#tab=second_tab');
+    expect(history.location.search).toBe('?tab=second_tab');
   });
 
   it('selects correct tab based on URL hash', () => {
     act(() => {
       renderWithRouter(<CclProductTabsWithSubtabsView {...defaultProps} />, {
-        route: '/#tab=second_tab',
+        route: '/?tab=second_tab',
       });
     });
 
