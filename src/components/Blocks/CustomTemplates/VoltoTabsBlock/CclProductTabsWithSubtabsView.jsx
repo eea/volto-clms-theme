@@ -48,9 +48,9 @@ const TabsComponent = ({
   }, [tabsList, tabs]);
 
   // Helper: update URL and activeTab.
-  const updateTab = (tabId, tabHash) => {
+  const updateTab = (tabId, tabQuery) => {
     setActiveTab(tabId);
-    history.push(tabHash);
+    history.push({ search: tabQuery });
   };
 
   // When clicking a main tab:
@@ -91,15 +91,17 @@ const TabsComponent = ({
     updateTab(tabId, tabHash);
   };
 
-  const getTabHash = (title) => `#tab=${slugify(title)}`;
+  const getTabHash = (title) => `?tab=${slugify(title)}`;
 
   // On mount or when location.hash changes, update activeTab.
   useEffect(() => {
-    const hash = location.hash;
-    if (hash) {
+    const urlParams = new URLSearchParams(location.search);
+    const tabQuery = urlParams.get('tab');
+
+    if (tabQuery) {
       const foundTab = tabsList.find((tabId) => {
         const title = tabs[tabId]?.title || '';
-        return hash === getTabHash(title);
+        return slugify(title) === tabQuery;
       });
       if (foundTab) {
         setActiveTab(foundTab);
@@ -110,7 +112,7 @@ const TabsComponent = ({
     if (tabsList.length > 0) {
       setActiveTab(tabsList[0]);
     }
-  }, [location.hash, tabsList, tabs]);
+  }, [location.search, tabsList, tabs]);
 
   useEffect(() => {
     if (activeTab) {
