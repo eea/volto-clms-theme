@@ -1,48 +1,4 @@
 import externalSVG from '@plone/volto/icons/link.svg';
-import internalSVG from '@plone/volto/icons/nav.svg';
-import emailSVG from '@plone/volto/icons/email.svg';
-
-export const EmailLinkSchema = {
-  title: 'Email address',
-  fieldsets: [
-    {
-      id: 'email',
-      title: 'Email',
-      fields: ['email_address', 'email_subject'],
-    },
-  ],
-  properties: {
-    email_address: {
-      title: 'Email address',
-    },
-    email_subject: {
-      title: 'Email subject',
-      description: 'Optional',
-    },
-  },
-  required: [],
-};
-
-export const InternalLinkSchema = {
-  title: 'Internal link',
-  fieldsets: [
-    {
-      id: 'internal',
-      title: 'Internal',
-      fields: ['internal_link'],
-    },
-  ],
-  properties: {
-    internal_link: {
-      widget: 'object_browser',
-      title: 'Internal link',
-      multiple: false,
-      mode: 'link',
-      selectedItemAttrs: [],
-    },
-  },
-  required: [],
-};
 
 export const ExternalLinkSchema = {
   title: 'External link',
@@ -92,16 +48,6 @@ export const cclButtonSchema = (extras) => ({
           id: 'external',
           icon: externalSVG,
           schema: ExternalLinkSchema,
-        },
-        {
-          id: 'internal',
-          icon: internalSVG,
-          schema: InternalLinkSchema,
-        },
-        {
-          id: 'email',
-          icon: emailSVG,
-          schema: EmailLinkSchema,
         },
       ],
     },
