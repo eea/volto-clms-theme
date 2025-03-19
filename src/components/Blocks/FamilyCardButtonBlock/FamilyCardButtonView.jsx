@@ -4,7 +4,6 @@ import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 
 const FamilyCardButtonView = (props) => {
   const { data } = props;
-  // const flattern_url = flattenToAppURL(data?.href?.[0]?.['@id']);
   const flattern_url = flattenToAppURL(data?.href?.external?.external_link);
   function buttonURL(bData, bFlattern_url) {
     return bData.download && bData?.href?.[0]?.['@type'] === 'File'
