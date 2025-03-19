@@ -425,7 +425,9 @@ function CclCard(props) {
                   )}
                 </div>
                 <div className="card-text">
-                  <div className="card-title">{card?.title}</div>
+                  <div className="card-title">
+                    <CardLink url={url}>{card?.title}</CardLink>
+                  </div>
                   <div className="card-description">{card?.description}</div>
                   {children}
                 </div>

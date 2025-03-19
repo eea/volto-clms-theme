@@ -12,17 +12,20 @@ const ProductLink = (props) => {
   } = props;
 
   const [hasLink, setHasLink] = useState(false);
-  const href = card.url?.[0]?.['@id'] || card.url;
+  const href = card.url?.[0]?.['@id'] || card.url?.external?.external_link;
 
   useEffect(() => {
     if (isEditMode) {
       setHasLink(false);
     } else {
-      if (card.url) {
-        if (card.url && card.url.length > 0) {
+      if (card.url?.external?.external_link) {
+        if (
+          card.url?.external?.external_link &&
+          card.url?.external?.external_link.length > 0
+        ) {
           setHasLink(true);
         }
-        if (card.url.length === 0) {
+        if (card.url?.external?.external_link.length === 0) {
           setHasLink(false);
         }
       }
