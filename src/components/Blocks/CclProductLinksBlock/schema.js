@@ -36,9 +36,7 @@ export const CardBlockSchema = () => {
       },
       url: {
         title: 'URL',
-        widget: 'object_browser',
-        mode: 'link',
-        allowExternals: true,
+        type: 'string',
       },
     },
     required: [],

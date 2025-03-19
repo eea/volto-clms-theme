@@ -44,6 +44,8 @@ import { ARCGIS_BLOCK } from '@eeacms/volto-arcgis-block/constants';
 import BlockSettingsSchema from '@plone/volto/components/manage/Blocks/Block/Schema';
 import CclButtonBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockEdit';
 import CclButtonBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclButtonBlock/CclButtonBlockView';
+import FamilyCardButtonView from '@eeacms/volto-clms-theme/components/Blocks/FamilyCardButtonBlock/FamilyCardButtonView';
+import FamilyCardButtonEdit from '@eeacms/volto-clms-theme/components/Blocks/FamilyCardButtonBlock/FamilyCardButtonEdit';
 import CclCardContainerBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockEdit';
 import CclCardContainerBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclCardContainerBlock/CclCardContainerBlockView';
 import CclContextNavigationBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclContextNavigationBlock/CclContextNavigationBlockEdit';
@@ -338,6 +340,22 @@ const customBlocks = (config) => ({
     group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
     view: CclButtonBlockView, // The view mode component
     edit: CclButtonBlockEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  familyCardButtonComponent: {
+    id: 'familyCardButtonComponent', // The name (id) of the block
+    title: 'Family Card Button', // The display name of the block
+    icon: linkSVG, // The icon used in the block chooser
+    group: 'ccl_blocks', // The group (blocks can be grouped, displayed in the chooser)
+    view: FamilyCardButtonView, // The view mode component
+    edit: FamilyCardButtonEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
