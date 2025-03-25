@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, useLocation } from 'react-router-dom';
 import { compose } from 'redux';
 
 import { RenderBlocks } from '@plone/volto/components';
 import { withScrollToTarget } from '@eeacms/volto-tabs-block/hocs';
-import { useLocation } from 'react-router-dom';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 import { slugify } from '../../utils';
 import './fontawesome';
 
 import cx from 'classnames';
+
+const scrollToContentSection = () => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth',
+  });
+};
 
 const handleClick = (e, tab, activeTab, setActiveTab, location, tabHash) => {
   if (activeTab !== tab) {
@@ -38,6 +45,17 @@ const TabsComponent = (props) => {
     document.querySelector('#loader').style.display = 'block';
   }
   const location = useLocation();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const hasHash = location.hash.length > 1;
+    const hasQueryTab = urlParams.has('tab');
+
+    if (hasHash || hasQueryTab) {
+      scrollToContentSection();
+    }
+  }, [activeTab, location.hash.length, location.search]);
+
   return (
     <div className="tabs" role="tablist">
       <nav>
