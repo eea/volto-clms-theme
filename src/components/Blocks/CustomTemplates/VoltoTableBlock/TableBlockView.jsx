@@ -86,6 +86,7 @@ const View = ({ data }) => {
               <Table.Row>
                 {headers.map((cell, index) => (
                   <Table.HeaderCell
+                    style={{ position: 'sticky', top: 0 }}
                     key={cell.key}
                     textAlign="left"
                     verticalAlign="middle"

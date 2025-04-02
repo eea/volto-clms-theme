@@ -10,6 +10,8 @@ import {
   sanitizedHTML,
 } from '@eeacms/volto-clms-theme/components/CclUtils';
 
+import InfoDownloadDataSet from './InfoDownloadDataSet';
+
 const DownloadDataSetContent = (data, token) => {
   const user = useSelector((state) => state?.users?.user);
   const locale = useSelector((state) => state?.intl?.locale);
@@ -26,7 +28,17 @@ const DownloadDataSetContent = (data, token) => {
   return (
     <div>
       {data?.downloadable_full_dataset && (
-        <div className="dataset-download-area">
+        <div
+          className={
+            data.download_limit_temporal_extent &&
+            data?.downloadable_full_dataset &&
+            download_by_area_extra_text !== '' &&
+            (data.mapviewer_istimeseries ||
+              data.download_show_auxiliary_calendar)
+              ? ''
+              : 'dataset-download-area'
+          }
+        >
           {data.mapviewer_istimeseries ||
           data.download_show_auxiliary_calendar ? (
             <>
@@ -46,21 +58,38 @@ const DownloadDataSetContent = (data, token) => {
             </>
           )}
 
-          {user?.['@id'] ? (
-            data.mapviewer_istimeseries ||
-            data.download_show_auxiliary_calendar ? (
-              <CclButton
-                url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
-              >
-                Go to download by area and time
-              </CclButton>
-            ) : (
-              <CclButton
-                url={'/' + locale + '/map-viewer?dataset=' + data?.UID}
-              >
-                Go to download by area
-              </CclButton>
-            )
+          {data.mapviewer_istimeseries ||
+          data.download_show_auxiliary_calendar ? (
+            <>
+              {user?.['@id'] ? (
+                <CclButton url={`/${locale}/map-viewer?dataset=${data?.UID}`}>
+                  Go to download by area and time
+                </CclButton>
+              ) : (
+                <CclLoginModal
+                  triggerComponent={() => (
+                    <CclButton
+                      isButton={true}
+                      className={'ccl-button ccl-button--default'}
+                    >
+                      <FormattedMessage
+                        id="downloadByAreaAndTime"
+                        defaultMessage="Go to download by area and time"
+                      />
+                    </CclButton>
+                  )}
+                />
+              )}
+              {data.download_limit_temporal_extent && (
+                <InfoDownloadDataSet
+                  temporalLimitExtent={data.download_limit_temporal_extent}
+                />
+              )}
+            </>
+          ) : user?.['@id'] ? (
+            <CclButton url={`/${locale}/map-viewer?dataset=${data?.UID}`}>
+              Go to download by area
+            </CclButton>
           ) : (
             <CclLoginModal
               triggerComponent={() => (
@@ -98,7 +127,7 @@ const DownloadDataSetContent = (data, token) => {
 
       {download_other_ways_access_dataset !== '' && (
         <div className="dataset-access-container">
-          <h2>You can also access this dataset</h2>
+          <h2>Access data on external site(s)</h2>
           <StringToHTML
             string={data?.download_other_ways_access_dataset?.data || ''}
           />
