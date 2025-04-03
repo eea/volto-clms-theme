@@ -93,6 +93,11 @@ const UniversalLink = ({
       ? openLinkInNewTab
       : checkedURL.isMail || checkedURL.isTelephone || isExternal;
 
+  // All downloadable files to be opened in a new tab
+  if (checkedURL.url.includes('/@@download/')) {
+    openLinkInNewTab = true;
+  }
+
   // console.log({ openLinkInNewTab, isExternal, checkedURL });
 
   let tag = (
