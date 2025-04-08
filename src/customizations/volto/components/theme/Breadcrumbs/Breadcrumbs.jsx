@@ -20,6 +20,8 @@ const messages = defineMessages({
   },
 });
 
+const isInsiteChat = !!process.env.RAZZLE_IS_ASK_COPERNICUS;
+
 const BreadcrumbsComponent = ({ pathname }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const BreadcrumbsComponent = ({ pathname }) => {
 
   return (
     <>
-      {items.length > 0 && (
+      {!isInsiteChat && items.length > 0 && (
         <nav
           aria-label={intl.formatMessage(messages.breadcrumbs)}
           className="ccl-breadcrumb"
