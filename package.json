@@ -31,11 +31,13 @@
     "volto-form-block",
     "volto-cookie-banner",
     "@eeacms/volto-tableau",
-    "@eeacms/volto-embed"
+    "@eeacms/volto-embed",
+    "@eeacms/volto-chatbot"
   ],
   "dependencies": {
     "@eeacms/volto-accordion-block": "7.0.0",
     "@eeacms/volto-arcgis-block": "0.1.336",
+    "@eeacms/volto-chatbot": "0.1.13",
     "@eeacms/volto-clms-utils": "0.1.15",
     "@eeacms/volto-columns-block": "6.0.2",
     "@eeacms/volto-embed": "6.0.0",
