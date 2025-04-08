@@ -22,6 +22,8 @@ import usePrevious from '@eeacms/volto-clms-theme/helpers/usePrevious';
 
 import { Loader } from 'semantic-ui-react';
 
+const isInsiteChat = !!process.env.RAZZLE_IS_ASK_COPERNICUS;
+
 // IMPORT isnt nedded until translations are created
 // import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
 
@@ -182,48 +184,56 @@ export default function Header({ pathname }) {
 
               <div className="ccl-header-tools-container">
                 <ul className="ccl-header-menu-tools">
-                  <CclTopMainMenu></CclTopMainMenu>
-                  <li className="header-vertical-line">
-                    <div>|</div>
-                  </li>
-                  {(token && user?.id && (
+                  {!isInsiteChat && (
                     <>
-                      <li className="header-dropdown">
-                        <HeaderDropdown user={user} />
+                      <CclTopMainMenu />
+                      <li className="header-vertical-line">
+                        <div>|</div>
                       </li>
-                      <li>
-                        <CartIconCounter />
+                      {(token && user?.id && (
+                        <>
+                          <li className="header-dropdown">
+                            <HeaderDropdown user={user} />
+                          </li>
+                          <li>
+                            <CartIconCounter />
+                          </li>
+                        </>
+                      )) || (
+                        <li>
+                          {apiStatusCode === 401 ? (
+                            <CclLoginModal />
+                          ) : isLoadingUser ? (
+                            <Loader active inline size="mini" />
+                          ) : (
+                            <CclLoginModal />
+                          )}
+                        </li>
+                      )}
+                      <li className="header-vertical-line">
+                        <div>|</div>
                       </li>
                     </>
-                  )) || (
-                    <li>
-                      {apiStatusCode === 401 ? (
-                        <CclLoginModal />
-                      ) : isLoadingUser ? (
-                        <Loader active inline size="mini" />
-                      ) : (
-                        <CclLoginModal />
-                      )}
-                    </li>
                   )}
-                  <li className="header-vertical-line">
-                    <div>|</div>
-                  </li>
                 </ul>
-                <div
-                  className={
-                    mobileSearchBoxOpen
-                      ? 'ccl-header-search-show'
-                      : 'ccl-header-search-hidden'
-                  }
-                >
-                  <SearchWidget
-                    pathname={pathname}
-                    setHeaderState={({ mobileSearchBoxOpen }) =>
-                      setMobileSearchBoxOpen(mobileSearchBoxOpen)
+                {isInsiteChat ? (
+                  <div style={{ width: '10px', height: '10px' }}></div>
+                ) : (
+                  <div
+                    className={
+                      mobileSearchBoxOpen
+                        ? 'ccl-header-search-show'
+                        : 'ccl-header-search-hidden'
                     }
-                  />
-                </div>
+                  >
+                    <SearchWidget
+                      pathname={pathname}
+                      setHeaderState={({ mobileSearchBoxOpen }) =>
+                        setMobileSearchBoxOpen(mobileSearchBoxOpen)
+                      }
+                    />
+                  </div>
+                )}
                 {/* Language selector wont be shown until translations are completed */}
                 {/* <CclLanguageSelector /> */}
               </div>
@@ -246,7 +256,7 @@ export default function Header({ pathname }) {
                   }
                 />
                 <ul className="ccl-header-menu-tools ccl-collapsible-toolmenu">
-                  <CclTopMainMenu></CclTopMainMenu>
+                  <CclTopMainMenu />
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
