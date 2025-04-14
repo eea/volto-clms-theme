@@ -155,21 +155,30 @@ export const CartIconCounter = () => {
                     : {};
 
                   return (
-                    <p key={key}>
-                      <strong>Name:</strong> {ddata?.title} <br />
-                      <strong>Area:</strong>{' '}
-                      {nutsnames?.nutsnames?.[cdi?.area?.value] === undefined
-                        ? 'Bounding Box'
-                        : nutsnames?.nutsnames?.[cdi?.area?.value]}
-                    </p>
+                    <>
+                      <p key={key}>
+                        <strong>Name:</strong> {ddata?.title} <br />
+                        <strong>Area:</strong>{' '}
+                        {nutsnames?.nutsnames?.[cdi?.area?.value] === undefined
+                          ? 'Bounding Box'
+                          : nutsnames?.nutsnames?.[cdi?.area?.value]}
+                      </p>
+
+                      {hasTimeseries && (
+                        <>
+                          <br />
+                          Click on Go to Cart to select the time interval with a
+                          maximum range of{' '}
+                          {
+                            datasetTimeseries?.datasets[ddata?.UID]
+                              ?.download_limit_temporal_extent
+                          }{' '}
+                          days.
+                        </>
+                      )}
+                    </>
                   );
                 })}
-              {hasTimeseries && (
-                <>
-                  <br />
-                  Click on Go to cart to select time interval.
-                </>
-              )}
             </Message>
           ) : (
             <Message warning>

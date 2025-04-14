@@ -126,7 +126,7 @@ const DownloadDataSetContent = (data, token) => {
       )}
 
       {download_other_ways_access_dataset !== '' && (
-        <div className="dataset-access-container">
+        <div>
           <h2>Access data on external site(s)</h2>
           <StringToHTML
             string={data?.download_other_ways_access_dataset?.data || ''}
