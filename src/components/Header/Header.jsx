@@ -183,59 +183,7 @@ export default function Header({ pathname }) {
               </div>
 
               <div className="ccl-header-tools-container">
-                <ul className="ccl-header-menu-tools">
-                  {!isInsiteChat && (
-                    <>
-                      <CclTopMainMenu />
-                      <li className="header-vertical-line">
-                        <div>|</div>
-                      </li>
-                      {(token && user?.id && (
-                        <>
-                          <li className="header-dropdown">
-                            <HeaderDropdown user={user} />
-                          </li>
-                          <li>
-                            <CartIconCounter />
-                          </li>
-                        </>
-                      )) || (
-                        <li>
-                          {apiStatusCode === 401 ? (
-                            <CclLoginModal />
-                          ) : isLoadingUser ? (
-                            <Loader active inline size="mini" />
-                          ) : (
-                            <CclLoginModal />
-                          )}
-                        </li>
-                      )}
-                      <li className="header-vertical-line">
-                        <div>|</div>
-                      </li>
-                    </>
-                  )}
-                </ul>
-                {isInsiteChat ? (
-                  <div style={{ width: '10px', height: '10px' }}></div>
-                ) : (
-                  <div
-                    className={
-                      mobileSearchBoxOpen
-                        ? 'ccl-header-search-show'
-                        : 'ccl-header-search-hidden'
-                    }
-                  >
-                    <SearchWidget
-                      pathname={pathname}
-                      setHeaderState={({ mobileSearchBoxOpen }) =>
-                        setMobileSearchBoxOpen(mobileSearchBoxOpen)
-                      }
-                    />
-                  </div>
-                )}
-                {/* Language selector wont be shown until translations are completed */}
-                {/* <CclLanguageSelector /> */}
+                <div style={{ width: '10px', height: '10px' }}></div>
               </div>
             </div>
           </div>

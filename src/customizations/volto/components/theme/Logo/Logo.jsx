@@ -4,13 +4,13 @@
  */
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
 import { Image } from 'semantic-ui-react';
 
-import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land-text-2.svg';
+// import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land-text-2.svg';
 import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/EU-Cop-logo.svg';
-import config from '@plone/volto/registry';
+// import config from '@plone/volto/registry';
 
 const messages = defineMessages({
   site: {
@@ -38,8 +38,8 @@ const messages = defineMessages({
  * @returns {string} Markup of the component.
  */
 const Logo = () => {
-  const { settings } = config;
-  const lang = useSelector((state) => state.intl.locale);
+  // const { settings } = config;
+  // const lang = useSelector((state) => state.intl.locale);
   const intl = useIntl();
 
   return (
@@ -59,19 +59,19 @@ const Logo = () => {
             width={212}
           />
         </a>
-        <Link
-          to={settings.isMultilingual ? `/${lang}` : '/'}
-          title={intl.formatMessage(messages.site)}
-          className="ccl-header-logo ccl-service-button"
-        >
-          <Image
-            src={LandImage}
-            alt={intl.formatMessage(messages.plonesite)}
-            title={intl.formatMessage(messages.plonesite)}
-            height={44}
-            width={256}
-          />
-        </Link>
+        {/* <Link */}
+        {/*   to={settings.isMultilingual ? `/${lang}` : '/'} */}
+        {/*   title={intl.formatMessage(messages.site)} */}
+        {/*   className="ccl-header-logo ccl-service-button" */}
+        {/* > */}
+        {/*   <Image */}
+        {/*     src={LandImage} */}
+        {/*     alt={intl.formatMessage(messages.plonesite)} */}
+        {/*     title={intl.formatMessage(messages.plonesite)} */}
+        {/*     height={44} */}
+        {/*     width={256} */}
+        {/*   /> */}
+        {/* </Link> */}
       </div>
     </div>
   );
