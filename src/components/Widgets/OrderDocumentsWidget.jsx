@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchContent } from '@plone/volto/actions';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { FormFieldWrapper, Icon } from '@plone/volto/components';
+import { Icon } from '@plone/volto/components';
+import FormFieldWrapper from '@eeacms/volto-clms-theme/components/CLMSFormFieldWrapper/CLMSFormFieldWrapper';
 import { Button } from 'semantic-ui-react';
 import dragSVG from '@plone/volto/icons/drag.svg';
 
