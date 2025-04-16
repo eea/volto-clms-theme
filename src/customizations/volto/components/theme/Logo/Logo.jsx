@@ -59,19 +59,6 @@ const Logo = () => {
             width={212}
           />
         </a>
-        {/* <Link */}
-        {/*   to={settings.isMultilingual ? `/${lang}` : '/'} */}
-        {/*   title={intl.formatMessage(messages.site)} */}
-        {/*   className="ccl-header-logo ccl-service-button" */}
-        {/* > */}
-        {/*   <Image */}
-        {/*     src={LandImage} */}
-        {/*     alt={intl.formatMessage(messages.plonesite)} */}
-        {/*     title={intl.formatMessage(messages.plonesite)} */}
-        {/*     height={44} */}
-        {/*     width={256} */}
-        {/*   /> */}
-        {/* </Link> */}
       </div>
     </div>
   );
