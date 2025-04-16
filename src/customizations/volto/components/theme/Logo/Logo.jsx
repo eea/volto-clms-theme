@@ -45,19 +45,21 @@ const Logo = () => {
   return (
     <div className="ccl-header-logos-container">
       <div className="ccl-header-logo-container">
+        <Image
+          src={CopernicusImage}
+          alt={intl.formatMessage(messages.copernicuslogo)}
+          title={intl.formatMessage(messages.copernicuslogo)}
+          height={44}
+          width={212}
+        />
+
         <a
-          href="https://www.copernicus.eu/en"
+          href="https://ask.copernicus.eu/en"
           target="_blank"
           rel="noreferrer"
           className="ccl-header-logo ccl-service-button"
         >
-          <Image
-            src={CopernicusImage}
-            alt={intl.formatMessage(messages.copernicuslogo)}
-            title={intl.formatMessage(messages.copernicuslogo)}
-            height={44}
-            width={212}
-          />
+          | <h1>Ask Copernicus - Observia AI</h1>
         </a>
       </div>
     </div>

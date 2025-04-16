@@ -251,21 +251,6 @@ class Footer extends Component {
               </div>
             </CclFooterColumn>
             <div className="ccl-footer-col">
-              <div className="ccl-footer-form-title">
-                Sign up to CLMS updates
-              </div>
-              <form action="" className="ccl-footer-form">
-                <div className="ccl-footer-newsletter ">
-                  <UniversalLink
-                    href="https://subscriptions.copernicus-land.eea.europa.eu/copernicus-land-monitoring-service-subscription"
-                    className="ccl-button ccl-button--default footer-clms-updates"
-                    target="_blank"
-                  >
-                    {this.props.intl.formatMessage(messages.subscribe)}
-                  </UniversalLink>
-                </div>
-              </form>
-
               <div className="ccl-footer-col-title">
                 {this.props.intl.formatMessage(messages.followUs)}
               </div>
@@ -277,22 +262,6 @@ class Footer extends Component {
                   aria-label="Linkedin"
                 >
                   <FontAwesomeIcon icon={['fab', 'linkedin']} />
-                </a>
-                <a
-                  href="https://twitter.com/CopernicusLand"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Twitter"
-                >
-                  <FontAwesomeIcon icon={['fab', 'x-twitter']} />
-                </a>
-                <a
-                  href="https://www.youtube.com/playlist?list=PL1_QSyumTz7CZQEZ-1foOTeTOelKDQmxu"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Youtube"
-                >
-                  <span className="ccl-icon-youtube"></span>
                 </a>
                 <a
                   href="https://www.facebook.com/CopernicusEU"
@@ -325,31 +294,7 @@ class Footer extends Component {
                   />
                 </a>
               </div>
-              <div className="footer-implemented footer-implemented-ec">
-                <a
-                  href="https://joint-research-centre.ec.europa.eu/index_en"
-                  target="_blank"
-                  title="Joint Research Centre"
-                  rel="noreferrer"
-                >
-                  <ReactSVG
-                    src={EEAImage}
-                    beforeInjection={(svg) => {
-                      svg.setAttribute(
-                        'class',
-                        'ccl-svg ccl-service-button-icon ccl-svg--processed',
-                      );
-                    }}
-                    className="ccl-ec-svg-wrapper"
-                    wrapper="div"
-                  />
-                  <span>
-                    {this.props.intl.formatMessage(
-                      messages.jointResearchCenter,
-                    )}
-                  </span>
-                </a>
-              </div>
+              <div className="footer-implemented footer-implemented-ec"></div>
             </CclFooterColumn>
           </div>
         </div>
