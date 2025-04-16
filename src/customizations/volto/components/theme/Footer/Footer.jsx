@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { UniversalLink } from '@plone/volto/components';
 import { ReactSVG } from 'react-svg';
 import { compose } from 'redux';
 
@@ -21,7 +20,6 @@ import LandImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-land.
 import MarineImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-marine.svg';
 import SecurityImage from '@eeacms/volto-clms-theme/../theme/clms/img/ccl-icon-security.svg';
 import CopernicusImage from '@eeacms/volto-clms-theme/../theme/clms/img/copernicus_eu_logo_white.svg';
-import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.svg';
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
 import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
