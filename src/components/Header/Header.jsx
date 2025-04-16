@@ -1,10 +1,33 @@
 import React from 'react';
 import { Logo } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getUser } from '@plone/volto/actions';
+import usePrevious from '@eeacms/volto-clms-theme/helpers/usePrevious';
+import jwtDecode from 'jwt-decode';
 
 import CclTopMainMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclTopMainMenu';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.users.user);
+
+  const token = useSelector((state) => {
+    const jwtToken = state.userSession.token;
+    return jwtToken ? jwtDecode(jwtToken).sub : '';
+  });
+
+  const prevToken = usePrevious(token);
+
+  const userId = user?.id;
+  const prevUserId = usePrevious(userId);
+
+  React.useEffect(() => {
+    if (token && prevToken !== token) {
+      dispatch(getUser(token));
+    }
+  }, [dispatch, token, prevToken, prevUserId, userId]);
   return (
     <div>
       <header className="ccl-header">
