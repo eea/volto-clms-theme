@@ -99,6 +99,12 @@ const DocCard = ({ card, url, showEditor, children }) => {
           <div className="card-doc-size">{card.getObjSize || ''}</div>
         )}
       </div>
+      {card?.description && (
+        <div className="card-doc-description">
+          {card?.description}
+          {card?.['@type'] === 'TechnicalLibrary' && <p> </p>}
+        </div>
+      )}
       {card?.['@type'] === 'TechnicalLibrary' &&
         (card.publication_date || card.version) && (
           <div className="card-doc-extrametadata">
@@ -118,7 +124,6 @@ const DocCard = ({ card, url, showEditor, children }) => {
           </div>
         )}
       <CLMSTechnicalLibraryAdminInfo uid={card.UID} id={card['@id']} />
-      <div className="card-doc-description">{card?.description}</div>
       {children}
     </>
   );
