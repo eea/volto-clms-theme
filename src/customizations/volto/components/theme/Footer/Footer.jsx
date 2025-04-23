@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { compose } from 'redux';
 
-import { FontAwesomeIcon } from '@eeacms/volto-clms-utils/components';
 import { withFontAwesomeLibs } from '@eeacms/volto-clms-utils/helpers';
 
 import { subscribeTo } from '../../../../../actions';
