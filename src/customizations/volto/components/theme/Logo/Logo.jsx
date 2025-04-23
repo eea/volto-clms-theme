@@ -59,7 +59,7 @@ const Logo = () => {
           rel="noreferrer"
           className="ccl-header-logo ccl-service-button"
         >
-          | <h1>Ask Copernicus - Observia AI</h1>
+          <h1>Ask Copernicus - Observia AI</h1>
         </a>
       </div>
     </div>
