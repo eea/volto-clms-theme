@@ -248,29 +248,6 @@ class Footer extends Component {
                 </a>
               </div>
             </CclFooterColumn>
-            <div className="ccl-footer-col">
-              <div className="ccl-footer-col-title">
-                {this.props.intl.formatMessage(messages.followUs)}
-              </div>
-              <div className="ccl-footer-social">
-                <a
-                  href="https://www.linkedin.com/showcase/copernicus-eea"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Linkedin"
-                >
-                  <FontAwesomeIcon icon={['fab', 'linkedin']} />
-                </a>
-                <a
-                  href="https://www.facebook.com/CopernicusEU"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Facebook"
-                >
-                  <span className="ccl-icon-facebook"></span>
-                </a>
-              </div>
-            </div>
 
             <CclFooterColumn title={'Implemented by'}>
               <div className="footer-implemented footer-implemented-eea">
