@@ -37,7 +37,7 @@
   "dependencies": {
     "@eeacms/volto-accordion-block": "7.0.0",
     "@eeacms/volto-arcgis-block": "0.1.336",
-    "@eeacms/volto-chatbot": "github:eea/volto-chatbot#6c3469b8bae30778aefa987db8f5ab70661d75d1",
+    "@eeacms/volto-chatbot": "github:eea/volto-chatbot#22a8152bff97629b96f503788dc2792d6b420802",
     "@eeacms/volto-clms-utils": "0.1.15",
     "@eeacms/volto-columns-block": "6.0.2",
     "@eeacms/volto-embed": "6.0.0",
