@@ -56,6 +56,9 @@ import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
+// SEARCHLIB
+import installSearchEngine from './search';
+
 //APPEXTRA
 import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
@@ -244,7 +247,10 @@ const applyConfig = (config) => {
     config.settings.serverConfig.extractScripts.errorPages = true;
   }
 
-  config = installLinkEditor(config);
+  config = [installLinkEditor, installSearchEngine].reduce(
+    (acc, apply) => apply(acc),
+    config,
+  );
 
   config.addonRoutes = [
     ...config.addonRoutes,
@@ -353,8 +359,9 @@ const applyConfig = (config) => {
   config.experimental.addBlockButton.enabled = true;
 
   config.settings.loadables = {
-    'react-json-schema-form-builder': loadable.lib(() =>
-      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    'react-json-schema-form-builder': loadable.lib(
+      () =>
+        import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,
