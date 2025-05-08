@@ -35,9 +35,9 @@ describe('OrderDocumentsWidget', () => {
         subrequests: {
           testId: {
             items: [
-              { '@id': 'doc1', title: 'Document 1' },
-              { '@id': 'doc2', title: 'Document 2' },
-              { '@id': 'doc3', title: 'Document 3' },
+              { UID: '12345', '@id': 'doc1', title: 'Document 1' },
+              { UID: '23456', '@id': 'doc2', title: 'Document 2' },
+              { UID: '34567', '@id': 'doc3', title: 'Document 3' },
             ],
           },
         },
@@ -64,6 +64,7 @@ describe('OrderDocumentsWidget', () => {
       );
     });
     await Promise.resolve();
+    await screen.findByText('Document 1');
 
     expect(screen.getByText('Technical Document Title')).toBeInTheDocument();
     expect(screen.getByText('Document 1')).toBeInTheDocument();
@@ -100,9 +101,9 @@ describe('OrderDocumentsWidget', () => {
             onChange={mockOnChange}
             value={{
               items: [
-                { id: 'doc1', title: 'Document 1' },
-                { id: 'doc2', title: 'Document 2' },
-                { id: 'doc3', title: 'Document 3' },
+                { UID: '12345', id: 'doc1', title: 'Document 1' },
+                { UID: '23456', id: 'doc2', title: 'Document 2' },
+                { UID: '34567', id: 'doc3', title: 'Document 3' },
               ],
             }}
           />
@@ -111,10 +112,13 @@ describe('OrderDocumentsWidget', () => {
     );
 
     await Promise.resolve();
+    await screen.findByText('Document 1');
 
     const dragItem = container.querySelector(
       'div[aria-label="Draggable item: Document 1"]',
     );
+
+    expect(dragItem).toBeTruthy();
 
     fireEvent.keyDown(dragItem, SPACE);
     fireEvent.keyDown(dragItem, ARROW_DOWN);
@@ -122,9 +126,9 @@ describe('OrderDocumentsWidget', () => {
 
     expect(mockOnChange).toHaveBeenCalledWith('testId', {
       items: [
-        { id: 'doc2', title: 'Document 2' },
-        { id: 'doc1', title: 'Document 1' },
-        { id: 'doc3', title: 'Document 3' },
+        { UID: '23456', id: 'doc2', title: 'Document 2' },
+        { UID: '12345', id: 'doc1', title: 'Document 1' },
+        { UID: '34567', id: 'doc3', title: 'Document 3' },
       ],
     });
 
@@ -138,9 +142,9 @@ describe('OrderDocumentsWidget', () => {
 
     expect(mockOnChange).toHaveBeenCalledWith('testId', {
       items: [
-        { id: 'doc2', title: 'Document 2' },
-        { id: 'doc3', title: 'Document 3' },
-        { id: 'doc1', title: 'Document 1' },
+        { UID: '23456', id: 'doc2', title: 'Document 2' },
+        { UID: '12345', id: 'doc1', title: 'Document 1' },
+        { UID: '34567', id: 'doc3', title: 'Document 3' },
       ],
     });
   });
@@ -160,6 +164,7 @@ describe('OrderDocumentsWidget', () => {
     );
 
     await Promise.resolve();
+    await screen.findByText('Document 1');
 
     const updatedState = {
       intl: {
@@ -170,10 +175,10 @@ describe('OrderDocumentsWidget', () => {
         subrequests: {
           testId: {
             items: [
-              { '@id': 'doc1', title: 'Document 1' },
-              { '@id': 'doc2', title: 'Document 2' },
-              { '@id': 'doc3', title: 'Document 3' },
-              { '@id': 'doc4', title: 'Document 4' },
+              { UID: '23456', id: 'doc2', title: 'Document 2' },
+              { UID: '12345', id: 'doc1', title: 'Document 1' },
+              { UID: '34567', id: 'doc3', title: 'Document 3' },
+              { UID: '45678', id: 'doc4', title: 'Document 4' },
             ],
           },
         },
@@ -200,6 +205,7 @@ describe('OrderDocumentsWidget', () => {
     });
 
     await Promise.resolve();
+    await screen.findByText('Document 1');
 
     expect(screen.getByText('Document 1')).toBeInTheDocument();
     expect(screen.getByText('Document 2')).toBeInTheDocument();
@@ -228,6 +234,7 @@ describe('OrderDocumentsWidget', () => {
     fireEvent.click(screen.getByText('Show'));
 
     expect(screen.getByText('Technical Document Title')).toBeInTheDocument();
+    await screen.findByText('Document 1');
     expect(screen.getByText('Document 1')).toBeInTheDocument();
     expect(screen.getByText('Document 2')).toBeInTheDocument();
     expect(screen.getByText('Document 3')).toBeInTheDocument();
