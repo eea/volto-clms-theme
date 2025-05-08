@@ -9,7 +9,7 @@ pipeline {
   environment {
     GIT_NAME = "volto-clms-theme"
     NAMESPACE = "@eeacms"
-    SONARQUBE_TAGS = "clms.land.copernicus.eu,volto.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,land.copernicus.eu"
+    SONARQUBE_TAGS = "clms.land.copernicus.eu,volto.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,land.copernicus.eu,ask.copernicus.eu"
     DEPENDENCIES = ""
     BACKEND_PROFILES = "eea.kitkat:testing"
     BACKEND_ADDONS = "clms.addon,clms.types,clms.downloadtool,clms.statstool"

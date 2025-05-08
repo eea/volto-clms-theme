@@ -118,27 +118,41 @@ const CclRelatedListingView = (props) => {
   }, [data, id, uid, dispatch]);
 
   React.useEffect(() => {
-    if (sLoaded && properties?.technical_documents_order) {
-      const orderMap = new Map(
-        properties?.technical_documents_order.items?.map((item, index) => [
-          item.id,
-          index,
-        ]) || [],
-      );
+    // this is to avoid unnecesarry calls when the libraries for the related datasets are loaded
+    if (data.content_type === 'TechnicalLibrary') {
+      if (sLoaded && properties?.technical_documents_order) {
+        // orderMap of the technical_documents_order
+        // if the UID is not present in the orderMap, we use the id (backward compatibility)
+        const orderMap = new Map(
+          properties?.technical_documents_order.items?.map((item, index) => {
+            return item?.UID ? [item.UID, index] : [item.id, index];
+          }) || [],
+        );
 
-      // Sort libraries based on the technical_documents_order
-      const sorted = [...libraries].sort(
-        (a, b) =>
-          (orderMap.get(a['@id']) ?? Infinity) -
-          (orderMap.get(b['@id']) ?? Infinity),
-      );
+        // Sort the fetched libraries based on the orderMap
+        // if the UID is not present in the orderMap, we use the id (backward compatibility)
+        const sorted = [...libraries].sort((a, b) => {
+          const ai = orderMap.has(a.UID)
+            ? orderMap.get(a.UID)
+            : orderMap.get(a['@id']) ?? Infinity;
+          const bi = orderMap.has(b.UID)
+            ? orderMap.get(b.UID)
+            : orderMap.get(b['@id']) ?? Infinity;
+          return ai - bi;
+        });
 
-      p_functions.setOriginalDataList([...sorted]);
-      p_functions.setDataList([...sorted]);
-    }
-    if (sLoaded && !properties?.technical_documents_order) {
-      p_functions.setOriginalDataList([...libraries]);
-      p_functions.setDataList([...libraries]);
+        p_functions.setOriginalDataList([...sorted]);
+        p_functions.setDataList([...sorted]);
+      }
+      if (sLoaded && !properties?.technical_documents_order) {
+        p_functions.setOriginalDataList([...libraries]);
+        p_functions.setDataList([...libraries]);
+      }
+    } else {
+      if (sLoaded) {
+        p_functions.setOriginalDataList([...libraries]);
+        p_functions.setDataList([...libraries]);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sLoaded, properties.technical_documents_order, libraries]);

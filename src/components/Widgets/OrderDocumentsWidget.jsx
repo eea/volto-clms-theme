@@ -8,6 +8,7 @@ import { Icon } from '@plone/volto/components';
 import FormFieldWrapper from '@eeacms/volto-clms-theme/components/CLMSFormFieldWrapper/CLMSFormFieldWrapper';
 import { Button } from 'semantic-ui-react';
 import dragSVG from '@plone/volto/icons/drag.svg';
+import isEqual from 'lodash/isEqual';
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -59,6 +60,7 @@ const OrderDocumentsWidget = (props) => {
       const searchParams = {
         portal_type: 'TechnicalLibrary',
         path: 'en/technical-library',
+        metadata_fields: '_all',
         sort_on: sort_on,
         sort_order: sort_order,
         b_size: 99999,
@@ -124,23 +126,63 @@ const OrderDocumentsWidget = (props) => {
   }, [fetchDocuments, location]);
 
   useEffect(() => {
-    if (searchSubrequests?.[id]?.items) {
+    if (searchSubrequests?.[id]?.items && !isLoading) {
       const libraries = searchSubrequests[id].items;
       const receivedDocumentsList = libraries.map((item) => ({
+        UID: item.UID,
         id: item['@id'],
         title: item.title,
       }));
 
-      if (value?.items?.length < receivedDocumentsList.length) {
-        const newItems = receivedDocumentsList.filter(
-          (item) => !value.items.some((item2) => item2.id === item.id),
-        );
-        setDocumentsList([...value?.items, ...newItems]);
-      } else {
-        setDocumentsList(value?.items);
+      const oldItems = value?.items || [];
+
+      // First‐run: none of the stored items have a UID yet
+      const firstRun =
+        oldItems.length > 0 && oldItems.every((item) => !item.UID);
+
+      // rebuild in the exact old order, matching by UID if we have it,
+      // or (only on first run) fall back to id/title
+      const mergedExisting = [];
+
+      oldItems.forEach((old) => {
+        let match;
+
+        if (old.UID) {
+          match = receivedDocumentsList.find(
+            (newItem) => newItem.UID === old.UID,
+          );
+          if (match) {
+            mergedExisting.push({ ...old, ...match });
+          }
+        } else {
+          match = receivedDocumentsList.find(
+            (newItem) => newItem.id === old.id || newItem.title === old.title,
+          );
+          if (match) {
+            mergedExisting.push({ ...old, ...match, UID: match.UID });
+          }
+          // if it's the first run and if both id+title changed, we drop the old item
+          // and let the fetched version be treated as “new” below
+        }
+      });
+
+      // add any new items that are not already in the mergedExisting
+      const existingUIDs = new Set(mergedExisting.map((item) => item.UID));
+      const newOnes = receivedDocumentsList.filter(
+        (newItem) => !existingUIDs.has(newItem.UID),
+      );
+      const merged = [...mergedExisting, ...newOnes];
+
+      setDocumentsList(merged);
+
+      // const hasChanged =
+      //   firstRun || JSON.stringify(merged) !== JSON.stringify(oldItems);
+      const hasChanged = firstRun || !isEqual(merged, oldItems);
+      if (hasChanged) {
+        onChange(id, { items: merged });
       }
     }
-  }, [searchSubrequests, id, value]);
+  }, [searchSubrequests, id, value, onChange, isLoading]);
 
   return (
     <FormFieldWrapper
@@ -181,6 +223,7 @@ OrderDocumentsWidget.propTypes = {
   value: PropTypes.shape({
     items: PropTypes.arrayOf(
       PropTypes.shape({
+        UID: PropTypes.string,
         id: PropTypes.string,
         title: PropTypes.string,
       }),
