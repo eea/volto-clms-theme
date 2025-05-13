@@ -49,16 +49,6 @@ export default function install(config) {
 
   clmsSearchTechnicalLibrary.sortOptions = [
     {
-      name: 'Title a-z',
-      value: 'title.index',
-      direction: 'asc',
-    },
-    {
-      name: 'Title z-a',
-      value: 'title.index',
-      direction: 'desc',
-    },
-    {
       name: 'Oldest',
       value: 'issued.date',
       direction: 'asc',
@@ -72,6 +62,11 @@ export default function install(config) {
       name: 'Relevance',
       value: '',
       direction: '',
+    },
+    {
+      name: 'Version',
+      value: '@version.keyword',
+      direction: 'asc',
     },
   ];
   config.resolve.getSearchThumbUrl = getSearchThumbUrl();
