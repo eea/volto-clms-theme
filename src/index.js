@@ -58,6 +58,7 @@ import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
 // SEARCHLIB
 import installSearchEngine from './search';
+import TechnicalLibraryItem from './components/Result/TechnicalLibraryItem';
 
 //APPEXTRA
 import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
@@ -97,6 +98,9 @@ const applyConfig = (config) => {
       ...customGroupBlocksOrder,
     ],
   };
+
+  const { resolve } = config.settings.searchlib;
+  resolve.TechnicalLibraryItem = { component: TechnicalLibraryItem };
 
   config.widgets.type.checkbox_html = CheckboxHtmlWidget;
   config.widgets.type.tabs = TabsWidget;
@@ -359,8 +363,9 @@ const applyConfig = (config) => {
   config.experimental.addBlockButton.enabled = true;
 
   config.settings.loadables = {
-    'react-json-schema-form-builder': loadable.lib(() =>
-      import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
+    'react-json-schema-form-builder': loadable.lib(
+      () =>
+        import('@ginkgo-bioworks/react-json-schema-form-builder/dist/index'),
     ),
     utmProjections: loadable.lib(() => import('./constants/utmProjections')),
     ...config.settings.loadables,

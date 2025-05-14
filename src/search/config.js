@@ -2,9 +2,11 @@ import { mergeConfig } from '@eeacms/search';
 import { getClientProxyAddress, getSearchThumbUrl } from './utils';
 import vocabs from './vocabulary';
 import facets from './facets';
+import views from './views';
 
 const clmsConfig = {
   title: 'CLMS Main',
+  ...views,
 };
 
 export default function install(config) {
