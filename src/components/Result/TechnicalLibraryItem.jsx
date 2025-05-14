@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label } from 'semantic-ui-react';
-import { DateTime, StringList, ResultContext } from '@eeacms/search';
+import { ResultContext } from '@eeacms/search';
 import { Link } from 'react-router-dom';
 import { UniversalCard } from '@eeacms/volto-listing-block';
 import './search-styles.less';
