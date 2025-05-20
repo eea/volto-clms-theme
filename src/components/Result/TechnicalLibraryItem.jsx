@@ -67,7 +67,7 @@ const TechnicalLibraryItem = (props) => {
         <div className="card-doc-size">
           {formatFileSize(result.file_size.raw)}
         </div>
-        {isAdmin && (
+        {isAdmin && Array.isArray(result.library_categories_values.raw) && (
           <div>
             <strong
               onClick={() => setShowCategories((prev) => !prev)}
