@@ -29,7 +29,7 @@ const TechnicalLibraryItem = (props) => {
       <>
         <div className="technical-library-title">
           <Link
-            to={result.href}
+            to={`${result.href}/@@download/file`}
             title={result.title}
             className="technical-library-title"
           >
