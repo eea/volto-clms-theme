@@ -1,14 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
-import { Label } from 'semantic-ui-react';
-import { ResultContext } from '@eeacms/search';
-import { Link } from 'react-router-dom';
-import { UniversalCard } from '@eeacms/volto-listing-block';
 import './search-styles.less';
-import { Icon as VoltoIcon } from '@plone/volto/components';
+import React from 'react';
 import penSVG from '@plone/volto/icons/pen.svg';
-import { useSelector } from 'react-redux';
+import { Icon as VoltoIcon } from '@plone/volto/components';
+import { Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { ResultContext } from '@eeacms/search';
+import { UniversalCard } from '@eeacms/volto-listing-block';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 function formatFileSize(bytes) {
   if (bytes === 0) return '0 B';
@@ -21,14 +21,9 @@ function formatFileSize(bytes) {
 
 const TechnicalLibraryItem = (props) => {
   const { result } = props;
-  const userSession = useSelector((state) => state.userSession);
-  const isAuthenticated = !!userSession.token;
-  const roles = userSession?.user?.roles || [];
   const [showCategories, setShowCategories] = useState(false);
-
-  const isAdmin = roles.includes('Manager') || isAuthenticated; // TODO fix this
-  // const isAdmin = false;
-
+  const user = useSelector((state) => state.users.user);
+  const isAdmin = user?.roles?.includes('Manager');
   const item = {
     title: (
       <>
@@ -85,7 +80,7 @@ const TechnicalLibraryItem = (props) => {
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault(); // important pentru Space
+                  e.preventDefault();
                   setShowCategories((prev) => !prev);
                 }
               }}
