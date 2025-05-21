@@ -5,6 +5,8 @@ import { Grid } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { COLUMNSBLOCK } from '@eeacms/volto-columns-block/constants';
 import cx from 'classnames';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 import { getColumns } from './utils';
 import { getStyle } from '@eeacms/volto-columns-block/Styles';
@@ -29,6 +31,10 @@ const CclProductCardColumnView = (props) => {
     ?.replace(/[^a-zA-Z-\s]/gi, '')
     ?.trim()
     ?.replace(/\s+/gi, '-');
+
+  const flatten_url = flattenToAppURL(
+    columnList[0][1].settings?.href?.[0]?.['@id'],
+  );
 
   return (
     <div className="columns-view product-columns-view" id={customId}>
@@ -74,9 +80,9 @@ const CclProductCardColumnView = (props) => {
                       ''
                     )}
                   </div>
-                  <div className="product-card-title">
+                  <CclButton url={flatten_url} className="product-card-title">
                     {columnList[0][1].settings.title}
-                  </div>
+                  </CclButton>
                 </span>
               )}
               <RenderBlocks
