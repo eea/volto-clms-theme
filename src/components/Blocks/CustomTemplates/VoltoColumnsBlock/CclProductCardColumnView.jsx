@@ -32,7 +32,7 @@ const CclProductCardColumnView = (props) => {
     ?.trim()
     ?.replace(/\s+/gi, '-');
 
-  const flatten_url = flattenToAppURL(
+  const flattenUrl = flattenToAppURL(
     columnList[0][1].settings?.href?.[0]?.['@id'],
   );
 
@@ -80,7 +80,7 @@ const CclProductCardColumnView = (props) => {
                       ''
                     )}
                   </div>
-                  <CclButton url={flatten_url} className="product-card-title">
+                  <CclButton url={flattenUrl} className="product-card-title">
                     {columnList[0][1].settings.title}
                   </CclButton>
                 </span>
