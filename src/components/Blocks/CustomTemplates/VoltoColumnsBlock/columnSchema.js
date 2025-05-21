@@ -20,8 +20,12 @@ export const CardBlockSchema = (intl) => {
         type: 'string',
       },
       href: {
-        title: 'Link',
-        type: 'string',
+        title: 'URL',
+        description: 'Select site content or paste external url',
+        widget: 'object_browser',
+        mode: 'link',
+        selectedItemAttrs: ['Title', 'Description', '@type', '@id'],
+        allowExternals: true,
       },
       productIcon: {
         title: 'Product icon',
