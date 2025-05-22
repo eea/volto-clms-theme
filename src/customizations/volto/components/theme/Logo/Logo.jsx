@@ -55,7 +55,6 @@ const Logo = () => {
 
         <a
           href="https://ask.copernicus.eu/"
-          target="_blank"
           rel="noreferrer"
           className="ccl-header-logo ccl-service-button"
         >
