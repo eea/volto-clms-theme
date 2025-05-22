@@ -66,9 +66,14 @@ export default function install(config) {
       direction: '',
     },
     {
-      name: 'Version',
-      value: '@version.keyword',
+      name: 'Version ↑',
+      value: 'version.keyword',
       direction: 'asc',
+    },
+    {
+      name: 'Version ↓',
+      value: 'version.keyword',
+      direction: 'desc',
     },
   ];
   config.resolve.getSearchThumbUrl = getSearchThumbUrl();

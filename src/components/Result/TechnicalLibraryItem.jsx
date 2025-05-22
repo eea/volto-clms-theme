@@ -86,7 +86,7 @@ const TechnicalLibraryItem = (props) => {
               }}
             >
               Categorization
-              <span style={{ marginLeft: '8px' }}>
+              <span style={{ marginLeft: '8px', color: '#cecfcf' }}>
                 {showCategories ? '▾' : '▸'}
               </span>
             </strong>
