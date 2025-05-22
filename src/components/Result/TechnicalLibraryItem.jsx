@@ -68,16 +68,12 @@ const TechnicalLibraryItem = (props) => {
           {formatFileSize(result.file_size.raw)}
         </div>
         {isAdmin && Array.isArray(result.library_categories_values.raw) && (
-          <div>
+          <div className="admin-info">
             <strong
+              className="categorization-expand"
               onClick={() => setShowCategories((prev) => !prev)}
               role="button"
               tabIndex={0}
-              style={{
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
@@ -86,9 +82,7 @@ const TechnicalLibraryItem = (props) => {
               }}
             >
               Categorization
-              <span style={{ marginLeft: '8px', color: '#cecfcf' }}>
-                {showCategories ? '▾' : '▸'}
-              </span>
+              <span> {showCategories ? '▾' : '▸'}</span>
             </strong>
 
             {showCategories && (
