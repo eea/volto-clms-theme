@@ -51,9 +51,9 @@ export default function install(config) {
 
   clmsSearchTechnicalLibrary.sortOptions = [
     {
-      name: 'Oldest',
-      value: 'issued.date',
-      direction: 'asc',
+      name: 'Relevance',
+      value: '',
+      direction: '',
     },
     {
       name: 'Newest',
@@ -61,9 +61,9 @@ export default function install(config) {
       direction: 'desc',
     },
     {
-      name: 'Relevance',
-      value: '',
-      direction: '',
+      name: 'Oldest',
+      value: 'issued.date',
+      direction: 'asc',
     },
     {
       name: 'Version ↑',
