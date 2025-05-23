@@ -1,0 +1,58 @@
+@clms-primary: #a0b128;
+
+body.clmsSearchTechnicalLibrary-view {
+  div#page-document.container {
+    width: auto !important;
+  }
+}
+
+.searchapp.searchapp-clmsSearchTechnicalLibrary {
+  .u-item.listing-item {
+    padding: 0.1rem;
+  }
+
+  .result-bottom {
+    display: block !important;
+  }
+
+  div.card-doc-size {
+    float: right;
+    font-weight: 300;
+  }
+
+  a {
+    color: @clms-primary;
+  }
+
+  .technical-library-title {
+    display: inline-flex !important;
+    width: 100%;
+    align-items: start;
+  }
+
+  .label {
+    max-height: fit-content;
+  }
+
+  .technical-library-edit {
+    max-width: 50px;
+    margin-left: 5px;
+  }
+
+  .search-body-footer .column.grid {
+    margin-top: 0px;
+  }
+
+  div.admin-info {
+    strong.categorization-expand {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      span {
+        margin-left: 8px;
+        color: #d3d3d3;
+      }
+    }
+  }
+}

@@ -56,6 +56,10 @@ import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
+// SEARCHLIB
+import installSearchEngine from './search';
+import TechnicalLibraryItem from './components/Result/TechnicalLibraryItem';
+
 //APPEXTRA
 import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
 import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
@@ -94,6 +98,9 @@ const applyConfig = (config) => {
       ...customGroupBlocksOrder,
     ],
   };
+
+  const { resolve } = config.settings.searchlib;
+  resolve.TechnicalLibraryItem = { component: TechnicalLibraryItem };
 
   config.widgets.type.checkbox_html = CheckboxHtmlWidget;
   config.widgets.type.tabs = TabsWidget;
@@ -244,7 +251,10 @@ const applyConfig = (config) => {
     config.settings.serverConfig.extractScripts.errorPages = true;
   }
 
-  config = installLinkEditor(config);
+  config = [installLinkEditor, installSearchEngine].reduce(
+    (acc, apply) => apply(acc),
+    config,
+  );
 
   config.addonRoutes = [
     ...config.addonRoutes,

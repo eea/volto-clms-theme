@@ -30,7 +30,9 @@
     Brand Colors
 --------------------*/
 
-@secondaryColor      : @brown;
+/*@secondaryColor      : @brown;*/
+@clms-primary: #a0b128;
+@secondaryColor: @clms-primary;
 
 @lightSecondaryColor : @lightGrey;
 
