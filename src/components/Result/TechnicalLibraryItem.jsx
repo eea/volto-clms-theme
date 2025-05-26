@@ -3,7 +3,7 @@ import React from 'react';
 import penSVG from '@plone/volto/icons/pen.svg';
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import { Label } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import ExternalLink from '@eeacms/search/components/Result/ExternalLink';
 import { ResultContext } from '@eeacms/search';
 import { UniversalCard } from '@eeacms/volto-listing-block';
 import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
@@ -28,8 +28,8 @@ const TechnicalLibraryItem = (props) => {
     title: (
       <>
         <div className="technical-library-title">
-          <Link
-            to={`${result.href}/@@download/file`}
+          <ExternalLink
+            href={`${result.href}/@@download/file`}
             title={result.title}
             className="technical-library-title"
           >
@@ -38,10 +38,10 @@ const TechnicalLibraryItem = (props) => {
             {result.isExpired && (
               <Label className="archived-item">Archived</Label>
             )}
-          </Link>
+          </ExternalLink>
           {isAdmin && (
-            <Link
-              to={`${result.href}/edit`}
+            <ExternalLink
+              href={`${result.href}/edit`}
               target="_blank"
               rel="noopener noreferrer"
               className="technical-library-edit"
@@ -52,7 +52,7 @@ const TechnicalLibraryItem = (props) => {
                 className="circled"
                 title={'Edit'}
               />
-            </Link>
+            </ExternalLink>
           )}
         </div>
       </>
