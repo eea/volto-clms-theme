@@ -58,7 +58,7 @@ import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
 //APPEXTRA
 import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
-import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
+// import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
 
 import ImageView from '@plone/volto/components/theme/View/ImageView';
 import userSessionResetMiddleware from './store/userSessionResetMiddleware';
@@ -139,10 +139,10 @@ const applyConfig = (config) => {
         match: '*',
         component: CookieBanner,
       },
-      {
-        match: '*',
-        component: FeedbackSurvey,
-      },
+      // {
+      //   match: '*',
+      //   component: FeedbackSurvey,
+      // },
       {
         match: '',
         component: CustomMatomoAppExtra,
