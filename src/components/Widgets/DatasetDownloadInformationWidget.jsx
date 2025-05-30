@@ -38,6 +38,7 @@ const ItemSchema = () => ({
       title: 'Enter the data source',
       description: '',
       choices: [
+        ['CDSE', 'CDSE'],
         ['WEKEO', 'WEKEO'],
         ['EEA', 'EEA'],
         ['LANDCOVER', 'LANDCOVER'],
