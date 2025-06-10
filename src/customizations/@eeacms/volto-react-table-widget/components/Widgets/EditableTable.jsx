@@ -61,7 +61,6 @@ function EditableTable(props) {
   }, [data]);
 
   const handleDragEnd = (result) => {
-    console.log('in handleDragEnd');
     if (!result.destination || !reorderRow) {
       return;
     }
