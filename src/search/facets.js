@@ -19,4 +19,9 @@ if (facet && facet.default && Array.isArray(facet.default.values)) {
   facet.default.values[0] = 'All time';
 }
 
+// Disable Include archived content filter
+const facet_is_archived = facets.find((f) => f.field === 'IncludeArchived');
+if (facet_is_archived && facet_is_archived.showInSecondaryFacetsList) {
+  facet_is_archived.showInSecondaryFacetsList = false;
+}
 export default facets;
