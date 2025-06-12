@@ -75,6 +75,40 @@ body.clmsSearchTechnicalLibrary-view {
   .search-body-footer .column.grid {
     margin-top: 0px;
   }
+  .search-body-footer {
+    .paging-wrapper {
+      border-bottom: none;
+    }
+
+    .button.double-angle:after,
+    .button.double-angle:before {
+      color: @clms-primary;
+      width: 7px !important;
+      height: 7px !important;
+      top: 11px !important;
+    }
+
+    .button.single-angle:after {
+      color: @clms-primary;
+      width: 7px !important;
+      height: 7px !important;
+      top: 12px !important;
+    }
+
+    .ui.button.pagination-item {
+      min-width: 48px;
+      font-size: 16px !important;
+      color: @clms-primary;
+
+      &.active {
+        color: rgba(0, 0, 0, 0.87) !important;
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+  }
 
   div.admin-info {
     strong.categorization-expand {
