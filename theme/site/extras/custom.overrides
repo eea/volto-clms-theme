@@ -28,3 +28,4 @@
 @import 'product-tab-toggle';
 @import 'clms-table';
 @import 'dataset-info-section';
+@import 'news-item';
