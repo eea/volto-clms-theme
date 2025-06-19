@@ -24,4 +24,12 @@ const facet_is_archived = facets.find((f) => f.field === 'IncludeArchived');
 if (facet_is_archived && facet_is_archived.showInSecondaryFacetsList) {
   facet_is_archived.showInSecondaryFacetsList = false;
 }
+
+// Change label for Publishing year
+const facet_year = facets.find((f) => f.field === 'year');
+if (facet_year && facet_year.label) {
+  facet_year.label = 'Publication year';
+}
+
+// console.log('facets', facets);
 export default facets;
