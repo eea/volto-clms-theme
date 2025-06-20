@@ -1,4 +1,6 @@
 @clms-primary: #a0b128;
+@clms-dark: #273b4b;
+@clms-light-gray: #808080;
 
 body.clmsSearchTechnicalLibrary-view {
   div#page-document.container {
@@ -6,9 +8,21 @@ body.clmsSearchTechnicalLibrary-view {
   }
 }
 
+.searchlib-block .dropdown-facets-list .sidebar-wrapper .sidebar-content h3 {
+  color: @clms-dark !important;
+}
+
+.searchlib-block .dropdown-facets-list .sidebar-wrapper .clear-btn {
+  color: @clms-primary !important;
+}
+
 .searchapp.searchapp-clmsSearchTechnicalLibrary {
   a.back-link {
     display: none;
+  }
+
+  .listing-body p.listing-description {
+    min-height: 0px;
   }
 
   .ui.secondary.pointing.content-section-tabs.menu {
@@ -24,7 +38,7 @@ body.clmsSearchTechnicalLibrary-view {
   }
 
   i.icon.chevron.down:before {
-    color: #808080;
+    color: @clms-light-gray;
     content: '▼';
   }
 
@@ -34,6 +48,27 @@ body.clmsSearchTechnicalLibrary-view {
 
   i.icon.angle.right:before {
     content: '❯';
+  }
+
+  .sidebar-wrapper .accordion.ui {
+    border-bottom: 1px solid @clms-primary;
+    margin-bottom: 20px;
+
+    .title {
+      font-weight: 600;
+
+      i.icon.ri-arrow-down-s-line {
+        float: right;
+      }
+
+      i.icon.ri-arrow-down-s-line:before {
+        position: relative;
+        top: -3px;
+        color: @clms-light-gray;
+        content: '▼';
+        font-size: 12px !important;
+      }
+    }
   }
 
   div.active-filters button.clear-filters {

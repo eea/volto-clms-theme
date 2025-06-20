@@ -21,6 +21,7 @@ function formatFileSize(bytes) {
 
 const TechnicalLibraryItem = (props) => {
   const { result } = props;
+  // console.log('result', result);
   const [showCategories, setShowCategories] = useState(false);
   const user = useSelector((state) => state.users.user);
   const isAdmin = user?.roles?.includes('Manager');
@@ -100,7 +101,7 @@ const TechnicalLibraryItem = (props) => {
 
   const itemModel = {
     hasImage: result.hasImage,
-    hasDescription: false,
+    hasDescription: true,
     '@type': 'searchItem',
   };
 
