@@ -1,9 +1,19 @@
 @clms-primary: #a0b128;
+@clms-dark: #273b4b;
+@clms-light-gray: #808080;
 
 body.clmsSearchTechnicalLibrary-view {
   div#page-document.container {
     width: auto !important;
   }
+}
+
+.searchlib-block .dropdown-facets-list .sidebar-wrapper .sidebar-content h3 {
+  color: @clms-dark !important;
+}
+
+.searchlib-block .dropdown-facets-list .sidebar-wrapper .clear-btn {
+  color: @clms-primary !important;
 }
 
 .searchapp.searchapp-clmsSearchTechnicalLibrary {
@@ -28,7 +38,7 @@ body.clmsSearchTechnicalLibrary-view {
   }
 
   i.icon.chevron.down:before {
-    color: #808080;
+    color: @clms-light-gray;
     content: '▼';
   }
 
@@ -38,6 +48,25 @@ body.clmsSearchTechnicalLibrary-view {
 
   i.icon.angle.right:before {
     content: '❯';
+  }
+
+  .sidebar-wrapper .accordion.ui {
+    border-bottom: 1px solid @clms-primary;
+    margin-bottom: 20px;
+    .title {
+      font-weight: 600;
+      i.icon.ri-arrow-down-s-line {
+        float: right;
+      }
+
+      i.icon.ri-arrow-down-s-line:before {
+        content: '▼';
+        color: @clms-light-gray;
+        position: relative;
+        top: -3px;
+        font-size: 12px !important;
+      }
+    }
   }
 
   div.active-filters button.clear-filters {
