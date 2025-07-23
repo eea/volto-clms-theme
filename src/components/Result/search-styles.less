@@ -8,8 +8,20 @@ body.clmsSearchTechnicalLibrary-view {
   }
 }
 
-.searchlib-block .dropdown-facets-list .sidebar-wrapper .sidebar-content h3 {
-  color: @clms-dark !important;
+.searchlib-block
+  .dropdown-facets-list
+  .dropdown-facet
+  .ui.button.basic.facet-btn.active
+  > .facet-title {
+  color: @clms-dark;
+}
+
+.searchlib-block .dropdown-facets-list .sidebar-wrapper .sidebar-content {
+  overflow: hidden;
+
+  h3 {
+    color: @clms-dark !important;
+  }
 }
 
 .searchlib-block .dropdown-facets-list .sidebar-wrapper .clear-btn {

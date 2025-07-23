@@ -83,5 +83,7 @@ export default function install(config) {
       process.env.RAZZLE_ES_PROXY_ADDR || getClientProxyAddress();
   }
 
+  // Disable FAQ autocomplete suggestions
+  config.searchui.clmsSearchTechnicalLibrary.autocomplete.suggestions.faq = {};
   return config;
 }
