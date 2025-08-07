@@ -4,13 +4,8 @@ import { getPanels } from '../utils';
 import FamilyCard from './FamilyCard';
 
 const CclFamiliesListingView = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    setSidebarTab,
-    setSelectedCardBlock,
-  } = props;
+  const { block, data, onChangeBlock, setSidebarTab, setSelectedCardBlock } =
+    props;
 
   const properties = data?.customCards;
 

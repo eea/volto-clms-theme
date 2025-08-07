@@ -48,14 +48,12 @@ const messages = defineMessages({
     defaultMessage: 'Changes saved!',
   },
   subscriptionSuccessMessage: {
-    id:
-      'You will receive a confirmation email in {email} to confirm your subscription to receive these messages.',
+    id: 'You will receive a confirmation email in {email} to confirm your subscription to receive these messages.',
     defaultMessage:
       'You will receive a confirmation email in {email} to confirm your subscription to receive these messages.',
   },
   unsubscriptionSuccessMessage: {
-    id:
-      'You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages',
+    id: 'You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages',
     defaultMessage:
       'You will receive confirmation email in {email} to confirm that you want to unsubscribe from receiving these messages',
   },

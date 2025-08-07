@@ -7,15 +7,8 @@ import {
 import { enhanceExpandedByDefault } from './utils.js';
 
 const AccordionFacet = (props) => {
-  const {
-    facet,
-    choices,
-    isMulti,
-    onChange,
-    value,
-    isEditMode,
-    typeName,
-  } = props;
+  const { facet, choices, isMulti, onChange, value, isEditMode, typeName } =
+    props;
   const facetValue = value;
   var [open, setOpen] = React.useState(facet.expandedByDefault ?? false);
   function isChoiceValue(isChecked, choiceValue) {

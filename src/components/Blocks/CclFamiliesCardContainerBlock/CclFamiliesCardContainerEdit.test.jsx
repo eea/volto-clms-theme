@@ -19,8 +19,8 @@ const store = mockStore(initialState);
 jest.mock('../utils', () => ({
   emptyCard: jest.fn(() => ({
     blocks: {
-      '123': { '@type': 'card', title: 'Card 1' },
-      '456': { '@type': 'card', title: 'Card 2' },
+      123: { '@type': 'card', title: 'Card 1' },
+      456: { '@type': 'card', title: 'Card 2' },
     },
   })),
   getPanels: jest.fn((data) => Object.entries(data.blocks || {})),
@@ -119,8 +119,8 @@ describe('CclFamiliesCardContainerEdit', () => {
       data: {
         customCards: {
           blocks: {
-            '123': { title: 'Card 1' },
-            '456': { title: 'Card 2' },
+            123: { title: 'Card 1' },
+            456: { title: 'Card 2' },
           },
         },
       },
@@ -141,7 +141,7 @@ describe('CclFamiliesCardContainerEdit', () => {
       data: {
         customCards: {
           blocks: {
-            '123': { title: 'Card 1' },
+            123: { title: 'Card 1' },
           },
         },
       },
@@ -168,7 +168,7 @@ describe('CclFamiliesCardContainerEdit', () => {
       data: {
         customCards: {
           blocks: {
-            '123': { title: 'Card 1' },
+            123: { title: 'Card 1' },
           },
         },
       },

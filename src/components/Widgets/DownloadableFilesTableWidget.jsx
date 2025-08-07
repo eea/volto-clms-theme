@@ -87,9 +87,8 @@ const DownloadableFilesTableWidget = (props) => {
         onChange={(newSchema, newUiSchema) => {
           setEdited(true);
           let parsed_newSchema = JSON.parse(newSchema);
-          parsed_newSchema.fieldsets[0].fields = JSON.parse(newUiSchema)[
-            'ui:order'
-          ];
+          parsed_newSchema.fieldsets[0].fields =
+            JSON.parse(newUiSchema)['ui:order'];
           setSchema(parsed_newSchema);
           setUISchema(JSON.parse(newUiSchema));
         }}

@@ -4,13 +4,8 @@ import { getPanels } from '../utils';
 import ProductLink from './ProductLink';
 
 const CclProductLinksView = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    setSidebarTab,
-    setSelectedCardBlock,
-  } = props;
+  const { block, data, onChangeBlock, setSidebarTab, setSelectedCardBlock } =
+    props;
 
   const properties = data?.customCards;
 

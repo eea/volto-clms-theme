@@ -317,14 +317,8 @@ class CclProductCardColumnEdit extends React.Component {
   }
 
   render() {
-    const {
-      block,
-      data,
-      onChangeBlock,
-      pathname,
-      selected,
-      manage,
-    } = this.props;
+    const { block, data, onChangeBlock, pathname, selected, manage } =
+      this.props;
 
     const metadata = this.props.metadata || this.props.properties;
     const { gridCols, gridSize } = data;

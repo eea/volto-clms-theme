@@ -69,9 +69,9 @@ const OrderDocumentsWidget = (props) => {
         searchParams.associated_products = UID;
       }
 
-      dispatch(
-        searchContent('en/technical-library', searchParams, id),
-      ).finally(() => setIsLoading(false));
+      dispatch(searchContent('en/technical-library', searchParams, id)).finally(
+        () => setIsLoading(false),
+      );
     }
   }, [id, UID, contentType, dispatch]);
 
