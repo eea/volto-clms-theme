@@ -13,7 +13,8 @@ pipeline {
     DEPENDENCIES = ""
     BACKEND_PROFILES = "eea.kitkat:testing"
     BACKEND_ADDONS = "clms.addon,clms.types,clms.downloadtool,clms.statstool"
-    VOLTO = "16.24.0"
+    VOLTO = "17"
+    VOLTO16_BREAKING_CHANGES = "yes"
     IMAGE_NAME = BUILD_TAG.toLowerCase()
   }
 
