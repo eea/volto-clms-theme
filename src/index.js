@@ -20,8 +20,8 @@ import CLMSMeetingSubscribersView from '@eeacms/volto-clms-theme/components/CLMS
 import CLMSMeetingView from '@eeacms/volto-clms-theme/components/CLMSMeetingView/CLMSMeetingView';
 import CLMSNewsItemView from '@eeacms/volto-clms-theme/components/CLMSNewsItemView/CLMSNewsItemView';
 import ConfirmSubscriptionView from './components/CLMSSubscriptionView/ConfirmSubscriptionView';
-import ProfileView from './components/CLMSProfileView/CLMSProfileView';
-import SubscriptionView from './components/CLMSSubscriptionView/SubscriptionView';
+import { CLMSProfileView } from '@eeacms/volto-clms-theme/components/CLMSProfileView';
+import { SubscriptionView } from '@eeacms/volto-clms-theme/components/CLMSSubscriptionView/';
 import CLMSWorkOpportunityView from '@eeacms/volto-clms-theme/components/CLMSWorkOpportunityView/WorkOpportunityView';
 import CLMSUseCaseView from './components/CLMSUseCasesView/CLMSUseCasesView';
 import CLMSFAQView from './components/CLMSFAQView/CLMSFAQView';
@@ -43,7 +43,7 @@ import TaxonomyWidget from './components/Widgets/TaxonomyWidget';
 import ProductComponentsWidget from './components/Widgets/ProductComponentsWidget';
 import ImageSizeWidget from './components/Widgets/ImageSizeWidget';
 import { CLMSDateWidget } from './components/Widgets/CLMSDateWidget';
-import { getWidgetView } from '@eeacms/volto-widgets-view/helpers';
+import { getWidgetView } from '@plone/volto/helpers/Widget/widget';
 
 // CUSTOM REDUCERS IMPORT
 import TextLinkWidget from './components/Widgets/TextLinkWidget';
@@ -266,11 +266,11 @@ const applyConfig = (config) => {
     },
     {
       path: '/profile',
-      component: ProfileView,
+      component: CLMSProfileView,
     },
     {
       path: '/**/profile',
-      component: ProfileView,
+      component: CLMSProfileView,
     },
     {
       path: '/subscribe/:type',

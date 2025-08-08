@@ -1,5 +1,5 @@
-export CLMSProfileView from './CLMSProfileView';
-export CLMSUserProfileView from './CLMSUserProfileView';
-export CLMSApiTokensView from './CLMSApiTokensView';
-export CLMSNewsletterSubscriberView from './CLMSNewsletterSubscriberView';
-export CLMSDeleteProfileView from './CLMSDeleteProfileView';
+export { default as CLMSProfileView } from './CLMSProfileView';
+export { default as CLMSUserProfileView } from './CLMSUserProfileView';
+export { default as CLMSApiTokensView } from './CLMSApiTokensView';
+export { default as CLMSNewsletterSubscriberView } from './CLMSNewsletterSubscriberView';
+export { default as CLMSDeleteProfileView } from './CLMSDeleteProfileView';
