@@ -62,7 +62,7 @@ import TechnicalLibraryItem from './components/Result/TechnicalLibraryItem';
 
 //APPEXTRA
 import CustomMatomoAppExtra from './components/AppExtra/AppExtra';
-import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
+// import FeedbackSurvey from './components/AppExtra/FeedbackSurvey';
 
 import ImageView from '@plone/volto/components/theme/View/ImageView';
 import userSessionResetMiddleware from './store/userSessionResetMiddleware';
@@ -146,10 +146,10 @@ const applyConfig = (config) => {
         match: '*',
         component: CookieBanner,
       },
-      {
-        match: '*',
-        component: FeedbackSurvey,
-      },
+      // {
+      //   match: '*',
+      //   component: FeedbackSurvey,
+      // },
       {
         match: '',
         component: CustomMatomoAppExtra,
@@ -166,39 +166,39 @@ const applyConfig = (config) => {
       '/newsletter-notification-subscription',
       '/newsletter-notification-unsubscription',
     ],
-    isMultilingual: true,
-    supportedLanguages: [
-      'bg',
-      'cs',
-      'hr',
-      'da',
-      'nl',
-      'el',
-      'en',
-      'es',
-      'et',
-      'fi',
-      'fr',
-      'de',
-      'hu',
-      'it',
-      'lv',
-      'lt',
-      'mt',
-      'pl',
-      'pt',
-      'ro',
-      'sk',
-      'sl',
-      'sv',
-    ],
+    isMultilingual: false,
+    // supportedLanguages: [
+    //   'bg',
+    //   'cs',
+    //   'hr',
+    //   'da',
+    //   'nl',
+    //   'el',
+    //   'en',
+    //   'es',
+    //   'et',
+    //   'fi',
+    //   'fr',
+    //   'de',
+    //   'hu',
+    //   'it',
+    //   'lv',
+    //   'lt',
+    //   'mt',
+    //   'pl',
+    //   'pt',
+    //   'ro',
+    //   'sk',
+    //   'sl',
+    //   'sv',
+    // ],
     defaultLanguage: 'en',
     registry: {
       ...config.settings.registry,
       login_url: 'clms.addon.login_url_controlpanel.login_url',
     },
     showTags: false,
-    ownDomain: 'land.copernicus.eu',
+    ownDomain: 'ask.copernicus.eu',
     track_search_paths: ['/en/global-search', '/en/dataset-catalog'],
     apiExpanders: [
       ...config.settings.apiExpanders,
