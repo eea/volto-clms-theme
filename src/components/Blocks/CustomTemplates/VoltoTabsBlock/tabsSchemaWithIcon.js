@@ -1,4 +1,4 @@
-export default () => ({
+const tabsSchemaWithIcon = () => ({
   title: 'Default tabs block',
   fieldsets: [
     {
@@ -134,3 +134,5 @@ export default () => ({
   },
   required: [],
 });
+
+export default tabsSchemaWithIcon;

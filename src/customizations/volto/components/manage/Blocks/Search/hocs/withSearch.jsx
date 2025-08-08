@@ -244,9 +244,11 @@ const withSearch = (options) => (WrappedComponent) => {
       editable,
     );
 
-    const urlQuery = locationSearchData.query
-      ? deserializeQuery(locationSearchData.query)
-      : [];
+    const urlQuery = React.useMemo(() => {
+      return locationSearchData.query
+        ? deserializeQuery(locationSearchData.query)
+        : [];
+    }, [locationSearchData.query]);
     const urlSearchText =
       locationSearchData.SearchableText ||
       urlQuery.find(({ i }) => i === 'SearchableText')?.v ||
@@ -254,8 +256,9 @@ const withSearch = (options) => (WrappedComponent) => {
 
     // TODO: refactor, should use only useLocationStateManager()!!!
     const [searchText, setSearchText] = React.useState(urlSearchText);
-    const configuredFacets =
-      data.facets?.map((facet) => facet?.field?.value) || [];
+    const configuredFacets = React.useMemo(() => {
+      return data.facets?.map((facet) => facet?.field?.value) || [];
+    }, [data.facets]);
     const multiFacets = data.facets
       ?.filter((facet) => facet?.multiple)
       .map((facet) => facet?.field?.value);
