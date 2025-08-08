@@ -98,22 +98,24 @@ const CclProductToggleView = (props) => {
   return (
     <div className="product-tab-view">
       <div className="container">
-        {props.data.productIcon === 'Landscape green bg' ? (
-          <ReactSVG src={LandCoverImage} />
-        ) : props.data.productIcon === 'Warning green bg' ? (
-          <ReactSVG src={PriorityAreaImage} />
-        ) : props.data.productIcon === 'Leaf green bg' ? (
-          <ReactSVG src={BioGeoPhysicalImage} />
-        ) : props.data.productIcon === 'Computer green bg' ? (
-          <ReactSVG src={GroundMotionImage} />
-        ) : props.data.productIcon === 'Database green bg' ? (
-          <ReactSVG src={ReferenceAndValidationImage} />
-        ) : props.data.productIcon === 'Satellite green bg' ? (
-          <ReactSVG src={SatelliteImage} />
-        ) : (
-          ''
-        )}
-        <div className="product-title">{props.data.title}</div>
+        <div className="header-row">
+          {props.data.productIcon === 'Landscape green bg' ? (
+            <ReactSVG src={LandCoverImage} />
+          ) : props.data.productIcon === 'Warning green bg' ? (
+            <ReactSVG src={PriorityAreaImage} />
+          ) : props.data.productIcon === 'Leaf green bg' ? (
+            <ReactSVG src={BioGeoPhysicalImage} />
+          ) : props.data.productIcon === 'Computer green bg' ? (
+            <ReactSVG src={GroundMotionImage} />
+          ) : props.data.productIcon === 'Database green bg' ? (
+            <ReactSVG src={ReferenceAndValidationImage} />
+          ) : props.data.productIcon === 'Satellite green bg' ? (
+            <ReactSVG src={SatelliteImage} />
+          ) : (
+            ''
+          )}
+          <div className="product-title">{props.data.title}</div>
+        </div>
         <TabsComponent {...props} />
       </div>
       <div className="product-description">{props.data.description}</div>
