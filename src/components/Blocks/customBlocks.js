@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl';
 import {
   AccordionFacet,
   RightModalFacets,
@@ -679,7 +680,10 @@ const customBlocks = (config) => ({
   form: {
     ...config.blocks.blocksConfig.form,
     view: FormCustomView,
-    fieldSchema: customIdFieldSchema,
+    fieldSchema: (props) => {
+      const intl = useIntl();
+      return customIdFieldSchema(props, intl);
+    },
     fieldTypeSchemaExtenders: {
       ...config.blocks.blocksConfig.form.fieldTypeSchemaExtenders,
       checkbox_html: CheckboxSchemaExtender,
