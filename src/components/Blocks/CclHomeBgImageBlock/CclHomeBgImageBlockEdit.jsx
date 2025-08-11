@@ -54,6 +54,7 @@ const CclHomeBgImageBlockEdit = (props) => {
             });
           }}
           formData={data}
+          onChangeBlock={onChangeBlock}
           block={block}
         />
       </SidebarPortal>

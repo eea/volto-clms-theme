@@ -590,6 +590,7 @@ class CclProductCardColumnEdit extends React.Component {
                     data?.data?.blocks?.[this.state.activeColumn]?.settings ||
                     {}
                   }
+                  onChangeBlock={onChangeBlock}
                 />
               </>
             ) : (
@@ -605,6 +606,7 @@ class CclProductCardColumnEdit extends React.Component {
                   });
                 }}
                 formData={data}
+                onChangeBlock={onChangeBlock}
               />
             )}
           </SidebarPortal>

@@ -159,6 +159,7 @@ const CclCardContainerBlockEdit = ({
             });
           }}
           formData={data}
+          onChangeBlock={onChangeBlock}
         />
       </SidebarPortal>
       <SidebarPortal
@@ -185,6 +186,7 @@ const CclCardContainerBlockEdit = ({
             });
           }}
           formData={data.customCards?.blocks[selectedCardBlock]}
+          onChangeBlock={onChangeBlock}
         />
       </SidebarPortal>
     </>

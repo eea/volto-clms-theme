@@ -79,6 +79,7 @@ const CclProductLinksEdit = ({
             });
           }}
           formData={data}
+          onChangeBlock={onChangeBlock}
         />
       </SidebarPortal>
       <SidebarPortal
@@ -105,6 +106,7 @@ const CclProductLinksEdit = ({
             });
           }}
           formData={data.customCards?.blocks[selectedCardBlock]}
+          onChangeBlock={onChangeBlock}
         />
       </SidebarPortal>
     </>

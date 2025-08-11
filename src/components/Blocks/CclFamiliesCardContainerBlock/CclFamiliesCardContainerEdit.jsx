@@ -66,6 +66,7 @@ const CclFamiliesListingEdit = (props) => {
             });
           }}
           formData={data}
+          onChangeBlock={onChangeBlock}
         />
       </SidebarPortal>
       <SidebarPortal
@@ -92,6 +93,7 @@ const CclFamiliesListingEdit = (props) => {
             });
           }}
           formData={data.customCards?.blocks[selectedCardBlock]}
+          onChangeBlock={onChangeBlock}
         />
       </SidebarPortal>
     </>
