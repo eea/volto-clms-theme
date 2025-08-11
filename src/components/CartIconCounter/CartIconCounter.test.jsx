@@ -9,6 +9,11 @@ beforeAll(async () => {
   await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
 });
 
+jest.mock(
+  '@eeacms/volto-clms-utils/src/helpers/withFontAwesomeLibs',
+  () => (WrappedComponent) => (props) => <WrappedComponent {...props} />,
+);
+
 describe('onlyInLeft', () => {
   // Returns an array with items that are only in the left array, based on a compare function
   it('should return an array with items that are only in the left array', () => {

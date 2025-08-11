@@ -12,6 +12,11 @@ beforeAll(async () => {
   await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
 });
 
+jest.mock(
+  '@eeacms/volto-clms-utils/src/helpers/withFontAwesomeLibs',
+  () => (WrappedComponent) => (props) => <WrappedComponent {...props} />,
+);
+
 const mockStore = configureStore();
 let store = mockStore({
   intl: {
