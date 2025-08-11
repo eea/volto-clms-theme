@@ -87,7 +87,7 @@ import CclHelpdeskDocBlockView from '@eeacms/volto-clms-theme/components/Blocks/
 import containerSVG from '@plone/volto/icons/apps.svg';
 import { SelectionSchemaExtender } from 'volto-form-block/components/FieldTypeSchemaExtenders';
 import {
-  customIdFieldSchema,
+  CustomIdFieldSchema,
   CheckboxSchemaExtender,
   CheckboxHtmlWidget,
   VocabularyWidget,
@@ -680,10 +680,7 @@ const customBlocks = (config) => ({
   form: {
     ...config.blocks.blocksConfig.form,
     view: FormCustomView,
-    fieldSchema: (props) => {
-      const intl = useIntl();
-      return customIdFieldSchema(props, intl);
-    },
+    fieldSchema: CustomIdFieldSchema,
     fieldTypeSchemaExtenders: {
       ...config.blocks.blocksConfig.form.fieldTypeSchemaExtenders,
       checkbox_html: CheckboxSchemaExtender,

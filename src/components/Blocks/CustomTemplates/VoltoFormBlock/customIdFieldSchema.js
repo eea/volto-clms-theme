@@ -1,4 +1,4 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 
 import config from '@plone/volto/registry';
 
@@ -69,7 +69,8 @@ const messages = defineMessages({
   },
 });
 
-const customIdFieldSchema = (props, intl) => {
+const CustomIdFieldSchema = (props) => {
+  var intl = useIntl();
   const baseFieldTypeChoices = [
     ['text', intl.formatMessage(messages.field_type_text)],
     ['textarea', intl.formatMessage(messages.field_type_textarea)],
@@ -153,4 +154,4 @@ const customIdFieldSchema = (props, intl) => {
   };
 };
 
-export default customIdFieldSchema;
+export default CustomIdFieldSchema;
