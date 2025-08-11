@@ -11,7 +11,7 @@ beforeAll(async () => {
   await require('@plone/volto/helpers/Loadable/Loadable').__setLoadables();
 });
 
-jest.mock('@eeacms/volto-clms-utils/src/helpers', () => ({
+jest.mock('@eeacms/volto-clms-utils/helpers', () => ({
   withFontAwesomeLibs: jest.fn((Component) => Component),
 }));
 
