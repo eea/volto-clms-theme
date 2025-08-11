@@ -1,4 +1,3 @@
-import { useIntl } from 'react-intl';
 import {
   AccordionFacet,
   RightModalFacets,
