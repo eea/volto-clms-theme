@@ -14,6 +14,12 @@ const ItemSchema = () => ({
       description: '',
       type: 'string',
     },
+    byoc_collection: {
+      title: 'BYOC Collection',
+      description:
+        'To download the datasets via CDSE, it is necessary to include a BYOC identifier. Example: 3fdh95a1-rc49-4676-b285-c1d00g4bag1a',
+      type: 'string',
+    },
     full_path: {
       title: 'Enter the path to the full dataset download file',
       description:
@@ -69,6 +75,7 @@ const ItemSchema = () => ({
       fields: [
         'name',
         'collection',
+        'byoc_collection',
         'full_path',
         'full_format',
         'full_source',
