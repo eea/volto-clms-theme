@@ -38,15 +38,12 @@ const codedToReal = (number, step) => {
 const convertToRange = (values, step) => {
   const nums = values
     .map((o) => {
-      // uneori o poate fi un string simplu, alteori {value: "123"}
       const raw = o.value !== undefined ? o.value : o;
 
-      // dacă e string, curățăm litere
       if (typeof raw === 'string') {
         return parseInt(raw.replace(/[a-zA-Z]/g, ''), 10);
       }
 
-      // dacă e number, îl returnăm direct
       if (typeof raw === 'number') {
         return raw;
       }
