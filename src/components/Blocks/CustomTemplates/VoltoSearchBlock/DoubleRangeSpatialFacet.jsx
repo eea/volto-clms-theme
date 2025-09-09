@@ -4,10 +4,7 @@ import React from 'react';
 
 import InputRange from 'react-input-range';
 import { Segment } from 'semantic-ui-react';
-import {
-  selectFacetStateToValue,
-  selectFacetValueToQuery,
-} from '@plone/volto/components/manage/Blocks/Search/components/base';
+import { selectFacetStateToValue } from '@plone/volto/components/manage/Blocks/Search/components/base';
 import { doubleRangeFacetSchemaEnhancer } from './utils.js';
 
 const mToKm = (m) => {
@@ -39,25 +36,25 @@ const codedToReal = (number, step) => {
 };
 
 const convertToRange = (values, step) => {
+  const nums = values
+    .map((o) => {
+      const raw = o.value !== undefined ? o.value : o;
+
+      if (typeof raw === 'string') {
+        return parseInt(raw.replace(/[a-zA-Z]/g, ''), 10);
+      }
+
+      if (typeof raw === 'number') {
+        return raw;
+      }
+
+      return NaN;
+    })
+    .filter((n) => !isNaN(n));
+
   return {
-    min: realToCoded(
-      Math.min.apply(
-        Math,
-        values.map(function (o) {
-          return o.value.replace(/[a-zA-Z]/, '');
-        }),
-      ),
-      step,
-    ),
-    max: realToCoded(
-      Math.max.apply(
-        Math,
-        values.map(function (o) {
-          return o.value.replace(/[a-zA-Z]/, '');
-        }),
-      ),
-      step,
-    ),
+    min: realToCoded(Math.min(...nums), step),
+    max: realToCoded(Math.max(...nums), step),
   };
 };
 
@@ -138,7 +135,19 @@ const DoubleRangeSpatialFacet = (props) => {
   );
 };
 
+const doubleRangeValueToQuery = ({ value, facet }) => {
+  if (!value || value.length === 0) return undefined;
+
+  const numericValues = value.map((v) => parseInt(v, 10)).sort((a, b) => a - b);
+
+  return {
+    i: facet.field.value,
+    o: 'plone.app.querystring.operation.int.between', // implemented by us in clms.types
+    v: [numericValues[0], numericValues[numericValues.length - 1]],
+  };
+};
+
 DoubleRangeSpatialFacet.schemaEnhancer = doubleRangeFacetSchemaEnhancer;
 DoubleRangeSpatialFacet.stateToValue = selectFacetStateToValue;
-DoubleRangeSpatialFacet.valueToQuery = selectFacetValueToQuery;
+DoubleRangeSpatialFacet.valueToQuery = doubleRangeValueToQuery;
 export default DoubleRangeSpatialFacet;
