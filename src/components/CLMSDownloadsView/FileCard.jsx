@@ -165,7 +165,7 @@ const FileCard = (props) => {
           >
             <Header as="h3">{`Task ID: ${item?.TaskID}`}</Header>
             <Header.Subheader as="h4">{`Job ID: ${
-              item?.cdse_task_role === 'parent'
+              item?.cdse_task_role === 'parent' && !item?.FMETaskId
                 ? 'CDSE PROCESSING...'
                 : item?.FMETaskId
             }`}</Header.Subheader>
