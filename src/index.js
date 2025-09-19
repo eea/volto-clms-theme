@@ -382,7 +382,7 @@ const applyConfig = (config) => {
 
   config.settings.initialReducersBlacklist = [
     ...config.settings.initialReducersBlacklist,
-    // 'dropdownMenuNavItems',
+    'dropdownMenuNavItems',
     'reduxAsyncConnect',
     'intl',
     // 'content',
