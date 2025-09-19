@@ -17,6 +17,8 @@ module.exports = {
       '<rootDir>/node_modules/@eeacms/volto-clms-utils/src/$1',
     '@eeacms/volto-tabs-block/(.*)$':
       '<rootDir>/node_modules/@eeacms/volto-tabs-block/src/$1',
+    '@eeacms/volto-anchors/(.*)$':
+      '<rootDir>/node_modules/@eeacms/volto-anchors/src/$1',
     '@kitconcept/volto-blocks-grid/(.*)$':
       '<rootDir>/node_modules/@kitconcept/volto-blocks-grid/src/$1',
     '@plone/volto-slate':
@@ -33,7 +35,7 @@ module.exports = {
     '^.+\\.(svg)$': './node_modules/@plone/volto/jest-svgsystem-transform.js',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(@eeacms/volto-clms-utils/|@eeacms/volto-tabs-block/|@plone/volto/|slick-carousel|react-input-range))',
+    'node_modules/(?!(@eeacms/volto-clms-utils/|@eeacms/volto-tabs-block/|@eeacms/volto-anchors/|@plone/volto/|slick-carousel|react-input-range))',
   ],
   coverageThreshold: {
     global: {
@@ -43,6 +45,5 @@ module.exports = {
       statements: 5,
     },
   },
-
   setupFilesAfterEnv: ['<rootDir>/src/addons/volto-clms-theme/jest.setup.js'],
 };
