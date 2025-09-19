@@ -25,7 +25,6 @@
     "@eeacms/volto-accordion-block",
     "@eeacms/volto-metadata-block",
     "@eeacms/volto-resize-helper",
-    "@eeacms/volto-anchors",
     "@eeacms/volto-tabs-block",
     "@eeacms/volto-clms-utils",
     "@eeacms/volto-react-table-widget",
@@ -41,7 +40,6 @@
   },
   "dependencies": {
     "@eeacms/volto-accordion-block": "7.0.0",
-    "@eeacms/volto-anchors": "*",
     "@eeacms/volto-arcgis-block": "0.1.336",
     "@eeacms/volto-clms-utils": "0.1.15",
     "@eeacms/volto-columns-block": "6.0.2",
