@@ -49,7 +49,7 @@
     "@eeacms/volto-react-table-widget": "0.1.3",
     "@eeacms/volto-resize-helper": "1.0.1",
     "@eeacms/volto-tableau": "1.3.0",
-    "@eeacms/volto-tabs-block": "3.0.1",
+    "@eeacms/volto-tabs-block": "5.1.0",
     "@eeacms/volto-taxonomy": "5.1.0",
     "@elastic/search-ui": "1.21.2",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
