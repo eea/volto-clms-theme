@@ -205,10 +205,30 @@ const FileCard = (props) => {
                 ))}
               </ul>
             )}
-            {item?.Status === 'Rejected' && item?.Message && (
+            {item?.Status === 'Rejected' && (
               <Segment basic>
-                <strong>Message:</strong>
-                {item.Message}
+                {item?.Message && (
+                  <>
+                    <strong>Message:</strong> {item.Message}
+                    <br />
+                  </>
+                )}
+                {item?.cdse_errors?.length > 0 && (
+                  <details style={{ marginTop: '0.5em' }}>
+                    <summary
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Show details
+                    </summary>
+                    <ul>
+                      {item.cdse_errors.map((err, idx) => (
+                        <li key={idx}>{err}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </Segment>
             )}
             {item?.Status === 'Finished_ok' && 3 - daysDiff > -1 && (
