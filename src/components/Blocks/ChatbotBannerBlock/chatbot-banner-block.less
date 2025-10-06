@@ -1,29 +1,29 @@
 .chatbot-banner-block {
-  background-color: #fafaf5;
-  border-radius: 8px;
   padding: 1.5rem 2rem;
   margin: 2rem 0;
+  background-color: #fafaf5;
+  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   .chatbot-banner-inner {
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
     margin: 0 auto;
     gap: 2rem;
 
     // Logo section (left)
     .chatbot-banner-logo-link,
     .chatbot-banner-logo {
-      flex-shrink: 0;
       display: flex;
+      flex-shrink: 0;
       align-items: center;
       justify-content: center;
 
       img {
-        max-height: 48px;
         width: auto;
+        max-height: 48px;
       }
     }
 
@@ -31,18 +31,18 @@
     .chatbot-banner-text {
       flex: 1;
       margin: 0;
+      color: rgba(0, 0, 0, 0.68);
       font-size: 1rem;
       line-height: 1.5;
-      color: rgba(0, 0, 0, 0.68);
     }
 
     // Button section (right)
     .chatbot-banner-button {
+      padding: 0.7rem 1.4rem;
       background-color: #a0b128;
       color: #fff;
-      text-decoration: none;
-      padding: 0.7rem 1.4rem;
       font-weight: 500;
+      text-decoration: none;
       white-space: nowrap;
     }
   }
@@ -66,8 +66,8 @@
     .chatbot-banner-inner {
       flex-direction: column;
       align-items: flex-start;
-      text-align: left;
       gap: 1rem;
+      text-align: left;
 
       .chatbot-banner-logo-link,
       .chatbot-banner-logo {
