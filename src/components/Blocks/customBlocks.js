@@ -77,6 +77,8 @@ import RelatedListingSchema from '@eeacms/volto-clms-theme/components/Blocks/Ccl
 import { TABS_BLOCK } from '@eeacms/volto-tabs-block/constants';
 import TextLinkCarouselEdit from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselEdit';
 import TextLinkCarouselView from '@eeacms/volto-clms-theme/components/Blocks/CclTextLinkCarouselBlock/CclTextLinkCarouselView';
+import ChatbotBannerBlockView from '@eeacms/volto-clms-theme/components/Blocks/ChatbotBannerBlock/ChatbotBannerBlockView';
+import ChatbotBannerBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/ChatbotBannerBlock/ChatbotBannerBlockEdit';
 import SubscriptionBlockView from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionView';
 import SubscriptionBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclSubscriptionBlock/SubscriptionEdit';
 import CclFAQBlockEdit from '@eeacms/volto-clms-theme/components/Blocks/CclFAQBlock/CclFAQBlockEdit';
@@ -602,6 +604,22 @@ const customBlocks = (config) => ({
     group: 'ccl_home_specific', // The group (blocks can be grouped, displayed in the chooser)
     view: TextLinkCarouselView, // The view mode component
     edit: TextLinkCarouselEdit, // The edit mode component
+    restricted: false, // If the block is restricted, it won't show in the chooser
+    mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
+    blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
+    sidebarTab: 1, // The sidebar tab you want to be selected when selecting the block
+    security: {
+      addPermission: [], // Future proof (not implemented yet) add user permission role(s)
+      view: [], // Future proof (not implemented yet) view user role(s)
+    },
+  },
+  chatbotBannerBlock: {
+    id: 'chatbotBannerBlock', // The name (id) of the block
+    title: 'Chatbot Banner', // The display name of the block
+    icon: homeBand, // The icon used in the block chooser
+    group: 'common', // The group (blocks can be grouped, displayed in the chooser)
+    view: ChatbotBannerBlockView, // The view mode component
+    edit: ChatbotBannerBlockEdit, // The edit mode component
     restricted: false, // If the block is restricted, it won't show in the chooser
     mostUsed: false, // A meta group `most used`, appearing at the top of the chooser
     blockHasOwnFocusManagement: false, // Set this to true if the block manages its own focus
