@@ -1,13 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
 import './chatbot-banner-block.less';
+import AssistantIcon from '@eeacms/volto-clms-theme/../theme/clms/img/assistant-icon.svg';
 
 const ChatbotBannerBlockView = ({ data, isEditMode }) => {
-  const { logo, logoLink, text, buttonText, buttonLink } = data;
-
-  const logoImage = logo ? (
-    <img src={logo} alt="Logo" className="chatbot-banner-logo" />
-  ) : null;
+  const { title, text, buttonText, buttonLink } = data;
 
   return (
     <div
@@ -16,21 +13,14 @@ const ChatbotBannerBlockView = ({ data, isEditMode }) => {
       })}
     >
       <div className="chatbot-banner-inner">
-        {logo &&
-          (logoLink ? (
-            <a
-              href={logoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="chatbot-banner-logo-link"
-            >
-              {logoImage}
-            </a>
-          ) : (
-            logoImage
-          ))}
+        <div className="chatbot-banner-left">
+          <img src={AssistantIcon} alt="" className="chatbot-banner-icon" />
+          <p className="chatbot-banner-title">
+            {title || 'Your smart CLMS guide'}
+          </p>
+        </div>
 
-        <p className="chatbot-banner-text">{text || 'Your smart CLMS guide'}</p>
+        {text && <p className="chatbot-banner-text">{text}</p>}
 
         {buttonText && (
           <a
