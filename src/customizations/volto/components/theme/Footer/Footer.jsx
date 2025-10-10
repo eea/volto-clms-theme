@@ -25,6 +25,7 @@ import EEAImage from '@eeacms/volto-clms-theme/../theme/clms/img/ec-logo-white.s
 import ECImage from '@eeacms/volto-clms-theme/../theme/clms/img/eea-logo.svg';
 import CclFooterColumn from '@eeacms/volto-clms-theme/components/CclFooterColumn/CclFooterColumn';
 import CclFooterMenu from '@eeacms/volto-clms-theme/components/CclTopMainMenu/CclFooterMenu';
+import ChatbotFloatingButton from '@eeacms/volto-clms-theme/components/Footer/ChatbotFloatingButton';
 
 const messages = defineMessages({
   copernicusServices: {
@@ -358,6 +359,7 @@ class Footer extends Component {
             <CclFooterMenu></CclFooterMenu>
           </ul>
         </div>
+        <ChatbotFloatingButton />
       </footer>
     );
   }
