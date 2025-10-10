@@ -18,6 +18,7 @@ const ChatbotFloatingButton = () => {
       aria-label="Open AI Assistant"
       target="_blank"
       rel="noopener noreferrer"
+      title="Your smart CLMS guide"
     >
       <img src={AssistantIcon} alt="AI Assistant" />
     </a>
