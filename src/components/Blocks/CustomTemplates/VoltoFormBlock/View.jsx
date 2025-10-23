@@ -2,7 +2,8 @@ import React, { useState, useEffect, useReducer, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useIntl, defineMessages } from 'react-intl';
-import { submitForm } from 'volto-form-block/actions';
+import { submitForm } from '../../../../customizations/volto-form-block/actions';
+
 import { getFieldName } from 'volto-form-block/components/utils';
 import FormView from 'volto-form-block/components/FormView';
 import { formatDate } from '@plone/volto/helpers/Utils/Date';
@@ -77,12 +78,29 @@ const View = ({ data, id, path }) => {
 
   const [formState, setFormState] = useReducer(formStateReducer, initialState);
   const [formErrors, setFormErrors] = useState([]);
+  const [csrfToken, setCsrfToken] = useState(null);
   const submitResults = useSelector((state) => state.submitForm);
   const captchaToken = useRef();
 
   const onChangeFormData = (field_id, field, value, extras) => {
     setFormData({ field, value: { field_id, value, ...extras } });
   };
+
+  useEffect(() => {
+    fetch(`/++api++/@clms-get-csrf-token`, {
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+        return r.json();
+      })
+      .then((data) => {
+        setCsrfToken(data.token);
+      });
+  }, [path]);
 
   useEffect(() => {
     if (formErrors.length > 0) {
@@ -204,6 +222,7 @@ const View = ({ data, id, path }) => {
               })),
               attachments,
               captcha,
+              csrfToken,
             ),
           );
           setFormState({ type: FORM_STATES.loading });
