@@ -124,7 +124,15 @@ const TabsComponent = ({
   }, [activeTab, expandedTab, groupedTabs]);
 
   useEffect(() => {
-    scrollToContentSection();
+    const urlParams = new URLSearchParams(location.search);
+    const hasHash = location.hash.length > 1;
+    const hasQueryTab = urlParams.has('tab');
+
+    if (hasHash || hasQueryTab) {
+      scrollToContentSection();
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [activeTab, location.hash.length, location.search]);
 
   return (
