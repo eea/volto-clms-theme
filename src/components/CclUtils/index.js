@@ -9,6 +9,8 @@ export {
   cclDateFormat,
   cclDateTimeFormat,
   cclTimeFormat,
+  cclCartDateFormat,
+  toUTCTimestamp,
 } from './dateFormats';
 export { helmetTitle } from './helmetTitle';
 export { sanitizedHTML } from './sanitizedHTML';
