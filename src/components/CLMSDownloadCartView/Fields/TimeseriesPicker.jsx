@@ -45,7 +45,7 @@ export const TimeseriesPicker = (props) => {
             className="info-icon"
             style={{ margin: 0 }}
             tooltip="Select temporal interval to download"
-            direction="up"
+            direction="right"
           >
             <button
               style={{
