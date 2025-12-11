@@ -62,14 +62,19 @@ export const cclTimeFormat = (date) => {
 export const toUTCTimestamp = (date, isEndOfDay = false) => {
   if (!date) return null;
 
-  // Adjust for timezone offset to get the intended UTC date
-  const offsetDate = new Date(
-    date.getTime() - date.getTimezoneOffset() * 60000,
+  // Extract local calendar date components
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  // Create UTC timestamp for that calendar date
+  return Date.UTC(
+    year,
+    month,
+    day,
+    isEndOfDay ? 23 : 0,
+    isEndOfDay ? 59 : 0,
+    isEndOfDay ? 59 : 0,
+    isEndOfDay ? 999 : 0,
   );
-
-  if (isEndOfDay) {
-    offsetDate.setUTCHours(23, 59, 59, 999);
-  }
-
-  return offsetDate.getTime();
 };
