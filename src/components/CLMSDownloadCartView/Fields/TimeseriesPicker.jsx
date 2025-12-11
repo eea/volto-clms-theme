@@ -4,10 +4,7 @@ import { Grid, Popup } from 'semantic-ui-react';
 import calendarSVG from '@plone/volto/icons/calendar.svg';
 import { Icon } from '@plone/volto/components';
 
-import {
-  cclCartDateFormat,
-  toUTCTimestamp,
-} from '@eeacms/volto-clms-theme/components/CclUtils';
+import { cclDateFormat } from '@eeacms/volto-clms-theme/components/CclUtils';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 
 export const TimeseriesPicker = (props) => {
@@ -21,12 +18,12 @@ export const TimeseriesPicker = (props) => {
   } = props;
   const [startValue, setStartValue] = useState(
     item?.TemporalFilter?.StartDate
-      ? new Date(cclCartDateFormat(item.TemporalFilter.StartDate))
+      ? new Date(cclDateFormat(item.TemporalFilter.StartDate))
       : null,
   );
   const [endValue, setEndValue] = useState(
     item?.TemporalFilter?.EndDate
-      ? new Date(cclCartDateFormat(item.TemporalFilter.EndDate))
+      ? new Date(cclDateFormat(item.TemporalFilter.EndDate))
       : null,
   );
   const [isOpen, setIsOpen] = useState(false);
@@ -65,9 +62,9 @@ export const TimeseriesPicker = (props) => {
               <br />
               <span>
                 {item.TemporalFilter
-                  ? `${cclCartDateFormat(
+                  ? `${cclDateFormat(
                       item.TemporalFilter.StartDate,
-                    )}-${cclCartDateFormat(item.TemporalFilter.EndDate)}`
+                    )}-${cclDateFormat(item.TemporalFilter.EndDate)}`
                   : 'Select dates'}
               </span>
             </button>
@@ -128,9 +125,9 @@ export const TimeseriesPicker = (props) => {
               {(item?.TemporalFilter?.StartDate ||
                 item?.TemporalFilter?.EndDate) && (
                 <span>
-                  {cclCartDateFormat(item?.TemporalFilter?.StartDate)} -{' '}
+                  {cclDateFormat(item?.TemporalFilter?.StartDate)} -{' '}
                   {item?.TemporalFilter?.EndDate &&
-                    cclCartDateFormat(item?.TemporalFilter?.EndDate)}
+                    cclDateFormat(item?.TemporalFilter?.EndDate)}
                 </span>
               )}
               <br />
@@ -195,12 +192,12 @@ export const TimeseriesPicker = (props) => {
                 }
                 onClick={() => {
                   item.TemporalFilter = {
-                    StartDate: toUTCTimestamp(startValue, false),
-                    EndDate: toUTCTimestamp(endValue, true),
+                    StartDate: startValue,
+                    EndDate: endValue,
                   };
                   setTimeseriesValue(item.unique_id, {
-                    StartDate: toUTCTimestamp(startValue, false),
-                    EndDate: toUTCTimestamp(endValue, true),
+                    StartDate: startValue,
+                    EndDate: endValue,
                   });
                   setIsOpen(false);
                 }}

@@ -61,8 +61,10 @@ export const getDownloadToolPostBody = (selectedItems) => {
         body_extras['Layer'] = item?.layer;
       }
       if (item?.TemporalFilter) {
-        // TemporalFilter now contains UTC timestamps directly
-        body_extras['TemporalFilter'] = item.TemporalFilter;
+        body_extras['TemporalFilter'] = {
+          StartDate: new Date(item?.TemporalFilter?.StartDate).getTime(),
+          EndDate: new Date(item?.TemporalFilter?.EndDate).getTime(),
+        };
       }
     }
     return { DatasetID: item?.dataset_uid, ...body_extras };
