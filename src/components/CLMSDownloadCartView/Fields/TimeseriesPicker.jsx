@@ -28,6 +28,17 @@ export const TimeseriesPicker = (props) => {
   );
   const [isOpen, setIsOpen] = useState(false);
 
+  const toISOIgnoreTimezone = (inputDate) => {
+    return (
+      inputDate.getFullYear() +
+      '-' +
+      ('0' + (inputDate.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + inputDate.getDate()).slice(-2) +
+      'T00:00:00.000Z'
+    );
+  };
+
   const isValidDateRange = ({ start, end, limit }) => {
     /* Calculate if the difference in days is smaller than the allowed limit */
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
@@ -121,6 +132,7 @@ export const TimeseriesPicker = (props) => {
                 download_limit_temporal_extent < 180 ? dates_array : null
               }
               disabledKeyboardNavigation
+              timeZone="UTC"
             >
               {(item?.TemporalFilter?.StartDate ||
                 item?.TemporalFilter?.EndDate) && (
@@ -192,12 +204,12 @@ export const TimeseriesPicker = (props) => {
                 }
                 onClick={() => {
                   item.TemporalFilter = {
-                    StartDate: startValue,
-                    EndDate: endValue,
+                    StartDate: toISOIgnoreTimezone(startValue),
+                    EndDate: toISOIgnoreTimezone(endValue),
                   };
                   setTimeseriesValue(item.unique_id, {
-                    StartDate: startValue,
-                    EndDate: endValue,
+                    StartDate: toISOIgnoreTimezone(startValue),
+                    EndDate: toISOIgnoreTimezone(endValue),
                   });
                   setIsOpen(false);
                 }}
