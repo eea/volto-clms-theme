@@ -280,14 +280,6 @@ class Footer extends Component {
                   <FontAwesomeIcon icon={['fab', 'linkedin']} />
                 </a>
                 <a
-                  href="https://twitter.com/CopernicusLand"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Twitter"
-                >
-                  <FontAwesomeIcon icon={['fab', 'x-twitter']} />
-                </a>
-                <a
                   href="https://www.youtube.com/playlist?list=PL1_QSyumTz7CZQEZ-1foOTeTOelKDQmxu"
                   target="_blank"
                   rel="noreferrer"
