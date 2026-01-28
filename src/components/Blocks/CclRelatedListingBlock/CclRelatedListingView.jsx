@@ -35,6 +35,7 @@ const CclRelatedListingView = (props) => {
   const { pagination, currentPage, paginationSize, dataList } = p_data;
 
   const dispatch = useDispatch();
+  const content = useSelector((state) => state.content.data);
   const uid = metadata ? metadata['UID'] : properties['UID'];
   const allSearchSubrequests = useSelector((state) => state.search.subrequests);
   const searchSubrequests = allSearchSubrequests?.[`${id}-${uid}`];
@@ -120,11 +121,12 @@ const CclRelatedListingView = (props) => {
   React.useEffect(() => {
     // this is to avoid unnecesarry calls when the libraries for the related datasets are loaded
     if (data.content_type === 'TechnicalLibrary') {
-      if (sLoaded && properties?.technical_documents_order) {
+      const technicalDocumentsOrder = content?.technical_documents_order;
+      if (sLoaded && technicalDocumentsOrder) {
         // orderMap of the technical_documents_order
         // if the UID is not present in the orderMap, we use the id (backward compatibility)
         const orderMap = new Map(
-          properties?.technical_documents_order.items?.map((item, index) => {
+          technicalDocumentsOrder.items?.map((item, index) => {
             return item?.UID ? [item.UID, index] : [item.id, index];
           }) || [],
         );
@@ -144,7 +146,7 @@ const CclRelatedListingView = (props) => {
         p_functions.setOriginalDataList([...sorted]);
         p_functions.setDataList([...sorted]);
       }
-      if (sLoaded && !properties?.technical_documents_order) {
+      if (sLoaded && !technicalDocumentsOrder) {
         p_functions.setOriginalDataList([...libraries]);
         p_functions.setDataList([...libraries]);
       }
@@ -155,7 +157,7 @@ const CclRelatedListingView = (props) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sLoaded, properties.technical_documents_order, libraries]);
+  }, [sLoaded, content?.technical_documents_order, libraries]);
 
   return (
     <>
