@@ -21,6 +21,7 @@ import CartIconCounter from '@eeacms/volto-clms-theme/components/CartIconCounter
 import usePrevious from '@eeacms/volto-clms-theme/helpers/usePrevious';
 
 import { Loader } from 'semantic-ui-react';
+import { getDropdownMenuNavitems } from 'volto-dropdownmenu/actions';
 
 // IMPORT isnt nedded until translations are created
 // import CclLanguageSelector from '@eeacms/volto-clms-theme/components/CclLanguageSelector/CclLanguageSelector';
@@ -135,6 +136,17 @@ export default function Header({ pathname }) {
     }
   }, [dispatch]);
 
+  const dropdownMenuNavItems = useSelector(
+    (state) => state.dropdownMenuNavItems?.result,
+  );
+  const hasDropdownMenuNavItems = dropdownMenuNavItems?.length > 0;
+
+  React.useEffect(() => {
+    if (!hasDropdownMenuNavItems) {
+      dispatch(getDropdownMenuNavitems());
+    }
+  }, [hasDropdownMenuNavItems, dispatch]);
+
   return (
     <>
       {(user?.affiliation === null ||
@@ -182,7 +194,7 @@ export default function Header({ pathname }) {
 
               <div className="ccl-header-tools-container">
                 <ul className="ccl-header-menu-tools">
-                  <CclTopMainMenu></CclTopMainMenu>
+                  <CclTopMainMenu />
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
@@ -246,7 +258,7 @@ export default function Header({ pathname }) {
                   }
                 />
                 <ul className="ccl-header-menu-tools ccl-collapsible-toolmenu">
-                  <CclTopMainMenu></CclTopMainMenu>
+                  <CclTopMainMenu />
                   <li className="header-vertical-line">
                     <div>|</div>
                   </li>
