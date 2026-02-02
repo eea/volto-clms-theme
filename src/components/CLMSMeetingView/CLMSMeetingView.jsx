@@ -27,6 +27,7 @@ import CclCard from '../CclCard/CclCard';
 import { CLMSRelatedItems } from '../CLMSRelatedItems';
 import { LightGalleryListing } from './CclLightGallery';
 import { RegisterButtonReasons } from './utils';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 import jwtDecode from 'jwt-decode';
 
@@ -258,6 +259,15 @@ export const CLMSMeetingView = (props) => {
       : iTitleIcons.leftPosition;
   }
 
+  const descriptionBlockId = Object.keys(content.blocks || {}).find(
+    (blockId) => content.blocks?.[blockId]?.['@type'] === 'description',
+  );
+  const titleBlockId = Object.keys(content.blocks || {}).find(
+    (blockId) => content.blocks?.[blockId]?.['@type'] === 'title',
+  );
+  const blocks = content?.blocks || {};
+  const blocksLayout = content?.blocks_layout || {};
+
   return (
     <div className="ccl-container">
       <h1 className="page-title">{content.title}</h1>
@@ -267,12 +277,7 @@ export const CLMSMeetingView = (props) => {
           (content.allow_register && content.subscribers_link)) && (
           <Segment.Group compact horizontal>
             {content.allow_anonymous_registration && (
-              <Segment
-                className={'event-segment'}
-                padded={'very'}
-                color={'olive'}
-                circular
-              >
+              <Segment className={'event-segment'} color={'olive'} circular>
                 <strong>
                   <FormattedMessage
                     id="Anonymous registration form"
@@ -329,12 +334,7 @@ export const CLMSMeetingView = (props) => {
               </Segment>
             )}
             {content.allow_register && content.subscribers_link && (
-              <Segment
-                className={'event-segment'}
-                padded={'very'}
-                color={'olive'}
-                circular
-              >
+              <Segment className={'event-segment'} color={'olive'} circular>
                 <strong>
                   <FormattedMessage
                     id="Meeting register information"
@@ -380,7 +380,6 @@ export const CLMSMeetingView = (props) => {
       <Segment
         className={'event-segment'}
         compact
-        padded={'small'}
         color={'olive'}
         floated="right"
         style={{ marginRight: 0 }}
@@ -537,6 +536,21 @@ export const CLMSMeetingView = (props) => {
           </figure>
         )}
         <StringToHTML string={content.text?.data || ''} />
+        {Object.keys(blocks).length > 0 && (
+          <RenderBlocks
+            {...props}
+            content={{
+              ...content,
+              blocks_layout: {
+                ...blocksLayout,
+                items: (blocksLayout.items || []).filter(
+                  (blockId) =>
+                    blockId !== descriptionBlockId && blockId !== titleBlockId,
+                ),
+              },
+            }}
+          />
+        )}
         <LightGalleryListing />
 
         {files.length > 0 && (
