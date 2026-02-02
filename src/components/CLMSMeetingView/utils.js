@@ -19,8 +19,10 @@ export const RegisterButtonReasons = (content) => {
   }
   return results.length > 0 ? (
     <ul>
-      {results.map((result) => (
-        <li style={{ color: 'red' }}>{result}</li>
+      {results.map((result, index) => (
+        <li key={`${result}-${index}`} style={{ color: 'red' }}>
+          {result}
+        </li>
       ))}
     </ul>
   ) : (
