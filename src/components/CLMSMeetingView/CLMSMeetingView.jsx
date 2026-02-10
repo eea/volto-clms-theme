@@ -31,6 +31,36 @@ import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 import jwtDecode from 'jwt-decode';
 
+const MEETING_FIELD_BLOCK_TYPES = new Set(['title', 'description']);
+
+const MEETING_FIELD_IDS = new Set([
+  'description',
+  'text',
+  'meeting_type',
+  'allow_register',
+  'allow_register_above_max',
+  'allow_register_start',
+  'allow_register_end',
+  'restrict_content_access',
+  'auto_approve',
+  'max_participants',
+  'hosting_organisation',
+  'contact_name',
+  'contact_email',
+  'location',
+  'allow_anonymous_registration',
+  'start',
+  'end',
+  'whole_day',
+  'open_end',
+  'image',
+  'image_caption',
+  'datasets',
+  'products',
+  'changeNote',
+  'meeting_level',
+]);
+
 export const CLMSMeetingView = (props) => {
   const { content, intl } = props;
   const dispatch = useDispatch();
@@ -259,14 +289,14 @@ export const CLMSMeetingView = (props) => {
       : iTitleIcons.leftPosition;
   }
 
-  const descriptionBlockId = Object.keys(content.blocks || {}).find(
-    (blockId) => content.blocks?.[blockId]?.['@type'] === 'description',
-  );
-  const titleBlockId = Object.keys(content.blocks || {}).find(
-    (blockId) => content.blocks?.[blockId]?.['@type'] === 'title',
-  );
   const blocks = content?.blocks || {};
   const blocksLayout = content?.blocks_layout || {};
+  const isMeetingFieldBlock = (block) => {
+    if (!block) return false;
+    if (MEETING_FIELD_BLOCK_TYPES.has(block['@type'])) return true;
+    if (block['@type'] !== 'metadata') return false;
+    return MEETING_FIELD_IDS.has(block?.data?.id);
+  };
 
   return (
     <div className="ccl-container">
@@ -544,8 +574,7 @@ export const CLMSMeetingView = (props) => {
               blocks_layout: {
                 ...blocksLayout,
                 items: (blocksLayout.items || []).filter(
-                  (blockId) =>
-                    blockId !== descriptionBlockId && blockId !== titleBlockId,
+                  (blockId) => !isMeetingFieldBlock(blocks[blockId]),
                 ),
               },
             }}
