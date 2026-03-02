@@ -21,7 +21,19 @@ const CLMSTechnicalLibraryView = (props) => {
           </div>
         )}
         <div className="technicallibrary-content">
-          {content.ondemand ? (
+          {typeof content.external_source_url === 'string' &&
+          content.external_source_url.trim() !== '' ? (
+            <>
+              <p>This document is hosted externally. Access it here:</p>
+              <CclButton
+                url={content.external_source_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open External Source
+              </CclButton>
+            </>
+          ) : content.ondemand ? (
             <>
               <p>
                 You are requesting an on-demand document. Please contact the{' '}
