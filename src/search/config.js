@@ -22,6 +22,7 @@ export default function install(config) {
   config.searchui.clmsSearchTechnicalLibrary = {
     ...mergeConfig(envConfig, config.searchui.globalsearchbase),
     elastic_index: '_es/clmsSearchTechnicalLibrary',
+    // index_name: 'copernicus_demo_searchui',
     index_name: 'copernicus_searchui',
     host: process.env.RAZZLE_ES_PROXY_ADDR || 'http://localhost:3000',
     ...vocabs,
