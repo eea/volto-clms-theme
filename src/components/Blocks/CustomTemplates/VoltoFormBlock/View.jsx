@@ -80,6 +80,7 @@ const View = ({ data, id, path }) => {
   const [formErrors, setFormErrors] = useState([]);
   const [csrfToken, setCsrfToken] = useState(null);
   const submitResults = useSelector((state) => state.submitForm);
+  const userToken = useSelector((state) => state.userSession?.token);
   const captchaToken = useRef();
 
   const onChangeFormData = (field_id, field, value, extras) => {
@@ -87,11 +88,15 @@ const View = ({ data, id, path }) => {
   };
 
   useEffect(() => {
+    const headers = {
+      Accept: 'application/json',
+    };
+    if (userToken) {
+      headers.Authorization = `Bearer ${userToken}`;
+    }
     fetch(`/++api++/@clms-get-csrf-token`, {
       credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-      },
+      headers,
     })
       .then((r) => {
         if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
@@ -100,7 +105,7 @@ const View = ({ data, id, path }) => {
       .then((data) => {
         setCsrfToken(data.token);
       });
-  }, [path]);
+  }, [path, userToken]);
 
   useEffect(() => {
     if (formErrors.length > 0) {
