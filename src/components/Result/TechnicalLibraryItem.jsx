@@ -21,16 +21,23 @@ function formatFileSize(bytes) {
 
 const TechnicalLibraryItem = (props) => {
   const { result } = props;
-  // console.log('result', result);
   const [showCategories, setShowCategories] = useState(false);
   const user = useSelector((state) => state.users.user);
   const isAdmin = user?.roles?.includes('Manager');
+  let item_url = `${result.href}/@@download/file`;
+
+  const external_source = result?._result?.external_source_url?.raw;
+  if (external_source !== undefined) {
+    //item_url = external_source;
+    item_url = `${result.href}`;
+  }
+
   const item = {
     title: (
       <>
         <div className="technical-library-title">
           <ExternalLink
-            href={`${result.href}/@@download/file`}
+            href={item_url}
             title={result.title}
             className="technical-library-title"
           >
