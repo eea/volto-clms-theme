@@ -106,7 +106,9 @@ const CclRelatedListingView = (props) => {
           {
             portal_type: data.content_type || 'News Item',
             ...associated,
-            metadata_fields: '_all',
+            ...(data.content_type === 'TechnicalLibrary'
+              ? { fullobjects: 1 }
+              : { metadata_fields: '_all' }),
             sort_on: sort_on,
             sort_order: sort_order,
             b_size: 99999,

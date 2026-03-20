@@ -65,7 +65,16 @@ const DocCard = ({ card, url, showEditor, children }) => {
       <div className="card-doc-header">
         <div className="card-doc-title">
           {card?.['@type'] === 'TechnicalLibrary' ? (
-            card?.ondemand ? (
+            typeof card?.external_source_url === 'string' &&
+            card.external_source_url.trim() !== '' ? (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={card.external_source_url}
+              >
+                {card?.title}
+              </a>
+            ) : card?.ondemand ? (
               <a href={`${card['@id']}`}>{card?.title}</a>
             ) : (
               <a
