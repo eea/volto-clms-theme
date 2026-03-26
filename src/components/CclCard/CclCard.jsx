@@ -216,6 +216,7 @@ function CclCard(props) {
     'event',
     'block',
     'threeColumns',
+    'threeColumnsDates',
     'globalSearch',
     'file',
     'downloadFile',
@@ -235,13 +236,15 @@ function CclCard(props) {
       ? 'line card-line-no-description'
       : type === 'cardWithBgImage'
       ? 'home-map-banner'
+      : type === 'threeColumnsDates'
+      ? 'threeColumns'
       : type || 'line');
 
   return (
     <CardLink
       url={url}
       className={wrapperClass}
-      condition={type === 'block' || type === 'threeColumns'}
+      condition={['block', 'threeColumns', 'threeColumnsDates'].includes(type)}
     >
       <div
         tabIndex="0"
@@ -249,7 +252,8 @@ function CclCard(props) {
         onClick={() => onClickImage()}
         onKeyDown={() => onClickImage()}
         className={
-          !(type === 'block' || type === 'threeColumns') && wrapperClass
+          !['block', 'threeColumns', 'threeColumnsDates'].includes(type) &&
+          wrapperClass
         }
       >
         {conditional_types.includes(type) ? (
@@ -328,9 +332,13 @@ function CclCard(props) {
                 </DocCard>
               </>
             )}
-            {(type === 'block' || type === 'threeColumns') && (
+            {['block', 'threeColumns', 'threeColumnsDates'].includes(type) && (
               <>
-                <div className={`card-${type}-image`}>
+                <div
+                  className={`card-${
+                    type === 'threeColumnsDates' ? 'threeColumns' : type
+                  }-image`}
+                >
                   {isCustomCard && CclImageEditor ? (
                     CclImageEditor
                   ) : (
@@ -343,6 +351,11 @@ function CclCard(props) {
                 </div>
                 <div className="card-text">
                   <div className="card-title">{card?.title}</div>
+                  {type === 'threeColumnsDates' && (
+                    <div className="card-date">
+                      {cclDateFormat(card?.effective)}
+                    </div>
+                  )}
                   <div className="card-description">{card?.description}</div>
                   {children}
                 </div>
