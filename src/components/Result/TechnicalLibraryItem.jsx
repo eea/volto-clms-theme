@@ -28,8 +28,8 @@ const TechnicalLibraryItem = (props) => {
 
   const external_source = result?._result?.external_source_url?.raw;
   if (external_source !== undefined) {
-    //item_url = external_source;
-    item_url = `${result.href}`;
+    item_url = external_source;
+    // item_url = `${result.href}`;
   }
 
   const item = {
