@@ -271,13 +271,14 @@ class Footer extends Component {
                 {this.props.intl.formatMessage(messages.followUs)}
               </div>
               <div className="ccl-footer-social">
-                <UniversalLink
-                  href="/en/linkedin-redirect"
+                <a
+                  href="https://www.linkedin.com/showcase/copernicus-eea"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Linkedin"
                 >
                   <FontAwesomeIcon icon={['fab', 'linkedin']} />
-                </UniversalLink>
+                </a>
                 <a
                   href="https://www.youtube.com/playlist?list=PL1_QSyumTz7CZQEZ-1foOTeTOelKDQmxu"
                   target="_blank"
