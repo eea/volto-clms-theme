@@ -24,6 +24,7 @@ const TechnicalLibraryItem = (props) => {
   const [showCategories, setShowCategories] = useState(false);
   const user = useSelector((state) => state.users.user);
   const isAdmin = user?.roles?.includes('Manager');
+  const fileSize = Number(result.file_size?.raw) || 0;
   let item_url = `${result.href}/@@download/file`;
 
   const external_source = result?._result?.external_source_url?.raw;
@@ -72,8 +73,11 @@ const TechnicalLibraryItem = (props) => {
         <strong>Publication date: </strong>
         <span>{cclDateFormat(result.issued)}</span> &nbsp;
         <strong>Version: </strong> <span>{result.version.raw}</span>
-        <div className="card-doc-size">
-          {formatFileSize(result.file_size.raw)}
+        <div
+          className="card-doc-size"
+          style={{ visibility: fileSize === 0 ? 'hidden' : 'visible' }}
+        >
+          {formatFileSize(fileSize)}
         </div>
         {isAdmin && Array.isArray(result.library_categories_values.raw) && (
           <div className="admin-info">
