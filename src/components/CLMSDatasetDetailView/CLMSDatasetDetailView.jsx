@@ -10,10 +10,8 @@ import { Toast } from '@plone/volto/components';
 import { getUser, searchContent } from '@plone/volto/actions';
 import CclButton from '@eeacms/volto-clms-theme/components/CclButton/CclButton';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
-import {
-  DataSetInfoContent,
-  DownloadDataSetContent,
-} from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView';
+import DataSetInfoContent from './DataSetInfoContent';
+import DownloadDataSetContent from './DownloadDataSetContent';
 
 import { postImportWMSLayers, postImportWMSFields } from '../../actions';
 import { GeonetworkImporterButtons } from './GeonetworkImporterButtons';

@@ -7,11 +7,9 @@ import { Unauthorized } from '@plone/volto/components';
 import { Helmet } from '@plone/volto/helpers';
 import CclTabs from '@eeacms/volto-clms-theme/components/CclTab/CclTabs';
 import { helmetTitle } from '@eeacms/volto-clms-theme/components/CclUtils';
-import {
-  CLMSApiTokensView,
-  CLMSUserProfileView,
-  CLMSDeleteProfileView,
-} from '@eeacms/volto-clms-theme/components/CLMSProfileView';
+import CLMSApiTokensView from './CLMSApiTokensView';
+import CLMSUserProfileView from './CLMSUserProfileView';
+import CLMSDeleteProfileView from './CLMSDeleteProfileView';
 
 import { getExtraBreadcrumbItems } from '../../actions';
 
