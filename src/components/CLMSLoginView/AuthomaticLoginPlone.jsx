@@ -7,8 +7,8 @@ import {
   authomaticRedirect,
   listAuthOptions,
   oidcRedirect,
-} from '@plone-collective/volto-authomatic/actions';
-import LoginForm from '@plone-collective/volto-authomatic/components/Login/LoginForm';
+} from '@plone-collective/volto-authomatic/src/actions';
+import LoginForm from '@plone-collective/volto-authomatic/src/components/Login/LoginForm';
 import { injectIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -86,7 +86,11 @@ function AuthomaticLoginPlone() {
   }, [startedOIDC, loginOIDCValues]);
 
   useEffect(() => {
-    if (options !== undefined && options.length === 1 && options[0].id === 'oidc') {
+    if (
+      options !== undefined &&
+      options.length === 1 &&
+      options[0].id === 'oidc'
+    ) {
       setStartedOIDC(true);
       dispatch(oidcRedirect('oidc'));
     }
