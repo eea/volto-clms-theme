@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-clms-theme",
-  "version": "1.1.284",
+  "version": "1.1.285",
   "description": "volto-clms-theme: Volto theme for CLMS site",
   "main": "src/index.js",
   "author": "CodeSyntax for the European Environment Agency",
@@ -59,6 +59,7 @@
     "@fortawesome/react-fontawesome": "0.1.14",
     "@ginkgo-bioworks/react-json-schema-form-builder": "2.10.1",
     "@kitconcept/volto-blocks-grid": "7.0.2",
+    "@plone-collective/volto-authomatic": "2.0.1",
     "connected-react-router": "6.8.0",
     "d3-array": "^2.12.1",
     "husky": "7.0.4",
