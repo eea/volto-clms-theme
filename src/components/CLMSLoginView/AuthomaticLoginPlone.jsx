@@ -3,12 +3,11 @@
  * @module components/CLMSLoginView/AuthomaticLoginPlone
  */
 import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-unresolved
 import {
   authomaticRedirect,
   listAuthOptions,
   oidcRedirect,
-} from '@plone-collective/volto-authomatic/actions';
+} from '@plone-collective/volto-authomatic/actions'; // eslint-disable-line import/no-unresolved
 // eslint-disable-next-line import/no-unresolved
 import LoginForm from '@plone-collective/volto-authomatic/components/Login/LoginForm';
 import { injectIntl } from 'react-intl';
