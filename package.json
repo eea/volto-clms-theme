@@ -59,6 +59,7 @@
     "@fortawesome/react-fontawesome": "0.1.14",
     "@ginkgo-bioworks/react-json-schema-form-builder": "2.10.1",
     "@kitconcept/volto-blocks-grid": "7.0.2",
+    "@plone-collective/volto-authomatic": "2.0.1",
     "connected-react-router": "6.8.0",
     "d3-array": "^2.12.1",
     "husky": "7.0.4",
