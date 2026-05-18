@@ -22,7 +22,7 @@ function SurveyModal(props) {
     >
       <ModalContent>
         <ModalDescription>
-          <p>{config.text}</p>
+          <p>{config?.text || ''}</p>
         </ModalDescription>
       </ModalContent>
       <ModalActions>
@@ -42,7 +42,9 @@ function SurveyModal(props) {
             setOpen(false);
             markSurveyAsDone();
             //window.open(config.link, '_blank');
-            window.location.replace(config.link);
+            if (config?.link) {
+              window.location.replace(config.link);
+            }
           }}
         >
           Take survey
@@ -100,20 +102,29 @@ export const FeedbackSurvey = () => {
 
   const location = useLocation();
   useEffect(() => {
+    let modalTimer;
     if (surveyConfig !== undefined) {
       if (surveyConfig.is_active === true) {
         incrementPageviews(20);
         let willOpen = decideToOpenModal();
         if (willOpen) {
-          setTimeout(() => {
+          modalTimer = setTimeout(() => {
             setIsModalOpen(true);
           }, 5000);
         }
       }
     }
+
+    return () => {
+      if (modalTimer) {
+        clearTimeout(modalTimer);
+      }
+    };
   }, [location, surveyConfig]);
 
-  return isModalOpen ? <SurveyModal config={surveyConfig} /> : null;
+  return isModalOpen && surveyConfig ? (
+    <SurveyModal config={surveyConfig} />
+  ) : null;
 };
 
 export default FeedbackSurvey;
