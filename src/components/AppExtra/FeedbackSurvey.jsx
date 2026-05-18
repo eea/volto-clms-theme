@@ -122,7 +122,9 @@ export const FeedbackSurvey = () => {
     };
   }, [location, surveyConfig]);
 
-  return isModalOpen && surveyConfig ? <SurveyModal config={surveyConfig} /> : null;
+  return isModalOpen && surveyConfig ? (
+    <SurveyModal config={surveyConfig} />
+  ) : null;
 };
 
 export default FeedbackSurvey;
