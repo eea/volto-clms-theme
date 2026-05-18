@@ -4,7 +4,7 @@ import customBlocks, {
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 
 // ROUTE VIEWS
-import { ContactForm, Search, Sitemap } from '@plone/volto/components';
+import { ContactForm, Search, Sitemap, Login } from '@plone/volto/components';
 
 // VIEWS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
@@ -52,7 +52,6 @@ import { CheckboxHtmlWidget } from './components/Blocks/CustomTemplates/VoltoFor
 import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
-import AuthomaticLoginPlone from './components/CLMSLoginView/AuthomaticLoginPlone';
 
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
@@ -257,14 +256,15 @@ const applyConfig = (config) => {
     config,
   );
 
-  const loginRoutes = [
+  config.addonRoutes = [
+    ...config.addonRoutes,
     {
       path: '/login-plone',
-      component: AuthomaticLoginPlone,
+      component: Login,
     },
     {
       path: '/**/login-plone',
-      component: AuthomaticLoginPlone,
+      component: Login,
     },
     {
       path: '/login',
@@ -274,11 +274,6 @@ const applyConfig = (config) => {
       path: '/**/login',
       component: CLMSLoginView,
     },
-  ];
-
-  config.addonRoutes = [
-    ...loginRoutes,
-    ...config.addonRoutes,
     {
       path: '/profile',
       component: ProfileView,
