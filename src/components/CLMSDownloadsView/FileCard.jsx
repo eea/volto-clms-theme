@@ -164,9 +164,7 @@ const FileCard = (props) => {
             width={['In_progress', 'Queued'].includes(item?.Status) ? 8 : 10}
           >
             <Header as="h3">{`Job ID: ${
-              item?.cdse_task_role === 'parent' && !item?.FMETaskId
-                ? 'CDSE PROCESSING...'
-                : item?.FMETaskId
+              item?.FMETaskId
             }`}</Header>
             <Header.Subheader as="h4">{`Task ID: ${item?.TaskID}`}</Header.Subheader>
             <Segment basic className="file-datetimes">
@@ -196,10 +194,10 @@ const FileCard = (props) => {
                 </>
               )}
             </Segment>
-            {item?.Datasets.length > 0 && (
+            {item?.Datasets?.length > 0 && (
               <ul>
-                {item?.Datasets.map((dataset) => (
-                  <li>
+                {item?.Datasets.map((dataset, index) => (
+                  <li key={dataset?.DatasetTitle || dataset?.name || index}>
                     <DatasetNaming dataset={dataset} />
                   </li>
                 ))}
@@ -212,22 +210,6 @@ const FileCard = (props) => {
                     <strong>Message:</strong> {item.Message}
                     <br />
                   </>
-                )}
-                {item?.cdse_errors?.length > 0 && (
-                  <details style={{ marginTop: '0.5em' }}>
-                    <summary
-                      style={{
-                        cursor: 'pointer',
-                      }}
-                    >
-                      Show details
-                    </summary>
-                    <ul>
-                      {item.cdse_errors.map((err, idx) => (
-                        <li key={idx}>{err}</li>
-                      ))}
-                    </ul>
-                  </details>
                 )}
               </Segment>
             )}
