@@ -163,9 +163,7 @@ const FileCard = (props) => {
           <Grid.Column
             width={['In_progress', 'Queued'].includes(item?.Status) ? 8 : 10}
           >
-            <Header as="h3">{`Job ID: ${
-              item?.FMETaskId
-            }`}</Header>
+            <Header as="h3">{`Job ID: ${item?.FMETaskId}`}</Header>
             <Header.Subheader as="h4">{`Task ID: ${item?.TaskID}`}</Header.Subheader>
             <Segment basic className="file-datetimes">
               {item?.RegistrationDateTime && (
