@@ -51,14 +51,7 @@ const CookieWatcher = (domain_key, cookies, pollingRate = 250) => {
 };
 
 const PrivacyProtection = (props) => {
-  const {
-    children,
-    data = {},
-    id,
-    editable,
-    cookies,
-    height = '',
-  } = props;
+  const { children, data = {}, id, editable, cookies, height = '' } = props;
   const {
     enabled = false,
     privacy_statement,
