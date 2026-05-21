@@ -1,10 +1,9 @@
 import React from 'react';
-import { Button, Icon as SemanticIcon, Image, Input } from 'semantic-ui-react';
+import { Button, Icon as SemanticIcon, Input } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import clearSVG from '@plone/volto/icons/clear.svg';
-// eslint-disable-next-line import/no-unresolved
-import searchSVG from '@eeacms/search/components/SearchInput/icons/search.svg';
+import searchSVG from './icons/search.svg';
 
 const messages = defineMessages({
   search: {
@@ -12,19 +11,6 @@ const messages = defineMessages({
     defaultMessage: 'Search',
   },
 });
-
-const SearchIcon = () =>
-  typeof searchSVG === 'string' ? (
-    <Image src={searchSVG} />
-  ) : (
-    <svg
-      xmlns={searchSVG.attributes && searchSVG.attributes.xmlns}
-      viewBox={searchSVG.attributes && searchSVG.attributes.viewBox}
-      style={{ width: 'auto', fill: 'currentColor' }}
-      className="icon"
-      dangerouslySetInnerHTML={{ __html: searchSVG.content }}
-    />
-  );
 
 const SearchInput = (props) => {
   const {
@@ -99,7 +85,7 @@ const SearchInput = (props) => {
                   }
                 }}
               >
-                <SearchIcon />
+                <VoltoIcon name={searchSVG} size="29px" />
               </div>
             </div>
           </div>
