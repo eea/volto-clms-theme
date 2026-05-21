@@ -12,6 +12,10 @@ const messages = defineMessages({
     id: 'Clear filters',
     defaultMessage: 'Clear filters',
   },
+  applied: {
+    id: 'Applied',
+    defaultMessage: 'Applied',
+  },
 });
 
 const FilterList = (props) => {
@@ -93,7 +97,34 @@ const FilterList = (props) => {
     .length;
 
   const intl = useIntl();
-  return showFilterList && Object.keys(currentFilters).length ? (
+  if (!showFilterList || !Object.keys(currentFilters).length) return null;
+
+  if (props.variant === 'globalSearch') {
+    if (!totalFilters) return null;
+
+    return (
+      <div className="global-search-applied-filters">
+        <span>
+          {intl.formatMessage(messages.applied)}: {totalFilters}
+        </span>
+        <Button
+          icon
+          basic
+          compact
+          size="small"
+          aria-label={intl.formatMessage(messages.clearFilters)}
+          onClick={(e) => {
+            e.stopPropagation();
+            !isEditMode && setFacets({});
+          }}
+        >
+          <Icon name="trash" />
+        </Button>
+      </div>
+    );
+  }
+
+  return (
     <div className="accordion ui filter-listing">
       <div
         className="filter-list-header"
@@ -118,7 +149,7 @@ const FilterList = (props) => {
         </Button>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default FilterList;

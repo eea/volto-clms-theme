@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Icon, Label } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 import { UniversalLink, Icon as VoltoIcon } from '@plone/volto/components';
@@ -59,7 +59,7 @@ const CardLink = ({ url, children, className, condition = true }) => {
   );
 };
 
-const DocCard = ({ card, url, showEditor, children }) => {
+const DocCard = ({ card, url, showEditor, hideSize = false, children }) => {
   return (
     <>
       <div className="card-doc-header">
@@ -104,7 +104,7 @@ const DocCard = ({ card, url, showEditor, children }) => {
             </Link>
           )}
         </div>
-        {card?.['@type'] === 'TechnicalLibrary' && (
+        {card?.['@type'] === 'TechnicalLibrary' && !hideSize && (
           <div className="card-doc-size">{card.getObjSize || ''}</div>
         )}
       </div>
@@ -317,16 +317,30 @@ function CclCard(props) {
               </>
             )}
             {type === 'globalSearch' && (
-              <>
-                <Label ribbon="right" color="olive">
-                  {content_type}
-                </Label>
-                <DocCard card={card} url={url} showEditor={showEditor}>
-                  {children}
+              <div className="global-search-result-row">
+                <div className="global-search-result-main">
+                  <DocCard
+                    card={card}
+                    url={url}
+                    showEditor={showEditor}
+                    hideSize
+                  >
+                    {children}
 
-                  <SearchResultExtras content={card} />
-                </DocCard>
-              </>
+                    <SearchResultExtras content={card} />
+                  </DocCard>
+                </div>
+                <div className="global-search-result-side">
+                  <span className="global-search-result-type">
+                    {content_type}
+                  </span>
+                  {card?.['@type'] === 'TechnicalLibrary' && (
+                    <span className="global-search-result-size">
+                      {card.getObjSize || ''}
+                    </span>
+                  )}
+                </div>
+              </div>
             )}
             {(type === 'block' || type === 'threeColumns') && (
               <>
