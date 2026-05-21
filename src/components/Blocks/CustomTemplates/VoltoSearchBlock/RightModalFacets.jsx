@@ -12,6 +12,7 @@ import { Icon } from '@plone/volto/components';
 import React from 'react';
 import filterSVG from '@plone/volto/icons/filter.svg';
 import { flushSync } from 'react-dom';
+import { usesGlobalSearchDesign } from './searchDesign';
 
 const messages = defineMessages({
   searchButtonText: {
@@ -25,6 +26,76 @@ const FacetWrapper = ({ children }) => (
     {children}
   </Segment>
 );
+
+const getSortLabel = (value, querystring) => {
+  const title = querystring?.sortable_indexes?.[value]?.title || value;
+  if (
+    ['effective', 'publication_date', 'modified'].includes(value) ||
+    /publication date/i.test(title)
+  ) {
+    return 'Time';
+  }
+  if (value === 'sortable_title') {
+    return 'Title';
+  }
+  if (value === 'relevance') {
+    return 'Relevance';
+  }
+  return title?.replace(/^Sort by /, '') || value;
+};
+
+const GlobalSortOn = ({
+  data,
+  querystring,
+  isEditMode,
+  sortOn,
+  sortOrder,
+  onChange,
+}) => {
+  const configuredOptions = data.sortOnOptions || [];
+  const concreteOptions = configuredOptions.filter(
+    (option) => !['SearchableText', 'relevance'].includes(option),
+  );
+  const options = ['relevance', ...concreteOptions];
+  const activeSortOn = sortOn && options.includes(sortOn) ? sortOn : options[0];
+
+  if (!options.length) return null;
+
+  return (
+    <div className="sorting global-search-sorting">
+      <span className="global-search-sort-label">Sort by:</span>
+      {options.map((option) => {
+        const isActive = activeSortOn === option;
+        return (
+          <button
+            key={option}
+            type="button"
+            className={isActive ? 'active' : ''}
+            onClick={() => {
+              if (isEditMode) return;
+              if (option === 'relevance') {
+                onChange(null, null);
+                return;
+              }
+              const nextOrder =
+                isActive && sortOrder === 'ascending'
+                  ? 'descending'
+                  : 'ascending';
+              onChange(option, nextOrder);
+            }}
+          >
+            {getSortLabel(option, querystring)}
+            {isActive && option !== 'relevance' && (
+              <span className="global-search-sort-direction">
+                {sortOrder === 'descending' ? '▼' : '▲'}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
 function setFacetsHandler(setFacets, onTriggerSearch, searchedText) {
   return (f) => {
@@ -57,6 +128,7 @@ const RightModalFacets = (props) => {
   } = props;
   const { showSearchButton } = data;
   const isLive = !showSearchButton;
+  const hasGlobalSearchDesign = usesGlobalSearchDesign(props);
   const intl = useIntl();
   // Should we generalize this to an external function?
   if (querystring?.sortable_indexes?.effective?.title) {
@@ -75,8 +147,64 @@ const RightModalFacets = (props) => {
     querystring.sortable_indexes.version.title = 'Version';
   }
 
+  const updateFacets = setFacetsHandler(
+    setFacets,
+    onTriggerSearch,
+    searchedText,
+  );
+
+  const facetsModal = data.facets?.length ? (
+    <CclFiltersModal
+      trigger={
+        <div className="filters-element">
+          <div className="filters-title">
+            {hasGlobalSearchDesign ? (
+              <span
+                className="global-search-categories-icon"
+                aria-hidden="true"
+              >
+                <Icon
+                  className="global-search-categories-filter-icon"
+                  name={filterSVG}
+                  size="10px"
+                  color="#fff"
+                />
+              </span>
+            ) : (
+              <Icon className="ui" name={filterSVG} size={'20'} />
+            )}
+            <span className="filters-title-bold">
+              {hasGlobalSearchDesign ? 'Show Categories' : data.facetsTitle}
+            </span>
+          </div>
+        </div>
+      }
+      data={data}
+      setFacets={updateFacets}
+    >
+      <div id="right-modal-facets" className="facets">
+        <Facets
+          querystring={querystring}
+          data={data}
+          facets={facets}
+          isEditMode={isEditMode}
+          setFacets={updateFacets}
+          facetWrapper={FacetWrapper}
+        />
+      </div>
+    </CclFiltersModal>
+  ) : null;
+
   return (
-    <Grid className="searchBlock-facets right-column-facets" stackable>
+    <Grid
+      className={[
+        'searchBlock-facets right-column-facets',
+        hasGlobalSearchDesign ? 'global-search-facets' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      stackable
+    >
       {data?.headline && (
         <Grid.Row>
           <Grid.Column>
@@ -91,21 +219,29 @@ const RightModalFacets = (props) => {
             ? data.showSearchInput
             : true) && (
             <>
-              <div className="search-wrapper">
-                <SearchInput {...props} isLive={isLive} />
-                {data.showSearchButton && (
-                  <Button
-                    primary
-                    onClick={() => onTriggerSearch(searchText)}
-                    aria-label={
-                      data.searchButtonLabel ||
-                      intl.formatMessage(messages.searchButtonText)
-                    }
-                  >
-                    <span className="ccl-icon-zoom"></span>
-                  </Button>
-                )}
-              </div>
+              {hasGlobalSearchDesign ? (
+                <SearchInput
+                  {...props}
+                  isLive={isLive}
+                  useSearchlibSearchDesign={hasGlobalSearchDesign}
+                />
+              ) : (
+                <div className="search-wrapper">
+                  <SearchInput {...props} isLive={isLive} />
+                  {data.showSearchButton && (
+                    <Button
+                      primary
+                      onClick={() => onTriggerSearch(searchText)}
+                      aria-label={
+                        data.searchButtonLabel ||
+                        intl.formatMessage(messages.searchButtonText)
+                      }
+                    >
+                      <span className="ccl-icon-zoom"></span>
+                    </Button>
+                  )}
+                </div>
+              )}
               <div className="search-box-hint">
                 <p>
                   Hint: you can use double quotes to search for exact phrases.
@@ -115,84 +251,92 @@ const RightModalFacets = (props) => {
             </>
           )}
 
-          <div>
-            <FilterList
-              {...props}
-              isEditMode={isEditMode}
-              setFacets={setFacetsHandler(
-                setFacets,
-                onTriggerSearch,
-                searchedText,
-              )}
-            />
-          </div>
-
-          <div className="search-results-count-sort search-filters">
-            <SearchDetails total={totalItems} data={data} />
-            <div className="filters-container">
-              {data.showSortOn && (
-                <SortOn
-                  data={data}
-                  querystring={querystring}
+          {hasGlobalSearchDesign ? (
+            <>
+              <div className="global-search-count">
+                <SearchDetails total={totalItems} data={data} as="div" />
+              </div>
+              <div className="above-results global-search-above-results">
+                <div className="global-search-filters-left">
+                  {facetsModal}
+                  <FilterList
+                    {...props}
+                    variant="globalSearch"
+                    isEditMode={isEditMode}
+                    setFacets={updateFacets}
+                  />
+                </div>
+                {data.showSortOn && (
+                  <GlobalSortOn
+                    data={data}
+                    querystring={querystring}
+                    isEditMode={isEditMode}
+                    sortOrder={sortOrder}
+                    sortOn={sortOn}
+                    onChange={(sortOnParam, sortOrderParam) => {
+                      flushSync(() => {
+                        setSortOn(sortOnParam || undefined);
+                        setSortOrder(sortOrderParam || undefined);
+                        onTriggerSearch(
+                          searchedText || '',
+                          facets,
+                          sortOnParam,
+                          sortOrderParam,
+                        );
+                      });
+                    }}
+                  />
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <FilterList
+                  {...props}
                   isEditMode={isEditMode}
-                  sortOrder={sortOrder}
-                  sortOn={sortOn}
-                  setSortOn={(sortOnParam) => {
-                    flushSync(() => {
-                      setSortOn(sortOnParam);
-                      onTriggerSearch(searchedText || '', facets, sortOnParam);
-                    });
-                  }}
-                  setSortOrder={(sortOrderParam) => {
-                    flushSync(() => {
-                      setSortOrder(sortOrderParam);
-                      onTriggerSearch(
-                        searchedText || '',
-                        facets,
-                        sortOn,
-                        sortOrderParam,
-                      );
-                    });
-                  }}
+                  setFacets={updateFacets}
                 />
-              )}
-              {data.facets?.length && (
-                <CclFiltersModal
-                  trigger={
-                    <div className="filters-element">
-                      <div className="filters-title">
-                        <Icon className="ui" name={filterSVG} size={'20'} />
-                        <span className="filters-title-bold">
-                          {data.facetsTitle}
-                        </span>
-                      </div>
-                    </div>
-                  }
-                  data={data}
-                  setFacets={setFacetsHandler(
-                    setFacets,
-                    onTriggerSearch,
-                    searchedText,
-                  )}
-                >
-                  <div id="right-modal-facets" className="facets">
-                    <Facets
-                      querystring={querystring}
+              </div>
+
+              <div className="search-results-count-sort search-filters">
+                <SearchDetails total={totalItems} data={data} />
+                <div className="filters-container">
+                  {data.showSortOn && (
+                    <SortOn
                       data={data}
-                      facets={facets}
+                      querystring={querystring}
                       isEditMode={isEditMode}
-                      setFacets={setFacetsHandler(
-                        setFacets,
-                        onTriggerSearch,
-                        searchedText,
-                      )}
-                      facetWrapper={FacetWrapper}
+                      sortOrder={sortOrder}
+                      sortOn={sortOn}
+                      setSortOn={(sortOnParam) => {
+                        flushSync(() => {
+                          setSortOn(sortOnParam);
+                          onTriggerSearch(
+                            searchedText || '',
+                            facets,
+                            sortOnParam,
+                          );
+                        });
+                      }}
+                      setSortOrder={(sortOrderParam) => {
+                        flushSync(() => {
+                          setSortOrder(sortOrderParam);
+                          onTriggerSearch(
+                            searchedText || '',
+                            facets,
+                            sortOn,
+                            sortOrderParam,
+                          );
+                        });
+                      }}
                     />
-                  </div>
-                </CclFiltersModal>
-              )}
-            </div>
-          </div>
+                  )}
+                  {facetsModal}
+                </div>
+              </div>
+            </>
+          )}
           {children}
         </Grid.Column>
       </Grid.Row>

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import ListingBody from '@plone/volto/components/manage/Blocks/Listing/ListingBody';
-import { withBlockExtensions } from '@plone/volto/helpers';
+import { BodyClass, withBlockExtensions } from '@plone/volto/helpers';
 
 import config from '@plone/volto/registry';
+import { usesGlobalSearchDesign } from '@eeacms/volto-clms-theme/components/Blocks/CustomTemplates/VoltoSearchBlock/searchDesign';
 
 import {
   withSearch,
@@ -63,7 +64,12 @@ const applyDefaults = (data, root) => {
 };
 
 const SearchBlockView = (props) => {
-  const { data, searchData, mode = 'view', variation } = props;
+  const { data, searchData, mode = 'view', variation, location, path } = props;
+  const hasGlobalSearchDesign = usesGlobalSearchDesign({
+    data,
+    location,
+    path,
+  });
 
   const Layout = variation.view;
 
@@ -86,8 +92,17 @@ const SearchBlockView = (props) => {
   const { variations } = config.blocks.blocksConfig.listing;
   const listingBodyVariation = variations.find(({ id }) => id === selectedView);
 
-  return (
-    <div className="block search">
+  const searchBlock = (
+    <div
+      className={[
+        'block search',
+        hasGlobalSearchDesign
+          ? 'global-search-block searchlib-block searchapp searchapp-clmsSearchTechnicalLibrary'
+          : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <Layout
         {...props}
         isEditMode={mode === 'edit'}
@@ -102,6 +117,14 @@ const SearchBlockView = (props) => {
         />
       </Layout>
     </div>
+  );
+
+  return hasGlobalSearchDesign ? (
+    <BodyClass className="global-search-page searchlib-page">
+      {searchBlock}
+    </BodyClass>
+  ) : (
+    searchBlock
   );
 };
 
