@@ -1,41 +1,16 @@
 import React, { useState } from 'react';
 import { compose } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
 import VisibilitySensor from 'react-visibility-sensor';
-import {
-  Placeholder,
-  Dimmer,
-  Loader,
-  Button,
-  Checkbox,
-} from 'semantic-ui-react';
+import { Placeholder, Button, Checkbox } from 'semantic-ui-react';
 import { withCookies } from 'react-cookie';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
-import { defineMessages, injectIntl } from 'react-intl';
-import { toast } from 'react-toastify';
+import { injectIntl } from 'react-intl';
 import config from '@plone/volto/registry';
-import { getBaseUrl } from '@plone/volto/helpers';
-import { Toast } from '@plone/volto/components';
-import {
-  getConnectedDataParametersForContext,
-  getFilteredURL,
-} from '@eeacms/volto-datablocks/helpers';
 
 import { createImageUrl } from '@eeacms/volto-embed/PrivacyProtection/helpers';
 import { ProtectionSchema } from '@eeacms/volto-embed/PrivacyProtection/schema';
 
 import '@eeacms/volto-embed/PrivacyProtection/styles.less';
-
-const messages = defineMessages({
-  success: {
-    id: 'Success',
-    defaultMessage: 'Success',
-  },
-  image: {
-    id: 'Live image generated',
-    defaultMessage: 'Live image generated',
-  },
-});
 
 const key = (domain_key) => `accept-${domain_key}`;
 
@@ -76,16 +51,7 @@ const CookieWatcher = (domain_key, cookies, pollingRate = 250) => {
 };
 
 const PrivacyProtection = (props) => {
-  const {
-    children,
-    data = {},
-    id,
-    editable,
-    intl,
-    path,
-    cookies,
-    height = '',
-  } = props;
+  const { children, data = {}, id, editable, cookies, height = '' } = props;
   const {
     enabled = false,
     privacy_statement,
@@ -100,15 +66,7 @@ const PrivacyProtection = (props) => {
   const [remember, setRemember] = useState(
     cookieExist(privacy_cookie_key, cookies) ? defaultShow : true,
   );
-  const dispatch = useDispatch();
   const checkExistance = CookieWatcher(privacy_cookie_key, cookies);
-  const connected_data_parameters = useSelector((state) => {
-    return getConnectedDataParametersForContext(
-      state?.connected_data_parameters,
-      state.router?.location?.pathname,
-    );
-  });
-  const url = getFilteredURL(data.url, connected_data_parameters);
 
   React.useEffect(() => {
     if (bgImg) {
@@ -127,37 +85,6 @@ const PrivacyProtection = (props) => {
     [checkExistance],
   );
 
-  //screenshot api
-  React.useEffect(() => {
-    if (enabled && !bgImg && !show && url) {
-      fetch(
-        `${getBaseUrl(
-          '',
-        )}/cors-proxy/https://screenshot.eea.europa.eu/api/v1/retrieve_image_for_url?url=${encodeURIComponent(
-          url,
-        )}&w=1920&waitfor=4000`,
-      )
-        .then((e) => e.blob())
-        .then((blob) => {
-          setImage(URL.createObjectURL(blob));
-          if (editable) {
-            toast.success(
-              <Toast
-                success
-                title={intl.formatMessage(messages.success)}
-                content={intl.formatMessage(messages.image)}
-              />,
-            );
-          }
-        })
-        .catch(() => {
-          if (__DEVELOPMENT__) {
-            /* eslint-disable-next-line */
-            console.log('Please enable your VPN!');
-          }
-        });
-    }
-  }, [enabled, url, path, dispatch, bgImg, show, intl, editable]);
   return (
     <VisibilitySensor
       onChange={(isVisible) => {
@@ -178,10 +105,6 @@ const PrivacyProtection = (props) => {
         >
           {!enabled || show ? (
             children
-          ) : !__DEVELOPMENT__ && !image ? (
-            <Dimmer active>
-              <Loader />
-            </Dimmer>
           ) : (
             <div
               className="privacy-protection"
