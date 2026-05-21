@@ -35,6 +35,7 @@ function getInitialState(
   id,
   sortOnParam,
   sortOrderParam,
+  useDefaultSort = true,
 ) {
   const {
     types: facetWidgetTypes,
@@ -69,8 +70,18 @@ function getInitialState(
           ]
         : []),
     ],
-    sort_on: sortOnParam || data.query?.sort_on,
-    sort_order: sortOrderParam || data.query?.sort_order,
+    sort_on:
+      sortOnParam !== undefined
+        ? sortOnParam
+        : useDefaultSort
+        ? data.query?.sort_on
+        : undefined,
+    sort_order:
+      sortOrderParam !== undefined
+        ? sortOrderParam
+        : useDefaultSort
+        ? data.query?.sort_order
+        : undefined,
     b_size: data.query?.b_size,
     limit: data.query?.limit,
     block: id,
@@ -92,6 +103,7 @@ function normalizeState({
   sortOn,
   sortOrder,
   facetSettings, // data.facets extracted from block data
+  useDefaultSort = true,
 }) {
   const {
     types: facetWidgetTypes,
@@ -115,8 +127,18 @@ function normalizeState({
         return valueToQuery({ value, facet });
       }),
     ].filter((o) => !!o),
-    sort_on: sortOn || query.sort_on,
-    sort_order: sortOrder || query.sort_order,
+    sort_on:
+      sortOn !== undefined
+        ? sortOn
+        : useDefaultSort
+        ? query.sort_on
+        : undefined,
+    sort_order:
+      sortOrder !== undefined
+        ? sortOrder
+        : useDefaultSort
+        ? query.sort_order
+        : undefined,
     b_size: query.b_size,
     limit: query.limit,
     block: id,
@@ -196,6 +218,13 @@ const useHashState = () => {
           }
         });
 
+      SEARCH_ENDPOINT_FIELDS.forEach((k) => {
+        if (!searchData[k] && oldState[k]) {
+          delete newParams[k];
+          changed = true;
+        }
+      });
+
       if (changed) {
         history.push({
           search: qs.stringify(newParams),
@@ -240,6 +269,7 @@ const withSearch = (options) => (WrappedComponent) => {
 
   function WithSearch(props) {
     const { data, id, editable = false } = props;
+    const isGlobalSearch = data?.listingBodyTemplate === 'CclGlobalSearch';
 
     const [locationSearchData, setLocationSearchData] = useSearchBlockState(
       id,
@@ -323,11 +353,25 @@ const withSearch = (options) => (WrappedComponent) => {
       previousUrlQuery,
     ]);
 
-    const [sortOn, setSortOn] = React.useState(data?.query?.sort_on);
-    const [sortOrder, setSortOrder] = React.useState(data?.query?.sort_order);
+    const [sortOn, setSortOn] = React.useState(
+      locationSearchData.sort_on ||
+        (isGlobalSearch ? undefined : data?.query?.sort_on),
+    );
+    const [sortOrder, setSortOrder] = React.useState(
+      locationSearchData.sort_order ||
+        (isGlobalSearch ? undefined : data?.query?.sort_order),
+    );
 
     const [searchData, setSearchData] = React.useState(
-      getInitialState(data, facets, urlSearchText, id),
+      getInitialState(
+        data,
+        facets,
+        urlSearchText,
+        id,
+        sortOn,
+        sortOrder,
+        !isGlobalSearch,
+      ),
     );
 
     const deepFacets = JSON.stringify(facets);
@@ -341,9 +385,18 @@ const withSearch = (options) => (WrappedComponent) => {
           id,
           sortOn,
           sortOrder,
+          !isGlobalSearch,
         ),
       );
-    }, [deepData, deepFacets, urlSearchText, id, sortOn, sortOrder]);
+    }, [
+      deepData,
+      deepFacets,
+      urlSearchText,
+      id,
+      sortOn,
+      sortOrder,
+      isGlobalSearch,
+    ]);
 
     const timeoutRef = React.useRef();
     const facetSettings = data?.facets;
@@ -359,18 +412,32 @@ const withSearch = (options) => (WrappedComponent) => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(
           () => {
+            const shouldClearSort = toSortOn === null;
+            const hasSortOnParam = toSortOn !== undefined;
+            const nextSortOn = shouldClearSort
+              ? undefined
+              : hasSortOnParam
+              ? toSortOn
+              : sortOn;
+            const nextSortOrder = shouldClearSort
+              ? undefined
+              : toSortOrder !== undefined
+              ? toSortOrder
+              : sortOrder;
             const newSearchData = normalizeState({
               id,
               query: data.query || {},
               facets: toSearchFacets || facets,
               searchText: toSearchText ? toSearchText.trim() : '',
-              sortOn: toSortOn || sortOn,
-              sortOrder: toSortOrder || sortOrder,
+              sortOn: nextSortOn,
+              sortOrder: nextSortOrder,
               facetSettings,
+              useDefaultSort: !isGlobalSearch,
             });
             if (toSearchFacets) setFacets(toSearchFacets);
-            if (toSortOn) setSortOn(toSortOn);
-            if (toSortOrder) setSortOrder(toSortOrder);
+            if (hasSortOnParam) setSortOn(toSortOn || undefined);
+            if (toSortOrder !== undefined)
+              setSortOrder(toSortOrder || undefined);
             setSearchData(newSearchData);
             setLocationSearchData(getSearchFields(newSearchData));
           },
@@ -388,6 +455,7 @@ const withSearch = (options) => (WrappedComponent) => {
         sortOn,
         sortOrder,
         facetSettings,
+        isGlobalSearch,
       ],
     );
 
