@@ -10,6 +10,7 @@ import FilterList from './FilterList';
 import CclFiltersModal from '@eeacms/volto-clms-theme/components/CclFiltersModal/CclFiltersModal';
 import { Icon } from '@plone/volto/components';
 import React from 'react';
+import categoryFilterSVG from './icons/filter-symbol.svg';
 import filterSVG from '@plone/volto/icons/filter.svg';
 import { flushSync } from 'react-dom';
 import { usesGlobalSearchDesign } from './searchDesign';
@@ -30,7 +31,9 @@ const FacetWrapper = ({ children }) => (
 const getSortLabel = (value, querystring) => {
   const title = querystring?.sortable_indexes?.[value]?.title || value;
   if (
-    ['effective', 'publication_date', 'modified'].includes(value) ||
+    ['effective', 'publication_date', 'modified', 'resourceEffective'].includes(
+      value,
+    ) ||
     /publication date/i.test(title)
   ) {
     return 'Time';
@@ -165,16 +168,15 @@ const RightModalFacets = (props) => {
               >
                 <Icon
                   className="global-search-categories-filter-icon"
-                  name={filterSVG}
-                  size="10px"
-                  color="#fff"
+                  name={categoryFilterSVG}
+                  size="7px"
                 />
               </span>
             ) : (
               <Icon className="ui" name={filterSVG} size={'20'} />
             )}
             <span className="filters-title-bold">
-              {hasGlobalSearchDesign ? 'Show Categories' : data.facetsTitle}
+              {hasGlobalSearchDesign ? 'Show Filters' : data.facetsTitle}
             </span>
           </div>
         </div>
