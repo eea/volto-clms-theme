@@ -68,6 +68,20 @@ import ImageView from '@plone/volto/components/theme/View/ImageView';
 import userSessionResetMiddleware from './store/userSessionResetMiddleware';
 
 const applyConfig = (config) => {
+  if (__SERVER__) {
+    const devsource = __DEVELOPMENT__
+      ? ` http://localhost:${parseInt(process.env.PORT || '3000') + 1}`
+      : '';
+
+    config.settings.serverConfig = {
+      ...config.settings.serverConfig,
+      csp: {
+        'object-src': "'none'",
+        'script-src': `'self' {nonce}${devsource}`,
+      },
+    };
+  }
+
   config.views = {
     ...config.views,
     contentTypesViews: {

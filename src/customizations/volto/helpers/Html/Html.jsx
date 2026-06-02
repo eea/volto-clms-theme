@@ -79,6 +79,7 @@ class Html extends Component {
     store: PropTypes.shape({
       getState: PropTypes.func,
     }).isRequired,
+    nonce: PropTypes.string,
   };
 
   /**
@@ -94,10 +95,12 @@ class Html extends Component {
       criticalCss,
       apiPath,
       publicURL,
+      nonce,
     } = this.props;
     const head = Helmet.rewind();
     const bodyClass = join(BodyClass.rewind(), ' ');
     const htmlAttributes = head.htmlAttributes.toComponent();
+    const helmetScripts = head.script.toComponent();
 
     return (
       <html lang={htmlAttributes.lang}>
@@ -107,9 +110,14 @@ class Html extends Component {
           {head.title.toComponent()}
           {head.meta.toComponent()}
           {head.link.toComponent()}
-          {head.script.toComponent()}
+          {React.Children.map(helmetScripts, (elem) =>
+            React.isValidElement(elem)
+              ? React.cloneElement(elem, { nonce })
+              : elem,
+          )}
 
           <script
+            nonce={nonce}
             dangerouslySetInnerHTML={{
               __html: `window.env = ${serialize({
                 ...runtimeConfig,
@@ -138,6 +146,7 @@ class Html extends Component {
           <meta name="mobile-web-app-capable" content="yes" />
           {process.env.NODE_ENV === 'production' && criticalCss && (
             <style
+              nonce={nonce}
               dangerouslySetInnerHTML={{ __html: this.props.criticalCss }}
             />
           )}
@@ -159,6 +168,7 @@ class Html extends Component {
             criticalCss ? (
               <>
                 <script
+                  nonce={nonce}
                   dangerouslySetInnerHTML={{
                     __html: CRITICAL_CSS_TEMPLATE,
                   }}
@@ -185,6 +195,7 @@ class Html extends Component {
           <div id="main" dangerouslySetInnerHTML={{ __html: markup }} />
           <div role="complementary" aria-label="Sidebar" id="sidebar" />
           <script
+            nonce={nonce}
             dangerouslySetInnerHTML={{
               __html: `window.__data=${serialize(
                 loadReducers(store.getState()),
@@ -196,6 +207,7 @@ class Html extends Component {
           {this.props.extractScripts !== false
             ? extractor.getScriptElements().map((elem) =>
                 React.cloneElement(elem, {
+                  nonce,
                   crossOrigin:
                     process.env.NODE_ENV === 'production' ? undefined : 'true',
                 }),
