@@ -4,7 +4,7 @@ import customBlocks, {
 } from '@eeacms/volto-clms-theme/components/Blocks/customBlocks';
 
 // ROUTE VIEWS
-import { ContactForm, Search, Sitemap, Login } from '@plone/volto/components';
+import { ContactForm, Search, Sitemap } from '@plone/volto/components';
 
 // VIEWS
 import CLMSDatasetDetailView from '@eeacms/volto-clms-theme/components/CLMSDatasetDetailView/CLMSDatasetDetailView';
