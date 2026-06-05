@@ -32,7 +32,8 @@
     "volto-cookie-banner",
     "@eeacms/volto-tableau",
     "@eeacms/volto-embed",
-    "@eeacms/volto-globalsearch"
+    "@eeacms/volto-globalsearch",
+    "@plone-collective/volto-authomatic"
   ],
   "resolutions": {
     "@elastic/search-ui": "1.21.2",
@@ -60,6 +61,7 @@
     "@ginkgo-bioworks/react-json-schema-form-builder": "2.10.1",
     "@kitconcept/volto-blocks-grid": "7.0.2",
     "connected-react-router": "6.8.0",
+    "@plone-collective/volto-authomatic": "2.0.1"
     "d3-array": "^2.12.1",
     "husky": "7.0.4",
     "lightgallery": "^2.4.0",
