@@ -14,7 +14,6 @@ import {
   Grid,
 } from 'semantic-ui-react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import qs from 'query-string';
 import { useCookies } from 'react-cookie';
 
 import { Helmet } from '@plone/volto/helpers';
@@ -34,6 +33,7 @@ import {
   oidcRedirect,
 } from '@plone-collective/volto-authomatic/actions';
 import AuthProviders from '@plone-collective/volto-authomatic/components/AuthProviders/AuthProviders';
+import { getReturnUrl } from './loginUrl';
 
 const messages = defineMessages({
   login: {
@@ -93,21 +93,6 @@ const messages = defineMessages({
 });
 
 /**
- * Get return url function.
- * @function getReturnUrl
- * @param  {Object} location Location object.
- * @returns {string} Return url.
- */
-function getReturnUrl(location) {
-  return `${
-    qs.parse(location.search).return_url ||
-    (location.pathname === '/login'
-      ? '/'
-      : location.pathname.replace('/login', ''))
-  }`;
-}
-
-/**
  * Combined Login function.
  * @function Login
  * @returns {JSX.Element} Markup of the Login page.
@@ -131,10 +116,7 @@ function Login({ intl }) {
   const error = useSelector((state) => state.userSession.login.error);
   const ploneLoading = useSelector((state) => state.userSession.login.loading);
 
-  const returnUrl =
-    qs.parse(location.search).return_url ||
-    location.pathname.replace(/\/login\/?$/, '').replace(/\/logout\/?$/, '') ||
-    '/';
+  const returnUrl = getReturnUrl(location);
 
   useEffect(() => {
     dispatch(listAuthOptions());
