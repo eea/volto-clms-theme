@@ -52,7 +52,7 @@ import { CheckboxHtmlWidget } from './components/Blocks/CustomTemplates/VoltoFor
 import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
-
+import AuthomaticLoginPlone from './components/CLMSLoginView/AuthomaticLoginPlone';
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
@@ -274,11 +274,11 @@ const applyConfig = (config) => {
     ...config.addonRoutes,
     {
       path: '/login-plone',
-      component: Login,
+      component: AuthomaticLoginPlone,
     },
     {
       path: '/**/login-plone',
-      component: Login,
+      component: AuthomaticLoginPlone,
     },
     {
       path: '/login',
