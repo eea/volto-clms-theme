@@ -53,6 +53,7 @@ import reducers from './reducers';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import CLMSLoginView from './components/CLMSLoginView/CLMSLogin';
 import AuthomaticLoginPlone from './components/CLMSLoginView/AuthomaticLoginPlone';
+import { withCLMSLoginRoutes } from './loginRoutes';
 //SLATE CONFIGURATION
 import installLinkEditor from '@plone/volto-slate/editor/plugins/AdvancedLink';
 
@@ -271,23 +272,11 @@ const applyConfig = (config) => {
   );
 
   config.addonRoutes = [
-    ...config.addonRoutes,
-    {
-      path: '/login-plone',
-      component: AuthomaticLoginPlone,
-    },
-    {
-      path: '/**/login-plone',
-      component: AuthomaticLoginPlone,
-    },
-    {
-      path: '/login',
-      component: CLMSLoginView,
-    },
-    {
-      path: '/**/login',
-      component: CLMSLoginView,
-    },
+    ...withCLMSLoginRoutes(
+      config.addonRoutes,
+      CLMSLoginView,
+      AuthomaticLoginPlone,
+    ),
     {
       path: '/profile',
       component: ProfileView,
