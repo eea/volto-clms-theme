@@ -1,4 +1,9 @@
-const clmsLoginPaths = ['/login', '/**/login', '/login-plone', '/**/login-plone'];
+const clmsLoginPaths = [
+  '/login',
+  '/**/login',
+  '/login-plone',
+  '/**/login-plone',
+];
 
 const routeHasCLMSLoginPath = (route) => {
   const paths = Array.isArray(route.path) ? route.path : [route.path];
