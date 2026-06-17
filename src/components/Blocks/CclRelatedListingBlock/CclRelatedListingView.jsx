@@ -87,7 +87,11 @@ const CclRelatedListingView = (props) => {
   } else if (data.content_type === 'UseCase') {
     sort_on = 'sortable_title';
     sort_order = 'ascending';
+  } else if (data.content_type === 'DataSet') {
+    sort_on = undefined;
+    sort_order = undefined;
   }
+
   const ref = React.useRef();
 
   const handleScroll = (ref) => {
@@ -95,27 +99,24 @@ const CclRelatedListingView = (props) => {
   };
 
   React.useEffect(() => {
+    const searchParams = {
+      portal_type: data.content_type || 'News Item',
+      ...associated,
+      ...(data.content_type === 'TechnicalLibrary'
+        ? { fullobjects: 1 }
+        : { metadata_fields: '_all' }),
+      ...(sort_on ? { sort_on } : {}),
+      ...(sort_order ? { sort_order } : {}),
+      b_size: 99999,
+    };
+
     uid &&
       id &&
       !searchSubrequests?.loading &&
       !sLoaded &&
       !searchSubrequests?.error &&
-      dispatch(
-        searchContent(
-          '/',
-          {
-            portal_type: data.content_type || 'News Item',
-            ...associated,
-            ...(data.content_type === 'TechnicalLibrary'
-              ? { fullobjects: 1 }
-              : { metadata_fields: '_all' }),
-            sort_on: sort_on,
-            sort_order: sort_order,
-            b_size: 99999,
-          },
-          `${id}-${uid}`,
-        ),
-      );
+      dispatch(searchContent('/', searchParams, `${id}-${uid}`));
+
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id, uid, dispatch]);
@@ -151,6 +152,24 @@ const CclRelatedListingView = (props) => {
       if (sLoaded && !technicalDocumentsOrder) {
         p_functions.setOriginalDataList([...libraries]);
         p_functions.setDataList([...libraries]);
+      }
+    } else if (
+      data.content_type === 'DataSet' &&
+      Array.isArray(directQuery?.UID)
+    ) {
+      const orderMap = new Map(
+        directQuery.UID.map((item, index) => [item, index]),
+      );
+      const sorted = [...libraries].sort((a, b) => {
+        const ai = orderMap.get(a.UID) ?? Infinity;
+        const bi = orderMap.get(b.UID) ?? Infinity;
+        if (ai === bi) return 0;
+        return ai - bi;
+      });
+
+      if (sLoaded) {
+        p_functions.setOriginalDataList([...sorted]);
+        p_functions.setDataList([...sorted]);
       }
     } else {
       if (sLoaded) {
