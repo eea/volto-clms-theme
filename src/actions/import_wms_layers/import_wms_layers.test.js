@@ -3,9 +3,9 @@ import {
   postImportWMSLayers,
 } from './import_wms_layers';
 
-describe('Import geonetwork action', () => {
+describe('Import OGC layers action', () => {
   describe('postImportWMSLayers', () => {
-    it('should create an action to post geonetwork', () => {
+    it('should create an action to import dataset layers', () => {
       const url = 'http://localhost';
       const action = postImportWMSLayers(url);
 

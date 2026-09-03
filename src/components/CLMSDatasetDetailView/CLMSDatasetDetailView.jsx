@@ -47,7 +47,7 @@ const CLMSDatasetDetailView = ({ content, token }) => {
     }
   }, [dispatch, token]);
 
-  function handleWMSImport() {
+  function handleLayersImport() {
     dispatch(postImportWMSLayers(location.pathname));
   }
 
@@ -159,8 +159,8 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                     trigger={
                       <CclButton>
                         <FormattedMessage
-                          id="Import WMS Layers"
-                          defaultMessage="Import WMS Layers"
+                          id="Import Layers"
+                          defaultMessage="Import Layers"
                         />
                       </CclButton>
                     }
@@ -185,20 +185,21 @@ const CLMSDatasetDetailView = ({ content, token }) => {
                         <div className="modal-login-text">
                           <h1>
                             <FormattedMessage
-                              id="Import WMS Layers"
-                              defaultMessage="Import WMS Layers"
+                              id="Import Layers"
+                              defaultMessage="Import Layers"
                             />
                           </h1>
-                          This action will import the WMS Layers from the view
-                          service defined in the dataset or from GeoNetwork if
-                          the view service is not defined and a linked
-                          geonetwork record has a valid WMS service link
+                          This action will import layers from the WMS or WMTS
+                          view service defined in the dataset, or from
+                          GeoNetwork if the view service is not defined and a
+                          linked GeoNetwork record has a valid WMS or WMTS
+                          service link.
                           <br />
                           <br />
                         </div>
                         <CclButton
                           onClick={() => {
-                            handleWMSImport();
+                            handleLayersImport();
                             setOpen({ ...open, 'wms-layers-import': false });
                           }}
                           mode="filled"

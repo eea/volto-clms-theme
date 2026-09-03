@@ -290,8 +290,8 @@ msgid "Import WMS Fields"
 msgstr ""
 
 #: components/CLMSDatasetDetailView/CLMSDatasetDetailView
-# defaultMessage: Import WMS Layers
-msgid "Import WMS Layers"
+# defaultMessage: Import Layers
+msgid "Import Layers"
 msgstr ""
 
 #: components/CLMSDatasetDetailView/CLMSDatasetDetailView
