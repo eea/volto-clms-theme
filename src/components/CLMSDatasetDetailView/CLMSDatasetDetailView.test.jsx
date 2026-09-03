@@ -96,6 +96,10 @@ describe('CLMSDatasetDetailView', () => {
       )
       .toJSON();
     expect(DatasetDetailView).toBeDefined();
+    expect(JSON.stringify(DatasetDetailView)).toContain('Import Layers');
+    expect(JSON.stringify(DatasetDetailView)).not.toContain(
+      'Import WMS Layers',
+    );
   });
 
   it('Check metadata view without downloadable files', () => {

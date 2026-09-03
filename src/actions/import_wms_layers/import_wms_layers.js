@@ -1,15 +1,15 @@
 /**
- * Post meeting register actions.
- * @module actions/postImportGeonetwork
+ * Import OGC view-service layers action.
+ * @module actions/postImportWMSLayers
  */
 export const POST_IMPORT_WMS_LAYERS = 'POST_IMPORT_WMS_LAYERS';
 
 /**
- * Post import geonetwork.
- * @function postImportGeonetwork
- * @returns {Object} Get extra items action.
+ * Request layer import for a dataset.
+ * @function postImportWMSLayers
+ * @returns {Object} Import layers action.
  */
-export function postImportWMSLayers(url, id, type) {
+export function postImportWMSLayers(url) {
   return {
     type: POST_IMPORT_WMS_LAYERS,
     request: {
