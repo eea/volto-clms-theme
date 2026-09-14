@@ -69,7 +69,7 @@ const messages = defineMessages({
   },
 });
 
-export default (props) => {
+const customIdFieldSchema = (props) => {
   var intl = useIntl();
   const baseFieldTypeChoices = [
     ['text', intl.formatMessage(messages.field_type_text)],
@@ -153,3 +153,5 @@ export default (props) => {
     ],
   };
 };
+
+export default customIdFieldSchema;

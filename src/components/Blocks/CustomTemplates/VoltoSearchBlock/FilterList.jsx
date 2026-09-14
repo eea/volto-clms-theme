@@ -93,8 +93,10 @@ const FilterList = (props) => {
   // const totalFilters = [].concat.apply([], Object.values(currentFilters))
   //   .length;
 
-  const totalFilters = [].concat.apply([], Object.values(currentFiltersToCount))
-    .length;
+  const totalFilters = [].concat.apply(
+    [],
+    Object.values(currentFiltersToCount),
+  ).length;
 
   const intl = useIntl();
   if (!showFilterList || !Object.keys(currentFilters).length) return null;

@@ -108,11 +108,14 @@ const DownloadDataSetContent = (data, token) => {
         </div>
       )}
 
-      {data?.downloadable_full_dataset && download_by_area_extra_text !== '' && (
-        <div className="dataset-download-area">
-          <StringToHTML string={data.download_by_area_extra_text?.data || ''} />
-        </div>
-      )}
+      {data?.downloadable_full_dataset &&
+        download_by_area_extra_text !== '' && (
+          <div className="dataset-download-area">
+            <StringToHTML
+              string={data.download_by_area_extra_text?.data || ''}
+            />
+          </div>
+        )}
 
       {download_full_dataset_text !== '' && (
         <div className="dataset-download-area">

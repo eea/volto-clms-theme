@@ -81,21 +81,15 @@ const TechnicalLibraryItem = (props) => {
         </div>
         {isAdmin && Array.isArray(result.library_categories_values.raw) && (
           <div className="admin-info">
-            <strong
+            <button
+              type="button"
               className="categorization-expand"
               onClick={() => setShowCategories((prev) => !prev)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setShowCategories((prev) => !prev);
-                }
-              }}
+              aria-expanded={showCategories}
             >
               Categorization
               <span> {showCategories ? '▾' : '▸'}</span>
-            </strong>
+            </button>
 
             {showCategories && (
               <ul>

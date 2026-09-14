@@ -60,8 +60,7 @@ describe('CLMSDatasetDetailView', () => {
       },
       dataResourceLocator: 'Resource locator',
       image: {
-        src:
-          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        src: 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
         alt: 'Placeholder',
       },
       downloadable_dataset: true,
@@ -120,8 +119,7 @@ describe('CLMSDatasetDetailView', () => {
       },
       dataResourceLocator: 'Resource locator',
       image: {
-        src:
-          'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+        src: 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
         alt: 'Placeholder',
       },
       downloadable_dataset: true,
