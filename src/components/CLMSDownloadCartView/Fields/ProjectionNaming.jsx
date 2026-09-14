@@ -54,8 +54,8 @@ const _ProjectionNaming = ({
     if (datasetProjections && datasetProjections.length > 0) {
       setLoading(true);
       const newBaseSources = ['EPSG:4326'];
-      const sortedProjections = projections_uid[item.dataset_uid].sort((a, b) =>
-        Number(a.split(':')[1]) > Number(b.split(':')[1]) ? 1 : -1,
+      const sortedProjections = projections_uid[item.dataset_uid].sort(
+        (a, b) => (Number(a.split(':')[1]) > Number(b.split(':')[1]) ? 1 : -1),
       );
 
       const filteredProjections =

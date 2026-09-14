@@ -161,12 +161,8 @@ const tooManyPrepackaged = ({ selectedCartItems }) => {
  * @module components/CLMSDownloadCartView/CLMSCartContent
  */
 const CLMSCartContent = (props) => {
-  const {
-    localSessionCart,
-    tooManyInQueue,
-    howManyInQueue,
-    maxInQueue,
-  } = props;
+  const { localSessionCart, tooManyInQueue, howManyInQueue, maxInQueue } =
+    props;
   const dispatch = useDispatch();
   const { removeCartItem, removeCartItems, updateCart, cart } = useCartState();
 

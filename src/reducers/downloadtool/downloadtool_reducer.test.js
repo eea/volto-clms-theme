@@ -40,7 +40,7 @@ describe('downloadtoolReducer', () => {
           download_queued: {},
           download_in_progress: {},
           download_finished_ok: {
-            '1': {
+            1: {
               TaskID: '1',
               TaskName: 'DownloadTool',
               TaskStatus: 'Finished',
@@ -62,7 +62,7 @@ describe('downloadtoolReducer', () => {
         {
           type: `${GET_DOWNLOADTOOL}_SUCCESS`,
           result: {
-            '1': {
+            1: {
               TaskID: '1',
               TaskName: 'DownloadTool',
               TaskStatus: 'Finished',
@@ -147,7 +147,7 @@ describe('downloadtoolReducer', () => {
         {
           type: `${POST_DOWNLOADTOOL}_SUCCESS`,
           result: {
-            '1': {
+            1: {
               TaskID: '1',
               TaskName: 'DownloadTool',
 

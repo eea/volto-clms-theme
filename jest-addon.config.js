@@ -29,7 +29,7 @@ module.exports = {
       '<rootDir>/node_modules/@plone/volto/jest-addons-loader.js',
   },
   transform: {
-    '^.+\\.js(x)?$': 'babel-jest',
+    '^.+\\.[jt]sx?$': 'babel-jest',
     '^.+\\.(png)$': 'jest-file',
     '^.+\\.(jpg)$': 'jest-file',
     '^.+\\.(svg)$': './node_modules/@plone/volto/jest-svgsystem-transform.js',

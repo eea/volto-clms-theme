@@ -220,6 +220,11 @@ const DataSetInfoContent = (props) => {
                             token={true}
                           />
                           <CharacteristicsMetadata
+                            title="Data type"
+                            value={props?.characteristics_data_type}
+                            token={true}
+                          />
+                          <CharacteristicsMetadata
                             title="Platform"
                             value={props?.characteristics_platform}
                           />

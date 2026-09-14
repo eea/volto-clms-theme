@@ -37,9 +37,8 @@ function getInitialState(
   sortOrderParam,
   useDefaultSort = true,
 ) {
-  const {
-    types: facetWidgetTypes,
-  } = config.blocks.blocksConfig.search.extensions.facetWidgets;
+  const { types: facetWidgetTypes } =
+    config.blocks.blocksConfig.search.extensions.facetWidgets;
   const facetSettings = data?.facets || [];
   return {
     query: [
@@ -105,9 +104,8 @@ function normalizeState({
   facetSettings, // data.facets extracted from block data
   useDefaultSort = true,
 }) {
-  const {
-    types: facetWidgetTypes,
-  } = config.blocks.blocksConfig.search.extensions.facetWidgets;
+  const { types: facetWidgetTypes } =
+    config.blocks.blocksConfig.search.extensions.facetWidgets;
 
   const params = {
     query: [
@@ -276,9 +274,13 @@ const withSearch = (options) => (WrappedComponent) => {
       editable,
     );
 
-    const urlQuery = locationSearchData.query
-      ? deserializeQuery(locationSearchData.query)
-      : [];
+    const urlQuery = React.useMemo(
+      () =>
+        locationSearchData.query
+          ? deserializeQuery(locationSearchData.query)
+          : [],
+      [locationSearchData.query],
+    );
     const urlSearchText =
       locationSearchData.SearchableText ||
       urlQuery.find(({ i }) => i === 'SearchableText')?.v ||
@@ -286,11 +288,17 @@ const withSearch = (options) => (WrappedComponent) => {
 
     // TODO: refactor, should use only useLocationStateManager()!!!
     const [searchText, setSearchText] = React.useState(urlSearchText);
-    const configuredFacets =
-      data.facets?.map((facet) => facet?.field?.value) || [];
-    const multiFacets = data.facets
-      ?.filter((facet) => facet?.multiple)
-      .map((facet) => facet?.field?.value);
+    const configuredFacets = React.useMemo(
+      () => data.facets?.map((facet) => facet?.field?.value) || [],
+      [data.facets],
+    );
+    const multiFacets = React.useMemo(
+      () =>
+        data.facets
+          ?.filter((facet) => facet?.multiple)
+          .map((facet) => facet?.field?.value) || [],
+      [data.facets],
+    );
     const [facets, setFacets] = React.useState(
       Object.assign(
         {},

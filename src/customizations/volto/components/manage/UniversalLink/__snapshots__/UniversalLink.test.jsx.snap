@@ -16,9 +16,8 @@ exports[`UniversalLink check UniversalLink does not break with error in item 1`]
 exports[`UniversalLink renders a UniversalLink component if no external(href) link passed 1`] = `
 <a
   className={null}
-  href="http://localhost:3000/en/welcome-to-volto"
-  rel="noopener noreferrer"
-  target="_blank"
+  href="/en/welcome-to-volto"
+  onClick={[Function]}
   title={null}
 >
   <h1>
@@ -57,7 +56,7 @@ exports[`UniversalLink renders a UniversalLink component with internal link 1`] 
 exports[`renders a UniversalLink component when url ends with @@display-file 1`] = `
 <a
   className={null}
-  href="http://localhost:3000/en/welcome-to-volto/@@display-file"
+  href="/en/welcome-to-volto/@@display-file"
   rel="noopener noreferrer"
   target="_blank"
   title={null}

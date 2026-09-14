@@ -17,15 +17,8 @@ const messages = defineMessages({
 });
 
 const CclUseCaseListEdit = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    selected,
-    id,
-    properties,
-    metadata,
-  } = props;
+  const { block, data, onChangeBlock, selected, id, properties, metadata } =
+    props;
   const dispatch = useDispatch();
   const intl = useIntl();
   const searchSubrequests = useSelector((state) => state.search.subrequests);

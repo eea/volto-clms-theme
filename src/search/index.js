@@ -13,7 +13,8 @@ const extra = {
 const applyConfig = (config) => {
   config.settings.searchlib = installMainSearch(config.settings.searchlib);
 
-  config.settings.searchlib.searchui.clmsSearchTechnicalLibrary.extraQueryParams = extra;
+  config.settings.searchlib.searchui.clmsSearchTechnicalLibrary.extraQueryParams =
+    extra;
 
   return config;
 };
