@@ -14,8 +14,7 @@ export const card = {
   end: 'Wed May 26 2024 12:49:04 GMT+0200 (hora de verano de Europa central)',
   whole_day: false,
   image: {
-    src:
-      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+    src: 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
     scales: {
       mini: {
         download:
@@ -32,8 +31,7 @@ export const card = {
   taxonomy_technical_library_categorization: ['1', '2', '3'],
   file: {
     'content-type': 'text/html',
-    src:
-      'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
+    src: 'https://eu-copernicus.github.io/copernicus-component-library/assets/images/image_placeholder.jpg',
     download: 'true',
   },
   effective:

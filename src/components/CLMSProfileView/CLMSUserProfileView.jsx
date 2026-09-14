@@ -58,8 +58,7 @@ const messages = defineMessages({
     defaultMessage: 'Location',
   },
   locationDescription: {
-    id:
-      'Your location - either city and country - or in a company setting, where your office is located.',
+    id: 'Your location - either city and country - or in a company setting, where your office is located.',
     defaultMessage:
       'Your location - either city and country - or in a company setting, where your office is located.',
   },

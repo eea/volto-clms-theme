@@ -13,8 +13,9 @@ export const CollectionNaming = ({
   } else if (!item?.type) {
     return '-';
   }
-  const type_name = item?.type_options.find((t_o) => t_o.id === item?.type)
-    ?.name;
+  const type_name = item?.type_options.find(
+    (t_o) => t_o.id === item?.type,
+  )?.name;
 
   const this_type_collections = item?.type_options.filter(
     (o) => o.name === type_name,
