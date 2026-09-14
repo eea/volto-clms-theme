@@ -98,7 +98,7 @@ test-update:	## Update jest tests snapshots
 
 .PHONY: stylelint
 stylelint:		## Stylelint
-	$(NODE_MODULES)/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'
+	$(NODE_MODULES)/.bin/stylelint --allow-empty-input 'src/**/*.{css,less}'
 
 .PHONY: stylelint-overrides
 stylelint-overrides:
@@ -106,7 +106,7 @@ stylelint-overrides:
 
 .PHONY: stylelint-fix
 stylelint-fix:	## Fix stylelint
-	$(NODE_MODULES)/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}' --fix
+	$(NODE_MODULES)/.bin/stylelint --allow-empty-input 'src/**/*.{css,less}' --fix
 	$(NODE_MODULES)/.bin/stylelint --custom-syntax less --allow-empty-input 'theme/**/*.overrides' 'src/**/*.overrides' --fix
 
 .PHONY: prettier
@@ -159,4 +159,3 @@ start-ci:
 cypress-ci:
 	$(NODE_MODULES)/.bin/wait-on -t 240000  http://localhost:3000
 	NODE_ENV=development make cypress-run
-

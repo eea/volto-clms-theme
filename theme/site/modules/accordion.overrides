@@ -35,7 +35,7 @@ h2.accordion-title span {
   color: #273b4b !important;
 }
 
- .accordion.ui.fluid.styled > .content.active {
+.accordion.ui.fluid.styled > .content.active {
   ul {
     padding: 0.5em 1em 1.5em !important;
   }
