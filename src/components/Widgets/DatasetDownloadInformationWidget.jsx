@@ -45,6 +45,7 @@ const ItemSchema = () => ({
       description: '',
       choices: [
         ['CDSE_CSV', 'CDSE_CSV'],
+        ['CDSE_VECTOR', 'CDSE_VECTOR'],
         ['WEKEO', 'WEKEO'],
         ['EEA', 'EEA'],
         ['LANDCOVER', 'LANDCOVER'],
