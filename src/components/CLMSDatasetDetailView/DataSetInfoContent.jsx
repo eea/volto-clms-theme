@@ -90,22 +90,24 @@ const DataSetInfoContent = (props) => {
     token = false,
     extraSpace = false,
   }) => {
+    if (!value) {
+      return null;
+    }
+
     return (
-      value && (
-        <>
-          <Grid.Row className="characteristic-row">
-            <strong>{title}: </strong>
+      <>
+        <Grid.Row className="characteristic-row">
+          <strong>{title}: </strong>
+          <br />
+          <Label>{token ? value?.token : value}</Label>
+        </Grid.Row>
+        {extraSpace && (
+          <>
             <br />
-            <Label>{token ? value?.token : value}</Label>
-          </Grid.Row>
-          {extraSpace && (
-            <>
-              <br />
-              <br />
-            </>
-          )}
-        </>
-      )
+            <br />
+          </>
+        )}
+      </>
     );
   };
 
