@@ -102,8 +102,10 @@ export default function Header({ pathname }) {
 
   React.useEffect(() => {
     const cookies = new Cookies();
-    const query = new URLSearchParams(window.location.search);
-    const token = query.get('access_token');
+    const hashParams = new URLSearchParams(
+      window.location.hash.replace(/^#/, ''),
+    );
+    const token = hashParams.get('access_token');
     const auth_token = token ? jwtDecode(token) : null;
 
     if (auth_token?.sub) {
@@ -115,17 +117,14 @@ export default function Header({ pathname }) {
         }),
       );
       dispatch(getUser(auth_token.sub));
-      query.delete('access_token');
+      hashParams.delete('access_token');
+      const remainingHash = hashParams.toString();
       window.history.replaceState(
         {},
         '',
-        query.size > 0
-          ? `${window.location.pathname}?${query}${
-              window.location.hash && `${window.location.hash}`
-            }`
-          : `${window.location.pathname}${
-              window.location.hash && `${window.location.hash}`
-            }`,
+        `${window.location.pathname}${window.location.search}${
+          remainingHash ? `#${remainingHash}` : ''
+        }`,
       );
       window.location.reload();
     } else {
