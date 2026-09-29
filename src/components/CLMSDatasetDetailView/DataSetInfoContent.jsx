@@ -112,6 +112,35 @@ const DataSetInfoContent = (props) => {
   };
 
   let accordionsState = searchSubrequests?.['accordions'] || {};
+  let accordionItems = accordionsState?.loaded ? accordionsState.items : [];
+
+  // The 'Publications' accordion is shown after the 'Technical documents' one
+  const isPublicationsAccordion = (item) =>
+    item.title?.trim().toLowerCase() === 'publications';
+
+  const renderDataSetAccordion = (item, key) => (
+    <Accordion fluid styled key={key}>
+      <Accordion.Title
+        as={'h2'}
+        onClick={() => handleClick({ index: key })}
+        active={activeIndex === key}
+        index={key}
+        className={'accordion-title align-arrow-right'}
+      >
+        {activeIndex.includes(key) ? (
+          <Icon name={iconName(data, titleIcons.opened)} size="24px" />
+        ) : (
+          <Icon name={iconName(data, titleIcons.closed)} size="24px" />
+        )}
+        <span>{item.title}</span>
+      </Accordion.Title>
+      <Accordion.Content active={activeIndex.includes(key)}>
+        <AnimateHeight animateOpacity duration={500} height={'auto'}>
+          {hasBlocksData(item) && <RenderBlocks content={item} />}
+        </AnimateHeight>
+      </Accordion.Content>
+    </Accordion>
+  );
 
   return (
     <div>
@@ -260,40 +289,11 @@ const DataSetInfoContent = (props) => {
                 </Accordion.Content>
               </Accordion>
 
-              {accordionsState?.loaded &&
-                accordionsState.items.map((item, key) => (
-                  <Accordion fluid styled key={key}>
-                    <Accordion.Title
-                      as={'h2'}
-                      onClick={() => handleClick({ index: key })}
-                      active={activeIndex === key}
-                      index={key}
-                      className={'accordion-title align-arrow-right'}
-                    >
-                      {activeIndex.includes(key) ? (
-                        <Icon
-                          name={iconName(data, titleIcons.opened)}
-                          size="24px"
-                        />
-                      ) : (
-                        <Icon
-                          name={iconName(data, titleIcons.closed)}
-                          size="24px"
-                        />
-                      )}
-                      <span>{item.title}</span>
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex.includes(key)}>
-                      <AnimateHeight
-                        animateOpacity
-                        duration={500}
-                        height={'auto'}
-                      >
-                        {hasBlocksData(item) && <RenderBlocks content={item} />}
-                      </AnimateHeight>
-                    </Accordion.Content>
-                  </Accordion>
-                ))}
+              {accordionItems.map(
+                (item, key) =>
+                  !isPublicationsAccordion(item) &&
+                  renderDataSetAccordion(item, key),
+              )}
 
               {librariesPending && <Loader active inline="centered" />}
               {libraries?.length > 0 && (
@@ -348,6 +348,12 @@ const DataSetInfoContent = (props) => {
                     </AnimateHeight>
                   </Accordion.Content>
                 </Accordion>
+              )}
+
+              {accordionItems.map(
+                (item, key) =>
+                  isPublicationsAccordion(item) &&
+                  renderDataSetAccordion(item, key),
               )}
 
               {props.jrc_show_related_datasets && props.datasets.length > 0 && (
