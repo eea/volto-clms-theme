@@ -1,4 +1,4 @@
-# volto-clms-theme
+# volto-clms-theme 
 
 [![Releases](https://img.shields.io/github/v/release/eea/volto-clms-theme)](https://github.com/eea/volto-clms-theme/releases)
 
