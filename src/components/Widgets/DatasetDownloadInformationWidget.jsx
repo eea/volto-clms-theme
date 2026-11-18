@@ -34,6 +34,7 @@ const ItemSchema = () => ({
         ['GDB', 'GDB'],
         ['GPKG', 'GPKG'],
         ['Geojson', 'Geojson'],
+        ['FlatGeobuf', 'FlatGeobuf'],
         ['Geotiff', 'Geotiff'],
         ['Netcdf', 'Netcdf'],
         ['GML', 'GML'],

@@ -3,6 +3,7 @@ const DATASET_FORMATS_NAMES = {
   GDB: 'File Geodatabase (FGDB)',
   GPKG: 'GeoPackage (GPKG)',
   Geojson: 'GeoJSON',
+  FlatGeobuf: 'FlatGeobuf (FGB)',
   Geotiff: 'GeoTIFF',
   Netcdf: 'Network Common Data Form (NetCDF)',
   GML: 'Geography Markup Language (GML)',
